@@ -19,6 +19,8 @@ public class Certificadopresupuestal extends SysTabla implements  Serializable,C
 
 	/**[IdCertificadoPresupuestal]*/
 	private java.lang.Integer idcertificadopresupuestal;
+	
+	
 	/**[IdPacConsolidado]*/
 	private java.lang.Integer idpacconsolidado;
 	private Pacconsolidado pacconsolidadoIdpacconsolidado;

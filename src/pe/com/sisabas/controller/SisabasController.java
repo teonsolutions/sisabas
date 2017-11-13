@@ -20,7 +20,7 @@ public class SisabasController extends BaseController implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private String registros_mant = "14"; 
+	private String registros_mant = "10"; 
 	
 	private String rutaAplicacion;  /*Util para tener en una variable la ruta de la aplicacion*/
 	private String rutaServer;      /*Util para tener en una variable la ruta del servidor*/	

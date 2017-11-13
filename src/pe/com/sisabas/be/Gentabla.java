@@ -11,12 +11,13 @@ import pe.com.sisabas.resources.Utils;
 
 /**[Tabla General]
 *@author Gandalf
-*@since 07/11/2017
+*@since 30/10/2017
 *@version gandalf 4.0*/
 public class Gentabla extends SysTabla implements  Serializable,Cloneable{
 
 	private static final long serialVersionUID = 1L;
 
+	private java.lang.String orden;
 	/**[Código]*/
 	private java.lang.String vchregcodigo;
 	/**[Descripción]*/
@@ -57,12 +58,28 @@ public class Gentabla extends SysTabla implements  Serializable,Cloneable{
 	private java.lang.String programaauditoria;
 	/**[intganempid]*/
 	private java.lang.Integer intganempid;
-
+	
+	
+	///////////////////////////////////////////fer/////////////////////////////////////////
+	
 	public Gentabla() {}
+	
+
+	//////////////////////////////////////////////////////////////////////////////////////
+
 
 	public Gentabla getObjBusqueda(String vchtipcodigo){
 		this.vchtipcodigo=vchtipcodigo;
 		return this;
+	}
+
+	public java.lang.String getOrden() {
+		return orden;
+	}
+
+
+	public void setOrden(java.lang.String orden) {
+		this.orden = orden;
 	}
 
 	public Gentabla(java.lang.String vchregcodigo) {

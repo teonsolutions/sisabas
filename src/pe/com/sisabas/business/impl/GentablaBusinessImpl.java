@@ -103,7 +103,54 @@ public class GentablaBusinessImpl implements GentablaBusiness, Serializable{
 
 	@Override
 	public List<Gentabla> selectDynamicBasic(Gentabla record) throws Exception {
-		return gentablaMapper.selectDynamicBasic(record);
+		List<Gentabla> arreglo = gentablaMapper.selectDynamicBasic(record);
+		List<Gentabla> lista = new ArrayList<Gentabla>();
+		
+		
+		for (int i = 0; i < arreglo.size(); i++) {
+			Gentabla genTabla = new Gentabla();
+			genTabla.setBooleanestadoauditoria(arreglo.get(i).getBooleanestadoauditoria());
+			genTabla.setCantidadRegistros(arreglo.get(i).getCantidadRegistros());
+			genTabla.setEquipoauditoria(arreglo.get(i).getEquipoauditoria());
+			genTabla.setEstadoauditoria(arreglo.get(i).getEquipoauditoria());
+			genTabla.setFechacreacionauditoria(arreglo.get(i).getFechacreacionauditoria());
+			genTabla.setFechacreacionauditoriafin(arreglo.get(i).getFechamodificacionauditoriafin());
+			genTabla.setFechacreacionauditoriaini(arreglo.get(i).getFechamodificacionauditoriaini());
+			genTabla.setFechamodificacionauditoria(arreglo.get(i).getFechamodificacionauditoria());
+			genTabla.setFechamodificacionauditoriafin(arreglo.get(i).getFechamodificacionauditoriafin());
+			genTabla.setFechamodificacionauditoriaini(arreglo.get(i).getFechamodificacionauditoriaini());
+			genTabla.setGentipoVchtipcodigo(arreglo.get(i).getGentipoVchtipcodigo());
+			genTabla.setIntganempid(arreglo.get(i).getIntganempid());
+			genTabla.setIntregorden(arreglo.get(i).getIntregorden());
+			genTabla.setOrdenListaCampos(arreglo.get(i).getOrdenListaCampos());
+			genTabla.setOrdenTipo(arreglo.get(i).getOrdenTipo());
+			genTabla.setParams(arreglo.get(i).getParams());
+			genTabla.setProgramaauditoria(arreglo.get(i).getProgramaauditoria());
+			genTabla.setUsuariocreacionauditoria(arreglo.get(i).getUsuariocreacionauditoria());
+			genTabla.setUsuariomodificacionauditoria(arreglo.get(i).getUsuariomodificacionauditoria());
+			genTabla.setVchregabreviado(arreglo.get(i).getVchregabreviado());
+			genTabla.setVchregcodigo(arreglo.get(i).getVchregcodigo());
+			genTabla.setVchregdescri(arreglo.get(i).getVchregdescri());
+			genTabla.setVchtabotro1(arreglo.get(i).getVchtabotro1());
+			genTabla.setVchtabotro2(arreglo.get(i).getVchtabotro2());
+			genTabla.setVchtabotro3(arreglo.get(i).getVchtabotro3());
+			genTabla.setVchtabotro4(arreglo.get(i).getVchtabotro4());
+			genTabla.setVchtipcodigo(arreglo.get(i).getVchtipcodigo());
+			
+			if(arreglo.get(i).getVchregdescri().equals("BIEN")){
+				genTabla.setOrden("B");
+				
+			}if(arreglo.get(i).getVchregdescri().equals("SERVICIO")){
+				genTabla.setOrden("S");
+					
+			}	
+			
+			lista.add(genTabla);
+			
+		}
+		
+		
+		return lista;
 	}
 
 	@Override

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pe.com.sisabas.persistence.RequerimientoMapper" >
+  <resultMap id = "result" type = "pe.com.sisabas.be.RequerimientoResponse">
+      <result property = "idPedido" column="IdPedido"/>
+      <result property = "nroPedido" column="NroPedido"/>
+      <result property = "motivoPedido" column="MotivoPedido"/>
+      <result property = "idTipoBien" column="IdTipoBien"/>
+      <result property = "tipobien" column="TipoBien"/>
+      <result property = "montoPedido" column="MontoPedido"/>
+      <result property = "fechaPedido" column="FechaPedido"/>
+      <result property = "estadoRequerimiento" column="EstadoRequerimiento"/>
+      <result property = "estadoSiga" column="EstadoSiga"/>
+      <result property = "desEstadoIn" column="DesEstadoIn"/>
+      <result property = "estadoPedidoIn" column="EstadoPedidoIn"/>
+      <result property = "secFunc" column="SecFunc"/>
+      <result property = "codigoCentroCosto" column="CodigoCentroCosto"/>
+      <result property = "nombreDependencia" column="NombreDependencia"/>
+      <result property = "idDocumentoTecnico" column="IdDocumentoTecnico"/>
+      <result property = "numeroSinad" column="NumeroSinad"/>
+      <result property = "anioSinad" column="AnioSinad"/>
+      <result property = "numeroExpedienteSinad" column="NumeroExpedienteSinad"/>
+      <result property = "poIAsociado" column="PoIAsociado"/>
+      <result property = "descTipoTDR" column="DescTipoTDR"/>
+      <result property = "rowtotal" column="ROWTOTAL"/>
+      <result property = "tipoDocumentoSinad" column="TipoDocumentoSinad"/>
+      <result property = "numeroDocumentoSinad" column="NumeroDocumentoSinad"/>
+   </resultMap> 
+
+   <select id = "selectDynamicFull" resultMap = "result" parameterType = "pe.com.sisabas.be.RequerimientoRequest" statementType = "CALLABLE">
+      {call abas.paPedidosListarNoProgramado(
+            #{codigoUnidadEjecutora},
+            #{anoEje},
+            #{pedido},
+            #{tipoBien},
+            #{tipoContratacion},
+            #{nroExpediente},
+            #{estado},
+            #{centroCosto}   
+      )}
+   </select> 
+
+   
+   </mapper>
+   
+ 
