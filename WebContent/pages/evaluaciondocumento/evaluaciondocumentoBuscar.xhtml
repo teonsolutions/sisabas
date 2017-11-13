@@ -191,6 +191,29 @@
 						listener="#{documentotecnico.seleccionItem}"
 						update=":form:pnlBotones" immediate="true" />
 
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Acciones"></h:outputText>
+						</f:facet>
+
+						<!-- 
+						<h:commandButton value="Link" image="">
+							<f:param name="customerId" value="123456" />
+						</h:commandButton>
+						 -->
+						 
+						 
+						<p:commandButton value="Recibir" icon="ui-icon-document" action="#{evaluacionDocumento.recibir}">
+							<f:param name="customerId" value="123456"></f:param>
+						</p:commandButton>
+
+
+						<p:commandButton value="Aprobar" icon="fa-arrow-down">
+							<f:param name="customerId" value="123456"></f:param>
+						</p:commandButton>
+						
+					</p:column>
+
 					<p:column styleClass="c_string" sortBy="#{var.nroDocumento}"
 						style="width: 100px">
 						<f:facet name="header">
