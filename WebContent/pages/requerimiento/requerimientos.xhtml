@@ -1,0 +1,406 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+
+
+<style>
+
+.ui-panelgrid td, .ui-panelgrid tr
+{
+    border-style: none !important
+}
+
+
+</style>
+
+
+<h:form id="form">
+
+<p:panel id="panel" header="#{requerimiento.tituloParam} #{requerimiento.tituloBase} Opciones de Búsqueda" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+
+		<td>
+			<p:outputLabel for="txtIdcatalogotiponecesidad" value="Tipo de Necesidad" />
+		</td>
+		<td>
+		    <p:selectOneMenu  id="txtIdcatalogotiponecesidad" value="#{requerimiento.requerimientoRequest.tipoNecesidad}" style="width:150px;">
+				 <f:selectItems  value="#{pedido.listaGentablaIdcatalogotiponecesidad}" var="var" itemLabel ="#{var.vchregdescri}" itemValue ="#{var.vchregcodigo}" />
+			</p:selectOneMenu>
+			
+		</td>				
+		<td>
+			<p:outputLabel for="txtIdcatalogotipobien" value="Tipo de bien(SIGA)" />
+		</td>
+		<td>
+			
+			 <p:selectOneMenu  id="txtIdcatalogotipobien" value="#{requerimiento.requerimientoRequest.tipoBien}" style="width:150px;">
+			     <f:selectItem itemLabel="TODOS" itemValue="" />
+				 <f:selectItems  value="#{pedido.listaGentablaIdcatalogotipobien}" var="var" itemLabel ="#{var.vchregdescri}" itemValue ="#{var.orden}"/>
+			</p:selectOneMenu>
+			
+		</td>
+
+		<td>
+			<p:outputLabel for="txtIdEstadoPedido" value="Estado del pedido (SIGA)" />
+		</td>
+		<td>
+			<p:selectOneMenu id="txtIdEstadoPedido" value="#{requerimiento.requerimientoRequest.estado}" style="width:125px">
+			  <f:selectItem itemLabel="TODOS" itemValue="" />
+              <f:selectItem itemLabel="PENDIENTE" itemValue="0" />
+              <f:selectItem itemLabel="VB JEFE" itemValue="1" />
+              <f:selectItem itemLabel="APROBADO" itemValue="2" />
+              <f:selectItem itemLabel="DENEGADO" itemValue="3" />
+              <f:selectItem itemLabel="PECOSA PARCIAL POR FIRMA" itemValue="4" />
+              <f:selectItem itemLabel="PECOSA PARCIAL" itemValue="5" />
+              <f:selectItem itemLabel="PECOSA POR FIRMAR" itemValue="6" />
+              <f:selectItem itemLabel="PECOSA" itemValue="7" />
+              <f:selectItem itemLabel="ATENDIDO" itemValue="8" />
+            </p:selectOneMenu>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Nro de Pedido" for="txtDescripcionpedidosiga"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDescripcionpedidosiga" value="#{requerimiento.requerimientoRequest.pedido}" disabled="false" maxlength="2000" style="width:150px;" label="Descripción"/>
+		</td>
+		
+		<td>
+			<p:outputLabel value="Nro. Expediente SINAD" for="txtNumerosinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerosinad" value="#{requerimiento.requerimientoRequest.nroExpediente}" disabled="false" maxlength="10" style="width:150px;" label="Número Sindad"/>
+		</td>
+		
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{requerimiento.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{requerimiento.buscarRequerimientos}"  update="tblListaRequerimiento,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{requerimiento.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				 <p:commandLink id="ajax" update="growl" actionListener="#{buttonView.buttonAction}">
+                   <p:outputLabel style="" value="Limpiar" />
+                 </p:commandLink>      
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px; ">
+		    	<p:commandButton  value="Imprimir" action="#{pedido.irImprimir}"  update="hidStatus,:frmPedidoImprimir:diPedidoImprimir" oncomplete="showDialog('form:hidStatus','frmPedidoImprimir:diPedidoImprimir');" icon="ui-icon-print"   rendered="#{pedido.renderButton('btnImprimir')}"  />
+				<p:spacer height="3"/>
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaRequerimiento">
+	<p:menuitem value="Editar" action="#{pedido.irEditar}"   update="hidStatus,:frmPedidoRegistrar:diPedidoRegistrar"  oncomplete="showDialog('form:hidStatus','frmPedidoRegistrar:diPedidoRegistrar');"  icon="ui-icon-pencil" rendered="#{pedido.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{pedido.irDetalle}"   update="hidStatus,:frmPedidoDetalle:diPedidoDetalle"  oncomplete="showDialog('form:hidStatus','frmPedidoDetalle:diPedidoDetalle');"  icon="ui-icon-zoomin" rendered="#{pedido.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{pedido.irAnular}"   update="hidStatus,:frmPedidoAnular:diPedidoAnular"  oncomplete="showDialog('form:hidStatus','frmPedidoAnular:diPedidoAnular');"  icon="ui-icon-circle-minus" rendered="#{pedido.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{pedido.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{pedido.renderButton('btnEliminar')}" />
+</p:contextMenu>
+
+
+<p:dataTable id="tblListaRequerimiento" value="#{requerimiento.listaRequerimientos}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaRequerimiento" selection="#{pedido.selectedPedido}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(requerimiento.listaRequerimientos)}"
+	rowKey="#{var.nroPedido}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{pedido.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+	   
+	   <p:column styleClass="c_center">
+			<f:facet name="header">
+				<h:outputText value="Acciones" styleClass="c_center"/>
+			</f:facet>
+			     <p:commandButton update=":form:requerimientoDetalle" oncomplete="PF('reqDialog').show()" icon="fa fa-child" title="Asociar al POI">
+                <f:setPropertyActionListener value="#{var}" target="#{requerimiento.requerimientoResponse}" />
+                 </p:commandButton>
+		</p:column> 
+		<p:column styleClass="c_center" sortBy="#{var.nropedido}">
+			<f:facet name="header">
+				<h:outputText value="Nro pedido" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.nroPedido}"/>
+		</p:column>
+		
+		<p:column styleClass="c_string" sortBy="#{var.motivoPedido}">
+			<f:facet name="header">
+				<h:outputText value="Descripción" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.motivoPedido}"/>
+		</p:column>
+		
+		<p:column styleClass="c_center" sortBy="#{var.tipobien}">
+			<f:facet name="header">
+				<h:outputText value="Tipo de bien(SIGA)" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.tipobien}"/>
+		</p:column>
+		
+	    <p:column styleClass="c_numeric" sortBy="#{var.montoPedido}">
+			<f:facet name="header">
+				<h:outputText value="Monto del Pedido" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.montoPedido}"  styleClass="c_center"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.estadoSiga}">
+			<f:facet name="header">
+				<h:outputText value="Estado del pedido (SIGA)" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.estadoSiga}"/>
+		</p:column>
+	
+		<p:column styleClass="c_string" sortBy="#{var.estadoPedidoIn}">
+			<f:facet name="header">
+				<h:outputText value="Estado del pedido(SisAbas)" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.estadoPedidoIn}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.numeroExpedienteSinad}">
+			<f:facet name="header">
+				<h:outputText value="Número de expediente (SINAD)" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.numeroExpedienteSinad}"/>
+		</p:column>
+		
+</p:dataTable>
+
+
+<p:dialog header="Asociar al POI" widgetVar="reqDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+<p:panel  style="width:98%;">
+<p:focus  for="panel"/>
+  <p:scrollPanel id="requerimientoDetalle" mode="native" style="width:100%;height:100%;">
+	     <p:messages for="msgsGentablaR" autoUpdate="true" closable="true"/>
+	     <ui:include src="/pages/requerimiento/component/c_requerimientosPoi.xhtml"/>
+  </p:scrollPanel>  
+  <table style="width: 70%;">
+			<tr>
+				<td>
+					<p:commandButton value="Aceptar" action="#{gentipo.aceptar}" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmGentipoRegistrar:diGentipoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:panel>	
+ </p:dialog>
+
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{pedido.eliminar}"  update=":form:tblListaRequerimiento,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmPedidoImprimir">
+	<p:dialog id="diPedidoImprimir" header="#{pedido.titulo}" widgetVar="diPedidoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaRequerimiento" fileName="datosPedido" postProcessor="#{pedido.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaRequerimiento" fileName="datos" preProcessor="#{pedido.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPedidoRegistrar">
+	<p:dialog id="diPedidoRegistrar" header="#{pedido.titulo}" widgetVar="diPedidoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsPedidoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/pedido/component/c_pedidoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{pedido.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{pedido.aceptar}" update="hidStatus,:form:tblListaRequerimiento,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmPedidoRegistrar:hidStatus','frmPedidoRegistrar:diPedidoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPedidoRegistrar:diPedidoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPedidoDetalle">
+	<p:dialog id="diPedidoDetalle" header="#{pedido.titulo}" widgetVar="diPedidoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/pedido/component/c_pedidoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPedidoDetalle:diPedidoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPedidoAnular">
+	<p:dialog id="diPedidoAnular" header="#{pedido.titulo}" widgetVar="diPedidoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsPedidoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/pedido/component/c_pedidoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{pedido.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{pedido.anular}" update="hidStatus,:form:tblListaRequerimiento,:form:growl,panelDetailC" oncomplete="hideDialog('frmPedidoAnular:hidStatus','frmPedidoAnular:diPedidoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPedidoAnular:diPedidoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMainCodigocentrocostoBuscar">
+	<p:dialog id="diVcentrocostoBuscar" header="CodigoCentroCosto » Buscar" widgetVar="diVcentrocostoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Vcentrocosto" autoUpdate="true" closable="true"/>
+	 <cc:cc_vcentrocostoBuscar
+	 ajaxEventListener="#{pedido.loadMainCodigocentrocosto}"
+	 actionOncomplete="hideDialogPF('frmMainCodigocentrocostoBuscar:diVcentrocostoBuscar');"
+	 actionUpdate=":form:txtCodigocentrocosto"/>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMainIdvpedidoBuscar">
+	<p:dialog id="diVpedidoBuscar" header="VPedidoSiga » Buscar" widgetVar="diVpedidoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Vpedido" autoUpdate="true" closable="true"/>
+	 <cc:cc_vispedidoBuscar
+	 ajaxEventListener="#{pedido.loadMainIdvpedido}"
+	 actionOncomplete="hideDialogPF('frmMainIdvpedidoBuscar:diVpedidoBuscar');"
+	 actionUpdate=":form:txtIdvpedido"/>
+	</p:dialog>
+</h:form>
+
+
+
+<h:form id="frmRegCodigocentrocostoBuscar">
+	<p:dialog id="diVcentrocostoBuscar" header="CodigoCentroCosto » Buscar" widgetVar="diVcentrocostoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Vcentrocosto" autoUpdate="true" closable="true"/>
+	 <cc:cc_vcentrocostoBuscar
+	 ajaxEventListener="#{pedido.loadRegCodigocentrocosto}"
+	 actionOncomplete="hideDialogPF('frmRegCodigocentrocostoBuscar:diVcentrocostoBuscar');"
+	 actionUpdate=":frmPedidoRegistrar:txtCodigocentrocosto"/>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdvpedidoBuscar">
+	<p:dialog id="diVpedidoBuscar" header="VPedidoSiga » Buscar" widgetVar="diVpedidoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Vpedido" autoUpdate="true" closable="true"/>
+	 <cc:cc_vispedidoBuscar
+	 ajaxEventListener="#{pedido.loadRegIdvpedido}"
+	 actionOncomplete="hideDialogPF('frmRegIdvpedidoBuscar:diVpedidoBuscar');"
+	 actionUpdate=":frmPedidoRegistrar:txtIdvpedido"/>
+	</p:dialog>
+</h:form>
+
+
+	<!-- Derived Table Main (detallepedido)  -->
+<h:form id="frmDetallepedidoDetalle">
+	<p:dialog id="diDetallepedidoDetalle" header="#{detallepedido.titulo}" widgetVar="diDetallepedidoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/detallepedido/component/c_detallepedidoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmDetallepedidoDetalle:diDetallepedidoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+	<!-- Derived Table Main (documentotecnico)  -->
+<h:form id="frmDocumentotecnicoDetalle">
+	<p:dialog id="diDocumentotecnicoDetalle" header="#{documentotecnico.titulo}" widgetVar="diDocumentotecnicoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/documentotecnico/component/c_documentotecnicoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmDocumentotecnicoDetalle:diDocumentotecnicoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+	<!-- Derived Table Main (pedidosporpacconsolidado)  -->
+<h:form id="frmPedidosporpacconsolidadoDetalle">
+	<p:dialog id="diPedidosporpacconsolidadoDetalle" header="#{pedidosporpacconsolidado.titulo}" widgetVar="diPedidosporpacconsolidadoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/pedidosporpacconsolidado/component/c_pedidosporpacconsolidadoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPedidosporpacconsolidadoDetalle:diPedidosporpacconsolidadoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+</ui:define>
+</ui:composition>
