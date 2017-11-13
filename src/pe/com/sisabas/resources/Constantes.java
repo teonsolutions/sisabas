@@ -3,6 +3,8 @@ package pe.com.sisabas.resources;
 import java.text.MessageFormat;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+
+import com.mysql.jdbc.StreamingNotifiable;
 public class Constantes {
 	public class tabla {
 		public static final String TSDP="TSDP";
@@ -149,7 +151,7 @@ public class Constantes {
 	
 	public class mensajeGenerico {
 		public static final String REGISTRO_CORRECTO  = "La operación se ejecutó exitosamente";
-	}
+	}	
 	
 	public class estadosPorEtapa{
 		public static final int AUTORIZADO = 1;
@@ -171,5 +173,10 @@ public class Constantes {
 		public static final int ORDEN = 6;
 		public static final int ENTREGABLE = 7;
 		public static final int PAO_INICIAL = 8;
+	}
+	
+	public class estadoAuditoria{
+		public static final String ACTIVO = "1";
+		public static final String INACTIVO = "0";		
 	}
 }

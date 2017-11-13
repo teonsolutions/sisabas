@@ -8,6 +8,7 @@ public class EvaluacionDocumentoResponse {
 	private Integer idPacProgramado;
 	private String nroDocumento;
 	private String descripcion;
+	private String idcatalogotiponecesidad;
 	private String tipoNecesidadDesc;
 	private String tipoBienDesc;
 	private BigDecimal monto;
@@ -48,6 +49,12 @@ public class EvaluacionDocumentoResponse {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+	public String getIdcatalogotiponecesidad() {
+		return idcatalogotiponecesidad;
+	}
+	public void setIdcatalogotiponecesidad(String idcatalogotiponecesidad) {
+		this.idcatalogotiponecesidad = idcatalogotiponecesidad;
+	}	
 	public String getTipoNecesidadDesc() {
 		return tipoNecesidadDesc;
 	}

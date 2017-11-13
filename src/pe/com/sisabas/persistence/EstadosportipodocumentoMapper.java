@@ -31,6 +31,6 @@ public interface EstadosportipodocumentoMapper{
 	List<Estadosportipodocumento> selectDynamicExtended(Estadosportipodocumento record) throws Exception;
 
 
-	Estadosportipodocumento selectByEtapaTipoDocumento(@Param("idtipodocumento") java.lang.Integer idtipodocumento, @Param("idestadosporetapa") java.lang.Integer idestadosporetapa) throws Exception;
+	Estadosportipodocumento selectByEtapaTipoDocumento(Estadosportipodocumento record) throws Exception;
 	
 }

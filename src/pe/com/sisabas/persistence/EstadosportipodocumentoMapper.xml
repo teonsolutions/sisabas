@@ -140,13 +140,13 @@
 	and A1.estadoauditoria='1'
 	</select>
 
-	<select id="selectByEtapaTipoDocumento" resultMap="FullResultMap" parameterType="java.lang.Integer">
+	<select id="selectByEtapaTipoDocumento" resultMap="FullResultMap" parameterType="pe.com.sisabas.be.Estadosportipodocumento">
 	select 'false' as QUERYID,
 	<include refid="Basic_Column_List"/>
 	from abas.EstadosPorTipoDocumento A1
 	
-	where A1.IdEstadosPorTipoDocumento = #{idestadosportipodocumento,jdbcType=INTEGER}
-	and A1.IdEstadosPorEtapa = 	= #{idestadosporetapa,jdbcType=INTEGER}
+	where A1.IdTipoDocumento = #{idtipodocumento,jdbcType=INTEGER}
+	and A1.IdEstadosPorEtapa = #{idestadosporetapa,jdbcType=INTEGER}
 	</select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

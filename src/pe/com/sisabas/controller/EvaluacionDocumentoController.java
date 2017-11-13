@@ -51,7 +51,33 @@ public class EvaluacionDocumentoController extends BaseController {
 	
 	private List<Documentotecnico> listaDocumentotecnico;
 	private List<EvaluacionDocumentoResponse> listaPedidos;
-	
+	private EvaluacionDocumentoResponse selectedPedido;
+	private boolean esSeleccionadoPorRecibir = false;
+			
+	public Boolean getEsSeleccionadoPorRecibir() {
+		return esSeleccionadoPorRecibir;
+	}
+
+	public void setEsSeleccionadoPorRecibir(Boolean esSeleccionadoPorRecibir) {
+		this.esSeleccionadoPorRecibir = esSeleccionadoPorRecibir;
+	}
+
+	public EvaluacionDocumentoResponse getSelectedPedido() {
+		return selectedPedido;
+	}
+
+	public void setSelectedPedido(EvaluacionDocumentoResponse selectedPedido) {
+		this.selectedPedido = selectedPedido;
+		
+		//para activar button recibir
+		boolean disabled = false;
+		if (this.selectedPedido == null) 
+			disabled = false;
+		else disabled = selectedPedido.getEstadoPedidoIn().equalsIgnoreCase("3");		
+		this.setEsSeleccionadoPorRecibir(disabled);
+	}
+
+		
 	public List<EvaluacionDocumentoResponse> getListaPedidos() {
 		return listaPedidos;
 	}
@@ -245,7 +271,7 @@ public class EvaluacionDocumentoController extends BaseController {
 			// accion = REGISTRAR;
 			TransactionRequest<Integer> request = new TransactionRequest<Integer>();
 			request.setUsuarioAuditoria("PRUEBA");
-			businessProgramacion.recibir(1, "TINE2", request);				
+			businessProgramacion.recibir(selectedPedido , request);				
 			
 
 			STATUS_SUCCESS();

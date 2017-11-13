@@ -185,6 +185,7 @@
 		<result column="IdPacProgramado" property="idPacProgramado" jdbcType="INTEGER"/>
 		<result column="NroDocumento" property="nroDocumento" jdbcType="VARCHAR"/>
 		<result column="Descripcion" property="descripcion" jdbcType="VARCHAR"/>
+		<result column="TipoNecesidad" property="idcatalogotiponecesidad" jdbcType="VARCHAR"/>
 		<result column="TipoNecesidadDesc" property="tipoNecesidadDesc" jdbcType="VARCHAR"/>
 		<result column="TipoBienDesc" property="tipoBienDesc" jdbcType="VARCHAR"/>
 		<result column="Monto" property="monto" jdbcType="DECIMAL"/>
@@ -300,17 +301,6 @@
 	where A1.IdDocumentoTecnico = #{iddocumentotecnico,jdbcType=INTEGER}
 	and A1.estadoauditoria='1'
 	</select>
-
-
-	<select id="selectByEtapaTipoDocumento" resultMap="FullResultMap" parameterType="java.lang.Integer" >
-	select 'false' as QUERYID,
-	<include refid="Full_Column_List"/>
-	from abas.DocumentoTecnico A1
-	and A1.IdTipoDocumento = #{idtipodocumento,jdbcType=INTEGER}
-	and A1.IdEstadosPorEtapa = 	#{idestadosporetapa,jdbcType=INTEGER}
-	and A1.estadoauditoria='1'
-	</select>
-
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
 	delete from abas.DocumentoTecnico 
