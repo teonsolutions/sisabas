@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:tabView id="panelDetailC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<p:tab title="Detalle">
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIddependenciadocumentotecnico"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIddependenciadocumentotecnico" value="#{dependenciadocumentotecnico.dependenciadocumentotecnico.iddependenciadocumentotecnico}" disabled="true" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Documento Técnico" for="txtIddocumentotecnico"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIddocumentotecnico" value="#{dependenciadocumentotecnico.dependenciadocumentotecnico.iddocumentotecnico}" disabled="true" style="width:150px;" label="Documento Técnico"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Dirección" for="txtDireccion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDireccion" value="#{dependenciadocumentotecnico.dependenciadocumentotecnico.direccion}" disabled="true" style="width:300px;" label="Dirección"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+	</p:tab>
+
+	<p:tab title="Datos de Auditoría">
+
+	<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha de Creación" for="txtFechacreacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechacreacionauditoria" value="#{dependenciadocumentotecnico.dependenciadocumentotecnico.fechacreacionauditoria}" disabled="true" style="width:150px;" label="Fecha de Creación">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>
+			</p:inputText>
+		</td>
+		<td>
+			<p:outputLabel  value="Usuario de Creación" for="txtUsuariocreacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuariocreacionauditoria" value="#{dependenciadocumentotecnico.dependenciadocumentotecnico.usuariocreacionauditoria}" disabled="true" style="width:150px;" label="Usuario de Creación"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha de última modificacion" for="txtFechamodificacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechamodificacionauditoria" value="#{dependenciadocumentotecnico.dependenciadocumentotecnico.fechamodificacionauditoria}" disabled="true" style="width:150px;" label="Fecha de última modificacion">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>
+			</p:inputText>
+		</td>
+		<td>
+			<p:outputLabel  value="Usuario de última modificacion" for="txtUsuariomodificacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuariomodificacionauditoria" value="#{dependenciadocumentotecnico.dependenciadocumentotecnico.usuariomodificacionauditoria}" disabled="true" style="width:150px;" label="Usuario de última modificacion"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Estado Registro" for="txtEstadoauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadoauditoria" value="#{dependenciadocumentotecnico.dependenciadocumentotecnico.estadoauditoria}" disabled="true" style="width:150px;" label="Estado Registro"/>
+		</td>
+	</tr>
+
+	</table>
+	</p:tab>
+
+</p:tabView>
+</html>

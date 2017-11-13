@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{cuadrocomparativoitem.tituloParam} #{cuadrocomparativoitem.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="IdCuadroComparativoItem" for="txtIdcuadrocomparativoitem"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcuadrocomparativoitem" value="#{cuadrocomparativoitem.cuadrocomparativoitemB.idcuadrocomparativoitem}" disabled="false" maxlength="10" style="width:150px;" label="IdCuadroComparativoItem"/>
+		</td>
+		<td>
+			<p:outputLabel value="Cuadro Comparativo" for="txtIdcuadrocomparativofuente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcuadrocomparativofuente" value="#{cuadrocomparativoitem.cuadrocomparativoitemB.idcuadrocomparativofuente}" disabled="true" maxlength="10" style="width:150px;" label="Cuadro Comparativo"/>
+		</td>
+		<td>
+			<p:outputLabel value="Detalle pedido" for="txtIddetallepedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIddetallepedido" value="#{cuadrocomparativoitem.cuadrocomparativoitemB.iddetallepedido}" disabled="false" maxlength="10" style="width:150px;" label="Detalle pedido"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Precio Total - Desde" for="txtPrecioreferencialini"/>
+		</td>
+		<td>
+			<p:inputText id="txtPrecioreferencialini" value ="#{cuadrocomparativoitem.cuadrocomparativoitemB.precioreferencialini}" maxlength="18" style="width:150px;" label="Precio Total - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="Precio Total - Hasta" for="txtPrecioreferencialfin"/>
+		</td>
+		<td>
+			<p:inputText id="txtPrecioreferencialfin" value ="#{cuadrocomparativoitem.cuadrocomparativoitemB.precioreferencialfin}" maxlength="18" style="width:150px;" label="Precio Total - Hasta"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{cuadrocomparativoitem.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{cuadrocomparativoitem.buscar}"  update="tblListaCuadrocomparativoitem,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{cuadrocomparativoitem.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{cuadrocomparativoitem.irRegistrar}"  update="hidStatus,:frmCuadrocomparativoitemRegistrar:diCuadrocomparativoitemRegistrar" oncomplete="showDialog('form:hidStatus','frmCuadrocomparativoitemRegistrar:diCuadrocomparativoitemRegistrar');" icon="ui-icon-document"  rendered="#{cuadrocomparativoitem.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{cuadrocomparativoitem.irEditar}"  update="hidStatus,:frmCuadrocomparativoitemRegistrar:diCuadrocomparativoitemRegistrar" oncomplete="showDialog('form:hidStatus','frmCuadrocomparativoitemRegistrar:diCuadrocomparativoitemRegistrar');" icon="ui-icon-pencil" disabled="#{!cuadrocomparativoitem.esSeleccionado}"  rendered="#{cuadrocomparativoitem.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{cuadrocomparativoitem.irDetalle}"  update="hidStatus,:frmCuadrocomparativoitemDetalle:diCuadrocomparativoitemDetalle" oncomplete="showDialog('form:hidStatus','frmCuadrocomparativoitemDetalle:diCuadrocomparativoitemDetalle');" icon="ui-icon-zoomin" disabled="#{!cuadrocomparativoitem.esSeleccionado}"   rendered="#{cuadrocomparativoitem.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{cuadrocomparativoitem.irAnular}"  update="hidStatus,:frmCuadrocomparativoitemAnular:diCuadrocomparativoitemAnular" oncomplete="showDialog('form:hidStatus','frmCuadrocomparativoitemAnular:diCuadrocomparativoitemAnular');" icon="ui-icon-circle-minus" disabled="#{!cuadrocomparativoitem.esSeleccionado}"   rendered="#{cuadrocomparativoitem.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{cuadrocomparativoitem.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!cuadrocomparativoitem.esSeleccionado}"   rendered="#{cuadrocomparativoitem.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{cuadrocomparativoitem.irImprimir}"  update="hidStatus,:frmCuadrocomparativoitemImprimir:diCuadrocomparativoitemImprimir" oncomplete="showDialog('form:hidStatus','frmCuadrocomparativoitemImprimir:diCuadrocomparativoitemImprimir');" icon="ui-icon-print"   rendered="#{cuadrocomparativoitem.renderButton('btnImprimir')}"  />
+				<p:spacer width="20"/>
+				<p:commandButton value="CuadroComparativoVR" action="#{cuadrocomparativoitem.irCuadrocomparativovr}" title="CuadroComparativoVR" ajax="false" disabled="#{!cuadrocomparativoitem.esSeleccionado}"  rendered="#{cuadrocomparativoitem.renderButton('btnCuadrocomparativovr')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="#{cuadrocomparativofuente.load}" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{cuadrocomparativoitem.esDerivada=='1'}"/>
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{cuadrocomparativoitem.esDerivada=='0'}"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaCuadrocomparativoitem">
+	<p:menuitem value="Editar" action="#{cuadrocomparativoitem.irEditar}"   update="hidStatus,:frmCuadrocomparativoitemRegistrar:diCuadrocomparativoitemRegistrar"  oncomplete="showDialog('form:hidStatus','frmCuadrocomparativoitemRegistrar:diCuadrocomparativoitemRegistrar');"  icon="ui-icon-pencil" rendered="#{cuadrocomparativoitem.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{cuadrocomparativoitem.irDetalle}"   update="hidStatus,:frmCuadrocomparativoitemDetalle:diCuadrocomparativoitemDetalle"  oncomplete="showDialog('form:hidStatus','frmCuadrocomparativoitemDetalle:diCuadrocomparativoitemDetalle');"  icon="ui-icon-zoomin" rendered="#{cuadrocomparativoitem.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{cuadrocomparativoitem.irAnular}"   update="hidStatus,:frmCuadrocomparativoitemAnular:diCuadrocomparativoitemAnular"  oncomplete="showDialog('form:hidStatus','frmCuadrocomparativoitemAnular:diCuadrocomparativoitemAnular');"  icon="ui-icon-circle-minus" rendered="#{cuadrocomparativoitem.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{cuadrocomparativoitem.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{cuadrocomparativoitem.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaCuadrocomparativoitem" value="#{cuadrocomparativoitem.listaCuadrocomparativoitem}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaCuadrocomparativoitem" selection="#{cuadrocomparativoitem.selectedCuadrocomparativoitem}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(cuadrocomparativoitem.listaCuadrocomparativoitem)}"
+	selectionMode="single" rowKey="#{var.idcuadrocomparativoitem}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{cuadrocomparativoitem.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.idcuadrocomparativoitem}">
+			<f:facet name="header">
+				<h:outputText value="IdCuadroComparativoItem" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idcuadrocomparativoitem}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.idcuadrocomparativofuente}">
+			<f:facet name="header">
+				<h:outputText value="Cuadro Comparativo" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idcuadrocomparativofuente}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.iddetallepedido}">
+			<f:facet name="header">
+				<h:outputText value="Detalle pedido" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.iddetallepedido}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.precioreferencial}">
+			<f:facet name="header">
+				<h:outputText value="Precio Total" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.precioreferencial}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{cuadrocomparativoitem.eliminar}"  update=":form:tblListaCuadrocomparativoitem,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmCuadrocomparativoitemImprimir">
+	<p:dialog id="diCuadrocomparativoitemImprimir" header="#{cuadrocomparativoitem.titulo}" widgetVar="diCuadrocomparativoitemImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaCuadrocomparativoitem" fileName="datosCuadrocomparativoitem" postProcessor="#{cuadrocomparativoitem.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaCuadrocomparativoitem" fileName="datos" preProcessor="#{cuadrocomparativoitem.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmCuadrocomparativoitemRegistrar">
+	<p:dialog id="diCuadrocomparativoitemRegistrar" header="#{cuadrocomparativoitem.titulo}" widgetVar="diCuadrocomparativoitemRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsCuadrocomparativoitemR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/cuadrocomparativoitem/component/c_cuadrocomparativoitemRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{cuadrocomparativoitem.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{cuadrocomparativoitem.aceptar}" update="hidStatus,:form:tblListaCuadrocomparativoitem,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmCuadrocomparativoitemRegistrar:hidStatus','frmCuadrocomparativoitemRegistrar:diCuadrocomparativoitemRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmCuadrocomparativoitemRegistrar:diCuadrocomparativoitemRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmCuadrocomparativoitemDetalle">
+	<p:dialog id="diCuadrocomparativoitemDetalle" header="#{cuadrocomparativoitem.titulo}" widgetVar="diCuadrocomparativoitemDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/cuadrocomparativoitem/component/c_cuadrocomparativoitemDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmCuadrocomparativoitemDetalle:diCuadrocomparativoitemDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmCuadrocomparativoitemAnular">
+	<p:dialog id="diCuadrocomparativoitemAnular" header="#{cuadrocomparativoitem.titulo}" widgetVar="diCuadrocomparativoitemAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsCuadrocomparativoitemA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/cuadrocomparativoitem/component/c_cuadrocomparativoitemDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{cuadrocomparativoitem.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{cuadrocomparativoitem.anular}" update="hidStatus,:form:tblListaCuadrocomparativoitem,:form:growl,panelDetailC" oncomplete="hideDialog('frmCuadrocomparativoitemAnular:hidStatus','frmCuadrocomparativoitemAnular:diCuadrocomparativoitemAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmCuadrocomparativoitemAnular:diCuadrocomparativoitemAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+
+	<!-- Derived Table Main (cuadrocomparativovr)  -->
+<h:form id="frmCuadrocomparativovrDetalle">
+	<p:dialog id="diCuadrocomparativovrDetalle" header="#{cuadrocomparativovr.titulo}" widgetVar="diCuadrocomparativovrDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/cuadrocomparativovr/component/c_cuadrocomparativovrDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmCuadrocomparativovrDetalle:diCuadrocomparativovrDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+</ui:define>
+</ui:composition>

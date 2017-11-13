@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<h:inputHidden id="hidStatusPlazopagodocumentotecnico" value="#{plazopagodocumentotecnico.status}"/>
+<p:contextMenu for="tblListaPlazopagodocumentotecnico">
+	<p:menuitem value="Detalle" action="#{plazopagodocumentotecnico.irDetalle}"  process="@this,hidStatusPlazopagodocumentotecnico,tblListaPlazopagodocumentotecnico"  update="hidStatusPlazopagodocumentotecnico,:frmPlazopagodocumentotecnicoDetalle:diPlazopagodocumentotecnicoDetalle"  oncomplete="showDialog('frmDocumentotecnicoDetalle:panelDetailC:hidStatusPlazopagodocumentotecnico','frmPlazopagodocumentotecnicoDetalle:diPlazopagodocumentotecnicoDetalle');"  icon="ui-icon-zoomin" rendered="#{plazopagodocumentotecnico.renderButton('btnDetalle')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaPlazopagodocumentotecnico" value="#{plazopagodocumentotecnico.listaPlazopagodocumentotecnico}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaPlazopagodocumentotecnico" selection="#{plazopagodocumentotecnico.selectedPlazopagodocumentotecnico}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(plazopagodocumentotecnico.listaPlazopagodocumentotecnico)}"
+	selectionMode="single" rowKey="#{var.idplazopagodocumentotecnico}" styleClass="gandalfTableClass" rowStyleClass="#{var.params.ACTION!=null?(var.params.ACTION=='INSERT'?'old':'dead'):''}">
+		<p:column styleClass="c_numeric" sortBy="#{var.idplazopagodocumentotecnico}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idplazopagodocumentotecnico}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.iddocumentotecnico}">
+			<f:facet name="header">
+				<h:outputText value="Documento Técnico" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.iddocumentotecnico}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.cronograma}">
+			<f:facet name="header">
+				<h:outputText value="Cronograma" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.cronograma}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.plazo}">
+			<f:facet name="header">
+				<h:outputText value="Plazo" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.plazo}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nivelavance}">
+			<f:facet name="header">
+				<h:outputText value="Nivel Avance" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nivelavance}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.porcentajeavance}">
+			<f:facet name="header">
+				<h:outputText value="Porcentaje Avance" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.porcentajeavance}"/>
+		</p:column>
+</p:dataTable>
+</html>

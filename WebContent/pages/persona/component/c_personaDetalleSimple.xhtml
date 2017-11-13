@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelDetailC">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIdpersona"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpersona" value="#{persona.persona.idpersona}" disabled="true" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Tipo Documento" for="txtIdcatalogotipodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogotipodocumento" value="#{persona.persona.gentablaIdcatalogotipodocumento.vchregdescri}" disabled="true" style="width:150px;" label="Tipo Documento"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Numero Documento" for="txtNumerodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerodocumento" value="#{persona.persona.numerodocumento}" disabled="true" style="width:150px;" label="Numero Documento"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Nombres" for="txtNombres"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombres" value="#{persona.persona.nombres}" disabled="true" style="width:300px;" label="Nombres"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Apellido Paterno" for="txtApellidopaterno"/>
+		</td>
+		<td>
+			<p:inputText  id="txtApellidopaterno" value="#{persona.persona.apellidopaterno}" disabled="true" style="width:300px;" label="Apellido Paterno"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Apellido Materno" for="txtApellidomaterno"/>
+		</td>
+		<td>
+			<p:inputText  id="txtApellidomaterno" value="#{persona.persona.apellidomaterno}" disabled="true" style="width:300px;" label="Apellido Materno"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Dirección" for="txtDireccion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDireccion" value="#{persona.persona.direccion}" disabled="true" style="width:300px;" label="Dirección"/>
+		</td>
+	</tr>
+
+</table>
+</p:panel>
+</html>

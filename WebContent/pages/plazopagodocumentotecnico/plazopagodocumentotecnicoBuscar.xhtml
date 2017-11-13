@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{plazopagodocumentotecnico.tituloParam} #{plazopagodocumentotecnico.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="ID" for="txtIdplazopagodocumentotecnico"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdplazopagodocumentotecnico" value="#{plazopagodocumentotecnico.plazopagodocumentotecnicoB.idplazopagodocumentotecnico}" disabled="false" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel value="Documento Técnico" for="txtIddocumentotecnico"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIddocumentotecnico" value="#{plazopagodocumentotecnico.plazopagodocumentotecnicoB.iddocumentotecnico}" disabled="true" maxlength="10" style="width:150px;" label="Documento Técnico"/>
+		</td>
+		<td>
+			<p:outputLabel value="Cronograma" for="txtCronograma"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCronograma" value="#{plazopagodocumentotecnico.plazopagodocumentotecnicoB.cronograma}" disabled="false" maxlength="50" style="width:150px;" label="Cronograma"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Plazo" for="txtPlazo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtPlazo" value="#{plazopagodocumentotecnico.plazopagodocumentotecnicoB.plazo}" disabled="false" maxlength="10" style="width:150px;" label="Plazo"/>
+		</td>
+		<td>
+			<p:outputLabel value="Nivel Avance" for="txtNivelavance"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNivelavance" value="#{plazopagodocumentotecnico.plazopagodocumentotecnicoB.nivelavance}" disabled="false" maxlength="100" style="width:150px;" label="Nivel Avance"/>
+		</td>
+		<td>
+			<p:outputLabel value="Porcentaje Avance - Desde" for="txtPorcentajeavanceini"/>
+		</td>
+		<td>
+			<p:inputText id="txtPorcentajeavanceini" value ="#{plazopagodocumentotecnico.plazopagodocumentotecnicoB.porcentajeavanceini}" maxlength="18" style="width:150px;" label="Porcentaje Avance - Desde"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Porcentaje Avance - Hasta" for="txtPorcentajeavancefin"/>
+		</td>
+		<td>
+			<p:inputText id="txtPorcentajeavancefin" value ="#{plazopagodocumentotecnico.plazopagodocumentotecnicoB.porcentajeavancefin}" maxlength="18" style="width:150px;" label="Porcentaje Avance - Hasta"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{plazopagodocumentotecnico.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{plazopagodocumentotecnico.buscar}"  update="tblListaPlazopagodocumentotecnico,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{plazopagodocumentotecnico.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{plazopagodocumentotecnico.irRegistrar}"  update="hidStatus,:frmPlazopagodocumentotecnicoRegistrar:diPlazopagodocumentotecnicoRegistrar" oncomplete="showDialog('form:hidStatus','frmPlazopagodocumentotecnicoRegistrar:diPlazopagodocumentotecnicoRegistrar');" icon="ui-icon-document"  rendered="#{plazopagodocumentotecnico.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{plazopagodocumentotecnico.irEditar}"  update="hidStatus,:frmPlazopagodocumentotecnicoRegistrar:diPlazopagodocumentotecnicoRegistrar" oncomplete="showDialog('form:hidStatus','frmPlazopagodocumentotecnicoRegistrar:diPlazopagodocumentotecnicoRegistrar');" icon="ui-icon-pencil" disabled="#{!plazopagodocumentotecnico.esSeleccionado}"  rendered="#{plazopagodocumentotecnico.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{plazopagodocumentotecnico.irDetalle}"  update="hidStatus,:frmPlazopagodocumentotecnicoDetalle:diPlazopagodocumentotecnicoDetalle" oncomplete="showDialog('form:hidStatus','frmPlazopagodocumentotecnicoDetalle:diPlazopagodocumentotecnicoDetalle');" icon="ui-icon-zoomin" disabled="#{!plazopagodocumentotecnico.esSeleccionado}"   rendered="#{plazopagodocumentotecnico.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{plazopagodocumentotecnico.irAnular}"  update="hidStatus,:frmPlazopagodocumentotecnicoAnular:diPlazopagodocumentotecnicoAnular" oncomplete="showDialog('form:hidStatus','frmPlazopagodocumentotecnicoAnular:diPlazopagodocumentotecnicoAnular');" icon="ui-icon-circle-minus" disabled="#{!plazopagodocumentotecnico.esSeleccionado}"   rendered="#{plazopagodocumentotecnico.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{plazopagodocumentotecnico.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!plazopagodocumentotecnico.esSeleccionado}"   rendered="#{plazopagodocumentotecnico.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{plazopagodocumentotecnico.irImprimir}"  update="hidStatus,:frmPlazopagodocumentotecnicoImprimir:diPlazopagodocumentotecnicoImprimir" oncomplete="showDialog('form:hidStatus','frmPlazopagodocumentotecnicoImprimir:diPlazopagodocumentotecnicoImprimir');" icon="ui-icon-print"   rendered="#{plazopagodocumentotecnico.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="#{documentotecnico.load}" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{plazopagodocumentotecnico.esDerivada=='1'}"/>
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{plazopagodocumentotecnico.esDerivada=='0'}"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaPlazopagodocumentotecnico">
+	<p:menuitem value="Editar" action="#{plazopagodocumentotecnico.irEditar}"   update="hidStatus,:frmPlazopagodocumentotecnicoRegistrar:diPlazopagodocumentotecnicoRegistrar"  oncomplete="showDialog('form:hidStatus','frmPlazopagodocumentotecnicoRegistrar:diPlazopagodocumentotecnicoRegistrar');"  icon="ui-icon-pencil" rendered="#{plazopagodocumentotecnico.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{plazopagodocumentotecnico.irDetalle}"   update="hidStatus,:frmPlazopagodocumentotecnicoDetalle:diPlazopagodocumentotecnicoDetalle"  oncomplete="showDialog('form:hidStatus','frmPlazopagodocumentotecnicoDetalle:diPlazopagodocumentotecnicoDetalle');"  icon="ui-icon-zoomin" rendered="#{plazopagodocumentotecnico.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{plazopagodocumentotecnico.irAnular}"   update="hidStatus,:frmPlazopagodocumentotecnicoAnular:diPlazopagodocumentotecnicoAnular"  oncomplete="showDialog('form:hidStatus','frmPlazopagodocumentotecnicoAnular:diPlazopagodocumentotecnicoAnular');"  icon="ui-icon-circle-minus" rendered="#{plazopagodocumentotecnico.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{plazopagodocumentotecnico.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{plazopagodocumentotecnico.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaPlazopagodocumentotecnico" value="#{plazopagodocumentotecnico.listaPlazopagodocumentotecnico}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaPlazopagodocumentotecnico" selection="#{plazopagodocumentotecnico.selectedPlazopagodocumentotecnico}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(plazopagodocumentotecnico.listaPlazopagodocumentotecnico)}"
+	selectionMode="single" rowKey="#{var.idplazopagodocumentotecnico}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{plazopagodocumentotecnico.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.idplazopagodocumentotecnico}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idplazopagodocumentotecnico}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.iddocumentotecnico}">
+			<f:facet name="header">
+				<h:outputText value="Documento Técnico" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.iddocumentotecnico}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.cronograma}">
+			<f:facet name="header">
+				<h:outputText value="Cronograma" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.cronograma}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.plazo}">
+			<f:facet name="header">
+				<h:outputText value="Plazo" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.plazo}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nivelavance}">
+			<f:facet name="header">
+				<h:outputText value="Nivel Avance" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nivelavance}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.porcentajeavance}">
+			<f:facet name="header">
+				<h:outputText value="Porcentaje Avance" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.porcentajeavance}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{plazopagodocumentotecnico.eliminar}"  update=":form:tblListaPlazopagodocumentotecnico,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmPlazopagodocumentotecnicoImprimir">
+	<p:dialog id="diPlazopagodocumentotecnicoImprimir" header="#{plazopagodocumentotecnico.titulo}" widgetVar="diPlazopagodocumentotecnicoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaPlazopagodocumentotecnico" fileName="datosPlazopagodocumentotecnico" postProcessor="#{plazopagodocumentotecnico.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaPlazopagodocumentotecnico" fileName="datos" preProcessor="#{plazopagodocumentotecnico.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPlazopagodocumentotecnicoRegistrar">
+	<p:dialog id="diPlazopagodocumentotecnicoRegistrar" header="#{plazopagodocumentotecnico.titulo}" widgetVar="diPlazopagodocumentotecnicoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsPlazopagodocumentotecnicoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/plazopagodocumentotecnico/component/c_plazopagodocumentotecnicoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{plazopagodocumentotecnico.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{plazopagodocumentotecnico.aceptar}" update="hidStatus,:form:tblListaPlazopagodocumentotecnico,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmPlazopagodocumentotecnicoRegistrar:hidStatus','frmPlazopagodocumentotecnicoRegistrar:diPlazopagodocumentotecnicoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPlazopagodocumentotecnicoRegistrar:diPlazopagodocumentotecnicoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPlazopagodocumentotecnicoDetalle">
+	<p:dialog id="diPlazopagodocumentotecnicoDetalle" header="#{plazopagodocumentotecnico.titulo}" widgetVar="diPlazopagodocumentotecnicoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/plazopagodocumentotecnico/component/c_plazopagodocumentotecnicoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPlazopagodocumentotecnicoDetalle:diPlazopagodocumentotecnicoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPlazopagodocumentotecnicoAnular">
+	<p:dialog id="diPlazopagodocumentotecnicoAnular" header="#{plazopagodocumentotecnico.titulo}" widgetVar="diPlazopagodocumentotecnicoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsPlazopagodocumentotecnicoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/plazopagodocumentotecnico/component/c_plazopagodocumentotecnicoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{plazopagodocumentotecnico.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{plazopagodocumentotecnico.anular}" update="hidStatus,:form:tblListaPlazopagodocumentotecnico,:form:growl,panelDetailC" oncomplete="hideDialog('frmPlazopagodocumentotecnicoAnular:hidStatus','frmPlazopagodocumentotecnicoAnular:diPlazopagodocumentotecnicoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPlazopagodocumentotecnicoAnular:diPlazopagodocumentotecnicoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+
+</ui:define>
+</ui:composition>

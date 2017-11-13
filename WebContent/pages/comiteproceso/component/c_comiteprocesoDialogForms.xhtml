@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmComiteprocesoImprimir">
+	<p:dialog id="diComiteprocesoImprimir" header="#{comiteproceso.titulo}" widgetVar="diComiteprocesoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaComiteproceso" fileName="datosComiteproceso" postProcessor="#{comiteproceso.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaComiteproceso" fileName="datos" preProcessor="#{comiteproceso.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmComiteprocesoRegistrar">
+	<p:dialog id="diComiteprocesoRegistrar" header="#{comiteproceso.titulo}" widgetVar="diComiteprocesoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsComiteprocesoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/comiteproceso/component/c_comiteprocesoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{comiteproceso.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{comiteproceso.aceptar}" update="hidStatus,:form:tblListaComiteproceso,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmComiteprocesoRegistrar:hidStatus','frmComiteprocesoRegistrar:diComiteprocesoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmComiteprocesoRegistrar:diComiteprocesoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmComiteprocesoDetalle">
+	<p:dialog id="diComiteprocesoDetalle" header="#{comiteproceso.titulo}" widgetVar="diComiteprocesoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/comiteproceso/component/c_comiteprocesoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmComiteprocesoDetalle:diComiteprocesoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmComiteprocesoAnular">
+	<p:dialog id="diComiteprocesoAnular" header="#{comiteproceso.titulo}" widgetVar="diComiteprocesoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsComiteprocesoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/comiteproceso/component/c_comiteprocesoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{comiteproceso.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{comiteproceso.anular}" update="hidStatus,:form:tblListaComiteproceso,:form:growl,panelDetailC" oncomplete="hideDialog('frmComiteprocesoAnular:hidStatus','frmComiteprocesoAnular:diComiteprocesoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmComiteprocesoAnular:diComiteprocesoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+</html>

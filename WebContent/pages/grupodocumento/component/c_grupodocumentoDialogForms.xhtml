@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmGrupodocumentoImprimir">
+	<p:dialog id="diGrupodocumentoImprimir" header="#{grupodocumento.titulo}" widgetVar="diGrupodocumentoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaGrupodocumento" fileName="datosGrupodocumento" postProcessor="#{grupodocumento.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaGrupodocumento" fileName="datos" preProcessor="#{grupodocumento.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmGrupodocumentoRegistrar">
+	<p:dialog id="diGrupodocumentoRegistrar" header="#{grupodocumento.titulo}" widgetVar="diGrupodocumentoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsGrupodocumentoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/grupodocumento/component/c_grupodocumentoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{grupodocumento.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{grupodocumento.aceptar}" update="hidStatus,:form:tblListaGrupodocumento,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmGrupodocumentoRegistrar:hidStatus','frmGrupodocumentoRegistrar:diGrupodocumentoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmGrupodocumentoRegistrar:diGrupodocumentoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmGrupodocumentoDetalle">
+	<p:dialog id="diGrupodocumentoDetalle" header="#{grupodocumento.titulo}" widgetVar="diGrupodocumentoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/grupodocumento/component/c_grupodocumentoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmGrupodocumentoDetalle:diGrupodocumentoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmGrupodocumentoAnular">
+	<p:dialog id="diGrupodocumentoAnular" header="#{grupodocumento.titulo}" widgetVar="diGrupodocumentoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsGrupodocumentoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/grupodocumento/component/c_grupodocumentoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{grupodocumento.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{grupodocumento.anular}" update="hidStatus,:form:tblListaGrupodocumento,:form:growl,panelDetailC" oncomplete="hideDialog('frmGrupodocumentoAnular:hidStatus','frmGrupodocumentoAnular:diGrupodocumentoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmGrupodocumentoAnular:diGrupodocumentoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+</html>

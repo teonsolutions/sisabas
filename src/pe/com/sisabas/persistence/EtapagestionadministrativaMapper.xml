@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pe.com.sisabas.persistence.EtapagestionadministrativaMapper" >
+
+	<resultMap id="BasicResultMap" type="pe.com.sisabas.be.Etapagestionadministrativa">
+	<result column="A1_IDETAPAADMINISTRATIVA" property="idetapaadministrativa" jdbcType="INTEGER" />
+	<result column="A1_DESCRIPCIONETAPAADMINISTRATIVA" property="descripcionetapaadministrativa" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOETAPAADMINISTRATIVA" property="estadoetapaadministrativa" jdbcType="SMALLINT" />
+	<result column="A1_FECHACREACIONAUDITORIA" property="fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOCREACIONAUDITORIA" property="usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_FECHAMODIFICACIONAUDITORIA" property="fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOMODIFICACIONAUDITORIA" property="usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<resultMap id="FullResultMap" type="pe.com.sisabas.be.Etapagestionadministrativa">
+	<result column="A1_IDETAPAADMINISTRATIVA" property="idetapaadministrativa" jdbcType="INTEGER" />
+	<result column="A1_DESCRIPCIONETAPAADMINISTRATIVA" property="descripcionetapaadministrativa" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOETAPAADMINISTRATIVA" property="estadoetapaadministrativa" jdbcType="SMALLINT" />
+	<result column="A1_FECHACREACIONAUDITORIA" property="fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOCREACIONAUDITORIA" property="usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_FECHAMODIFICACIONAUDITORIA" property="fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOMODIFICACIONAUDITORIA" property="usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<sql id="Basic_Column_List">
+	A1.IDETAPAADMINISTRATIVA as A1_IDETAPAADMINISTRATIVA, A1.DESCRIPCIONETAPAADMINISTRATIVA as A1_DESCRIPCIONETAPAADMINISTRATIVA, A1.ESTADOETAPAADMINISTRATIVA as A1_ESTADOETAPAADMINISTRATIVA, A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, 
+	A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, 
+	A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA 
+	</sql>
+
+
+	<sql id="Full_Column_List">
+	A1.IDETAPAADMINISTRATIVA as A1_IDETAPAADMINISTRATIVA, A1.DESCRIPCIONETAPAADMINISTRATIVA as A1_DESCRIPCIONETAPAADMINISTRATIVA, A1.ESTADOETAPAADMINISTRATIVA as A1_ESTADOETAPAADMINISTRATIVA, A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, 
+	A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, 
+	A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA 
+	</sql>
+
+
+
+	<select id="selectByPrimaryKeyBasic" resultMap="BasicResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.EtapaGestionAdministrativa A1
+	
+	where A1.IdEtapaAdministrativa = #{idetapaadministrativa,jdbcType=INTEGER}
+</select>
+
+
+
+	<select id="selectByPrimaryKeyBasicActive" resultMap="BasicResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.EtapaGestionAdministrativa A1
+	
+	where A1.IdEtapaAdministrativa = #{idetapaadministrativa,jdbcType=INTEGER}
+	and A1.estadoauditoria='1'
+	</select>
+
+
+
+	<select id="selectByPrimaryKeyFull" resultMap="FullResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.EtapaGestionAdministrativa A1
+	
+	where A1.IdEtapaAdministrativa = #{idetapaadministrativa,jdbcType=INTEGER}
+</select>
+
+
+
+	<select id="selectByPrimaryKeyFullActive" resultMap="FullResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.EtapaGestionAdministrativa A1
+	
+	where A1.IdEtapaAdministrativa = #{idetapaadministrativa,jdbcType=INTEGER}
+	and A1.estadoauditoria='1'
+	</select>
+
+
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	delete from abas.EtapaGestionAdministrativa 
+	where IdEtapaAdministrativa = #{idetapaadministrativa,jdbcType=INTEGER}
+	</delete>
+
+
+
+
+
+	<insert id="insert" parameterType="pe.com.sisabas.be.Etapagestionadministrativa" >
+	insert into abas.EtapaGestionAdministrativa (
+	IDETAPAADMINISTRATIVA, DESCRIPCIONETAPAADMINISTRATIVA, ESTADOETAPAADMINISTRATIVA, FECHACREACIONAUDITORIA, 
+	USUARIOCREACIONAUDITORIA, FECHAMODIFICACIONAUDITORIA, USUARIOMODIFICACIONAUDITORIA, EQUIPOAUDITORIA, 
+	PROGRAMAAUDITORIA, ESTADOAUDITORIA ) 
+	VALUES (
+	#{idetapaadministrativa,jdbcType=INTEGER}, #{descripcionetapaadministrativa,jdbcType=VARCHAR}, #{estadoetapaadministrativa,jdbcType=SMALLINT}, #{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	#{usuariocreacionauditoria,jdbcType=VARCHAR}, #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, #{usuariomodificacionauditoria,jdbcType=VARCHAR}, #{equipoauditoria,jdbcType=VARCHAR}, 
+	#{programaauditoria,jdbcType=VARCHAR}, #{estadoauditoria,jdbcType=VARCHAR} ) 
+	</insert>
+
+
+
+	<insert id="insertSelective" parameterType="pe.com.sisabas.be.Etapagestionadministrativa" >
+	insert into abas.EtapaGestionAdministrativa 
+	<trim prefix="(" suffix=")" suffixOverrides="," >
+	<if test="idetapaadministrativa != null" >
+		IdEtapaAdministrativa,
+	</if>
+	<if test="descripcionetapaadministrativa != null" >
+		DescripcionEtapaAdministrativa,
+	</if>
+	<if test="estadoetapaadministrativa != null" >
+		EstadoEtapaAdministrativa,
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		FechaCreacionAuditoria,
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		UsuarioCreacionAuditoria,
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		FechaModificacionAuditoria,
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		UsuarioModificacionAuditoria,
+	</if>
+	<if test="equipoauditoria != null" >
+		EquipoAuditoria,
+	</if>
+	<if test="programaauditoria != null" >
+		ProgramaAuditoria,
+	</if>
+	<if test="estadoauditoria != null" >
+		EstadoAuditoria,
+	</if>
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides="," >
+	<if test="idetapaadministrativa != null" >
+		#{idetapaadministrativa,jdbcType=INTEGER}, 
+	</if>
+	<if test="descripcionetapaadministrativa != null" >
+		#{descripcionetapaadministrativa,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoetapaadministrativa != null" >
+		#{estadoetapaadministrativa,jdbcType=SMALLINT}, 
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		#{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		#{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		#{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		#{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="equipoauditoria != null" >
+		#{equipoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="programaauditoria != null" >
+		#{programaauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoauditoria != null" >
+		#{estadoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	</trim>
+	</insert>
+
+
+
+	<update id="updateByPrimaryKey" parameterType="pe.com.sisabas.be.Etapagestionadministrativa" >
+	update abas.EtapaGestionAdministrativa 
+	set 
+	IDETAPAADMINISTRATIVA = #{idetapaadministrativa,jdbcType=INTEGER}, DESCRIPCIONETAPAADMINISTRATIVA = #{descripcionetapaadministrativa,jdbcType=VARCHAR}, 
+	ESTADOETAPAADMINISTRATIVA = #{estadoetapaadministrativa,jdbcType=SMALLINT}, FECHACREACIONAUDITORIA = #{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	USUARIOCREACIONAUDITORIA = #{usuariocreacionauditoria,jdbcType=VARCHAR}, FECHAMODIFICACIONAUDITORIA = #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	USUARIOMODIFICACIONAUDITORIA = #{usuariomodificacionauditoria,jdbcType=VARCHAR}, EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, 
+	PROGRAMAAUDITORIA = #{programaauditoria,jdbcType=VARCHAR}, ESTADOAUDITORIA = #{estadoauditoria,jdbcType=VARCHAR} 
+	
+	where IdEtapaAdministrativa = #{idetapaadministrativa,jdbcType=INTEGER}
+	</update>
+
+
+
+	<update id="updateByPrimaryKeySelective" parameterType="pe.com.sisabas.be.Etapagestionadministrativa" >
+	update abas.EtapaGestionAdministrativa 
+	<set>
+	<if test="idetapaadministrativa != null" >
+		IDETAPAADMINISTRATIVA = #{idetapaadministrativa,jdbcType=INTEGER}, 
+	</if>
+	<if test="descripcionetapaadministrativa != null" >
+		DESCRIPCIONETAPAADMINISTRATIVA = #{descripcionetapaadministrativa,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoetapaadministrativa != null" >
+		ESTADOETAPAADMINISTRATIVA = #{estadoetapaadministrativa,jdbcType=SMALLINT}, 
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		FECHACREACIONAUDITORIA = #{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		USUARIOCREACIONAUDITORIA = #{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		FECHAMODIFICACIONAUDITORIA = #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		USUARIOMODIFICACIONAUDITORIA = #{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="equipoauditoria != null" >
+		EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="programaauditoria != null" >
+		PROGRAMAAUDITORIA = #{programaauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoauditoria != null" >
+		ESTADOAUDITORIA = #{estadoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	</set>
+
+	where IdEtapaAdministrativa = #{idetapaadministrativa,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="selectDynamicBasic" resultMap="BasicResultMap"  parameterType="pe.com.sisabas.be.Etapagestionadministrativa" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.EtapaGestionAdministrativa A1
+	<where>
+		<if test="idetapaadministrativa != null" >
+			 AND A1.IDETAPAADMINISTRATIVA = #{idetapaadministrativa,jdbcType=INTEGER} 
+		</if>
+		<if test="descripcionetapaadministrativa != null" >
+			 AND A1.DESCRIPCIONETAPAADMINISTRATIVA LIKE ('%' + #{descripcionetapaadministrativa,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoetapaadministrativa != null" >
+			 AND A1.ESTADOETAPAADMINISTRATIVA = #{estadoetapaadministrativa,jdbcType=SMALLINT} 
+		</if>
+		<if test="fechacreacionauditoriaini != null" >
+			 AND  (A1.FECHACREACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechacreacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechacreacionauditoriafin != null" >
+			 AND (A1.FECHACREACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechacreacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariocreacionauditoria != null" >
+			 AND A1.USUARIOCREACIONAUDITORIA LIKE ('%' + #{usuariocreacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechamodificacionauditoriaini != null" >
+			 AND  (A1.FECHAMODIFICACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechamodificacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechamodificacionauditoriafin != null" >
+			 AND (A1.FECHAMODIFICACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechamodificacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariomodificacionauditoria != null" >
+			 AND A1.USUARIOMODIFICACIONAUDITORIA LIKE ('%' + #{usuariomodificacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="equipoauditoria != null" >
+			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="programaauditoria != null" >
+			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoauditoria != null" >
+			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+	</where>
+
+	<if test="ordenListaCampos != null" >
+		 ORDER BY 
+		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+		<if test="ordenTipo != null" >
+			 ${ordenTipo} 
+		</if>
+	</if>
+
+	<if test="cantidadRegistros != null" >
+
+	</if>
+	</select>
+
+
+	<select id="selectDynamicFull" resultMap="FullResultMap"  parameterType="pe.com.sisabas.be.Etapagestionadministrativa" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.EtapaGestionAdministrativa A1
+	<where>
+		<if test="idetapaadministrativa != null" >
+			 AND A1.IDETAPAADMINISTRATIVA = #{idetapaadministrativa,jdbcType=INTEGER} 
+		</if>
+		<if test="descripcionetapaadministrativa != null" >
+			 AND A1.DESCRIPCIONETAPAADMINISTRATIVA LIKE ('%' + #{descripcionetapaadministrativa,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoetapaadministrativa != null" >
+			 AND A1.ESTADOETAPAADMINISTRATIVA = #{estadoetapaadministrativa,jdbcType=SMALLINT} 
+		</if>
+		<if test="fechacreacionauditoriaini != null" >
+			 AND  (A1.FECHACREACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechacreacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechacreacionauditoriafin != null" >
+			 AND (A1.FECHACREACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechacreacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariocreacionauditoria != null" >
+			 AND A1.USUARIOCREACIONAUDITORIA LIKE ('%' + #{usuariocreacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechamodificacionauditoriaini != null" >
+			 AND  (A1.FECHAMODIFICACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechamodificacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechamodificacionauditoriafin != null" >
+			 AND (A1.FECHAMODIFICACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechamodificacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariomodificacionauditoria != null" >
+			 AND A1.USUARIOMODIFICACIONAUDITORIA LIKE ('%' + #{usuariomodificacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="equipoauditoria != null" >
+			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="programaauditoria != null" >
+			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoauditoria != null" >
+			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+	</where>
+
+	<if test="ordenListaCampos != null" >
+		 ORDER BY 
+		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+		<if test="ordenTipo != null" >
+			 ${ordenTipo} 
+		</if>
+	</if>
+
+	<if test="cantidadRegistros != null" >
+
+	</if>
+	</select>
+</mapper>

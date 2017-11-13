@@ -1,0 +1,347 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{previsionpresupuestal.tituloParam} #{previsionpresupuestal.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="ID" for="txtIdprevisionpresupuestal"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdprevisionpresupuestal" value="#{previsionpresupuestal.previsionpresupuestalB.idprevisionpresupuestal}" disabled="false" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel value="Pac Consolidado" for="txtIdpacconsolidado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpacconsolidado" value="#{previsionpresupuestal.previsionpresupuestalB.pacconsolidadoIdpacconsolidado.nroconsolid}" disabled="true" maxlength="10" style="width:150px;" label="Pac Consolidado"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_pacconsolidado.init}"  oncomplete="showDialogPF('frmMainIdpacconsolidadoBuscar:diPacconsolidadoBuscar');" update=":frmMainIdpacconsolidadoBuscar:diPacconsolidadoBuscar" style="width:20px;height:20px;" title="Buscar"  disabled="#{previsionpresupuestal.esDerivada=='1'?true:false}"/>
+			<p:commandButton icon="ui-icon-close" action="#{previsionpresupuestal.resetMainIdpacconsolidado}"  update="txtIdpacconsolidado" style="width:20px;height:20px;" title="Borrar Filtro" immediate="true" disabled="#{previsionpresupuestal.esDerivada=='1'?true:false}"/>
+		</td>
+		<td>
+			<p:outputLabel value="Número de previsión" for="txtNroprevision"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroprevision" value="#{previsionpresupuestal.previsionpresupuestalB.nroprevision}" disabled="false" maxlength="15" style="width:150px;" label="Número de previsión"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Número documento Ppto" for="txtNrodocumentoppto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNrodocumentoppto" value="#{previsionpresupuestal.previsionpresupuestalB.nrodocumentoppto}" disabled="false" maxlength="50" style="width:150px;" label="Número documento Ppto"/>
+		</td>
+		<td>
+			<p:outputLabel value="Número Documento Oga" for="txtNrodocumentooga"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNrodocumentooga" value="#{previsionpresupuestal.previsionpresupuestalB.nrodocumentooga}" disabled="false" maxlength="50" style="width:150px;" label="Número Documento Oga"/>
+		</td>
+		<td>
+			<p:outputLabel value="Fecha de Autorización - Desde" for="txtFechaautorizacionini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechaautorizacionini" value="#{previsionpresupuestal.previsionpresupuestalB.fechaautorizacionini}" label="Fecha de Autorización - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Fecha de Autorización - Hasta" for="txtFechaautorizacionfin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechaautorizacionfin" value="#{previsionpresupuestal.previsionpresupuestalB.fechaautorizacionfin}" label="Fecha de Autorización - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="Anio" for="txtAnio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnio" value="#{previsionpresupuestal.previsionpresupuestalB.anio}" disabled="false" maxlength="4" style="width:150px;" label="Anio"/>
+		</td>
+		<td>
+			<p:outputLabel value="Monto Previsión - Desde" for="txtMontoprevisionini"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontoprevisionini" value ="#{previsionpresupuestal.previsionpresupuestalB.montoprevisionini}" maxlength="18" style="width:150px;" label="Monto Previsión - Desde"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Monto Previsión - Hasta" for="txtMontoprevisionfin"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontoprevisionfin" value ="#{previsionpresupuestal.previsionpresupuestalB.montoprevisionfin}" maxlength="18" style="width:150px;" label="Monto Previsión - Hasta"/>
+		</td>
+		<td>
+			<p:outputLabel value="Monto Previsión Contrato - Desde" for="txtMontoprevisioncontratoini"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontoprevisioncontratoini" value ="#{previsionpresupuestal.previsionpresupuestalB.montoprevisioncontratoini}" maxlength="18" style="width:150px;" label="Monto Previsión Contrato - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="Monto Previsión Contrato - Hasta" for="txtMontoprevisioncontratofin"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontoprevisioncontratofin" value ="#{previsionpresupuestal.previsionpresupuestalB.montoprevisioncontratofin}" maxlength="18" style="width:150px;" label="Monto Previsión Contrato - Hasta"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Monto de Ampliación - Desde" for="txtMontoampliacionini"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontoampliacionini" value ="#{previsionpresupuestal.previsionpresupuestalB.montoampliacionini}" maxlength="18" style="width:150px;" label="Monto de Ampliación - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="Monto de Ampliación - Hasta" for="txtMontoampliacionfin"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontoampliacionfin" value ="#{previsionpresupuestal.previsionpresupuestalB.montoampliacionfin}" maxlength="18" style="width:150px;" label="Monto de Ampliación - Hasta"/>
+		</td>
+		<td>
+			<p:outputLabel value="Monto Anulación - Desde" for="txtMontoanulacionini"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontoanulacionini" value ="#{previsionpresupuestal.previsionpresupuestalB.montoanulacionini}" maxlength="18" style="width:150px;" label="Monto Anulación - Desde"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Monto Anulación - Hasta" for="txtMontoanulacionfin"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontoanulacionfin" value ="#{previsionpresupuestal.previsionpresupuestalB.montoanulacionfin}" maxlength="18" style="width:150px;" label="Monto Anulación - Hasta"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{previsionpresupuestal.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{previsionpresupuestal.buscar}"  update="tblListaPrevisionpresupuestal,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{previsionpresupuestal.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{previsionpresupuestal.irRegistrar}"  update="hidStatus,:frmPrevisionpresupuestalRegistrar:diPrevisionpresupuestalRegistrar" oncomplete="showDialog('form:hidStatus','frmPrevisionpresupuestalRegistrar:diPrevisionpresupuestalRegistrar');" icon="ui-icon-document"  rendered="#{previsionpresupuestal.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{previsionpresupuestal.irEditar}"  update="hidStatus,:frmPrevisionpresupuestalRegistrar:diPrevisionpresupuestalRegistrar" oncomplete="showDialog('form:hidStatus','frmPrevisionpresupuestalRegistrar:diPrevisionpresupuestalRegistrar');" icon="ui-icon-pencil" disabled="#{!previsionpresupuestal.esSeleccionado}"  rendered="#{previsionpresupuestal.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{previsionpresupuestal.irDetalle}"  update="hidStatus,:frmPrevisionpresupuestalDetalle:diPrevisionpresupuestalDetalle" oncomplete="showDialog('form:hidStatus','frmPrevisionpresupuestalDetalle:diPrevisionpresupuestalDetalle');" icon="ui-icon-zoomin" disabled="#{!previsionpresupuestal.esSeleccionado}"   rendered="#{previsionpresupuestal.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{previsionpresupuestal.irAnular}"  update="hidStatus,:frmPrevisionpresupuestalAnular:diPrevisionpresupuestalAnular" oncomplete="showDialog('form:hidStatus','frmPrevisionpresupuestalAnular:diPrevisionpresupuestalAnular');" icon="ui-icon-circle-minus" disabled="#{!previsionpresupuestal.esSeleccionado}"   rendered="#{previsionpresupuestal.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{previsionpresupuestal.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!previsionpresupuestal.esSeleccionado}"   rendered="#{previsionpresupuestal.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{previsionpresupuestal.irImprimir}"  update="hidStatus,:frmPrevisionpresupuestalImprimir:diPrevisionpresupuestalImprimir" oncomplete="showDialog('form:hidStatus','frmPrevisionpresupuestalImprimir:diPrevisionpresupuestalImprimir');" icon="ui-icon-print"   rendered="#{previsionpresupuestal.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="#{pacconsolidado.load}" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{previsionpresupuestal.esDerivada=='1'}"/>
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{previsionpresupuestal.esDerivada=='0'}"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaPrevisionpresupuestal">
+	<p:menuitem value="Editar" action="#{previsionpresupuestal.irEditar}"   update="hidStatus,:frmPrevisionpresupuestalRegistrar:diPrevisionpresupuestalRegistrar"  oncomplete="showDialog('form:hidStatus','frmPrevisionpresupuestalRegistrar:diPrevisionpresupuestalRegistrar');"  icon="ui-icon-pencil" rendered="#{previsionpresupuestal.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{previsionpresupuestal.irDetalle}"   update="hidStatus,:frmPrevisionpresupuestalDetalle:diPrevisionpresupuestalDetalle"  oncomplete="showDialog('form:hidStatus','frmPrevisionpresupuestalDetalle:diPrevisionpresupuestalDetalle');"  icon="ui-icon-zoomin" rendered="#{previsionpresupuestal.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{previsionpresupuestal.irAnular}"   update="hidStatus,:frmPrevisionpresupuestalAnular:diPrevisionpresupuestalAnular"  oncomplete="showDialog('form:hidStatus','frmPrevisionpresupuestalAnular:diPrevisionpresupuestalAnular');"  icon="ui-icon-circle-minus" rendered="#{previsionpresupuestal.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{previsionpresupuestal.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{previsionpresupuestal.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaPrevisionpresupuestal" value="#{previsionpresupuestal.listaPrevisionpresupuestal}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaPrevisionpresupuestal" selection="#{previsionpresupuestal.selectedPrevisionpresupuestal}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(previsionpresupuestal.listaPrevisionpresupuestal)}"
+	selectionMode="single" rowKey="#{var.idprevisionpresupuestal}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{previsionpresupuestal.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.idprevisionpresupuestal}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idprevisionpresupuestal}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.pacconsolidadoIdpacconsolidado.nroconsolid}">
+			<f:facet name="header">
+				<h:outputText value="Pac Consolidado" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.pacconsolidadoIdpacconsolidado.nroconsolid}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nroprevision}">
+			<f:facet name="header">
+				<h:outputText value="Número de previsión" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nroprevision}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nrodocumentoppto}">
+			<f:facet name="header">
+				<h:outputText value="Número documento Ppto" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nrodocumentoppto}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nrodocumentooga}">
+			<f:facet name="header">
+				<h:outputText value="Número Documento Oga" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nrodocumentooga}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechaautorizacion}">
+			<f:facet name="header">
+				<h:outputText value="Fecha de Autorización" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechaautorizacion}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.anio}">
+			<f:facet name="header">
+				<h:outputText value="Anio" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.anio}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.montoprevision}">
+			<f:facet name="header">
+				<h:outputText value="Monto Previsión" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.montoprevision}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.montoprevisioncontrato}">
+			<f:facet name="header">
+				<h:outputText value="Monto Previsión Contrato" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.montoprevisioncontrato}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.montoampliacion}">
+			<f:facet name="header">
+				<h:outputText value="Monto de Ampliación" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.montoampliacion}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.montoanulacion}">
+			<f:facet name="header">
+				<h:outputText value="Monto Anulación" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.montoanulacion}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{previsionpresupuestal.eliminar}"  update=":form:tblListaPrevisionpresupuestal,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmPrevisionpresupuestalImprimir">
+	<p:dialog id="diPrevisionpresupuestalImprimir" header="#{previsionpresupuestal.titulo}" widgetVar="diPrevisionpresupuestalImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaPrevisionpresupuestal" fileName="datosPrevisionpresupuestal" postProcessor="#{previsionpresupuestal.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaPrevisionpresupuestal" fileName="datos" preProcessor="#{previsionpresupuestal.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPrevisionpresupuestalRegistrar">
+	<p:dialog id="diPrevisionpresupuestalRegistrar" header="#{previsionpresupuestal.titulo}" widgetVar="diPrevisionpresupuestalRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsPrevisionpresupuestalR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/previsionpresupuestal/component/c_previsionpresupuestalRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{previsionpresupuestal.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{previsionpresupuestal.aceptar}" update="hidStatus,:form:tblListaPrevisionpresupuestal,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmPrevisionpresupuestalRegistrar:hidStatus','frmPrevisionpresupuestalRegistrar:diPrevisionpresupuestalRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPrevisionpresupuestalRegistrar:diPrevisionpresupuestalRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPrevisionpresupuestalDetalle">
+	<p:dialog id="diPrevisionpresupuestalDetalle" header="#{previsionpresupuestal.titulo}" widgetVar="diPrevisionpresupuestalDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/previsionpresupuestal/component/c_previsionpresupuestalDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPrevisionpresupuestalDetalle:diPrevisionpresupuestalDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPrevisionpresupuestalAnular">
+	<p:dialog id="diPrevisionpresupuestalAnular" header="#{previsionpresupuestal.titulo}" widgetVar="diPrevisionpresupuestalAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsPrevisionpresupuestalA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/previsionpresupuestal/component/c_previsionpresupuestalDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{previsionpresupuestal.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{previsionpresupuestal.anular}" update="hidStatus,:form:tblListaPrevisionpresupuestal,:form:growl,panelDetailC" oncomplete="hideDialog('frmPrevisionpresupuestalAnular:hidStatus','frmPrevisionpresupuestalAnular:diPrevisionpresupuestalAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPrevisionpresupuestalAnular:diPrevisionpresupuestalAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMainIdpacconsolidadoBuscar">
+	<p:dialog id="diPacconsolidadoBuscar" header="Pac Consolidacion » Buscar" widgetVar="diPacconsolidadoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Pacconsolidado" autoUpdate="true" closable="true"/>
+	 <cc:cc_pacconsolidadoBuscar
+	 ajaxEventListener="#{previsionpresupuestal.loadMainIdpacconsolidado}"
+	 actionOncomplete="hideDialogPF('frmMainIdpacconsolidadoBuscar:diPacconsolidadoBuscar');"
+	 actionUpdate=":form:txtIdpacconsolidado"/>
+	</p:dialog>
+</h:form>
+
+
+
+</ui:define>
+</ui:composition>

@@ -1,0 +1,296 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{gentabla.tituloParam} #{gentabla.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="Código" for="txtVchregcodigo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchregcodigo" value="#{gentabla.gentablaB.vchregcodigo}" disabled="false" maxlength="10" style="width:150px;" label="Código"/>
+		</td>
+		<td>
+			<p:outputLabel value="Descripción" for="txtVchregdescri"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchregdescri" value="#{gentabla.gentablaB.vchregdescri}" disabled="false" maxlength="100" style="width:150px;" label="Descripción"/>
+		</td>
+		<td>
+			<p:outputLabel value="Abreviado" for="txtVchregabreviado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchregabreviado" value="#{gentabla.gentablaB.vchregabreviado}" disabled="false" maxlength="45" style="width:150px;" label="Abreviado"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:selectCheckboxMenu id="txtVchtipcodigo" value="#{gentabla.listaVchtipcodigoKeys}" filter="true" disabled="#{gentabla.esDerivada=='1'?true:false}" filterText="Filter" filterMatchMode="startsWith" label="Tipo">
+				 <f:selectItems  value="#{gentabla.listaGentipoVchtipcodigo}" var="var" itemLabel ="#{var.vchtipdescripcion}" itemValue ="#{var.vchtipcodigo}"/>
+				 <p:ajax  event="change" listener="#{gentabla.getValuesListenerVchtipcodigo}" update="txtKeyValuesVchtipcodigo" process="@this"/>
+				 <p:ajax  event="toggleSelect" listener="#{gentabla.handleChangeVchtipcodigo}" update="txtKeyValuesVchtipcodigo,txtVchtipcodigo" process="@this"/>
+			</p:selectCheckboxMenu>
+		</td>
+		<td>
+			<p:inputText  id="txtKeyValuesVchtipcodigo" value="#{gentabla.valuesVchtipcodigo}" disabled="true" style="width:150px;"/>
+		</td>
+		<td>
+			<p:outputLabel value="Orden" for="txtIntregorden"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIntregorden" value="#{gentabla.gentablaB.intregorden}" disabled="false" maxlength="10" style="width:150px;" label="Orden"/>
+		</td>
+		<td>
+			<p:outputLabel value="Otro 1" for="txtVchtabotro1"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchtabotro1" value="#{gentabla.gentablaB.vchtabotro1}" disabled="false" maxlength="40" style="width:150px;" label="Otro 1"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Otro 2" for="txtVchtabotro2"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchtabotro2" value="#{gentabla.gentablaB.vchtabotro2}" disabled="false" maxlength="40" style="width:150px;" label="Otro 2"/>
+		</td>
+		<td>
+			<p:outputLabel value="Otro 3" for="txtVchtabotro3"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchtabotro3" value="#{gentabla.gentablaB.vchtabotro3}" disabled="false" maxlength="40" style="width:150px;" label="Otro 3"/>
+		</td>
+		<td>
+			<p:outputLabel value="Otro 4" for="txtVchtabotro4"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchtabotro4" value="#{gentabla.gentablaB.vchtabotro4}" disabled="false" maxlength="40" style="width:150px;" label="Otro 4"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="intganempid" for="txtIntganempid"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIntganempid" value="#{gentabla.gentablaB.intganempid}" disabled="false" maxlength="10" style="width:150px;" label="intganempid"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{gentabla.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{gentabla.buscar}"  update="tblListaGentabla,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{gentabla.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{gentabla.irRegistrar}"  update="hidStatus,:frmGentablaRegistrar:diGentablaRegistrar" oncomplete="showDialog('form:hidStatus','frmGentablaRegistrar:diGentablaRegistrar');" icon="ui-icon-document"  rendered="#{gentabla.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{gentabla.irEditar}"  update="hidStatus,:frmGentablaRegistrar:diGentablaRegistrar" oncomplete="showDialog('form:hidStatus','frmGentablaRegistrar:diGentablaRegistrar');" icon="ui-icon-pencil" disabled="#{!gentabla.esSeleccionado}"  rendered="#{gentabla.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{gentabla.irDetalle}"  update="hidStatus,:frmGentablaDetalle:diGentablaDetalle" oncomplete="showDialog('form:hidStatus','frmGentablaDetalle:diGentablaDetalle');" icon="ui-icon-zoomin" disabled="#{!gentabla.esSeleccionado}"   rendered="#{gentabla.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{gentabla.irAnular}"  update="hidStatus,:frmGentablaAnular:diGentablaAnular" oncomplete="showDialog('form:hidStatus','frmGentablaAnular:diGentablaAnular');" icon="ui-icon-circle-minus" disabled="#{!gentabla.esSeleccionado}"   rendered="#{gentabla.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{gentabla.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!gentabla.esSeleccionado}"   rendered="#{gentabla.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{gentabla.irImprimir}"  update="hidStatus,:frmGentablaImprimir:diGentablaImprimir" oncomplete="showDialog('form:hidStatus','frmGentablaImprimir:diGentablaImprimir');" icon="ui-icon-print"   rendered="#{gentabla.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="#{gentipo.load}" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{gentabla.esDerivada=='1'}"/>
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{gentabla.esDerivada=='0'}"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaGentabla">
+	<p:menuitem value="Editar" action="#{gentabla.irEditar}"   update="hidStatus,:frmGentablaRegistrar:diGentablaRegistrar"  oncomplete="showDialog('form:hidStatus','frmGentablaRegistrar:diGentablaRegistrar');"  icon="ui-icon-pencil" rendered="#{gentabla.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{gentabla.irDetalle}"   update="hidStatus,:frmGentablaDetalle:diGentablaDetalle"  oncomplete="showDialog('form:hidStatus','frmGentablaDetalle:diGentablaDetalle');"  icon="ui-icon-zoomin" rendered="#{gentabla.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{gentabla.irAnular}"   update="hidStatus,:frmGentablaAnular:diGentablaAnular"  oncomplete="showDialog('form:hidStatus','frmGentablaAnular:diGentablaAnular');"  icon="ui-icon-circle-minus" rendered="#{gentabla.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{gentabla.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{gentabla.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaGentabla" value="#{gentabla.listaGentabla}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaGentabla" selection="#{gentabla.selectedGentabla}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(gentabla.listaGentabla)}"
+	selectionMode="single" rowKey="#{var.vchregcodigo}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{gentabla.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_center" sortBy="#{var.vchregcodigo}">
+			<f:facet name="header">
+				<h:outputText value="Código" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.vchregcodigo}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="Descripción" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.vchregdescri}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.vchregabreviado}">
+			<f:facet name="header">
+				<h:outputText value="Abreviado" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.vchregabreviado}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.gentipoVchtipcodigo.vchtipdescripcion}">
+			<f:facet name="header">
+				<h:outputText value="Tipo" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.gentipoVchtipcodigo.vchtipdescripcion}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.intregorden}">
+			<f:facet name="header">
+				<h:outputText value="Orden" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.intregorden}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.vchtabotro1}">
+			<f:facet name="header">
+				<h:outputText value="Otro 1" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.vchtabotro1}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.vchtabotro2}">
+			<f:facet name="header">
+				<h:outputText value="Otro 2" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.vchtabotro2}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.vchtabotro3}">
+			<f:facet name="header">
+				<h:outputText value="Otro 3" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.vchtabotro3}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.vchtabotro4}">
+			<f:facet name="header">
+				<h:outputText value="Otro 4" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.vchtabotro4}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.estadoauditoria}">
+			<f:facet name="header">
+				<h:outputText value="Estado" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.estadoauditoria=='1'?'ACTIVO':'INACTIVO'}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.intganempid}">
+			<f:facet name="header">
+				<h:outputText value="intganempid" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.intganempid}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{gentabla.eliminar}"  update=":form:tblListaGentabla,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmGentablaImprimir">
+	<p:dialog id="diGentablaImprimir" header="#{gentabla.titulo}" widgetVar="diGentablaImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaGentabla" fileName="datosGentabla" postProcessor="#{gentabla.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaGentabla" fileName="datos" preProcessor="#{gentabla.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmGentablaRegistrar">
+	<p:dialog id="diGentablaRegistrar" header="#{gentabla.titulo}" widgetVar="diGentablaRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsGentablaR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/gentabla/component/c_gentablaRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{gentabla.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{gentabla.aceptar}" update="hidStatus,:form:tblListaGentabla,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmGentablaRegistrar:hidStatus','frmGentablaRegistrar:diGentablaRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmGentablaRegistrar:diGentablaRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmGentablaDetalle">
+	<p:dialog id="diGentablaDetalle" header="#{gentabla.titulo}" widgetVar="diGentablaDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/gentabla/component/c_gentablaDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmGentablaDetalle:diGentablaDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmGentablaAnular">
+	<p:dialog id="diGentablaAnular" header="#{gentabla.titulo}" widgetVar="diGentablaAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsGentablaA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/gentabla/component/c_gentablaDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{gentabla.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{gentabla.anular}" update="hidStatus,:form:tblListaGentabla,:form:growl,panelDetailC" oncomplete="hideDialog('frmGentablaAnular:hidStatus','frmGentablaAnular:diGentablaAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmGentablaAnular:diGentablaAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+
+</ui:define>
+</ui:composition>

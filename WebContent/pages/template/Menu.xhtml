@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:menubar>
+	<f:facet name="options">
+		<p:panelGrid columns="2" columnClasses="ui-grid-col-8,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank" style="width:95%;text-align:left;align:left;">
+			<p:menuButton icon="fa fa-fw fa-gear" >
+				<p:menuitem value="Cambiar clave" icon="fa fa-fw fa-key" outcome="/cambioClave.xhtml"/>
+				<p:menuitem value="Salir" icon="fa fa-fw fa-sign-out" onclick="PF('cdSalirSistema').show();" title="Salir del sistema"/>
+				<p:separator />
+				<p:menuitem value="#{loginBean.user}" icon="fa fa-fw fa-user" style="text-align:center;" onclick="return false;" disabled="true"/>
+				<p:separator />
+				<p:menuitem value="#{loginBean.mobile?'MOVIL':'WEB'}" icon="fa fa-fw fa-mobile-phone" style="text-align:center;" onclick="return false;" disabled="true"/>
+			</p:menuButton>
+		</p:panelGrid>
+	</f:facet>
+
+	<p:menuitem rendered="#{!loginBean.mobile}">
+		<h:link style="background-color:#FFF" onclick="PF('dlgMenu').show();return false;">
+			<h:graphicImage url="/resources/img/logo.png" width="30" height="30"/>
+		</h:link>
+	</p:menuitem>
+	<p:menuitem rendered="#{loginBean.mobile}">
+		<h:link style="background-color:#FFF;" onclick="return false;">
+			<p:commandButton id="movieBtn" type="button" style="margin-top:5px" icon="fa fa-fw fa-bars"/>
+		</h:link>
+	</p:menuitem>
+
+	<p:submenu style="margin-left:5px;" label="abas" rendered="#{!loginBean.mobile}">
+		<p:menuitem value="CertificadoPresupuestal" outcome="/pages/certificadopresupuestal/certificadopresupuestalBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Comite Proceso" outcome="/pages/comiteproceso/comiteprocesoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="CuadroComparativoFuente" outcome="/pages/cuadrocomparativofuente/cuadrocomparativofuenteBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="CuadroComparativoItem" outcome="/pages/cuadrocomparativoitem/cuadrocomparativoitemBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="CuadroComparativoVR" outcome="/pages/cuadrocomparativovr/cuadrocomparativovrBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Ubigeo Documento Técnico" outcome="/pages/dependenciadocumentotecnico/dependenciadocumentotecnicoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="DetalleCertificadoPresupuestal" outcome="/pages/detallecertificadopresupuestal/detallecertificadopresupuestalBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Detalle pedido In" outcome="/pages/detallepedido/detallepedidoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Documento tecnico" outcome="/pages/documentotecnico/documentotecnicoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Entregable" outcome="/pages/entregable/entregableBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Estados por documento Siga" outcome="/pages/estadospordocumentosiga/estadospordocumentosigaBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Estados Por Etapa" outcome="/pages/estadosporetapa/estadosporetapaBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Estados por etapa por documento" outcome="/pages/estadosporetapapordocumento/estadosporetapapordocumentoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Estados Por Tipo Documento" outcome="/pages/estadosportipodocumento/estadosportipodocumentoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Etapa de gestion administrativa" outcome="/pages/etapagestionadministrativa/etapagestionadministrativaBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Parámetro" outcome="/pages/genparametro/genparametroBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Tabla General" outcome="/pages/gentabla/gentablaBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Tabla Tipo" outcome="/pages/gentipo/gentipoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Grupo documento" outcome="/pages/grupodocumento/grupodocumentoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="ItinerarioConvenioMarco" outcome="/pages/itinerarioconveniomarco/itinerarioconveniomarcoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Miembro Comite por Proceso" outcome="/pages/miembrocomiteporproceso/miembrocomiteporprocesoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="ObservacionesDocumentoTecnico" outcome="/pages/observacionesdocumentotecnico/observacionesdocumentotecnicoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Orden" outcome="/pages/orden/ordenBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Pac Consolidacion" outcome="/pages/pacconsolidado/pacconsolidadoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="PacProgramado" outcome="/pages/pacprogramado/pacprogramadoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="PedidoIn" outcome="/pages/pedido/pedidoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="PedidosPorPacConsolidado" outcome="/pages/pedidosporpacconsolidado/pedidosporpacconsolidadoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Periodo" outcome="/pages/periodo/periodoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Persona" outcome="/pages/persona/personaBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Plazo Pago Documento Tecnico" outcome="/pages/plazopagodocumentotecnico/plazopagodocumentotecnicoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="PrevisionPresupuestal" outcome="/pages/previsionpresupuestal/previsionpresupuestalBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="RequisitosConformidad" outcome="/pages/requisitosconformidad/requisitosconformidadBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="SeccionesDocumentoTecnico" outcome="/pages/seccionesdocumentotecnico/seccionesdocumentotecnicoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="SiafExpedienteSecuencia" outcome="/pages/siafexpedientesecuencia/siafexpedientesecuenciaBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="SiafLog" outcome="/pages/siaflog/siaflogBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Sinad Por Pac Consolidado" outcome="/pages/sinadporpacconsolidado/sinadporpacconsolidadoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="TipoDocumento" outcome="/pages/tipodocumento/tipodocumentoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Unidad Ejecutora" outcome="/pages/unidadejecutora/unidadejecutoraBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="VCentroCosto" outcome="/pages/vcentrocosto/vcentrocostoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="VCertificacion" outcome="/pages/vcertificacion/vcertificacionBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="VDetallePedido" outcome="/pages/vdetallepedido/vdetallepedidoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="VPedidoSiga" outcome="/pages/vispedido/vispedidoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="visSigaPaacConsolidado" outcome="/pages/vissigapaacconsolidado/vissigapaacconsolidadoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+	</p:submenu>
+</p:menubar>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelDetailC">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIdorden"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdorden" value="#{orden.orden.idorden}" disabled="true" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Pac ConsolidIn" for="txtIdpacconsolidado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpacconsolidado" value="#{orden.orden.pacconsolidadoIdpacconsolidado.nroconsolid}" disabled="true" style="width:150px;" label="Pac ConsolidIn"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Grupo Documento" for="txtIdgrupodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdgrupodocumento" value="#{orden.orden.grupodocumentoIdgrupodocumento.anio}" disabled="true" style="width:150px;" label="Grupo Documento"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Número de Orden" for="txtNroorden"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroorden" value="#{orden.orden.nroorden}" disabled="true" style="width:150px;" label="Número de Orden"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha Orden" for="txtFechaorden"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechaorden" value="#{orden.orden.fechaorden}" disabled="true" style="width:150px;" label="Fecha Orden">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+		<td>
+			<p:outputLabel  value="Año Orden" for="txtAnioorden"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnioorden" value="#{orden.orden.anioorden}" disabled="true" style="width:150px;" label="Año Orden"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Estado Orden" for="txtEstadoorden"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadoorden" value="#{orden.orden.estadoorden}" disabled="true" style="width:150px;" label="Estado Orden"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Número Expediente Siaf" for="txtNroexpedientesiaf"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroexpedientesiaf" value="#{orden.orden.nroexpedientesiaf}" disabled="true" style="width:150px;" label="Número Expediente Siaf"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Moneda" for="txtMoneda"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMoneda" value="#{orden.orden.moneda}" disabled="true" style="width:150px;" label="Moneda"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Monto Orden" for="txtMontoorden"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMontoorden" value="#{orden.orden.montoorden}" disabled="true" style="width:150px;" label="Monto Orden"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Número de Proceso" for="txtNroproceso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroproceso" value="#{orden.orden.nroproceso}" disabled="true" style="width:150px;" label="Número de Proceso"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Número de Contrato" for="txtNrocontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNrocontrato" value="#{orden.orden.nrocontrato}" disabled="true" style="width:150px;" label="Número de Contrato"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Estado Expediente Siaf" for="txtEstadoexpedientesiaf"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadoexpedientesiaf" value="#{orden.orden.estadoexpedientesiaf}" disabled="true" style="width:150px;" label="Estado Expediente Siaf"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Fecha Inicio Prestación" for="txtFechainicioprestacion"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechainicioprestacion" value="#{orden.orden.fechainicioprestacion}" disabled="true" style="width:150px;" label="Fecha Inicio Prestación">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Catálogo Tipo Bien" for="txtIdcatalogotipobien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogotipobien" value="#{orden.orden.gentablaIdcatalogotipobien.vchregdescri}" disabled="true" style="width:150px;" label="Catálogo Tipo Bien"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Fecha Fin Prestación" for="txtFechafinprestacion"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechafinprestacion" value="#{orden.orden.fechafinprestacion}" disabled="true" style="width:150px;" label="Fecha Fin Prestación">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Ejercicio" for="txtAnio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnio" value="#{orden.orden.anio}" disabled="true" style="width:150px;" label="Ejercicio"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Codigo Unidad Ejecutora" for="txtIdunidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdunidadejecutora" value="#{orden.orden.unidadejecutoraIdunidadejecutora.nombreunidadejecutora}" disabled="true" style="width:150px;" label="Codigo Unidad Ejecutora"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Plazo Ejecución" for="txtPlazoejecucion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtPlazoejecucion" value="#{orden.orden.plazoejecucion}" disabled="true" style="width:150px;" label="Plazo Ejecución"/>
+		</td>
+	</tr>
+
+</table>
+</p:panel>
+</html>

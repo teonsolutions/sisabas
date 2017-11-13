@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<div align="left">
+		<p:message id="msgIdpersona" for="txtIdpersona"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdcatalogotipodocumento" for="txtIdcatalogotipodocumento"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNumerodocumento" for="txtNumerodocumento"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNombres" for="txtNombres"  showSummary="true" showDetail="false"/>
+		<p:message id="msgApellidopaterno" for="txtApellidopaterno"  showSummary="true" showDetail="false"/>
+		<p:message id="msgApellidomaterno" for="txtApellidomaterno"  showSummary="true" showDetail="false"/>
+		<p:message id="msgDireccion" for="txtDireccion"  showSummary="true" showDetail="false"/>
+	</div>
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIdpersona" id="lblIdpersona"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpersona" value="#{persona.persona.idpersona}" required="true" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Tipo Documento" for="txtIdcatalogotipodocumento" id="lblIdcatalogotipodocumento"/>
+		</td>
+		<td>
+			<p:selectOneMenu  value="#{persona.persona.idcatalogotipodocumento}" id="txtIdcatalogotipodocumento" required="true" label="Tipo Documento">
+				<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+				<f:selectItems value="#{persona.listaGentablaIdcatalogotipodocumento}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
+			</p:selectOneMenu>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Numero Documento" for="txtNumerodocumento" id="lblNumerodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerodocumento" value="#{persona.persona.numerodocumento}" required="true" maxlength="10" style="width:150px;" label="Numero Documento"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Nombres" for="txtNombres" id="lblNombres"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombres" value="#{persona.persona.nombres}" required="true" maxlength="40" style="width:150px;" label="Nombres"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Apellido Paterno" for="txtApellidopaterno" id="lblApellidopaterno"/>
+		</td>
+		<td>
+			<p:inputText  id="txtApellidopaterno" value="#{persona.persona.apellidopaterno}" required="true" maxlength="40" style="width:150px;" label="Apellido Paterno"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Apellido Materno" for="txtApellidomaterno" id="lblApellidomaterno"/>
+		</td>
+		<td>
+			<p:inputText  id="txtApellidomaterno" value="#{persona.persona.apellidomaterno}" required="true" maxlength="40" style="width:150px;" label="Apellido Materno"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Dirección" for="txtDireccion" id="lblDireccion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDireccion" value="#{persona.persona.direccion}" required="false" maxlength="100" style="width:150px;" label="Dirección"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+</p:panel>
+</html>

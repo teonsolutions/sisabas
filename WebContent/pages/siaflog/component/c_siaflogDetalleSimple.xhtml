@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelDetailC">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIdlog"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdlog" value="#{siaflog.siaflog.idlog}" disabled="true" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="FechaCarga" for="txtFechacarga"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechacarga" value="#{siaflog.siaflog.fechacarga}" disabled="true" style="width:150px;" label="FechaCarga"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="IdUnidadEjecutora" for="txtIdunidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdunidadejecutora" value="#{siaflog.siaflog.idunidadejecutora}" disabled="true" style="width:150px;" label="IdUnidadEjecutora"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Periodicidad" for="txtPeriodicidad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtPeriodicidad" value="#{siaflog.siaflog.periodicidad}" disabled="true" style="width:300px;" label="Periodicidad"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="FechaInicio" for="txtFechainicio"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechainicio" value="#{siaflog.siaflog.fechainicio}" disabled="true" style="width:150px;" label="FechaInicio">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+		<td>
+			<p:outputLabel  value="FechaFin" for="txtFechafin"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechafin" value="#{siaflog.siaflog.fechafin}" disabled="true" style="width:150px;" label="FechaFin">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Estado" for="txtEstado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstado" value="#{siaflog.siaflog.estado}" disabled="true" style="width:150px;" label="Estado"/>
+		</td>
+		<td>
+			<p:outputLabel  value="DescripcionEstado" for="txtDescripcionestado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDescripcionestado" value="#{siaflog.siaflog.descripcionestado}" disabled="true" style="width:300px;" label="DescripcionEstado"/>
+		</td>
+	</tr>
+
+</table>
+</p:panel>
+</html>

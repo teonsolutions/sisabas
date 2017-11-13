@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{periodo.tituloParam} #{periodo.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="ID" for="txtIdperiodo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdperiodo" value="#{periodo.periodoB.idperiodo}" disabled="false" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel value="Año" for="txtAnio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnio" value="#{periodo.periodoB.anio}" disabled="false" maxlength="10" style="width:150px;" label="Año"/>
+		</td>
+		<td>
+			<p:outputLabel value="NombrePeriodo" for="txtNombreperiodo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombreperiodo" value="#{periodo.periodoB.nombreperiodo}" disabled="false" maxlength="100" style="width:150px;" label="NombrePeriodo"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{periodo.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{periodo.buscar}"  update="tblListaPeriodo,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{periodo.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{periodo.irRegistrar}"  update="hidStatus,:frmPeriodoRegistrar:diPeriodoRegistrar" oncomplete="showDialog('form:hidStatus','frmPeriodoRegistrar:diPeriodoRegistrar');" icon="ui-icon-document"  rendered="#{periodo.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{periodo.irEditar}"  update="hidStatus,:frmPeriodoRegistrar:diPeriodoRegistrar" oncomplete="showDialog('form:hidStatus','frmPeriodoRegistrar:diPeriodoRegistrar');" icon="ui-icon-pencil" disabled="#{!periodo.esSeleccionado}"  rendered="#{periodo.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{periodo.irDetalle}"  update="hidStatus,:frmPeriodoDetalle:diPeriodoDetalle" oncomplete="showDialog('form:hidStatus','frmPeriodoDetalle:diPeriodoDetalle');" icon="ui-icon-zoomin" disabled="#{!periodo.esSeleccionado}"   rendered="#{periodo.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{periodo.irAnular}"  update="hidStatus,:frmPeriodoAnular:diPeriodoAnular" oncomplete="showDialog('form:hidStatus','frmPeriodoAnular:diPeriodoAnular');" icon="ui-icon-circle-minus" disabled="#{!periodo.esSeleccionado}"   rendered="#{periodo.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{periodo.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!periodo.esSeleccionado}"   rendered="#{periodo.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{periodo.irImprimir}"  update="hidStatus,:frmPeriodoImprimir:diPeriodoImprimir" oncomplete="showDialog('form:hidStatus','frmPeriodoImprimir:diPeriodoImprimir');" icon="ui-icon-print"   rendered="#{periodo.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaPeriodo">
+	<p:menuitem value="Editar" action="#{periodo.irEditar}"   update="hidStatus,:frmPeriodoRegistrar:diPeriodoRegistrar"  oncomplete="showDialog('form:hidStatus','frmPeriodoRegistrar:diPeriodoRegistrar');"  icon="ui-icon-pencil" rendered="#{periodo.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{periodo.irDetalle}"   update="hidStatus,:frmPeriodoDetalle:diPeriodoDetalle"  oncomplete="showDialog('form:hidStatus','frmPeriodoDetalle:diPeriodoDetalle');"  icon="ui-icon-zoomin" rendered="#{periodo.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{periodo.irAnular}"   update="hidStatus,:frmPeriodoAnular:diPeriodoAnular"  oncomplete="showDialog('form:hidStatus','frmPeriodoAnular:diPeriodoAnular');"  icon="ui-icon-circle-minus" rendered="#{periodo.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{periodo.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{periodo.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaPeriodo" value="#{periodo.listaPeriodo}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaPeriodo" selection="#{periodo.selectedPeriodo}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(periodo.listaPeriodo)}"
+	selectionMode="single" rowKey="#{var.idperiodo}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{periodo.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.idperiodo}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idperiodo}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.anio}">
+			<f:facet name="header">
+				<h:outputText value="Año" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.anio}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nombreperiodo}">
+			<f:facet name="header">
+				<h:outputText value="NombrePeriodo" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nombreperiodo}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.estadoauditoria}">
+			<f:facet name="header">
+				<h:outputText value="Estado Auditoria" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.estadoauditoria=='1'?'ACTIVO':'INACTIVO'}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{periodo.eliminar}"  update=":form:tblListaPeriodo,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmPeriodoImprimir">
+	<p:dialog id="diPeriodoImprimir" header="#{periodo.titulo}" widgetVar="diPeriodoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaPeriodo" fileName="datosPeriodo" postProcessor="#{periodo.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaPeriodo" fileName="datos" preProcessor="#{periodo.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPeriodoRegistrar">
+	<p:dialog id="diPeriodoRegistrar" header="#{periodo.titulo}" widgetVar="diPeriodoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsPeriodoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/periodo/component/c_periodoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{periodo.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{periodo.aceptar}" update="hidStatus,:form:tblListaPeriodo,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmPeriodoRegistrar:hidStatus','frmPeriodoRegistrar:diPeriodoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPeriodoRegistrar:diPeriodoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPeriodoDetalle">
+	<p:dialog id="diPeriodoDetalle" header="#{periodo.titulo}" widgetVar="diPeriodoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/periodo/component/c_periodoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPeriodoDetalle:diPeriodoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPeriodoAnular">
+	<p:dialog id="diPeriodoAnular" header="#{periodo.titulo}" widgetVar="diPeriodoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsPeriodoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/periodo/component/c_periodoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{periodo.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{periodo.anular}" update="hidStatus,:form:tblListaPeriodo,:form:growl,panelDetailC" oncomplete="hideDialog('frmPeriodoAnular:hidStatus','frmPeriodoAnular:diPeriodoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPeriodoAnular:diPeriodoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+
+</ui:define>
+</ui:composition>

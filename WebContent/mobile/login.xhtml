@@ -1,0 +1,590 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"	
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+    <f:view contentType="text/html" encoding="ISO-8859-1">
+ <h:head> 
+ 			
+ 	<f:facet name="first">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>sisabas: SISTEMA DE ABASTECIMIENTOS</title>                        
+     </f:facet> 
+      		<link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/default.css" />
+      		<link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/gandalf.css" />
+            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/syntaxhighlighter.css" />
+            <link rel="stylesheet" href="#{request.contextPath}/resources/font-awesome/css/font-awesome.min.css"/>
+
+            <style type="text/css">
+            	footer {
+				  position: fixed;
+				  bottom: 0;
+				  left: 0;
+				  height: 25px;
+				  padding-top:8px;
+				  background-color: #F2F8FA;				  
+				  width: 100%;
+				  border:1px solid silver;				  
+				}
+				.container {				  
+				  position: relative;
+				  margin-bottom: 50px;
+				}
+				
+                .ui-layout-north {
+                    z-index:20 !important;
+                    overflow:visible !important;;
+                }
+
+                .ui-layout-north .ui-layout-unit-content {
+                    overflow:visible !important;
+                }
+               				
+				.gandalfBody{								
+					/*
+					background-image:url('#{resource['img/background:background.jpg']}');
+					background-repeat:no-repeat;
+					-webkit-background-size:cover;
+					-moz-background-size:cover;
+					-o-background-size:cover;
+					background-size:cover;
+					background-position:center;
+					
+					margin: 0;
+					padding: 0;
+					font-family: geneva, arial, helvetica, sans-serif;
+					font-size:12px;
+					*/					
+					
+					/*
+					background: url('#{resource['img/background:background.jpg']}');
+					*/
+					background-color:#95CDE8;	
+					-webkit-background-size: cover;
+					-moz-background-size: cover;
+					-o-background-size: cover;
+					background-size: cover;    													
+					margin: 0;
+					padding: 0;
+					font-family: geneva, arial, helvetica, sans-serif;
+					font-size:12px;					
+				}
+				
+				.ui-menuitem-icon.ui-icon.secureIcon {
+					background: url('#{resource['img:lock.png']}') no-repeat;
+		            width:16px;
+		            height:16px;
+		            border-radius:0px;
+				}
+				
+				.ui-menuitem-icon.ui-icon.appleIcon {
+					background: url('#{resource['img:apple.png']}') no-repeat;
+		            width:16px;
+		            height:16px;
+		            border-radius:0px;
+				}				
+				
+				.ui-menu .ui-menu-parent .ui-menu-child {
+				width: 250px;
+				}				
+								
+				.ui-dialog .ui-terminal {
+		            border:0;
+		        }
+		
+		        .ui-dialog.terminalDialog .ui-dialog-content {
+		            padding:0;
+		        }
+				
+				/**THEME DELTA - INICIO*/				
+				body,td,th,tr {
+					font-family: "Century Gothic";
+					/*color: #077D9B;*//*COMENTAR ESTA LINEA PARA THEME DELTA*/	
+					font-size: 12px;
+				}
+				
+				/**Titulo de panel*/
+				.ui-panel .ui-panel-title {
+				    margin: 0.1em 16px 0.2em 0;
+				    
+				}
+								
+				/**Css para los Label. class="ui-outputlabel ui-widget"*/
+				.ui-widget .ui-outputlabel{
+					color: #077D9B;	
+				}
+				
+				/**Campos requeridos=true*/
+				.ui-outputlabel-rfi{
+					color: red;	
+					font-weight:bold;
+				}
+				/**THEME DELTA - FIN*/
+				
+				.c_numeric{
+					text-align:right;
+				}
+				
+				.c_numeric_resumen{
+					text-align:right;
+					font-size:30;
+					font-weight:bold;
+					background-color: yellow;
+				}
+				
+				.c_center{
+					text-align:center;
+				}
+				.c_center_estado{
+					text-align:center;
+					width:70px;
+				}
+				.c_center_id{
+					text-align:center;
+					width:70px;
+				}
+				
+				.c_string{
+					text-align:left;
+				}
+				.c_right{
+					text-align:right;
+				}
+				
+				.companyHeaderGrid tr, .companyHeaderGrid td {
+			    	border: none;
+				}
+				.old{		
+					/*background: #BED6E3;*/
+					/*background: yellow;*/
+					background:#FFFF99;
+				}
+				.dead{		
+					/*background: #BED6E3;*/
+					/*background: orange;*/
+					background:#FCA752;					
+				}
+				.ci{		
+					/*background: #BED6E3;*/
+					background: orange;					
+				}
+				
+				/*Colores*/
+				.gBlue{
+					background: lightblue;	
+				}
+				
+				.gBlueBold{
+					background: lightblue;
+					font-weight: bold;	
+				}
+				
+				.gGreen{
+					background: lightgreen;					
+				}  
+				
+				.gGreenBold{
+					background: lightgreen;
+					font-weight: bold;
+				}  
+				
+				.gOrangeBold{
+					background: orange;
+					font-weight: bold;
+				}  
+				
+				/*
+				PENDIENTEW
+				http://stackoverflow.com/questions/1014861/is-there-a-css-parent-selector*/
+				li:has(> a.active) { /* styles to apply to the li tag */ 
+				}
+				
+				
+				
+				.input{		
+					 height:1.7em;
+				}
+				
+				.repo-sep-header{
+					background: #FFA500;
+					font-weight: bold;					
+				}     
+				
+				.repo-sep-footer{
+					background: #FFFF99;
+					font-weight: bold;
+				}     
+				
+				.libre{
+					background: #61C261;			
+				}
+				
+				.ocupado{
+					background: #EB605C;	
+				}    
+				
+				.dateTimeField input {
+				   width:150px;
+				}				 
+				
+				/*
+				.gandalfTableClass table { 
+				   
+				}
+				
+				.gandalfTableClass table tr { 
+				    
+				}
+				*/
+				
+				/*Table td*/
+				.gandalfTableClass table tr td{ 
+				    /*border-collapse: separate; 
+				    border-spacing: 0px;*/ 
+				    /*border-collapse: expression('separate', cellSpacing = '0px');*/
+				    padding: 1px 1px 1px 1px;
+				    margin: 0px 0px 0px 0px;
+				}
+				
+				/*PanelC de la pagina de registro y detalle*/
+				.gandalfDialog{
+				   
+				}
+				
+				/*PanelC de la pagina de registro y detalle*/
+				.gandalfPanelClassSectionFormHeader{ 
+				 	padding: 0px 1px 0px 0px;
+				    margin: 0px 0px 0px 0px;
+				    background-color: #F2F8FA;
+				}
+								
+				.gandalfPanelClassSectionFormHeaderP{ 
+				 	padding: 0px 1px 0px 0px;
+				    margin: 0px 0px 0px 0px;
+				    border:0px;
+				    background-color: #F2F8FA;
+				}
+				
+				
+				.gandalfPanelClassSectionFormDetail{ 
+				 	padding: 0px 1px 0px 0px;
+				    margin: 0px 0px 0px 0px;
+				    /*background-color:#F0F0F0;
+				    border-color:#888888;*/
+				    /*border: 1px solid #d5d5d5;*/
+				    background-color: #F2F8FA;
+				    color: #222;
+				}
+			
+				
+				.gandalfPanelClassSectionFormFooter{ 
+				 	padding: 0px 1px 0px 0px;
+				    margin: 0px 0px 0px 0px;
+				   background-color:lightblue;
+				   border-color:#888888;
+				}
+				
+				.gandalfPanelClassBusqueda{ 
+				 	padding: 0px 0px 0px 0px;
+				    margin: 0px 0px 0px 0px;				    
+				}
+				
+				/*Disabled inputs*/
+				.ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled {					
+				    opacity: .7;
+				    filter: Alpha(Opacity=7);
+				    background-image: none;
+				}
+				
+				/*Input text*/
+				.ui-widget-header .ui-inputfield, .ui-widget-content .ui-inputfield {
+				    font-weight: normal;
+				    /*padding: 2px 2px 2px 2px;*/
+				    /*margin: 0px 0px 0px 0px;*/
+				    color: #2d2e2f;
+				    /*font-family: monospace;*/
+				}
+								
+				/*Select checkbox menu*/
+				.ui-selectcheckboxmenu .ui-selectcheckboxmenu-label {
+				    display: block;
+				    /*padding: 3px 26px 3px 5px;*/
+				    padding: 1px 26px 1px 1px;/**/
+				    width: auto;
+				    border: none;
+				    cursor: pointer;
+				}
+				
+				.ui-radiobutton {
+				    margin: 0px 0px 0px 0px;/**/				   
+				    width: 16px;
+				    line-height: 15px;
+				    display: inline-block;
+				}
+				
+				.ui-button .ui-button-text {
+				    /*display: block;
+				    line-height: normal;*/
+				    /*margin-top: -3px;*/				    
+				    /*padding: 5px 5px 1px 22px;/**/
+				    height:15px;
+				}
+				
+				/*solo si se usa facet header. para los titulos de las opciones.*/
+				.gandalfPanel-header {    
+				    color: #4f4f4f;
+				}  
+				
+				.gandalfPnlBotonesClass{
+					padding: 0px 1px 0px 0px;
+				 	border:0px;
+				}
+				
+				.toolTipPortal{
+					/*font-weight:bold;*/
+					color:white;;
+					border:1px solid #272727; 
+					border-radius: 3px;
+					background: #272727;
+				  	filter: alpha(opacity=90);
+				  	/* IE */
+				  	-moz-opacity: 0.9;
+				  	/* Mozilla */
+				 	opacity: 0.9;				 	
+				}
+								
+				<!--DELTA-->
+				/*				
+				.ui-datepicker-today a.ui-state-highlight{				 	
+				 	color:#FFF;
+				    background: #2182c5;
+				}
+				body .ui-datepicker table td.ui-datepicker-today a {
+				   	color:#FFF;
+				    background: #2182c5;
+				}				
+				.ui-datepicker td a.ui-state-default.ui-state-hover{
+				 	color: #FFF;
+				    background: #595c5d;
+				} 
+				.ui-datepicker-today a.ui-state-highlight{
+					color: #FFF;
+				    background: #595c5d;
+				}				
+				.ui-menuitem-link ui-submenu-link ui-corner-all ui-state-hover{
+					color: #FFF;
+				    background: #27abff;	
+				}								
+				.ui-widget-content a:hover {				   
+				  	color: #FFF;
+				    background: #27abff;	    
+				}
+				.ui-button, button.ui-button.ui-state-default, .ui-button.ui-state-default {				    
+				    color: #fff;
+				    font-size: 13px;
+				    border: 1px solid #168dd9;
+				    background: #27abff;				    
+				}				
+				.ui-button, button.ui-button.ui-state-hover, .ui-button.ui-state-hover {
+					border: 1px solid #1f89ce;
+    				background: #2399e5;					
+				}				
+				.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+				    color: #fff;
+				    border: 1px solid #1f89ce;
+				    background: #2399e5;				    
+				}	
+				.ui-panel .ui-panel-title {
+				    margin: .1em 16px .2em 0;
+				    font-family: sans-serif;
+				}	
+				.ui-button, .ui-button span, button.ui-button.ui-state-default span, .ui-button.ui-state-default span {
+				    font-weight: normal;
+				}
+				.ui-inputswitch .ui-inputswitch-on span {				 
+				    font-weight: normal;
+				}
+				.ui-inputswitch .ui-inputswitch-off span {				 
+				    font-weight: normal;
+				}
+				.ui-tabs:not(.ui-ribbon) .ui-tabs-nav {				    
+				    background: #F2F8FA;
+				}				
+				.ui-dialog{
+				 	background-color: #FFF;
+				}
+				*/
+				
+				<!--OMEGA DEFAULT-->
+				/*.ui-panel .ui-panel-title {
+				    margin: .1em 16px .2em 0;
+				    font-family: sans-serif;				    
+				}	
+				.ui-button, .ui-button span, button.ui-button.ui-state-default span, .ui-button.ui-state-default span {
+				    font-weight: normal;
+				}*/	
+				
+				<!--OMEGA CUSTOM-->				
+				.ui-datepicker-today a.ui-state-highlight{				 	
+				 	color:#FFF;
+				    background: #2182c5;
+				}
+				body .ui-datepicker table td.ui-datepicker-today a {
+				   	color:#FFF;
+				    background: #2182c5;
+				}				
+				.ui-datepicker td a.ui-state-default.ui-state-hover{
+				 	color: #FFF;
+				    background: #595c5d;
+				} 
+				.ui-datepicker-today a.ui-state-highlight{
+					color: #FFF;
+				    background: #595c5d;
+				}				
+				.ui-menuitem-link ui-submenu-link ui-corner-all ui-state-hover{
+					color: #FFF;
+				    background: #3984b8;		
+				}								
+				.ui-widget-content a:hover {				   
+				  	color: #FFF;
+				    background: #3984b8;		    
+				}				
+				.ui-button, button.ui-button.ui-state-default, .ui-button.ui-state-default {
+				    border: 1px solid transparent;
+				    background: #3984b8;
+				    color: #fff;
+				    font-size: 13px;			    
+				}				
+				.ui-button, button.ui-button.ui-state-hover, .ui-button.ui-state-hover {
+				    color: #fff;
+				    border: 1px solid #156090;
+				    background: #186ba0;
+				}				
+				.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+				   color: #fff;
+				    border: 1px solid #156090;
+				    background: #186ba0;
+				}	
+				.ui-panel .ui-panel-title {
+				    margin: .1em 16px .2em 0;
+				    font-family: sans-serif;
+				}	
+				.ui-button, .ui-button span, button.ui-button.ui-state-default span, .ui-button.ui-state-default span {
+				    font-weight: normal;
+				}
+				.ui-inputswitch .ui-inputswitch-on span {				 
+				    font-weight: normal;
+				}
+				.ui-inputswitch .ui-inputswitch-off span {				 
+				    font-weight: normal;
+				}
+				.ui-tabs:not(.ui-ribbon) .ui-tabs-nav {				    
+				    background: #F2F8FA;
+				}				
+				.ui-dialog{
+				 	background-color: #FFF;
+				}
+            </style>
+            
+	<script type="text/javascript">
+		function actualizarCant(){            	
+	     	var cant=jQuery('#form\\:txtCantidad').val();            	            	
+	     	jQuery('#form\\:txtCantidad2').val(cant);            	
+		}
+	</script>
+	
+	<script  type="text/javascript">
+	function onLoadPage() {
+	    //var img=httpGet("/sisfitra/GandalfSoftUtils")	            	
+	    //if(img!='')
+	    //document.body.style.backgroundImage = "url('"+img+"')";
+	    //else
+		document.body.style.backgroundImage = "url('#{resource['img/background:background.jpg']}')";	            	
+	}
+	            
+	function httpGet(theUrl){		
+	    var xmlHttp = new XMLHttpRequest();
+	    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+	    xmlHttp.send( null );
+	    return xmlHttp.responseText;
+	}
+</script> 
+ </h:head>
+
+<body class="gandalfBody" onload="onLoadPage();">
+<div class="ui-fluid" align="center">
+<h:form id="form">
+<p:panel header="SISTEMA DE ABASTECIMIENTOS" id="diLogin" widgetVar="diLogin" style="width:380px;margin-top:5%;">
+	<p:panel styleClass="gandalfPanelClassSectionFormHeader">
+	<p:focus  for="txtUsuario"/>
+	
+	
+	<div class="ui-g">
+	    <div class="ui-g-4">
+			<p:graphicImage value="/resources/img/agent01.png"/>    
+	    </div>
+	    <div class="ui-g-8">
+			<h3><p:outputLabel value="Acceso al Sistema Mobile" style="font-weight:bold;"/></h3>    
+	    </div>
+	</div>
+	
+        <p:outputLabel value="Usuario"  for="txtUsuario" />			
+		<div class="input-group margin-bottom-sm">		
+			<p:inputText id="txtUsuario" value="#{loginBean.user}" style="width:90%;" widgetVar="txtUsuario" size="30" maxlength="20" required="true" label="Usuario" requiredMessage="Ingrese Usuario"/>
+			<span class="input-group-addon"><i class="fa fa-fw fa-user" aria-hidden="true"></i></span>
+		</div>
+		<p:outputLabel value="Clave" for="txtPassword"/>					
+		<div class="input-group margin-bottom-sm">
+			<p:password widgetVar="txtPassword" id="txtPassword" value="#{loginBean.password}" style="width:90%;" size="30" label="Clave" maxlength="10" required="true" requiredMessage="Ingrese Clave"/>
+		  	<span class="input-group-addon"><i class="fa fa-fw fa-lock" aria-hidden="true"></i></span>
+		</div>
+		<p:separator/>
+		<p:commandButton value="Ingresar" icon="fa fa-fw fa-sign-in" action="#{loginBean.login}" ajax="false" style="width:100%;"/>
+		<p:separator/>
+		<div align="center">
+		<p:commandLink value="Solicitar cambio de clave" action="#{loginBean.irSolicitarCambioClave}" ajax="false" immediate="true"/>
+		</div>
+		<p:messages autoUpdate="true" closable="true"/>
+		<p:watermark for="txtUsuario" value="Usuario"/>
+		<p:watermark for="txtPassword" value="Clave"/>
+    
+	</p:panel>	  	
+</p:panel>
+</h:form>
+
+
+<footer>
+	<span>				
+		<p:spacer width="10"/>
+		<p:commandLink onclick="PF('dlg3').show();return;">
+			<h:graphicImage url="/resources/img/background/GandalfSoft.png" height="15" title="Contactenos"/>
+		</p:commandLink> 
+	</span>
+</footer>
+
+<h:form>
+<p:dialog styleClass="gandalfPanelClassSectionFormHeader" header="GandalfSoft > Contactenos" widgetVar="dlg3" showEffect="slide" hideEffect="slide" height="270" width="350" modal="true" resizable="false">
+	<div class="ui-fluid">
+	<p:panel styleClass="gandalfPanelClassSectionFormHeaderP">
+	    <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank">
+	    	<p:outputLabel value="Correo de contacto"/>
+	    	<p:inputText value="consultasgandalfsoft@gmail.com" disabled="true"/>
+	    	<p:outputLabel value="Asunto"  for="txtAsunto"/>
+			<p:inputText id="txtAsunto" widgetVar="txtAsunto"  maxlength="150" required="true" label="Asunto" requiredMessage="Ingrese Asunto"/>
+			<p:outputLabel value="Mensaje"  for="txtMensaje"/>
+			<p:inputTextarea id="txtMensaje" widgetVar="txtMensaje" maxlength="300" required="true" label="Mensaje" requiredMessage="Ingrese Mensaje"/>
+			<p:commandButton value="Enviar" process="@this,txtAsunto,txtMensaje" update="@this,txtAsunto,txtMensaje" icon="fa fa-fw fa-paper-plane" disabled="true" title="Si desea contactarnos, escribenos al correo de contacto."/>
+			<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="PF('dlg3').hide();return;" type="button"/>
+	    </p:panelGrid>
+	   </p:panel>
+    </div>	
+</p:dialog>
+<p:watermark for="txtAsunto" value="Asunto"/>
+<p:watermark for="txtMensaje" value="Ingrese mensaje a enviar"/>
+</h:form> 
+
+</div>  
+</body>            
+</f:view>
+</html>

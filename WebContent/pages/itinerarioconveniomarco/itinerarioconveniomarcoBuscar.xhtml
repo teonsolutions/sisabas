@@ -1,0 +1,396 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{itinerarioconveniomarco.tituloParam} #{itinerarioconveniomarco.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="IdItinerarioConvenioMarco" for="txtIditinerarioconveniomarco"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIditinerarioconveniomarco" value="#{itinerarioconveniomarco.itinerarioconveniomarcoB.iditinerarioconveniomarco}" disabled="false" maxlength="10" style="width:150px;" label="IdItinerarioConvenioMarco"/>
+		</td>
+		<td>
+			<p:outputLabel value="IdDocumentoTecnico" for="txtIddocumentotecnico"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIddocumentotecnico" value="#{itinerarioconveniomarco.itinerarioconveniomarcoB.iddocumentotecnico}" disabled="true" maxlength="10" style="width:150px;" label="IdDocumentoTecnico"/>
+		</td>
+		<td>
+			<p:outputLabel value="TipoItinerario" for="txtTipoitinerario"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipoitinerario" value="#{itinerarioconveniomarco.itinerarioconveniomarcoB.tipoitinerario}" disabled="false" maxlength="3" style="width:150px;" label="TipoItinerario"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="CiudadOrigen" for="txtCiudadorigen"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCiudadorigen" value="#{itinerarioconveniomarco.itinerarioconveniomarcoB.ciudadorigen}" disabled="false" maxlength="100" style="width:150px;" label="CiudadOrigen"/>
+		</td>
+		<td>
+			<p:outputLabel value="FechaSalida - Desde" for="txtFechasalidaini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechasalidaini" value="#{itinerarioconveniomarco.itinerarioconveniomarcoB.fechasalidaini}" label="FechaSalida - Desde" navigator="true" pattern="dd/MM/yyyy" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="FechaSalida - Hasta" for="txtFechasalidafin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechasalidafin" value="#{itinerarioconveniomarco.itinerarioconveniomarcoB.fechasalidafin}" label="FechaSalida - Hasta" navigator="true" pattern="dd/MM/yyyy" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="HoraSalida - Desde" for="txtHorasalidaini"/>
+		</td>
+		<td>
+			<p:calendar id="txtHorasalidaini" value="#{itinerarioconveniomarco.itinerarioconveniomarcoB.horasalidaini}" label="HoraSalida - Desde" timeOnly="true" pattern="hh:mm a" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="HoraSalida - Hasta" for="txtHorasalidafin"/>
+		</td>
+		<td>
+			<p:calendar id="txtHorasalidafin" value="#{itinerarioconveniomarco.itinerarioconveniomarcoB.horasalidafin}" label="HoraSalida - Hasta" timeOnly="true" pattern="hh:mm a" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="CiudadDestino" for="txtCiudaddestino"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCiudaddestino" value="#{itinerarioconveniomarco.itinerarioconveniomarcoB.ciudaddestino}" disabled="false" maxlength="100" style="width:150px;" label="CiudadDestino"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="FechaRetorno - Desde" for="txtFechareternoini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechareternoini" value="#{itinerarioconveniomarco.itinerarioconveniomarcoB.fechareternoini}" label="FechaRetorno - Desde" navigator="true" pattern="dd/MM/yyyy" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="FechaRetorno - Hasta" for="txtFechareternofin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechareternofin" value="#{itinerarioconveniomarco.itinerarioconveniomarcoB.fechareternofin}" label="FechaRetorno - Hasta" navigator="true" pattern="dd/MM/yyyy" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="HoraRetorno - Desde" for="txtHoraretornoini"/>
+		</td>
+		<td>
+			<p:calendar id="txtHoraretornoini" value="#{itinerarioconveniomarco.itinerarioconveniomarcoB.horaretornoini}" label="HoraRetorno - Desde" timeOnly="true" pattern="hh:mm a" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="HoraRetorno - Hasta" for="txtHoraretornofin"/>
+		</td>
+		<td>
+			<p:calendar id="txtHoraretornofin" value="#{itinerarioconveniomarco.itinerarioconveniomarcoB.horaretornofin}" label="HoraRetorno - Hasta" timeOnly="true" pattern="hh:mm a" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="DNI" for="txtDni"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDni" value="#{itinerarioconveniomarco.itinerarioconveniomarcoB.dni}" disabled="false" maxlength="8" style="width:150px;" label="DNI"/>
+		</td>
+		<td>
+			<p:outputLabel value="ApellidoPaterno" for="txtApellidopaterno"/>
+		</td>
+		<td>
+			<p:inputText  id="txtApellidopaterno" value="#{itinerarioconveniomarco.itinerarioconveniomarcoB.apellidopaterno}" disabled="false" maxlength="100" style="width:150px;" label="ApellidoPaterno"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="ApellidoMaterno" for="txtApellidomaterno"/>
+		</td>
+		<td>
+			<p:inputText  id="txtApellidomaterno" value="#{itinerarioconveniomarco.itinerarioconveniomarcoB.apellidomaterno}" disabled="false" maxlength="100" style="width:150px;" label="ApellidoMaterno"/>
+		</td>
+		<td>
+			<p:outputLabel value="Nombers" for="txtNombers"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombers" value="#{itinerarioconveniomarco.itinerarioconveniomarcoB.nombers}" disabled="false" maxlength="100" style="width:150px;" label="Nombers"/>
+		</td>
+		<td>
+			<p:outputLabel value="Correo" for="txtCorreo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCorreo" value="#{itinerarioconveniomarco.itinerarioconveniomarcoB.correo}" disabled="false" maxlength="100" style="width:150px;" label="Correo"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Telefono" for="txtTelefono"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTelefono" value="#{itinerarioconveniomarco.itinerarioconveniomarcoB.telefono}" disabled="false" maxlength="20" style="width:150px;" label="Telefono"/>
+		</td>
+		<td>
+			<p:outputLabel value="TipoContratoPersonal" for="txtTipocontratopersonal"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipocontratopersonal" value="#{itinerarioconveniomarco.itinerarioconveniomarcoB.tipocontratopersonal}" disabled="false" maxlength="3" style="width:150px;" label="TipoContratoPersonal"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{itinerarioconveniomarco.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{itinerarioconveniomarco.buscar}"  update="tblListaItinerarioconveniomarco,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{itinerarioconveniomarco.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{itinerarioconveniomarco.irRegistrar}"  update="hidStatus,:frmItinerarioconveniomarcoRegistrar:diItinerarioconveniomarcoRegistrar" oncomplete="showDialog('form:hidStatus','frmItinerarioconveniomarcoRegistrar:diItinerarioconveniomarcoRegistrar');" icon="ui-icon-document"  rendered="#{itinerarioconveniomarco.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{itinerarioconveniomarco.irEditar}"  update="hidStatus,:frmItinerarioconveniomarcoRegistrar:diItinerarioconveniomarcoRegistrar" oncomplete="showDialog('form:hidStatus','frmItinerarioconveniomarcoRegistrar:diItinerarioconveniomarcoRegistrar');" icon="ui-icon-pencil" disabled="#{!itinerarioconveniomarco.esSeleccionado}"  rendered="#{itinerarioconveniomarco.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{itinerarioconveniomarco.irDetalle}"  update="hidStatus,:frmItinerarioconveniomarcoDetalle:diItinerarioconveniomarcoDetalle" oncomplete="showDialog('form:hidStatus','frmItinerarioconveniomarcoDetalle:diItinerarioconveniomarcoDetalle');" icon="ui-icon-zoomin" disabled="#{!itinerarioconveniomarco.esSeleccionado}"   rendered="#{itinerarioconveniomarco.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{itinerarioconveniomarco.irAnular}"  update="hidStatus,:frmItinerarioconveniomarcoAnular:diItinerarioconveniomarcoAnular" oncomplete="showDialog('form:hidStatus','frmItinerarioconveniomarcoAnular:diItinerarioconveniomarcoAnular');" icon="ui-icon-circle-minus" disabled="#{!itinerarioconveniomarco.esSeleccionado}"   rendered="#{itinerarioconveniomarco.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{itinerarioconveniomarco.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!itinerarioconveniomarco.esSeleccionado}"   rendered="#{itinerarioconveniomarco.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{itinerarioconveniomarco.irImprimir}"  update="hidStatus,:frmItinerarioconveniomarcoImprimir:diItinerarioconveniomarcoImprimir" oncomplete="showDialog('form:hidStatus','frmItinerarioconveniomarcoImprimir:diItinerarioconveniomarcoImprimir');" icon="ui-icon-print"   rendered="#{itinerarioconveniomarco.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="#{documentotecnico.load}" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{itinerarioconveniomarco.esDerivada=='1'}"/>
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{itinerarioconveniomarco.esDerivada=='0'}"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaItinerarioconveniomarco">
+	<p:menuitem value="Editar" action="#{itinerarioconveniomarco.irEditar}"   update="hidStatus,:frmItinerarioconveniomarcoRegistrar:diItinerarioconveniomarcoRegistrar"  oncomplete="showDialog('form:hidStatus','frmItinerarioconveniomarcoRegistrar:diItinerarioconveniomarcoRegistrar');"  icon="ui-icon-pencil" rendered="#{itinerarioconveniomarco.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{itinerarioconveniomarco.irDetalle}"   update="hidStatus,:frmItinerarioconveniomarcoDetalle:diItinerarioconveniomarcoDetalle"  oncomplete="showDialog('form:hidStatus','frmItinerarioconveniomarcoDetalle:diItinerarioconveniomarcoDetalle');"  icon="ui-icon-zoomin" rendered="#{itinerarioconveniomarco.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{itinerarioconveniomarco.irAnular}"   update="hidStatus,:frmItinerarioconveniomarcoAnular:diItinerarioconveniomarcoAnular"  oncomplete="showDialog('form:hidStatus','frmItinerarioconveniomarcoAnular:diItinerarioconveniomarcoAnular');"  icon="ui-icon-circle-minus" rendered="#{itinerarioconveniomarco.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{itinerarioconveniomarco.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{itinerarioconveniomarco.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaItinerarioconveniomarco" value="#{itinerarioconveniomarco.listaItinerarioconveniomarco}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaItinerarioconveniomarco" selection="#{itinerarioconveniomarco.selectedItinerarioconveniomarco}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(itinerarioconveniomarco.listaItinerarioconveniomarco)}"
+	selectionMode="single" rowKey="#{var.iditinerarioconveniomarco}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{itinerarioconveniomarco.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.iditinerarioconveniomarco}">
+			<f:facet name="header">
+				<h:outputText value="IdItinerarioConvenioMarco" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.iditinerarioconveniomarco}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.iddocumentotecnico}">
+			<f:facet name="header">
+				<h:outputText value="IdDocumentoTecnico" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.iddocumentotecnico}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.tipoitinerario}">
+			<f:facet name="header">
+				<h:outputText value="TipoItinerario" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.tipoitinerario}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.ciudadorigen}">
+			<f:facet name="header">
+				<h:outputText value="CiudadOrigen" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.ciudadorigen}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.fechasalida}">
+			<f:facet name="header">
+				<h:outputText value="FechaSalida" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.fechasalida}">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.horasalida}">
+			<f:facet name="header">
+				<h:outputText value="HoraSalida" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.horasalida}">
+				<f:convertDateTime pattern="hh:mm a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.ciudaddestino}">
+			<f:facet name="header">
+				<h:outputText value="CiudadDestino" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.ciudaddestino}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.fechareterno}">
+			<f:facet name="header">
+				<h:outputText value="FechaRetorno" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.fechareterno}">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.horaretorno}">
+			<f:facet name="header">
+				<h:outputText value="HoraRetorno" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.horaretorno}">
+				<f:convertDateTime pattern="hh:mm a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.dni}">
+			<f:facet name="header">
+				<h:outputText value="DNI" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.dni}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.apellidopaterno}">
+			<f:facet name="header">
+				<h:outputText value="ApellidoPaterno" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.apellidopaterno}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.apellidomaterno}">
+			<f:facet name="header">
+				<h:outputText value="ApellidoMaterno" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.apellidomaterno}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nombers}">
+			<f:facet name="header">
+				<h:outputText value="Nombers" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nombers}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.correo}">
+			<f:facet name="header">
+				<h:outputText value="Correo" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.correo}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.telefono}">
+			<f:facet name="header">
+				<h:outputText value="Telefono" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.telefono}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.tipocontratopersonal}">
+			<f:facet name="header">
+				<h:outputText value="TipoContratoPersonal" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.tipocontratopersonal}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{itinerarioconveniomarco.eliminar}"  update=":form:tblListaItinerarioconveniomarco,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmItinerarioconveniomarcoImprimir">
+	<p:dialog id="diItinerarioconveniomarcoImprimir" header="#{itinerarioconveniomarco.titulo}" widgetVar="diItinerarioconveniomarcoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaItinerarioconveniomarco" fileName="datosItinerarioconveniomarco" postProcessor="#{itinerarioconveniomarco.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaItinerarioconveniomarco" fileName="datos" preProcessor="#{itinerarioconveniomarco.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmItinerarioconveniomarcoRegistrar">
+	<p:dialog id="diItinerarioconveniomarcoRegistrar" header="#{itinerarioconveniomarco.titulo}" widgetVar="diItinerarioconveniomarcoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsItinerarioconveniomarcoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/itinerarioconveniomarco/component/c_itinerarioconveniomarcoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{itinerarioconveniomarco.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{itinerarioconveniomarco.aceptar}" update="hidStatus,:form:tblListaItinerarioconveniomarco,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmItinerarioconveniomarcoRegistrar:hidStatus','frmItinerarioconveniomarcoRegistrar:diItinerarioconveniomarcoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmItinerarioconveniomarcoRegistrar:diItinerarioconveniomarcoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmItinerarioconveniomarcoDetalle">
+	<p:dialog id="diItinerarioconveniomarcoDetalle" header="#{itinerarioconveniomarco.titulo}" widgetVar="diItinerarioconveniomarcoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/itinerarioconveniomarco/component/c_itinerarioconveniomarcoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmItinerarioconveniomarcoDetalle:diItinerarioconveniomarcoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmItinerarioconveniomarcoAnular">
+	<p:dialog id="diItinerarioconveniomarcoAnular" header="#{itinerarioconveniomarco.titulo}" widgetVar="diItinerarioconveniomarcoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsItinerarioconveniomarcoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/itinerarioconveniomarco/component/c_itinerarioconveniomarcoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{itinerarioconveniomarco.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{itinerarioconveniomarco.anular}" update="hidStatus,:form:tblListaItinerarioconveniomarco,:form:growl,panelDetailC" oncomplete="hideDialog('frmItinerarioconveniomarcoAnular:hidStatus','frmItinerarioconveniomarcoAnular:diItinerarioconveniomarcoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmItinerarioconveniomarcoAnular:diItinerarioconveniomarcoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+
+</ui:define>
+</ui:composition>

@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelDetailC">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="Código" for="txtVchtipcodigo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchtipcodigo" value="#{gentipo.gentipo.vchtipcodigo}" disabled="true" style="width:150px;" label="Código"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Descripción" for="txtVchtipdescripcion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchtipdescripcion" value="#{gentipo.gentipo.vchtipdescripcion}" disabled="true" style="width:300px;" label="Descripción"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Adicional" for="txtVchtipdesadicional"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchtipdesadicional" value="#{gentipo.gentipo.vchtipdesadicional}" disabled="true" style="width:300px;" label="Adicional"/>
+		</td>
+		<td>
+			<p:outputLabel  value="intganempid" for="txtIntganempid"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIntganempid" value="#{gentipo.gentipo.intganempid}" disabled="true" style="width:150px;" label="intganempid"/>
+		</td>
+	</tr>
+
+</table>
+</p:panel>
+</html>

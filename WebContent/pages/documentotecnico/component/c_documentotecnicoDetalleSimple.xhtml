@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelDetailC">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIddocumentotecnico"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIddocumentotecnico" value="#{documentotecnico.documentotecnico.iddocumentotecnico}" disabled="true" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Pedido In" for="txtIdpedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpedido" value="#{documentotecnico.documentotecnico.pedidoIdpedido.nropedido}" disabled="true" style="width:150px;" label="Pedido In"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Pac Programado" for="txtIdpacprogramado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpacprogramado" value="#{documentotecnico.documentotecnico.pacprogramadoIdpacprogramado.nroconsolid}" disabled="true" style="width:150px;" label="Pac Programado"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Comité Proceso" for="txtIdcomiteproceso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcomiteproceso" value="#{documentotecnico.documentotecnico.comiteprocesoIdcomiteproceso.idcomiteproceso}" disabled="true" style="width:150px;" label="Comité Proceso"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Denominación de Contratación" for="txtDenominacioncontratacion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDenominacioncontratacion" value="#{documentotecnico.documentotecnico.denominacioncontratacion}" disabled="true" style="width:300px;" label="Denominación de Contratación"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Finalidad Pública" for="txtFinalidadpublica"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFinalidadpublica" value="#{documentotecnico.documentotecnico.finalidadpublica}" disabled="true" style="width:300px;" label="Finalidad Pública"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Número(Pac)" for="txtNropac"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNropac" value="#{documentotecnico.documentotecnico.nropac}" disabled="true" style="width:150px;" label="Número(Pac)"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Objeto de Contratación" for="txtObjetocontratacion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtObjetocontratacion" value="#{documentotecnico.documentotecnico.objetocontratacion}" disabled="true" style="width:300px;" label="Objeto de Contratación"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Centro de costo" for="txtCentrocosto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCentrocosto" value="#{documentotecnico.documentotecnico.centrocosto}" disabled="true" style="width:150px;" label="Centro de costo"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Antecedentes" for="txtAntecedentes"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAntecedentes" value="#{documentotecnico.documentotecnico.antecedentes}" disabled="true" style="width:300px;" label="Antecedentes"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Dni Responsable" for="txtDniresponsable"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDniresponsable" value="#{documentotecnico.documentotecnico.dniresponsable}" disabled="true" style="width:150px;" label="Dni Responsable"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Nombre de responsable" for="txtNombreresponsable"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombreresponsable" value="#{documentotecnico.documentotecnico.nombreresponsable}" disabled="true" style="width:300px;" label="Nombre de responsable"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Número de Anexo Responsable" for="txtNroanexoresponsable"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroanexoresponsable" value="#{documentotecnico.documentotecnico.nroanexoresponsable}" disabled="true" style="width:150px;" label="Número de Anexo Responsable"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Correo Responsable" for="txtCorreoresponsable"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCorreoresponsable" value="#{documentotecnico.documentotecnico.correoresponsable}" disabled="true" style="width:300px;" label="Correo Responsable"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Tipo de documento técnico" for="txtIdcatalogotipodocumentotecnico"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogotipodocumentotecnico" value="#{documentotecnico.documentotecnico.gentablaIdcatalogotipodocumentotecnico.vchregdescri}" disabled="true" style="width:150px;" label="Tipo de documento técnico"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Tipo Tdr" for="txtIdcatalogotipotdr"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogotipotdr" value="#{documentotecnico.documentotecnico.gentablaIdcatalogotipotdr.vchregdescri}" disabled="true" style="width:150px;" label="Tipo Tdr"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Ruta Anexo" for="txtRutaanexo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtRutaanexo" value="#{documentotecnico.documentotecnico.rutaanexo}" disabled="true" style="width:300px;" label="Ruta Anexo"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Ubigeo" for="txtUbigeo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUbigeo" value="#{documentotecnico.documentotecnico.ubigeo}" disabled="true" style="width:150px;" label="Ubigeo"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Dirección" for="txtDireccion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDireccion" value="#{documentotecnico.documentotecnico.direccion}" disabled="true" style="width:300px;" label="Dirección"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Numero Sinad" for="txtNumerosinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerosinad" value="#{documentotecnico.documentotecnico.numerosinad}" disabled="true" style="width:150px;" label="Numero Sinad"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Año de Expediente" for="txtAnioexpediente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnioexpediente" value="#{documentotecnico.documentotecnico.anioexpediente}" disabled="true" style="width:150px;" label="Año de Expediente"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Número de Expediente" for="txtNumeroexpediente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumeroexpediente" value="#{documentotecnico.documentotecnico.numeroexpediente}" disabled="true" style="width:150px;" label="Número de Expediente"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Tiene Comité" for="txtTienecomite"/>
+		</td>
+		<td>
+			<h:graphicImage id="txtTienecomite" url="/resources/img/checkbox_yes.png"  rendered="#{documentotecnico.documentotecnico.tienecomite=='1'}" alt="Tiene Comité" title="Tiene Comité"/>
+			<h:graphicImage url="/resources/img/checkbox_no.png"  rendered="#{documentotecnico.documentotecnico.tienecomite=='0'}" alt="Tiene Comité" title="Tiene Comité"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Tipo Itinerario" for="txtTipoitinerario"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipoitinerario" value="#{documentotecnico.documentotecnico.tipoitinerario}" disabled="true" style="width:150px;" label="Tipo Itinerario"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Número Pedido" for="txtNropedidoitinerario"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNropedidoitinerario" value="#{documentotecnico.documentotecnico.nropedidoitinerario}" disabled="true" style="width:150px;" label="Número Pedido"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Año Pedido Itinerario" for="txtAniopedidoitinerario"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAniopedidoitinerario" value="#{documentotecnico.documentotecnico.aniopedidoitinerario}" disabled="true" style="width:150px;" label="Año Pedido Itinerario"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="UE Pedido Itinerario" for="txtUepedidoitinerario"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUepedidoitinerario" value="#{documentotecnico.documentotecnico.uepedidoitinerario}" disabled="true" style="width:150px;" label="UE Pedido Itinerario"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Justificación Pedido Itinerario" for="txtJustificacionpedidoitinerario"/>
+		</td>
+		<td>
+			<p:inputText  id="txtJustificacionpedidoitinerario" value="#{documentotecnico.documentotecnico.justificacionpedidoitinerario}" disabled="true" style="width:300px;" label="Justificación Pedido Itinerario"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Itinerario Origen Registrado" for="txtItinerarioorigenregistrado"/>
+		</td>
+		<td>
+			<h:graphicImage id="txtItinerarioorigenregistrado" url="/resources/img/checkbox_yes.png"  rendered="#{documentotecnico.documentotecnico.itinerarioorigenregistrado=='1'}" alt="Itinerario Origen Registrado" title="Itinerario Origen Registrado"/>
+			<h:graphicImage url="/resources/img/checkbox_no.png"  rendered="#{documentotecnico.documentotecnico.itinerarioorigenregistrado=='0'}" alt="Itinerario Origen Registrado" title="Itinerario Origen Registrado"/>
+		</td>
+	</tr>
+
+</table>
+</p:panel>
+</html>

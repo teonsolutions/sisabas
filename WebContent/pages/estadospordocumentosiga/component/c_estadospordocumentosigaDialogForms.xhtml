@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmEstadospordocumentosigaImprimir">
+	<p:dialog id="diEstadospordocumentosigaImprimir" header="#{estadospordocumentosiga.titulo}" widgetVar="diEstadospordocumentosigaImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaEstadospordocumentosiga" fileName="datosEstadospordocumentosiga" postProcessor="#{estadospordocumentosiga.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaEstadospordocumentosiga" fileName="datos" preProcessor="#{estadospordocumentosiga.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEstadospordocumentosigaRegistrar">
+	<p:dialog id="diEstadospordocumentosigaRegistrar" header="#{estadospordocumentosiga.titulo}" widgetVar="diEstadospordocumentosigaRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsEstadospordocumentosigaR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/estadospordocumentosiga/component/c_estadospordocumentosigaRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{estadospordocumentosiga.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{estadospordocumentosiga.aceptar}" update="hidStatus,:form:tblListaEstadospordocumentosiga,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmEstadospordocumentosigaRegistrar:hidStatus','frmEstadospordocumentosigaRegistrar:diEstadospordocumentosigaRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEstadospordocumentosigaRegistrar:diEstadospordocumentosigaRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEstadospordocumentosigaDetalle">
+	<p:dialog id="diEstadospordocumentosigaDetalle" header="#{estadospordocumentosiga.titulo}" widgetVar="diEstadospordocumentosigaDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/estadospordocumentosiga/component/c_estadospordocumentosigaDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEstadospordocumentosigaDetalle:diEstadospordocumentosigaDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEstadospordocumentosigaAnular">
+	<p:dialog id="diEstadospordocumentosigaAnular" header="#{estadospordocumentosiga.titulo}" widgetVar="diEstadospordocumentosigaAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsEstadospordocumentosigaA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/estadospordocumentosiga/component/c_estadospordocumentosigaDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{estadospordocumentosiga.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{estadospordocumentosiga.anular}" update="hidStatus,:form:tblListaEstadospordocumentosiga,:form:growl,panelDetailC" oncomplete="hideDialog('frmEstadospordocumentosigaAnular:hidStatus','frmEstadospordocumentosigaAnular:diEstadospordocumentosigaAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEstadospordocumentosigaAnular:diEstadospordocumentosigaAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+</html>

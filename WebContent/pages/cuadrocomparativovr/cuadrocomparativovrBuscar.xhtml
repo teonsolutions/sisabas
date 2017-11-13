@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{cuadrocomparativovr.tituloParam} #{cuadrocomparativovr.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="IdCuadroComparativoVR" for="txtIdcuadrocomparativovr"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcuadrocomparativovr" value="#{cuadrocomparativovr.cuadrocomparativovrB.idcuadrocomparativovr}" disabled="false" maxlength="10" style="width:150px;" label="IdCuadroComparativoVR"/>
+		</td>
+		<td>
+			<p:outputLabel value="IdCuadroComparativoItem" for="txtIdcuadrocomparativoitem"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcuadrocomparativoitem" value="#{cuadrocomparativovr.cuadrocomparativovrB.idcuadrocomparativoitem}" disabled="true" maxlength="10" style="width:150px;" label="IdCuadroComparativoItem"/>
+		</td>
+		<td>
+			<p:selectCheckboxMenu id="txtIdcatalogoprocedimientovr" value="#{cuadrocomparativovr.listaIdcatalogoprocedimientovrKeys}" filter="true" disabled="false" filterText="Filter" filterMatchMode="startsWith" label="IdCatalogoProcedimientoVR">
+				 <f:selectItems  value="#{cuadrocomparativovr.listaGentablaIdcatalogoprocedimientovr}" var="var" itemLabel ="#{var.vchregdescri}" itemValue ="#{var.vchregcodigo}"/>
+				 <p:ajax  event="change" listener="#{cuadrocomparativovr.getValuesListenerIdcatalogoprocedimientovr}" update="txtKeyValuesIdcatalogoprocedimientovr" process="@this"/>
+				 <p:ajax  event="toggleSelect" listener="#{cuadrocomparativovr.handleChangeIdcatalogoprocedimientovr}" update="txtKeyValuesIdcatalogoprocedimientovr,txtIdcatalogoprocedimientovr" process="@this"/>
+			</p:selectCheckboxMenu>
+		</td>
+		<td>
+			<p:inputText  id="txtKeyValuesIdcatalogoprocedimientovr" value="#{cuadrocomparativovr.valuesIdcatalogoprocedimientovr}" disabled="true" style="width:150px;"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="ValorReferencialItem - Desde" for="txtValorreferencialitemini"/>
+		</td>
+		<td>
+			<p:inputText id="txtValorreferencialitemini" value ="#{cuadrocomparativovr.cuadrocomparativovrB.valorreferencialitemini}" maxlength="18" style="width:150px;" label="ValorReferencialItem - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="ValorReferencialItem - Hasta" for="txtValorreferencialitemfin"/>
+		</td>
+		<td>
+			<p:inputText id="txtValorreferencialitemfin" value ="#{cuadrocomparativovr.cuadrocomparativovrB.valorreferencialitemfin}" maxlength="18" style="width:150px;" label="ValorReferencialItem - Hasta"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{cuadrocomparativovr.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{cuadrocomparativovr.buscar}"  update="tblListaCuadrocomparativovr,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{cuadrocomparativovr.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{cuadrocomparativovr.irRegistrar}"  update="hidStatus,:frmCuadrocomparativovrRegistrar:diCuadrocomparativovrRegistrar" oncomplete="showDialog('form:hidStatus','frmCuadrocomparativovrRegistrar:diCuadrocomparativovrRegistrar');" icon="ui-icon-document"  rendered="#{cuadrocomparativovr.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{cuadrocomparativovr.irEditar}"  update="hidStatus,:frmCuadrocomparativovrRegistrar:diCuadrocomparativovrRegistrar" oncomplete="showDialog('form:hidStatus','frmCuadrocomparativovrRegistrar:diCuadrocomparativovrRegistrar');" icon="ui-icon-pencil" disabled="#{!cuadrocomparativovr.esSeleccionado}"  rendered="#{cuadrocomparativovr.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{cuadrocomparativovr.irDetalle}"  update="hidStatus,:frmCuadrocomparativovrDetalle:diCuadrocomparativovrDetalle" oncomplete="showDialog('form:hidStatus','frmCuadrocomparativovrDetalle:diCuadrocomparativovrDetalle');" icon="ui-icon-zoomin" disabled="#{!cuadrocomparativovr.esSeleccionado}"   rendered="#{cuadrocomparativovr.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{cuadrocomparativovr.irAnular}"  update="hidStatus,:frmCuadrocomparativovrAnular:diCuadrocomparativovrAnular" oncomplete="showDialog('form:hidStatus','frmCuadrocomparativovrAnular:diCuadrocomparativovrAnular');" icon="ui-icon-circle-minus" disabled="#{!cuadrocomparativovr.esSeleccionado}"   rendered="#{cuadrocomparativovr.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{cuadrocomparativovr.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!cuadrocomparativovr.esSeleccionado}"   rendered="#{cuadrocomparativovr.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{cuadrocomparativovr.irImprimir}"  update="hidStatus,:frmCuadrocomparativovrImprimir:diCuadrocomparativovrImprimir" oncomplete="showDialog('form:hidStatus','frmCuadrocomparativovrImprimir:diCuadrocomparativovrImprimir');" icon="ui-icon-print"   rendered="#{cuadrocomparativovr.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="#{cuadrocomparativoitem.load}" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{cuadrocomparativovr.esDerivada=='1'}"/>
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{cuadrocomparativovr.esDerivada=='0'}"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaCuadrocomparativovr">
+	<p:menuitem value="Editar" action="#{cuadrocomparativovr.irEditar}"   update="hidStatus,:frmCuadrocomparativovrRegistrar:diCuadrocomparativovrRegistrar"  oncomplete="showDialog('form:hidStatus','frmCuadrocomparativovrRegistrar:diCuadrocomparativovrRegistrar');"  icon="ui-icon-pencil" rendered="#{cuadrocomparativovr.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{cuadrocomparativovr.irDetalle}"   update="hidStatus,:frmCuadrocomparativovrDetalle:diCuadrocomparativovrDetalle"  oncomplete="showDialog('form:hidStatus','frmCuadrocomparativovrDetalle:diCuadrocomparativovrDetalle');"  icon="ui-icon-zoomin" rendered="#{cuadrocomparativovr.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{cuadrocomparativovr.irAnular}"   update="hidStatus,:frmCuadrocomparativovrAnular:diCuadrocomparativovrAnular"  oncomplete="showDialog('form:hidStatus','frmCuadrocomparativovrAnular:diCuadrocomparativovrAnular');"  icon="ui-icon-circle-minus" rendered="#{cuadrocomparativovr.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{cuadrocomparativovr.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{cuadrocomparativovr.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaCuadrocomparativovr" value="#{cuadrocomparativovr.listaCuadrocomparativovr}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaCuadrocomparativovr" selection="#{cuadrocomparativovr.selectedCuadrocomparativovr}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(cuadrocomparativovr.listaCuadrocomparativovr)}"
+	selectionMode="single" rowKey="#{var.idcuadrocomparativovr}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{cuadrocomparativovr.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.idcuadrocomparativovr}">
+			<f:facet name="header">
+				<h:outputText value="IdCuadroComparativoVR" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idcuadrocomparativovr}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.idcuadrocomparativoitem}">
+			<f:facet name="header">
+				<h:outputText value="IdCuadroComparativoItem" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idcuadrocomparativoitem}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.gentablaIdcatalogoprocedimientovr.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="IdCatalogoProcedimientoVR" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.gentablaIdcatalogoprocedimientovr.vchregdescri}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.valorreferencialitem}">
+			<f:facet name="header">
+				<h:outputText value="ValorReferencialItem" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.valorreferencialitem}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{cuadrocomparativovr.eliminar}"  update=":form:tblListaCuadrocomparativovr,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmCuadrocomparativovrImprimir">
+	<p:dialog id="diCuadrocomparativovrImprimir" header="#{cuadrocomparativovr.titulo}" widgetVar="diCuadrocomparativovrImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaCuadrocomparativovr" fileName="datosCuadrocomparativovr" postProcessor="#{cuadrocomparativovr.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaCuadrocomparativovr" fileName="datos" preProcessor="#{cuadrocomparativovr.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmCuadrocomparativovrRegistrar">
+	<p:dialog id="diCuadrocomparativovrRegistrar" header="#{cuadrocomparativovr.titulo}" widgetVar="diCuadrocomparativovrRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsCuadrocomparativovrR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/cuadrocomparativovr/component/c_cuadrocomparativovrRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{cuadrocomparativovr.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{cuadrocomparativovr.aceptar}" update="hidStatus,:form:tblListaCuadrocomparativovr,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmCuadrocomparativovrRegistrar:hidStatus','frmCuadrocomparativovrRegistrar:diCuadrocomparativovrRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmCuadrocomparativovrRegistrar:diCuadrocomparativovrRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmCuadrocomparativovrDetalle">
+	<p:dialog id="diCuadrocomparativovrDetalle" header="#{cuadrocomparativovr.titulo}" widgetVar="diCuadrocomparativovrDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/cuadrocomparativovr/component/c_cuadrocomparativovrDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmCuadrocomparativovrDetalle:diCuadrocomparativovrDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmCuadrocomparativovrAnular">
+	<p:dialog id="diCuadrocomparativovrAnular" header="#{cuadrocomparativovr.titulo}" widgetVar="diCuadrocomparativovrAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsCuadrocomparativovrA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/cuadrocomparativovr/component/c_cuadrocomparativovrDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{cuadrocomparativovr.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{cuadrocomparativovr.anular}" update="hidStatus,:form:tblListaCuadrocomparativovr,:form:growl,panelDetailC" oncomplete="hideDialog('frmCuadrocomparativovrAnular:hidStatus','frmCuadrocomparativovrAnular:diCuadrocomparativovrAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmCuadrocomparativovrAnular:diCuadrocomparativovrAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+
+</ui:define>
+</ui:composition>

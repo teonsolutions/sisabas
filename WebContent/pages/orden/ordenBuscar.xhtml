@@ -1,0 +1,517 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{orden.tituloParam} #{orden.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="ID" for="txtIdorden"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdorden" value="#{orden.ordenB.idorden}" disabled="false" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel value="Pac ConsolidIn" for="txtIdpacconsolidado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpacconsolidado" value="#{orden.ordenB.pacconsolidadoIdpacconsolidado.nroconsolid}" disabled="true" maxlength="10" style="width:150px;" label="Pac ConsolidIn"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_pacconsolidado.init}"  oncomplete="showDialogPF('frmMainIdpacconsolidadoBuscar:diPacconsolidadoBuscar');" update=":frmMainIdpacconsolidadoBuscar:diPacconsolidadoBuscar" style="width:20px;height:20px;" title="Buscar"  disabled="#{orden.esDerivada=='1'?true:false}"/>
+			<p:commandButton icon="ui-icon-close" action="#{orden.resetMainIdpacconsolidado}"  update="txtIdpacconsolidado" style="width:20px;height:20px;" title="Borrar Filtro" immediate="true" disabled="#{orden.esDerivada=='1'?true:false}"/>
+		</td>
+		<td>
+			<p:outputLabel value="Grupo Documento" for="txtIdgrupodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdgrupodocumento" value="#{orden.ordenB.grupodocumentoIdgrupodocumento.anio}" disabled="true" maxlength="10" style="width:150px;" label="Grupo Documento"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_grupodocumento.init}"  oncomplete="showDialogPF('frmMainIdgrupodocumentoBuscar:diGrupodocumentoBuscar');" update=":frmMainIdgrupodocumentoBuscar:diGrupodocumentoBuscar" style="width:20px;height:20px;" title="Buscar"  disabled="false"/>
+			<p:commandButton icon="ui-icon-close" action="#{orden.resetMainIdgrupodocumento}"  update="txtIdgrupodocumento" style="width:20px;height:20px;" title="Borrar Filtro" immediate="true" disabled="false"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Número de Orden" for="txtNroorden"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroorden" value="#{orden.ordenB.nroorden}" disabled="false" maxlength="10" style="width:150px;" label="Número de Orden"/>
+		</td>
+		<td>
+			<p:outputLabel value="Fecha Orden - Desde" for="txtFechaordenini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechaordenini" value="#{orden.ordenB.fechaordenini}" label="Fecha Orden - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="Fecha Orden - Hasta" for="txtFechaordenfin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechaordenfin" value="#{orden.ordenB.fechaordenfin}" label="Fecha Orden - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Año Orden" for="txtAnioorden"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnioorden" value="#{orden.ordenB.anioorden}" disabled="false" maxlength="10" style="width:150px;" label="Año Orden"/>
+		</td>
+		<td>
+			<p:outputLabel value="Estado Orden" for="txtEstadoorden"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadoorden" value="#{orden.ordenB.estadoorden}" disabled="false" maxlength="5" style="width:150px;" label="Estado Orden"/>
+		</td>
+		<td>
+			<p:outputLabel value="Número Expediente Siaf" for="txtNroexpedientesiaf"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroexpedientesiaf" value="#{orden.ordenB.nroexpedientesiaf}" disabled="false" maxlength="10" style="width:150px;" label="Número Expediente Siaf"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Moneda" for="txtMoneda"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMoneda" value="#{orden.ordenB.moneda}" disabled="false" maxlength="10" style="width:150px;" label="Moneda"/>
+		</td>
+		<td>
+			<p:outputLabel value="Monto Orden - Desde" for="txtMontoordenini"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontoordenini" value ="#{orden.ordenB.montoordenini}" maxlength="18" style="width:150px;" label="Monto Orden - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="Monto Orden - Hasta" for="txtMontoordenfin"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontoordenfin" value ="#{orden.ordenB.montoordenfin}" maxlength="18" style="width:150px;" label="Monto Orden - Hasta"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Número de Proceso" for="txtNroproceso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroproceso" value="#{orden.ordenB.nroproceso}" disabled="false" maxlength="15" style="width:150px;" label="Número de Proceso"/>
+		</td>
+		<td>
+			<p:outputLabel value="Número de Contrato" for="txtNrocontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNrocontrato" value="#{orden.ordenB.nrocontrato}" disabled="false" maxlength="20" style="width:150px;" label="Número de Contrato"/>
+		</td>
+		<td>
+			<p:outputLabel value="Estado Expediente Siaf" for="txtEstadoexpedientesiaf"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadoexpedientesiaf" value="#{orden.ordenB.estadoexpedientesiaf}" disabled="false" maxlength="5" style="width:150px;" label="Estado Expediente Siaf"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Fecha Inicio Prestación - Desde" for="txtFechainicioprestacionini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechainicioprestacionini" value="#{orden.ordenB.fechainicioprestacionini}" label="Fecha Inicio Prestación - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="Fecha Inicio Prestación - Hasta" for="txtFechainicioprestacionfin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechainicioprestacionfin" value="#{orden.ordenB.fechainicioprestacionfin}" label="Fecha Inicio Prestación - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:selectCheckboxMenu id="txtIdcatalogotipobien" value="#{orden.listaIdcatalogotipobienKeys}" filter="true" disabled="false" filterText="Filter" filterMatchMode="startsWith" label="Catálogo Tipo Bien">
+				 <f:selectItems  value="#{orden.listaGentablaIdcatalogotipobien}" var="var" itemLabel ="#{var.vchregdescri}" itemValue ="#{var.vchregcodigo}"/>
+				 <p:ajax  event="change" listener="#{orden.getValuesListenerIdcatalogotipobien}" update="txtKeyValuesIdcatalogotipobien" process="@this"/>
+				 <p:ajax  event="toggleSelect" listener="#{orden.handleChangeIdcatalogotipobien}" update="txtKeyValuesIdcatalogotipobien,txtIdcatalogotipobien" process="@this"/>
+			</p:selectCheckboxMenu>
+		</td>
+		<td>
+			<p:inputText  id="txtKeyValuesIdcatalogotipobien" value="#{orden.valuesIdcatalogotipobien}" disabled="true" style="width:150px;"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Fecha Fin Prestación - Desde" for="txtFechafinprestacionini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechafinprestacionini" value="#{orden.ordenB.fechafinprestacionini}" label="Fecha Fin Prestación - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="Fecha Fin Prestación - Hasta" for="txtFechafinprestacionfin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechafinprestacionfin" value="#{orden.ordenB.fechafinprestacionfin}" label="Fecha Fin Prestación - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="Ejercicio" for="txtAnio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnio" value="#{orden.ordenB.anio}" disabled="false" maxlength="10" style="width:150px;" label="Ejercicio"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Codigo Unidad Ejecutora" for="txtIdunidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdunidadejecutora" value="#{orden.ordenB.unidadejecutoraIdunidadejecutora.nombreunidadejecutora}" disabled="true" maxlength="10" style="width:150px;" label="Codigo Unidad Ejecutora"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_unidadejecutora.init}"  oncomplete="showDialogPF('frmMainIdunidadejecutoraBuscar:diUnidadejecutoraBuscar');" update=":frmMainIdunidadejecutoraBuscar:diUnidadejecutoraBuscar" style="width:20px;height:20px;" title="Buscar"  disabled="false"/>
+			<p:commandButton icon="ui-icon-close" action="#{orden.resetMainIdunidadejecutora}"  update="txtIdunidadejecutora" style="width:20px;height:20px;" title="Borrar Filtro" immediate="true" disabled="false"/>
+		</td>
+		<td>
+			<p:outputLabel value="Plazo Ejecución" for="txtPlazoejecucion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtPlazoejecucion" value="#{orden.ordenB.plazoejecucion}" disabled="false" maxlength="10" style="width:150px;" label="Plazo Ejecución"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{orden.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{orden.buscar}"  update="tblListaOrden,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{orden.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{orden.irRegistrar}"  update="hidStatus,:frmOrdenRegistrar:diOrdenRegistrar" oncomplete="showDialog('form:hidStatus','frmOrdenRegistrar:diOrdenRegistrar');" icon="ui-icon-document"  rendered="#{orden.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{orden.irEditar}"  update="hidStatus,:frmOrdenRegistrar:diOrdenRegistrar" oncomplete="showDialog('form:hidStatus','frmOrdenRegistrar:diOrdenRegistrar');" icon="ui-icon-pencil" disabled="#{!orden.esSeleccionado}"  rendered="#{orden.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{orden.irDetalle}"  update="hidStatus,:frmOrdenDetalle:diOrdenDetalle" oncomplete="showDialog('form:hidStatus','frmOrdenDetalle:diOrdenDetalle');" icon="ui-icon-zoomin" disabled="#{!orden.esSeleccionado}"   rendered="#{orden.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{orden.irAnular}"  update="hidStatus,:frmOrdenAnular:diOrdenAnular" oncomplete="showDialog('form:hidStatus','frmOrdenAnular:diOrdenAnular');" icon="ui-icon-circle-minus" disabled="#{!orden.esSeleccionado}"   rendered="#{orden.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{orden.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!orden.esSeleccionado}"   rendered="#{orden.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{orden.irImprimir}"  update="hidStatus,:frmOrdenImprimir:diOrdenImprimir" oncomplete="showDialog('form:hidStatus','frmOrdenImprimir:diOrdenImprimir');" icon="ui-icon-print"   rendered="#{orden.renderButton('btnImprimir')}"  />
+				<p:spacer width="20"/>
+				<p:commandButton value="Entregable" action="#{orden.irEntregable}" title="Entregable" ajax="false" disabled="#{!orden.esSeleccionado}"  rendered="#{orden.renderButton('btnEntregable')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="#{pacconsolidado.load}" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{orden.esDerivada=='1'}"/>
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{orden.esDerivada=='0'}"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaOrden">
+	<p:menuitem value="Editar" action="#{orden.irEditar}"   update="hidStatus,:frmOrdenRegistrar:diOrdenRegistrar"  oncomplete="showDialog('form:hidStatus','frmOrdenRegistrar:diOrdenRegistrar');"  icon="ui-icon-pencil" rendered="#{orden.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{orden.irDetalle}"   update="hidStatus,:frmOrdenDetalle:diOrdenDetalle"  oncomplete="showDialog('form:hidStatus','frmOrdenDetalle:diOrdenDetalle');"  icon="ui-icon-zoomin" rendered="#{orden.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{orden.irAnular}"   update="hidStatus,:frmOrdenAnular:diOrdenAnular"  oncomplete="showDialog('form:hidStatus','frmOrdenAnular:diOrdenAnular');"  icon="ui-icon-circle-minus" rendered="#{orden.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{orden.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{orden.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaOrden" value="#{orden.listaOrden}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaOrden" selection="#{orden.selectedOrden}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(orden.listaOrden)}"
+	selectionMode="single" rowKey="#{var.idorden}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{orden.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.idorden}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idorden}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.pacconsolidadoIdpacconsolidado.nroconsolid}">
+			<f:facet name="header">
+				<h:outputText value="Pac ConsolidIn" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.pacconsolidadoIdpacconsolidado.nroconsolid}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.grupodocumentoIdgrupodocumento.anio}">
+			<f:facet name="header">
+				<h:outputText value="Grupo Documento" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.grupodocumentoIdgrupodocumento.anio}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.nroorden}">
+			<f:facet name="header">
+				<h:outputText value="Número de Orden" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.nroorden}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechaorden}">
+			<f:facet name="header">
+				<h:outputText value="Fecha Orden" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechaorden}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.anioorden}">
+			<f:facet name="header">
+				<h:outputText value="Año Orden" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.anioorden}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.estadoorden}">
+			<f:facet name="header">
+				<h:outputText value="Estado Orden" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.estadoorden}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.nroexpedientesiaf}">
+			<f:facet name="header">
+				<h:outputText value="Número Expediente Siaf" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.nroexpedientesiaf}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.moneda}">
+			<f:facet name="header">
+				<h:outputText value="Moneda" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.moneda}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.montoorden}">
+			<f:facet name="header">
+				<h:outputText value="Monto Orden" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.montoorden}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nroproceso}">
+			<f:facet name="header">
+				<h:outputText value="Número de Proceso" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nroproceso}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nrocontrato}">
+			<f:facet name="header">
+				<h:outputText value="Número de Contrato" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nrocontrato}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.estadoexpedientesiaf}">
+			<f:facet name="header">
+				<h:outputText value="Estado Expediente Siaf" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.estadoexpedientesiaf}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechainicioprestacion}">
+			<f:facet name="header">
+				<h:outputText value="Fecha Inicio Prestación" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechainicioprestacion}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.gentablaIdcatalogotipobien.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="Catálogo Tipo Bien" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.gentablaIdcatalogotipobien.vchregdescri}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechafinprestacion}">
+			<f:facet name="header">
+				<h:outputText value="Fecha Fin Prestación" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechafinprestacion}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.anio}">
+			<f:facet name="header">
+				<h:outputText value="Ejercicio" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.anio}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.unidadejecutoraIdunidadejecutora.nombreunidadejecutora}">
+			<f:facet name="header">
+				<h:outputText value="Codigo Unidad Ejecutora" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.unidadejecutoraIdunidadejecutora.nombreunidadejecutora}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.plazoejecucion}">
+			<f:facet name="header">
+				<h:outputText value="Plazo Ejecución" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.plazoejecucion}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{orden.eliminar}"  update=":form:tblListaOrden,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmOrdenImprimir">
+	<p:dialog id="diOrdenImprimir" header="#{orden.titulo}" widgetVar="diOrdenImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaOrden" fileName="datosOrden" postProcessor="#{orden.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaOrden" fileName="datos" preProcessor="#{orden.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmOrdenRegistrar">
+	<p:dialog id="diOrdenRegistrar" header="#{orden.titulo}" widgetVar="diOrdenRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsOrdenR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/orden/component/c_ordenRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{orden.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{orden.aceptar}" update="hidStatus,:form:tblListaOrden,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmOrdenRegistrar:hidStatus','frmOrdenRegistrar:diOrdenRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmOrdenRegistrar:diOrdenRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmOrdenDetalle">
+	<p:dialog id="diOrdenDetalle" header="#{orden.titulo}" widgetVar="diOrdenDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/orden/component/c_ordenDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmOrdenDetalle:diOrdenDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmOrdenAnular">
+	<p:dialog id="diOrdenAnular" header="#{orden.titulo}" widgetVar="diOrdenAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsOrdenA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/orden/component/c_ordenDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{orden.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{orden.anular}" update="hidStatus,:form:tblListaOrden,:form:growl,panelDetailC" oncomplete="hideDialog('frmOrdenAnular:hidStatus','frmOrdenAnular:diOrdenAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmOrdenAnular:diOrdenAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMainIdpacconsolidadoBuscar">
+	<p:dialog id="diPacconsolidadoBuscar" header="Pac Consolidacion » Buscar" widgetVar="diPacconsolidadoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Pacconsolidado" autoUpdate="true" closable="true"/>
+	 <cc:cc_pacconsolidadoBuscar
+	 ajaxEventListener="#{orden.loadMainIdpacconsolidado}"
+	 actionOncomplete="hideDialogPF('frmMainIdpacconsolidadoBuscar:diPacconsolidadoBuscar');"
+	 actionUpdate=":form:txtIdpacconsolidado"/>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMainIdgrupodocumentoBuscar">
+	<p:dialog id="diGrupodocumentoBuscar" header="Grupo documento » Buscar" widgetVar="diGrupodocumentoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Grupodocumento" autoUpdate="true" closable="true"/>
+	 <cc:cc_grupodocumentoBuscar
+	 ajaxEventListener="#{orden.loadMainIdgrupodocumento}"
+	 actionOncomplete="hideDialogPF('frmMainIdgrupodocumentoBuscar:diGrupodocumentoBuscar');"
+	 actionUpdate=":form:txtIdgrupodocumento"/>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMainIdunidadejecutoraBuscar">
+	<p:dialog id="diUnidadejecutoraBuscar" header="Unidad Ejecutora » Buscar" widgetVar="diUnidadejecutoraBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Unidadejecutora" autoUpdate="true" closable="true"/>
+	 <cc:cc_unidadejecutoraBuscar
+	 ajaxEventListener="#{orden.loadMainIdunidadejecutora}"
+	 actionOncomplete="hideDialogPF('frmMainIdunidadejecutoraBuscar:diUnidadejecutoraBuscar');"
+	 actionUpdate=":form:txtIdunidadejecutora"/>
+	</p:dialog>
+</h:form>
+
+
+
+<h:form id="frmRegIdgrupodocumentoBuscar">
+	<p:dialog id="diGrupodocumentoBuscar" header="Grupo documento » Buscar" widgetVar="diGrupodocumentoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Grupodocumento" autoUpdate="true" closable="true"/>
+	 <cc:cc_grupodocumentoBuscar
+	 ajaxEventListener="#{orden.loadRegIdgrupodocumento}"
+	 actionOncomplete="hideDialogPF('frmRegIdgrupodocumentoBuscar:diGrupodocumentoBuscar');"
+	 actionUpdate=":frmOrdenRegistrar:txtIdgrupodocumento"/>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdunidadejecutoraBuscar">
+	<p:dialog id="diUnidadejecutoraBuscar" header="Unidad Ejecutora » Buscar" widgetVar="diUnidadejecutoraBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Unidadejecutora" autoUpdate="true" closable="true"/>
+	 <cc:cc_unidadejecutoraBuscar
+	 ajaxEventListener="#{orden.loadRegIdunidadejecutora}"
+	 actionOncomplete="hideDialogPF('frmRegIdunidadejecutoraBuscar:diUnidadejecutoraBuscar');"
+	 actionUpdate=":frmOrdenRegistrar:txtIdunidadejecutora"/>
+	</p:dialog>
+</h:form>
+
+
+	<!-- Derived Table Main (entregable)  -->
+<h:form id="frmEntregableDetalle">
+	<p:dialog id="diEntregableDetalle" header="#{entregable.titulo}" widgetVar="diEntregableDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/entregable/component/c_entregableDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEntregableDetalle:diEntregableDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+</ui:define>
+</ui:composition>

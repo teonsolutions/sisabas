@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:tabView id="panelDetailC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<p:tab title="Detalle">
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="IdVDetallePedido" for="txtIdvdetallepedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdvdetallepedido" value="#{vdetallepedido.vdetallepedido.idvdetallepedido}" disabled="true" style="width:150px;" label="IdVDetallePedido"/>
+		</td>
+		<td>
+			<p:outputLabel  value="IdVPedido" for="txtIdvpedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdvpedido" value="#{vdetallepedido.vdetallepedido.vispedidoIdvpedido.anio}" disabled="true" style="width:150px;" label="IdVPedido"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Código Unidad Ejecutora" for="txtCodigounidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigounidadejecutora" value="#{vdetallepedido.vdetallepedido.codigounidadejecutora}" disabled="true" style="width:150px;" label="Código Unidad Ejecutora"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Anio" for="txtAnio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnio" value="#{vdetallepedido.vdetallepedido.anio}" disabled="true" style="width:150px;" label="Anio"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="SecEjec" for="txtSecejec"/>
+		</td>
+		<td>
+			<p:inputText  id="txtSecejec" value="#{vdetallepedido.vdetallepedido.secejec}" disabled="true" style="width:150px;" label="SecEjec"/>
+		</td>
+		<td>
+			<p:outputLabel  value="NroCuadro" for="txtNrocuadro"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNrocuadro" value="#{vdetallepedido.vdetallepedido.nrocuadro}" disabled="true" style="width:150px;" label="NroCuadro"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="CentroCosto" for="txtCentrocosto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCentrocosto" value="#{vdetallepedido.vdetallepedido.centrocosto}" disabled="true" style="width:150px;" label="CentroCosto"/>
+		</td>
+		<td>
+			<p:outputLabel  value="TipoBien" for="txtTipobien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipobien" value="#{vdetallepedido.vdetallepedido.tipobien}" disabled="true" style="width:150px;" label="TipoBien"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="NroPedido" for="txtNropedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNropedido" value="#{vdetallepedido.vdetallepedido.nropedido}" disabled="true" style="width:150px;" label="NroPedido"/>
+		</td>
+		<td>
+			<p:outputLabel  value="GrupoBien" for="txtGrupobien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtGrupobien" value="#{vdetallepedido.vdetallepedido.grupobien}" disabled="true" style="width:150px;" label="GrupoBien"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="ClaseBien" for="txtClasebien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtClasebien" value="#{vdetallepedido.vdetallepedido.clasebien}" disabled="true" style="width:150px;" label="ClaseBien"/>
+		</td>
+		<td>
+			<p:outputLabel  value="FamiliaBien" for="txtFamiliabien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFamiliabien" value="#{vdetallepedido.vdetallepedido.familiabien}" disabled="true" style="width:150px;" label="FamiliaBien"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="ItemBien" for="txtItembien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtItembien" value="#{vdetallepedido.vdetallepedido.itembien}" disabled="true" style="width:150px;" label="ItemBien"/>
+		</td>
+		<td>
+			<p:outputLabel  value="UnidadMedida" for="txtUnidadmedida"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUnidadmedida" value="#{vdetallepedido.vdetallepedido.unidadmedida}" disabled="true" style="width:150px;" label="UnidadMedida"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="NombreItem" for="txtNombreitem"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombreitem" value="#{vdetallepedido.vdetallepedido.nombreitem}" disabled="true" style="width:300px;" label="NombreItem"/>
+		</td>
+		<td>
+			<p:outputLabel  value="CantidadSolicitada" for="txtCantidadsolicitada"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCantidadsolicitada" value="#{vdetallepedido.vdetallepedido.cantidadsolicitada}" disabled="true" style="width:150px;" label="CantidadSolicitada"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="CantidadAprobada" for="txtCantidadaprobada"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCantidadaprobada" value="#{vdetallepedido.vdetallepedido.cantidadaprobada}" disabled="true" style="width:150px;" label="CantidadAprobada"/>
+		</td>
+		<td>
+			<p:outputLabel  value="CantidadAtendida" for="txtCantidadatendida"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCantidadatendida" value="#{vdetallepedido.vdetallepedido.cantidadatendida}" disabled="true" style="width:150px;" label="CantidadAtendida"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="PrecioUnitario" for="txtPreciounitario"/>
+		</td>
+		<td>
+			<p:inputText  id="txtPreciounitario" value="#{vdetallepedido.vdetallepedido.preciounitario}" disabled="true" style="width:150px;" label="PrecioUnitario"/>
+		</td>
+		<td>
+			<p:outputLabel  value="ValorTotal" for="txtValortotal"/>
+		</td>
+		<td>
+			<p:inputText  id="txtValortotal" value="#{vdetallepedido.vdetallepedido.valortotal}" disabled="true" style="width:150px;" label="ValorTotal"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="TipoTarea" for="txtTipotarea"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipotarea" value="#{vdetallepedido.vdetallepedido.tipotarea}" disabled="true" style="width:150px;" label="TipoTarea"/>
+		</td>
+		<td>
+			<p:outputLabel  value="NivelTarea" for="txtNiveltarea"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNiveltarea" value="#{vdetallepedido.vdetallepedido.niveltarea}" disabled="true" style="width:150px;" label="NivelTarea"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="CodigoTarea" for="txtCodigotarea"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigotarea" value="#{vdetallepedido.vdetallepedido.codigotarea}" disabled="true" style="width:150px;" label="CodigoTarea"/>
+		</td>
+		<td>
+			<p:outputLabel  value="EstadoPendiente" for="txtEstadopendiente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadopendiente" value="#{vdetallepedido.vdetallepedido.estadopendiente}" disabled="true" style="width:150px;" label="EstadoPendiente"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="IdClasificador" for="txtIdclasificador"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdclasificador" value="#{vdetallepedido.vdetallepedido.idclasificador}" disabled="true" style="width:150px;" label="IdClasificador"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Clasificador" for="txtClasificador"/>
+		</td>
+		<td>
+			<p:inputText  id="txtClasificador" value="#{vdetallepedido.vdetallepedido.clasificador}" disabled="true" style="width:150px;" label="Clasificador"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="CodigoTipoBien" for="txtCodigotipobien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigotipobien" value="#{vdetallepedido.vdetallepedido.codigotipobien}" disabled="true" style="width:150px;" label="CodigoTipoBien"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+	</p:tab>
+
+	<p:tab title="Datos de Auditoría">
+
+	<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha de Creación" for="txtFechacreacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechacreacionauditoria" value="#{vdetallepedido.vdetallepedido.fechacreacionauditoria}" disabled="true" style="width:150px;" label="Fecha de Creación">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>
+			</p:inputText>
+		</td>
+		<td>
+			<p:outputLabel  value="Usuario de Creación" for="txtUsuariocreacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuariocreacionauditoria" value="#{vdetallepedido.vdetallepedido.usuariocreacionauditoria}" disabled="true" style="width:150px;" label="Usuario de Creación"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha de última modificacion" for="txtFechamodificacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechamodificacionauditoria" value="#{vdetallepedido.vdetallepedido.fechamodificacionauditoria}" disabled="true" style="width:150px;" label="Fecha de última modificacion">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>
+			</p:inputText>
+		</td>
+		<td>
+			<p:outputLabel  value="Usuario de última modificacion" for="txtUsuariomodificacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuariomodificacionauditoria" value="#{vdetallepedido.vdetallepedido.usuariomodificacionauditoria}" disabled="true" style="width:150px;" label="Usuario de última modificacion"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="IP/Nombre Equipo" for="txtEquipoauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEquipoauditoria" value="#{vdetallepedido.vdetallepedido.equipoauditoria}" disabled="true" style="width:300px;" label="IP/Nombre Equipo"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Programa/Clase" for="txtProgramaauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtProgramaauditoria" value="#{vdetallepedido.vdetallepedido.programaauditoria}" disabled="true" style="width:300px;" label="Programa/Clase"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Estado Registro" for="txtEstadoauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadoauditoria" value="#{vdetallepedido.vdetallepedido.estadoauditoria}" disabled="true" style="width:150px;" label="Estado Registro"/>
+		</td>
+	</tr>
+
+	</table>
+	</p:tab>
+
+</p:tabView>
+</html>

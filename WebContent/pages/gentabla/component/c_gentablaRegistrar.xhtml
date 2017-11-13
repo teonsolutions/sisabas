@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<div align="left">
+		<p:message id="msgVchregcodigo" for="txtVchregcodigo"  showSummary="true" showDetail="false"/>
+		<p:message id="msgVchregdescri" for="txtVchregdescri"  showSummary="true" showDetail="false"/>
+		<p:message id="msgVchregabreviado" for="txtVchregabreviado"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIntregorden" for="txtIntregorden"  showSummary="true" showDetail="false"/>
+		<p:message id="msgVchtabotro1" for="txtVchtabotro1"  showSummary="true" showDetail="false"/>
+		<p:message id="msgVchtabotro2" for="txtVchtabotro2"  showSummary="true" showDetail="false"/>
+		<p:message id="msgVchtabotro3" for="txtVchtabotro3" showSummary="true"
+			showDetail="false" />
+		<p:message id="msgVchtabotro4" for="txtVchtabotro4"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIntganempid" for="txtIntganempid"  showSummary="true" showDetail="false"/>
+	</div>
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="Código" for="txtVchregcodigo" id="lblVchregcodigo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchregcodigo" value="#{gentabla.gentabla.vchregcodigo}" required="true" maxlength="10" style="width:150px;" label="Código"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Descripción" for="txtVchregdescri" id="lblVchregdescri"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchregdescri" value="#{gentabla.gentabla.vchregdescri}" required="true" maxlength="100" style="width:150px;" label="Descripción"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Abreviado" for="txtVchregabreviado" id="lblVchregabreviado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchregabreviado" value="#{gentabla.gentabla.vchregabreviado}" required="false" maxlength="45" style="width:150px;" label="Abreviado"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Orden" for="txtIntregorden" id="lblIntregorden"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIntregorden" value="#{gentabla.gentabla.intregorden}" required="false" maxlength="10" style="width:150px;" label="Orden"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Otro 1" for="txtVchtabotro1" id="lblVchtabotro1"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchtabotro1" value="#{gentabla.gentabla.vchtabotro1}" required="false" maxlength="40" style="width:150px;" label="Otro 1"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Otro 2" for="txtVchtabotro2" id="lblVchtabotro2"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchtabotro2" value="#{gentabla.gentabla.vchtabotro2}" required="false" maxlength="40" style="width:150px;" label="Otro 2"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Otro 3" for="txtVchtabotro3" id="lblVchtabotro3"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchtabotro3" value="#{gentabla.gentabla.vchtabotro3}" required="false" maxlength="40" style="width:150px;" label="Otro 3"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Otro 4" for="txtVchtabotro4" id="lblVchtabotro4"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchtabotro4" value="#{gentabla.gentabla.vchtabotro4}" required="false" maxlength="40" style="width:150px;" label="Otro 4"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="intganempid" for="txtIntganempid" id="lblIntganempid"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIntganempid" value="#{gentabla.gentabla.intganempid}" required="false" maxlength="10" style="width:150px;" label="intganempid"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+</p:panel>
+</html>

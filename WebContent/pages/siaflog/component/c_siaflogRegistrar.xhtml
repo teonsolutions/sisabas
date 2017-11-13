@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<div align="left">
+		<p:message id="msgIdlog" for="txtIdlog"  showSummary="true" showDetail="false"/>
+		<p:message id="msgFechacarga" for="txtFechacarga"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdunidadejecutora" for="txtIdunidadejecutora"  showSummary="true" showDetail="false"/>
+		<p:message id="msgPeriodicidad" for="txtPeriodicidad"  showSummary="true" showDetail="false"/>
+		<p:message id="msgFechainicio" for="txtFechainicio"  showSummary="true" showDetail="false"/>
+		<p:message id="msgFechafin" for="txtFechafin"  showSummary="true" showDetail="false"/>
+		<p:message id="msgEstado" for="txtEstado"  showSummary="true" showDetail="false"/>
+		<p:message id="msgDescripcionestado" for="txtDescripcionestado"  showSummary="true" showDetail="false"/>
+	</div>
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIdlog" id="lblIdlog"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdlog" value="#{siaflog.siaflog.idlog}" required="true" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="FechaCarga" for="txtFechacarga" id="lblFechacarga"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechacarga" value="#{siaflog.siaflog.fechacarga}" required="false" maxlength="10" style="width:150px;" label="FechaCarga"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="IdUnidadEjecutora" for="txtIdunidadejecutora" id="lblIdunidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdunidadejecutora" value="#{siaflog.siaflog.idunidadejecutora}" required="true" maxlength="10" style="width:150px;" label="IdUnidadEjecutora"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Periodicidad" for="txtPeriodicidad" id="lblPeriodicidad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtPeriodicidad" value="#{siaflog.siaflog.periodicidad}" required="false" maxlength="2147483647" style="width:150px;" label="Periodicidad"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="FechaInicio" for="txtFechainicio" id="lblFechainicio"/>
+		</td>
+		<td>
+			<p:calendar   id="txtFechainicio" value="#{siaflog.siaflog.fechainicio}" required="true" pattern="dd/MM/yyyy HH:mm" label="FechaInicio" navigator="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel  value="FechaFin" for="txtFechafin" id="lblFechafin"/>
+		</td>
+		<td>
+			<p:calendar   id="txtFechafin" value="#{siaflog.siaflog.fechafin}" required="true" pattern="dd/MM/yyyy HH:mm" label="FechaFin" navigator="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Estado" for="txtEstado" id="lblEstado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstado" value="#{siaflog.siaflog.estado}" required="true" maxlength="1" style="width:150px;" label="Estado"/>
+		</td>
+		<td>
+			<p:outputLabel  value="DescripcionEstado" for="txtDescripcionestado" id="lblDescripcionestado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDescripcionestado" value="#{siaflog.siaflog.descripcionestado}" required="false" maxlength="2147483647" style="width:150px;" label="DescripcionEstado"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+</p:panel>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+	<composite:interface componentType="customComponent">
+	<composite:attribute name="ajaxEventListener" method-signature="void listener(org.primefaces.event.SelectEvent)" />
+	<composite:attribute name="actionOncomplete" type="java.lang.String"/>
+	<composite:attribute name="actionUpdate"  type="java.lang.String"/>
+	</composite:interface>
+	<composite:implementation>
+	<p:panel id="pnlCBuscar">
+	<p:panel>
+	<table style="width: 100%;" cellpadding="0" cellspacing="5">
+
+		<tr>
+			<td>
+				<p:outputLabel  value="ID" for="txtIdpacprogramado"/>
+			</td>
+			<td>
+				<h:inputText  id="txtIdpacprogramado" value="#{cc_pacprogramado.pacprogramadoB.idpacprogramado}" maxlength="10" style="width:150px;" label="ID"/>
+			</td>
+			<td>
+				<p:outputLabel  value="anio" for="txtAnio"/>
+			</td>
+			<td>
+				<h:inputText  id="txtAnio" value="#{cc_pacprogramado.pacprogramadoB.anio}" maxlength="10" style="width:150px;" label="anio"/>
+			</td>
+			<td>
+				<p:outputLabel  value="Unidad Ejecutora" for="txtIdunidadejecutora"/>
+			</td>
+			<td>
+				<h:inputText  id="txtIdunidadejecutora" value="#{cc_pacprogramado.pacprogramadoB.idunidadejecutora}" maxlength="10" style="width:150px;" label="Unidad Ejecutora"/>
+			</td>
+	</tr>
+	<tr>
+			<td>
+				<p:outputLabel  value="Numero consolidacion" for="txtNroconsolid"/>
+			</td>
+			<td>
+				<h:inputText  id="txtNroconsolid" value="#{cc_pacprogramado.pacprogramadoB.nroconsolid}" maxlength="10" style="width:150px;" label="Numero consolidacion"/>
+			</td>
+			<td>
+				<p:outputLabel  value="Especificación Técnica" for="txtEspecificaciontecnica"/>
+			</td>
+			<td>
+				<h:inputText  id="txtEspecificaciontecnica" value="#{cc_pacprogramado.pacprogramadoB.especificaciontecnica}" maxlength="100" style="width:300px;" label="Especificación Técnica"/>
+			</td>
+			<td>
+				<p:outputLabel  value="Tipo bien" for="somIdcatalogotipobien"/>
+			</td>
+			<td>
+				<h:selectOneMenu  value="#{cc_pacprogramado.pacprogramadoB.idcatalogotipobien}" id="somIdcatalogotipobien" label="Tipo bien">
+					<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+					<f:selectItems value="#{cc_pacprogramado.listaGentablaIdcatalogotipobien}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
+				</h:selectOneMenu>
+			</td>
+	</tr>
+	<tr>
+			<td>
+				<p:outputLabel  value="Monto PAO" for="txtMontopao"/>
+			</td>
+			<td>
+				<h:inputText  id="txtMontopao" value="#{cc_pacprogramado.pacprogramadoB.montopao}" maxlength="18" style="width:150px;" label="Monto PAO"/>
+			</td>
+			<td>
+				<p:outputLabel  value="Código Centro Costo" for="txtCodigocentrocosto"/>
+			</td>
+			<td>
+				<h:inputText  id="txtCodigocentrocosto" value="#{cc_pacprogramado.pacprogramadoB.codigocentrocosto}" maxlength="15" style="width:150px;" label="Código Centro Costo"/>
+			</td>
+			<td>
+				<p:outputLabel  value="Nombre de dependencia" for="txtNombredependencia"/>
+			</td>
+			<td>
+				<h:inputText  id="txtNombredependencia" value="#{cc_pacprogramado.pacprogramadoB.nombredependencia}" maxlength="100" style="width:300px;" label="Nombre de dependencia"/>
+			</td>
+	</tr>
+	<tr>
+			<td>
+				<p:outputLabel  value="Estado" for="somIdcatalogoestado"/>
+			</td>
+			<td>
+				<h:selectOneMenu  value="#{cc_pacprogramado.pacprogramadoB.idcatalogoestado}" id="somIdcatalogoestado" label="Estado">
+					<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+					<f:selectItems value="#{cc_pacprogramado.listaGentablaIdcatalogoestado}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
+				</h:selectOneMenu>
+			</td>
+			<td>
+				<p:outputLabel  value="Tipo documento Sinad" for="txtTipodocumentosinad"/>
+			</td>
+			<td>
+				<h:inputText  id="txtTipodocumentosinad" value="#{cc_pacprogramado.pacprogramadoB.tipodocumentosinad}" maxlength="50" style="width:300px;" label="Tipo documento Sinad"/>
+			</td>
+			<td>
+				<p:outputLabel  value="Número documento Sinad" for="txtNumerodocumentosinad"/>
+			</td>
+			<td>
+				<h:inputText  id="txtNumerodocumentosinad" value="#{cc_pacprogramado.pacprogramadoB.numerodocumentosinad}" maxlength="100" style="width:300px;" label="Número documento Sinad"/>
+			</td>
+	</tr>
+	<tr>
+			<td>
+				<p:outputLabel  value="Número Sinad" for="txtNumerosinad"/>
+			</td>
+			<td>
+				<h:inputText  id="txtNumerosinad" value="#{cc_pacprogramado.pacprogramadoB.numerosinad}" maxlength="10" style="width:150px;" label="Número Sinad"/>
+			</td>
+			<td>
+				<p:outputLabel  value="Año Sinad" for="txtAniosinad"/>
+			</td>
+			<td>
+				<h:inputText  id="txtAniosinad" value="#{cc_pacprogramado.pacprogramadoB.aniosinad}" maxlength="10" style="width:150px;" label="Año Sinad"/>
+			</td>
+			<td>
+				<p:outputLabel  value="Número Expediente Sinad" for="txtNumeroexpedientesinad"/>
+			</td>
+			<td>
+				<h:inputText  id="txtNumeroexpedientesinad" value="#{cc_pacprogramado.pacprogramadoB.numeroexpedientesinad}" maxlength="30" style="width:150px;" label="Número Expediente Sinad"/>
+			</td>
+		</tr>
+
+		<tr>
+			<td colspan="6">
+				<p:commandButton id="btnCPacprogramado" widgetVar="btnCPacprogramado"  value="Buscar" process="@form" actionListener="#{cc_pacprogramado.buscar}" update="tblListaPacprogramadoBuscar,pnlCBuscar" icon="ui-icon-search"/>
+			</td>
+		</tr>
+	</table>
+	</p:panel>
+
+	<p:dataTable id="tblListaPacprogramadoBuscar" widgetVar="tblListaPacprogramadoBuscar" value="#{cc_pacprogramado.listaPacprogramado}" var="var" emptyMessage="No se encontraron registros"  
+	selection="#{cc_pacprogramado.selectedPacprogramado}"
+	selectionMode="single" rowKey="#{var.idpacprogramado}"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(cc_pacprogramado.listaPacprogramado)}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom">
+	<p:ajax event="rowSelect" listener="#{cc.ajaxEventListener}" oncomplete="#{cc.attrs.actionOncomplete}" update="#{cc.attrs.actionUpdate}" immediate="true"/>
+		<p:column headerText="ID" styleClass="c_numeric">
+			<h:outputText value="#{var.idpacprogramado}" />
+		</p:column>
+		<p:column headerText="anio" styleClass="c_numeric">
+			<h:outputText value="#{var.anio}" />
+		</p:column>
+		<p:column headerText="Unidad Ejecutora" styleClass="c_numeric">
+			<h:outputText value="#{var.idunidadejecutora}" />
+		</p:column>
+		<p:column headerText="Numero consolidacion" styleClass="c_center">
+			<h:outputText value="#{var.nroconsolid}" />
+		</p:column>
+		<p:column headerText="Especificación Técnica" styleClass="c_string">
+			<h:outputText value="#{var.especificaciontecnica}" />
+		</p:column>
+		<p:column headerText="Tipo bien" styleClass="c_center">
+			<h:outputText value="#{var.idcatalogotipobien}" />
+		</p:column>
+		<p:column headerText="Monto PAO" styleClass="c_string">
+			<h:outputText value="#{var.montopao}" />
+		</p:column>
+		<p:column headerText="Código Centro Costo" styleClass="c_string">
+			<h:outputText value="#{var.codigocentrocosto}" />
+		</p:column>
+		<p:column headerText="Nombre de dependencia" styleClass="c_string">
+			<h:outputText value="#{var.nombredependencia}" />
+		</p:column>
+		<p:column headerText="Estado" styleClass="c_center">
+			<h:outputText value="#{var.idcatalogoestado}" />
+		</p:column>
+		<p:column headerText="Tipo documento Sinad" styleClass="c_string">
+			<h:outputText value="#{var.tipodocumentosinad}" />
+		</p:column>
+		<p:column headerText="Número documento Sinad" styleClass="c_string">
+			<h:outputText value="#{var.numerodocumentosinad}" />
+		</p:column>
+		<p:column headerText="Número Sinad" styleClass="c_numeric">
+			<h:outputText value="#{var.numerosinad}" />
+		</p:column>
+		<p:column headerText="Año Sinad" styleClass="c_numeric">
+			<h:outputText value="#{var.aniosinad}" />
+		</p:column>
+		<p:column headerText="Número Expediente Sinad" styleClass="c_string">
+			<h:outputText value="#{var.numeroexpedientesinad}" />
+		</p:column>
+	</p:dataTable>
+
+	<table style="width: 100%;">
+		<tr>
+			<td>
+				<div align="right">
+				<p:commandButton value="Salir" onclick="#{cc.attrs.actionOncomplete};return false;" icon="ui-icon-arrowreturnthick-1-w" title="Salir" />
+				</div>
+			</td>
+		</tr>
+	</table>
+	</p:panel>
+	</composite:implementation>
+</html>

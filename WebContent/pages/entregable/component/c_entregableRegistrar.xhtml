@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<div align="left">
+		<p:message id="msgIdentregable" for="txtIdentregable"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNroproveido" for="txtNroproveido"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNroentregable" for="txtNroentregable"  showSummary="true" showDetail="false"/>
+		<p:message id="msgPlazoentregable" for="txtPlazoentregable"  showSummary="true" showDetail="false"/>
+		<p:message id="msgMontoentregable" for="txtMontoentregable"  showSummary="true" showDetail="false"/>
+		<p:message id="msgMontopenalidadentregable" for="txtMontopenalidadentregable"  showSummary="true" showDetail="false"/>
+		<p:message id="msgFechapresentacionentregable" for="txtFechapresentacionentregable"  showSummary="true" showDetail="false"/>
+		<p:message id="msgObservacionesentregable" for="txtObservacionesentregable"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdcatalogoestadoentregable" for="txtIdcatalogoestadoentregable"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdgrupodocumento" for="txtIdgrupodocumento"  showSummary="true" showDetail="false"/>
+		<p:message id="msgAnio" for="txtAnio"  showSummary="true" showDetail="false"/>
+	</div>
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIdentregable" id="lblIdentregable"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdentregable" value="#{entregable.entregable.identregable}" required="true" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Número Proveido" for="txtNroproveido" id="lblNroproveido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroproveido" value="#{entregable.entregable.nroproveido}" required="false" maxlength="10" style="width:150px;" label="Número Proveido"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Número Entregable" for="txtNroentregable" id="lblNroentregable"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroentregable" value="#{entregable.entregable.nroentregable}" required="false" maxlength="15" style="width:150px;" label="Número Entregable"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Plazo Entregable" for="txtPlazoentregable" id="lblPlazoentregable"/>
+		</td>
+		<td>
+			<p:inputText  id="txtPlazoentregable" value="#{entregable.entregable.plazoentregable}" required="false" maxlength="4" style="width:150px;" label="Plazo Entregable"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Monto Entregable" for="txtMontoentregable" id="lblMontoentregable"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMontoentregable" value="#{entregable.entregable.montoentregable}" required="false" maxlength="18" style="width:150px;" label="Monto Entregable"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Monto Penalidad Entregable" for="txtMontopenalidadentregable" id="lblMontopenalidadentregable"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMontopenalidadentregable" value="#{entregable.entregable.montopenalidadentregable}" required="false" maxlength="18" style="width:150px;" label="Monto Penalidad Entregable"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha Presentación Entregable" for="txtFechapresentacionentregable" id="lblFechapresentacionentregable"/>
+		</td>
+		<td>
+			<p:calendar   id="txtFechapresentacionentregable" value="#{entregable.entregable.fechapresentacionentregable}" required="false" pattern="dd/MM/yyyy HH:mm" label="Fecha Presentación Entregable" navigator="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Observaciones Entregables" for="txtObservacionesentregable" id="lblObservacionesentregable"/>
+		</td>
+		<td>
+			<p:inputText  id="txtObservacionesentregable" value="#{entregable.entregable.observacionesentregable}" required="false" maxlength="500" style="width:150px;" label="Observaciones Entregables"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Estado Entregable" for="txtIdcatalogoestadoentregable" id="lblIdcatalogoestadoentregable"/>
+		</td>
+		<td>
+			<p:selectOneMenu  value="#{entregable.entregable.idcatalogoestadoentregable}" id="txtIdcatalogoestadoentregable" required="false" label="Estado Entregable">
+				<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+				<f:selectItems value="#{entregable.listaGentablaIdcatalogoestadoentregable}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
+			</p:selectOneMenu>
+		</td>
+		<td>
+			<p:outputLabel  value="Grupo Documento" for="txtIdgrupodocumento" id="lblIdgrupodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdgrupodocumento" value="#{entregable.entregable.grupodocumentoIdgrupodocumento.anio}" disabled="true" required="true" maxlength="10" style="width:150px;" label="Grupo Documento"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_grupodocumento.init}" immediate="true" oncomplete="showDialogPF('frmRegIdgrupodocumentoBuscar:diGrupodocumentoBuscar');" update=":frmRegIdgrupodocumentoBuscar:diGrupodocumentoBuscar" style="width:20px;height:20px;"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Ejercicio" for="txtAnio" id="lblAnio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnio" value="#{entregable.entregable.anio}" required="false" maxlength="10" style="width:150px;" label="Ejercicio"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+</p:panel>
+</html>

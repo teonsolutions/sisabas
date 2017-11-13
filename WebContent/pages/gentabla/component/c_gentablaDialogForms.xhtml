@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmGentablaImprimir">
+	<p:dialog id="diGentablaImprimir" header="#{gentabla.titulo}" widgetVar="diGentablaImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaGentabla" fileName="datosGentabla" postProcessor="#{gentabla.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaGentabla" fileName="datos" preProcessor="#{gentabla.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmGentablaRegistrar">
+	<p:dialog id="diGentablaRegistrar" header="#{gentabla.titulo}" widgetVar="diGentablaRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsGentablaR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/gentabla/component/c_gentablaRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{gentabla.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{gentabla.aceptar}" update="hidStatus,:form:tblListaGentabla,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmGentablaRegistrar:hidStatus','frmGentablaRegistrar:diGentablaRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmGentablaRegistrar:diGentablaRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmGentablaDetalle">
+	<p:dialog id="diGentablaDetalle" header="#{gentabla.titulo}" widgetVar="diGentablaDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/gentabla/component/c_gentablaDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmGentablaDetalle:diGentablaDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmGentablaAnular">
+	<p:dialog id="diGentablaAnular" header="#{gentabla.titulo}" widgetVar="diGentablaAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsGentablaA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/gentabla/component/c_gentablaDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{gentabla.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{gentabla.anular}" update="hidStatus,:form:tblListaGentabla,:form:growl,panelDetailC" oncomplete="hideDialog('frmGentablaAnular:hidStatus','frmGentablaAnular:diGentablaAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmGentablaAnular:diGentablaAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+</html>

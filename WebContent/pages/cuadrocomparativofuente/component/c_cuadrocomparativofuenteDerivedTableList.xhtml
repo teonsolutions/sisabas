@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<h:inputHidden id="hidStatusCuadrocomparativofuente" value="#{cuadrocomparativofuente.status}"/>
+<p:contextMenu for="tblListaCuadrocomparativofuente">
+	<p:menuitem value="Detalle" action="#{cuadrocomparativofuente.irDetalle}"  process="@this,hidStatusCuadrocomparativofuente,tblListaCuadrocomparativofuente"  update="hidStatusCuadrocomparativofuente,:frmCuadrocomparativofuenteDetalle:diCuadrocomparativofuenteDetalle"  oncomplete="showDialog('frmPacconsolidadoDetalle:panelDetailC:hidStatusCuadrocomparativofuente','frmCuadrocomparativofuenteDetalle:diCuadrocomparativofuenteDetalle');"  icon="ui-icon-zoomin" rendered="#{cuadrocomparativofuente.renderButton('btnDetalle')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaCuadrocomparativofuente" value="#{cuadrocomparativofuente.listaCuadrocomparativofuente}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaCuadrocomparativofuente" selection="#{cuadrocomparativofuente.selectedCuadrocomparativofuente}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(cuadrocomparativofuente.listaCuadrocomparativofuente)}"
+	selectionMode="single" rowKey="#{var.idcuadrocomparativofuente}" styleClass="gandalfTableClass" rowStyleClass="#{var.params.ACTION!=null?(var.params.ACTION=='INSERT'?'old':'dead'):''}">
+		<p:column styleClass="c_numeric" sortBy="#{var.idcuadrocomparativofuente}">
+			<f:facet name="header">
+				<h:outputText value="id" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idcuadrocomparativofuente}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.pacconsolidadoIdpacconsolidado.nroconsolid}">
+			<f:facet name="header">
+				<h:outputText value="PacConsolidado" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.pacconsolidadoIdpacconsolidado.nroconsolid}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.gentablaIdcatalogotipofuente.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="Catalogo Tipofuente" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.gentablaIdcatalogotipofuente.vchregdescri}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.gentablaIdcatalogotipobien.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="Tipo bien" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.gentablaIdcatalogotipobien.vchregdescri}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.proveedor}">
+			<f:facet name="header">
+				<h:outputText value="Proveedor" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.proveedor}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.rucproveedor}">
+			<f:facet name="header">
+				<h:outputText value="Ruc Proveedor" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.rucproveedor}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nombreproveedor}">
+			<f:facet name="header">
+				<h:outputText value="Nombre Proveedor" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nombreproveedor}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nombrecontacto}">
+			<f:facet name="header">
+				<h:outputText value="Nombre Contacto" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nombrecontacto}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.telefonoproveedor}">
+			<f:facet name="header">
+				<h:outputText value="Telefono Proveedor" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.telefonoproveedor}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.correoproveedor}">
+			<f:facet name="header">
+				<h:outputText value="Correo Proveedor" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.correoproveedor}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.entidadconvocante}">
+			<f:facet name="header">
+				<h:outputText value="Entidad Convocante" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.entidadconvocante}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.tiponumeroproceso}">
+			<f:facet name="header">
+				<h:outputText value="Tipo numero proceso" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.tiponumeroproceso}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechaconsentimientobuenapro}">
+			<f:facet name="header">
+				<h:outputText value="Fecha Consentimiento Buena Pro" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechaconsentimientobuenapro}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.marca}">
+			<f:facet name="header">
+				<h:outputText value="Marca" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.marca}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.modelo}">
+			<f:facet name="header">
+				<h:outputText value="Modelo" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.modelo}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.procedencia}">
+			<f:facet name="header">
+				<h:outputText value="Procedencia" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.procedencia}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.aniofabricacion}">
+			<f:facet name="header">
+				<h:outputText value="Año Fabricacion" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.aniofabricacion}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.garantiacomercial}">
+			<f:facet name="header">
+				<h:outputText value="Garantía comercial" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.garantiacomercial}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.plazoentrega}">
+			<f:facet name="header">
+				<h:outputText value="Plazo de Entrega" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.plazoentrega}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.formapago}">
+			<f:facet name="header">
+				<h:outputText value="Forma de pago" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.formapago}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.gentablaIdcatalogomonedafuente.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="Moneda Fuente" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.gentablaIdcatalogomonedafuente.vchregdescri}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.preciounitariomonedaconsignada}">
+			<f:facet name="header">
+				<h:outputText value="Precio Unitario Moneda Consignada" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.preciounitariomonedaconsignada}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.tipocambio}">
+			<f:facet name="header">
+				<h:outputText value="Tipo de cambio" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.tipocambio}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechasolicitud}">
+			<f:facet name="header">
+				<h:outputText value="Fecha de solicitud" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechasolicitud}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.vecesreiterosolicitud}">
+			<f:facet name="header">
+				<h:outputText value="Veces Reitero Solicitud" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.vecesreiterosolicitud}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fecharecepcion}">
+			<f:facet name="header">
+				<h:outputText value="Fecha Repecion" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fecharecepcion}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.proveedordedicacontratacion}">
+			<f:facet name="header">
+				<h:outputText value="Proveedor dedica Contratación" styleClass="c_center"/>
+			</f:facet>
+			<h:graphicImage url="/resources/img/check.png" width="10" height="10" rendered="#{var.proveedordedicacontratacion=='1'}"/>		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.usuarioparticiportm}">
+			<f:facet name="header">
+				<h:outputText value="Usuario participo RTM" styleClass="c_center"/>
+			</f:facet>
+			<h:graphicImage url="/resources/img/check.png" width="10" height="10" rendered="#{var.usuarioparticiportm=='1'}"/>		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.cumplertm}">
+			<f:facet name="header">
+				<h:outputText value="Cumple RTM" styleClass="c_center"/>
+			</f:facet>
+			<h:graphicImage url="/resources/img/check.png" width="10" height="10" rendered="#{var.cumplertm=='1'}"/>		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.setomoencuenta}">
+			<f:facet name="header">
+				<h:outputText value="SeTomoEncuenta" styleClass="c_center"/>
+			</f:facet>
+			<h:graphicImage url="/resources/img/check.png" width="10" height="10" rendered="#{var.setomoencuenta=='1'}"/>		</p:column>
+</p:dataTable>
+</html>

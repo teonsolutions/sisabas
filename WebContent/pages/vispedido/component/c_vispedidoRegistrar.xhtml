@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<div align="left">
+		<p:message id="msgIdvpedido" for="txtIdvpedido"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCodigounidadejecutora" for="txtCodigounidadejecutora"  showSummary="true" showDetail="false"/>
+		<p:message id="msgAnio" for="txtAnio"  showSummary="true" showDetail="false"/>
+		<p:message id="msgSecejec" for="txtSecejec"  showSummary="true" showDetail="false"/>
+		<p:message id="msgTipobien" for="txtTipobien"  showSummary="true" showDetail="false"/>
+		<p:message id="msgTipopedido" for="txtTipopedido"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNropedido" for="txtNropedido"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCodigocentrocosto" for="txtCodigocentrocosto"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNombredependencia" for="txtNombredependencia"  showSummary="true" showDetail="false"/>
+		<p:message id="msgFechapedido" for="txtFechapedido"  showSummary="true" showDetail="false"/>
+		<p:message id="msgFechaaprobacion" for="txtFechaaprobacion"  showSummary="true" showDetail="false"/>
+		<p:message id="msgMotivopedido" for="txtMotivopedido"  showSummary="true" showDetail="false"/>
+		<p:message id="msgSecfunc" for="txtSecfunc"  showSummary="true" showDetail="false"/>
+		<p:message id="msgTipotarea" for="txtTipotarea"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNiveltarea" for="txtNiveltarea"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCodigotarea" for="txtCodigotarea"  showSummary="true" showDetail="false"/>
+		<p:message id="msgMespedido" for="txtMespedido"  showSummary="true" showDetail="false"/>
+		<p:message id="msgEstado" for="txtEstado"  showSummary="true" showDetail="false"/>
+	</div>
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="IdPedidoSiga" for="txtIdvpedido" id="lblIdvpedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdvpedido" value="#{vispedido.vispedido.idvpedido}" required="true" maxlength="10" style="width:150px;" label="IdPedidoSiga"/>
+		</td>
+		<td>
+			<p:outputLabel  value="CodigoUnidadEjecutora" for="txtCodigounidadejecutora" id="lblCodigounidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigounidadejecutora" value="#{vispedido.vispedido.codigounidadejecutora}" required="true" maxlength="3" style="width:150px;" label="CodigoUnidadEjecutora"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Anio" for="txtAnio" id="lblAnio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnio" value="#{vispedido.vispedido.anio}" required="true" maxlength="4" style="width:150px;" label="Anio"/>
+		</td>
+		<td>
+			<p:outputLabel  value="SecEjec" for="txtSecejec" id="lblSecejec"/>
+		</td>
+		<td>
+			<p:inputText  id="txtSecejec" value="#{vispedido.vispedido.secejec}" required="true" maxlength="6" style="width:150px;" label="SecEjec"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="TipoBien" for="txtTipobien" id="lblTipobien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipobien" value="#{vispedido.vispedido.tipobien}" required="true" maxlength="1" style="width:150px;" label="TipoBien"/>
+		</td>
+		<td>
+			<p:outputLabel  value="TipoPedido" for="txtTipopedido" id="lblTipopedido"/>
+		</td>
+		<td>
+			<p:selectBooleanCheckbox id="txtTipopedido" value ="#{vispedido.vispedido.booleantipopedido}" required="true" label="TipoPedido"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="NroPedido" for="txtNropedido" id="lblNropedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNropedido" value="#{vispedido.vispedido.nropedido}" required="true" maxlength="5" style="width:150px;" label="NroPedido"/>
+		</td>
+		<td>
+			<p:outputLabel  value="CodigoCentroCosto" for="txtCodigocentrocosto" id="lblCodigocentrocosto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigocentrocosto" value="#{vispedido.vispedido.codigocentrocosto}" required="false" maxlength="15" style="width:150px;" label="CodigoCentroCosto"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="NombreDependencia" for="txtNombredependencia" id="lblNombredependencia"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombredependencia" value="#{vispedido.vispedido.nombredependencia}" required="false" maxlength="100" style="width:150px;" label="NombreDependencia"/>
+		</td>
+		<td>
+			<p:outputLabel  value="FechaPedido" for="txtFechapedido" id="lblFechapedido"/>
+		</td>
+		<td>
+			<p:calendar   id="txtFechapedido" value="#{vispedido.vispedido.fechapedido}" required="false" pattern="dd/MM/yyyy HH:mm" label="FechaPedido" navigator="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="FechaAprobacion" for="txtFechaaprobacion" id="lblFechaaprobacion"/>
+		</td>
+		<td>
+			<p:calendar   id="txtFechaaprobacion" value="#{vispedido.vispedido.fechaaprobacion}" required="false" pattern="dd/MM/yyyy HH:mm" label="FechaAprobacion" navigator="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel  value="MotivoPedido" for="txtMotivopedido" id="lblMotivopedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMotivopedido" value="#{vispedido.vispedido.motivopedido}" required="false" maxlength="2147483647" style="width:150px;" label="MotivoPedido"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="SecFunc" for="txtSecfunc" id="lblSecfunc"/>
+		</td>
+		<td>
+			<p:inputText  id="txtSecfunc" value="#{vispedido.vispedido.secfunc}" required="false" maxlength="4" style="width:150px;" label="SecFunc"/>
+		</td>
+		<td>
+			<p:outputLabel  value="TipoTarea" for="txtTipotarea" id="lblTipotarea"/>
+		</td>
+		<td>
+			<p:selectBooleanCheckbox id="txtTipotarea" value ="#{vispedido.vispedido.booleantipotarea}" required="false" label="TipoTarea"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="NivelTarea" for="txtNiveltarea" id="lblNiveltarea"/>
+		</td>
+		<td>
+			<p:selectBooleanCheckbox id="txtNiveltarea" value ="#{vispedido.vispedido.booleanniveltarea}" required="false" label="NivelTarea"/>
+		</td>
+		<td>
+			<p:outputLabel  value="CodigoTarea" for="txtCodigotarea" id="lblCodigotarea"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigotarea" value="#{vispedido.vispedido.codigotarea}" required="false" maxlength="10" style="width:150px;" label="CodigoTarea"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="MesPedido" for="txtMespedido" id="lblMespedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMespedido" value="#{vispedido.vispedido.mespedido}" required="false" maxlength="2" style="width:150px;" label="MesPedido"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Estado" for="txtEstado" id="lblEstado"/>
+		</td>
+		<td>
+			<p:selectBooleanCheckbox id="txtEstado" value ="#{vispedido.vispedido.booleanestado}" required="false" label="Estado"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+</p:panel>
+</html>

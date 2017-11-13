@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmOrdenImprimir">
+	<p:dialog id="diOrdenImprimir" header="#{orden.titulo}" widgetVar="diOrdenImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaOrden" fileName="datosOrden" postProcessor="#{orden.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaOrden" fileName="datos" preProcessor="#{orden.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmOrdenRegistrar">
+	<p:dialog id="diOrdenRegistrar" header="#{orden.titulo}" widgetVar="diOrdenRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsOrdenR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/orden/component/c_ordenRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{orden.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{orden.aceptar}" update="hidStatus,:form:tblListaOrden,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmOrdenRegistrar:hidStatus','frmOrdenRegistrar:diOrdenRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmOrdenRegistrar:diOrdenRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmOrdenDetalle">
+	<p:dialog id="diOrdenDetalle" header="#{orden.titulo}" widgetVar="diOrdenDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/orden/component/c_ordenDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmOrdenDetalle:diOrdenDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmOrdenAnular">
+	<p:dialog id="diOrdenAnular" header="#{orden.titulo}" widgetVar="diOrdenAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsOrdenA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/orden/component/c_ordenDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{orden.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{orden.anular}" update="hidStatus,:form:tblListaOrden,:form:growl,panelDetailC" oncomplete="hideDialog('frmOrdenAnular:hidStatus','frmOrdenAnular:diOrdenAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmOrdenAnular:diOrdenAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdgrupodocumentoBuscar">
+	<p:dialog id="diGrupodocumentoBuscar" header="Grupo documento » Buscar" widgetVar="diGrupodocumentoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Grupodocumento" autoUpdate="true" closable="true"/>
+	 <cc:cc_grupodocumentoBuscar
+	 ajaxEventListener="#{orden.loadRegIdgrupodocumento}"
+	 actionOncomplete="hideDialogPF('frmRegIdgrupodocumentoBuscar:diGrupodocumentoBuscar');"
+	 actionUpdate=":frmOrdenRegistrar:txtIdgrupodocumento"/>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdunidadejecutoraBuscar">
+	<p:dialog id="diUnidadejecutoraBuscar" header="Unidad Ejecutora » Buscar" widgetVar="diUnidadejecutoraBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Unidadejecutora" autoUpdate="true" closable="true"/>
+	 <cc:cc_unidadejecutoraBuscar
+	 ajaxEventListener="#{orden.loadRegIdunidadejecutora}"
+	 actionOncomplete="hideDialogPF('frmRegIdunidadejecutoraBuscar:diUnidadejecutoraBuscar');"
+	 actionUpdate=":frmOrdenRegistrar:txtIdunidadejecutora"/>
+	</p:dialog>
+</h:form>
+
+
+	<!-- Derived Table Main (entregable)  -->
+<h:form id="frmEntregableDetalle">
+	<p:dialog id="diEntregableDetalle" header="#{entregable.titulo}" widgetVar="diEntregableDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/entregable/component/c_entregableDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEntregableDetalle:diEntregableDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmEstadosporetapaImprimir">
+	<p:dialog id="diEstadosporetapaImprimir" header="#{estadosporetapa.titulo}" widgetVar="diEstadosporetapaImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaEstadosporetapa" fileName="datosEstadosporetapa" postProcessor="#{estadosporetapa.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaEstadosporetapa" fileName="datos" preProcessor="#{estadosporetapa.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEstadosporetapaRegistrar">
+	<p:dialog id="diEstadosporetapaRegistrar" header="#{estadosporetapa.titulo}" widgetVar="diEstadosporetapaRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsEstadosporetapaR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/estadosporetapa/component/c_estadosporetapaRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{estadosporetapa.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{estadosporetapa.aceptar}" update="hidStatus,:form:tblListaEstadosporetapa,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmEstadosporetapaRegistrar:hidStatus','frmEstadosporetapaRegistrar:diEstadosporetapaRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEstadosporetapaRegistrar:diEstadosporetapaRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEstadosporetapaDetalle">
+	<p:dialog id="diEstadosporetapaDetalle" header="#{estadosporetapa.titulo}" widgetVar="diEstadosporetapaDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/estadosporetapa/component/c_estadosporetapaDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEstadosporetapaDetalle:diEstadosporetapaDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEstadosporetapaAnular">
+	<p:dialog id="diEstadosporetapaAnular" header="#{estadosporetapa.titulo}" widgetVar="diEstadosporetapaAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsEstadosporetapaA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/estadosporetapa/component/c_estadosporetapaDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{estadosporetapa.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{estadosporetapa.anular}" update="hidStatus,:form:tblListaEstadosporetapa,:form:growl,panelDetailC" oncomplete="hideDialog('frmEstadosporetapaAnular:hidStatus','frmEstadosporetapaAnular:diEstadosporetapaAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEstadosporetapaAnular:diEstadosporetapaAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdetapaadministrativaBuscar">
+	<p:dialog id="diEtapagestionadministrativaBuscar" header="Etapa de gestion administrativa » Buscar" widgetVar="diEtapagestionadministrativaBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Etapagestionadministrativa" autoUpdate="true" closable="true"/>
+	 <cc:cc_etapagestionadministrativaBuscar
+	 ajaxEventListener="#{estadosporetapa.loadRegIdetapaadministrativa}"
+	 actionOncomplete="hideDialogPF('frmRegIdetapaadministrativaBuscar:diEtapagestionadministrativaBuscar');"
+	 actionUpdate=":frmEstadosporetapaRegistrar:txtIdetapaadministrativa"/>
+	</p:dialog>
+</h:form>
+
+
+</html>

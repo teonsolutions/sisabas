@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{dependenciadocumentotecnico.tituloParam} #{dependenciadocumentotecnico.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="ID" for="txtIddependenciadocumentotecnico"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIddependenciadocumentotecnico" value="#{dependenciadocumentotecnico.dependenciadocumentotecnicoB.iddependenciadocumentotecnico}" disabled="false" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel value="Documento Técnico" for="txtIddocumentotecnico"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIddocumentotecnico" value="#{dependenciadocumentotecnico.dependenciadocumentotecnicoB.iddocumentotecnico}" disabled="true" maxlength="10" style="width:150px;" label="Documento Técnico"/>
+		</td>
+		<td>
+			<p:outputLabel value="Dirección" for="txtDireccion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDireccion" value="#{dependenciadocumentotecnico.dependenciadocumentotecnicoB.direccion}" disabled="false" maxlength="100" style="width:150px;" label="Dirección"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{dependenciadocumentotecnico.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{dependenciadocumentotecnico.buscar}"  update="tblListaDependenciadocumentotecnico,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{dependenciadocumentotecnico.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{dependenciadocumentotecnico.irRegistrar}"  update="hidStatus,:frmDependenciadocumentotecnicoRegistrar:diDependenciadocumentotecnicoRegistrar" oncomplete="showDialog('form:hidStatus','frmDependenciadocumentotecnicoRegistrar:diDependenciadocumentotecnicoRegistrar');" icon="ui-icon-document"  rendered="#{dependenciadocumentotecnico.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{dependenciadocumentotecnico.irEditar}"  update="hidStatus,:frmDependenciadocumentotecnicoRegistrar:diDependenciadocumentotecnicoRegistrar" oncomplete="showDialog('form:hidStatus','frmDependenciadocumentotecnicoRegistrar:diDependenciadocumentotecnicoRegistrar');" icon="ui-icon-pencil" disabled="#{!dependenciadocumentotecnico.esSeleccionado}"  rendered="#{dependenciadocumentotecnico.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{dependenciadocumentotecnico.irDetalle}"  update="hidStatus,:frmDependenciadocumentotecnicoDetalle:diDependenciadocumentotecnicoDetalle" oncomplete="showDialog('form:hidStatus','frmDependenciadocumentotecnicoDetalle:diDependenciadocumentotecnicoDetalle');" icon="ui-icon-zoomin" disabled="#{!dependenciadocumentotecnico.esSeleccionado}"   rendered="#{dependenciadocumentotecnico.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{dependenciadocumentotecnico.irAnular}"  update="hidStatus,:frmDependenciadocumentotecnicoAnular:diDependenciadocumentotecnicoAnular" oncomplete="showDialog('form:hidStatus','frmDependenciadocumentotecnicoAnular:diDependenciadocumentotecnicoAnular');" icon="ui-icon-circle-minus" disabled="#{!dependenciadocumentotecnico.esSeleccionado}"   rendered="#{dependenciadocumentotecnico.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{dependenciadocumentotecnico.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!dependenciadocumentotecnico.esSeleccionado}"   rendered="#{dependenciadocumentotecnico.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{dependenciadocumentotecnico.irImprimir}"  update="hidStatus,:frmDependenciadocumentotecnicoImprimir:diDependenciadocumentotecnicoImprimir" oncomplete="showDialog('form:hidStatus','frmDependenciadocumentotecnicoImprimir:diDependenciadocumentotecnicoImprimir');" icon="ui-icon-print"   rendered="#{dependenciadocumentotecnico.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="#{documentotecnico.load}" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{dependenciadocumentotecnico.esDerivada=='1'}"/>
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{dependenciadocumentotecnico.esDerivada=='0'}"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaDependenciadocumentotecnico">
+	<p:menuitem value="Editar" action="#{dependenciadocumentotecnico.irEditar}"   update="hidStatus,:frmDependenciadocumentotecnicoRegistrar:diDependenciadocumentotecnicoRegistrar"  oncomplete="showDialog('form:hidStatus','frmDependenciadocumentotecnicoRegistrar:diDependenciadocumentotecnicoRegistrar');"  icon="ui-icon-pencil" rendered="#{dependenciadocumentotecnico.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{dependenciadocumentotecnico.irDetalle}"   update="hidStatus,:frmDependenciadocumentotecnicoDetalle:diDependenciadocumentotecnicoDetalle"  oncomplete="showDialog('form:hidStatus','frmDependenciadocumentotecnicoDetalle:diDependenciadocumentotecnicoDetalle');"  icon="ui-icon-zoomin" rendered="#{dependenciadocumentotecnico.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{dependenciadocumentotecnico.irAnular}"   update="hidStatus,:frmDependenciadocumentotecnicoAnular:diDependenciadocumentotecnicoAnular"  oncomplete="showDialog('form:hidStatus','frmDependenciadocumentotecnicoAnular:diDependenciadocumentotecnicoAnular');"  icon="ui-icon-circle-minus" rendered="#{dependenciadocumentotecnico.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{dependenciadocumentotecnico.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{dependenciadocumentotecnico.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaDependenciadocumentotecnico" value="#{dependenciadocumentotecnico.listaDependenciadocumentotecnico}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaDependenciadocumentotecnico" selection="#{dependenciadocumentotecnico.selectedDependenciadocumentotecnico}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(dependenciadocumentotecnico.listaDependenciadocumentotecnico)}"
+	selectionMode="single" rowKey="#{var.iddependenciadocumentotecnico}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{dependenciadocumentotecnico.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.iddependenciadocumentotecnico}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.iddependenciadocumentotecnico}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.iddocumentotecnico}">
+			<f:facet name="header">
+				<h:outputText value="Documento Técnico" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.iddocumentotecnico}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.direccion}">
+			<f:facet name="header">
+				<h:outputText value="Dirección" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.direccion}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{dependenciadocumentotecnico.eliminar}"  update=":form:tblListaDependenciadocumentotecnico,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmDependenciadocumentotecnicoImprimir">
+	<p:dialog id="diDependenciadocumentotecnicoImprimir" header="#{dependenciadocumentotecnico.titulo}" widgetVar="diDependenciadocumentotecnicoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaDependenciadocumentotecnico" fileName="datosDependenciadocumentotecnico" postProcessor="#{dependenciadocumentotecnico.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaDependenciadocumentotecnico" fileName="datos" preProcessor="#{dependenciadocumentotecnico.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmDependenciadocumentotecnicoRegistrar">
+	<p:dialog id="diDependenciadocumentotecnicoRegistrar" header="#{dependenciadocumentotecnico.titulo}" widgetVar="diDependenciadocumentotecnicoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsDependenciadocumentotecnicoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/dependenciadocumentotecnico/component/c_dependenciadocumentotecnicoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{dependenciadocumentotecnico.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{dependenciadocumentotecnico.aceptar}" update="hidStatus,:form:tblListaDependenciadocumentotecnico,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmDependenciadocumentotecnicoRegistrar:hidStatus','frmDependenciadocumentotecnicoRegistrar:diDependenciadocumentotecnicoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmDependenciadocumentotecnicoRegistrar:diDependenciadocumentotecnicoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmDependenciadocumentotecnicoDetalle">
+	<p:dialog id="diDependenciadocumentotecnicoDetalle" header="#{dependenciadocumentotecnico.titulo}" widgetVar="diDependenciadocumentotecnicoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/dependenciadocumentotecnico/component/c_dependenciadocumentotecnicoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmDependenciadocumentotecnicoDetalle:diDependenciadocumentotecnicoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmDependenciadocumentotecnicoAnular">
+	<p:dialog id="diDependenciadocumentotecnicoAnular" header="#{dependenciadocumentotecnico.titulo}" widgetVar="diDependenciadocumentotecnicoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsDependenciadocumentotecnicoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/dependenciadocumentotecnico/component/c_dependenciadocumentotecnicoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{dependenciadocumentotecnico.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{dependenciadocumentotecnico.anular}" update="hidStatus,:form:tblListaDependenciadocumentotecnico,:form:growl,panelDetailC" oncomplete="hideDialog('frmDependenciadocumentotecnicoAnular:hidStatus','frmDependenciadocumentotecnicoAnular:diDependenciadocumentotecnicoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmDependenciadocumentotecnicoAnular:diDependenciadocumentotecnicoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+
+</ui:define>
+</ui:composition>

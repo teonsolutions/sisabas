@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmItinerarioconveniomarcoImprimir">
+	<p:dialog id="diItinerarioconveniomarcoImprimir" header="#{itinerarioconveniomarco.titulo}" widgetVar="diItinerarioconveniomarcoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaItinerarioconveniomarco" fileName="datosItinerarioconveniomarco" postProcessor="#{itinerarioconveniomarco.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaItinerarioconveniomarco" fileName="datos" preProcessor="#{itinerarioconveniomarco.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmItinerarioconveniomarcoRegistrar">
+	<p:dialog id="diItinerarioconveniomarcoRegistrar" header="#{itinerarioconveniomarco.titulo}" widgetVar="diItinerarioconveniomarcoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsItinerarioconveniomarcoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/itinerarioconveniomarco/component/c_itinerarioconveniomarcoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{itinerarioconveniomarco.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{itinerarioconveniomarco.aceptar}" update="hidStatus,:form:tblListaItinerarioconveniomarco,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmItinerarioconveniomarcoRegistrar:hidStatus','frmItinerarioconveniomarcoRegistrar:diItinerarioconveniomarcoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmItinerarioconveniomarcoRegistrar:diItinerarioconveniomarcoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmItinerarioconveniomarcoDetalle">
+	<p:dialog id="diItinerarioconveniomarcoDetalle" header="#{itinerarioconveniomarco.titulo}" widgetVar="diItinerarioconveniomarcoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/itinerarioconveniomarco/component/c_itinerarioconveniomarcoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmItinerarioconveniomarcoDetalle:diItinerarioconveniomarcoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmItinerarioconveniomarcoAnular">
+	<p:dialog id="diItinerarioconveniomarcoAnular" header="#{itinerarioconveniomarco.titulo}" widgetVar="diItinerarioconveniomarcoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsItinerarioconveniomarcoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/itinerarioconveniomarco/component/c_itinerarioconveniomarcoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{itinerarioconveniomarco.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{itinerarioconveniomarco.anular}" update="hidStatus,:form:tblListaItinerarioconveniomarco,:form:growl,panelDetailC" oncomplete="hideDialog('frmItinerarioconveniomarcoAnular:hidStatus','frmItinerarioconveniomarcoAnular:diItinerarioconveniomarcoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmItinerarioconveniomarcoAnular:diItinerarioconveniomarcoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+</html>

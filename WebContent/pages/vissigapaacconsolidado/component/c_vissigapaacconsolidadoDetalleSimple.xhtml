@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelDetailC">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="visIdSigaPaacConsolidado" for="txtVisidsigapaacconsolidado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVisidsigapaacconsolidado" value="#{vissigapaacconsolidado.vissigapaacconsolidado.visidsigapaacconsolidado}" disabled="true" style="width:150px;" label="visIdSigaPaacConsolidado"/>
+		</td>
+		<td>
+			<p:outputLabel  value="CodigoUnidadEjecutora" for="txtCodigounidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigounidadejecutora" value="#{vissigapaacconsolidado.vissigapaacconsolidado.codigounidadejecutora}" disabled="true" style="width:150px;" label="CodigoUnidadEjecutora"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Anio" for="txtAnio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnio" value="#{vissigapaacconsolidado.vissigapaacconsolidado.anio}" disabled="true" style="width:150px;" label="Anio"/>
+		</td>
+		<td>
+			<p:outputLabel  value="SecEjec" for="txtSecejec"/>
+		</td>
+		<td>
+			<p:inputText  id="txtSecejec" value="#{vissigapaacconsolidado.vissigapaacconsolidado.secejec}" disabled="true" style="width:150px;" label="SecEjec"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="TipoConsolid" for="txtTipoconsolid"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipoconsolid" value="#{vissigapaacconsolidado.vissigapaacconsolidado.tipoconsolid}" disabled="true" style="width:150px;" label="TipoConsolid"/>
+		</td>
+		<td>
+			<p:outputLabel  value="NroConsolid" for="txtNroconsolid"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroconsolid" value="#{vissigapaacconsolidado.vissigapaacconsolidado.nroconsolid}" disabled="true" style="width:150px;" label="NroConsolid"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="EstadoPaac" for="txtEstadopaac"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadopaac" value="#{vissigapaacconsolidado.vissigapaacconsolidado.estadopaac}" disabled="true" style="width:150px;" label="EstadoPaac"/>
+		</td>
+		<td>
+			<p:outputLabel  value="NroCertifica" for="txtNrocertifica"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNrocertifica" value="#{vissigapaacconsolidado.vissigapaacconsolidado.nrocertifica}" disabled="true" style="width:150px;" label="NroCertifica"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="ModalCompra" for="txtModalcompra"/>
+		</td>
+		<td>
+			<p:inputText  id="txtModalcompra" value="#{vissigapaacconsolidado.vissigapaacconsolidado.modalcompra}" disabled="true" style="width:150px;" label="ModalCompra"/>
+		</td>
+		<td>
+			<p:outputLabel  value="FechaCons" for="txtFechacons"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechacons" value="#{vissigapaacconsolidado.vissigapaacconsolidado.fechacons}" disabled="true" style="width:150px;" label="FechaCons">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="NroPaac" for="txtNropaac"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNropaac" value="#{vissigapaacconsolidado.vissigapaacconsolidado.nropaac}" disabled="true" style="width:150px;" label="NroPaac"/>
+		</td>
+		<td>
+			<p:outputLabel  value="MesInicial" for="txtMesinicial"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMesinicial" value="#{vissigapaacconsolidado.vissigapaacconsolidado.mesinicial}" disabled="true" style="width:150px;" label="MesInicial"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="MesFinal" for="txtMesfinal"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMesfinal" value="#{vissigapaacconsolidado.vissigapaacconsolidado.mesfinal}" disabled="true" style="width:150px;" label="MesFinal"/>
+		</td>
+		<td>
+			<p:outputLabel  value="MesPropuesto" for="txtMespropuesto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMespropuesto" value="#{vissigapaacconsolidado.vissigapaacconsolidado.mespropuesto}" disabled="true" style="width:150px;" label="MesPropuesto"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="TipoBien" for="txtTipobien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipobien" value="#{vissigapaacconsolidado.vissigapaacconsolidado.tipobien}" disabled="true" style="width:150px;" label="TipoBien"/>
+		</td>
+		<td>
+			<p:outputLabel  value="FlagPaac" for="txtFlagpaac"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFlagpaac" value="#{vissigapaacconsolidado.vissigapaacconsolidado.flagpaac}" disabled="true" style="width:150px;" label="FlagPaac"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="TipoProceso" for="txtTipoproceso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipoproceso" value="#{vissigapaacconsolidado.vissigapaacconsolidado.tipoproceso}" disabled="true" style="width:150px;" label="TipoProceso"/>
+		</td>
+		<td>
+			<p:outputLabel  value="DescripcionTipoProceso" for="txtDescripciontipoproceso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDescripciontipoproceso" value="#{vissigapaacconsolidado.vissigapaacconsolidado.descripciontipoproceso}" disabled="true" style="width:300px;" label="DescripcionTipoProceso"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Objeto" for="txtObjeto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtObjeto" value="#{vissigapaacconsolidado.vissigapaacconsolidado.objeto}" disabled="true" style="width:150px;" label="Objeto"/>
+		</td>
+		<td>
+			<p:outputLabel  value="EspecificacionTecnicas" for="txtEspecificaciontecnicas"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEspecificaciontecnicas" value="#{vissigapaacconsolidado.vissigapaacconsolidado.especificaciontecnicas}" disabled="true" style="width:300px;" label="EspecificacionTecnicas"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="ValorMoneda" for="txtValormoneda"/>
+		</td>
+		<td>
+			<p:inputText  id="txtValormoneda" value="#{vissigapaacconsolidado.vissigapaacconsolidado.valormoneda}" disabled="true" style="width:150px;" label="ValorMoneda"/>
+		</td>
+		<td>
+			<p:outputLabel  value="ValorPlan" for="txtValorplan"/>
+		</td>
+		<td>
+			<p:inputText  id="txtValorplan" value="#{vissigapaacconsolidado.vissigapaacconsolidado.valorplan}" disabled="true" style="width:150px;" label="ValorPlan"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Pais" for="txtPais"/>
+		</td>
+		<td>
+			<p:inputText  id="txtPais" value="#{vissigapaacconsolidado.vissigapaacconsolidado.pais}" disabled="true" style="width:150px;" label="Pais"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Departamento" for="txtDepartamento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDepartamento" value="#{vissigapaacconsolidado.vissigapaacconsolidado.departamento}" disabled="true" style="width:150px;" label="Departamento"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Provincia" for="txtProvincia"/>
+		</td>
+		<td>
+			<p:inputText  id="txtProvincia" value="#{vissigapaacconsolidado.vissigapaacconsolidado.provincia}" disabled="true" style="width:150px;" label="Provincia"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Distrito" for="txtDistrito"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDistrito" value="#{vissigapaacconsolidado.vissigapaacconsolidado.distrito}" disabled="true" style="width:150px;" label="Distrito"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="ExpSiga" for="txtExpsiga"/>
+		</td>
+		<td>
+			<p:inputText  id="txtExpsiga" value="#{vissigapaacconsolidado.vissigapaacconsolidado.expsiga}" disabled="true" style="width:150px;" label="ExpSiga"/>
+		</td>
+		<td>
+			<p:outputLabel  value="ExpSiaf" for="txtExpsiaf"/>
+		</td>
+		<td>
+			<p:inputText  id="txtExpsiaf" value="#{vissigapaacconsolidado.vissigapaacconsolidado.expsiaf}" disabled="true" style="width:150px;" label="ExpSiaf"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="ExpSiafTipoEjec" for="txtExpsiaftipoejec"/>
+		</td>
+		<td>
+			<p:inputText  id="txtExpsiaftipoejec" value="#{vissigapaacconsolidado.vissigapaacconsolidado.expsiaftipoejec}" disabled="true" style="width:150px;" label="ExpSiafTipoEjec"/>
+		</td>
+		<td>
+			<p:outputLabel  value="FechaTipoEjec" for="txtFechatipoejec"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechatipoejec" value="#{vissigapaacconsolidado.vissigapaacconsolidado.fechatipoejec}" disabled="true" style="width:150px;" label="FechaTipoEjec">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="ModalidadCsc" for="txtModalidadcsc"/>
+		</td>
+		<td>
+			<p:inputText  id="txtModalidadcsc" value="#{vissigapaacconsolidado.vissigapaacconsolidado.modalidadcsc}" disabled="true" style="width:150px;" label="ModalidadCsc"/>
+		</td>
+		<td>
+			<p:outputLabel  value="CodSnip" for="txtCodsnip"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodsnip" value="#{vissigapaacconsolidado.vissigapaacconsolidado.codsnip}" disabled="true" style="width:150px;" label="CodSnip"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="DocViaSnip" for="txtDocviasnip"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDocviasnip" value="#{vissigapaacconsolidado.vissigapaacconsolidado.docviasnip}" disabled="true" style="width:300px;" label="DocViaSnip"/>
+		</td>
+		<td>
+			<p:outputLabel  value="FechaReg" for="txtFechareg"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechareg" value="#{vissigapaacconsolidado.vissigapaacconsolidado.fechareg}" disabled="true" style="width:150px;" label="FechaReg">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="FechaMod" for="txtFechamod"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechamod" value="#{vissigapaacconsolidado.vissigapaacconsolidado.fechamod}" disabled="true" style="width:150px;" label="FechaMod">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+		<td>
+			<p:outputLabel  value="TipoContratacion" for="txtTipocontratacion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipocontratacion" value="#{vissigapaacconsolidado.vissigapaacconsolidado.tipocontratacion}" disabled="true" style="width:150px;" label="TipoContratacion"/>
+		</td>
+	</tr>
+
+</table>
+</p:panel>
+</html>

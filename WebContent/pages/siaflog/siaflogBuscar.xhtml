@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{siaflog.tituloParam} #{siaflog.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="ID" for="txtIdlog"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdlog" value="#{siaflog.siaflogB.idlog}" disabled="false" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel value="FechaCarga" for="txtFechacarga"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechacarga" value="#{siaflog.siaflogB.fechacarga}" disabled="false" maxlength="10" style="width:150px;" label="FechaCarga"/>
+		</td>
+		<td>
+			<p:outputLabel value="IdUnidadEjecutora" for="txtIdunidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdunidadejecutora" value="#{siaflog.siaflogB.idunidadejecutora}" disabled="false" maxlength="10" style="width:150px;" label="IdUnidadEjecutora"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Periodicidad" for="txtPeriodicidad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtPeriodicidad" value="#{siaflog.siaflogB.periodicidad}" disabled="false" maxlength="2147483647" style="width:150px;" label="Periodicidad"/>
+		</td>
+		<td>
+			<p:outputLabel value="FechaInicio - Desde" for="txtFechainicioini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechainicioini" value="#{siaflog.siaflogB.fechainicioini}" label="FechaInicio - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="FechaInicio - Hasta" for="txtFechainiciofin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechainiciofin" value="#{siaflog.siaflogB.fechainiciofin}" label="FechaInicio - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="FechaFin - Desde" for="txtFechafinini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechafinini" value="#{siaflog.siaflogB.fechafinini}" label="FechaFin - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="FechaFin - Hasta" for="txtFechafinfin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechafinfin" value="#{siaflog.siaflogB.fechafinfin}" label="FechaFin - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="Estado" for="txtEstado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstado" value="#{siaflog.siaflogB.estado}" disabled="false" maxlength="1" style="width:150px;" label="Estado"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="DescripcionEstado" for="txtDescripcionestado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDescripcionestado" value="#{siaflog.siaflogB.descripcionestado}" disabled="false" maxlength="2147483647" style="width:150px;" label="DescripcionEstado"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{siaflog.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{siaflog.buscar}"  update="tblListaSiaflog,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{siaflog.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{siaflog.irRegistrar}"  update="hidStatus,:frmSiaflogRegistrar:diSiaflogRegistrar" oncomplete="showDialog('form:hidStatus','frmSiaflogRegistrar:diSiaflogRegistrar');" icon="ui-icon-document"  rendered="#{siaflog.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{siaflog.irEditar}"  update="hidStatus,:frmSiaflogRegistrar:diSiaflogRegistrar" oncomplete="showDialog('form:hidStatus','frmSiaflogRegistrar:diSiaflogRegistrar');" icon="ui-icon-pencil" disabled="#{!siaflog.esSeleccionado}"  rendered="#{siaflog.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{siaflog.irDetalle}"  update="hidStatus,:frmSiaflogDetalle:diSiaflogDetalle" oncomplete="showDialog('form:hidStatus','frmSiaflogDetalle:diSiaflogDetalle');" icon="ui-icon-zoomin" disabled="#{!siaflog.esSeleccionado}"   rendered="#{siaflog.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{siaflog.irAnular}"  update="hidStatus,:frmSiaflogAnular:diSiaflogAnular" oncomplete="showDialog('form:hidStatus','frmSiaflogAnular:diSiaflogAnular');" icon="ui-icon-circle-minus" disabled="#{!siaflog.esSeleccionado}"   rendered="#{siaflog.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{siaflog.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!siaflog.esSeleccionado}"   rendered="#{siaflog.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{siaflog.irImprimir}"  update="hidStatus,:frmSiaflogImprimir:diSiaflogImprimir" oncomplete="showDialog('form:hidStatus','frmSiaflogImprimir:diSiaflogImprimir');" icon="ui-icon-print"   rendered="#{siaflog.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaSiaflog">
+	<p:menuitem value="Editar" action="#{siaflog.irEditar}"   update="hidStatus,:frmSiaflogRegistrar:diSiaflogRegistrar"  oncomplete="showDialog('form:hidStatus','frmSiaflogRegistrar:diSiaflogRegistrar');"  icon="ui-icon-pencil" rendered="#{siaflog.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{siaflog.irDetalle}"   update="hidStatus,:frmSiaflogDetalle:diSiaflogDetalle"  oncomplete="showDialog('form:hidStatus','frmSiaflogDetalle:diSiaflogDetalle');"  icon="ui-icon-zoomin" rendered="#{siaflog.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{siaflog.irAnular}"   update="hidStatus,:frmSiaflogAnular:diSiaflogAnular"  oncomplete="showDialog('form:hidStatus','frmSiaflogAnular:diSiaflogAnular');"  icon="ui-icon-circle-minus" rendered="#{siaflog.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{siaflog.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{siaflog.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaSiaflog" value="#{siaflog.listaSiaflog}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaSiaflog" selection="#{siaflog.selectedSiaflog}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(siaflog.listaSiaflog)}"
+	selectionMode="single" rowKey="#{var.idlog}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{siaflog.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.idlog}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idlog}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.fechacarga}">
+			<f:facet name="header">
+				<h:outputText value="FechaCarga" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.fechacarga}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.idunidadejecutora}">
+			<f:facet name="header">
+				<h:outputText value="IdUnidadEjecutora" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idunidadejecutora}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.periodicidad}">
+			<f:facet name="header">
+				<h:outputText value="Periodicidad" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.periodicidad}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechainicio}">
+			<f:facet name="header">
+				<h:outputText value="FechaInicio" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechainicio}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechafin}">
+			<f:facet name="header">
+				<h:outputText value="FechaFin" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechafin}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.estado}">
+			<f:facet name="header">
+				<h:outputText value="Estado" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.estado}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.descripcionestado}">
+			<f:facet name="header">
+				<h:outputText value="DescripcionEstado" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.descripcionestado}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechacreacionauditoria}">
+			<f:facet name="header">
+				<h:outputText value="FechaCreacionAuditoria" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechacreacionauditoria}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.usuariocreacionauditoria}">
+			<f:facet name="header">
+				<h:outputText value="UsuarioCreacionAuditoria" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.usuariocreacionauditoria}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechamodificacionauditoria}">
+			<f:facet name="header">
+				<h:outputText value="FechaModificacionAuditoria" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechamodificacionauditoria}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.usuariomodificacionauditoria}">
+			<f:facet name="header">
+				<h:outputText value="UsuarioModificacionAuditoria" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.usuariomodificacionauditoria}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{siaflog.eliminar}"  update=":form:tblListaSiaflog,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmSiaflogImprimir">
+	<p:dialog id="diSiaflogImprimir" header="#{siaflog.titulo}" widgetVar="diSiaflogImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaSiaflog" fileName="datosSiaflog" postProcessor="#{siaflog.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaSiaflog" fileName="datos" preProcessor="#{siaflog.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmSiaflogRegistrar">
+	<p:dialog id="diSiaflogRegistrar" header="#{siaflog.titulo}" widgetVar="diSiaflogRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsSiaflogR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/siaflog/component/c_siaflogRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{siaflog.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{siaflog.aceptar}" update="hidStatus,:form:tblListaSiaflog,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmSiaflogRegistrar:hidStatus','frmSiaflogRegistrar:diSiaflogRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmSiaflogRegistrar:diSiaflogRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmSiaflogDetalle">
+	<p:dialog id="diSiaflogDetalle" header="#{siaflog.titulo}" widgetVar="diSiaflogDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/siaflog/component/c_siaflogDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmSiaflogDetalle:diSiaflogDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmSiaflogAnular">
+	<p:dialog id="diSiaflogAnular" header="#{siaflog.titulo}" widgetVar="diSiaflogAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsSiaflogA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/siaflog/component/c_siaflogDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{siaflog.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{siaflog.anular}" update="hidStatus,:form:tblListaSiaflog,:form:growl,panelDetailC" oncomplete="hideDialog('frmSiaflogAnular:hidStatus','frmSiaflogAnular:diSiaflogAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmSiaflogAnular:diSiaflogAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+
+</ui:define>
+</ui:composition>

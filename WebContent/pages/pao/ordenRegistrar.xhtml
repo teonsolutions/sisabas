@@ -1,0 +1,401 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+	<ui:define name="center">
+		<h:form>
+			<p:growl id="msgs" showDetail="true"></p:growl>
+			<p:panel id="panel" header="Programación y costos > pao >Orden">
+				<p:focus for="panel" />
+				<p:tabView>
+					<p:tab title="Datos generales">
+						<p:accordionPanel multiple="true" activeIndex="0,1,2,3,4">
+							<p:tab title="Identificación">
+								<p:dataTable>
+									<p:column headerText="N° Pedido">
+										<h:outputText value="009045" />
+									</p:column>
+									<p:column headerText="Oficina Usuaria">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Descripción">
+										<h:outputText value="COMPRA DE COMPUTADORES" />
+									</p:column>
+									<p:column headerText="Estado">
+										<h:outputText value="DOCUMENTO TÉCNICO APROBADO" />
+									</p:column>
+									<p:column headerText="Sinad">
+										<h:outputText value="UGME-545-4545" />
+									</p:column>
+									<p:column headerText="Principal">
+										<h:outputText value="UGME-545-4545" />
+									</p:column>
+								</p:dataTable>
+								<p:outputLabel value="Fecha de recepción"
+									for="txtFechaRecepcion" id="lblFechaRecepcion" />
+								<p:inputText id="txtFechaRecepcion" required="true"
+									maxlength="10" style="width:150px;" label="Fecha de recepción" />
+
+							</p:tab>
+							<p:tab title="Control de producto">
+								<p:dataTable>
+									<p:column headerText="N°">
+										<h:outputText value="1" />
+									</p:column>
+									<p:column headerText="Tipo de documento">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Acciones">
+										<p:rowEditor></p:rowEditor>
+									</p:column>
+									<p:ajax event="rowEdit"></p:ajax>
+								</p:dataTable>
+							</p:tab>
+							<p:tab title="PAO">
+								<table style="width: 100%;" cellpadding="0" cellspacing="5"
+									border="0">
+									<tr>
+										<td><p:outputLabel value="Número PAO" for="txtNumeroPAO"
+												id="lblNumeroPAO" /></td>
+										<td><p:outputLabel value="Fecha PAO" for="txtFechaPAO"
+												id="lblFechaPAO" /></td>
+
+										<td><p:outputLabel value="Monto del PAO"
+												for="txtMontoPAO" id="lblMontoPAO" /></td>
+									</tr>
+									<tr>
+										<td><p:inputText id="txtNumeroPAO" required="true"
+												maxlength="10" style="width:150px;" label="Número PAO" /></td>
+										<td><p:inputText id="txtFechaPAO" required="true"
+												maxlength="10" style="width:150px;" label="Fecha PAO" /></td>
+										<td><p:inputText id="txtMontoPAO" required="true"
+												maxlength="10" style="width:150px;" label="Monto del PAO" /></td>
+									</tr>
+									<tr>
+										<td colspan="3"><p:outputLabel
+												value="Descripción del PAO" for="txtDescripcionPAO"
+												id="lblDescripcionPAO" /></td>
+									</tr>
+									<tr>
+										<td colspan="3"><p:inputTextarea id="txtDescripcionPAO"
+												rows="10" cols="50" queryDelay="750" minQueryLength="4" /></td>
+									</tr>
+									<tr>
+										<td colspan="3"><p:outputLabel value="Items"
+												id="lblItems" /></td>
+									</tr>
+									<tr>
+										<td colspan="3"><p:dataTable>
+												<p:column headerText="N°">
+													<h:outputText value="1" />
+												</p:column>
+												<p:column headerText="Item">
+													<h:outputText value="UGME" />
+												</p:column>
+												<p:column headerText="Descripción">
+													<h:outputText value="UGME" />
+												</p:column>
+												<p:column headerText="Cantidad">
+													<h:outputText value="UGME" />
+												</p:column>
+												<p:column headerText="Monto">
+													<h:outputText value="UGME" />
+												</p:column>
+											</p:dataTable></td>
+									</tr>
+								</table>
+							</p:tab>
+							<p:tab title="Certificación">
+								<table style="width: 100%;" cellpadding="0" cellspacing="5"
+									border="0">
+									<tr>
+										<td><p:outputLabel value="Número de CPP"
+												for="txtNumeroCPP" id="lblNumeroCPP" /></td>
+										<td><p:outputLabel value="Fecha aprobación"
+												for="txtFechaAprobacionCPP" id="lblFechaAprobacionCPP" /></td>
+
+										<td><p:outputLabel value="Monto certificado"
+												for="txtMontoCertificado" id="lblMontoCertificado" /></td>
+									</tr>
+									<tr>
+										<td><p:inputText id="txtNumeroCPP" required="true"
+												maxlength="10" style="width:150px;" label="Número de CPP" /></td>
+										<td><p:inputText id="txtFechaAprobacionCPP"
+												required="true" maxlength="10" style="width:150px;"
+												label="Fecha aprobación" /></td>
+										<td><p:inputText id="txtMontoCertificado" required="true"
+												maxlength="10" style="width:150px;"
+												label="Monto certificado" /></td>
+									</tr>
+									<tr>
+										<td colspan="3"><p:dataTable>
+												<p:column headerText="N°">
+													<h:outputText value="1" />
+												</p:column>
+												<p:column headerText="Código">
+													<h:outputText value="UGME" />
+												</p:column>
+												<p:column headerText="Fuente de financiamiento">
+													<h:outputText value="UGME" />
+												</p:column>
+												<p:column headerText="Código de cadena">
+													<h:outputText value="UGME" />
+												</p:column>
+												<p:column headerText="Clasificador">
+													<h:outputText value="UGME" />
+												</p:column>
+												<p:column headerText="Monto">
+													<h:outputText value="UGME" />
+												</p:column>
+											</p:dataTable></td>
+									</tr>
+								</table>
+							</p:tab>
+							<p:tab title="Proceso">
+								<table style="width: 100%;" cellpadding="0" cellspacing="5"
+									border="0">
+									<tr>
+										<td><p:outputLabel value="Tipo de adquisión"
+												for="txtTipoAdquisicion" id="lblTipoAdquisicion" /></td>
+										<td><p:outputLabel value="Compra directa ?"
+												id="lblCompraDirecta" /></td>
+
+										<td><p:outputLabel value="Número de proceso"
+												for="txtNumeroProceso" id="lblNumeroProceso" /></td>
+									</tr>
+									<tr>
+										<td><p:inputText id="txtTipoAdquisicion" required="true"
+												maxlength="10" style="width:150px;"
+												label="Tipo de adquisión" /></td>
+										<td><p:outputPanel id="customPanel"
+												style="margin-bottom:10px">
+												<p:selectOneRadio id="compraDirectaRadio" layout="custom">
+													<f:selectItem itemLabel="SI" itemValue="1" />
+													<f:selectItem itemLabel="NO" itemValue="0" />
+												</p:selectOneRadio>
+												<h:panelGrid columns="3" cellpadding="5">
+													<p:radioButton id="opt1" for="compraDirectaRadio"
+														itemIndex="0" />
+													<h:outputLabel for="opt1" value="Si" />
+													<p:spinner />
+
+													<p:radioButton id="opt2" for="compraDirectaRadio"
+														itemIndex="1" />
+													<h:outputLabel for="opt2" value="No" />
+													<p:inputText />
+
+												</h:panelGrid>
+											</p:outputPanel></td>
+										<td><p:inputText id="txtNumeroProceso" required="true"
+												maxlength="10" style="width:150px;"
+												label="Número de proceso" /></td>
+									</tr>
+
+								</table>
+							</p:tab>
+						</p:accordionPanel>
+					</p:tab>
+					<p:tab title="Estudio del mercado">
+						<p:fieldset>
+							<h:panelGrid columns="2">
+								<p:dataTable>
+									<p:column headerText="N°">
+										<h:outputText value="1" />
+									</p:column>
+									<p:column headerText="Fuente">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Proveedor / postor / entidad">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Acciones">
+										<h:outputText value="UGME" />
+									</p:column>
+								</p:dataTable>
+							</h:panelGrid>
+							<p:outputLabel value="Items" id="lblItems" />
+							<h:panelGrid columns="2">
+								<p:dataTable>
+									<p:column headerText="N°">
+										<h:outputText value="1" />
+									</p:column>
+									<p:column headerText="Descripción / denominación">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Unidad">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Cantidad">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column
+										headerText="Precio Total (Consignar moneda del valor referencial)">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column
+										headerText="Procedimiento y/o metodología utilizadopara determinar el V.R.">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Valor Referencial del Item">
+										<h:outputText value="UGME" />
+									</p:column>
+								</p:dataTable>
+							</h:panelGrid>
+						</p:fieldset>
+					</p:tab>
+					<p:tab title="Orden">
+						<p:accordionPanel multiple="true" activeIndex="0,1,2,3">
+							<p:tab title="Orden">
+								<p:dataTable>
+									<p:column headerText="N°">
+										<h:outputText value="1" />
+									</p:column>
+									<p:column headerText="Número Orden">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Fecha Orden">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Tipo de bien">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="RUC">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Proveedor">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Importe Orden">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Importe devengado">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Expediente SIAF">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Estado SIAF">
+										<h:outputText value="UGME" />
+									</p:column>
+								</p:dataTable>
+								<p:dataTable>
+									<p:column headerText="N°">
+										<h:outputText value="1" />
+									</p:column>
+									<p:column headerText="Número Orden">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Aramadas">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Inicio de prestación">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Plazo">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Fin prestación">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Acciones">
+										<h:outputText value="UGME" />
+									</p:column>
+								</p:dataTable>
+							</p:tab>
+						</p:accordionPanel>
+						<p:accordionPanel multiple="true" activeIndex="0,1,2,3,4">
+							<p:tab title="Control de entregables">
+								<p:dataTable>
+									<p:column headerText="N°">
+										<h:outputText value="1" />
+									</p:column>
+									<p:column headerText="proveido">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Fecha">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Descripción">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Plazos (días)">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Importe">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Monto de penalidad">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Observaciones">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Estado">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Acciones">
+										<h:outputText value="UGME" />
+									</p:column>
+								</p:dataTable>
+							</p:tab>
+						</p:accordionPanel>
+						<p:accordionPanel multiple="true" activeIndex="0,1,2,3,4">
+							<p:tab title="Requisitos de conformidad">
+								<p:dataTable>
+									<p:column headerText="N°">
+										<h:outputText value="1" />
+									</p:column>
+									<p:column headerText="Tipo de documento">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Fecha">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Archivo">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Acciones">
+										<h:outputText value="UGME" />
+									</p:column>
+								</p:dataTable>
+							</p:tab>
+						</p:accordionPanel>
+						<p:accordionPanel multiple="true" activeIndex="0,1,2,3,4">
+							<p:tab title="Seguimiento de pagos">
+								<p:dataTable>
+									<p:column headerText="N°">
+										<h:outputText value="1" />
+									</p:column>
+									<p:column headerText="Ciclo">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Fase">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Tipo de documento">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Número documento">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Fecha">
+										<h:outputText value="UGME" />
+									</p:column>
+									<p:column headerText="Monto">
+										<h:outputText value="UGME" />
+									</p:column>
+								</p:dataTable>
+							</p:tab>
+						</p:accordionPanel>
+					</p:tab>
+				</p:tabView>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

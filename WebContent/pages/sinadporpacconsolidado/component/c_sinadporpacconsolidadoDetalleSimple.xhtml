@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelDetailC">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIdsinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdsinad" value="#{sinadporpacconsolidado.sinadporpacconsolidado.idsinad}" disabled="true" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Pac Consolid In" for="txtIdpacconsolidado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpacconsolidado" value="#{sinadporpacconsolidado.sinadporpacconsolidado.pacconsolidadoIdpacconsolidado.nroconsolid}" disabled="true" style="width:150px;" label="Pac Consolid In"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Numero Sinad" for="txtNumerosinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerosinad" value="#{sinadporpacconsolidado.sinadporpacconsolidado.numerosinad}" disabled="true" style="width:150px;" label="Numero Sinad"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Número Expediente" for="txtNumeroexpediente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumeroexpediente" value="#{sinadporpacconsolidado.sinadporpacconsolidado.numeroexpediente}" disabled="true" style="width:150px;" label="Número Expediente"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Año Expediente" for="txtAnioexpediente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnioexpediente" value="#{sinadporpacconsolidado.sinadporpacconsolidado.anioexpediente}" disabled="true" style="width:150px;" label="Año Expediente"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Código Sede Expediente" for="txtCodigosedeexpediente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigosedeexpediente" value="#{sinadporpacconsolidado.sinadporpacconsolidado.codigosedeexpediente}" disabled="true" style="width:150px;" label="Código Sede Expediente"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Descripción Tipo Documento" for="txtDescripciontipodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDescripciontipodocumento" value="#{sinadporpacconsolidado.sinadporpacconsolidado.descripciontipodocumento}" disabled="true" style="width:300px;" label="Descripción Tipo Documento"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Descripción Oficina Expediente" for="txtDescripcionoficinaexpediente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDescripcionoficinaexpediente" value="#{sinadporpacconsolidado.sinadporpacconsolidado.descripcionoficinaexpediente}" disabled="true" style="width:300px;" label="Descripción Oficina Expediente"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Número de Documento" for="txtNumerodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerodocumento" value="#{sinadporpacconsolidado.sinadporpacconsolidado.numerodocumento}" disabled="true" style="width:300px;" label="Número de Documento"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Principal" for="txtEsprincipal"/>
+		</td>
+		<td>
+			<h:graphicImage id="txtEsprincipal" url="/resources/img/checkbox_yes.png"  rendered="#{sinadporpacconsolidado.sinadporpacconsolidado.esprincipal=='1'}" alt="Principal" title="Principal"/>
+			<h:graphicImage url="/resources/img/checkbox_no.png"  rendered="#{sinadporpacconsolidado.sinadporpacconsolidado.esprincipal=='0'}" alt="Principal" title="Principal"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Nuevo Asignado" for="txtEsnuevoasignado"/>
+		</td>
+		<td>
+			<h:graphicImage id="txtEsnuevoasignado" url="/resources/img/checkbox_yes.png"  rendered="#{sinadporpacconsolidado.sinadporpacconsolidado.esnuevoasignado=='1'}" alt="Nuevo Asignado" title="Nuevo Asignado"/>
+			<h:graphicImage url="/resources/img/checkbox_no.png"  rendered="#{sinadporpacconsolidado.sinadporpacconsolidado.esnuevoasignado=='0'}" alt="Nuevo Asignado" title="Nuevo Asignado"/>
+		</td>
+	</tr>
+
+</table>
+</p:panel>
+</html>

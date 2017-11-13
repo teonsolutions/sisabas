@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<h:inputHidden id="hidStatusDetallecertificadopresupuestal" value="#{detallecertificadopresupuestal.status}"/>
+<p:contextMenu for="tblListaDetallecertificadopresupuestal">
+	<p:menuitem value="Detalle" action="#{detallecertificadopresupuestal.irDetalle}"  process="@this,hidStatusDetallecertificadopresupuestal,tblListaDetallecertificadopresupuestal"  update="hidStatusDetallecertificadopresupuestal,:frmDetallecertificadopresupuestalDetalle:diDetallecertificadopresupuestalDetalle"  oncomplete="showDialog('frmCertificadopresupuestalDetalle:panelDetailC:hidStatusDetallecertificadopresupuestal','frmDetallecertificadopresupuestalDetalle:diDetallecertificadopresupuestalDetalle');"  icon="ui-icon-zoomin" rendered="#{detallecertificadopresupuestal.renderButton('btnDetalle')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaDetallecertificadopresupuestal" value="#{detallecertificadopresupuestal.listaDetallecertificadopresupuestal}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaDetallecertificadopresupuestal" selection="#{detallecertificadopresupuestal.selectedDetallecertificadopresupuestal}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(detallecertificadopresupuestal.listaDetallecertificadopresupuestal)}"
+	selectionMode="single" rowKey="#{var.iddetallecertificadopresupuestal}" styleClass="gandalfTableClass" rowStyleClass="#{var.params.ACTION!=null?(var.params.ACTION=='INSERT'?'old':'dead'):''}">
+		<p:column styleClass="c_numeric" sortBy="#{var.iddetallecertificadopresupuestal}">
+			<f:facet name="header">
+				<h:outputText value="IdDetalleCertificadoPresupuestal" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.iddetallecertificadopresupuestal}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.idcertificadopresupuestal}">
+			<f:facet name="header">
+				<h:outputText value="IdCertificadoPresupuestal" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idcertificadopresupuestal}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.anio}">
+			<f:facet name="header">
+				<h:outputText value="Anio" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.anio}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.secejec}">
+			<f:facet name="header">
+				<h:outputText value="SecEjec" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.secejec}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.nrocertifica}">
+			<f:facet name="header">
+				<h:outputText value="NroCertifica" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.nrocertifica}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.fuentefinancimiento}">
+			<f:facet name="header">
+				<h:outputText value="FuenteFinancimiento" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.fuentefinancimiento}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.secuencia}">
+			<f:facet name="header">
+				<h:outputText value="Secuencia" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.secuencia}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.clasificador}">
+			<f:facet name="header">
+				<h:outputText value="Clasificador" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.clasificador}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.codigocentrocosto}">
+			<f:facet name="header">
+				<h:outputText value="CodigoCentroCosto" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.codigocentrocosto}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.montonacional}">
+			<f:facet name="header">
+				<h:outputText value="MontoNacional" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.montonacional}"/>
+		</p:column>
+</p:dataTable>
+</html>

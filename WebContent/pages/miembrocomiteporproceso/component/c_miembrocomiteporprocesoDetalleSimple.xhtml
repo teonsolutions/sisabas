@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelDetailC">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIdmiembrocomiteproceso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdmiembrocomiteproceso" value="#{miembrocomiteporproceso.miembrocomiteporproceso.idmiembrocomiteproceso}" disabled="true" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="ComitéProceso" for="txtIdcomiteproceso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcomiteproceso" value="#{miembrocomiteporproceso.miembrocomiteporproceso.comiteprocesoIdcomiteproceso.idcomiteproceso}" disabled="true" style="width:150px;" label="ComitéProceso"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Persona" for="txtIdpersona"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpersona" value="#{miembrocomiteporproceso.miembrocomiteporproceso.personaIdpersona.nombres}" disabled="true" style="width:150px;" label="Persona"/>
+		</td>
+		<td>
+			<p:outputLabel  value="TipoMiembro" for="txtIdcatalogotipomiembro"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogotipomiembro" value="#{miembrocomiteporproceso.miembrocomiteporproceso.gentablaIdcatalogotipomiembro.vchregdescri}" disabled="true" style="width:150px;" label="TipoMiembro"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Correo" for="txtCorreo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCorreo" value="#{miembrocomiteporproceso.miembrocomiteporproceso.correo}" disabled="true" style="width:300px;" label="Correo"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Teléfono" for="txtTelefono"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTelefono" value="#{miembrocomiteporproceso.miembrocomiteporproceso.telefono}" disabled="true" style="width:150px;" label="Teléfono"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Anexo" for="txtAnexo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnexo" value="#{miembrocomiteporproceso.miembrocomiteporproceso.anexo}" disabled="true" style="width:150px;" label="Anexo"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Celular" for="txtCelular"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCelular" value="#{miembrocomiteporproceso.miembrocomiteporproceso.celular}" disabled="true" style="width:150px;" label="Celular"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Notificado" for="txtEsnotificado"/>
+		</td>
+		<td>
+			<h:graphicImage id="txtEsnotificado" url="/resources/img/checkbox_yes.png"  rendered="#{miembrocomiteporproceso.miembrocomiteporproceso.esnotificado=='1'}" alt="Notificado" title="Notificado"/>
+			<h:graphicImage url="/resources/img/checkbox_no.png"  rendered="#{miembrocomiteporproceso.miembrocomiteporproceso.esnotificado=='0'}" alt="Notificado" title="Notificado"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Código Oficina Usuaria" for="txtCodigooficinausuaria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigooficinausuaria" value="#{miembrocomiteporproceso.miembrocomiteporproceso.codigooficinausuaria}" disabled="true" style="width:150px;" label="Código Oficina Usuaria"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Nombre Oficina Usuaria" for="txtNombreoficinausuaria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombreoficinausuaria" value="#{miembrocomiteporproceso.miembrocomiteporproceso.nombreoficinausuaria}" disabled="true" style="width:300px;" label="Nombre Oficina Usuaria"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Estado Miembro Comite" for="txtIdcatalogoestadomiembrocomite"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogoestadomiembrocomite" value="#{miembrocomiteporproceso.miembrocomiteporproceso.gentablaIdcatalogoestadomiembrocomite.vchregdescri}" disabled="true" style="width:150px;" label="Estado Miembro Comite"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Especialista Asignado" for="txtEsespecialistaasignado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEsespecialistaasignado" value="#{miembrocomiteporproceso.miembrocomiteporproceso.esespecialistaasignado}" disabled="true" style="width:150px;" label="Especialista Asignado"/>
+		</td>
+	</tr>
+
+</table>
+</p:panel>
+</html>

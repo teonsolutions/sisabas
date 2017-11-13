@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<h:inputHidden id="hidStatusDetallepedido" value="#{detallepedido.status}"/>
+<p:contextMenu for="tblListaDetallepedido">
+	<p:menuitem value="Detalle" action="#{detallepedido.irDetalle}"  process="@this,hidStatusDetallepedido,tblListaDetallepedido"  update="hidStatusDetallepedido,:frmDetallepedidoDetalle:diDetallepedidoDetalle"  oncomplete="showDialog('frmPedidoDetalle:panelDetailC:hidStatusDetallepedido','frmDetallepedidoDetalle:diDetallepedidoDetalle');"  icon="ui-icon-zoomin" rendered="#{detallepedido.renderButton('btnDetalle')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaDetallepedido" value="#{detallepedido.listaDetallepedido}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaDetallepedido" selection="#{detallepedido.selectedDetallepedido}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(detallepedido.listaDetallepedido)}"
+	selectionMode="single" rowKey="#{var.iddetallepedido}" styleClass="gandalfTableClass" rowStyleClass="#{var.params.ACTION!=null?(var.params.ACTION=='INSERT'?'old':'dead'):''}">
+		<p:column styleClass="c_numeric" sortBy="#{var.iddetallepedido}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.iddetallepedido}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.pedidoIdpedido.nropedido}">
+			<f:facet name="header">
+				<h:outputText value="Pedido In" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.pedidoIdpedido.nropedido}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.grupobien}">
+			<f:facet name="header">
+				<h:outputText value="Grupo Bien" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.grupobien}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.clasebien}">
+			<f:facet name="header">
+				<h:outputText value="Clase Bien" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.clasebien}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.familiabien}">
+			<f:facet name="header">
+				<h:outputText value="Familia Bien" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.familiabien}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.itembien}">
+			<f:facet name="header">
+				<h:outputText value="Item Bien" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.itembien}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nombreitem}">
+			<f:facet name="header">
+				<h:outputText value="Nombre Item" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nombreitem}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.unidadmedida}">
+			<f:facet name="header">
+				<h:outputText value="Unidad de medida" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.unidadmedida}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.cantidadaprobadasiga}">
+			<f:facet name="header">
+				<h:outputText value="Cantidad Aprobada Siga" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.cantidadaprobadasiga}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.cantidadsolicitadasiga}">
+			<f:facet name="header">
+				<h:outputText value="Cantidad Solicitada Siga" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.cantidadsolicitadasiga}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.cantidadatendidasiga}">
+			<f:facet name="header">
+				<h:outputText value="Cantidad Atendida Siga" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.cantidadatendidasiga}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.preciounitario}">
+			<f:facet name="header">
+				<h:outputText value="Precio unitario" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.preciounitario}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.valortotal}">
+			<f:facet name="header">
+				<h:outputText value="Valor Total" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.valortotal}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.estadopedidosiga}">
+			<f:facet name="header">
+				<h:outputText value="Estado Pedido Siga" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.estadopedidosiga}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.codigoclasificador}">
+			<f:facet name="header">
+				<h:outputText value="Id Clasificador" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.codigoclasificador}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.codigotareasiga}">
+			<f:facet name="header">
+				<h:outputText value="Codigo Tarea Siga" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.codigotareasiga}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.codigotareaplanin}">
+			<f:facet name="header">
+				<h:outputText value="Codigo Tarea Planin" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.codigotareaplanin}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.clasificador}">
+			<f:facet name="header">
+				<h:outputText value="Clasificar" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.clasificador}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.observadoporcp}">
+			<f:facet name="header">
+				<h:outputText value="Observado por CP" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.observadoporcp}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechaobservadoporcp}">
+			<f:facet name="header">
+				<h:outputText value="Fecha Observado por CP" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechaobservadoporcp}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fecharetiradoporcp}">
+			<f:facet name="header">
+				<h:outputText value="Fecha Retirado Por CP" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fecharetiradoporcp}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+</p:dataTable>
+</html>

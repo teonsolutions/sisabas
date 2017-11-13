@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:tabView id="panelDetailC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<p:tab title="Detalle">
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="id" for="txtIdcuadrocomparativofuente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcuadrocomparativofuente" value="#{cuadrocomparativofuente.cuadrocomparativofuente.idcuadrocomparativofuente}" disabled="true" style="width:150px;" label="id"/>
+		</td>
+		<td>
+			<p:outputLabel  value="PacConsolidado" for="txtIdpacconsolidado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpacconsolidado" value="#{cuadrocomparativofuente.cuadrocomparativofuente.pacconsolidadoIdpacconsolidado.nroconsolid}" disabled="true" style="width:150px;" label="PacConsolidado"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Catalogo Tipofuente" for="txtIdcatalogotipofuente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogotipofuente" value="#{cuadrocomparativofuente.cuadrocomparativofuente.gentablaIdcatalogotipofuente.vchregdescri}" disabled="true" style="width:150px;" label="Catalogo Tipofuente"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Tipo bien" for="txtIdcatalogotipobien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogotipobien" value="#{cuadrocomparativofuente.cuadrocomparativofuente.gentablaIdcatalogotipobien.vchregdescri}" disabled="true" style="width:150px;" label="Tipo bien"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Proveedor" for="txtProveedor"/>
+		</td>
+		<td>
+			<p:inputText  id="txtProveedor" value="#{cuadrocomparativofuente.cuadrocomparativofuente.proveedor}" disabled="true" style="width:150px;" label="Proveedor"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Ruc Proveedor" for="txtRucproveedor"/>
+		</td>
+		<td>
+			<p:inputText  id="txtRucproveedor" value="#{cuadrocomparativofuente.cuadrocomparativofuente.rucproveedor}" disabled="true" style="width:150px;" label="Ruc Proveedor"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Nombre Proveedor" for="txtNombreproveedor"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombreproveedor" value="#{cuadrocomparativofuente.cuadrocomparativofuente.nombreproveedor}" disabled="true" style="width:300px;" label="Nombre Proveedor"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Nombre Contacto" for="txtNombrecontacto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombrecontacto" value="#{cuadrocomparativofuente.cuadrocomparativofuente.nombrecontacto}" disabled="true" style="width:300px;" label="Nombre Contacto"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Telefono Proveedor" for="txtTelefonoproveedor"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTelefonoproveedor" value="#{cuadrocomparativofuente.cuadrocomparativofuente.telefonoproveedor}" disabled="true" style="width:150px;" label="Telefono Proveedor"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Correo Proveedor" for="txtCorreoproveedor"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCorreoproveedor" value="#{cuadrocomparativofuente.cuadrocomparativofuente.correoproveedor}" disabled="true" style="width:300px;" label="Correo Proveedor"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Entidad Convocante" for="txtEntidadconvocante"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEntidadconvocante" value="#{cuadrocomparativofuente.cuadrocomparativofuente.entidadconvocante}" disabled="true" style="width:300px;" label="Entidad Convocante"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Tipo numero proceso" for="txtTiponumeroproceso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTiponumeroproceso" value="#{cuadrocomparativofuente.cuadrocomparativofuente.tiponumeroproceso}" disabled="true" style="width:300px;" label="Tipo numero proceso"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha Consentimiento Buena Pro" for="txtFechaconsentimientobuenapro"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechaconsentimientobuenapro" value="#{cuadrocomparativofuente.cuadrocomparativofuente.fechaconsentimientobuenapro}" disabled="true" style="width:150px;" label="Fecha Consentimiento Buena Pro">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+		<td>
+			<p:outputLabel  value="Marca" for="txtMarca"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMarca" value="#{cuadrocomparativofuente.cuadrocomparativofuente.marca}" disabled="true" style="width:300px;" label="Marca"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Modelo" for="txtModelo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtModelo" value="#{cuadrocomparativofuente.cuadrocomparativofuente.modelo}" disabled="true" style="width:300px;" label="Modelo"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Procedencia" for="txtProcedencia"/>
+		</td>
+		<td>
+			<p:inputText  id="txtProcedencia" value="#{cuadrocomparativofuente.cuadrocomparativofuente.procedencia}" disabled="true" style="width:300px;" label="Procedencia"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Año Fabricacion" for="txtAniofabricacion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAniofabricacion" value="#{cuadrocomparativofuente.cuadrocomparativofuente.aniofabricacion}" disabled="true" style="width:150px;" label="Año Fabricacion"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Garantía comercial" for="txtGarantiacomercial"/>
+		</td>
+		<td>
+			<p:inputText  id="txtGarantiacomercial" value="#{cuadrocomparativofuente.cuadrocomparativofuente.garantiacomercial}" disabled="true" style="width:300px;" label="Garantía comercial"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Plazo de Entrega" for="txtPlazoentrega"/>
+		</td>
+		<td>
+			<p:inputText  id="txtPlazoentrega" value="#{cuadrocomparativofuente.cuadrocomparativofuente.plazoentrega}" disabled="true" style="width:150px;" label="Plazo de Entrega"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Forma de pago" for="txtFormapago"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFormapago" value="#{cuadrocomparativofuente.cuadrocomparativofuente.formapago}" disabled="true" style="width:300px;" label="Forma de pago"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Moneda Fuente" for="txtIdcatalogomonedafuente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogomonedafuente" value="#{cuadrocomparativofuente.cuadrocomparativofuente.gentablaIdcatalogomonedafuente.vchregdescri}" disabled="true" style="width:150px;" label="Moneda Fuente"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Precio Unitario Moneda Consignada" for="txtPreciounitariomonedaconsignada"/>
+		</td>
+		<td>
+			<p:inputText  id="txtPreciounitariomonedaconsignada" value="#{cuadrocomparativofuente.cuadrocomparativofuente.preciounitariomonedaconsignada}" disabled="true" style="width:300px;" label="Precio Unitario Moneda Consignada"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Tipo de cambio" for="txtTipocambio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipocambio" value="#{cuadrocomparativofuente.cuadrocomparativofuente.tipocambio}" disabled="true" style="width:150px;" label="Tipo de cambio"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Fecha de solicitud" for="txtFechasolicitud"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechasolicitud" value="#{cuadrocomparativofuente.cuadrocomparativofuente.fechasolicitud}" disabled="true" style="width:150px;" label="Fecha de solicitud">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Veces Reitero Solicitud" for="txtVecesreiterosolicitud"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVecesreiterosolicitud" value="#{cuadrocomparativofuente.cuadrocomparativofuente.vecesreiterosolicitud}" disabled="true" style="width:150px;" label="Veces Reitero Solicitud"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Fecha Repecion" for="txtFecharecepcion"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFecharecepcion" value="#{cuadrocomparativofuente.cuadrocomparativofuente.fecharecepcion}" disabled="true" style="width:150px;" label="Fecha Repecion">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Proveedor dedica Contratación" for="txtProveedordedicacontratacion"/>
+		</td>
+		<td>
+			<h:graphicImage id="txtProveedordedicacontratacion" url="/resources/img/checkbox_yes.png"  rendered="#{cuadrocomparativofuente.cuadrocomparativofuente.proveedordedicacontratacion=='1'}" alt="Proveedor dedica Contratación" title="Proveedor dedica Contratación"/>
+			<h:graphicImage url="/resources/img/checkbox_no.png"  rendered="#{cuadrocomparativofuente.cuadrocomparativofuente.proveedordedicacontratacion=='0'}" alt="Proveedor dedica Contratación" title="Proveedor dedica Contratación"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Usuario participo RTM" for="txtUsuarioparticiportm"/>
+		</td>
+		<td>
+			<h:graphicImage id="txtUsuarioparticiportm" url="/resources/img/checkbox_yes.png"  rendered="#{cuadrocomparativofuente.cuadrocomparativofuente.usuarioparticiportm=='1'}" alt="Usuario participo RTM" title="Usuario participo RTM"/>
+			<h:graphicImage url="/resources/img/checkbox_no.png"  rendered="#{cuadrocomparativofuente.cuadrocomparativofuente.usuarioparticiportm=='0'}" alt="Usuario participo RTM" title="Usuario participo RTM"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Cumple RTM" for="txtCumplertm"/>
+		</td>
+		<td>
+			<h:graphicImage id="txtCumplertm" url="/resources/img/checkbox_yes.png"  rendered="#{cuadrocomparativofuente.cuadrocomparativofuente.cumplertm=='1'}" alt="Cumple RTM" title="Cumple RTM"/>
+			<h:graphicImage url="/resources/img/checkbox_no.png"  rendered="#{cuadrocomparativofuente.cuadrocomparativofuente.cumplertm=='0'}" alt="Cumple RTM" title="Cumple RTM"/>
+		</td>
+		<td>
+			<p:outputLabel  value="SeTomoEncuenta" for="txtSetomoencuenta"/>
+		</td>
+		<td>
+			<h:graphicImage id="txtSetomoencuenta" url="/resources/img/checkbox_yes.png"  rendered="#{cuadrocomparativofuente.cuadrocomparativofuente.setomoencuenta=='1'}" alt="SeTomoEncuenta" title="SeTomoEncuenta"/>
+			<h:graphicImage url="/resources/img/checkbox_no.png"  rendered="#{cuadrocomparativofuente.cuadrocomparativofuente.setomoencuenta=='0'}" alt="SeTomoEncuenta" title="SeTomoEncuenta"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+	</p:tab>
+
+	<p:tab title="Datos de Auditoría">
+
+	<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha de Creación" for="txtFechacreacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechacreacionauditoria" value="#{cuadrocomparativofuente.cuadrocomparativofuente.fechacreacionauditoria}" disabled="true" style="width:150px;" label="Fecha de Creación">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>
+			</p:inputText>
+		</td>
+		<td>
+			<p:outputLabel  value="Usuario de Creación" for="txtUsuariocreacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuariocreacionauditoria" value="#{cuadrocomparativofuente.cuadrocomparativofuente.usuariocreacionauditoria}" disabled="true" style="width:150px;" label="Usuario de Creación"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha de última modificacion" for="txtFechamodificacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechamodificacionauditoria" value="#{cuadrocomparativofuente.cuadrocomparativofuente.fechamodificacionauditoria}" disabled="true" style="width:150px;" label="Fecha de última modificacion">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>
+			</p:inputText>
+		</td>
+		<td>
+			<p:outputLabel  value="Usuario de última modificacion" for="txtUsuariomodificacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuariomodificacionauditoria" value="#{cuadrocomparativofuente.cuadrocomparativofuente.usuariomodificacionauditoria}" disabled="true" style="width:150px;" label="Usuario de última modificacion"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="IP/Nombre Equipo" for="txtEquipoauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEquipoauditoria" value="#{cuadrocomparativofuente.cuadrocomparativofuente.equipoauditoria}" disabled="true" style="width:300px;" label="IP/Nombre Equipo"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Programa/Clase" for="txtProgramaauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtProgramaauditoria" value="#{cuadrocomparativofuente.cuadrocomparativofuente.programaauditoria}" disabled="true" style="width:300px;" label="Programa/Clase"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Estado Registro" for="txtEstadoauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadoauditoria" value="#{cuadrocomparativofuente.cuadrocomparativofuente.estadoauditoria}" disabled="true" style="width:150px;" label="Estado Registro"/>
+		</td>
+	</tr>
+
+	</table>
+	</p:tab>
+
+	<p:tab title="CuadroComparativoItem">
+		<ui:include src="/pages/cuadrocomparativoitem/component/c_cuadrocomparativoitemDerivedTableList.xhtml"/>
+	</p:tab>
+</p:tabView>
+</html>

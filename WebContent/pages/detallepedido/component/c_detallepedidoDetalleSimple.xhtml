@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelDetailC">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIddetallepedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIddetallepedido" value="#{detallepedido.detallepedido.iddetallepedido}" disabled="true" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Pedido In" for="txtIdpedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpedido" value="#{detallepedido.detallepedido.pedidoIdpedido.nropedido}" disabled="true" style="width:150px;" label="Pedido In"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Grupo Bien" for="txtGrupobien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtGrupobien" value="#{detallepedido.detallepedido.grupobien}" disabled="true" style="width:150px;" label="Grupo Bien"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Clase Bien" for="txtClasebien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtClasebien" value="#{detallepedido.detallepedido.clasebien}" disabled="true" style="width:150px;" label="Clase Bien"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Familia Bien" for="txtFamiliabien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFamiliabien" value="#{detallepedido.detallepedido.familiabien}" disabled="true" style="width:150px;" label="Familia Bien"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Item Bien" for="txtItembien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtItembien" value="#{detallepedido.detallepedido.itembien}" disabled="true" style="width:300px;" label="Item Bien"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Nombre Item" for="txtNombreitem"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombreitem" value="#{detallepedido.detallepedido.nombreitem}" disabled="true" style="width:300px;" label="Nombre Item"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Unidad de medida" for="txtUnidadmedida"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUnidadmedida" value="#{detallepedido.detallepedido.unidadmedida}" disabled="true" style="width:150px;" label="Unidad de medida"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Cantidad Aprobada Siga" for="txtCantidadaprobadasiga"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCantidadaprobadasiga" value="#{detallepedido.detallepedido.cantidadaprobadasiga}" disabled="true" style="width:150px;" label="Cantidad Aprobada Siga"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Cantidad Solicitada Siga" for="txtCantidadsolicitadasiga"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCantidadsolicitadasiga" value="#{detallepedido.detallepedido.cantidadsolicitadasiga}" disabled="true" style="width:150px;" label="Cantidad Solicitada Siga"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Cantidad Atendida Siga" for="txtCantidadatendidasiga"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCantidadatendidasiga" value="#{detallepedido.detallepedido.cantidadatendidasiga}" disabled="true" style="width:150px;" label="Cantidad Atendida Siga"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Precio unitario" for="txtPreciounitario"/>
+		</td>
+		<td>
+			<p:inputText  id="txtPreciounitario" value="#{detallepedido.detallepedido.preciounitario}" disabled="true" style="width:150px;" label="Precio unitario"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Valor Total" for="txtValortotal"/>
+		</td>
+		<td>
+			<p:inputText  id="txtValortotal" value="#{detallepedido.detallepedido.valortotal}" disabled="true" style="width:150px;" label="Valor Total"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Estado Pedido Siga" for="txtEstadopedidosiga"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadopedidosiga" value="#{detallepedido.detallepedido.estadopedidosiga}" disabled="true" style="width:150px;" label="Estado Pedido Siga"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Id Clasificador" for="txtCodigoclasificador"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigoclasificador" value="#{detallepedido.detallepedido.codigoclasificador}" disabled="true" style="width:150px;" label="Id Clasificador"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Codigo Tarea Siga" for="txtCodigotareasiga"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigotareasiga" value="#{detallepedido.detallepedido.codigotareasiga}" disabled="true" style="width:150px;" label="Codigo Tarea Siga"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Codigo Tarea Planin" for="txtCodigotareaplanin"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigotareaplanin" value="#{detallepedido.detallepedido.codigotareaplanin}" disabled="true" style="width:150px;" label="Codigo Tarea Planin"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Clasificar" for="txtClasificador"/>
+		</td>
+		<td>
+			<p:inputText  id="txtClasificador" value="#{detallepedido.detallepedido.clasificador}" disabled="true" style="width:150px;" label="Clasificar"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Observado por CP" for="txtObservadoporcp"/>
+		</td>
+		<td>
+			<p:inputText  id="txtObservadoporcp" value="#{detallepedido.detallepedido.observadoporcp}" disabled="true" style="width:150px;" label="Observado por CP"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Fecha Observado por CP" for="txtFechaobservadoporcp"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechaobservadoporcp" value="#{detallepedido.detallepedido.fechaobservadoporcp}" disabled="true" style="width:150px;" label="Fecha Observado por CP">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha Retirado Por CP" for="txtFecharetiradoporcp"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFecharetiradoporcp" value="#{detallepedido.detallepedido.fecharetiradoporcp}" disabled="true" style="width:150px;" label="Fecha Retirado Por CP">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+	</tr>
+
+</table>
+</p:panel>
+</html>

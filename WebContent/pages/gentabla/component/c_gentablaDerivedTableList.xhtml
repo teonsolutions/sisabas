@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<h:inputHidden id="hidStatusGentabla" value="#{gentabla.status}"/>
+<p:contextMenu for="tblListaGentabla">
+	<p:menuitem value="Detalle" action="#{gentabla.irDetalle}"  process="@this,hidStatusGentabla,tblListaGentabla"  update="hidStatusGentabla,:frmGentablaDetalle:diGentablaDetalle"  oncomplete="showDialog('frmGentipoDetalle:panelDetailC:hidStatusGentabla','frmGentablaDetalle:diGentablaDetalle');"  icon="ui-icon-zoomin" rendered="#{gentabla.renderButton('btnDetalle')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaGentabla" value="#{gentabla.listaGentabla}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaGentabla" selection="#{gentabla.selectedGentabla}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(gentabla.listaGentabla)}"
+	selectionMode="single" rowKey="#{var.vchregcodigo}" styleClass="gandalfTableClass" rowStyleClass="#{var.params.ACTION!=null?(var.params.ACTION=='INSERT'?'old':'dead'):''}">
+		<p:column styleClass="c_center" sortBy="#{var.vchregcodigo}">
+			<f:facet name="header">
+				<h:outputText value="Código" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.vchregcodigo}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="Descripción" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.vchregdescri}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.vchregabreviado}">
+			<f:facet name="header">
+				<h:outputText value="Abreviado" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.vchregabreviado}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.gentipoVchtipcodigo.vchtipdescripcion}">
+			<f:facet name="header">
+				<h:outputText value="Tipo" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.gentipoVchtipcodigo.vchtipdescripcion}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.intregorden}">
+			<f:facet name="header">
+				<h:outputText value="Orden" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.intregorden}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.vchtabotro1}">
+			<f:facet name="header">
+				<h:outputText value="Otro 1" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.vchtabotro1}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.vchtabotro2}">
+			<f:facet name="header">
+				<h:outputText value="Otro 2" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.vchtabotro2}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.vchtabotro3}">
+			<f:facet name="header">
+				<h:outputText value="Otro 3" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.vchtabotro3}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.vchtabotro4}">
+			<f:facet name="header">
+				<h:outputText value="Otro 4" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.vchtabotro4}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.estadoauditoria}">
+			<f:facet name="header">
+				<h:outputText value="Estado" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.estadoauditoria=='1'?'ACTIVO':'INACTIVO'}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.intganempid}">
+			<f:facet name="header">
+				<h:outputText value="intganempid" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.intganempid}"/>
+		</p:column>
+</p:dataTable>
+</html>

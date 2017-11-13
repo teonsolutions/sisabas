@@ -1,0 +1,1086 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pe.com.sisabas.persistence.VissigapaacconsolidadoMapper" >
+
+	<resultMap id="BasicResultMap" type="pe.com.sisabas.be.Vissigapaacconsolidado">
+	<result column="A1_VISIDSIGAPAACCONSOLIDADO" property="visidsigapaacconsolidado" jdbcType="INTEGER" />
+	<result column="A1_CODIGOUNIDADEJECUTORA" property="codigounidadejecutora" jdbcType="VARCHAR" />
+	<result column="A1_ANIO" property="anio" jdbcType="DECIMAL" />
+	<result column="A1_SECEJEC" property="secejec" jdbcType="DECIMAL" />
+	<result column="A1_TIPOCONSOLID" property="tipoconsolid" jdbcType="VARCHAR" />
+	<result column="A1_NROCONSOLID" property="nroconsolid" jdbcType="DECIMAL" />
+	<result column="A1_ESTADOPAAC" property="estadopaac" jdbcType="VARCHAR" />
+	<result column="A1_NROCERTIFICA" property="nrocertifica" jdbcType="DECIMAL" />
+	<result column="A1_MODALCOMPRA" property="modalcompra" jdbcType="VARCHAR" />
+	<result column="A1_FECHACONS" property="fechacons" jdbcType="TIMESTAMP" />
+	<result column="A1_NROPAAC" property="nropaac" jdbcType="VARCHAR" />
+	<result column="A1_MESINICIAL" property="mesinicial" jdbcType="VARCHAR" />
+	<result column="A1_MESFINAL" property="mesfinal" jdbcType="VARCHAR" />
+	<result column="A1_MESPROPUESTO" property="mespropuesto" jdbcType="VARCHAR" />
+	<result column="A1_TIPOBIEN" property="tipobien" jdbcType="VARCHAR" />
+	<result column="A1_FLAGPAAC" property="flagpaac" jdbcType="VARCHAR" />
+	<result column="A1_TIPOPROCESO" property="tipoproceso" jdbcType="VARCHAR" />
+	<result column="A1_DESCRIPCIONTIPOPROCESO" property="descripciontipoproceso" jdbcType="VARCHAR" />
+	<result column="A1_OBJETO" property="objeto" jdbcType="VARCHAR" />
+	<result column="A1_ESPECIFICACIONTECNICAS" property="especificaciontecnicas" jdbcType="VARCHAR" />
+	<result column="A1_VALORMONEDA" property="valormoneda" jdbcType="DECIMAL" />
+	<result column="A1_VALORPLAN" property="valorplan" jdbcType="DECIMAL" />
+	<result column="A1_PAIS" property="pais" jdbcType="VARCHAR" />
+	<result column="A1_DEPARTAMENTO" property="departamento" jdbcType="VARCHAR" />
+	<result column="A1_PROVINCIA" property="provincia" jdbcType="VARCHAR" />
+	<result column="A1_DISTRITO" property="distrito" jdbcType="VARCHAR" />
+	<result column="A1_EXPSIGA" property="expsiga" jdbcType="DECIMAL" />
+	<result column="A1_EXPSIAF" property="expsiaf" jdbcType="DECIMAL" />
+	<result column="A1_EXPSIAFTIPOEJEC" property="expsiaftipoejec" jdbcType="VARCHAR" />
+	<result column="A1_FECHATIPOEJEC" property="fechatipoejec" jdbcType="TIMESTAMP" />
+	<result column="A1_MODALIDADCSC" property="modalidadcsc" jdbcType="VARCHAR" />
+	<result column="A1_CODSNIP" property="codsnip" jdbcType="VARCHAR" />
+	<result column="A1_DOCVIASNIP" property="docviasnip" jdbcType="VARCHAR" />
+	<result column="A1_FECHAREG" property="fechareg" jdbcType="TIMESTAMP" />
+	<result column="A1_FECHAMOD" property="fechamod" jdbcType="TIMESTAMP" />
+	<result column="A1_TIPOCONTRATACION" property="tipocontratacion" jdbcType="VARCHAR" />
+	<result column="A1_FECHACREACIONAUDITORIA" property="fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOCREACIONAUDITORIA" property="usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_FECHAMODIFICACIONAUDITORIA" property="fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOMODIFICACIONAUDITORIA" property="usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<resultMap id="FullResultMap" type="pe.com.sisabas.be.Vissigapaacconsolidado">
+	<result column="A1_VISIDSIGAPAACCONSOLIDADO" property="visidsigapaacconsolidado" jdbcType="INTEGER" />
+	<result column="A1_CODIGOUNIDADEJECUTORA" property="codigounidadejecutora" jdbcType="VARCHAR" />
+	<result column="A1_ANIO" property="anio" jdbcType="DECIMAL" />
+	<result column="A1_SECEJEC" property="secejec" jdbcType="DECIMAL" />
+	<result column="A1_TIPOCONSOLID" property="tipoconsolid" jdbcType="VARCHAR" />
+	<result column="A1_NROCONSOLID" property="nroconsolid" jdbcType="DECIMAL" />
+	<result column="A1_ESTADOPAAC" property="estadopaac" jdbcType="VARCHAR" />
+	<result column="A1_NROCERTIFICA" property="nrocertifica" jdbcType="DECIMAL" />
+	<result column="A1_MODALCOMPRA" property="modalcompra" jdbcType="VARCHAR" />
+	<result column="A1_FECHACONS" property="fechacons" jdbcType="TIMESTAMP" />
+	<result column="A1_NROPAAC" property="nropaac" jdbcType="VARCHAR" />
+	<result column="A1_MESINICIAL" property="mesinicial" jdbcType="VARCHAR" />
+	<result column="A1_MESFINAL" property="mesfinal" jdbcType="VARCHAR" />
+	<result column="A1_MESPROPUESTO" property="mespropuesto" jdbcType="VARCHAR" />
+	<result column="A1_TIPOBIEN" property="tipobien" jdbcType="VARCHAR" />
+	<result column="A1_FLAGPAAC" property="flagpaac" jdbcType="VARCHAR" />
+	<result column="A1_TIPOPROCESO" property="tipoproceso" jdbcType="VARCHAR" />
+	<result column="A1_DESCRIPCIONTIPOPROCESO" property="descripciontipoproceso" jdbcType="VARCHAR" />
+	<result column="A1_OBJETO" property="objeto" jdbcType="VARCHAR" />
+	<result column="A1_ESPECIFICACIONTECNICAS" property="especificaciontecnicas" jdbcType="VARCHAR" />
+	<result column="A1_VALORMONEDA" property="valormoneda" jdbcType="DECIMAL" />
+	<result column="A1_VALORPLAN" property="valorplan" jdbcType="DECIMAL" />
+	<result column="A1_PAIS" property="pais" jdbcType="VARCHAR" />
+	<result column="A1_DEPARTAMENTO" property="departamento" jdbcType="VARCHAR" />
+	<result column="A1_PROVINCIA" property="provincia" jdbcType="VARCHAR" />
+	<result column="A1_DISTRITO" property="distrito" jdbcType="VARCHAR" />
+	<result column="A1_EXPSIGA" property="expsiga" jdbcType="DECIMAL" />
+	<result column="A1_EXPSIAF" property="expsiaf" jdbcType="DECIMAL" />
+	<result column="A1_EXPSIAFTIPOEJEC" property="expsiaftipoejec" jdbcType="VARCHAR" />
+	<result column="A1_FECHATIPOEJEC" property="fechatipoejec" jdbcType="TIMESTAMP" />
+	<result column="A1_MODALIDADCSC" property="modalidadcsc" jdbcType="VARCHAR" />
+	<result column="A1_CODSNIP" property="codsnip" jdbcType="VARCHAR" />
+	<result column="A1_DOCVIASNIP" property="docviasnip" jdbcType="VARCHAR" />
+	<result column="A1_FECHAREG" property="fechareg" jdbcType="TIMESTAMP" />
+	<result column="A1_FECHAMOD" property="fechamod" jdbcType="TIMESTAMP" />
+	<result column="A1_TIPOCONTRATACION" property="tipocontratacion" jdbcType="VARCHAR" />
+	<result column="A1_FECHACREACIONAUDITORIA" property="fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOCREACIONAUDITORIA" property="usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_FECHAMODIFICACIONAUDITORIA" property="fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOMODIFICACIONAUDITORIA" property="usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<sql id="Basic_Column_List">
+	A1.VISIDSIGAPAACCONSOLIDADO as A1_VISIDSIGAPAACCONSOLIDADO, A1.CODIGOUNIDADEJECUTORA as A1_CODIGOUNIDADEJECUTORA, A1.ANIO as A1_ANIO, A1.SECEJEC as A1_SECEJEC, 
+	A1.TIPOCONSOLID as A1_TIPOCONSOLID, A1.NROCONSOLID as A1_NROCONSOLID, A1.ESTADOPAAC as A1_ESTADOPAAC, A1.NROCERTIFICA as A1_NROCERTIFICA, 
+	A1.MODALCOMPRA as A1_MODALCOMPRA, A1.FECHACONS as A1_FECHACONS, A1.NROPAAC as A1_NROPAAC, A1.MESINICIAL as A1_MESINICIAL, 
+	A1.MESFINAL as A1_MESFINAL, A1.MESPROPUESTO as A1_MESPROPUESTO, A1.TIPOBIEN as A1_TIPOBIEN, A1.FLAGPAAC as A1_FLAGPAAC, 
+	A1.TIPOPROCESO as A1_TIPOPROCESO, A1.DESCRIPCIONTIPOPROCESO as A1_DESCRIPCIONTIPOPROCESO, A1.OBJETO as A1_OBJETO, A1.ESPECIFICACIONTECNICAS as A1_ESPECIFICACIONTECNICAS, 
+	A1.VALORMONEDA as A1_VALORMONEDA, A1.VALORPLAN as A1_VALORPLAN, A1.PAIS as A1_PAIS, A1.DEPARTAMENTO as A1_DEPARTAMENTO, 
+	A1.PROVINCIA as A1_PROVINCIA, A1.DISTRITO as A1_DISTRITO, A1.EXPSIGA as A1_EXPSIGA, A1.EXPSIAF as A1_EXPSIAF, 
+	A1.EXPSIAFTIPOEJEC as A1_EXPSIAFTIPOEJEC, A1.FECHATIPOEJEC as A1_FECHATIPOEJEC, A1.MODALIDADCSC as A1_MODALIDADCSC, A1.CODSNIP as A1_CODSNIP, 
+	A1.DOCVIASNIP as A1_DOCVIASNIP, A1.FECHAREG as A1_FECHAREG, A1.FECHAMOD as A1_FECHAMOD, A1.TIPOCONTRATACION as A1_TIPOCONTRATACION, 
+	A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, 
+	A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA 
+	</sql>
+
+
+	<sql id="Full_Column_List">
+	A1.VISIDSIGAPAACCONSOLIDADO as A1_VISIDSIGAPAACCONSOLIDADO, A1.CODIGOUNIDADEJECUTORA as A1_CODIGOUNIDADEJECUTORA, A1.ANIO as A1_ANIO, A1.SECEJEC as A1_SECEJEC, 
+	A1.TIPOCONSOLID as A1_TIPOCONSOLID, A1.NROCONSOLID as A1_NROCONSOLID, A1.ESTADOPAAC as A1_ESTADOPAAC, A1.NROCERTIFICA as A1_NROCERTIFICA, 
+	A1.MODALCOMPRA as A1_MODALCOMPRA, A1.FECHACONS as A1_FECHACONS, A1.NROPAAC as A1_NROPAAC, A1.MESINICIAL as A1_MESINICIAL, 
+	A1.MESFINAL as A1_MESFINAL, A1.MESPROPUESTO as A1_MESPROPUESTO, A1.TIPOBIEN as A1_TIPOBIEN, A1.FLAGPAAC as A1_FLAGPAAC, 
+	A1.TIPOPROCESO as A1_TIPOPROCESO, A1.DESCRIPCIONTIPOPROCESO as A1_DESCRIPCIONTIPOPROCESO, A1.OBJETO as A1_OBJETO, A1.ESPECIFICACIONTECNICAS as A1_ESPECIFICACIONTECNICAS, 
+	A1.VALORMONEDA as A1_VALORMONEDA, A1.VALORPLAN as A1_VALORPLAN, A1.PAIS as A1_PAIS, A1.DEPARTAMENTO as A1_DEPARTAMENTO, 
+	A1.PROVINCIA as A1_PROVINCIA, A1.DISTRITO as A1_DISTRITO, A1.EXPSIGA as A1_EXPSIGA, A1.EXPSIAF as A1_EXPSIAF, 
+	A1.EXPSIAFTIPOEJEC as A1_EXPSIAFTIPOEJEC, A1.FECHATIPOEJEC as A1_FECHATIPOEJEC, A1.MODALIDADCSC as A1_MODALIDADCSC, A1.CODSNIP as A1_CODSNIP, 
+	A1.DOCVIASNIP as A1_DOCVIASNIP, A1.FECHAREG as A1_FECHAREG, A1.FECHAMOD as A1_FECHAMOD, A1.TIPOCONTRATACION as A1_TIPOCONTRATACION, 
+	A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, 
+	A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA 
+	</sql>
+
+
+
+	<select id="selectByPrimaryKeyBasic" resultMap="BasicResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.visSigaPaacConsolidado A1
+	
+	where A1.visIdSigaPaacConsolidado = #{visidsigapaacconsolidado,jdbcType=INTEGER}
+</select>
+
+
+
+	<select id="selectByPrimaryKeyBasicActive" resultMap="BasicResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.visSigaPaacConsolidado A1
+	
+	where A1.visIdSigaPaacConsolidado = #{visidsigapaacconsolidado,jdbcType=INTEGER}
+	and A1.estadoauditoria='1'
+	</select>
+
+
+
+	<select id="selectByPrimaryKeyFull" resultMap="FullResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.visSigaPaacConsolidado A1
+	
+	where A1.visIdSigaPaacConsolidado = #{visidsigapaacconsolidado,jdbcType=INTEGER}
+</select>
+
+
+
+	<select id="selectByPrimaryKeyFullActive" resultMap="FullResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.visSigaPaacConsolidado A1
+	
+	where A1.visIdSigaPaacConsolidado = #{visidsigapaacconsolidado,jdbcType=INTEGER}
+	and A1.estadoauditoria='1'
+	</select>
+
+
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	delete from abas.visSigaPaacConsolidado 
+	where visIdSigaPaacConsolidado = #{visidsigapaacconsolidado,jdbcType=INTEGER}
+	</delete>
+
+
+
+
+
+	<insert id="insert" parameterType="pe.com.sisabas.be.Vissigapaacconsolidado" >
+	insert into abas.visSigaPaacConsolidado (
+	VISIDSIGAPAACCONSOLIDADO, CODIGOUNIDADEJECUTORA, ANIO, SECEJEC, 
+	TIPOCONSOLID, NROCONSOLID, ESTADOPAAC, NROCERTIFICA, 
+	MODALCOMPRA, FECHACONS, NROPAAC, MESINICIAL, 
+	MESFINAL, MESPROPUESTO, TIPOBIEN, FLAGPAAC, 
+	TIPOPROCESO, DESCRIPCIONTIPOPROCESO, OBJETO, ESPECIFICACIONTECNICAS, 
+	VALORMONEDA, VALORPLAN, PAIS, DEPARTAMENTO, 
+	PROVINCIA, DISTRITO, EXPSIGA, EXPSIAF, 
+	EXPSIAFTIPOEJEC, FECHATIPOEJEC, MODALIDADCSC, CODSNIP, 
+	DOCVIASNIP, FECHAREG, FECHAMOD, TIPOCONTRATACION, 
+	FECHACREACIONAUDITORIA, USUARIOCREACIONAUDITORIA, FECHAMODIFICACIONAUDITORIA, USUARIOMODIFICACIONAUDITORIA, 
+	EQUIPOAUDITORIA, PROGRAMAAUDITORIA, ESTADOAUDITORIA ) 
+	VALUES (
+	#{visidsigapaacconsolidado,jdbcType=INTEGER}, #{codigounidadejecutora,jdbcType=VARCHAR}, #{anio,jdbcType=DECIMAL}, #{secejec,jdbcType=DECIMAL}, 
+	#{tipoconsolid,jdbcType=VARCHAR}, #{nroconsolid,jdbcType=DECIMAL}, #{estadopaac,jdbcType=VARCHAR}, #{nrocertifica,jdbcType=DECIMAL}, 
+	#{modalcompra,jdbcType=VARCHAR}, #{fechacons,jdbcType=TIMESTAMP}, #{nropaac,jdbcType=VARCHAR}, #{mesinicial,jdbcType=VARCHAR}, 
+	#{mesfinal,jdbcType=VARCHAR}, #{mespropuesto,jdbcType=VARCHAR}, #{tipobien,jdbcType=VARCHAR}, #{flagpaac,jdbcType=VARCHAR}, 
+	#{tipoproceso,jdbcType=VARCHAR}, #{descripciontipoproceso,jdbcType=VARCHAR}, #{objeto,jdbcType=VARCHAR}, #{especificaciontecnicas,jdbcType=VARCHAR}, 
+	#{valormoneda,jdbcType=DECIMAL}, #{valorplan,jdbcType=DECIMAL}, #{pais,jdbcType=VARCHAR}, #{departamento,jdbcType=VARCHAR}, 
+	#{provincia,jdbcType=VARCHAR}, #{distrito,jdbcType=VARCHAR}, #{expsiga,jdbcType=DECIMAL}, #{expsiaf,jdbcType=DECIMAL}, 
+	#{expsiaftipoejec,jdbcType=VARCHAR}, #{fechatipoejec,jdbcType=TIMESTAMP}, #{modalidadcsc,jdbcType=VARCHAR}, #{codsnip,jdbcType=VARCHAR}, 
+	#{docviasnip,jdbcType=VARCHAR}, #{fechareg,jdbcType=TIMESTAMP}, #{fechamod,jdbcType=TIMESTAMP}, #{tipocontratacion,jdbcType=VARCHAR}, 
+	#{fechacreacionauditoria,jdbcType=TIMESTAMP}, #{usuariocreacionauditoria,jdbcType=VARCHAR}, #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, #{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	#{equipoauditoria,jdbcType=VARCHAR}, #{programaauditoria,jdbcType=VARCHAR}, #{estadoauditoria,jdbcType=VARCHAR} ) 
+	</insert>
+
+
+
+	<insert id="insertSelective" parameterType="pe.com.sisabas.be.Vissigapaacconsolidado" >
+	insert into abas.visSigaPaacConsolidado 
+	<trim prefix="(" suffix=")" suffixOverrides="," >
+	<if test="visidsigapaacconsolidado != null" >
+		visIdSigaPaacConsolidado,
+	</if>
+	<if test="codigounidadejecutora != null" >
+		CodigoUnidadEjecutora,
+	</if>
+	<if test="anio != null" >
+		Anio,
+	</if>
+	<if test="secejec != null" >
+		SecEjec,
+	</if>
+	<if test="tipoconsolid != null" >
+		TipoConsolid,
+	</if>
+	<if test="nroconsolid != null" >
+		NroConsolid,
+	</if>
+	<if test="estadopaac != null" >
+		EstadoPaac,
+	</if>
+	<if test="nrocertifica != null" >
+		NroCertifica,
+	</if>
+	<if test="modalcompra != null" >
+		ModalCompra,
+	</if>
+	<if test="fechacons != null" >
+		FechaCons,
+	</if>
+	<if test="nropaac != null" >
+		NroPaac,
+	</if>
+	<if test="mesinicial != null" >
+		MesInicial,
+	</if>
+	<if test="mesfinal != null" >
+		MesFinal,
+	</if>
+	<if test="mespropuesto != null" >
+		MesPropuesto,
+	</if>
+	<if test="tipobien != null" >
+		TipoBien,
+	</if>
+	<if test="flagpaac != null" >
+		FlagPaac,
+	</if>
+	<if test="tipoproceso != null" >
+		TipoProceso,
+	</if>
+	<if test="descripciontipoproceso != null" >
+		DescripcionTipoProceso,
+	</if>
+	<if test="objeto != null" >
+		Objeto,
+	</if>
+	<if test="especificaciontecnicas != null" >
+		EspecificacionTecnicas,
+	</if>
+	<if test="valormoneda != null" >
+		ValorMoneda,
+	</if>
+	<if test="valorplan != null" >
+		ValorPlan,
+	</if>
+	<if test="pais != null" >
+		Pais,
+	</if>
+	<if test="departamento != null" >
+		Departamento,
+	</if>
+	<if test="provincia != null" >
+		Provincia,
+	</if>
+	<if test="distrito != null" >
+		Distrito,
+	</if>
+	<if test="expsiga != null" >
+		ExpSiga,
+	</if>
+	<if test="expsiaf != null" >
+		ExpSiaf,
+	</if>
+	<if test="expsiaftipoejec != null" >
+		ExpSiafTipoEjec,
+	</if>
+	<if test="fechatipoejec != null" >
+		FechaTipoEjec,
+	</if>
+	<if test="modalidadcsc != null" >
+		ModalidadCsc,
+	</if>
+	<if test="codsnip != null" >
+		CodSnip,
+	</if>
+	<if test="docviasnip != null" >
+		DocViaSnip,
+	</if>
+	<if test="fechareg != null" >
+		FechaReg,
+	</if>
+	<if test="fechamod != null" >
+		FechaMod,
+	</if>
+	<if test="tipocontratacion != null" >
+		TipoContratacion,
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		FechaCreacionAuditoria,
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		UsuarioCreacionAuditoria,
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		FechaModificacionAuditoria,
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		UsuarioModificacionAuditoria,
+	</if>
+	<if test="equipoauditoria != null" >
+		EquipoAuditoria,
+	</if>
+	<if test="programaauditoria != null" >
+		ProgramaAuditoria,
+	</if>
+	<if test="estadoauditoria != null" >
+		EstadoAuditoria,
+	</if>
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides="," >
+	<if test="visidsigapaacconsolidado != null" >
+		#{visidsigapaacconsolidado,jdbcType=INTEGER}, 
+	</if>
+	<if test="codigounidadejecutora != null" >
+		#{codigounidadejecutora,jdbcType=VARCHAR}, 
+	</if>
+	<if test="anio != null" >
+		#{anio,jdbcType=DECIMAL}, 
+	</if>
+	<if test="secejec != null" >
+		#{secejec,jdbcType=DECIMAL}, 
+	</if>
+	<if test="tipoconsolid != null" >
+		#{tipoconsolid,jdbcType=VARCHAR}, 
+	</if>
+	<if test="nroconsolid != null" >
+		#{nroconsolid,jdbcType=DECIMAL}, 
+	</if>
+	<if test="estadopaac != null" >
+		#{estadopaac,jdbcType=VARCHAR}, 
+	</if>
+	<if test="nrocertifica != null" >
+		#{nrocertifica,jdbcType=DECIMAL}, 
+	</if>
+	<if test="modalcompra != null" >
+		#{modalcompra,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechacons != null" >
+		#{fechacons,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="nropaac != null" >
+		#{nropaac,jdbcType=VARCHAR}, 
+	</if>
+	<if test="mesinicial != null" >
+		#{mesinicial,jdbcType=VARCHAR}, 
+	</if>
+	<if test="mesfinal != null" >
+		#{mesfinal,jdbcType=VARCHAR}, 
+	</if>
+	<if test="mespropuesto != null" >
+		#{mespropuesto,jdbcType=VARCHAR}, 
+	</if>
+	<if test="tipobien != null" >
+		#{tipobien,jdbcType=VARCHAR}, 
+	</if>
+	<if test="flagpaac != null" >
+		#{flagpaac,jdbcType=VARCHAR}, 
+	</if>
+	<if test="tipoproceso != null" >
+		#{tipoproceso,jdbcType=VARCHAR}, 
+	</if>
+	<if test="descripciontipoproceso != null" >
+		#{descripciontipoproceso,jdbcType=VARCHAR}, 
+	</if>
+	<if test="objeto != null" >
+		#{objeto,jdbcType=VARCHAR}, 
+	</if>
+	<if test="especificaciontecnicas != null" >
+		#{especificaciontecnicas,jdbcType=VARCHAR}, 
+	</if>
+	<if test="valormoneda != null" >
+		#{valormoneda,jdbcType=DECIMAL}, 
+	</if>
+	<if test="valorplan != null" >
+		#{valorplan,jdbcType=DECIMAL}, 
+	</if>
+	<if test="pais != null" >
+		#{pais,jdbcType=VARCHAR}, 
+	</if>
+	<if test="departamento != null" >
+		#{departamento,jdbcType=VARCHAR}, 
+	</if>
+	<if test="provincia != null" >
+		#{provincia,jdbcType=VARCHAR}, 
+	</if>
+	<if test="distrito != null" >
+		#{distrito,jdbcType=VARCHAR}, 
+	</if>
+	<if test="expsiga != null" >
+		#{expsiga,jdbcType=DECIMAL}, 
+	</if>
+	<if test="expsiaf != null" >
+		#{expsiaf,jdbcType=DECIMAL}, 
+	</if>
+	<if test="expsiaftipoejec != null" >
+		#{expsiaftipoejec,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechatipoejec != null" >
+		#{fechatipoejec,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="modalidadcsc != null" >
+		#{modalidadcsc,jdbcType=VARCHAR}, 
+	</if>
+	<if test="codsnip != null" >
+		#{codsnip,jdbcType=VARCHAR}, 
+	</if>
+	<if test="docviasnip != null" >
+		#{docviasnip,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechareg != null" >
+		#{fechareg,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="fechamod != null" >
+		#{fechamod,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="tipocontratacion != null" >
+		#{tipocontratacion,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		#{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		#{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		#{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		#{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="equipoauditoria != null" >
+		#{equipoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="programaauditoria != null" >
+		#{programaauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoauditoria != null" >
+		#{estadoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	</trim>
+	</insert>
+
+
+
+	<update id="updateByPrimaryKey" parameterType="pe.com.sisabas.be.Vissigapaacconsolidado" >
+	update abas.visSigaPaacConsolidado 
+	set 
+	VISIDSIGAPAACCONSOLIDADO = #{visidsigapaacconsolidado,jdbcType=INTEGER}, CODIGOUNIDADEJECUTORA = #{codigounidadejecutora,jdbcType=VARCHAR}, 
+	ANIO = #{anio,jdbcType=DECIMAL}, SECEJEC = #{secejec,jdbcType=DECIMAL}, 
+	TIPOCONSOLID = #{tipoconsolid,jdbcType=VARCHAR}, NROCONSOLID = #{nroconsolid,jdbcType=DECIMAL}, 
+	ESTADOPAAC = #{estadopaac,jdbcType=VARCHAR}, NROCERTIFICA = #{nrocertifica,jdbcType=DECIMAL}, 
+	MODALCOMPRA = #{modalcompra,jdbcType=VARCHAR}, FECHACONS = #{fechacons,jdbcType=TIMESTAMP}, 
+	NROPAAC = #{nropaac,jdbcType=VARCHAR}, MESINICIAL = #{mesinicial,jdbcType=VARCHAR}, 
+	MESFINAL = #{mesfinal,jdbcType=VARCHAR}, MESPROPUESTO = #{mespropuesto,jdbcType=VARCHAR}, 
+	TIPOBIEN = #{tipobien,jdbcType=VARCHAR}, FLAGPAAC = #{flagpaac,jdbcType=VARCHAR}, 
+	TIPOPROCESO = #{tipoproceso,jdbcType=VARCHAR}, DESCRIPCIONTIPOPROCESO = #{descripciontipoproceso,jdbcType=VARCHAR}, 
+	OBJETO = #{objeto,jdbcType=VARCHAR}, ESPECIFICACIONTECNICAS = #{especificaciontecnicas,jdbcType=VARCHAR}, 
+	VALORMONEDA = #{valormoneda,jdbcType=DECIMAL}, VALORPLAN = #{valorplan,jdbcType=DECIMAL}, 
+	PAIS = #{pais,jdbcType=VARCHAR}, DEPARTAMENTO = #{departamento,jdbcType=VARCHAR}, 
+	PROVINCIA = #{provincia,jdbcType=VARCHAR}, DISTRITO = #{distrito,jdbcType=VARCHAR}, 
+	EXPSIGA = #{expsiga,jdbcType=DECIMAL}, EXPSIAF = #{expsiaf,jdbcType=DECIMAL}, 
+	EXPSIAFTIPOEJEC = #{expsiaftipoejec,jdbcType=VARCHAR}, FECHATIPOEJEC = #{fechatipoejec,jdbcType=TIMESTAMP}, 
+	MODALIDADCSC = #{modalidadcsc,jdbcType=VARCHAR}, CODSNIP = #{codsnip,jdbcType=VARCHAR}, 
+	DOCVIASNIP = #{docviasnip,jdbcType=VARCHAR}, FECHAREG = #{fechareg,jdbcType=TIMESTAMP}, 
+	FECHAMOD = #{fechamod,jdbcType=TIMESTAMP}, TIPOCONTRATACION = #{tipocontratacion,jdbcType=VARCHAR}, 
+	FECHACREACIONAUDITORIA = #{fechacreacionauditoria,jdbcType=TIMESTAMP}, USUARIOCREACIONAUDITORIA = #{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	FECHAMODIFICACIONAUDITORIA = #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, USUARIOMODIFICACIONAUDITORIA = #{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, PROGRAMAAUDITORIA = #{programaauditoria,jdbcType=VARCHAR}, 
+	ESTADOAUDITORIA = #{estadoauditoria,jdbcType=VARCHAR} 
+	where visIdSigaPaacConsolidado = #{visidsigapaacconsolidado,jdbcType=INTEGER}
+	</update>
+
+
+
+	<update id="updateByPrimaryKeySelective" parameterType="pe.com.sisabas.be.Vissigapaacconsolidado" >
+	update abas.visSigaPaacConsolidado 
+	<set>
+	<if test="visidsigapaacconsolidado != null" >
+		VISIDSIGAPAACCONSOLIDADO = #{visidsigapaacconsolidado,jdbcType=INTEGER}, 
+	</if>
+	<if test="codigounidadejecutora != null" >
+		CODIGOUNIDADEJECUTORA = #{codigounidadejecutora,jdbcType=VARCHAR}, 
+	</if>
+	<if test="anio != null" >
+		ANIO = #{anio,jdbcType=DECIMAL}, 
+	</if>
+	<if test="secejec != null" >
+		SECEJEC = #{secejec,jdbcType=DECIMAL}, 
+	</if>
+	<if test="tipoconsolid != null" >
+		TIPOCONSOLID = #{tipoconsolid,jdbcType=VARCHAR}, 
+	</if>
+	<if test="nroconsolid != null" >
+		NROCONSOLID = #{nroconsolid,jdbcType=DECIMAL}, 
+	</if>
+	<if test="estadopaac != null" >
+		ESTADOPAAC = #{estadopaac,jdbcType=VARCHAR}, 
+	</if>
+	<if test="nrocertifica != null" >
+		NROCERTIFICA = #{nrocertifica,jdbcType=DECIMAL}, 
+	</if>
+	<if test="modalcompra != null" >
+		MODALCOMPRA = #{modalcompra,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechacons != null" >
+		FECHACONS = #{fechacons,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="nropaac != null" >
+		NROPAAC = #{nropaac,jdbcType=VARCHAR}, 
+	</if>
+	<if test="mesinicial != null" >
+		MESINICIAL = #{mesinicial,jdbcType=VARCHAR}, 
+	</if>
+	<if test="mesfinal != null" >
+		MESFINAL = #{mesfinal,jdbcType=VARCHAR}, 
+	</if>
+	<if test="mespropuesto != null" >
+		MESPROPUESTO = #{mespropuesto,jdbcType=VARCHAR}, 
+	</if>
+	<if test="tipobien != null" >
+		TIPOBIEN = #{tipobien,jdbcType=VARCHAR}, 
+	</if>
+	<if test="flagpaac != null" >
+		FLAGPAAC = #{flagpaac,jdbcType=VARCHAR}, 
+	</if>
+	<if test="tipoproceso != null" >
+		TIPOPROCESO = #{tipoproceso,jdbcType=VARCHAR}, 
+	</if>
+	<if test="descripciontipoproceso != null" >
+		DESCRIPCIONTIPOPROCESO = #{descripciontipoproceso,jdbcType=VARCHAR}, 
+	</if>
+	<if test="objeto != null" >
+		OBJETO = #{objeto,jdbcType=VARCHAR}, 
+	</if>
+	<if test="especificaciontecnicas != null" >
+		ESPECIFICACIONTECNICAS = #{especificaciontecnicas,jdbcType=VARCHAR}, 
+	</if>
+	<if test="valormoneda != null" >
+		VALORMONEDA = #{valormoneda,jdbcType=DECIMAL}, 
+	</if>
+	<if test="valorplan != null" >
+		VALORPLAN = #{valorplan,jdbcType=DECIMAL}, 
+	</if>
+	<if test="pais != null" >
+		PAIS = #{pais,jdbcType=VARCHAR}, 
+	</if>
+	<if test="departamento != null" >
+		DEPARTAMENTO = #{departamento,jdbcType=VARCHAR}, 
+	</if>
+	<if test="provincia != null" >
+		PROVINCIA = #{provincia,jdbcType=VARCHAR}, 
+	</if>
+	<if test="distrito != null" >
+		DISTRITO = #{distrito,jdbcType=VARCHAR}, 
+	</if>
+	<if test="expsiga != null" >
+		EXPSIGA = #{expsiga,jdbcType=DECIMAL}, 
+	</if>
+	<if test="expsiaf != null" >
+		EXPSIAF = #{expsiaf,jdbcType=DECIMAL}, 
+	</if>
+	<if test="expsiaftipoejec != null" >
+		EXPSIAFTIPOEJEC = #{expsiaftipoejec,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechatipoejec != null" >
+		FECHATIPOEJEC = #{fechatipoejec,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="modalidadcsc != null" >
+		MODALIDADCSC = #{modalidadcsc,jdbcType=VARCHAR}, 
+	</if>
+	<if test="codsnip != null" >
+		CODSNIP = #{codsnip,jdbcType=VARCHAR}, 
+	</if>
+	<if test="docviasnip != null" >
+		DOCVIASNIP = #{docviasnip,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechareg != null" >
+		FECHAREG = #{fechareg,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="fechamod != null" >
+		FECHAMOD = #{fechamod,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="tipocontratacion != null" >
+		TIPOCONTRATACION = #{tipocontratacion,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		FECHACREACIONAUDITORIA = #{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		USUARIOCREACIONAUDITORIA = #{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		FECHAMODIFICACIONAUDITORIA = #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		USUARIOMODIFICACIONAUDITORIA = #{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="equipoauditoria != null" >
+		EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="programaauditoria != null" >
+		PROGRAMAAUDITORIA = #{programaauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoauditoria != null" >
+		ESTADOAUDITORIA = #{estadoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	</set>
+
+	where visIdSigaPaacConsolidado = #{visidsigapaacconsolidado,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="selectDynamicBasic" resultMap="BasicResultMap"  parameterType="pe.com.sisabas.be.Vissigapaacconsolidado" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.visSigaPaacConsolidado A1
+	<where>
+		<if test="visidsigapaacconsolidado != null" >
+			 AND A1.VISIDSIGAPAACCONSOLIDADO = #{visidsigapaacconsolidado,jdbcType=INTEGER} 
+		</if>
+		<if test="codigounidadejecutora != null" >
+			 AND A1.CODIGOUNIDADEJECUTORA LIKE ('%' + #{codigounidadejecutora,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="anioini != null" >
+			 AND A1.ANIO <![CDATA[ >= ]]> #{anioini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="aniofin != null" >
+			 AND A1.ANIO <![CDATA[ <= ]]>  #{aniofin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="secejecini != null" >
+			 AND A1.SECEJEC <![CDATA[ >= ]]> #{secejecini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="secejecfin != null" >
+			 AND A1.SECEJEC <![CDATA[ <= ]]>  #{secejecfin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="tipoconsolid != null" >
+			 AND A1.TIPOCONSOLID LIKE ('%' + #{tipoconsolid,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="nroconsolidini != null" >
+			 AND A1.NROCONSOLID <![CDATA[ >= ]]> #{nroconsolidini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="nroconsolidfin != null" >
+			 AND A1.NROCONSOLID <![CDATA[ <= ]]>  #{nroconsolidfin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="estadopaac != null" >
+			 AND A1.ESTADOPAAC LIKE ('%' + #{estadopaac,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="nrocertificaini != null" >
+			 AND A1.NROCERTIFICA <![CDATA[ >= ]]> #{nrocertificaini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="nrocertificafin != null" >
+			 AND A1.NROCERTIFICA <![CDATA[ <= ]]>  #{nrocertificafin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="modalcompra != null" >
+			 AND A1.MODALCOMPRA LIKE ('%' + #{modalcompra,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechaconsini != null" >
+			 AND  (A1.FECHACONS)  <![CDATA[ >= ]]>  #{fechaconsini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechaconsfin != null" >
+			 AND (A1.FECHACONS) <![CDATA[ <= ]]>  #{fechaconsfin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="nropaac != null" >
+			 AND A1.NROPAAC LIKE ('%' + #{nropaac,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="mesinicial != null" >
+			 AND A1.MESINICIAL LIKE ('%' + #{mesinicial,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="mesfinal != null" >
+			 AND A1.MESFINAL LIKE ('%' + #{mesfinal,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="mespropuesto != null" >
+			 AND A1.MESPROPUESTO LIKE ('%' + #{mespropuesto,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="tipobien != null" >
+			 AND A1.TIPOBIEN LIKE ('%' + #{tipobien,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="flagpaac != null" >
+			 AND A1.FLAGPAAC LIKE ('%' + #{flagpaac,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="tipoproceso != null" >
+			 AND A1.TIPOPROCESO LIKE ('%' + #{tipoproceso,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="descripciontipoproceso != null" >
+			 AND A1.DESCRIPCIONTIPOPROCESO LIKE ('%' + #{descripciontipoproceso,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="objeto != null" >
+			 AND A1.OBJETO LIKE ('%' + #{objeto,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="especificaciontecnicas != null" >
+			 AND A1.ESPECIFICACIONTECNICAS LIKE ('%' + #{especificaciontecnicas,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="valormonedaini != null" >
+			 AND A1.VALORMONEDA <![CDATA[ >= ]]> #{valormonedaini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="valormonedafin != null" >
+			 AND A1.VALORMONEDA <![CDATA[ <= ]]>  #{valormonedafin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="valorplanini != null" >
+			 AND A1.VALORPLAN <![CDATA[ >= ]]> #{valorplanini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="valorplanfin != null" >
+			 AND A1.VALORPLAN <![CDATA[ <= ]]>  #{valorplanfin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="pais != null" >
+			 AND A1.PAIS LIKE ('%' + #{pais,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="departamento != null" >
+			 AND A1.DEPARTAMENTO LIKE ('%' + #{departamento,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="provincia != null" >
+			 AND A1.PROVINCIA LIKE ('%' + #{provincia,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="distrito != null" >
+			 AND A1.DISTRITO LIKE ('%' + #{distrito,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="expsigaini != null" >
+			 AND A1.EXPSIGA <![CDATA[ >= ]]> #{expsigaini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="expsigafin != null" >
+			 AND A1.EXPSIGA <![CDATA[ <= ]]>  #{expsigafin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="expsiafini != null" >
+			 AND A1.EXPSIAF <![CDATA[ >= ]]> #{expsiafini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="expsiaffin != null" >
+			 AND A1.EXPSIAF <![CDATA[ <= ]]>  #{expsiaffin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="expsiaftipoejec != null" >
+			 AND A1.EXPSIAFTIPOEJEC LIKE ('%' + #{expsiaftipoejec,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechatipoejecini != null" >
+			 AND  (A1.FECHATIPOEJEC)  <![CDATA[ >= ]]>  #{fechatipoejecini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechatipoejecfin != null" >
+			 AND (A1.FECHATIPOEJEC) <![CDATA[ <= ]]>  #{fechatipoejecfin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="modalidadcsc != null" >
+			 AND A1.MODALIDADCSC LIKE ('%' + #{modalidadcsc,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="codsnip != null" >
+			 AND A1.CODSNIP LIKE ('%' + #{codsnip,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="docviasnip != null" >
+			 AND A1.DOCVIASNIP LIKE ('%' + #{docviasnip,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fecharegini != null" >
+			 AND  (A1.FECHAREG)  <![CDATA[ >= ]]>  #{fecharegini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fecharegfin != null" >
+			 AND (A1.FECHAREG) <![CDATA[ <= ]]>  #{fecharegfin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="fechamodini != null" >
+			 AND  (A1.FECHAMOD)  <![CDATA[ >= ]]>  #{fechamodini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechamodfin != null" >
+			 AND (A1.FECHAMOD) <![CDATA[ <= ]]>  #{fechamodfin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="tipocontratacion != null" >
+			 AND A1.TIPOCONTRATACION LIKE ('%' + #{tipocontratacion,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechacreacionauditoriaini != null" >
+			 AND  (A1.FECHACREACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechacreacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechacreacionauditoriafin != null" >
+			 AND (A1.FECHACREACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechacreacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariocreacionauditoria != null" >
+			 AND A1.USUARIOCREACIONAUDITORIA LIKE ('%' + #{usuariocreacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechamodificacionauditoriaini != null" >
+			 AND  (A1.FECHAMODIFICACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechamodificacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechamodificacionauditoriafin != null" >
+			 AND (A1.FECHAMODIFICACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechamodificacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariomodificacionauditoria != null" >
+			 AND A1.USUARIOMODIFICACIONAUDITORIA LIKE ('%' + #{usuariomodificacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="equipoauditoria != null" >
+			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="programaauditoria != null" >
+			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoauditoria != null" >
+			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+	</where>
+
+	<if test="ordenListaCampos != null" >
+		 ORDER BY 
+		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+		<if test="ordenTipo != null" >
+			 ${ordenTipo} 
+		</if>
+	</if>
+
+	<if test="cantidadRegistros != null" >
+
+	</if>
+	</select>
+
+
+	<select id="selectDynamicFull" resultMap="FullResultMap"  parameterType="pe.com.sisabas.be.Vissigapaacconsolidado" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.visSigaPaacConsolidado A1
+	<where>
+		<if test="visidsigapaacconsolidado != null" >
+			 AND A1.VISIDSIGAPAACCONSOLIDADO = #{visidsigapaacconsolidado,jdbcType=INTEGER} 
+		</if>
+		<if test="codigounidadejecutora != null" >
+			 AND A1.CODIGOUNIDADEJECUTORA LIKE ('%' + #{codigounidadejecutora,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="anioini != null" >
+			 AND A1.ANIO <![CDATA[ >= ]]> #{anioini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="aniofin != null" >
+			 AND A1.ANIO <![CDATA[ <= ]]>  #{aniofin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="secejecini != null" >
+			 AND A1.SECEJEC <![CDATA[ >= ]]> #{secejecini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="secejecfin != null" >
+			 AND A1.SECEJEC <![CDATA[ <= ]]>  #{secejecfin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="tipoconsolid != null" >
+			 AND A1.TIPOCONSOLID LIKE ('%' + #{tipoconsolid,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="nroconsolidini != null" >
+			 AND A1.NROCONSOLID <![CDATA[ >= ]]> #{nroconsolidini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="nroconsolidfin != null" >
+			 AND A1.NROCONSOLID <![CDATA[ <= ]]>  #{nroconsolidfin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="estadopaac != null" >
+			 AND A1.ESTADOPAAC LIKE ('%' + #{estadopaac,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="nrocertificaini != null" >
+			 AND A1.NROCERTIFICA <![CDATA[ >= ]]> #{nrocertificaini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="nrocertificafin != null" >
+			 AND A1.NROCERTIFICA <![CDATA[ <= ]]>  #{nrocertificafin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="modalcompra != null" >
+			 AND A1.MODALCOMPRA LIKE ('%' + #{modalcompra,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechaconsini != null" >
+			 AND  (A1.FECHACONS)  <![CDATA[ >= ]]>  #{fechaconsini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechaconsfin != null" >
+			 AND (A1.FECHACONS) <![CDATA[ <= ]]>  #{fechaconsfin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="nropaac != null" >
+			 AND A1.NROPAAC LIKE ('%' + #{nropaac,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="mesinicial != null" >
+			 AND A1.MESINICIAL LIKE ('%' + #{mesinicial,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="mesfinal != null" >
+			 AND A1.MESFINAL LIKE ('%' + #{mesfinal,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="mespropuesto != null" >
+			 AND A1.MESPROPUESTO LIKE ('%' + #{mespropuesto,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="tipobien != null" >
+			 AND A1.TIPOBIEN LIKE ('%' + #{tipobien,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="flagpaac != null" >
+			 AND A1.FLAGPAAC LIKE ('%' + #{flagpaac,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="tipoproceso != null" >
+			 AND A1.TIPOPROCESO LIKE ('%' + #{tipoproceso,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="descripciontipoproceso != null" >
+			 AND A1.DESCRIPCIONTIPOPROCESO LIKE ('%' + #{descripciontipoproceso,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="objeto != null" >
+			 AND A1.OBJETO LIKE ('%' + #{objeto,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="especificaciontecnicas != null" >
+			 AND A1.ESPECIFICACIONTECNICAS LIKE ('%' + #{especificaciontecnicas,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="valormonedaini != null" >
+			 AND A1.VALORMONEDA <![CDATA[ >= ]]> #{valormonedaini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="valormonedafin != null" >
+			 AND A1.VALORMONEDA <![CDATA[ <= ]]>  #{valormonedafin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="valorplanini != null" >
+			 AND A1.VALORPLAN <![CDATA[ >= ]]> #{valorplanini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="valorplanfin != null" >
+			 AND A1.VALORPLAN <![CDATA[ <= ]]>  #{valorplanfin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="pais != null" >
+			 AND A1.PAIS LIKE ('%' + #{pais,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="departamento != null" >
+			 AND A1.DEPARTAMENTO LIKE ('%' + #{departamento,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="provincia != null" >
+			 AND A1.PROVINCIA LIKE ('%' + #{provincia,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="distrito != null" >
+			 AND A1.DISTRITO LIKE ('%' + #{distrito,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="expsigaini != null" >
+			 AND A1.EXPSIGA <![CDATA[ >= ]]> #{expsigaini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="expsigafin != null" >
+			 AND A1.EXPSIGA <![CDATA[ <= ]]>  #{expsigafin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="expsiafini != null" >
+			 AND A1.EXPSIAF <![CDATA[ >= ]]> #{expsiafini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="expsiaffin != null" >
+			 AND A1.EXPSIAF <![CDATA[ <= ]]>  #{expsiaffin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="expsiaftipoejec != null" >
+			 AND A1.EXPSIAFTIPOEJEC LIKE ('%' + #{expsiaftipoejec,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechatipoejecini != null" >
+			 AND  (A1.FECHATIPOEJEC)  <![CDATA[ >= ]]>  #{fechatipoejecini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechatipoejecfin != null" >
+			 AND (A1.FECHATIPOEJEC) <![CDATA[ <= ]]>  #{fechatipoejecfin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="modalidadcsc != null" >
+			 AND A1.MODALIDADCSC LIKE ('%' + #{modalidadcsc,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="codsnip != null" >
+			 AND A1.CODSNIP LIKE ('%' + #{codsnip,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="docviasnip != null" >
+			 AND A1.DOCVIASNIP LIKE ('%' + #{docviasnip,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fecharegini != null" >
+			 AND  (A1.FECHAREG)  <![CDATA[ >= ]]>  #{fecharegini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fecharegfin != null" >
+			 AND (A1.FECHAREG) <![CDATA[ <= ]]>  #{fecharegfin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="fechamodini != null" >
+			 AND  (A1.FECHAMOD)  <![CDATA[ >= ]]>  #{fechamodini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechamodfin != null" >
+			 AND (A1.FECHAMOD) <![CDATA[ <= ]]>  #{fechamodfin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="tipocontratacion != null" >
+			 AND A1.TIPOCONTRATACION LIKE ('%' + #{tipocontratacion,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechacreacionauditoriaini != null" >
+			 AND  (A1.FECHACREACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechacreacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechacreacionauditoriafin != null" >
+			 AND (A1.FECHACREACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechacreacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariocreacionauditoria != null" >
+			 AND A1.USUARIOCREACIONAUDITORIA LIKE ('%' + #{usuariocreacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechamodificacionauditoriaini != null" >
+			 AND  (A1.FECHAMODIFICACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechamodificacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechamodificacionauditoriafin != null" >
+			 AND (A1.FECHAMODIFICACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechamodificacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariomodificacionauditoria != null" >
+			 AND A1.USUARIOMODIFICACIONAUDITORIA LIKE ('%' + #{usuariomodificacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="equipoauditoria != null" >
+			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="programaauditoria != null" >
+			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoauditoria != null" >
+			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+	</where>
+
+	<if test="ordenListaCampos != null" >
+		 ORDER BY 
+		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+		<if test="ordenTipo != null" >
+			 ${ordenTipo} 
+		</if>
+	</if>
+
+	<if test="cantidadRegistros != null" >
+
+	</if>
+	</select>
+</mapper>

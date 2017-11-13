@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmEntregableImprimir">
+	<p:dialog id="diEntregableImprimir" header="#{entregable.titulo}" widgetVar="diEntregableImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaEntregable" fileName="datosEntregable" postProcessor="#{entregable.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaEntregable" fileName="datos" preProcessor="#{entregable.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEntregableRegistrar">
+	<p:dialog id="diEntregableRegistrar" header="#{entregable.titulo}" widgetVar="diEntregableRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsEntregableR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/entregable/component/c_entregableRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{entregable.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{entregable.aceptar}" update="hidStatus,:form:tblListaEntregable,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmEntregableRegistrar:hidStatus','frmEntregableRegistrar:diEntregableRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEntregableRegistrar:diEntregableRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEntregableDetalle">
+	<p:dialog id="diEntregableDetalle" header="#{entregable.titulo}" widgetVar="diEntregableDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/entregable/component/c_entregableDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEntregableDetalle:diEntregableDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEntregableAnular">
+	<p:dialog id="diEntregableAnular" header="#{entregable.titulo}" widgetVar="diEntregableAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsEntregableA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/entregable/component/c_entregableDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{entregable.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{entregable.anular}" update="hidStatus,:form:tblListaEntregable,:form:growl,panelDetailC" oncomplete="hideDialog('frmEntregableAnular:hidStatus','frmEntregableAnular:diEntregableAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEntregableAnular:diEntregableAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdgrupodocumentoBuscar">
+	<p:dialog id="diGrupodocumentoBuscar" header="Grupo documento » Buscar" widgetVar="diGrupodocumentoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Grupodocumento" autoUpdate="true" closable="true"/>
+	 <cc:cc_grupodocumentoBuscar
+	 ajaxEventListener="#{entregable.loadRegIdgrupodocumento}"
+	 actionOncomplete="hideDialogPF('frmRegIdgrupodocumentoBuscar:diGrupodocumentoBuscar');"
+	 actionUpdate=":frmEntregableRegistrar:txtIdgrupodocumento"/>
+	</p:dialog>
+</h:form>
+
+
+</html>

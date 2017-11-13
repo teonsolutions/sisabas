@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<div align="left">
+		<p:message id="msgIditinerarioconveniomarco" for="txtIditinerarioconveniomarco"  showSummary="true" showDetail="false"/>
+		<p:message id="msgTipoitinerario" for="txtTipoitinerario"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCiudadorigen" for="txtCiudadorigen"  showSummary="true" showDetail="false"/>
+		<p:message id="msgFechasalida" for="txtFechasalida"  showSummary="true" showDetail="false"/>
+		<p:message id="msgHorasalida" for="txtHorasalida"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCiudaddestino" for="txtCiudaddestino"  showSummary="true" showDetail="false"/>
+		<p:message id="msgFechareterno" for="txtFechareterno"  showSummary="true" showDetail="false"/>
+		<p:message id="msgHoraretorno" for="txtHoraretorno"  showSummary="true" showDetail="false"/>
+		<p:message id="msgDni" for="txtDni"  showSummary="true" showDetail="false"/>
+		<p:message id="msgApellidopaterno" for="txtApellidopaterno"  showSummary="true" showDetail="false"/>
+		<p:message id="msgApellidomaterno" for="txtApellidomaterno"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNombers" for="txtNombers"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCorreo" for="txtCorreo"  showSummary="true" showDetail="false"/>
+		<p:message id="msgTelefono" for="txtTelefono"  showSummary="true" showDetail="false"/>
+		<p:message id="msgTipocontratopersonal" for="txtTipocontratopersonal"  showSummary="true" showDetail="false"/>
+	</div>
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="IdItinerarioConvenioMarco" for="txtIditinerarioconveniomarco" id="lblIditinerarioconveniomarco"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIditinerarioconveniomarco" value="#{itinerarioconveniomarco.itinerarioconveniomarco.iditinerarioconveniomarco}" required="true" maxlength="10" style="width:150px;" label="IdItinerarioConvenioMarco"/>
+		</td>
+		<td>
+			<p:outputLabel  value="TipoItinerario" for="txtTipoitinerario" id="lblTipoitinerario"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipoitinerario" value="#{itinerarioconveniomarco.itinerarioconveniomarco.tipoitinerario}" required="true" maxlength="3" style="width:150px;" label="TipoItinerario"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="CiudadOrigen" for="txtCiudadorigen" id="lblCiudadorigen"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCiudadorigen" value="#{itinerarioconveniomarco.itinerarioconveniomarco.ciudadorigen}" required="false" maxlength="100" style="width:150px;" label="CiudadOrigen"/>
+		</td>
+		<td>
+			<p:outputLabel  value="FechaSalida" for="txtFechasalida" id="lblFechasalida"/>
+		</td>
+		<td>
+			<p:calendar   id="txtFechasalida" value="#{itinerarioconveniomarco.itinerarioconveniomarco.fechasalida}" required="false" pattern="dd/MM/yyyy" label="FechaSalida" navigator="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="HoraSalida" for="txtHorasalida" id="lblHorasalida"/>
+		</td>
+		<td>
+			<p:calendar   id="txtHorasalida" value="#{itinerarioconveniomarco.itinerarioconveniomarco.horasalida}" required="false" pattern="hh:mm a" label="HoraSalida" timeOnly="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel  value="CiudadDestino" for="txtCiudaddestino" id="lblCiudaddestino"/>
+		</td>
+		<td>
+			<p:calendar   id="txtCiudaddestino" value="#{itinerarioconveniomarco.itinerarioconveniomarco.ciudaddestino}" required="false" pattern="" label="CiudadDestino" timeOnly="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="FechaRetorno" for="txtFechareterno" id="lblFechareterno"/>
+		</td>
+		<td>
+			<p:calendar   id="txtFechareterno" value="#{itinerarioconveniomarco.itinerarioconveniomarco.fechareterno}" required="false" pattern="dd/MM/yyyy" label="FechaRetorno" timeOnly="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel  value="HoraRetorno" for="txtHoraretorno" id="lblHoraretorno"/>
+		</td>
+		<td>
+			<p:calendar   id="txtHoraretorno" value="#{itinerarioconveniomarco.itinerarioconveniomarco.horaretorno}" required="false" pattern="hh:mm a" label="HoraRetorno" timeOnly="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="DNI" for="txtDni" id="lblDni"/>
+		</td>
+		<td>
+			<p:calendar   id="txtDni" value="#{itinerarioconveniomarco.itinerarioconveniomarco.dni}" required="false" pattern="" label="DNI" timeOnly="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel  value="ApellidoPaterno" for="txtApellidopaterno" id="lblApellidopaterno"/>
+		</td>
+		<td>
+			<p:calendar   id="txtApellidopaterno" value="#{itinerarioconveniomarco.itinerarioconveniomarco.apellidopaterno}" required="false" pattern="" label="ApellidoPaterno" timeOnly="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="ApellidoMaterno" for="txtApellidomaterno" id="lblApellidomaterno"/>
+		</td>
+		<td>
+			<p:calendar   id="txtApellidomaterno" value="#{itinerarioconveniomarco.itinerarioconveniomarco.apellidomaterno}" required="false" pattern="" label="ApellidoMaterno" timeOnly="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Nombers" for="txtNombers" id="lblNombers"/>
+		</td>
+		<td>
+			<p:calendar   id="txtNombers" value="#{itinerarioconveniomarco.itinerarioconveniomarco.nombers}" required="false" pattern="" label="Nombers" timeOnly="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Correo" for="txtCorreo" id="lblCorreo"/>
+		</td>
+		<td>
+			<p:calendar   id="txtCorreo" value="#{itinerarioconveniomarco.itinerarioconveniomarco.correo}" required="false" pattern="" label="Correo" timeOnly="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Telefono" for="txtTelefono" id="lblTelefono"/>
+		</td>
+		<td>
+			<p:calendar   id="txtTelefono" value="#{itinerarioconveniomarco.itinerarioconveniomarco.telefono}" required="false" pattern="" label="Telefono" timeOnly="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="TipoContratoPersonal" for="txtTipocontratopersonal" id="lblTipocontratopersonal"/>
+		</td>
+		<td>
+			<p:calendar   id="txtTipocontratopersonal" value="#{itinerarioconveniomarco.itinerarioconveniomarco.tipocontratopersonal}" required="false" pattern="" label="TipoContratoPersonal" timeOnly="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+</p:panel>
+</html>

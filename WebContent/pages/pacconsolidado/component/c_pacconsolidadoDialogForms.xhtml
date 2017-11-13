@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmPacconsolidadoImprimir">
+	<p:dialog id="diPacconsolidadoImprimir" header="#{pacconsolidado.titulo}" widgetVar="diPacconsolidadoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaPacconsolidado" fileName="datosPacconsolidado" postProcessor="#{pacconsolidado.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaPacconsolidado" fileName="datos" preProcessor="#{pacconsolidado.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPacconsolidadoRegistrar">
+	<p:dialog id="diPacconsolidadoRegistrar" header="#{pacconsolidado.titulo}" widgetVar="diPacconsolidadoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsPacconsolidadoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/pacconsolidado/component/c_pacconsolidadoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{pacconsolidado.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{pacconsolidado.aceptar}" update="hidStatus,:form:tblListaPacconsolidado,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmPacconsolidadoRegistrar:hidStatus','frmPacconsolidadoRegistrar:diPacconsolidadoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPacconsolidadoRegistrar:diPacconsolidadoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPacconsolidadoDetalle">
+	<p:dialog id="diPacconsolidadoDetalle" header="#{pacconsolidado.titulo}" widgetVar="diPacconsolidadoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/pacconsolidado/component/c_pacconsolidadoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPacconsolidadoDetalle:diPacconsolidadoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPacconsolidadoAnular">
+	<p:dialog id="diPacconsolidadoAnular" header="#{pacconsolidado.titulo}" widgetVar="diPacconsolidadoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsPacconsolidadoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/pacconsolidado/component/c_pacconsolidadoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{pacconsolidado.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{pacconsolidado.anular}" update="hidStatus,:form:tblListaPacconsolidado,:form:growl,panelDetailC" oncomplete="hideDialog('frmPacconsolidadoAnular:hidStatus','frmPacconsolidadoAnular:diPacconsolidadoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPacconsolidadoAnular:diPacconsolidadoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdcomiteprocesoBuscar">
+	<p:dialog id="diComiteprocesoBuscar" header="Comite Proceso » Buscar" widgetVar="diComiteprocesoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Comiteproceso" autoUpdate="true" closable="true"/>
+	 <cc:cc_comiteprocesoBuscar
+	 ajaxEventListener="#{pacconsolidado.loadRegIdcomiteproceso}"
+	 actionOncomplete="hideDialogPF('frmRegIdcomiteprocesoBuscar:diComiteprocesoBuscar');"
+	 actionUpdate=":frmPacconsolidadoRegistrar:txtIdcomiteproceso"/>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdgrupodocumentoBuscar">
+	<p:dialog id="diGrupodocumentoBuscar" header="Grupo documento » Buscar" widgetVar="diGrupodocumentoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Grupodocumento" autoUpdate="true" closable="true"/>
+	 <cc:cc_grupodocumentoBuscar
+	 ajaxEventListener="#{pacconsolidado.loadRegIdgrupodocumento}"
+	 actionOncomplete="hideDialogPF('frmRegIdgrupodocumentoBuscar:diGrupodocumentoBuscar');"
+	 actionUpdate=":frmPacconsolidadoRegistrar:txtIdgrupodocumento"/>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdunidadejecutoraBuscar">
+	<p:dialog id="diUnidadejecutoraBuscar" header="Unidad Ejecutora » Buscar" widgetVar="diUnidadejecutoraBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Unidadejecutora" autoUpdate="true" closable="true"/>
+	 <cc:cc_unidadejecutoraBuscar
+	 ajaxEventListener="#{pacconsolidado.loadRegIdunidadejecutora}"
+	 actionOncomplete="hideDialogPF('frmRegIdunidadejecutoraBuscar:diUnidadejecutoraBuscar');"
+	 actionUpdate=":frmPacconsolidadoRegistrar:txtIdunidadejecutora"/>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegVcertificacionBuscar">
+	<p:dialog id="diVcertificacionBuscar" header="VCertificacion » Buscar" widgetVar="diVcertificacionBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Vcertificacion" autoUpdate="true" closable="true"/>
+	 <cc:cc_vcertificacionBuscar
+	 ajaxEventListener="#{pacconsolidado.loadRegVcertificacion}"
+	 actionOncomplete="hideDialogPF('frmRegVcertificacionBuscar:diVcertificacionBuscar');"
+	 actionUpdate=":frmPacconsolidadoRegistrar:txtVcertificacion"/>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegVisidsigapaacconsolidadoBuscar">
+	<p:dialog id="diVissigapaacconsolidadoBuscar" header="visSigaPaacConsolidado » Buscar" widgetVar="diVissigapaacconsolidadoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Vissigapaacconsolidado" autoUpdate="true" closable="true"/>
+	 <cc:cc_vissigapaacconsolidadoBuscar
+	 ajaxEventListener="#{pacconsolidado.loadRegVisidsigapaacconsolidado}"
+	 actionOncomplete="hideDialogPF('frmRegVisidsigapaacconsolidadoBuscar:diVissigapaacconsolidadoBuscar');"
+	 actionUpdate=":frmPacconsolidadoRegistrar:txtVisidsigapaacconsolidado"/>
+	</p:dialog>
+</h:form>
+
+
+	<!-- Derived Table Main (requisitosconformidad)  -->
+<h:form id="frmRequisitosconformidadDetalle">
+	<p:dialog id="diRequisitosconformidadDetalle" header="#{requisitosconformidad.titulo}" widgetVar="diRequisitosconformidadDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/requisitosconformidad/component/c_requisitosconformidadDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmRequisitosconformidadDetalle:diRequisitosconformidadDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+	<!-- Derived Table Main (orden)  -->
+<h:form id="frmOrdenDetalle">
+	<p:dialog id="diOrdenDetalle" header="#{orden.titulo}" widgetVar="diOrdenDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/orden/component/c_ordenDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmOrdenDetalle:diOrdenDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+	<!-- Derived Table Main (sinadporpacconsolidado)  -->
+<h:form id="frmSinadporpacconsolidadoDetalle">
+	<p:dialog id="diSinadporpacconsolidadoDetalle" header="#{sinadporpacconsolidado.titulo}" widgetVar="diSinadporpacconsolidadoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/sinadporpacconsolidado/component/c_sinadporpacconsolidadoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmSinadporpacconsolidadoDetalle:diSinadporpacconsolidadoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+	<!-- Derived Table Main (certificadopresupuestal)  -->
+<h:form id="frmCertificadopresupuestalDetalle">
+	<p:dialog id="diCertificadopresupuestalDetalle" header="#{certificadopresupuestal.titulo}" widgetVar="diCertificadopresupuestalDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/certificadopresupuestal/component/c_certificadopresupuestalDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmCertificadopresupuestalDetalle:diCertificadopresupuestalDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+	<!-- Derived Table Main (previsionpresupuestal)  -->
+<h:form id="frmPrevisionpresupuestalDetalle">
+	<p:dialog id="diPrevisionpresupuestalDetalle" header="#{previsionpresupuestal.titulo}" widgetVar="diPrevisionpresupuestalDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/previsionpresupuestal/component/c_previsionpresupuestalDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPrevisionpresupuestalDetalle:diPrevisionpresupuestalDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+	<!-- Derived Table Main (cuadrocomparativofuente)  -->
+<h:form id="frmCuadrocomparativofuenteDetalle">
+	<p:dialog id="diCuadrocomparativofuenteDetalle" header="#{cuadrocomparativofuente.titulo}" widgetVar="diCuadrocomparativofuenteDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/cuadrocomparativofuente/component/c_cuadrocomparativofuenteDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmCuadrocomparativofuenteDetalle:diCuadrocomparativofuenteDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+</html>

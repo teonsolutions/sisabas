@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelDetailC">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIdgrupodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdgrupodocumento" value="#{grupodocumento.grupodocumento.idgrupodocumento}" disabled="true" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Año" for="txtAnio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnio" value="#{grupodocumento.grupodocumento.anio}" disabled="true" style="width:150px;" label="Año"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Código Unidad Ejecutora" for="txtCodigocentrocosto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigocentrocosto" value="#{grupodocumento.grupodocumento.codigocentrocosto}" disabled="true" style="width:150px;" label="Código Unidad Ejecutora"/>
+		</td>
+	</tr>
+
+</table>
+</p:panel>
+</html>

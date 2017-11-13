@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<div align="left">
+		<p:message id="msgIdvdetallepedido" for="txtIdvdetallepedido"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdvpedido" for="txtIdvpedido"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCodigounidadejecutora" for="txtCodigounidadejecutora"  showSummary="true" showDetail="false"/>
+		<p:message id="msgAnio" for="txtAnio"  showSummary="true" showDetail="false"/>
+		<p:message id="msgSecejec" for="txtSecejec"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNrocuadro" for="txtNrocuadro"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCentrocosto" for="txtCentrocosto"  showSummary="true" showDetail="false"/>
+		<p:message id="msgTipobien" for="txtTipobien"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNropedido" for="txtNropedido"  showSummary="true" showDetail="false"/>
+		<p:message id="msgGrupobien" for="txtGrupobien"  showSummary="true" showDetail="false"/>
+		<p:message id="msgClasebien" for="txtClasebien"  showSummary="true" showDetail="false"/>
+		<p:message id="msgFamiliabien" for="txtFamiliabien"  showSummary="true" showDetail="false"/>
+		<p:message id="msgItembien" for="txtItembien"  showSummary="true" showDetail="false"/>
+		<p:message id="msgUnidadmedida" for="txtUnidadmedida"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNombreitem" for="txtNombreitem"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCantidadsolicitada" for="txtCantidadsolicitada"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCantidadaprobada" for="txtCantidadaprobada"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCantidadatendida" for="txtCantidadatendida"  showSummary="true" showDetail="false"/>
+		<p:message id="msgPreciounitario" for="txtPreciounitario"  showSummary="true" showDetail="false"/>
+		<p:message id="msgValortotal" for="txtValortotal"  showSummary="true" showDetail="false"/>
+		<p:message id="msgTipotarea" for="txtTipotarea"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNiveltarea" for="txtNiveltarea"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCodigotarea" for="txtCodigotarea"  showSummary="true" showDetail="false"/>
+		<p:message id="msgEstadopendiente" for="txtEstadopendiente"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdclasificador" for="txtIdclasificador"  showSummary="true" showDetail="false"/>
+		<p:message id="msgClasificador" for="txtClasificador"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCodigotipobien" for="txtCodigotipobien"  showSummary="true" showDetail="false"/>
+	</div>
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="IdVDetallePedido" for="txtIdvdetallepedido" id="lblIdvdetallepedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdvdetallepedido" value="#{vdetallepedido.vdetallepedido.idvdetallepedido}" required="true" maxlength="10" style="width:150px;" label="IdVDetallePedido"/>
+		</td>
+		<td>
+			<p:outputLabel  value="IdVPedido" for="txtIdvpedido" id="lblIdvpedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdvpedido" value="#{vdetallepedido.vdetallepedido.vispedidoIdvpedido.anio}" disabled="true" required="false" maxlength="10" style="width:150px;" label="IdVPedido"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_vispedido.init}" immediate="true" oncomplete="showDialogPF('frmRegIdvpedidoBuscar:diVispedidoBuscar');" update=":frmRegIdvpedidoBuscar:diVispedidoBuscar" style="width:20px;height:20px;"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Código Unidad Ejecutora" for="txtCodigounidadejecutora" id="lblCodigounidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigounidadejecutora" value="#{vdetallepedido.vdetallepedido.codigounidadejecutora}" required="true" maxlength="3" style="width:150px;" label="Código Unidad Ejecutora"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Anio" for="txtAnio" id="lblAnio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnio" value="#{vdetallepedido.vdetallepedido.anio}" required="false" maxlength="4" style="width:150px;" label="Anio"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="SecEjec" for="txtSecejec" id="lblSecejec"/>
+		</td>
+		<td>
+			<p:inputText  id="txtSecejec" value="#{vdetallepedido.vdetallepedido.secejec}" required="false" maxlength="6" style="width:150px;" label="SecEjec"/>
+		</td>
+		<td>
+			<p:outputLabel  value="NroCuadro" for="txtNrocuadro" id="lblNrocuadro"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNrocuadro" value="#{vdetallepedido.vdetallepedido.nrocuadro}" required="false" maxlength="6" style="width:150px;" label="NroCuadro"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="CentroCosto" for="txtCentrocosto" id="lblCentrocosto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCentrocosto" value="#{vdetallepedido.vdetallepedido.centrocosto}" required="false" maxlength="15" style="width:150px;" label="CentroCosto"/>
+		</td>
+		<td>
+			<p:outputLabel  value="TipoBien" for="txtTipobien" id="lblTipobien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipobien" value="#{vdetallepedido.vdetallepedido.tipobien}" required="false" maxlength="1" style="width:150px;" label="TipoBien"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="NroPedido" for="txtNropedido" id="lblNropedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNropedido" value="#{vdetallepedido.vdetallepedido.nropedido}" required="false" maxlength="5" style="width:150px;" label="NroPedido"/>
+		</td>
+		<td>
+			<p:outputLabel  value="GrupoBien" for="txtGrupobien" id="lblGrupobien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtGrupobien" value="#{vdetallepedido.vdetallepedido.grupobien}" required="false" maxlength="2" style="width:150px;" label="GrupoBien"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="ClaseBien" for="txtClasebien" id="lblClasebien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtClasebien" value="#{vdetallepedido.vdetallepedido.clasebien}" required="false" maxlength="2" style="width:150px;" label="ClaseBien"/>
+		</td>
+		<td>
+			<p:outputLabel  value="FamiliaBien" for="txtFamiliabien" id="lblFamiliabien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFamiliabien" value="#{vdetallepedido.vdetallepedido.familiabien}" required="false" maxlength="4" style="width:150px;" label="FamiliaBien"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="ItemBien" for="txtItembien" id="lblItembien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtItembien" value="#{vdetallepedido.vdetallepedido.itembien}" required="false" maxlength="4" style="width:150px;" label="ItemBien"/>
+		</td>
+		<td>
+			<p:outputLabel  value="UnidadMedida" for="txtUnidadmedida" id="lblUnidadmedida"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUnidadmedida" value="#{vdetallepedido.vdetallepedido.unidadmedida}" required="false" maxlength="3" style="width:150px;" label="UnidadMedida"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="NombreItem" for="txtNombreitem" id="lblNombreitem"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombreitem" value="#{vdetallepedido.vdetallepedido.nombreitem}" required="false" maxlength="150" style="width:150px;" label="NombreItem"/>
+		</td>
+		<td>
+			<p:outputLabel  value="CantidadSolicitada" for="txtCantidadsolicitada" id="lblCantidadsolicitada"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCantidadsolicitada" value="#{vdetallepedido.vdetallepedido.cantidadsolicitada}" required="false" maxlength="20" style="width:150px;" label="CantidadSolicitada"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="CantidadAprobada" for="txtCantidadaprobada" id="lblCantidadaprobada"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCantidadaprobada" value="#{vdetallepedido.vdetallepedido.cantidadaprobada}" required="false" maxlength="20" style="width:150px;" label="CantidadAprobada"/>
+		</td>
+		<td>
+			<p:outputLabel  value="CantidadAtendida" for="txtCantidadatendida" id="lblCantidadatendida"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCantidadatendida" value="#{vdetallepedido.vdetallepedido.cantidadatendida}" required="false" maxlength="20" style="width:150px;" label="CantidadAtendida"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="PrecioUnitario" for="txtPreciounitario" id="lblPreciounitario"/>
+		</td>
+		<td>
+			<p:inputText  id="txtPreciounitario" value="#{vdetallepedido.vdetallepedido.preciounitario}" required="false" maxlength="16" style="width:150px;" label="PrecioUnitario"/>
+		</td>
+		<td>
+			<p:outputLabel  value="ValorTotal" for="txtValortotal" id="lblValortotal"/>
+		</td>
+		<td>
+			<p:inputText  id="txtValortotal" value="#{vdetallepedido.vdetallepedido.valortotal}" required="false" maxlength="16" style="width:150px;" label="ValorTotal"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="TipoTarea" for="txtTipotarea" id="lblTipotarea"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipotarea" value="#{vdetallepedido.vdetallepedido.tipotarea}" required="false" maxlength="1" style="width:150px;" label="TipoTarea"/>
+		</td>
+		<td>
+			<p:outputLabel  value="NivelTarea" for="txtNiveltarea" id="lblNiveltarea"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNiveltarea" value="#{vdetallepedido.vdetallepedido.niveltarea}" required="false" maxlength="1" style="width:150px;" label="NivelTarea"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="CodigoTarea" for="txtCodigotarea" id="lblCodigotarea"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigotarea" value="#{vdetallepedido.vdetallepedido.codigotarea}" required="false" maxlength="10" style="width:150px;" label="CodigoTarea"/>
+		</td>
+		<td>
+			<p:outputLabel  value="EstadoPendiente" for="txtEstadopendiente" id="lblEstadopendiente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadopendiente" value="#{vdetallepedido.vdetallepedido.estadopendiente}" required="false" maxlength="1" style="width:150px;" label="EstadoPendiente"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="IdClasificador" for="txtIdclasificador" id="lblIdclasificador"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdclasificador" value="#{vdetallepedido.vdetallepedido.idclasificador}" required="false" maxlength="7" style="width:150px;" label="IdClasificador"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Clasificador" for="txtClasificador" id="lblClasificador"/>
+		</td>
+		<td>
+			<p:inputText  id="txtClasificador" value="#{vdetallepedido.vdetallepedido.clasificador}" required="false" maxlength="20" style="width:150px;" label="Clasificador"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="CodigoTipoBien" for="txtCodigotipobien" id="lblCodigotipobien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigotipobien" value="#{vdetallepedido.vdetallepedido.codigotipobien}" required="true" maxlength="10" style="width:150px;" label="CodigoTipoBien"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+</p:panel>
+</html>

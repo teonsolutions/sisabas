@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<h:inputHidden id="hidStatusItinerarioconveniomarco" value="#{itinerarioconveniomarco.status}"/>
+<p:contextMenu for="tblListaItinerarioconveniomarco">
+	<p:menuitem value="Detalle" action="#{itinerarioconveniomarco.irDetalle}"  process="@this,hidStatusItinerarioconveniomarco,tblListaItinerarioconveniomarco"  update="hidStatusItinerarioconveniomarco,:frmItinerarioconveniomarcoDetalle:diItinerarioconveniomarcoDetalle"  oncomplete="showDialog('frmDocumentotecnicoDetalle:panelDetailC:hidStatusItinerarioconveniomarco','frmItinerarioconveniomarcoDetalle:diItinerarioconveniomarcoDetalle');"  icon="ui-icon-zoomin" rendered="#{itinerarioconveniomarco.renderButton('btnDetalle')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaItinerarioconveniomarco" value="#{itinerarioconveniomarco.listaItinerarioconveniomarco}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaItinerarioconveniomarco" selection="#{itinerarioconveniomarco.selectedItinerarioconveniomarco}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(itinerarioconveniomarco.listaItinerarioconveniomarco)}"
+	selectionMode="single" rowKey="#{var.iditinerarioconveniomarco}" styleClass="gandalfTableClass" rowStyleClass="#{var.params.ACTION!=null?(var.params.ACTION=='INSERT'?'old':'dead'):''}">
+		<p:column styleClass="c_numeric" sortBy="#{var.iditinerarioconveniomarco}">
+			<f:facet name="header">
+				<h:outputText value="IdItinerarioConvenioMarco" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.iditinerarioconveniomarco}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.iddocumentotecnico}">
+			<f:facet name="header">
+				<h:outputText value="IdDocumentoTecnico" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.iddocumentotecnico}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.tipoitinerario}">
+			<f:facet name="header">
+				<h:outputText value="TipoItinerario" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.tipoitinerario}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.ciudadorigen}">
+			<f:facet name="header">
+				<h:outputText value="CiudadOrigen" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.ciudadorigen}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.fechasalida}">
+			<f:facet name="header">
+				<h:outputText value="FechaSalida" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.fechasalida}">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.horasalida}">
+			<f:facet name="header">
+				<h:outputText value="HoraSalida" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.horasalida}">
+				<f:convertDateTime pattern="hh:mm a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.ciudaddestino}">
+			<f:facet name="header">
+				<h:outputText value="CiudadDestino" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.ciudaddestino}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.fechareterno}">
+			<f:facet name="header">
+				<h:outputText value="FechaRetorno" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.fechareterno}">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.horaretorno}">
+			<f:facet name="header">
+				<h:outputText value="HoraRetorno" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.horaretorno}">
+				<f:convertDateTime pattern="hh:mm a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.dni}">
+			<f:facet name="header">
+				<h:outputText value="DNI" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.dni}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.apellidopaterno}">
+			<f:facet name="header">
+				<h:outputText value="ApellidoPaterno" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.apellidopaterno}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.apellidomaterno}">
+			<f:facet name="header">
+				<h:outputText value="ApellidoMaterno" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.apellidomaterno}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nombers}">
+			<f:facet name="header">
+				<h:outputText value="Nombers" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nombers}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.correo}">
+			<f:facet name="header">
+				<h:outputText value="Correo" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.correo}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.telefono}">
+			<f:facet name="header">
+				<h:outputText value="Telefono" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.telefono}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.tipocontratopersonal}">
+			<f:facet name="header">
+				<h:outputText value="TipoContratoPersonal" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.tipocontratopersonal}"/>
+		</p:column>
+</p:dataTable>
+</html>

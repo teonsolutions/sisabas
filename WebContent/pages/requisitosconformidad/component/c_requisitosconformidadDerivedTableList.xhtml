@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<h:inputHidden id="hidStatusRequisitosconformidad" value="#{requisitosconformidad.status}"/>
+<p:contextMenu for="tblListaRequisitosconformidad">
+	<p:menuitem value="Detalle" action="#{requisitosconformidad.irDetalle}"  process="@this,hidStatusRequisitosconformidad,tblListaRequisitosconformidad"  update="hidStatusRequisitosconformidad,:frmRequisitosconformidadDetalle:diRequisitosconformidadDetalle"  oncomplete="showDialog('frmPacconsolidadoDetalle:panelDetailC:hidStatusRequisitosconformidad','frmRequisitosconformidadDetalle:diRequisitosconformidadDetalle');"  icon="ui-icon-zoomin" rendered="#{requisitosconformidad.renderButton('btnDetalle')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaRequisitosconformidad" value="#{requisitosconformidad.listaRequisitosconformidad}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaRequisitosconformidad" selection="#{requisitosconformidad.selectedRequisitosconformidad}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(requisitosconformidad.listaRequisitosconformidad)}"
+	selectionMode="single" rowKey="#{var.idrequisitoconformidad}" styleClass="gandalfTableClass" rowStyleClass="#{var.params.ACTION!=null?(var.params.ACTION=='INSERT'?'old':'dead'):''}">
+		<p:column styleClass="c_numeric" sortBy="#{var.idrequisitoconformidad}">
+			<f:facet name="header">
+				<h:outputText value="IdRequisitoConformidad" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idrequisitoconformidad}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.pacconsolidadoIdpacconsolidado.nroconsolid}">
+			<f:facet name="header">
+				<h:outputText value="IdPacConsolidado" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.pacconsolidadoIdpacconsolidado.nroconsolid}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.idcatalogotipodocumento}">
+			<f:facet name="header">
+				<h:outputText value="IdCatalogoTipoDocumento" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idcatalogotipodocumento}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechadocumento}">
+			<f:facet name="header">
+				<h:outputText value="FechaDocumento" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechadocumento}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.rutaarchivo}">
+			<f:facet name="header">
+				<h:outputText value="RutaArchivo" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.rutaarchivo}"/>
+		</p:column>
+</p:dataTable>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<div align="left">
+		<p:message id="msgIdrequisitoconformidad" for="txtIdrequisitoconformidad"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdcatalogotipodocumento" for="txtIdcatalogotipodocumento"  showSummary="true" showDetail="false"/>
+		<p:message id="msgFechadocumento" for="txtFechadocumento"  showSummary="true" showDetail="false"/>
+		<p:message id="msgRutaarchivo" for="txtRutaarchivo"  showSummary="true" showDetail="false"/>
+	</div>
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="IdRequisitoConformidad" for="txtIdrequisitoconformidad" id="lblIdrequisitoconformidad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdrequisitoconformidad" value="#{requisitosconformidad.requisitosconformidad.idrequisitoconformidad}" required="true" maxlength="10" style="width:150px;" label="IdRequisitoConformidad"/>
+		</td>
+		<td>
+			<p:outputLabel  value="IdCatalogoTipoDocumento" for="txtIdcatalogotipodocumento" id="lblIdcatalogotipodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogotipodocumento" value="#{requisitosconformidad.requisitosconformidad.idcatalogotipodocumento}" required="false" maxlength="10" style="width:150px;" label="IdCatalogoTipoDocumento"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="FechaDocumento" for="txtFechadocumento" id="lblFechadocumento"/>
+		</td>
+		<td>
+			<p:calendar   id="txtFechadocumento" value="#{requisitosconformidad.requisitosconformidad.fechadocumento}" required="false" pattern="dd/MM/yyyy HH:mm" label="FechaDocumento" navigator="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel  value="RutaArchivo" for="txtRutaarchivo" id="lblRutaarchivo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtRutaarchivo" value="#{requisitosconformidad.requisitosconformidad.rutaarchivo}" required="false" maxlength="300" style="width:150px;" label="RutaArchivo"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+</p:panel>
+</html>

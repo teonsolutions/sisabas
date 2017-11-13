@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmVdetallepedidoImprimir">
+	<p:dialog id="diVdetallepedidoImprimir" header="#{vdetallepedido.titulo}" widgetVar="diVdetallepedidoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaVdetallepedido" fileName="datosVdetallepedido" postProcessor="#{vdetallepedido.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaVdetallepedido" fileName="datos" preProcessor="#{vdetallepedido.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmVdetallepedidoRegistrar">
+	<p:dialog id="diVdetallepedidoRegistrar" header="#{vdetallepedido.titulo}" widgetVar="diVdetallepedidoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsVdetallepedidoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/vdetallepedido/component/c_vdetallepedidoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{vdetallepedido.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{vdetallepedido.aceptar}" update="hidStatus,:form:tblListaVdetallepedido,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmVdetallepedidoRegistrar:hidStatus','frmVdetallepedidoRegistrar:diVdetallepedidoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmVdetallepedidoRegistrar:diVdetallepedidoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmVdetallepedidoDetalle">
+	<p:dialog id="diVdetallepedidoDetalle" header="#{vdetallepedido.titulo}" widgetVar="diVdetallepedidoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/vdetallepedido/component/c_vdetallepedidoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmVdetallepedidoDetalle:diVdetallepedidoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmVdetallepedidoAnular">
+	<p:dialog id="diVdetallepedidoAnular" header="#{vdetallepedido.titulo}" widgetVar="diVdetallepedidoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsVdetallepedidoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/vdetallepedido/component/c_vdetallepedidoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{vdetallepedido.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{vdetallepedido.anular}" update="hidStatus,:form:tblListaVdetallepedido,:form:growl,panelDetailC" oncomplete="hideDialog('frmVdetallepedidoAnular:hidStatus','frmVdetallepedidoAnular:diVdetallepedidoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmVdetallepedidoAnular:diVdetallepedidoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdvpedidoBuscar">
+	<p:dialog id="diVispedidoBuscar" header="VPedidoSiga » Buscar" widgetVar="diVispedidoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Vispedido" autoUpdate="true" closable="true"/>
+	 <cc:cc_vispedidoBuscar
+	 ajaxEventListener="#{vdetallepedido.loadRegIdvpedido}"
+	 actionOncomplete="hideDialogPF('frmRegIdvpedidoBuscar:diVispedidoBuscar');"
+	 actionUpdate=":frmVdetallepedidoRegistrar:txtIdvpedido"/>
+	</p:dialog>
+</h:form>
+
+
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:tabView id="panelDetailC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<p:tab title="Detalle">
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIdobservacionesdocumentotecnico"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdobservacionesdocumentotecnico" value="#{observacionesdocumentotecnico.observacionesdocumentotecnico.idobservacionesdocumentotecnico}" disabled="true" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Documento Técnico" for="txtIddocumentotecnico"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIddocumentotecnico" value="#{observacionesdocumentotecnico.observacionesdocumentotecnico.iddocumentotecnico}" disabled="true" style="width:150px;" label="Documento Técnico"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Secciones Documento Técnico" for="txtIdseccionesdocumentotecnico"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdseccionesdocumentotecnico" value="#{observacionesdocumentotecnico.observacionesdocumentotecnico.seccionesdocumentotecnicoIdseccionesdocumentotecnico.idcatalogotipodocumentotecnico}" disabled="true" style="width:150px;" label="Secciones Documento Técnico"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Observación" for="txtObservacion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtObservacion" value="#{observacionesdocumentotecnico.observacionesdocumentotecnico.observacion}" disabled="true" style="width:300px;" label="Observación"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+	</p:tab>
+
+	<p:tab title="Datos de Auditoría">
+
+	<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="Usuario de Creación" for="txtUsuariocreacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuariocreacionauditoria" value="#{observacionesdocumentotecnico.observacionesdocumentotecnico.usuariocreacionauditoria}" disabled="true" style="width:150px;" label="Usuario de Creación"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Fecha de última modificacion" for="txtFechamodificacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechamodificacionauditoria" value="#{observacionesdocumentotecnico.observacionesdocumentotecnico.fechamodificacionauditoria}" disabled="true" style="width:150px;" label="Fecha de última modificacion">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>
+			</p:inputText>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Usuario de última modificacion" for="txtUsuariomodificacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuariomodificacionauditoria" value="#{observacionesdocumentotecnico.observacionesdocumentotecnico.usuariomodificacionauditoria}" disabled="true" style="width:150px;" label="Usuario de última modificacion"/>
+		</td>
+		<td>
+			<p:outputLabel  value="IP/Nombre Equipo" for="txtEquipoauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEquipoauditoria" value="#{observacionesdocumentotecnico.observacionesdocumentotecnico.equipoauditoria}" disabled="true" style="width:300px;" label="IP/Nombre Equipo"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Programa/Clase" for="txtProgramaauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtProgramaauditoria" value="#{observacionesdocumentotecnico.observacionesdocumentotecnico.programaauditoria}" disabled="true" style="width:300px;" label="Programa/Clase"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Estado Registro" for="txtEstadoauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadoauditoria" value="#{observacionesdocumentotecnico.observacionesdocumentotecnico.estadoauditoria}" disabled="true" style="width:150px;" label="Estado Registro"/>
+		</td>
+	</tr>
+
+	</table>
+	</p:tab>
+
+</p:tabView>
+</html>

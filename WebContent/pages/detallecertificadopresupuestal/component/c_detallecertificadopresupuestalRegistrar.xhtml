@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<div align="left">
+		<p:message id="msgIddetallecertificadopresupuestal" for="txtIddetallecertificadopresupuestal"  showSummary="true" showDetail="false"/>
+		<p:message id="msgAnio" for="txtAnio"  showSummary="true" showDetail="false"/>
+		<p:message id="msgSecejec" for="txtSecejec"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNrocertifica" for="txtNrocertifica"  showSummary="true" showDetail="false"/>
+		<p:message id="msgFuentefinancimiento" for="txtFuentefinancimiento"  showSummary="true" showDetail="false"/>
+		<p:message id="msgSecuencia" for="txtSecuencia"  showSummary="true" showDetail="false"/>
+		<p:message id="msgClasificador" for="txtClasificador"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCodigocentrocosto" for="txtCodigocentrocosto"  showSummary="true" showDetail="false"/>
+		<p:message id="msgMontonacional" for="txtMontonacional"  showSummary="true" showDetail="false"/>
+	</div>
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="IdDetalleCertificadoPresupuestal" for="txtIddetallecertificadopresupuestal" id="lblIddetallecertificadopresupuestal"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIddetallecertificadopresupuestal" value="#{detallecertificadopresupuestal.detallecertificadopresupuestal.iddetallecertificadopresupuestal}" required="true" maxlength="10" style="width:150px;" label="IdDetalleCertificadoPresupuestal"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Anio" for="txtAnio" id="lblAnio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnio" value="#{detallecertificadopresupuestal.detallecertificadopresupuestal.anio}" required="true" maxlength="4" style="width:150px;" label="Anio"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="SecEjec" for="txtSecejec" id="lblSecejec"/>
+		</td>
+		<td>
+			<p:inputText  id="txtSecejec" value="#{detallecertificadopresupuestal.detallecertificadopresupuestal.secejec}" required="true" maxlength="6" style="width:150px;" label="SecEjec"/>
+		</td>
+		<td>
+			<p:outputLabel  value="NroCertifica" for="txtNrocertifica" id="lblNrocertifica"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNrocertifica" value="#{detallecertificadopresupuestal.detallecertificadopresupuestal.nrocertifica}" required="true" maxlength="10" style="width:150px;" label="NroCertifica"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="FuenteFinancimiento" for="txtFuentefinancimiento" id="lblFuentefinancimiento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFuentefinancimiento" value="#{detallecertificadopresupuestal.detallecertificadopresupuestal.fuentefinancimiento}" required="false" maxlength="2" style="width:150px;" label="FuenteFinancimiento"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Secuencia" for="txtSecuencia" id="lblSecuencia"/>
+		</td>
+		<td>
+			<p:inputText  id="txtSecuencia" value="#{detallecertificadopresupuestal.detallecertificadopresupuestal.secuencia}" required="false" maxlength="5" style="width:150px;" label="Secuencia"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Clasificador" for="txtClasificador" id="lblClasificador"/>
+		</td>
+		<td>
+			<p:inputText  id="txtClasificador" value="#{detallecertificadopresupuestal.detallecertificadopresupuestal.clasificador}" required="false" maxlength="20" style="width:150px;" label="Clasificador"/>
+		</td>
+		<td>
+			<p:outputLabel  value="CodigoCentroCosto" for="txtCodigocentrocosto" id="lblCodigocentrocosto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigocentrocosto" value="#{detallecertificadopresupuestal.detallecertificadopresupuestal.codigocentrocosto}" required="false" maxlength="15" style="width:150px;" label="CodigoCentroCosto"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="MontoNacional" for="txtMontonacional" id="lblMontonacional"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMontonacional" value="#{detallecertificadopresupuestal.detallecertificadopresupuestal.montonacional}" required="false" maxlength="18" style="width:150px;" label="MontoNacional"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+</p:panel>
+</html>

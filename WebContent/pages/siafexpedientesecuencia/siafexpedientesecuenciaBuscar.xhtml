@@ -1,0 +1,415 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{siafexpedientesecuencia.tituloParam} #{siafexpedientesecuencia.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="IdSiafExpedienteSecuencia" for="txtIdsiafexpedientesecuencia"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdsiafexpedientesecuencia" value="#{siafexpedientesecuencia.siafexpedientesecuenciaB.idsiafexpedientesecuencia}" disabled="false" maxlength="10" style="width:150px;" label="IdSiafExpedienteSecuencia"/>
+		</td>
+		<td>
+			<p:outputLabel value="IdLog" for="txtIdlog"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdlog" value="#{siafexpedientesecuencia.siafexpedientesecuenciaB.idlog}" disabled="false" maxlength="10" style="width:150px;" label="IdLog"/>
+		</td>
+		<td>
+			<p:outputLabel value="FechaCarga" for="txtFechacarga"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechacarga" value="#{siafexpedientesecuencia.siafexpedientesecuenciaB.fechacarga}" disabled="false" maxlength="10" style="width:150px;" label="FechaCarga"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Anio" for="txtAnio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnio" value="#{siafexpedientesecuencia.siafexpedientesecuenciaB.anio}" disabled="false" maxlength="4" style="width:150px;" label="Anio"/>
+		</td>
+		<td>
+			<p:outputLabel value="SecEjec" for="txtSecejec"/>
+		</td>
+		<td>
+			<p:inputText  id="txtSecejec" value="#{siafexpedientesecuencia.siafexpedientesecuenciaB.secejec}" disabled="false" maxlength="6" style="width:150px;" label="SecEjec"/>
+		</td>
+		<td>
+			<p:outputLabel value="Expediente" for="txtExpediente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtExpediente" value="#{siafexpedientesecuencia.siafexpedientesecuenciaB.expediente}" disabled="false" maxlength="10" style="width:150px;" label="Expediente"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="AnioProceso" for="txtAnioproceso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnioproceso" value="#{siafexpedientesecuencia.siafexpedientesecuenciaB.anioproceso}" disabled="false" maxlength="4" style="width:150px;" label="AnioProceso"/>
+		</td>
+		<td>
+			<p:outputLabel value="CodigoDocumento" for="txtCodigodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigodocumento" value="#{siafexpedientesecuencia.siafexpedientesecuenciaB.codigodocumento}" disabled="false" maxlength="3" style="width:150px;" label="CodigoDocumento"/>
+		</td>
+		<td>
+			<p:outputLabel value="NumeroDocumento" for="txtNumerodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerodocumento" value="#{siafexpedientesecuencia.siafexpedientesecuenciaB.numerodocumento}" disabled="false" maxlength="20" style="width:150px;" label="NumeroDocumento"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="MontoNacional - Desde" for="txtMontonacionalini"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontonacionalini" value ="#{siafexpedientesecuencia.siafexpedientesecuenciaB.montonacionalini}" maxlength="18" style="width:150px;" label="MontoNacional - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="MontoNacional - Hasta" for="txtMontonacionalfin"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontonacionalfin" value ="#{siafexpedientesecuencia.siafexpedientesecuenciaB.montonacionalfin}" maxlength="18" style="width:150px;" label="MontoNacional - Hasta"/>
+		</td>
+		<td>
+			<p:outputLabel value="MesProceso" for="txtMesproceso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMesproceso" value="#{siafexpedientesecuencia.siafexpedientesecuenciaB.mesproceso}" disabled="false" maxlength="2" style="width:150px;" label="MesProceso"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="FechaDocumento - Desde" for="txtFechadocumentoini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechadocumentoini" value="#{siafexpedientesecuencia.siafexpedientesecuenciaB.fechadocumentoini}" label="FechaDocumento - Desde" navigator="true" pattern="dd/MM/yyyy" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="FechaDocumento - Hasta" for="txtFechadocumentofin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechadocumentofin" value="#{siafexpedientesecuencia.siafexpedientesecuenciaB.fechadocumentofin}" label="FechaDocumento - Hasta" navigator="true" pattern="dd/MM/yyyy" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="Ciclo" for="txtCiclo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCiclo" value="#{siafexpedientesecuencia.siafexpedientesecuenciaB.ciclo}" disabled="false" maxlength="1" style="width:150px;" label="Ciclo"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Fase" for="txtFase"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFase" value="#{siafexpedientesecuencia.siafexpedientesecuenciaB.fase}" disabled="false" maxlength="1" style="width:150px;" label="Fase"/>
+		</td>
+		<td>
+			<p:outputLabel value="IdVCertificacion" for="txtIdvcertificacion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdvcertificacion" value="#{siafexpedientesecuencia.siafexpedientesecuenciaB.vcertificacionIdvcertificacion.nrocertifica}" disabled="true" maxlength="10" style="width:150px;" label="IdVCertificacion"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_vcertificacion.init}"  oncomplete="showDialogPF('frmMainIdvcertificacionBuscar:diVcertificacionBuscar');" update=":frmMainIdvcertificacionBuscar:diVcertificacionBuscar" style="width:20px;height:20px;" title="Buscar"  disabled="false"/>
+			<p:commandButton icon="ui-icon-close" action="#{siafexpedientesecuencia.resetMainIdvcertificacion}"  update="txtIdvcertificacion" style="width:20px;height:20px;" title="Borrar Filtro" immediate="true" disabled="false"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{siafexpedientesecuencia.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{siafexpedientesecuencia.buscar}"  update="tblListaSiafexpedientesecuencia,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{siafexpedientesecuencia.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{siafexpedientesecuencia.irRegistrar}"  update="hidStatus,:frmSiafexpedientesecuenciaRegistrar:diSiafexpedientesecuenciaRegistrar" oncomplete="showDialog('form:hidStatus','frmSiafexpedientesecuenciaRegistrar:diSiafexpedientesecuenciaRegistrar');" icon="ui-icon-document"  rendered="#{siafexpedientesecuencia.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{siafexpedientesecuencia.irEditar}"  update="hidStatus,:frmSiafexpedientesecuenciaRegistrar:diSiafexpedientesecuenciaRegistrar" oncomplete="showDialog('form:hidStatus','frmSiafexpedientesecuenciaRegistrar:diSiafexpedientesecuenciaRegistrar');" icon="ui-icon-pencil" disabled="#{!siafexpedientesecuencia.esSeleccionado}"  rendered="#{siafexpedientesecuencia.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{siafexpedientesecuencia.irDetalle}"  update="hidStatus,:frmSiafexpedientesecuenciaDetalle:diSiafexpedientesecuenciaDetalle" oncomplete="showDialog('form:hidStatus','frmSiafexpedientesecuenciaDetalle:diSiafexpedientesecuenciaDetalle');" icon="ui-icon-zoomin" disabled="#{!siafexpedientesecuencia.esSeleccionado}"   rendered="#{siafexpedientesecuencia.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{siafexpedientesecuencia.irAnular}"  update="hidStatus,:frmSiafexpedientesecuenciaAnular:diSiafexpedientesecuenciaAnular" oncomplete="showDialog('form:hidStatus','frmSiafexpedientesecuenciaAnular:diSiafexpedientesecuenciaAnular');" icon="ui-icon-circle-minus" disabled="#{!siafexpedientesecuencia.esSeleccionado}"   rendered="#{siafexpedientesecuencia.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{siafexpedientesecuencia.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!siafexpedientesecuencia.esSeleccionado}"   rendered="#{siafexpedientesecuencia.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{siafexpedientesecuencia.irImprimir}"  update="hidStatus,:frmSiafexpedientesecuenciaImprimir:diSiafexpedientesecuenciaImprimir" oncomplete="showDialog('form:hidStatus','frmSiafexpedientesecuenciaImprimir:diSiafexpedientesecuenciaImprimir');" icon="ui-icon-print"   rendered="#{siafexpedientesecuencia.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaSiafexpedientesecuencia">
+	<p:menuitem value="Editar" action="#{siafexpedientesecuencia.irEditar}"   update="hidStatus,:frmSiafexpedientesecuenciaRegistrar:diSiafexpedientesecuenciaRegistrar"  oncomplete="showDialog('form:hidStatus','frmSiafexpedientesecuenciaRegistrar:diSiafexpedientesecuenciaRegistrar');"  icon="ui-icon-pencil" rendered="#{siafexpedientesecuencia.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{siafexpedientesecuencia.irDetalle}"   update="hidStatus,:frmSiafexpedientesecuenciaDetalle:diSiafexpedientesecuenciaDetalle"  oncomplete="showDialog('form:hidStatus','frmSiafexpedientesecuenciaDetalle:diSiafexpedientesecuenciaDetalle');"  icon="ui-icon-zoomin" rendered="#{siafexpedientesecuencia.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{siafexpedientesecuencia.irAnular}"   update="hidStatus,:frmSiafexpedientesecuenciaAnular:diSiafexpedientesecuenciaAnular"  oncomplete="showDialog('form:hidStatus','frmSiafexpedientesecuenciaAnular:diSiafexpedientesecuenciaAnular');"  icon="ui-icon-circle-minus" rendered="#{siafexpedientesecuencia.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{siafexpedientesecuencia.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{siafexpedientesecuencia.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaSiafexpedientesecuencia" value="#{siafexpedientesecuencia.listaSiafexpedientesecuencia}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaSiafexpedientesecuencia" selection="#{siafexpedientesecuencia.selectedSiafexpedientesecuencia}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(siafexpedientesecuencia.listaSiafexpedientesecuencia)}"
+	selectionMode="single" rowKey="#{var.idsiafexpedientesecuencia}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{siafexpedientesecuencia.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.idsiafexpedientesecuencia}">
+			<f:facet name="header">
+				<h:outputText value="IdSiafExpedienteSecuencia" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idsiafexpedientesecuencia}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.idlog}">
+			<f:facet name="header">
+				<h:outputText value="IdLog" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idlog}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.fechacarga}">
+			<f:facet name="header">
+				<h:outputText value="FechaCarga" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.fechacarga}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.anio}">
+			<f:facet name="header">
+				<h:outputText value="Anio" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.anio}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.secejec}">
+			<f:facet name="header">
+				<h:outputText value="SecEjec" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.secejec}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.expediente}">
+			<f:facet name="header">
+				<h:outputText value="Expediente" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.expediente}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.anioproceso}">
+			<f:facet name="header">
+				<h:outputText value="AnioProceso" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.anioproceso}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.codigodocumento}">
+			<f:facet name="header">
+				<h:outputText value="CodigoDocumento" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.codigodocumento}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.numerodocumento}">
+			<f:facet name="header">
+				<h:outputText value="NumeroDocumento" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.numerodocumento}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.montonacional}">
+			<f:facet name="header">
+				<h:outputText value="MontoNacional" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.montonacional}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.mesproceso}">
+			<f:facet name="header">
+				<h:outputText value="MesProceso" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.mesproceso}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.fechadocumento}">
+			<f:facet name="header">
+				<h:outputText value="FechaDocumento" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.fechadocumento}">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.ciclo}">
+			<f:facet name="header">
+				<h:outputText value="Ciclo" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.ciclo}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.fase}">
+			<f:facet name="header">
+				<h:outputText value="Fase" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.fase}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechacreacionauditoria}">
+			<f:facet name="header">
+				<h:outputText value="FechaCreacionAuditoria" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechacreacionauditoria}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.usuariocreacionauditoria}">
+			<f:facet name="header">
+				<h:outputText value="UsuarioCreacionAuditoria" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.usuariocreacionauditoria}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechamodificacionauditoria}">
+			<f:facet name="header">
+				<h:outputText value="FechaModificacionAuditoria" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechamodificacionauditoria}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.usuariomodificacionauditoria}">
+			<f:facet name="header">
+				<h:outputText value="UsuarioModificacionAuditoria" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.usuariomodificacionauditoria}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.vcertificacionIdvcertificacion.nrocertifica}">
+			<f:facet name="header">
+				<h:outputText value="IdVCertificacion" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.vcertificacionIdvcertificacion.nrocertifica}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{siafexpedientesecuencia.eliminar}"  update=":form:tblListaSiafexpedientesecuencia,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmSiafexpedientesecuenciaImprimir">
+	<p:dialog id="diSiafexpedientesecuenciaImprimir" header="#{siafexpedientesecuencia.titulo}" widgetVar="diSiafexpedientesecuenciaImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaSiafexpedientesecuencia" fileName="datosSiafexpedientesecuencia" postProcessor="#{siafexpedientesecuencia.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaSiafexpedientesecuencia" fileName="datos" preProcessor="#{siafexpedientesecuencia.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmSiafexpedientesecuenciaRegistrar">
+	<p:dialog id="diSiafexpedientesecuenciaRegistrar" header="#{siafexpedientesecuencia.titulo}" widgetVar="diSiafexpedientesecuenciaRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsSiafexpedientesecuenciaR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/siafexpedientesecuencia/component/c_siafexpedientesecuenciaRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{siafexpedientesecuencia.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{siafexpedientesecuencia.aceptar}" update="hidStatus,:form:tblListaSiafexpedientesecuencia,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmSiafexpedientesecuenciaRegistrar:hidStatus','frmSiafexpedientesecuenciaRegistrar:diSiafexpedientesecuenciaRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmSiafexpedientesecuenciaRegistrar:diSiafexpedientesecuenciaRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmSiafexpedientesecuenciaDetalle">
+	<p:dialog id="diSiafexpedientesecuenciaDetalle" header="#{siafexpedientesecuencia.titulo}" widgetVar="diSiafexpedientesecuenciaDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/siafexpedientesecuencia/component/c_siafexpedientesecuenciaDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmSiafexpedientesecuenciaDetalle:diSiafexpedientesecuenciaDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmSiafexpedientesecuenciaAnular">
+	<p:dialog id="diSiafexpedientesecuenciaAnular" header="#{siafexpedientesecuencia.titulo}" widgetVar="diSiafexpedientesecuenciaAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsSiafexpedientesecuenciaA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/siafexpedientesecuencia/component/c_siafexpedientesecuenciaDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{siafexpedientesecuencia.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{siafexpedientesecuencia.anular}" update="hidStatus,:form:tblListaSiafexpedientesecuencia,:form:growl,panelDetailC" oncomplete="hideDialog('frmSiafexpedientesecuenciaAnular:hidStatus','frmSiafexpedientesecuenciaAnular:diSiafexpedientesecuenciaAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmSiafexpedientesecuenciaAnular:diSiafexpedientesecuenciaAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMainIdvcertificacionBuscar">
+	<p:dialog id="diVcertificacionBuscar" header="VCertificacion » Buscar" widgetVar="diVcertificacionBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Vcertificacion" autoUpdate="true" closable="true"/>
+	 <cc:cc_vcertificacionBuscar
+	 ajaxEventListener="#{siafexpedientesecuencia.loadMainIdvcertificacion}"
+	 actionOncomplete="hideDialogPF('frmMainIdvcertificacionBuscar:diVcertificacionBuscar');"
+	 actionUpdate=":form:txtIdvcertificacion"/>
+	</p:dialog>
+</h:form>
+
+
+
+<h:form id="frmRegIdvcertificacionBuscar">
+	<p:dialog id="diVcertificacionBuscar" header="VCertificacion » Buscar" widgetVar="diVcertificacionBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Vcertificacion" autoUpdate="true" closable="true"/>
+	 <cc:cc_vcertificacionBuscar
+	 ajaxEventListener="#{siafexpedientesecuencia.loadRegIdvcertificacion}"
+	 actionOncomplete="hideDialogPF('frmRegIdvcertificacionBuscar:diVcertificacionBuscar');"
+	 actionUpdate=":frmSiafexpedientesecuenciaRegistrar:txtIdvcertificacion"/>
+	</p:dialog>
+</h:form>
+
+
+</ui:define>
+</ui:composition>

@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmDetallecertificadopresupuestalImprimir">
+	<p:dialog id="diDetallecertificadopresupuestalImprimir" header="#{detallecertificadopresupuestal.titulo}" widgetVar="diDetallecertificadopresupuestalImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaDetallecertificadopresupuestal" fileName="datosDetallecertificadopresupuestal" postProcessor="#{detallecertificadopresupuestal.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaDetallecertificadopresupuestal" fileName="datos" preProcessor="#{detallecertificadopresupuestal.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmDetallecertificadopresupuestalRegistrar">
+	<p:dialog id="diDetallecertificadopresupuestalRegistrar" header="#{detallecertificadopresupuestal.titulo}" widgetVar="diDetallecertificadopresupuestalRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsDetallecertificadopresupuestalR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/detallecertificadopresupuestal/component/c_detallecertificadopresupuestalRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{detallecertificadopresupuestal.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{detallecertificadopresupuestal.aceptar}" update="hidStatus,:form:tblListaDetallecertificadopresupuestal,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmDetallecertificadopresupuestalRegistrar:hidStatus','frmDetallecertificadopresupuestalRegistrar:diDetallecertificadopresupuestalRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmDetallecertificadopresupuestalRegistrar:diDetallecertificadopresupuestalRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmDetallecertificadopresupuestalDetalle">
+	<p:dialog id="diDetallecertificadopresupuestalDetalle" header="#{detallecertificadopresupuestal.titulo}" widgetVar="diDetallecertificadopresupuestalDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/detallecertificadopresupuestal/component/c_detallecertificadopresupuestalDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmDetallecertificadopresupuestalDetalle:diDetallecertificadopresupuestalDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmDetallecertificadopresupuestalAnular">
+	<p:dialog id="diDetallecertificadopresupuestalAnular" header="#{detallecertificadopresupuestal.titulo}" widgetVar="diDetallecertificadopresupuestalAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsDetallecertificadopresupuestalA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/detallecertificadopresupuestal/component/c_detallecertificadopresupuestalDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{detallecertificadopresupuestal.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{detallecertificadopresupuestal.anular}" update="hidStatus,:form:tblListaDetallecertificadopresupuestal,:form:growl,panelDetailC" oncomplete="hideDialog('frmDetallecertificadopresupuestalAnular:hidStatus','frmDetallecertificadopresupuestalAnular:diDetallecertificadopresupuestalAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmDetallecertificadopresupuestalAnular:diDetallecertificadopresupuestalAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+</html>

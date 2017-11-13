@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmEstadosportipodocumentoImprimir">
+	<p:dialog id="diEstadosportipodocumentoImprimir" header="#{estadosportipodocumento.titulo}" widgetVar="diEstadosportipodocumentoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaEstadosportipodocumento" fileName="datosEstadosportipodocumento" postProcessor="#{estadosportipodocumento.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaEstadosportipodocumento" fileName="datos" preProcessor="#{estadosportipodocumento.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEstadosportipodocumentoRegistrar">
+	<p:dialog id="diEstadosportipodocumentoRegistrar" header="#{estadosportipodocumento.titulo}" widgetVar="diEstadosportipodocumentoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsEstadosportipodocumentoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/estadosportipodocumento/component/c_estadosportipodocumentoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{estadosportipodocumento.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{estadosportipodocumento.aceptar}" update="hidStatus,:form:tblListaEstadosportipodocumento,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmEstadosportipodocumentoRegistrar:hidStatus','frmEstadosportipodocumentoRegistrar:diEstadosportipodocumentoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEstadosportipodocumentoRegistrar:diEstadosportipodocumentoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEstadosportipodocumentoDetalle">
+	<p:dialog id="diEstadosportipodocumentoDetalle" header="#{estadosportipodocumento.titulo}" widgetVar="diEstadosportipodocumentoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/estadosportipodocumento/component/c_estadosportipodocumentoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEstadosportipodocumentoDetalle:diEstadosportipodocumentoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEstadosportipodocumentoAnular">
+	<p:dialog id="diEstadosportipodocumentoAnular" header="#{estadosportipodocumento.titulo}" widgetVar="diEstadosportipodocumentoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsEstadosportipodocumentoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/estadosportipodocumento/component/c_estadosportipodocumentoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{estadosportipodocumento.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{estadosportipodocumento.anular}" update="hidStatus,:form:tblListaEstadosportipodocumento,:form:growl,panelDetailC" oncomplete="hideDialog('frmEstadosportipodocumentoAnular:hidStatus','frmEstadosportipodocumentoAnular:diEstadosportipodocumentoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEstadosportipodocumentoAnular:diEstadosportipodocumentoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdtipodocumentoBuscar">
+	<p:dialog id="diTipodocumentoBuscar" header="TipoDocumento » Buscar" widgetVar="diTipodocumentoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Tipodocumento" autoUpdate="true" closable="true"/>
+	 <cc:cc_tipodocumentoBuscar
+	 ajaxEventListener="#{estadosportipodocumento.loadRegIdtipodocumento}"
+	 actionOncomplete="hideDialogPF('frmRegIdtipodocumentoBuscar:diTipodocumentoBuscar');"
+	 actionUpdate=":frmEstadosportipodocumentoRegistrar:txtIdtipodocumento"/>
+	</p:dialog>
+</h:form>
+
+
+</html>

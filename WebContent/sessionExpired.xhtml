@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="menu">
+</ui:define>
+<ui:define name="center">
+<h:form id="form">
+<p:panel id="diLogin" widgetVar="diLogin" header="Su sesion ha expirado"  style="width:400px;margin-top:5%;">
+	<p:panel>	
+	<table width="100%">		
+		<tr>
+			<td colspan="2" align="center">
+				<p:graphicImage value="/resources/img/timeexpired.jpg" width="200"/><br/>
+				<p:spacer width="10"></p:spacer>
+				<p:outputLabel value="#{loginBean.message}" style="font-weight:bold;"/>
+				<p:spacer width="10"></p:spacer><br/><br/>
+				<p:outputLabel value="SU SESSION HA EXPIRADO!" style="font-weight:bold;"/>
+				<p:spacer width="10"></p:spacer>				
+				<p:separator></p:separator>
+				<p:outputLabel value="#{PFConstants.SYSTEM_SIGLA}: #{PFConstants.SYSTEM_NAME}" style="font-weight:bold;"/><br/>
+				<p:outputLabel value="V. #{PFConstants.SYSTEM_VERSION}" style="font-weight:bold;"/><br/>
+				<p:outputLabel value="R. #{PFConstants.SYSTEM_REVISION}" style="font-weight:bold;"/>	
+			</td>			
+		</tr>
+	    <tr>	    	
+			<td align="center">			
+				<p:commandLink value="Ir a Login" action="#{loginBean.logoutForceLocal}" immediate="true"/>  				
+			</td>				
+		</tr>
+	</table>			
+	<p:messages autoUpdate="true"/>
+	</p:panel>
+	  	
+</p:panel>
+</h:form>
+</ui:define>
+</ui:composition>
+

@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<div align="left">
+		<p:message id="msgIdsinad" for="txtIdsinad"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNumerosinad" for="txtNumerosinad"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNumeroexpediente" for="txtNumeroexpediente"  showSummary="true" showDetail="false"/>
+		<p:message id="msgAnioexpediente" for="txtAnioexpediente"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCodigosedeexpediente" for="txtCodigosedeexpediente"  showSummary="true" showDetail="false"/>
+		<p:message id="msgDescripciontipodocumento" for="txtDescripciontipodocumento"  showSummary="true" showDetail="false"/>
+		<p:message id="msgDescripcionoficinaexpediente" for="txtDescripcionoficinaexpediente"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNumerodocumento" for="txtNumerodocumento"  showSummary="true" showDetail="false"/>
+		<p:message id="msgEsprincipal" for="txtEsprincipal"  showSummary="true" showDetail="false"/>
+		<p:message id="msgEsnuevoasignado" for="txtEsnuevoasignado"  showSummary="true" showDetail="false"/>
+	</div>
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIdsinad" id="lblIdsinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdsinad" value="#{sinadporpacconsolidado.sinadporpacconsolidado.idsinad}" required="true" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Numero Sinad" for="txtNumerosinad" id="lblNumerosinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerosinad" value="#{sinadporpacconsolidado.sinadporpacconsolidado.numerosinad}" required="false" maxlength="10" style="width:150px;" label="Numero Sinad"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Número Expediente" for="txtNumeroexpediente" id="lblNumeroexpediente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumeroexpediente" value="#{sinadporpacconsolidado.sinadporpacconsolidado.numeroexpediente}" required="false" maxlength="30" style="width:150px;" label="Número Expediente"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Año Expediente" for="txtAnioexpediente" id="lblAnioexpediente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnioexpediente" value="#{sinadporpacconsolidado.sinadporpacconsolidado.anioexpediente}" required="false" maxlength="10" style="width:150px;" label="Año Expediente"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Código Sede Expediente" for="txtCodigosedeexpediente" id="lblCodigosedeexpediente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigosedeexpediente" value="#{sinadporpacconsolidado.sinadporpacconsolidado.codigosedeexpediente}" required="false" maxlength="10" style="width:150px;" label="Código Sede Expediente"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Descripción Tipo Documento" for="txtDescripciontipodocumento" id="lblDescripciontipodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDescripciontipodocumento" value="#{sinadporpacconsolidado.sinadporpacconsolidado.descripciontipodocumento}" required="false" maxlength="2147483647" style="width:150px;" label="Descripción Tipo Documento"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Descripción Oficina Expediente" for="txtDescripcionoficinaexpediente" id="lblDescripcionoficinaexpediente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDescripcionoficinaexpediente" value="#{sinadporpacconsolidado.sinadporpacconsolidado.descripcionoficinaexpediente}" required="false" maxlength="2147483647" style="width:150px;" label="Descripción Oficina Expediente"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Número de Documento" for="txtNumerodocumento" id="lblNumerodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerodocumento" value="#{sinadporpacconsolidado.sinadporpacconsolidado.numerodocumento}" required="false" maxlength="100" style="width:150px;" label="Número de Documento"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Principal" for="txtEsprincipal" id="lblEsprincipal"/>
+		</td>
+		<td>
+			<p:selectBooleanCheckbox id="txtEsprincipal" value ="#{sinadporpacconsolidado.sinadporpacconsolidado.booleanesprincipal}" required="false" label="Principal"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Nuevo Asignado" for="txtEsnuevoasignado" id="lblEsnuevoasignado"/>
+		</td>
+		<td>
+			<p:selectBooleanCheckbox id="txtEsnuevoasignado" value ="#{sinadporpacconsolidado.sinadporpacconsolidado.booleanesnuevoasignado}" required="false" label="Nuevo Asignado"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+</p:panel>
+</html>

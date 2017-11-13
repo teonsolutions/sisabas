@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+	<composite:interface componentType="customComponent">
+	<composite:attribute name="ajaxEventListener" method-signature="void listener(org.primefaces.event.SelectEvent)" />
+	<composite:attribute name="actionOncomplete" type="java.lang.String"/>
+	<composite:attribute name="actionUpdate"  type="java.lang.String"/>
+	</composite:interface>
+	<composite:implementation>
+	<p:panel id="pnlCBuscar">
+	<p:panel>
+	<table style="width: 100%;" cellpadding="0" cellspacing="5">
+
+		<tr>
+			<td>
+				<p:outputLabel  value="ID" for="txtIdpersona"/>
+			</td>
+			<td>
+				<h:inputText  id="txtIdpersona" value="#{cc_persona.personaB.idpersona}" maxlength="10" style="width:150px;" label="ID"/>
+			</td>
+			<td>
+				<p:outputLabel  value="Tipo Documento" for="somIdcatalogotipodocumento"/>
+			</td>
+			<td>
+				<h:selectOneMenu  value="#{cc_persona.personaB.idcatalogotipodocumento}" id="somIdcatalogotipodocumento" label="Tipo Documento">
+					<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+					<f:selectItems value="#{cc_persona.listaGentablaIdcatalogotipodocumento}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
+				</h:selectOneMenu>
+			</td>
+			<td>
+				<p:outputLabel  value="Numero Documento" for="txtNumerodocumento"/>
+			</td>
+			<td>
+				<h:inputText  id="txtNumerodocumento" value="#{cc_persona.personaB.numerodocumento}" maxlength="10" style="width:150px;" label="Numero Documento"/>
+			</td>
+	</tr>
+	<tr>
+			<td>
+				<p:outputLabel  value="Nombres" for="txtNombres"/>
+			</td>
+			<td>
+				<h:inputText  id="txtNombres" value="#{cc_persona.personaB.nombres}" maxlength="40" style="width:300px;" label="Nombres"/>
+			</td>
+			<td>
+				<p:outputLabel  value="Apellido Paterno" for="txtApellidopaterno"/>
+			</td>
+			<td>
+				<h:inputText  id="txtApellidopaterno" value="#{cc_persona.personaB.apellidopaterno}" maxlength="40" style="width:300px;" label="Apellido Paterno"/>
+			</td>
+			<td>
+				<p:outputLabel  value="Apellido Materno" for="txtApellidomaterno"/>
+			</td>
+			<td>
+				<h:inputText  id="txtApellidomaterno" value="#{cc_persona.personaB.apellidomaterno}" maxlength="40" style="width:300px;" label="Apellido Materno"/>
+			</td>
+	</tr>
+	<tr>
+			<td>
+				<p:outputLabel  value="Dirección" for="txtDireccion"/>
+			</td>
+			<td>
+				<h:inputText  id="txtDireccion" value="#{cc_persona.personaB.direccion}" maxlength="100" style="width:300px;" label="Dirección"/>
+			</td>
+		</tr>
+
+		<tr>
+			<td colspan="6">
+				<p:commandButton id="btnCPersona" widgetVar="btnCPersona"  value="Buscar" process="@form" actionListener="#{cc_persona.buscar}" update="tblListaPersonaBuscar,pnlCBuscar" icon="ui-icon-search"/>
+			</td>
+		</tr>
+	</table>
+	</p:panel>
+
+	<p:dataTable id="tblListaPersonaBuscar" widgetVar="tblListaPersonaBuscar" value="#{cc_persona.listaPersona}" var="var" emptyMessage="No se encontraron registros"  
+	selection="#{cc_persona.selectedPersona}"
+	selectionMode="single" rowKey="#{var.idpersona}"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(cc_persona.listaPersona)}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom">
+	<p:ajax event="rowSelect" listener="#{cc.ajaxEventListener}" oncomplete="#{cc.attrs.actionOncomplete}" update="#{cc.attrs.actionUpdate}" immediate="true"/>
+		<p:column headerText="ID" styleClass="c_numeric">
+			<h:outputText value="#{var.idpersona}" />
+		</p:column>
+		<p:column headerText="Tipo Documento" styleClass="c_center">
+			<h:outputText value="#{var.idcatalogotipodocumento}" />
+		</p:column>
+		<p:column headerText="Numero Documento" styleClass="c_center">
+			<h:outputText value="#{var.numerodocumento}" />
+		</p:column>
+		<p:column headerText="Nombres" styleClass="c_string">
+			<h:outputText value="#{var.nombres}" />
+		</p:column>
+		<p:column headerText="Apellido Paterno" styleClass="c_string">
+			<h:outputText value="#{var.apellidopaterno}" />
+		</p:column>
+		<p:column headerText="Apellido Materno" styleClass="c_string">
+			<h:outputText value="#{var.apellidomaterno}" />
+		</p:column>
+		<p:column headerText="Dirección" styleClass="c_string">
+			<h:outputText value="#{var.direccion}" />
+		</p:column>
+	</p:dataTable>
+
+	<table style="width: 100%;">
+		<tr>
+			<td>
+				<div align="right">
+				<p:commandButton value="Salir" onclick="#{cc.attrs.actionOncomplete};return false;" icon="ui-icon-arrowreturnthick-1-w" title="Salir" />
+				</div>
+			</td>
+		</tr>
+	</table>
+	</p:panel>
+	</composite:implementation>
+</html>

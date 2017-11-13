@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<div align="left">
+		<p:message id="msgVchanumotivo" for="txtVchanumotivo"  showSummary="true" showDetail="false" rendered="#{unidadejecutora.unidadejecutora.estadoauditoria=='1'}"/>
+		<p:message id="msgVchactmotivo" for="txtVchactmotivo"  showSummary="true" showDetail="false" rendered="#{unidadejecutora.unidadejecutora.estadoauditoria=='0'}"/>		
+	</div>
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel styleClass="gandalfPanelClassSectionFormHeader">
+				<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+					<tr>
+						<td>
+							<p:outputLabel  value="Motivo de Anulacion" for="txtVchanumotivo" id="lblVchanumotivo" rendered="#{unidadejecutora.unidadejecutora.estadoauditoria=='1'}"/>
+							<p:outputLabel  value="Motivo de Activacion" for="txtVchactmotivo" id="lblVchactmotivo" rendered="#{unidadejecutora.unidadejecutora.estadoauditoria=='0'}"/>
+						</td>
+						<td>
+							<p:inputText  id="txtVchanumotivo" value="#{unidadejecutora.unidadejecutora.vchanumotivo}" required="true" maxlength="300" style="width:300px;" label="Motivo de Anulacion" rendered="#{unidadejecutora.unidadejecutora.estadoauditoria=='1'}"/>
+							<p:inputText  id="txtVchactmotivo" value="#{unidadejecutora.unidadejecutora.vchactmotivo}" required="true" maxlength="300" style="width:300px;" label="Motivo de Activacion" rendered="#{unidadejecutora.unidadejecutora.estadoauditoria=='0'}"/>
+						</td>		
+					</tr>
+				</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+</p:panel>
+</html>

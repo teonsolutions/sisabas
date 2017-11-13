@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<h:inputHidden id="hidStatusOrden" value="#{orden.status}"/>
+<p:contextMenu for="tblListaOrden">
+	<p:menuitem value="Detalle" action="#{orden.irDetalle}"  process="@this,hidStatusOrden,tblListaOrden"  update="hidStatusOrden,:frmOrdenDetalle:diOrdenDetalle"  oncomplete="showDialog('frmPacconsolidadoDetalle:panelDetailC:hidStatusOrden','frmOrdenDetalle:diOrdenDetalle');"  icon="ui-icon-zoomin" rendered="#{orden.renderButton('btnDetalle')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaOrden" value="#{orden.listaOrden}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaOrden" selection="#{orden.selectedOrden}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(orden.listaOrden)}"
+	selectionMode="single" rowKey="#{var.idorden}" styleClass="gandalfTableClass" rowStyleClass="#{var.params.ACTION!=null?(var.params.ACTION=='INSERT'?'old':'dead'):''}">
+		<p:column styleClass="c_numeric" sortBy="#{var.idorden}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idorden}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.pacconsolidadoIdpacconsolidado.nroconsolid}">
+			<f:facet name="header">
+				<h:outputText value="Pac ConsolidIn" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.pacconsolidadoIdpacconsolidado.nroconsolid}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.grupodocumentoIdgrupodocumento.anio}">
+			<f:facet name="header">
+				<h:outputText value="Grupo Documento" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.grupodocumentoIdgrupodocumento.anio}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.nroorden}">
+			<f:facet name="header">
+				<h:outputText value="Número de Orden" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.nroorden}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechaorden}">
+			<f:facet name="header">
+				<h:outputText value="Fecha Orden" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechaorden}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.anioorden}">
+			<f:facet name="header">
+				<h:outputText value="Año Orden" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.anioorden}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.estadoorden}">
+			<f:facet name="header">
+				<h:outputText value="Estado Orden" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.estadoorden}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.nroexpedientesiaf}">
+			<f:facet name="header">
+				<h:outputText value="Número Expediente Siaf" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.nroexpedientesiaf}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.moneda}">
+			<f:facet name="header">
+				<h:outputText value="Moneda" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.moneda}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.montoorden}">
+			<f:facet name="header">
+				<h:outputText value="Monto Orden" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.montoorden}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nroproceso}">
+			<f:facet name="header">
+				<h:outputText value="Número de Proceso" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nroproceso}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nrocontrato}">
+			<f:facet name="header">
+				<h:outputText value="Número de Contrato" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nrocontrato}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.estadoexpedientesiaf}">
+			<f:facet name="header">
+				<h:outputText value="Estado Expediente Siaf" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.estadoexpedientesiaf}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechainicioprestacion}">
+			<f:facet name="header">
+				<h:outputText value="Fecha Inicio Prestación" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechainicioprestacion}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.gentablaIdcatalogotipobien.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="Catálogo Tipo Bien" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.gentablaIdcatalogotipobien.vchregdescri}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechafinprestacion}">
+			<f:facet name="header">
+				<h:outputText value="Fecha Fin Prestación" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechafinprestacion}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.anio}">
+			<f:facet name="header">
+				<h:outputText value="Ejercicio" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.anio}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.unidadejecutoraIdunidadejecutora.nombreunidadejecutora}">
+			<f:facet name="header">
+				<h:outputText value="Codigo Unidad Ejecutora" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.unidadejecutoraIdunidadejecutora.nombreunidadejecutora}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.plazoejecucion}">
+			<f:facet name="header">
+				<h:outputText value="Plazo Ejecución" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.plazoejecucion}"/>
+		</p:column>
+</p:dataTable>
+</html>

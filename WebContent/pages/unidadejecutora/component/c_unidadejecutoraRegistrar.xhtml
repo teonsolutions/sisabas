@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<div align="left">
+		<p:message id="msgIdunidadejecutora" for="txtIdunidadejecutora"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCodigounidadejecutora" for="txtCodigounidadejecutora"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNombreunidadejecutora" for="txtNombreunidadejecutora"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCodigosiafunidadejecutora" for="txtCodigosiafunidadejecutora"  showSummary="true" showDetail="false"/>
+		<p:message id="msgUbicaciondatossiaf" for="txtUbicaciondatossiaf"  showSummary="true" showDetail="false"/>
+	</div>
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIdunidadejecutora" id="lblIdunidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdunidadejecutora" value="#{unidadejecutora.unidadejecutora.idunidadejecutora}" required="true" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Código de Unidad Ejecutora" for="txtCodigounidadejecutora" id="lblCodigounidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigounidadejecutora" value="#{unidadejecutora.unidadejecutora.codigounidadejecutora}" required="false" maxlength="4" style="width:150px;" label="Código de Unidad Ejecutora"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Nombre de Unidad Ejecutora" for="txtNombreunidadejecutora" id="lblNombreunidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombreunidadejecutora" value="#{unidadejecutora.unidadejecutora.nombreunidadejecutora}" required="false" maxlength="100" style="width:150px;" label="Nombre de Unidad Ejecutora"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Código Siaf Unidad Ejecutora" for="txtCodigosiafunidadejecutora" id="lblCodigosiafunidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigosiafunidadejecutora" value="#{unidadejecutora.unidadejecutora.codigosiafunidadejecutora}" required="false" maxlength="8" style="width:150px;" label="Código Siaf Unidad Ejecutora"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Ubicación Datos Siaf" for="txtUbicaciondatossiaf" id="lblUbicaciondatossiaf"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUbicaciondatossiaf" value="#{unidadejecutora.unidadejecutora.ubicaciondatossiaf}" required="false" maxlength="150" style="width:150px;" label="Ubicación Datos Siaf"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+</p:panel>
+</html>

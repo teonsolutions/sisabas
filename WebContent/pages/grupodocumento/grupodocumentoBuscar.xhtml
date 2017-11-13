@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{grupodocumento.tituloParam} #{grupodocumento.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="ID" for="txtIdgrupodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdgrupodocumento" value="#{grupodocumento.grupodocumentoB.idgrupodocumento}" disabled="false" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel value="Año" for="txtAnio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnio" value="#{grupodocumento.grupodocumentoB.anio}" disabled="false" maxlength="10" style="width:150px;" label="Año"/>
+		</td>
+		<td>
+			<p:outputLabel value="Código Unidad Ejecutora" for="txtCodigocentrocosto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigocentrocosto" value="#{grupodocumento.grupodocumentoB.codigocentrocosto}" disabled="false" maxlength="10" style="width:150px;" label="Código Unidad Ejecutora"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{grupodocumento.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{grupodocumento.buscar}"  update="tblListaGrupodocumento,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{grupodocumento.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{grupodocumento.irRegistrar}"  update="hidStatus,:frmGrupodocumentoRegistrar:diGrupodocumentoRegistrar" oncomplete="showDialog('form:hidStatus','frmGrupodocumentoRegistrar:diGrupodocumentoRegistrar');" icon="ui-icon-document"  rendered="#{grupodocumento.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{grupodocumento.irEditar}"  update="hidStatus,:frmGrupodocumentoRegistrar:diGrupodocumentoRegistrar" oncomplete="showDialog('form:hidStatus','frmGrupodocumentoRegistrar:diGrupodocumentoRegistrar');" icon="ui-icon-pencil" disabled="#{!grupodocumento.esSeleccionado}"  rendered="#{grupodocumento.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{grupodocumento.irDetalle}"  update="hidStatus,:frmGrupodocumentoDetalle:diGrupodocumentoDetalle" oncomplete="showDialog('form:hidStatus','frmGrupodocumentoDetalle:diGrupodocumentoDetalle');" icon="ui-icon-zoomin" disabled="#{!grupodocumento.esSeleccionado}"   rendered="#{grupodocumento.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{grupodocumento.irAnular}"  update="hidStatus,:frmGrupodocumentoAnular:diGrupodocumentoAnular" oncomplete="showDialog('form:hidStatus','frmGrupodocumentoAnular:diGrupodocumentoAnular');" icon="ui-icon-circle-minus" disabled="#{!grupodocumento.esSeleccionado}"   rendered="#{grupodocumento.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{grupodocumento.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!grupodocumento.esSeleccionado}"   rendered="#{grupodocumento.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{grupodocumento.irImprimir}"  update="hidStatus,:frmGrupodocumentoImprimir:diGrupodocumentoImprimir" oncomplete="showDialog('form:hidStatus','frmGrupodocumentoImprimir:diGrupodocumentoImprimir');" icon="ui-icon-print"   rendered="#{grupodocumento.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaGrupodocumento">
+	<p:menuitem value="Editar" action="#{grupodocumento.irEditar}"   update="hidStatus,:frmGrupodocumentoRegistrar:diGrupodocumentoRegistrar"  oncomplete="showDialog('form:hidStatus','frmGrupodocumentoRegistrar:diGrupodocumentoRegistrar');"  icon="ui-icon-pencil" rendered="#{grupodocumento.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{grupodocumento.irDetalle}"   update="hidStatus,:frmGrupodocumentoDetalle:diGrupodocumentoDetalle"  oncomplete="showDialog('form:hidStatus','frmGrupodocumentoDetalle:diGrupodocumentoDetalle');"  icon="ui-icon-zoomin" rendered="#{grupodocumento.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{grupodocumento.irAnular}"   update="hidStatus,:frmGrupodocumentoAnular:diGrupodocumentoAnular"  oncomplete="showDialog('form:hidStatus','frmGrupodocumentoAnular:diGrupodocumentoAnular');"  icon="ui-icon-circle-minus" rendered="#{grupodocumento.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{grupodocumento.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{grupodocumento.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaGrupodocumento" value="#{grupodocumento.listaGrupodocumento}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaGrupodocumento" selection="#{grupodocumento.selectedGrupodocumento}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(grupodocumento.listaGrupodocumento)}"
+	selectionMode="single" rowKey="#{var.idgrupodocumento}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{grupodocumento.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.idgrupodocumento}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idgrupodocumento}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.anio}">
+			<f:facet name="header">
+				<h:outputText value="Año" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.anio}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.codigocentrocosto}">
+			<f:facet name="header">
+				<h:outputText value="Código Unidad Ejecutora" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.codigocentrocosto}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{grupodocumento.eliminar}"  update=":form:tblListaGrupodocumento,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmGrupodocumentoImprimir">
+	<p:dialog id="diGrupodocumentoImprimir" header="#{grupodocumento.titulo}" widgetVar="diGrupodocumentoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaGrupodocumento" fileName="datosGrupodocumento" postProcessor="#{grupodocumento.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaGrupodocumento" fileName="datos" preProcessor="#{grupodocumento.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmGrupodocumentoRegistrar">
+	<p:dialog id="diGrupodocumentoRegistrar" header="#{grupodocumento.titulo}" widgetVar="diGrupodocumentoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsGrupodocumentoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/grupodocumento/component/c_grupodocumentoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{grupodocumento.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{grupodocumento.aceptar}" update="hidStatus,:form:tblListaGrupodocumento,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmGrupodocumentoRegistrar:hidStatus','frmGrupodocumentoRegistrar:diGrupodocumentoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmGrupodocumentoRegistrar:diGrupodocumentoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmGrupodocumentoDetalle">
+	<p:dialog id="diGrupodocumentoDetalle" header="#{grupodocumento.titulo}" widgetVar="diGrupodocumentoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/grupodocumento/component/c_grupodocumentoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmGrupodocumentoDetalle:diGrupodocumentoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmGrupodocumentoAnular">
+	<p:dialog id="diGrupodocumentoAnular" header="#{grupodocumento.titulo}" widgetVar="diGrupodocumentoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsGrupodocumentoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/grupodocumento/component/c_grupodocumentoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{grupodocumento.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{grupodocumento.anular}" update="hidStatus,:form:tblListaGrupodocumento,:form:growl,panelDetailC" oncomplete="hideDialog('frmGrupodocumentoAnular:hidStatus','frmGrupodocumentoAnular:diGrupodocumentoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmGrupodocumentoAnular:diGrupodocumentoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+
+</ui:define>
+</ui:composition>

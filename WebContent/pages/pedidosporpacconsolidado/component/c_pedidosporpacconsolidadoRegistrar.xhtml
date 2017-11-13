@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<div align="left">
+		<p:message id="msgIdpedidoporpacconsolidado" for="txtIdpedidoporpacconsolidado"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdpacconsolidado" for="txtIdpacconsolidado"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdpedido" for="txtIdpedido"  showSummary="true" showDetail="false"/>
+	</div>
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIdpedidoporpacconsolidado" id="lblIdpedidoporpacconsolidado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpedidoporpacconsolidado" value="#{pedidosporpacconsolidado.pedidosporpacconsolidado.idpedidoporpacconsolidado}" required="true" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Pac Consolid In" for="txtIdpacconsolidado" id="lblIdpacconsolidado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpacconsolidado" value="#{pedidosporpacconsolidado.pedidosporpacconsolidado.pacconsolidadoIdpacconsolidado.nroconsolid}" disabled="true" required="true" maxlength="10" style="width:150px;" label="Pac Consolid In"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_pacconsolidado.init}" immediate="true" oncomplete="showDialogPF('frmRegIdpacconsolidadoBuscar:diPacconsolidadoBuscar');" update=":frmRegIdpacconsolidadoBuscar:diPacconsolidadoBuscar" style="width:20px;height:20px;"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Pedido In" for="txtIdpedido" id="lblIdpedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpedido" value="#{pedidosporpacconsolidado.pedidosporpacconsolidado.pedidoIdpedido.nropedido}" disabled="true" required="false" maxlength="10" style="width:150px;" label="Pedido In"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_pedido.init}" immediate="true" oncomplete="showDialogPF('frmRegIdpedidoBuscar:diPedidoBuscar');" update=":frmRegIdpedidoBuscar:diPedidoBuscar" style="width:20px;height:20px;"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+</p:panel>
+</html>

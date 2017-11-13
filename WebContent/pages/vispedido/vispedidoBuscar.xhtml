@@ -1,0 +1,441 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{vispedido.tituloParam} #{vispedido.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="IdPedidoSiga" for="txtIdvpedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdvpedido" value="#{vispedido.vispedidoB.idvpedido}" disabled="false" maxlength="10" style="width:150px;" label="IdPedidoSiga"/>
+		</td>
+		<td>
+			<p:outputLabel value="CodigoUnidadEjecutora" for="txtCodigounidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigounidadejecutora" value="#{vispedido.vispedidoB.codigounidadejecutora}" disabled="false" maxlength="3" style="width:150px;" label="CodigoUnidadEjecutora"/>
+		</td>
+		<td>
+			<p:outputLabel value="Anio - Desde" for="txtAnioini"/>
+		</td>
+		<td>
+			<p:inputText id="txtAnioini" value ="#{vispedido.vispedidoB.anioini}" maxlength="4" style="width:150px;" label="Anio - Desde"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Anio - Hasta" for="txtAniofin"/>
+		</td>
+		<td>
+			<p:inputText id="txtAniofin" value ="#{vispedido.vispedidoB.aniofin}" maxlength="4" style="width:150px;" label="Anio - Hasta"/>
+		</td>
+		<td>
+			<p:outputLabel value="SecEjec - Desde" for="txtSecejecini"/>
+		</td>
+		<td>
+			<p:inputText id="txtSecejecini" value ="#{vispedido.vispedidoB.secejecini}" maxlength="6" style="width:150px;" label="SecEjec - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="SecEjec - Hasta" for="txtSecejecfin"/>
+		</td>
+		<td>
+			<p:inputText id="txtSecejecfin" value ="#{vispedido.vispedidoB.secejecfin}" maxlength="6" style="width:150px;" label="SecEjec - Hasta"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="TipoBien" for="txtTipobien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipobien" value="#{vispedido.vispedidoB.tipobien}" disabled="false" maxlength="1" style="width:150px;" label="TipoBien"/>
+		</td>
+		<td>
+			<p:outputLabel value="TipoPedido" for="txtTipopedido"/>
+		</td>
+		<td>
+			<p:selectOneMenu id="txtTipopedido" value ="#{vispedido.vispedidoB.tipopedido}" label="TipoPedido">
+				<f:selectItem itemLabel="Seleccione..." itemValue=""/>
+				<f:selectItem itemLabel="SI" itemValue="1"/>
+				<f:selectItem itemLabel="NO" itemValue="0"/>
+			</p:selectOneMenu>
+		</td>
+		<td>
+			<p:outputLabel value="NroPedido" for="txtNropedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNropedido" value="#{vispedido.vispedidoB.nropedido}" disabled="false" maxlength="5" style="width:150px;" label="NroPedido"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="CodigoCentroCosto" for="txtCodigocentrocosto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigocentrocosto" value="#{vispedido.vispedidoB.codigocentrocosto}" disabled="false" maxlength="15" style="width:150px;" label="CodigoCentroCosto"/>
+		</td>
+		<td>
+			<p:outputLabel value="NombreDependencia" for="txtNombredependencia"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombredependencia" value="#{vispedido.vispedidoB.nombredependencia}" disabled="false" maxlength="100" style="width:150px;" label="NombreDependencia"/>
+		</td>
+		<td>
+			<p:outputLabel value="FechaPedido - Desde" for="txtFechapedidoini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechapedidoini" value="#{vispedido.vispedidoB.fechapedidoini}" label="FechaPedido - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="FechaPedido - Hasta" for="txtFechapedidofin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechapedidofin" value="#{vispedido.vispedidoB.fechapedidofin}" label="FechaPedido - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="FechaAprobacion - Desde" for="txtFechaaprobacionini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechaaprobacionini" value="#{vispedido.vispedidoB.fechaaprobacionini}" label="FechaAprobacion - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="FechaAprobacion - Hasta" for="txtFechaaprobacionfin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechaaprobacionfin" value="#{vispedido.vispedidoB.fechaaprobacionfin}" label="FechaAprobacion - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="MotivoPedido" for="txtMotivopedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMotivopedido" value="#{vispedido.vispedidoB.motivopedido}" disabled="false" maxlength="2147483647" style="width:150px;" label="MotivoPedido"/>
+		</td>
+		<td>
+			<p:outputLabel value="SecFunc - Desde" for="txtSecfuncini"/>
+		</td>
+		<td>
+			<p:inputText id="txtSecfuncini" value ="#{vispedido.vispedidoB.secfuncini}" maxlength="4" style="width:150px;" label="SecFunc - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="SecFunc - Hasta" for="txtSecfuncfin"/>
+		</td>
+		<td>
+			<p:inputText id="txtSecfuncfin" value ="#{vispedido.vispedidoB.secfuncfin}" maxlength="4" style="width:150px;" label="SecFunc - Hasta"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="TipoTarea" for="txtTipotarea"/>
+		</td>
+		<td>
+			<p:selectOneMenu id="txtTipotarea" value ="#{vispedido.vispedidoB.tipotarea}" label="TipoTarea">
+				<f:selectItem itemLabel="Seleccione..." itemValue=""/>
+				<f:selectItem itemLabel="SI" itemValue="1"/>
+				<f:selectItem itemLabel="NO" itemValue="0"/>
+			</p:selectOneMenu>
+		</td>
+		<td>
+			<p:outputLabel value="NivelTarea" for="txtNiveltarea"/>
+		</td>
+		<td>
+			<p:selectOneMenu id="txtNiveltarea" value ="#{vispedido.vispedidoB.niveltarea}" label="NivelTarea">
+				<f:selectItem itemLabel="Seleccione..." itemValue=""/>
+				<f:selectItem itemLabel="SI" itemValue="1"/>
+				<f:selectItem itemLabel="NO" itemValue="0"/>
+			</p:selectOneMenu>
+		</td>
+		<td>
+			<p:outputLabel value="CodigoTarea - Desde" for="txtCodigotareaini"/>
+		</td>
+		<td>
+			<p:inputText id="txtCodigotareaini" value ="#{vispedido.vispedidoB.codigotareaini}" maxlength="10" style="width:150px;" label="CodigoTarea - Desde"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="CodigoTarea - Hasta" for="txtCodigotareafin"/>
+		</td>
+		<td>
+			<p:inputText id="txtCodigotareafin" value ="#{vispedido.vispedidoB.codigotareafin}" maxlength="10" style="width:150px;" label="CodigoTarea - Hasta"/>
+		</td>
+		<td>
+			<p:outputLabel value="MesPedido" for="txtMespedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMespedido" value="#{vispedido.vispedidoB.mespedido}" disabled="false" maxlength="2" style="width:150px;" label="MesPedido"/>
+		</td>
+		<td>
+			<p:outputLabel value="Estado" for="txtEstado"/>
+		</td>
+		<td>
+			<p:selectOneMenu id="txtEstado" value ="#{vispedido.vispedidoB.estado}" label="Estado">
+				<f:selectItem itemLabel="Seleccione..." itemValue=""/>
+				<f:selectItem itemLabel="SI" itemValue="1"/>
+				<f:selectItem itemLabel="NO" itemValue="0"/>
+			</p:selectOneMenu>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{vispedido.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{vispedido.buscar}"  update="tblListaVispedido,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{vispedido.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{vispedido.irRegistrar}"  update="hidStatus,:frmVispedidoRegistrar:diVispedidoRegistrar" oncomplete="showDialog('form:hidStatus','frmVispedidoRegistrar:diVispedidoRegistrar');" icon="ui-icon-document"  rendered="#{vispedido.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{vispedido.irEditar}"  update="hidStatus,:frmVispedidoRegistrar:diVispedidoRegistrar" oncomplete="showDialog('form:hidStatus','frmVispedidoRegistrar:diVispedidoRegistrar');" icon="ui-icon-pencil" disabled="#{!vispedido.esSeleccionado}"  rendered="#{vispedido.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{vispedido.irDetalle}"  update="hidStatus,:frmVispedidoDetalle:diVispedidoDetalle" oncomplete="showDialog('form:hidStatus','frmVispedidoDetalle:diVispedidoDetalle');" icon="ui-icon-zoomin" disabled="#{!vispedido.esSeleccionado}"   rendered="#{vispedido.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{vispedido.irAnular}"  update="hidStatus,:frmVispedidoAnular:diVispedidoAnular" oncomplete="showDialog('form:hidStatus','frmVispedidoAnular:diVispedidoAnular');" icon="ui-icon-circle-minus" disabled="#{!vispedido.esSeleccionado}"   rendered="#{vispedido.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{vispedido.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!vispedido.esSeleccionado}"   rendered="#{vispedido.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{vispedido.irImprimir}"  update="hidStatus,:frmVispedidoImprimir:diVispedidoImprimir" oncomplete="showDialog('form:hidStatus','frmVispedidoImprimir:diVispedidoImprimir');" icon="ui-icon-print"   rendered="#{vispedido.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaVispedido">
+	<p:menuitem value="Editar" action="#{vispedido.irEditar}"   update="hidStatus,:frmVispedidoRegistrar:diVispedidoRegistrar"  oncomplete="showDialog('form:hidStatus','frmVispedidoRegistrar:diVispedidoRegistrar');"  icon="ui-icon-pencil" rendered="#{vispedido.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{vispedido.irDetalle}"   update="hidStatus,:frmVispedidoDetalle:diVispedidoDetalle"  oncomplete="showDialog('form:hidStatus','frmVispedidoDetalle:diVispedidoDetalle');"  icon="ui-icon-zoomin" rendered="#{vispedido.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{vispedido.irAnular}"   update="hidStatus,:frmVispedidoAnular:diVispedidoAnular"  oncomplete="showDialog('form:hidStatus','frmVispedidoAnular:diVispedidoAnular');"  icon="ui-icon-circle-minus" rendered="#{vispedido.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{vispedido.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{vispedido.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaVispedido" value="#{vispedido.listaVispedido}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaVispedido" selection="#{vispedido.selectedVispedido}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(vispedido.listaVispedido)}"
+	selectionMode="single" rowKey="#{var.idvpedido}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{vispedido.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.idvpedido}">
+			<f:facet name="header">
+				<h:outputText value="IdPedidoSiga" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idvpedido}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.codigounidadejecutora}">
+			<f:facet name="header">
+				<h:outputText value="CodigoUnidadEjecutora" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.codigounidadejecutora}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.anio}">
+			<f:facet name="header">
+				<h:outputText value="Anio" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.anio}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.secejec}">
+			<f:facet name="header">
+				<h:outputText value="SecEjec" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.secejec}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.tipobien}">
+			<f:facet name="header">
+				<h:outputText value="TipoBien" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.tipobien}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.tipopedido}">
+			<f:facet name="header">
+				<h:outputText value="TipoPedido" styleClass="c_center"/>
+			</f:facet>
+			<h:graphicImage url="/resources/img/check.png" width="10" height="10" rendered="#{var.tipopedido=='1'}"/>		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.nropedido}">
+			<f:facet name="header">
+				<h:outputText value="NroPedido" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.nropedido}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.codigocentrocosto}">
+			<f:facet name="header">
+				<h:outputText value="CodigoCentroCosto" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.codigocentrocosto}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nombredependencia}">
+			<f:facet name="header">
+				<h:outputText value="NombreDependencia" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nombredependencia}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechapedido}">
+			<f:facet name="header">
+				<h:outputText value="FechaPedido" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechapedido}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechaaprobacion}">
+			<f:facet name="header">
+				<h:outputText value="FechaAprobacion" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechaaprobacion}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.motivopedido}">
+			<f:facet name="header">
+				<h:outputText value="MotivoPedido" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.motivopedido}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.secfunc}">
+			<f:facet name="header">
+				<h:outputText value="SecFunc" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.secfunc}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.tipotarea}">
+			<f:facet name="header">
+				<h:outputText value="TipoTarea" styleClass="c_center"/>
+			</f:facet>
+			<h:graphicImage url="/resources/img/check.png" width="10" height="10" rendered="#{var.tipotarea=='1'}"/>		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.niveltarea}">
+			<f:facet name="header">
+				<h:outputText value="NivelTarea" styleClass="c_center"/>
+			</f:facet>
+			<h:graphicImage url="/resources/img/check.png" width="10" height="10" rendered="#{var.niveltarea=='1'}"/>		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.codigotarea}">
+			<f:facet name="header">
+				<h:outputText value="CodigoTarea" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.codigotarea}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.mespedido}">
+			<f:facet name="header">
+				<h:outputText value="MesPedido" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.mespedido}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.estado}">
+			<f:facet name="header">
+				<h:outputText value="Estado" styleClass="c_center"/>
+			</f:facet>
+			<h:graphicImage url="/resources/img/check.png" width="10" height="10" rendered="#{var.estado=='1'}"/>		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{vispedido.eliminar}"  update=":form:tblListaVispedido,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmVispedidoImprimir">
+	<p:dialog id="diVispedidoImprimir" header="#{vispedido.titulo}" widgetVar="diVispedidoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaVispedido" fileName="datosVispedido" postProcessor="#{vispedido.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaVispedido" fileName="datos" preProcessor="#{vispedido.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmVispedidoRegistrar">
+	<p:dialog id="diVispedidoRegistrar" header="#{vispedido.titulo}" widgetVar="diVispedidoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsVispedidoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/vispedido/component/c_vispedidoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{vispedido.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{vispedido.aceptar}" update="hidStatus,:form:tblListaVispedido,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmVispedidoRegistrar:hidStatus','frmVispedidoRegistrar:diVispedidoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmVispedidoRegistrar:diVispedidoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmVispedidoDetalle">
+	<p:dialog id="diVispedidoDetalle" header="#{vispedido.titulo}" widgetVar="diVispedidoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/vispedido/component/c_vispedidoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmVispedidoDetalle:diVispedidoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmVispedidoAnular">
+	<p:dialog id="diVispedidoAnular" header="#{vispedido.titulo}" widgetVar="diVispedidoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsVispedidoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/vispedido/component/c_vispedidoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{vispedido.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{vispedido.anular}" update="hidStatus,:form:tblListaVispedido,:form:growl,panelDetailC" oncomplete="hideDialog('frmVispedidoAnular:hidStatus','frmVispedidoAnular:diVispedidoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmVispedidoAnular:diVispedidoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+
+</ui:define>
+</ui:composition>

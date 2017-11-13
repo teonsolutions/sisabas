@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<div align="left">
+		<p:message id="msgIddocumentotecnico" for="txtIddocumentotecnico"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdpacprogramado" for="txtIdpacprogramado"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdcomiteproceso" for="txtIdcomiteproceso"  showSummary="true" showDetail="false"/>
+		<p:message id="msgDenominacioncontratacion" for="txtDenominacioncontratacion"  showSummary="true" showDetail="false"/>
+		<p:message id="msgFinalidadpublica" for="txtFinalidadpublica"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNropac" for="txtNropac"  showSummary="true" showDetail="false"/>
+		<p:message id="msgObjetocontratacion" for="txtObjetocontratacion"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCentrocosto" for="txtCentrocosto"  showSummary="true" showDetail="false"/>
+		<p:message id="msgAntecedentes" for="txtAntecedentes"  showSummary="true" showDetail="false"/>
+		<p:message id="msgDniresponsable" for="txtDniresponsable"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNombreresponsable" for="txtNombreresponsable"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNroanexoresponsable" for="txtNroanexoresponsable"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCorreoresponsable" for="txtCorreoresponsable"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdcatalogotipodocumentotecnico" for="txtIdcatalogotipodocumentotecnico"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdcatalogotipotdr" for="txtIdcatalogotipotdr"  showSummary="true" showDetail="false"/>
+		<p:message id="msgRutaanexo" for="txtRutaanexo"  showSummary="true" showDetail="false"/>
+		<p:message id="msgUbigeo" for="txtUbigeo"  showSummary="true" showDetail="false"/>
+		<p:message id="msgDireccion" for="txtDireccion"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNumerosinad" for="txtNumerosinad"  showSummary="true" showDetail="false"/>
+		<p:message id="msgAnioexpediente" for="txtAnioexpediente"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNumeroexpediente" for="txtNumeroexpediente"  showSummary="true" showDetail="false"/>
+		<p:message id="msgTienecomite" for="txtTienecomite"  showSummary="true" showDetail="false"/>
+		<p:message id="msgTipoitinerario" for="txtTipoitinerario"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNropedidoitinerario" for="txtNropedidoitinerario"  showSummary="true" showDetail="false"/>
+		<p:message id="msgAniopedidoitinerario" for="txtAniopedidoitinerario"  showSummary="true" showDetail="false"/>
+		<p:message id="msgUepedidoitinerario" for="txtUepedidoitinerario"  showSummary="true" showDetail="false"/>
+		<p:message id="msgJustificacionpedidoitinerario" for="txtJustificacionpedidoitinerario"  showSummary="true" showDetail="false"/>
+		<p:message id="msgItinerarioorigenregistrado" for="txtItinerarioorigenregistrado"  showSummary="true" showDetail="false"/>
+	</div>
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIddocumentotecnico" id="lblIddocumentotecnico"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIddocumentotecnico" value="#{documentotecnico.documentotecnico.iddocumentotecnico}" required="true" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Pac Programado" for="txtIdpacprogramado" id="lblIdpacprogramado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpacprogramado" value="#{documentotecnico.documentotecnico.pacprogramadoIdpacprogramado.nroconsolid}" disabled="true" required="false" maxlength="10" style="width:150px;" label="Pac Programado"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_pacprogramado.init}" immediate="true" oncomplete="showDialogPF('frmRegIdpacprogramadoBuscar:diPacprogramadoBuscar');" update=":frmRegIdpacprogramadoBuscar:diPacprogramadoBuscar" style="width:20px;height:20px;"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Comité Proceso" for="txtIdcomiteproceso" id="lblIdcomiteproceso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcomiteproceso" value="#{documentotecnico.documentotecnico.comiteprocesoIdcomiteproceso.idcomiteproceso}" disabled="true" required="false" maxlength="10" style="width:150px;" label="Comité Proceso"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_comiteproceso.init}" immediate="true" oncomplete="showDialogPF('frmRegIdcomiteprocesoBuscar:diComiteprocesoBuscar');" update=":frmRegIdcomiteprocesoBuscar:diComiteprocesoBuscar" style="width:20px;height:20px;"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Denominación de Contratación" for="txtDenominacioncontratacion" id="lblDenominacioncontratacion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDenominacioncontratacion" value="#{documentotecnico.documentotecnico.denominacioncontratacion}" required="false" maxlength="500" style="width:150px;" label="Denominación de Contratación"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Finalidad Pública" for="txtFinalidadpublica" id="lblFinalidadpublica"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFinalidadpublica" value="#{documentotecnico.documentotecnico.finalidadpublica}" required="false" maxlength="500" style="width:150px;" label="Finalidad Pública"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Número(Pac)" for="txtNropac" id="lblNropac"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNropac" value="#{documentotecnico.documentotecnico.nropac}" required="false" maxlength="10" style="width:150px;" label="Número(Pac)"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Objeto de Contratación" for="txtObjetocontratacion" id="lblObjetocontratacion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtObjetocontratacion" value="#{documentotecnico.documentotecnico.objetocontratacion}" required="false" maxlength="500" style="width:150px;" label="Objeto de Contratación"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Centro de costo" for="txtCentrocosto" id="lblCentrocosto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCentrocosto" value="#{documentotecnico.documentotecnico.centrocosto}" required="false" maxlength="20" style="width:150px;" label="Centro de costo"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Antecedentes" for="txtAntecedentes" id="lblAntecedentes"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAntecedentes" value="#{documentotecnico.documentotecnico.antecedentes}" required="false" maxlength="500" style="width:150px;" label="Antecedentes"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Dni Responsable" for="txtDniresponsable" id="lblDniresponsable"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDniresponsable" value="#{documentotecnico.documentotecnico.dniresponsable}" required="false" maxlength="8" style="width:150px;" label="Dni Responsable"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Nombre de responsable" for="txtNombreresponsable" id="lblNombreresponsable"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombreresponsable" value="#{documentotecnico.documentotecnico.nombreresponsable}" required="false" maxlength="500" style="width:150px;" label="Nombre de responsable"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Número de Anexo Responsable" for="txtNroanexoresponsable" id="lblNroanexoresponsable"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroanexoresponsable" value="#{documentotecnico.documentotecnico.nroanexoresponsable}" required="false" maxlength="10" style="width:150px;" label="Número de Anexo Responsable"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Correo Responsable" for="txtCorreoresponsable" id="lblCorreoresponsable"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCorreoresponsable" value="#{documentotecnico.documentotecnico.correoresponsable}" required="false" maxlength="50" style="width:150px;" label="Correo Responsable"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Tipo de documento técnico" for="txtIdcatalogotipodocumentotecnico" id="lblIdcatalogotipodocumentotecnico"/>
+		</td>
+		<td>
+			<p:selectOneMenu  value="#{documentotecnico.documentotecnico.idcatalogotipodocumentotecnico}" id="txtIdcatalogotipodocumentotecnico" required="false" label="Tipo de documento técnico">
+				<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+				<f:selectItems value="#{documentotecnico.listaGentablaIdcatalogotipodocumentotecnico}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
+			</p:selectOneMenu>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Tipo Tdr" for="txtIdcatalogotipotdr" id="lblIdcatalogotipotdr"/>
+		</td>
+		<td>
+			<p:selectOneMenu  value="#{documentotecnico.documentotecnico.idcatalogotipotdr}" id="txtIdcatalogotipotdr" required="false" label="Tipo Tdr">
+				<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+				<f:selectItems value="#{documentotecnico.listaGentablaIdcatalogotipotdr}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
+			</p:selectOneMenu>
+		</td>
+		<td>
+			<p:outputLabel  value="Ruta Anexo" for="txtRutaanexo" id="lblRutaanexo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtRutaanexo" value="#{documentotecnico.documentotecnico.rutaanexo}" required="false" maxlength="300" style="width:150px;" label="Ruta Anexo"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Ubigeo" for="txtUbigeo" id="lblUbigeo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUbigeo" value="#{documentotecnico.documentotecnico.ubigeo}" required="false" maxlength="6" style="width:150px;" label="Ubigeo"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Dirección" for="txtDireccion" id="lblDireccion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDireccion" value="#{documentotecnico.documentotecnico.direccion}" required="false" maxlength="100" style="width:150px;" label="Dirección"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Numero Sinad" for="txtNumerosinad" id="lblNumerosinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerosinad" value="#{documentotecnico.documentotecnico.numerosinad}" required="false" maxlength="10" style="width:150px;" label="Numero Sinad"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Año de Expediente" for="txtAnioexpediente" id="lblAnioexpediente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnioexpediente" value="#{documentotecnico.documentotecnico.anioexpediente}" required="false" maxlength="10" style="width:150px;" label="Año de Expediente"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Número de Expediente" for="txtNumeroexpediente" id="lblNumeroexpediente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumeroexpediente" value="#{documentotecnico.documentotecnico.numeroexpediente}" required="false" maxlength="30" style="width:150px;" label="Número de Expediente"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Tiene Comité" for="txtTienecomite" id="lblTienecomite"/>
+		</td>
+		<td>
+			<p:selectBooleanCheckbox id="txtTienecomite" value ="#{documentotecnico.documentotecnico.booleantienecomite}" required="false" label="Tiene Comité"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Tipo Itinerario" for="txtTipoitinerario" id="lblTipoitinerario"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipoitinerario" value="#{documentotecnico.documentotecnico.tipoitinerario}" required="false" maxlength="3" style="width:150px;" label="Tipo Itinerario"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Número Pedido" for="txtNropedidoitinerario" id="lblNropedidoitinerario"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNropedidoitinerario" value="#{documentotecnico.documentotecnico.nropedidoitinerario}" required="false" maxlength="5" style="width:150px;" label="Número Pedido"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Año Pedido Itinerario" for="txtAniopedidoitinerario" id="lblAniopedidoitinerario"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAniopedidoitinerario" value="#{documentotecnico.documentotecnico.aniopedidoitinerario}" required="false" maxlength="10" style="width:150px;" label="Año Pedido Itinerario"/>
+		</td>
+		<td>
+			<p:outputLabel  value="UE Pedido Itinerario" for="txtUepedidoitinerario" id="lblUepedidoitinerario"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUepedidoitinerario" value="#{documentotecnico.documentotecnico.uepedidoitinerario}" required="false" maxlength="4" style="width:150px;" label="UE Pedido Itinerario"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Justificación Pedido Itinerario" for="txtJustificacionpedidoitinerario" id="lblJustificacionpedidoitinerario"/>
+		</td>
+		<td>
+			<p:inputText  id="txtJustificacionpedidoitinerario" value="#{documentotecnico.documentotecnico.justificacionpedidoitinerario}" required="false" maxlength="500" style="width:150px;" label="Justificación Pedido Itinerario"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Itinerario Origen Registrado" for="txtItinerarioorigenregistrado" id="lblItinerarioorigenregistrado"/>
+		</td>
+		<td>
+			<p:selectBooleanCheckbox id="txtItinerarioorigenregistrado" value ="#{documentotecnico.documentotecnico.booleanitinerarioorigenregistrado}" required="false" label="Itinerario Origen Registrado"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+</p:panel>
+</html>

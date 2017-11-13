@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<div align="left">
+		<p:message id="msgIdpacprogramado" for="txtIdpacprogramado"  showSummary="true" showDetail="false"/>
+		<p:message id="msgAnio" for="txtAnio"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdunidadejecutora" for="txtIdunidadejecutora"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNroconsolid" for="txtNroconsolid"  showSummary="true" showDetail="false"/>
+		<p:message id="msgEspecificaciontecnica" for="txtEspecificaciontecnica"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdcatalogotipobien" for="txtIdcatalogotipobien"  showSummary="true" showDetail="false"/>
+		<p:message id="msgMontopao" for="txtMontopao"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCodigocentrocosto" for="txtCodigocentrocosto"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNombredependencia" for="txtNombredependencia"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdcatalogoestado" for="txtIdcatalogoestado"  showSummary="true" showDetail="false"/>
+		<p:message id="msgTipodocumentosinad" for="txtTipodocumentosinad"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNumerodocumentosinad" for="txtNumerodocumentosinad"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNumerosinad" for="txtNumerosinad"  showSummary="true" showDetail="false"/>
+		<p:message id="msgAniosinad" for="txtAniosinad"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNumeroexpedientesinad" for="txtNumeroexpedientesinad"  showSummary="true" showDetail="false"/>
+	</div>
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIdpacprogramado" id="lblIdpacprogramado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpacprogramado" value="#{pacprogramado.pacprogramado.idpacprogramado}" required="true" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="anio" for="txtAnio" id="lblAnio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnio" value="#{pacprogramado.pacprogramado.anio}" required="false" maxlength="10" style="width:150px;" label="anio"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Unidad Ejecutora" for="txtIdunidadejecutora" id="lblIdunidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdunidadejecutora" value="#{pacprogramado.pacprogramado.unidadejecutoraIdunidadejecutora.nombreunidadejecutora}" disabled="true" required="false" maxlength="10" style="width:150px;" label="Unidad Ejecutora"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_unidadejecutora.init}" immediate="true" oncomplete="showDialogPF('frmRegIdunidadejecutoraBuscar:diUnidadejecutoraBuscar');" update=":frmRegIdunidadejecutoraBuscar:diUnidadejecutoraBuscar" style="width:20px;height:20px;"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Numero consolidacion" for="txtNroconsolid" id="lblNroconsolid"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroconsolid" value="#{pacprogramado.pacprogramado.nroconsolid}" required="false" maxlength="10" style="width:150px;" label="Numero consolidacion"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Especificación Técnica" for="txtEspecificaciontecnica" id="lblEspecificaciontecnica"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEspecificaciontecnica" value="#{pacprogramado.pacprogramado.especificaciontecnica}" required="false" maxlength="100" style="width:150px;" label="Especificación Técnica"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Tipo bien" for="txtIdcatalogotipobien" id="lblIdcatalogotipobien"/>
+		</td>
+		<td>
+			<p:selectOneMenu  value="#{pacprogramado.pacprogramado.idcatalogotipobien}" id="txtIdcatalogotipobien" required="false" label="Tipo bien">
+				<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+				<f:selectItems value="#{pacprogramado.listaGentablaIdcatalogotipobien}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
+			</p:selectOneMenu>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Monto PAO" for="txtMontopao" id="lblMontopao"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMontopao" value="#{pacprogramado.pacprogramado.montopao}" required="false" maxlength="18" style="width:150px;" label="Monto PAO"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Código Centro Costo" for="txtCodigocentrocosto" id="lblCodigocentrocosto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigocentrocosto" value="#{pacprogramado.pacprogramado.codigocentrocosto}" required="false" maxlength="15" style="width:150px;" label="Código Centro Costo"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Nombre de dependencia" for="txtNombredependencia" id="lblNombredependencia"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombredependencia" value="#{pacprogramado.pacprogramado.nombredependencia}" required="false" maxlength="100" style="width:150px;" label="Nombre de dependencia"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Estado" for="txtIdcatalogoestado" id="lblIdcatalogoestado"/>
+		</td>
+		<td>
+			<p:selectOneMenu  value="#{pacprogramado.pacprogramado.idcatalogoestado}" id="txtIdcatalogoestado" required="false" label="Estado">
+				<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+				<f:selectItems value="#{pacprogramado.listaGentablaIdcatalogoestado}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
+			</p:selectOneMenu>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Tipo documento Sinad" for="txtTipodocumentosinad" id="lblTipodocumentosinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipodocumentosinad" value="#{pacprogramado.pacprogramado.tipodocumentosinad}" required="false" maxlength="50" style="width:150px;" label="Tipo documento Sinad"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Número documento Sinad" for="txtNumerodocumentosinad" id="lblNumerodocumentosinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerodocumentosinad" value="#{pacprogramado.pacprogramado.numerodocumentosinad}" required="false" maxlength="100" style="width:150px;" label="Número documento Sinad"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Número Sinad" for="txtNumerosinad" id="lblNumerosinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerosinad" value="#{pacprogramado.pacprogramado.numerosinad}" required="false" maxlength="10" style="width:150px;" label="Número Sinad"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Año Sinad" for="txtAniosinad" id="lblAniosinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAniosinad" value="#{pacprogramado.pacprogramado.aniosinad}" required="false" maxlength="10" style="width:150px;" label="Año Sinad"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Número Expediente Sinad" for="txtNumeroexpedientesinad" id="lblNumeroexpedientesinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumeroexpedientesinad" value="#{pacprogramado.pacprogramado.numeroexpedientesinad}" required="false" maxlength="30" style="width:150px;" label="Número Expediente Sinad"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+</p:panel>
+</html>

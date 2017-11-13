@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelDetailC">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="IdItinerarioConvenioMarco" for="txtIditinerarioconveniomarco"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIditinerarioconveniomarco" value="#{itinerarioconveniomarco.itinerarioconveniomarco.iditinerarioconveniomarco}" disabled="true" style="width:150px;" label="IdItinerarioConvenioMarco"/>
+		</td>
+		<td>
+			<p:outputLabel  value="IdDocumentoTecnico" for="txtIddocumentotecnico"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIddocumentotecnico" value="#{itinerarioconveniomarco.itinerarioconveniomarco.iddocumentotecnico}" disabled="true" style="width:150px;" label="IdDocumentoTecnico"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="TipoItinerario" for="txtTipoitinerario"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipoitinerario" value="#{itinerarioconveniomarco.itinerarioconveniomarco.tipoitinerario}" disabled="true" style="width:150px;" label="TipoItinerario"/>
+		</td>
+		<td>
+			<p:outputLabel  value="CiudadOrigen" for="txtCiudadorigen"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCiudadorigen" value="#{itinerarioconveniomarco.itinerarioconveniomarco.ciudadorigen}" disabled="true" style="width:300px;" label="CiudadOrigen"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="FechaSalida" for="txtFechasalida"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechasalida" value="#{itinerarioconveniomarco.itinerarioconveniomarco.fechasalida}" disabled="true" style="width:150px;" label="FechaSalida">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-5"/>
+			</h:inputText>
+		</td>
+		<td>
+			<p:outputLabel  value="HoraSalida" for="txtHorasalida"/>
+		</td>
+		<td>
+			<h:inputText  id="txtHorasalida" value="#{itinerarioconveniomarco.itinerarioconveniomarco.horasalida}" disabled="true" style="width:150px;" label="HoraSalida">
+				<f:convertDateTime pattern="hh:mm a" timeZone="GMT-5"/>
+			</h:inputText>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="CiudadDestino" for="txtCiudaddestino"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCiudaddestino" value="#{itinerarioconveniomarco.itinerarioconveniomarco.ciudaddestino}" disabled="true" style="width:300px;" label="CiudadDestino"/>
+		</td>
+		<td>
+			<p:outputLabel  value="FechaRetorno" for="txtFechareterno"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechareterno" value="#{itinerarioconveniomarco.itinerarioconveniomarco.fechareterno}" disabled="true" style="width:150px;" label="FechaRetorno">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-5"/>
+			</h:inputText>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="HoraRetorno" for="txtHoraretorno"/>
+		</td>
+		<td>
+			<h:inputText  id="txtHoraretorno" value="#{itinerarioconveniomarco.itinerarioconveniomarco.horaretorno}" disabled="true" style="width:150px;" label="HoraRetorno">
+				<f:convertDateTime pattern="hh:mm a" timeZone="GMT-5"/>
+			</h:inputText>
+		</td>
+		<td>
+			<p:outputLabel  value="DNI" for="txtDni"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDni" value="#{itinerarioconveniomarco.itinerarioconveniomarco.dni}" disabled="true" style="width:150px;" label="DNI"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="ApellidoPaterno" for="txtApellidopaterno"/>
+		</td>
+		<td>
+			<p:inputText  id="txtApellidopaterno" value="#{itinerarioconveniomarco.itinerarioconveniomarco.apellidopaterno}" disabled="true" style="width:300px;" label="ApellidoPaterno"/>
+		</td>
+		<td>
+			<p:outputLabel  value="ApellidoMaterno" for="txtApellidomaterno"/>
+		</td>
+		<td>
+			<p:inputText  id="txtApellidomaterno" value="#{itinerarioconveniomarco.itinerarioconveniomarco.apellidomaterno}" disabled="true" style="width:300px;" label="ApellidoMaterno"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Nombers" for="txtNombers"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombers" value="#{itinerarioconveniomarco.itinerarioconveniomarco.nombers}" disabled="true" style="width:300px;" label="Nombers"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Correo" for="txtCorreo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCorreo" value="#{itinerarioconveniomarco.itinerarioconveniomarco.correo}" disabled="true" style="width:300px;" label="Correo"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Telefono" for="txtTelefono"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTelefono" value="#{itinerarioconveniomarco.itinerarioconveniomarco.telefono}" disabled="true" style="width:150px;" label="Telefono"/>
+		</td>
+		<td>
+			<p:outputLabel  value="TipoContratoPersonal" for="txtTipocontratopersonal"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipocontratopersonal" value="#{itinerarioconveniomarco.itinerarioconveniomarco.tipocontratopersonal}" disabled="true" style="width:150px;" label="TipoContratoPersonal"/>
+		</td>
+	</tr>
+
+</table>
+</p:panel>
+</html>

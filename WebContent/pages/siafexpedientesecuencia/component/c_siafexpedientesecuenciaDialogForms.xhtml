@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmSiafexpedientesecuenciaImprimir">
+	<p:dialog id="diSiafexpedientesecuenciaImprimir" header="#{siafexpedientesecuencia.titulo}" widgetVar="diSiafexpedientesecuenciaImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaSiafexpedientesecuencia" fileName="datosSiafexpedientesecuencia" postProcessor="#{siafexpedientesecuencia.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaSiafexpedientesecuencia" fileName="datos" preProcessor="#{siafexpedientesecuencia.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmSiafexpedientesecuenciaRegistrar">
+	<p:dialog id="diSiafexpedientesecuenciaRegistrar" header="#{siafexpedientesecuencia.titulo}" widgetVar="diSiafexpedientesecuenciaRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsSiafexpedientesecuenciaR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/siafexpedientesecuencia/component/c_siafexpedientesecuenciaRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{siafexpedientesecuencia.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{siafexpedientesecuencia.aceptar}" update="hidStatus,:form:tblListaSiafexpedientesecuencia,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmSiafexpedientesecuenciaRegistrar:hidStatus','frmSiafexpedientesecuenciaRegistrar:diSiafexpedientesecuenciaRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmSiafexpedientesecuenciaRegistrar:diSiafexpedientesecuenciaRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmSiafexpedientesecuenciaDetalle">
+	<p:dialog id="diSiafexpedientesecuenciaDetalle" header="#{siafexpedientesecuencia.titulo}" widgetVar="diSiafexpedientesecuenciaDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/siafexpedientesecuencia/component/c_siafexpedientesecuenciaDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmSiafexpedientesecuenciaDetalle:diSiafexpedientesecuenciaDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmSiafexpedientesecuenciaAnular">
+	<p:dialog id="diSiafexpedientesecuenciaAnular" header="#{siafexpedientesecuencia.titulo}" widgetVar="diSiafexpedientesecuenciaAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsSiafexpedientesecuenciaA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/siafexpedientesecuencia/component/c_siafexpedientesecuenciaDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{siafexpedientesecuencia.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{siafexpedientesecuencia.anular}" update="hidStatus,:form:tblListaSiafexpedientesecuencia,:form:growl,panelDetailC" oncomplete="hideDialog('frmSiafexpedientesecuenciaAnular:hidStatus','frmSiafexpedientesecuenciaAnular:diSiafexpedientesecuenciaAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmSiafexpedientesecuenciaAnular:diSiafexpedientesecuenciaAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdvcertificacionBuscar">
+	<p:dialog id="diVcertificacionBuscar" header="VCertificacion » Buscar" widgetVar="diVcertificacionBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Vcertificacion" autoUpdate="true" closable="true"/>
+	 <cc:cc_vcertificacionBuscar
+	 ajaxEventListener="#{siafexpedientesecuencia.loadRegIdvcertificacion}"
+	 actionOncomplete="hideDialogPF('frmRegIdvcertificacionBuscar:diVcertificacionBuscar');"
+	 actionUpdate=":frmSiafexpedientesecuenciaRegistrar:txtIdvcertificacion"/>
+	</p:dialog>
+</h:form>
+
+
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<div align="left">
+		<p:message id="msgIdsiafexpedientesecuencia" for="txtIdsiafexpedientesecuencia"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdlog" for="txtIdlog"  showSummary="true" showDetail="false"/>
+		<p:message id="msgFechacarga" for="txtFechacarga"  showSummary="true" showDetail="false"/>
+		<p:message id="msgAnio" for="txtAnio"  showSummary="true" showDetail="false"/>
+		<p:message id="msgSecejec" for="txtSecejec"  showSummary="true" showDetail="false"/>
+		<p:message id="msgExpediente" for="txtExpediente"  showSummary="true" showDetail="false"/>
+		<p:message id="msgAnioproceso" for="txtAnioproceso"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCodigodocumento" for="txtCodigodocumento"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNumerodocumento" for="txtNumerodocumento"  showSummary="true" showDetail="false"/>
+		<p:message id="msgMontonacional" for="txtMontonacional"  showSummary="true" showDetail="false"/>
+		<p:message id="msgMesproceso" for="txtMesproceso"  showSummary="true" showDetail="false"/>
+		<p:message id="msgFechadocumento" for="txtFechadocumento"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCiclo" for="txtCiclo"  showSummary="true" showDetail="false"/>
+		<p:message id="msgFase" for="txtFase"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdvcertificacion" for="txtIdvcertificacion"  showSummary="true" showDetail="false"/>
+	</div>
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="IdSiafExpedienteSecuencia" for="txtIdsiafexpedientesecuencia" id="lblIdsiafexpedientesecuencia"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdsiafexpedientesecuencia" value="#{siafexpedientesecuencia.siafexpedientesecuencia.idsiafexpedientesecuencia}" required="true" maxlength="10" style="width:150px;" label="IdSiafExpedienteSecuencia"/>
+		</td>
+		<td>
+			<p:outputLabel  value="IdLog" for="txtIdlog" id="lblIdlog"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdlog" value="#{siafexpedientesecuencia.siafexpedientesecuencia.idlog}" required="true" maxlength="10" style="width:150px;" label="IdLog"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="FechaCarga" for="txtFechacarga" id="lblFechacarga"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechacarga" value="#{siafexpedientesecuencia.siafexpedientesecuencia.fechacarga}" required="false" maxlength="10" style="width:150px;" label="FechaCarga"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Anio" for="txtAnio" id="lblAnio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnio" value="#{siafexpedientesecuencia.siafexpedientesecuencia.anio}" required="true" maxlength="4" style="width:150px;" label="Anio"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="SecEjec" for="txtSecejec" id="lblSecejec"/>
+		</td>
+		<td>
+			<p:inputText  id="txtSecejec" value="#{siafexpedientesecuencia.siafexpedientesecuencia.secejec}" required="true" maxlength="6" style="width:150px;" label="SecEjec"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Expediente" for="txtExpediente" id="lblExpediente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtExpediente" value="#{siafexpedientesecuencia.siafexpedientesecuencia.expediente}" required="true" maxlength="10" style="width:150px;" label="Expediente"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="AnioProceso" for="txtAnioproceso" id="lblAnioproceso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnioproceso" value="#{siafexpedientesecuencia.siafexpedientesecuencia.anioproceso}" required="false" maxlength="4" style="width:150px;" label="AnioProceso"/>
+		</td>
+		<td>
+			<p:outputLabel  value="CodigoDocumento" for="txtCodigodocumento" id="lblCodigodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigodocumento" value="#{siafexpedientesecuencia.siafexpedientesecuencia.codigodocumento}" required="false" maxlength="3" style="width:150px;" label="CodigoDocumento"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="NumeroDocumento" for="txtNumerodocumento" id="lblNumerodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerodocumento" value="#{siafexpedientesecuencia.siafexpedientesecuencia.numerodocumento}" required="false" maxlength="20" style="width:150px;" label="NumeroDocumento"/>
+		</td>
+		<td>
+			<p:outputLabel  value="MontoNacional" for="txtMontonacional" id="lblMontonacional"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMontonacional" value="#{siafexpedientesecuencia.siafexpedientesecuencia.montonacional}" required="false" maxlength="18" style="width:150px;" label="MontoNacional"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="MesProceso" for="txtMesproceso" id="lblMesproceso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMesproceso" value="#{siafexpedientesecuencia.siafexpedientesecuencia.mesproceso}" required="false" maxlength="2" style="width:150px;" label="MesProceso"/>
+		</td>
+		<td>
+			<p:outputLabel  value="FechaDocumento" for="txtFechadocumento" id="lblFechadocumento"/>
+		</td>
+		<td>
+			<p:calendar   id="txtFechadocumento" value="#{siafexpedientesecuencia.siafexpedientesecuencia.fechadocumento}" required="false" pattern="dd/MM/yyyy" label="FechaDocumento" navigator="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Ciclo" for="txtCiclo" id="lblCiclo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCiclo" value="#{siafexpedientesecuencia.siafexpedientesecuencia.ciclo}" required="true" maxlength="1" style="width:150px;" label="Ciclo"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Fase" for="txtFase" id="lblFase"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFase" value="#{siafexpedientesecuencia.siafexpedientesecuencia.fase}" required="true" maxlength="1" style="width:150px;" label="Fase"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="IdVCertificacion" for="txtIdvcertificacion" id="lblIdvcertificacion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdvcertificacion" value="#{siafexpedientesecuencia.siafexpedientesecuencia.vcertificacionIdvcertificacion.nrocertifica}" disabled="true" required="false" maxlength="10" style="width:150px;" label="IdVCertificacion"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_vcertificacion.init}" immediate="true" oncomplete="showDialogPF('frmRegIdvcertificacionBuscar:diVcertificacionBuscar');" update=":frmRegIdvcertificacionBuscar:diVcertificacionBuscar" style="width:20px;height:20px;"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+</p:panel>
+</html>

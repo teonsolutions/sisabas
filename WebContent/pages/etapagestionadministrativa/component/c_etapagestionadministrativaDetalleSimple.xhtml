@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelDetailC">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="EtapaAdministrativa" for="txtIdetapaadministrativa"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdetapaadministrativa" value="#{etapagestionadministrativa.etapagestionadministrativa.idetapaadministrativa}" disabled="true" style="width:150px;" label="EtapaAdministrativa"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Descripción Etapa Administrativa" for="txtDescripcionetapaadministrativa"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDescripcionetapaadministrativa" value="#{etapagestionadministrativa.etapagestionadministrativa.descripcionetapaadministrativa}" disabled="true" style="width:300px;" label="Descripción Etapa Administrativa"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Estado Etapa Administrativa" for="txtEstadoetapaadministrativa"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadoetapaadministrativa" value="#{etapagestionadministrativa.etapagestionadministrativa.estadoetapaadministrativa}" disabled="true" style="width:150px;" label="Estado Etapa Administrativa"/>
+		</td>
+	</tr>
+
+</table>
+</p:panel>
+</html>

@@ -1,0 +1,635 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{cuadrocomparativofuente.tituloParam} #{cuadrocomparativofuente.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="id" for="txtIdcuadrocomparativofuente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcuadrocomparativofuente" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.idcuadrocomparativofuente}" disabled="false" maxlength="10" style="width:150px;" label="id"/>
+		</td>
+		<td>
+			<p:outputLabel value="PacConsolidado" for="txtIdpacconsolidado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpacconsolidado" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.pacconsolidadoIdpacconsolidado.nroconsolid}" disabled="true" maxlength="10" style="width:150px;" label="PacConsolidado"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_pacconsolidado.init}"  oncomplete="showDialogPF('frmMainIdpacconsolidadoBuscar:diPacconsolidadoBuscar');" update=":frmMainIdpacconsolidadoBuscar:diPacconsolidadoBuscar" style="width:20px;height:20px;" title="Buscar"  disabled="#{cuadrocomparativofuente.esDerivada=='1'?true:false}"/>
+			<p:commandButton icon="ui-icon-close" action="#{cuadrocomparativofuente.resetMainIdpacconsolidado}"  update="txtIdpacconsolidado" style="width:20px;height:20px;" title="Borrar Filtro" immediate="true" disabled="#{cuadrocomparativofuente.esDerivada=='1'?true:false}"/>
+		</td>
+		<td>
+			<p:selectCheckboxMenu id="txtIdcatalogotipofuente" value="#{cuadrocomparativofuente.listaIdcatalogotipofuenteKeys}" filter="true" disabled="false" filterText="Filter" filterMatchMode="startsWith" label="Catalogo Tipofuente">
+				 <f:selectItems  value="#{cuadrocomparativofuente.listaGentablaIdcatalogotipofuente}" var="var" itemLabel ="#{var.vchregdescri}" itemValue ="#{var.vchregcodigo}"/>
+				 <p:ajax  event="change" listener="#{cuadrocomparativofuente.getValuesListenerIdcatalogotipofuente}" update="txtKeyValuesIdcatalogotipofuente" process="@this"/>
+				 <p:ajax  event="toggleSelect" listener="#{cuadrocomparativofuente.handleChangeIdcatalogotipofuente}" update="txtKeyValuesIdcatalogotipofuente,txtIdcatalogotipofuente" process="@this"/>
+			</p:selectCheckboxMenu>
+		</td>
+		<td>
+			<p:inputText  id="txtKeyValuesIdcatalogotipofuente" value="#{cuadrocomparativofuente.valuesIdcatalogotipofuente}" disabled="true" style="width:150px;"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:selectCheckboxMenu id="txtIdcatalogotipobien" value="#{cuadrocomparativofuente.listaIdcatalogotipobienKeys}" filter="true" disabled="false" filterText="Filter" filterMatchMode="startsWith" label="Tipo bien">
+				 <f:selectItems  value="#{cuadrocomparativofuente.listaGentablaIdcatalogotipobien}" var="var" itemLabel ="#{var.vchregdescri}" itemValue ="#{var.vchregcodigo}"/>
+				 <p:ajax  event="change" listener="#{cuadrocomparativofuente.getValuesListenerIdcatalogotipobien}" update="txtKeyValuesIdcatalogotipobien" process="@this"/>
+				 <p:ajax  event="toggleSelect" listener="#{cuadrocomparativofuente.handleChangeIdcatalogotipobien}" update="txtKeyValuesIdcatalogotipobien,txtIdcatalogotipobien" process="@this"/>
+			</p:selectCheckboxMenu>
+		</td>
+		<td>
+			<p:inputText  id="txtKeyValuesIdcatalogotipobien" value="#{cuadrocomparativofuente.valuesIdcatalogotipobien}" disabled="true" style="width:150px;"/>
+		</td>
+		<td>
+			<p:outputLabel value="Proveedor - Desde" for="txtProveedorini"/>
+		</td>
+		<td>
+			<p:inputText id="txtProveedorini" value ="#{cuadrocomparativofuente.cuadrocomparativofuenteB.proveedorini}" maxlength="5" style="width:150px;" label="Proveedor - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="Proveedor - Hasta" for="txtProveedorfin"/>
+		</td>
+		<td>
+			<p:inputText id="txtProveedorfin" value ="#{cuadrocomparativofuente.cuadrocomparativofuenteB.proveedorfin}" maxlength="5" style="width:150px;" label="Proveedor - Hasta"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Ruc Proveedor" for="txtRucproveedor"/>
+		</td>
+		<td>
+			<p:inputText  id="txtRucproveedor" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.rucproveedor}" disabled="false" maxlength="11" style="width:150px;" label="Ruc Proveedor"/>
+		</td>
+		<td>
+			<p:outputLabel value="Nombre Proveedor" for="txtNombreproveedor"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombreproveedor" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.nombreproveedor}" disabled="false" maxlength="150" style="width:150px;" label="Nombre Proveedor"/>
+		</td>
+		<td>
+			<p:outputLabel value="Nombre Contacto" for="txtNombrecontacto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombrecontacto" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.nombrecontacto}" disabled="false" maxlength="50" style="width:150px;" label="Nombre Contacto"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Telefono Proveedor" for="txtTelefonoproveedor"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTelefonoproveedor" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.telefonoproveedor}" disabled="false" maxlength="20" style="width:150px;" label="Telefono Proveedor"/>
+		</td>
+		<td>
+			<p:outputLabel value="Correo Proveedor" for="txtCorreoproveedor"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCorreoproveedor" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.correoproveedor}" disabled="false" maxlength="60" style="width:150px;" label="Correo Proveedor"/>
+		</td>
+		<td>
+			<p:outputLabel value="Entidad Convocante" for="txtEntidadconvocante"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEntidadconvocante" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.entidadconvocante}" disabled="false" maxlength="150" style="width:150px;" label="Entidad Convocante"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Tipo numero proceso" for="txtTiponumeroproceso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTiponumeroproceso" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.tiponumeroproceso}" disabled="false" maxlength="50" style="width:150px;" label="Tipo numero proceso"/>
+		</td>
+		<td>
+			<p:outputLabel value="Fecha Consentimiento Buena Pro - Desde" for="txtFechaconsentimientobuenaproini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechaconsentimientobuenaproini" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.fechaconsentimientobuenaproini}" label="Fecha Consentimiento Buena Pro - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="Fecha Consentimiento Buena Pro - Hasta" for="txtFechaconsentimientobuenaprofin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechaconsentimientobuenaprofin" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.fechaconsentimientobuenaprofin}" label="Fecha Consentimiento Buena Pro - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Marca" for="txtMarca"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMarca" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.marca}" disabled="false" maxlength="100" style="width:150px;" label="Marca"/>
+		</td>
+		<td>
+			<p:outputLabel value="Modelo" for="txtModelo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtModelo" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.modelo}" disabled="false" maxlength="100" style="width:150px;" label="Modelo"/>
+		</td>
+		<td>
+			<p:outputLabel value="Procedencia" for="txtProcedencia"/>
+		</td>
+		<td>
+			<p:inputText  id="txtProcedencia" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.procedencia}" disabled="false" maxlength="100" style="width:150px;" label="Procedencia"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Año Fabricacion" for="txtAniofabricacion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAniofabricacion" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.aniofabricacion}" disabled="false" maxlength="4" style="width:150px;" label="Año Fabricacion"/>
+		</td>
+		<td>
+			<p:outputLabel value="Garantía comercial" for="txtGarantiacomercial"/>
+		</td>
+		<td>
+			<p:inputText  id="txtGarantiacomercial" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.garantiacomercial}" disabled="false" maxlength="100" style="width:150px;" label="Garantía comercial"/>
+		</td>
+		<td>
+			<p:outputLabel value="Plazo de Entrega" for="txtPlazoentrega"/>
+		</td>
+		<td>
+			<p:inputText  id="txtPlazoentrega" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.plazoentrega}" disabled="false" maxlength="10" style="width:150px;" label="Plazo de Entrega"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Forma de pago" for="txtFormapago"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFormapago" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.formapago}" disabled="false" maxlength="100" style="width:150px;" label="Forma de pago"/>
+		</td>
+		<td>
+			<p:selectCheckboxMenu id="txtIdcatalogomonedafuente" value="#{cuadrocomparativofuente.listaIdcatalogomonedafuenteKeys}" filter="true" disabled="false" filterText="Filter" filterMatchMode="startsWith" label="Moneda Fuente">
+				 <f:selectItems  value="#{cuadrocomparativofuente.listaGentablaIdcatalogomonedafuente}" var="var" itemLabel ="#{var.vchregdescri}" itemValue ="#{var.vchregcodigo}"/>
+				 <p:ajax  event="change" listener="#{cuadrocomparativofuente.getValuesListenerIdcatalogomonedafuente}" update="txtKeyValuesIdcatalogomonedafuente" process="@this"/>
+				 <p:ajax  event="toggleSelect" listener="#{cuadrocomparativofuente.handleChangeIdcatalogomonedafuente}" update="txtKeyValuesIdcatalogomonedafuente,txtIdcatalogomonedafuente" process="@this"/>
+			</p:selectCheckboxMenu>
+		</td>
+		<td>
+			<p:inputText  id="txtKeyValuesIdcatalogomonedafuente" value="#{cuadrocomparativofuente.valuesIdcatalogomonedafuente}" disabled="true" style="width:150px;"/>
+		</td>
+		<td>
+			<p:outputLabel value="Precio Unitario Moneda Consignada" for="txtPreciounitariomonedaconsignada"/>
+		</td>
+		<td>
+			<p:inputText  id="txtPreciounitariomonedaconsignada" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.preciounitariomonedaconsignada}" disabled="false" maxlength="100" style="width:150px;" label="Precio Unitario Moneda Consignada"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Tipo de cambio - Desde" for="txtTipocambioini"/>
+		</td>
+		<td>
+			<p:inputText id="txtTipocambioini" value ="#{cuadrocomparativofuente.cuadrocomparativofuenteB.tipocambioini}" maxlength="18" style="width:150px;" label="Tipo de cambio - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="Tipo de cambio - Hasta" for="txtTipocambiofin"/>
+		</td>
+		<td>
+			<p:inputText id="txtTipocambiofin" value ="#{cuadrocomparativofuente.cuadrocomparativofuenteB.tipocambiofin}" maxlength="18" style="width:150px;" label="Tipo de cambio - Hasta"/>
+		</td>
+		<td>
+			<p:outputLabel value="Fecha de solicitud - Desde" for="txtFechasolicitudini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechasolicitudini" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.fechasolicitudini}" label="Fecha de solicitud - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Fecha de solicitud - Hasta" for="txtFechasolicitudfin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechasolicitudfin" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.fechasolicitudfin}" label="Fecha de solicitud - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="Veces Reitero Solicitud" for="txtVecesreiterosolicitud"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVecesreiterosolicitud" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.vecesreiterosolicitud}" disabled="false" maxlength="10" style="width:150px;" label="Veces Reitero Solicitud"/>
+		</td>
+		<td>
+			<p:outputLabel value="Fecha Repecion - Desde" for="txtFecharecepcionini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFecharecepcionini" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.fecharecepcionini}" label="Fecha Repecion - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Fecha Repecion - Hasta" for="txtFecharecepcionfin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFecharecepcionfin" value="#{cuadrocomparativofuente.cuadrocomparativofuenteB.fecharecepcionfin}" label="Fecha Repecion - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="Proveedor dedica Contratación" for="txtProveedordedicacontratacion"/>
+		</td>
+		<td>
+			<p:selectOneMenu id="txtProveedordedicacontratacion" value ="#{cuadrocomparativofuente.cuadrocomparativofuenteB.proveedordedicacontratacion}" label="Proveedor dedica Contratación">
+				<f:selectItem itemLabel="Seleccione..." itemValue=""/>
+				<f:selectItem itemLabel="SI" itemValue="1"/>
+				<f:selectItem itemLabel="NO" itemValue="0"/>
+			</p:selectOneMenu>
+		</td>
+		<td>
+			<p:outputLabel value="Usuario participo RTM" for="txtUsuarioparticiportm"/>
+		</td>
+		<td>
+			<p:selectOneMenu id="txtUsuarioparticiportm" value ="#{cuadrocomparativofuente.cuadrocomparativofuenteB.usuarioparticiportm}" label="Usuario participo RTM">
+				<f:selectItem itemLabel="Seleccione..." itemValue=""/>
+				<f:selectItem itemLabel="SI" itemValue="1"/>
+				<f:selectItem itemLabel="NO" itemValue="0"/>
+			</p:selectOneMenu>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Cumple RTM" for="txtCumplertm"/>
+		</td>
+		<td>
+			<p:selectOneMenu id="txtCumplertm" value ="#{cuadrocomparativofuente.cuadrocomparativofuenteB.cumplertm}" label="Cumple RTM">
+				<f:selectItem itemLabel="Seleccione..." itemValue=""/>
+				<f:selectItem itemLabel="SI" itemValue="1"/>
+				<f:selectItem itemLabel="NO" itemValue="0"/>
+			</p:selectOneMenu>
+		</td>
+		<td>
+			<p:outputLabel value="SeTomoEncuenta" for="txtSetomoencuenta"/>
+		</td>
+		<td>
+			<p:selectOneMenu id="txtSetomoencuenta" value ="#{cuadrocomparativofuente.cuadrocomparativofuenteB.setomoencuenta}" label="SeTomoEncuenta">
+				<f:selectItem itemLabel="Seleccione..." itemValue=""/>
+				<f:selectItem itemLabel="SI" itemValue="1"/>
+				<f:selectItem itemLabel="NO" itemValue="0"/>
+			</p:selectOneMenu>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{cuadrocomparativofuente.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{cuadrocomparativofuente.buscar}"  update="tblListaCuadrocomparativofuente,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{cuadrocomparativofuente.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{cuadrocomparativofuente.irRegistrar}"  update="hidStatus,:frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar" oncomplete="showDialog('form:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');" icon="ui-icon-document"  rendered="#{cuadrocomparativofuente.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{cuadrocomparativofuente.irEditar}"  update="hidStatus,:frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar" oncomplete="showDialog('form:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');" icon="ui-icon-pencil" disabled="#{!cuadrocomparativofuente.esSeleccionado}"  rendered="#{cuadrocomparativofuente.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{cuadrocomparativofuente.irDetalle}"  update="hidStatus,:frmCuadrocomparativofuenteDetalle:diCuadrocomparativofuenteDetalle" oncomplete="showDialog('form:hidStatus','frmCuadrocomparativofuenteDetalle:diCuadrocomparativofuenteDetalle');" icon="ui-icon-zoomin" disabled="#{!cuadrocomparativofuente.esSeleccionado}"   rendered="#{cuadrocomparativofuente.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{cuadrocomparativofuente.irAnular}"  update="hidStatus,:frmCuadrocomparativofuenteAnular:diCuadrocomparativofuenteAnular" oncomplete="showDialog('form:hidStatus','frmCuadrocomparativofuenteAnular:diCuadrocomparativofuenteAnular');" icon="ui-icon-circle-minus" disabled="#{!cuadrocomparativofuente.esSeleccionado}"   rendered="#{cuadrocomparativofuente.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{cuadrocomparativofuente.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!cuadrocomparativofuente.esSeleccionado}"   rendered="#{cuadrocomparativofuente.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{cuadrocomparativofuente.irImprimir}"  update="hidStatus,:frmCuadrocomparativofuenteImprimir:diCuadrocomparativofuenteImprimir" oncomplete="showDialog('form:hidStatus','frmCuadrocomparativofuenteImprimir:diCuadrocomparativofuenteImprimir');" icon="ui-icon-print"   rendered="#{cuadrocomparativofuente.renderButton('btnImprimir')}"  />
+				<p:spacer width="20"/>
+				<p:commandButton value="CuadroComparativoItem" action="#{cuadrocomparativofuente.irCuadrocomparativoitem}" title="CuadroComparativoItem" ajax="false" disabled="#{!cuadrocomparativofuente.esSeleccionado}"  rendered="#{cuadrocomparativofuente.renderButton('btnCuadrocomparativoitem')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="#{pacconsolidado.load}" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{cuadrocomparativofuente.esDerivada=='1'}"/>
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{cuadrocomparativofuente.esDerivada=='0'}"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaCuadrocomparativofuente">
+	<p:menuitem value="Editar" action="#{cuadrocomparativofuente.irEditar}"   update="hidStatus,:frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar"  oncomplete="showDialog('form:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');"  icon="ui-icon-pencil" rendered="#{cuadrocomparativofuente.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{cuadrocomparativofuente.irDetalle}"   update="hidStatus,:frmCuadrocomparativofuenteDetalle:diCuadrocomparativofuenteDetalle"  oncomplete="showDialog('form:hidStatus','frmCuadrocomparativofuenteDetalle:diCuadrocomparativofuenteDetalle');"  icon="ui-icon-zoomin" rendered="#{cuadrocomparativofuente.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{cuadrocomparativofuente.irAnular}"   update="hidStatus,:frmCuadrocomparativofuenteAnular:diCuadrocomparativofuenteAnular"  oncomplete="showDialog('form:hidStatus','frmCuadrocomparativofuenteAnular:diCuadrocomparativofuenteAnular');"  icon="ui-icon-circle-minus" rendered="#{cuadrocomparativofuente.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{cuadrocomparativofuente.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{cuadrocomparativofuente.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaCuadrocomparativofuente" value="#{cuadrocomparativofuente.listaCuadrocomparativofuente}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaCuadrocomparativofuente" selection="#{cuadrocomparativofuente.selectedCuadrocomparativofuente}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(cuadrocomparativofuente.listaCuadrocomparativofuente)}"
+	selectionMode="single" rowKey="#{var.idcuadrocomparativofuente}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{cuadrocomparativofuente.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.idcuadrocomparativofuente}">
+			<f:facet name="header">
+				<h:outputText value="id" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idcuadrocomparativofuente}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.pacconsolidadoIdpacconsolidado.nroconsolid}">
+			<f:facet name="header">
+				<h:outputText value="PacConsolidado" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.pacconsolidadoIdpacconsolidado.nroconsolid}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.gentablaIdcatalogotipofuente.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="Catalogo Tipofuente" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.gentablaIdcatalogotipofuente.vchregdescri}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.gentablaIdcatalogotipobien.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="Tipo bien" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.gentablaIdcatalogotipobien.vchregdescri}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.proveedor}">
+			<f:facet name="header">
+				<h:outputText value="Proveedor" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.proveedor}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.rucproveedor}">
+			<f:facet name="header">
+				<h:outputText value="Ruc Proveedor" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.rucproveedor}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nombreproveedor}">
+			<f:facet name="header">
+				<h:outputText value="Nombre Proveedor" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nombreproveedor}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nombrecontacto}">
+			<f:facet name="header">
+				<h:outputText value="Nombre Contacto" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nombrecontacto}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.telefonoproveedor}">
+			<f:facet name="header">
+				<h:outputText value="Telefono Proveedor" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.telefonoproveedor}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.correoproveedor}">
+			<f:facet name="header">
+				<h:outputText value="Correo Proveedor" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.correoproveedor}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.entidadconvocante}">
+			<f:facet name="header">
+				<h:outputText value="Entidad Convocante" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.entidadconvocante}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.tiponumeroproceso}">
+			<f:facet name="header">
+				<h:outputText value="Tipo numero proceso" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.tiponumeroproceso}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechaconsentimientobuenapro}">
+			<f:facet name="header">
+				<h:outputText value="Fecha Consentimiento Buena Pro" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechaconsentimientobuenapro}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.marca}">
+			<f:facet name="header">
+				<h:outputText value="Marca" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.marca}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.modelo}">
+			<f:facet name="header">
+				<h:outputText value="Modelo" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.modelo}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.procedencia}">
+			<f:facet name="header">
+				<h:outputText value="Procedencia" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.procedencia}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.aniofabricacion}">
+			<f:facet name="header">
+				<h:outputText value="Año Fabricacion" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.aniofabricacion}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.garantiacomercial}">
+			<f:facet name="header">
+				<h:outputText value="Garantía comercial" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.garantiacomercial}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.plazoentrega}">
+			<f:facet name="header">
+				<h:outputText value="Plazo de Entrega" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.plazoentrega}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.formapago}">
+			<f:facet name="header">
+				<h:outputText value="Forma de pago" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.formapago}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.gentablaIdcatalogomonedafuente.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="Moneda Fuente" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.gentablaIdcatalogomonedafuente.vchregdescri}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.preciounitariomonedaconsignada}">
+			<f:facet name="header">
+				<h:outputText value="Precio Unitario Moneda Consignada" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.preciounitariomonedaconsignada}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.tipocambio}">
+			<f:facet name="header">
+				<h:outputText value="Tipo de cambio" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.tipocambio}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechasolicitud}">
+			<f:facet name="header">
+				<h:outputText value="Fecha de solicitud" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechasolicitud}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.vecesreiterosolicitud}">
+			<f:facet name="header">
+				<h:outputText value="Veces Reitero Solicitud" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.vecesreiterosolicitud}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fecharecepcion}">
+			<f:facet name="header">
+				<h:outputText value="Fecha Repecion" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fecharecepcion}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.proveedordedicacontratacion}">
+			<f:facet name="header">
+				<h:outputText value="Proveedor dedica Contratación" styleClass="c_center"/>
+			</f:facet>
+			<h:graphicImage url="/resources/img/check.png" width="10" height="10" rendered="#{var.proveedordedicacontratacion=='1'}"/>		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.usuarioparticiportm}">
+			<f:facet name="header">
+				<h:outputText value="Usuario participo RTM" styleClass="c_center"/>
+			</f:facet>
+			<h:graphicImage url="/resources/img/check.png" width="10" height="10" rendered="#{var.usuarioparticiportm=='1'}"/>		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.cumplertm}">
+			<f:facet name="header">
+				<h:outputText value="Cumple RTM" styleClass="c_center"/>
+			</f:facet>
+			<h:graphicImage url="/resources/img/check.png" width="10" height="10" rendered="#{var.cumplertm=='1'}"/>		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.setomoencuenta}">
+			<f:facet name="header">
+				<h:outputText value="SeTomoEncuenta" styleClass="c_center"/>
+			</f:facet>
+			<h:graphicImage url="/resources/img/check.png" width="10" height="10" rendered="#{var.setomoencuenta=='1'}"/>		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{cuadrocomparativofuente.eliminar}"  update=":form:tblListaCuadrocomparativofuente,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmCuadrocomparativofuenteImprimir">
+	<p:dialog id="diCuadrocomparativofuenteImprimir" header="#{cuadrocomparativofuente.titulo}" widgetVar="diCuadrocomparativofuenteImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaCuadrocomparativofuente" fileName="datosCuadrocomparativofuente" postProcessor="#{cuadrocomparativofuente.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaCuadrocomparativofuente" fileName="datos" preProcessor="#{cuadrocomparativofuente.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmCuadrocomparativofuenteRegistrar">
+	<p:dialog id="diCuadrocomparativofuenteRegistrar" header="#{cuadrocomparativofuente.titulo}" widgetVar="diCuadrocomparativofuenteRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsCuadrocomparativofuenteR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/cuadrocomparativofuente/component/c_cuadrocomparativofuenteRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{cuadrocomparativofuente.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{cuadrocomparativofuente.aceptar}" update="hidStatus,:form:tblListaCuadrocomparativofuente,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmCuadrocomparativofuenteRegistrar:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmCuadrocomparativofuenteDetalle">
+	<p:dialog id="diCuadrocomparativofuenteDetalle" header="#{cuadrocomparativofuente.titulo}" widgetVar="diCuadrocomparativofuenteDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/cuadrocomparativofuente/component/c_cuadrocomparativofuenteDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmCuadrocomparativofuenteDetalle:diCuadrocomparativofuenteDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmCuadrocomparativofuenteAnular">
+	<p:dialog id="diCuadrocomparativofuenteAnular" header="#{cuadrocomparativofuente.titulo}" widgetVar="diCuadrocomparativofuenteAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsCuadrocomparativofuenteA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/cuadrocomparativofuente/component/c_cuadrocomparativofuenteDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{cuadrocomparativofuente.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{cuadrocomparativofuente.anular}" update="hidStatus,:form:tblListaCuadrocomparativofuente,:form:growl,panelDetailC" oncomplete="hideDialog('frmCuadrocomparativofuenteAnular:hidStatus','frmCuadrocomparativofuenteAnular:diCuadrocomparativofuenteAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmCuadrocomparativofuenteAnular:diCuadrocomparativofuenteAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMainIdpacconsolidadoBuscar">
+	<p:dialog id="diPacconsolidadoBuscar" header="Pac Consolidacion » Buscar" widgetVar="diPacconsolidadoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Pacconsolidado" autoUpdate="true" closable="true"/>
+	 <cc:cc_pacconsolidadoBuscar
+	 ajaxEventListener="#{cuadrocomparativofuente.loadMainIdpacconsolidado}"
+	 actionOncomplete="hideDialogPF('frmMainIdpacconsolidadoBuscar:diPacconsolidadoBuscar');"
+	 actionUpdate=":form:txtIdpacconsolidado"/>
+	</p:dialog>
+</h:form>
+
+
+
+	<!-- Derived Table Main (cuadrocomparativoitem)  -->
+<h:form id="frmCuadrocomparativoitemDetalle">
+	<p:dialog id="diCuadrocomparativoitemDetalle" header="#{cuadrocomparativoitem.titulo}" widgetVar="diCuadrocomparativoitemDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/cuadrocomparativoitem/component/c_cuadrocomparativoitemDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmCuadrocomparativoitemDetalle:diCuadrocomparativoitemDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+</ui:define>
+</ui:composition>

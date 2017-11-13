@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pe.com.sisabas.persistence.DetallecertificadopresupuestalMapper" >
+
+	<resultMap id="BasicResultMap" type="pe.com.sisabas.be.Detallecertificadopresupuestal">
+	<result column="A1_IDDETALLECERTIFICADOPRESUPUESTAL" property="iddetallecertificadopresupuestal" jdbcType="INTEGER" />
+	<result column="A1_IDCERTIFICADOPRESUPUESTAL" property="idcertificadopresupuestal" jdbcType="INTEGER" />
+	<result column="A1_ANIO" property="anio" jdbcType="DECIMAL" />
+	<result column="A1_SECEJEC" property="secejec" jdbcType="DECIMAL" />
+	<result column="A1_NROCERTIFICA" property="nrocertifica" jdbcType="DECIMAL" />
+	<result column="A1_FUENTEFINANCIMIENTO" property="fuentefinancimiento" jdbcType="VARCHAR" />
+	<result column="A1_SECUENCIA" property="secuencia" jdbcType="VARCHAR" />
+	<result column="A1_CLASIFICADOR" property="clasificador" jdbcType="VARCHAR" />
+	<result column="A1_CODIGOCENTROCOSTO" property="codigocentrocosto" jdbcType="VARCHAR" />
+	<result column="A1_MONTONACIONAL" property="montonacional" jdbcType="DECIMAL" />
+	<result column="A1_FECHACREACIONAUDITORIA" property="fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOCREACIONAUDITORIA" property="usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_FECHAMODIFICACIONAUDITORIA" property="fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOMODIFICACIONAUDITORIA" property="usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<resultMap id="FullResultMap" type="pe.com.sisabas.be.Detallecertificadopresupuestal">
+	<result column="A1_IDDETALLECERTIFICADOPRESUPUESTAL" property="iddetallecertificadopresupuestal" jdbcType="INTEGER" />
+	<result column="A1_IDCERTIFICADOPRESUPUESTAL" property="idcertificadopresupuestal" jdbcType="INTEGER" />
+	<result column="A1_ANIO" property="anio" jdbcType="DECIMAL" />
+	<result column="A1_SECEJEC" property="secejec" jdbcType="DECIMAL" />
+	<result column="A1_NROCERTIFICA" property="nrocertifica" jdbcType="DECIMAL" />
+	<result column="A1_FUENTEFINANCIMIENTO" property="fuentefinancimiento" jdbcType="VARCHAR" />
+	<result column="A1_SECUENCIA" property="secuencia" jdbcType="VARCHAR" />
+	<result column="A1_CLASIFICADOR" property="clasificador" jdbcType="VARCHAR" />
+	<result column="A1_CODIGOCENTROCOSTO" property="codigocentrocosto" jdbcType="VARCHAR" />
+	<result column="A1_MONTONACIONAL" property="montonacional" jdbcType="DECIMAL" />
+	<result column="A1_FECHACREACIONAUDITORIA" property="fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOCREACIONAUDITORIA" property="usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_FECHAMODIFICACIONAUDITORIA" property="fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOMODIFICACIONAUDITORIA" property="usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	<result column="A3_IDCERTIFICADOPRESUPUESTAL" property="certificadopresupuestalIdcertificadopresupuestal.idcertificadopresupuestal" jdbcType="INTEGER" />
+	<result column="A3_IDPACCONSOLIDADO" property="certificadopresupuestalIdcertificadopresupuestal.idpacconsolidado" jdbcType="INTEGER" />
+	<result column="A3_ANIO" property="certificadopresupuestalIdcertificadopresupuestal.anio" jdbcType="DECIMAL" />
+	<result column="A3_SECEJEC" property="certificadopresupuestalIdcertificadopresupuestal.secejec" jdbcType="DECIMAL" />
+	<result column="A3_NROCERTIFICA" property="certificadopresupuestalIdcertificadopresupuestal.nrocertifica" jdbcType="DECIMAL" />
+	<result column="A3_FECHACERTIFICA" property="certificadopresupuestalIdcertificadopresupuestal.fechacertifica" jdbcType="TIMESTAMP" />
+	<result column="A3_FECHAAPROBACION" property="certificadopresupuestalIdcertificadopresupuestal.fechaaprobacion" jdbcType="TIMESTAMP" />
+	<result column="A3_MONTONACIONAL" property="certificadopresupuestalIdcertificadopresupuestal.montonacional" jdbcType="DECIMAL" />
+	<result column="A3_MESPROCESO" property="certificadopresupuestalIdcertificadopresupuestal.mesproceso" jdbcType="VARCHAR" />
+	<result column="A3_ESTADOCERTIFICA" property="certificadopresupuestalIdcertificadopresupuestal.estadocertifica" jdbcType="VARCHAR" />
+	<result column="A3_FECHACREACIONAUDITORIA" property="certificadopresupuestalIdcertificadopresupuestal.fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A3_USUARIOCREACIONAUDITORIA" property="certificadopresupuestalIdcertificadopresupuestal.usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A3_FECHAMODIFICACIONAUDITORIA" property="certificadopresupuestalIdcertificadopresupuestal.fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A3_USUARIOMODIFICACIONAUDITORIA" property="certificadopresupuestalIdcertificadopresupuestal.usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A3_EQUIPOAUDITORIA" property="certificadopresupuestalIdcertificadopresupuestal.equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A3_PROGRAMAAUDITORIA" property="certificadopresupuestalIdcertificadopresupuestal.programaauditoria" jdbcType="VARCHAR" />
+	<result column="A3_ESTADOAUDITORIA" property="certificadopresupuestalIdcertificadopresupuestal.estadoauditoria" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<sql id="Basic_Column_List">
+	A1.IDDETALLECERTIFICADOPRESUPUESTAL as A1_IDDETALLECERTIFICADOPRESUPUESTAL, A1.IDCERTIFICADOPRESUPUESTAL as A1_IDCERTIFICADOPRESUPUESTAL, A1.ANIO as A1_ANIO, A1.SECEJEC as A1_SECEJEC, 
+	A1.NROCERTIFICA as A1_NROCERTIFICA, A1.FUENTEFINANCIMIENTO as A1_FUENTEFINANCIMIENTO, A1.SECUENCIA as A1_SECUENCIA, A1.CLASIFICADOR as A1_CLASIFICADOR, 
+	A1.CODIGOCENTROCOSTO as A1_CODIGOCENTROCOSTO, A1.MONTONACIONAL as A1_MONTONACIONAL, A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, 
+	A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, 
+	A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA 
+	</sql>
+
+
+	<sql id="Full_Column_List">
+	A1.IDDETALLECERTIFICADOPRESUPUESTAL as A1_IDDETALLECERTIFICADOPRESUPUESTAL, A1.IDCERTIFICADOPRESUPUESTAL as A1_IDCERTIFICADOPRESUPUESTAL, A1.ANIO as A1_ANIO, A1.SECEJEC as A1_SECEJEC, 
+	A1.NROCERTIFICA as A1_NROCERTIFICA, A1.FUENTEFINANCIMIENTO as A1_FUENTEFINANCIMIENTO, A1.SECUENCIA as A1_SECUENCIA, A1.CLASIFICADOR as A1_CLASIFICADOR, 
+	A1.CODIGOCENTROCOSTO as A1_CODIGOCENTROCOSTO, A1.MONTONACIONAL as A1_MONTONACIONAL, A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, 
+	A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, 
+	A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA, 
+	A3.IDCERTIFICADOPRESUPUESTAL as A3_IDCERTIFICADOPRESUPUESTAL, A3.IDPACCONSOLIDADO as A3_IDPACCONSOLIDADO, A3.ANIO as A3_ANIO, A3.SECEJEC as A3_SECEJEC, 
+	A3.NROCERTIFICA as A3_NROCERTIFICA, A3.FECHACERTIFICA as A3_FECHACERTIFICA, A3.FECHAAPROBACION as A3_FECHAAPROBACION, A3.MONTONACIONAL as A3_MONTONACIONAL, 
+	A3.MESPROCESO as A3_MESPROCESO, A3.ESTADOCERTIFICA as A3_ESTADOCERTIFICA, A3.FECHACREACIONAUDITORIA as A3_FECHACREACIONAUDITORIA, A3.USUARIOCREACIONAUDITORIA as A3_USUARIOCREACIONAUDITORIA, 
+	A3.FECHAMODIFICACIONAUDITORIA as A3_FECHAMODIFICACIONAUDITORIA, A3.USUARIOMODIFICACIONAUDITORIA as A3_USUARIOMODIFICACIONAUDITORIA, A3.EQUIPOAUDITORIA as A3_EQUIPOAUDITORIA, A3.PROGRAMAAUDITORIA as A3_PROGRAMAAUDITORIA, 
+	A3.ESTADOAUDITORIA as A3_ESTADOAUDITORIA 
+	</sql>
+
+
+
+	<select id="selectByPrimaryKeyBasic" resultMap="BasicResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.DetalleCertificadoPresupuestal A1
+	
+	where A1.IdDetalleCertificadoPresupuestal = #{iddetallecertificadopresupuestal,jdbcType=INTEGER}
+</select>
+
+
+
+	<select id="selectByPrimaryKeyBasicActive" resultMap="BasicResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.DetalleCertificadoPresupuestal A1
+	
+	where A1.IdDetalleCertificadoPresupuestal = #{iddetallecertificadopresupuestal,jdbcType=INTEGER}
+	and A1.estadoauditoria='1'
+	</select>
+
+
+
+	<select id="selectByPrimaryKeyFull" resultMap="FullResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.DetalleCertificadoPresupuestal A1
+	
+	LEFT JOIN abas.CertificadoPresupuestal A3 ON A1.IdCertificadoPresupuestal = A3.IdCertificadoPresupuestal
+	where A1.IdDetalleCertificadoPresupuestal = #{iddetallecertificadopresupuestal,jdbcType=INTEGER}
+</select>
+
+
+
+	<select id="selectByPrimaryKeyFullActive" resultMap="FullResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.DetalleCertificadoPresupuestal A1
+	
+	LEFT JOIN abas.CertificadoPresupuestal A3 ON A1.IdCertificadoPresupuestal = A3.IdCertificadoPresupuestal
+	where A1.IdDetalleCertificadoPresupuestal = #{iddetallecertificadopresupuestal,jdbcType=INTEGER}
+	and A1.estadoauditoria='1'
+	</select>
+
+
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	delete from abas.DetalleCertificadoPresupuestal 
+	where IdDetalleCertificadoPresupuestal = #{iddetallecertificadopresupuestal,jdbcType=INTEGER}
+	</delete>
+
+
+
+
+
+	<insert id="insert" parameterType="pe.com.sisabas.be.Detallecertificadopresupuestal" >
+	insert into abas.DetalleCertificadoPresupuestal (
+	IDDETALLECERTIFICADOPRESUPUESTAL, IDCERTIFICADOPRESUPUESTAL, ANIO, SECEJEC, 
+	NROCERTIFICA, FUENTEFINANCIMIENTO, SECUENCIA, CLASIFICADOR, 
+	CODIGOCENTROCOSTO, MONTONACIONAL, FECHACREACIONAUDITORIA, USUARIOCREACIONAUDITORIA, 
+	FECHAMODIFICACIONAUDITORIA, USUARIOMODIFICACIONAUDITORIA, EQUIPOAUDITORIA, PROGRAMAAUDITORIA, 
+	ESTADOAUDITORIA ) 
+	VALUES (
+	#{iddetallecertificadopresupuestal,jdbcType=INTEGER}, #{idcertificadopresupuestal,jdbcType=INTEGER}, #{anio,jdbcType=DECIMAL}, #{secejec,jdbcType=DECIMAL}, 
+	#{nrocertifica,jdbcType=DECIMAL}, #{fuentefinancimiento,jdbcType=VARCHAR}, #{secuencia,jdbcType=VARCHAR}, #{clasificador,jdbcType=VARCHAR}, 
+	#{codigocentrocosto,jdbcType=VARCHAR}, #{montonacional,jdbcType=DECIMAL}, #{fechacreacionauditoria,jdbcType=TIMESTAMP}, #{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	#{fechamodificacionauditoria,jdbcType=TIMESTAMP}, #{usuariomodificacionauditoria,jdbcType=VARCHAR}, #{equipoauditoria,jdbcType=VARCHAR}, #{programaauditoria,jdbcType=VARCHAR}, 
+	#{estadoauditoria,jdbcType=VARCHAR} ) 
+	</insert>
+
+
+
+	<insert id="insertSelective" parameterType="pe.com.sisabas.be.Detallecertificadopresupuestal" >
+	insert into abas.DetalleCertificadoPresupuestal 
+	<trim prefix="(" suffix=")" suffixOverrides="," >
+	<if test="iddetallecertificadopresupuestal != null" >
+		IdDetalleCertificadoPresupuestal,
+	</if>
+	<if test="idcertificadopresupuestal != null" >
+		IdCertificadoPresupuestal,
+	</if>
+	<if test="anio != null" >
+		Anio,
+	</if>
+	<if test="secejec != null" >
+		SecEjec,
+	</if>
+	<if test="nrocertifica != null" >
+		NroCertifica,
+	</if>
+	<if test="fuentefinancimiento != null" >
+		FuenteFinancimiento,
+	</if>
+	<if test="secuencia != null" >
+		Secuencia,
+	</if>
+	<if test="clasificador != null" >
+		Clasificador,
+	</if>
+	<if test="codigocentrocosto != null" >
+		CodigoCentroCosto,
+	</if>
+	<if test="montonacional != null" >
+		MontoNacional,
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		FechaCreacionAuditoria,
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		UsuarioCreacionAuditoria,
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		FechaModificacionAuditoria,
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		UsuarioModificacionAuditoria,
+	</if>
+	<if test="equipoauditoria != null" >
+		EquipoAuditoria,
+	</if>
+	<if test="programaauditoria != null" >
+		ProgramaAuditoria,
+	</if>
+	<if test="estadoauditoria != null" >
+		EstadoAuditoria,
+	</if>
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides="," >
+	<if test="iddetallecertificadopresupuestal != null" >
+		#{iddetallecertificadopresupuestal,jdbcType=INTEGER}, 
+	</if>
+	<if test="idcertificadopresupuestal != null" >
+		#{idcertificadopresupuestal,jdbcType=INTEGER}, 
+	</if>
+	<if test="anio != null" >
+		#{anio,jdbcType=DECIMAL}, 
+	</if>
+	<if test="secejec != null" >
+		#{secejec,jdbcType=DECIMAL}, 
+	</if>
+	<if test="nrocertifica != null" >
+		#{nrocertifica,jdbcType=DECIMAL}, 
+	</if>
+	<if test="fuentefinancimiento != null" >
+		#{fuentefinancimiento,jdbcType=VARCHAR}, 
+	</if>
+	<if test="secuencia != null" >
+		#{secuencia,jdbcType=VARCHAR}, 
+	</if>
+	<if test="clasificador != null" >
+		#{clasificador,jdbcType=VARCHAR}, 
+	</if>
+	<if test="codigocentrocosto != null" >
+		#{codigocentrocosto,jdbcType=VARCHAR}, 
+	</if>
+	<if test="montonacional != null" >
+		#{montonacional,jdbcType=DECIMAL}, 
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		#{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		#{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		#{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		#{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="equipoauditoria != null" >
+		#{equipoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="programaauditoria != null" >
+		#{programaauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoauditoria != null" >
+		#{estadoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	</trim>
+	</insert>
+
+
+
+	<update id="updateByPrimaryKey" parameterType="pe.com.sisabas.be.Detallecertificadopresupuestal" >
+	update abas.DetalleCertificadoPresupuestal 
+	set 
+	IDDETALLECERTIFICADOPRESUPUESTAL = #{iddetallecertificadopresupuestal,jdbcType=INTEGER}, IDCERTIFICADOPRESUPUESTAL = #{idcertificadopresupuestal,jdbcType=INTEGER}, 
+	ANIO = #{anio,jdbcType=DECIMAL}, SECEJEC = #{secejec,jdbcType=DECIMAL}, 
+	NROCERTIFICA = #{nrocertifica,jdbcType=DECIMAL}, FUENTEFINANCIMIENTO = #{fuentefinancimiento,jdbcType=VARCHAR}, 
+	SECUENCIA = #{secuencia,jdbcType=VARCHAR}, CLASIFICADOR = #{clasificador,jdbcType=VARCHAR}, 
+	CODIGOCENTROCOSTO = #{codigocentrocosto,jdbcType=VARCHAR}, MONTONACIONAL = #{montonacional,jdbcType=DECIMAL}, 
+	FECHACREACIONAUDITORIA = #{fechacreacionauditoria,jdbcType=TIMESTAMP}, USUARIOCREACIONAUDITORIA = #{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	FECHAMODIFICACIONAUDITORIA = #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, USUARIOMODIFICACIONAUDITORIA = #{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, PROGRAMAAUDITORIA = #{programaauditoria,jdbcType=VARCHAR}, 
+	ESTADOAUDITORIA = #{estadoauditoria,jdbcType=VARCHAR} 
+	where IdDetalleCertificadoPresupuestal = #{iddetallecertificadopresupuestal,jdbcType=INTEGER}
+	</update>
+
+
+
+	<update id="updateByPrimaryKeySelective" parameterType="pe.com.sisabas.be.Detallecertificadopresupuestal" >
+	update abas.DetalleCertificadoPresupuestal 
+	<set>
+	<if test="iddetallecertificadopresupuestal != null" >
+		IDDETALLECERTIFICADOPRESUPUESTAL = #{iddetallecertificadopresupuestal,jdbcType=INTEGER}, 
+	</if>
+	<if test="idcertificadopresupuestal != null" >
+		IDCERTIFICADOPRESUPUESTAL = #{idcertificadopresupuestal,jdbcType=INTEGER}, 
+	</if>
+	<if test="anio != null" >
+		ANIO = #{anio,jdbcType=DECIMAL}, 
+	</if>
+	<if test="secejec != null" >
+		SECEJEC = #{secejec,jdbcType=DECIMAL}, 
+	</if>
+	<if test="nrocertifica != null" >
+		NROCERTIFICA = #{nrocertifica,jdbcType=DECIMAL}, 
+	</if>
+	<if test="fuentefinancimiento != null" >
+		FUENTEFINANCIMIENTO = #{fuentefinancimiento,jdbcType=VARCHAR}, 
+	</if>
+	<if test="secuencia != null" >
+		SECUENCIA = #{secuencia,jdbcType=VARCHAR}, 
+	</if>
+	<if test="clasificador != null" >
+		CLASIFICADOR = #{clasificador,jdbcType=VARCHAR}, 
+	</if>
+	<if test="codigocentrocosto != null" >
+		CODIGOCENTROCOSTO = #{codigocentrocosto,jdbcType=VARCHAR}, 
+	</if>
+	<if test="montonacional != null" >
+		MONTONACIONAL = #{montonacional,jdbcType=DECIMAL}, 
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		FECHACREACIONAUDITORIA = #{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		USUARIOCREACIONAUDITORIA = #{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		FECHAMODIFICACIONAUDITORIA = #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		USUARIOMODIFICACIONAUDITORIA = #{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="equipoauditoria != null" >
+		EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="programaauditoria != null" >
+		PROGRAMAAUDITORIA = #{programaauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoauditoria != null" >
+		ESTADOAUDITORIA = #{estadoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	</set>
+
+	where IdDetalleCertificadoPresupuestal = #{iddetallecertificadopresupuestal,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="selectDynamicBasic" resultMap="BasicResultMap"  parameterType="pe.com.sisabas.be.Detallecertificadopresupuestal" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.DetalleCertificadoPresupuestal A1
+	<where>
+		<if test="iddetallecertificadopresupuestal != null" >
+			 AND A1.IDDETALLECERTIFICADOPRESUPUESTAL = #{iddetallecertificadopresupuestal,jdbcType=INTEGER} 
+		</if>
+		<if test="idcertificadopresupuestal != null" >
+			 AND A1.IDCERTIFICADOPRESUPUESTAL = #{idcertificadopresupuestal,jdbcType=INTEGER} 
+		</if>
+		<if test="anioini != null" >
+			 AND A1.ANIO <![CDATA[ >= ]]> #{anioini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="aniofin != null" >
+			 AND A1.ANIO <![CDATA[ <= ]]>  #{aniofin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="secejecini != null" >
+			 AND A1.SECEJEC <![CDATA[ >= ]]> #{secejecini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="secejecfin != null" >
+			 AND A1.SECEJEC <![CDATA[ <= ]]>  #{secejecfin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="nrocertificaini != null" >
+			 AND A1.NROCERTIFICA <![CDATA[ >= ]]> #{nrocertificaini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="nrocertificafin != null" >
+			 AND A1.NROCERTIFICA <![CDATA[ <= ]]>  #{nrocertificafin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="fuentefinancimiento != null" >
+			 AND A1.FUENTEFINANCIMIENTO LIKE ('%' + #{fuentefinancimiento,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="secuencia != null" >
+			 AND A1.SECUENCIA LIKE ('%' + #{secuencia,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="clasificador != null" >
+			 AND A1.CLASIFICADOR LIKE ('%' + #{clasificador,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="codigocentrocosto != null" >
+			 AND A1.CODIGOCENTROCOSTO LIKE ('%' + #{codigocentrocosto,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="montonacionalini != null" >
+			 AND A1.MONTONACIONAL <![CDATA[ >= ]]> #{montonacionalini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="montonacionalfin != null" >
+			 AND A1.MONTONACIONAL <![CDATA[ <= ]]>  #{montonacionalfin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="fechacreacionauditoriaini != null" >
+			 AND  (A1.FECHACREACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechacreacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechacreacionauditoriafin != null" >
+			 AND (A1.FECHACREACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechacreacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariocreacionauditoria != null" >
+			 AND A1.USUARIOCREACIONAUDITORIA LIKE ('%' + #{usuariocreacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechamodificacionauditoriaini != null" >
+			 AND  (A1.FECHAMODIFICACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechamodificacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechamodificacionauditoriafin != null" >
+			 AND (A1.FECHAMODIFICACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechamodificacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariomodificacionauditoria != null" >
+			 AND A1.USUARIOMODIFICACIONAUDITORIA LIKE ('%' + #{usuariomodificacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="equipoauditoria != null" >
+			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="programaauditoria != null" >
+			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoauditoria != null" >
+			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+
+		<if test="listaIdcertificadopresupuestalInKeys != null" >
+			AND A1.IDCERTIFICADOPRESUPUESTAL IN
+			<foreach collection="listaIdcertificadopresupuestalInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+	</where>
+
+	<if test="ordenListaCampos != null" >
+		 ORDER BY 
+		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+		<if test="ordenTipo != null" >
+			 ${ordenTipo} 
+		</if>
+	</if>
+
+	<if test="cantidadRegistros != null" >
+
+	</if>
+	</select>
+
+
+	<select id="selectDynamicFull" resultMap="FullResultMap"  parameterType="pe.com.sisabas.be.Detallecertificadopresupuestal" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.DetalleCertificadoPresupuestal A1
+	LEFT JOIN abas.CertificadoPresupuestal A3 ON A1.IdCertificadoPresupuestal = A3.IdCertificadoPresupuestal
+	<where>
+		<if test="iddetallecertificadopresupuestal != null" >
+			 AND A1.IDDETALLECERTIFICADOPRESUPUESTAL = #{iddetallecertificadopresupuestal,jdbcType=INTEGER} 
+		</if>
+		<if test="idcertificadopresupuestal != null" >
+			 AND A1.IDCERTIFICADOPRESUPUESTAL = #{idcertificadopresupuestal,jdbcType=INTEGER} 
+		</if>
+		<if test="anioini != null" >
+			 AND A1.ANIO <![CDATA[ >= ]]> #{anioini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="aniofin != null" >
+			 AND A1.ANIO <![CDATA[ <= ]]>  #{aniofin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="secejecini != null" >
+			 AND A1.SECEJEC <![CDATA[ >= ]]> #{secejecini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="secejecfin != null" >
+			 AND A1.SECEJEC <![CDATA[ <= ]]>  #{secejecfin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="nrocertificaini != null" >
+			 AND A1.NROCERTIFICA <![CDATA[ >= ]]> #{nrocertificaini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="nrocertificafin != null" >
+			 AND A1.NROCERTIFICA <![CDATA[ <= ]]>  #{nrocertificafin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="fuentefinancimiento != null" >
+			 AND A1.FUENTEFINANCIMIENTO LIKE ('%' + #{fuentefinancimiento,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="secuencia != null" >
+			 AND A1.SECUENCIA LIKE ('%' + #{secuencia,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="clasificador != null" >
+			 AND A1.CLASIFICADOR LIKE ('%' + #{clasificador,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="codigocentrocosto != null" >
+			 AND A1.CODIGOCENTROCOSTO LIKE ('%' + #{codigocentrocosto,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="montonacionalini != null" >
+			 AND A1.MONTONACIONAL <![CDATA[ >= ]]> #{montonacionalini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="montonacionalfin != null" >
+			 AND A1.MONTONACIONAL <![CDATA[ <= ]]>  #{montonacionalfin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="fechacreacionauditoriaini != null" >
+			 AND  (A1.FECHACREACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechacreacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechacreacionauditoriafin != null" >
+			 AND (A1.FECHACREACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechacreacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariocreacionauditoria != null" >
+			 AND A1.USUARIOCREACIONAUDITORIA LIKE ('%' + #{usuariocreacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechamodificacionauditoriaini != null" >
+			 AND  (A1.FECHAMODIFICACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechamodificacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechamodificacionauditoriafin != null" >
+			 AND (A1.FECHAMODIFICACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechamodificacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariomodificacionauditoria != null" >
+			 AND A1.USUARIOMODIFICACIONAUDITORIA LIKE ('%' + #{usuariomodificacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="equipoauditoria != null" >
+			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="programaauditoria != null" >
+			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoauditoria != null" >
+			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+
+		<if test="listaIdcertificadopresupuestalInKeys != null" >
+			AND A1.IDCERTIFICADOPRESUPUESTAL IN
+			<foreach collection="listaIdcertificadopresupuestalInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+	</where>
+
+	<if test="ordenListaCampos != null" >
+		 ORDER BY 
+		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+		<if test="ordenTipo != null" >
+			 ${ordenTipo} 
+		</if>
+	</if>
+
+	<if test="cantidadRegistros != null" >
+
+	</if>
+	</select>
+</mapper>

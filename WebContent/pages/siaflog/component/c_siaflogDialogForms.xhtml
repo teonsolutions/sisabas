@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmSiaflogImprimir">
+	<p:dialog id="diSiaflogImprimir" header="#{siaflog.titulo}" widgetVar="diSiaflogImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaSiaflog" fileName="datosSiaflog" postProcessor="#{siaflog.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaSiaflog" fileName="datos" preProcessor="#{siaflog.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmSiaflogRegistrar">
+	<p:dialog id="diSiaflogRegistrar" header="#{siaflog.titulo}" widgetVar="diSiaflogRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsSiaflogR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/siaflog/component/c_siaflogRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{siaflog.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{siaflog.aceptar}" update="hidStatus,:form:tblListaSiaflog,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmSiaflogRegistrar:hidStatus','frmSiaflogRegistrar:diSiaflogRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmSiaflogRegistrar:diSiaflogRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmSiaflogDetalle">
+	<p:dialog id="diSiaflogDetalle" header="#{siaflog.titulo}" widgetVar="diSiaflogDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/siaflog/component/c_siaflogDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmSiaflogDetalle:diSiaflogDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmSiaflogAnular">
+	<p:dialog id="diSiaflogAnular" header="#{siaflog.titulo}" widgetVar="diSiaflogAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsSiaflogA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/siaflog/component/c_siaflogDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{siaflog.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{siaflog.anular}" update="hidStatus,:form:tblListaSiaflog,:form:growl,panelDetailC" oncomplete="hideDialog('frmSiaflogAnular:hidStatus','frmSiaflogAnular:diSiaflogAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmSiaflogAnular:diSiaflogAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+</html>

@@ -1,0 +1,501 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{pedido.tituloParam} #{pedido.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="Nro pedido" for="txtNropedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNropedido" value="#{pedido.pedidoB.nropedido}" disabled="false" maxlength="5" style="width:150px;" label="Nro pedido"/>
+		</td>
+		<td>
+			<p:selectCheckboxMenu id="txtIdcatalogotipobien" value="#{pedido.listaIdcatalogotipobienKeys}" filter="true" disabled="false" filterText="Filter" filterMatchMode="startsWith" label="Tipo de bien(SIGA)">
+				 <f:selectItems  value="#{pedido.listaGentablaIdcatalogotipobien}" var="var" itemLabel ="#{var.vchregdescri}" itemValue ="#{var.vchregcodigo}"/>
+				 <p:ajax  event="change" listener="#{pedido.getValuesListenerIdcatalogotipobien}" update="txtKeyValuesIdcatalogotipobien" process="@this"/>
+				 <p:ajax  event="toggleSelect" listener="#{pedido.handleChangeIdcatalogotipobien}" update="txtKeyValuesIdcatalogotipobien,txtIdcatalogotipobien" process="@this"/>
+			</p:selectCheckboxMenu>
+		</td>
+		<td>
+			<p:inputText  id="txtKeyValuesIdcatalogotipobien" value="#{pedido.valuesIdcatalogotipobien}" disabled="true" style="width:150px;"/>
+		</td>
+		<td>
+			<p:selectCheckboxMenu id="txtIdperiodo" value="#{pedido.listaIdperiodoKeys}" filter="true" disabled="false" filterText="Filter" filterMatchMode="startsWith" label="Periódo">
+				 <f:selectItems  value="#{pedido.listaPeriodoIdperiodo}" var="var" itemLabel ="#{var.nombreperiodo}" itemValue ="#{var.idperiodo}"/>
+				 <p:ajax  event="change" listener="#{pedido.getValuesListenerIdperiodo}" update="txtKeyValuesIdperiodo" process="@this"/>
+				 <p:ajax  event="toggleSelect" listener="#{pedido.handleChangeIdperiodo}" update="txtKeyValuesIdperiodo,txtIdperiodo" process="@this"/>
+			</p:selectCheckboxMenu>
+		</td>
+		<td>
+			<p:inputText  id="txtKeyValuesIdperiodo" value="#{pedido.valuesIdperiodo}" disabled="true" style="width:150px;"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Centro costo" for="txtCodigocentrocosto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigocentrocosto" value="#{pedido.pedidoB.vcentrocostoCodigocentrocosto.nombredependencia}" disabled="true" maxlength="15" style="width:150px;" label="Centro costo"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_vcentrocosto.init}"  oncomplete="showDialogPF('frmMainCodigocentrocostoBuscar:diVcentrocostoBuscar');" update=":frmMainCodigocentrocostoBuscar:diVcentrocostoBuscar" style="width:20px;height:20px;" title="Buscar"  disabled="false"/>
+			<p:commandButton icon="ui-icon-close" action="#{pedido.resetMainCodigocentrocosto}"  update="txtCodigocentrocosto" style="width:20px;height:20px;" title="Borrar Filtro" immediate="true" disabled="false"/>
+		</td>
+		<td>
+			<p:outputLabel value="Nombre de dependencia" for="txtNombredependencia"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombredependencia" value="#{pedido.pedidoB.nombredependencia}" disabled="false" maxlength="100" style="width:150px;" label="Nombre de dependencia"/>
+		</td>
+		<td>
+			<p:outputLabel value="Descripción" for="txtDescripcionpedidosiga"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDescripcionpedidosiga" value="#{pedido.pedidoB.descripcionpedidosiga}" disabled="false" maxlength="2000" style="width:150px;" label="Descripción"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Monto del Pedido - Desde" for="txtMontopedidoini"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontopedidoini" value ="#{pedido.pedidoB.montopedidoini}" maxlength="18" style="width:150px;" label="Monto del Pedido - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="Monto del Pedido - Hasta" for="txtMontopedidofin"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontopedidofin" value ="#{pedido.pedidoB.montopedidofin}" maxlength="18" style="width:150px;" label="Monto del Pedido - Hasta"/>
+		</td>
+		<td>
+			<p:outputLabel value="Estado pedido" for="txtEstadopedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadopedido" value="#{pedido.pedidoB.estadopedido}" disabled="false" maxlength="10" style="width:150px;" label="Estado pedido"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Número Sindad" for="txtNumerosinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerosinad" value="#{pedido.pedidoB.numerosinad}" disabled="false" maxlength="10" style="width:150px;" label="Número Sindad"/>
+		</td>
+		<td>
+			<p:outputLabel value="Año Sinad" for="txtAniosinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAniosinad" value="#{pedido.pedidoB.aniosinad}" disabled="false" maxlength="10" style="width:150px;" label="Año Sinad"/>
+		</td>
+		<td>
+			<p:outputLabel value="Número de expediente (SINAD)" for="txtNumeroexpedientesinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumeroexpedientesinad" value="#{pedido.pedidoB.numeroexpedientesinad}" disabled="false" maxlength="30" style="width:150px;" label="Número de expediente (SINAD)"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Fecha pedido - Desde" for="txtFechapedidoini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechapedidoini" value="#{pedido.pedidoB.fechapedidoini}" label="Fecha pedido - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="Fecha pedido - Hasta" for="txtFechapedidofin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechapedidofin" value="#{pedido.pedidoB.fechapedidofin}" label="Fecha pedido - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:selectCheckboxMenu id="txtIdcatalogotiponecesidad" value="#{pedido.listaIdcatalogotiponecesidadKeys}" filter="true" disabled="false" filterText="Filter" filterMatchMode="startsWith" label="Tipo de Necesidad">
+				 <f:selectItems  value="#{pedido.listaGentablaIdcatalogotiponecesidad}" var="var" itemLabel ="#{var.vchregdescri}" itemValue ="#{var.vchregcodigo}"/>
+				 <p:ajax  event="change" listener="#{pedido.getValuesListenerIdcatalogotiponecesidad}" update="txtKeyValuesIdcatalogotiponecesidad" process="@this"/>
+				 <p:ajax  event="toggleSelect" listener="#{pedido.handleChangeIdcatalogotiponecesidad}" update="txtKeyValuesIdcatalogotiponecesidad,txtIdcatalogotiponecesidad" process="@this"/>
+			</p:selectCheckboxMenu>
+		</td>
+		<td>
+			<p:inputText  id="txtKeyValuesIdcatalogotiponecesidad" value="#{pedido.valuesIdcatalogotiponecesidad}" disabled="true" style="width:150px;"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Unidad Ejecutora" for="txtIdunidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdunidadejecutora" value="#{pedido.pedidoB.unidadejecutoraIdunidadejecutora.nombreunidadejecutora}" disabled="true" maxlength="10" style="width:150px;" label="Unidad Ejecutora"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_unidadejecutora.init}"  oncomplete="showDialogPF('frmMainIdunidadejecutoraBuscar:diUnidadejecutoraBuscar');" update=":frmMainIdunidadejecutoraBuscar:diUnidadejecutoraBuscar" style="width:20px;height:20px;" title="Buscar"  disabled="false"/>
+			<p:commandButton icon="ui-icon-close" action="#{pedido.resetMainIdunidadejecutora}"  update="txtIdunidadejecutora" style="width:20px;height:20px;" title="Borrar Filtro" immediate="true" disabled="false"/>
+		</td>
+		<td>
+			<p:outputLabel value="Tipo de Sinad" for="txtTiposinad"/>
+		</td>
+		<td>
+			<p:selectOneMenu id="txtTiposinad" value ="#{pedido.pedidoB.tiposinad}" label="Tipo de Sinad">
+				<f:selectItem itemLabel="Seleccione..." itemValue=""/>
+				<f:selectItem itemLabel="SI" itemValue="1"/>
+				<f:selectItem itemLabel="NO" itemValue="0"/>
+			</p:selectOneMenu>
+		</td>
+		<td>
+			<p:outputLabel value="Idv Pedido" for="txtIdvpedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdvpedido" value="#{pedido.pedidoB.vispedidoIdvpedido.anio}" disabled="true" maxlength="10" style="width:150px;" label="Idv Pedido"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_vispedido.init}"  oncomplete="showDialogPF('frmMainIdvpedidoBuscar:diVispedidoBuscar');" update=":frmMainIdvpedidoBuscar:diVispedidoBuscar" style="width:20px;height:20px;" title="Buscar"  disabled="false"/>
+			<p:commandButton icon="ui-icon-close" action="#{pedido.resetMainIdvpedido}"  update="txtIdvpedido" style="width:20px;height:20px;" title="Borrar Filtro" immediate="true" disabled="false"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{pedido.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{pedido.buscar}"  update="tblListaPedido,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{pedido.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{pedido.irRegistrar}"  update="hidStatus,:frmPedidoRegistrar:diPedidoRegistrar" oncomplete="showDialog('form:hidStatus','frmPedidoRegistrar:diPedidoRegistrar');" icon="ui-icon-document"  rendered="#{pedido.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{pedido.irEditar}"  update="hidStatus,:frmPedidoRegistrar:diPedidoRegistrar" oncomplete="showDialog('form:hidStatus','frmPedidoRegistrar:diPedidoRegistrar');" icon="ui-icon-pencil" disabled="#{!pedido.esSeleccionado}"  rendered="#{pedido.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{pedido.irDetalle}"  update="hidStatus,:frmPedidoDetalle:diPedidoDetalle" oncomplete="showDialog('form:hidStatus','frmPedidoDetalle:diPedidoDetalle');" icon="ui-icon-zoomin" disabled="#{!pedido.esSeleccionado}"   rendered="#{pedido.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{pedido.irAnular}"  update="hidStatus,:frmPedidoAnular:diPedidoAnular" oncomplete="showDialog('form:hidStatus','frmPedidoAnular:diPedidoAnular');" icon="ui-icon-circle-minus" disabled="#{!pedido.esSeleccionado}"   rendered="#{pedido.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{pedido.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!pedido.esSeleccionado}"   rendered="#{pedido.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{pedido.irImprimir}"  update="hidStatus,:frmPedidoImprimir:diPedidoImprimir" oncomplete="showDialog('form:hidStatus','frmPedidoImprimir:diPedidoImprimir');" icon="ui-icon-print"   rendered="#{pedido.renderButton('btnImprimir')}"  />
+				<p:spacer width="20"/>
+				<p:commandButton value="Detalle pedido In" action="#{pedido.irDetallepedido}" title="Detalle pedido In" ajax="false" disabled="#{!pedido.esSeleccionado}"  rendered="#{pedido.renderButton('btnDetallepedido')}"  />
+				<p:commandButton value="Documento tecnico" action="#{pedido.irDocumentotecnico}" title="Documento tecnico" ajax="false" disabled="#{!pedido.esSeleccionado}"  rendered="#{pedido.renderButton('btnDocumentotecnico')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaPedido">
+	<p:menuitem value="Editar" action="#{pedido.irEditar}"   update="hidStatus,:frmPedidoRegistrar:diPedidoRegistrar"  oncomplete="showDialog('form:hidStatus','frmPedidoRegistrar:diPedidoRegistrar');"  icon="ui-icon-pencil" rendered="#{pedido.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{pedido.irDetalle}"   update="hidStatus,:frmPedidoDetalle:diPedidoDetalle"  oncomplete="showDialog('form:hidStatus','frmPedidoDetalle:diPedidoDetalle');"  icon="ui-icon-zoomin" rendered="#{pedido.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{pedido.irAnular}"   update="hidStatus,:frmPedidoAnular:diPedidoAnular"  oncomplete="showDialog('form:hidStatus','frmPedidoAnular:diPedidoAnular');"  icon="ui-icon-circle-minus" rendered="#{pedido.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{pedido.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{pedido.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaPedido" value="#{pedido.listaPedido}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaPedido" selection="#{pedido.selectedPedido}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(pedido.listaPedido)}"
+	selectionMode="single" rowKey="#{var.idpedido}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{pedido.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_center" sortBy="#{var.nropedido}">
+			<f:facet name="header">
+				<h:outputText value="Nro pedido" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.nropedido}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.gentablaIdcatalogotipobien.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="Tipo de bien(SIGA)" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.gentablaIdcatalogotipobien.vchregdescri}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.periodoIdperiodo.nombreperiodo}">
+			<f:facet name="header">
+				<h:outputText value="Periódo" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.periodoIdperiodo.nombreperiodo}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.vcentrocostoCodigocentrocosto.nombredependencia}">
+			<f:facet name="header">
+				<h:outputText value="Centro costo" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.vcentrocostoCodigocentrocosto.nombredependencia}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nombredependencia}">
+			<f:facet name="header">
+				<h:outputText value="Nombre de dependencia" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nombredependencia}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.descripcionpedidosiga}">
+			<f:facet name="header">
+				<h:outputText value="Descripción" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.descripcionpedidosiga}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.montopedido}">
+			<f:facet name="header">
+				<h:outputText value="Monto del Pedido" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.montopedido}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.estadopedido}">
+			<f:facet name="header">
+				<h:outputText value="Estado pedido" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.estadopedido}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.numerosinad}">
+			<f:facet name="header">
+				<h:outputText value="Número Sindad" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.numerosinad}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.aniosinad}">
+			<f:facet name="header">
+				<h:outputText value="Año Sinad" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.aniosinad}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.numeroexpedientesinad}">
+			<f:facet name="header">
+				<h:outputText value="Número de expediente (SINAD)" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.numeroexpedientesinad}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechapedido}">
+			<f:facet name="header">
+				<h:outputText value="Fecha pedido" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechapedido}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.gentablaIdcatalogotiponecesidad.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="Tipo de Necesidad" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.gentablaIdcatalogotiponecesidad.vchregdescri}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.unidadejecutoraIdunidadejecutora.nombreunidadejecutora}">
+			<f:facet name="header">
+				<h:outputText value="Unidad Ejecutora" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.unidadejecutoraIdunidadejecutora.nombreunidadejecutora}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.tiposinad}">
+			<f:facet name="header">
+				<h:outputText value="Tipo de Sinad" styleClass="c_center"/>
+			</f:facet>
+			<h:graphicImage url="/resources/img/check.png" width="10" height="10" rendered="#{var.tiposinad=='1'}"/>		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.vispedidoIdvpedido.anio}">
+			<f:facet name="header">
+				<h:outputText value="Idv Pedido" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.vispedidoIdvpedido.anio}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{pedido.eliminar}"  update=":form:tblListaPedido,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmPedidoImprimir">
+	<p:dialog id="diPedidoImprimir" header="#{pedido.titulo}" widgetVar="diPedidoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaPedido" fileName="datosPedido" postProcessor="#{pedido.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaPedido" fileName="datos" preProcessor="#{pedido.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPedidoRegistrar">
+	<p:dialog id="diPedidoRegistrar" header="#{pedido.titulo}" widgetVar="diPedidoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsPedidoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/pedido/component/c_pedidoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{pedido.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{pedido.aceptar}" update="hidStatus,:form:tblListaPedido,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmPedidoRegistrar:hidStatus','frmPedidoRegistrar:diPedidoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPedidoRegistrar:diPedidoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPedidoDetalle">
+	<p:dialog id="diPedidoDetalle" header="#{pedido.titulo}" widgetVar="diPedidoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/pedido/component/c_pedidoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPedidoDetalle:diPedidoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPedidoAnular">
+	<p:dialog id="diPedidoAnular" header="#{pedido.titulo}" widgetVar="diPedidoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsPedidoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/pedido/component/c_pedidoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{pedido.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{pedido.anular}" update="hidStatus,:form:tblListaPedido,:form:growl,panelDetailC" oncomplete="hideDialog('frmPedidoAnular:hidStatus','frmPedidoAnular:diPedidoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPedidoAnular:diPedidoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMainCodigocentrocostoBuscar">
+	<p:dialog id="diVcentrocostoBuscar" header="VCentroCosto » Buscar" widgetVar="diVcentrocostoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Vcentrocosto" autoUpdate="true" closable="true"/>
+	 <cc:cc_vcentrocostoBuscar
+	 ajaxEventListener="#{pedido.loadMainCodigocentrocosto}"
+	 actionOncomplete="hideDialogPF('frmMainCodigocentrocostoBuscar:diVcentrocostoBuscar');"
+	 actionUpdate=":form:txtCodigocentrocosto"/>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMainIdunidadejecutoraBuscar">
+	<p:dialog id="diUnidadejecutoraBuscar" header="Unidad Ejecutora » Buscar" widgetVar="diUnidadejecutoraBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Unidadejecutora" autoUpdate="true" closable="true"/>
+	 <cc:cc_unidadejecutoraBuscar
+	 ajaxEventListener="#{pedido.loadMainIdunidadejecutora}"
+	 actionOncomplete="hideDialogPF('frmMainIdunidadejecutoraBuscar:diUnidadejecutoraBuscar');"
+	 actionUpdate=":form:txtIdunidadejecutora"/>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMainIdvpedidoBuscar">
+	<p:dialog id="diVispedidoBuscar" header="VPedidoSiga » Buscar" widgetVar="diVispedidoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Vispedido" autoUpdate="true" closable="true"/>
+	 <cc:cc_vispedidoBuscar
+	 ajaxEventListener="#{pedido.loadMainIdvpedido}"
+	 actionOncomplete="hideDialogPF('frmMainIdvpedidoBuscar:diVispedidoBuscar');"
+	 actionUpdate=":form:txtIdvpedido"/>
+	</p:dialog>
+</h:form>
+
+
+
+<h:form id="frmRegCodigocentrocostoBuscar">
+	<p:dialog id="diVcentrocostoBuscar" header="VCentroCosto » Buscar" widgetVar="diVcentrocostoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Vcentrocosto" autoUpdate="true" closable="true"/>
+	 <cc:cc_vcentrocostoBuscar
+	 ajaxEventListener="#{pedido.loadRegCodigocentrocosto}"
+	 actionOncomplete="hideDialogPF('frmRegCodigocentrocostoBuscar:diVcentrocostoBuscar');"
+	 actionUpdate=":frmPedidoRegistrar:txtCodigocentrocosto"/>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdunidadejecutoraBuscar">
+	<p:dialog id="diUnidadejecutoraBuscar" header="Unidad Ejecutora » Buscar" widgetVar="diUnidadejecutoraBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Unidadejecutora" autoUpdate="true" closable="true"/>
+	 <cc:cc_unidadejecutoraBuscar
+	 ajaxEventListener="#{pedido.loadRegIdunidadejecutora}"
+	 actionOncomplete="hideDialogPF('frmRegIdunidadejecutoraBuscar:diUnidadejecutoraBuscar');"
+	 actionUpdate=":frmPedidoRegistrar:txtIdunidadejecutora"/>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdvpedidoBuscar">
+	<p:dialog id="diVispedidoBuscar" header="VPedidoSiga » Buscar" widgetVar="diVispedidoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Vispedido" autoUpdate="true" closable="true"/>
+	 <cc:cc_vispedidoBuscar
+	 ajaxEventListener="#{pedido.loadRegIdvpedido}"
+	 actionOncomplete="hideDialogPF('frmRegIdvpedidoBuscar:diVispedidoBuscar');"
+	 actionUpdate=":frmPedidoRegistrar:txtIdvpedido"/>
+	</p:dialog>
+</h:form>
+
+
+	<!-- Derived Table Main (detallepedido)  -->
+<h:form id="frmDetallepedidoDetalle">
+	<p:dialog id="diDetallepedidoDetalle" header="#{detallepedido.titulo}" widgetVar="diDetallepedidoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/detallepedido/component/c_detallepedidoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmDetallepedidoDetalle:diDetallepedidoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+	<!-- Derived Table Main (documentotecnico)  -->
+<h:form id="frmDocumentotecnicoDetalle">
+	<p:dialog id="diDocumentotecnicoDetalle" header="#{documentotecnico.titulo}" widgetVar="diDocumentotecnicoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/documentotecnico/component/c_documentotecnicoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmDocumentotecnicoDetalle:diDocumentotecnicoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+</ui:define>
+</ui:composition>

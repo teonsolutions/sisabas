@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+	<composite:interface componentType="customComponent">
+	<composite:attribute name="ajaxEventListener" method-signature="void listener(org.primefaces.event.SelectEvent)" />
+	<composite:attribute name="actionOncomplete" type="java.lang.String"/>
+	<composite:attribute name="actionUpdate"  type="java.lang.String"/>
+	</composite:interface>
+	<composite:implementation>
+	<p:panel id="pnlCBuscar">
+	<p:panel>
+	<table style="width: 100%;" cellpadding="0" cellspacing="5">
+
+		<tr>
+			<td>
+				<p:outputLabel  value="Nro pedido" for="txtNropedido"/>
+			</td>
+			<td>
+				<h:inputText  id="txtNropedido" value="#{cc_pedido.pedidoB.nropedido}" maxlength="5" style="width:150px;" label="Nro pedido"/>
+			</td>
+			<td>
+				<p:outputLabel  value="Tipo de bien(SIGA)" for="somIdcatalogotipobien"/>
+			</td>
+			<td>
+				<h:selectOneMenu  value="#{cc_pedido.pedidoB.idcatalogotipobien}" id="somIdcatalogotipobien" label="Tipo de bien(SIGA)">
+					<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+					<f:selectItems value="#{cc_pedido.listaGentablaIdcatalogotipobien}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
+				</h:selectOneMenu>
+			</td>
+			<td>
+				<p:outputLabel  value="Periódo" for="somIdperiodo"/>
+			</td>
+			<td>
+				<h:selectOneMenu  value="#{cc_pedido.pedidoB.idperiodo}" id="somIdperiodo" label="Periódo">
+					<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+					<f:selectItems value="#{cc_pedido.listaPeriodoIdperiodo}" var="var" itemLabel="#{var.nombreperiodo}" itemValue="#{var.idperiodo}" />
+				</h:selectOneMenu>
+			</td>
+	</tr>
+	<tr>
+			<td>
+				<p:outputLabel  value="Centro costo" for="txtCodigocentrocosto"/>
+			</td>
+			<td>
+				<h:inputText  id="txtCodigocentrocosto" value="#{cc_pedido.pedidoB.codigocentrocosto}" maxlength="15" style="width:150px;" label="Centro costo"/>
+			</td>
+			<td>
+				<p:outputLabel  value="Nombre de dependencia" for="txtNombredependencia"/>
+			</td>
+			<td>
+				<h:inputText  id="txtNombredependencia" value="#{cc_pedido.pedidoB.nombredependencia}" maxlength="100" style="width:300px;" label="Nombre de dependencia"/>
+			</td>
+			<td>
+				<p:outputLabel  value="Descripción" for="txtDescripcionpedidosiga"/>
+			</td>
+			<td>
+				<h:inputText  id="txtDescripcionpedidosiga" value="#{cc_pedido.pedidoB.descripcionpedidosiga}" maxlength="2000" style="width:300px;" label="Descripción"/>
+			</td>
+	</tr>
+	<tr>
+			<td>
+				<p:outputLabel  value="Monto del Pedido" for="txtMontopedido"/>
+			</td>
+			<td>
+				<h:inputText  id="txtMontopedido" value="#{cc_pedido.pedidoB.montopedido}" maxlength="18" style="width:150px;" label="Monto del Pedido"/>
+			</td>
+			<td>
+				<p:outputLabel  value="Estado pedido" for="txtEstadopedido"/>
+			</td>
+			<td>
+				<h:inputText  id="txtEstadopedido" value="#{cc_pedido.pedidoB.estadopedido}" maxlength="10" style="width:150px;" label="Estado pedido"/>
+			</td>
+			<td>
+				<p:outputLabel  value="Número Sindad" for="txtNumerosinad"/>
+			</td>
+			<td>
+				<h:inputText  id="txtNumerosinad" value="#{cc_pedido.pedidoB.numerosinad}" maxlength="10" style="width:150px;" label="Número Sindad"/>
+			</td>
+	</tr>
+	<tr>
+			<td>
+				<p:outputLabel  value="Año Sinad" for="txtAniosinad"/>
+			</td>
+			<td>
+				<h:inputText  id="txtAniosinad" value="#{cc_pedido.pedidoB.aniosinad}" maxlength="10" style="width:150px;" label="Año Sinad"/>
+			</td>
+			<td>
+				<p:outputLabel  value="Número de expediente (SINAD)" for="txtNumeroexpedientesinad"/>
+			</td>
+			<td>
+				<h:inputText  id="txtNumeroexpedientesinad" value="#{cc_pedido.pedidoB.numeroexpedientesinad}" maxlength="30" style="width:150px;" label="Número de expediente (SINAD)"/>
+			</td>
+		<td>
+			<p:outputLabel  value="Fecha pedido" for="txtFechapedido"/>
+		</td>
+		<td>
+			<p:calendar   id="txtFechapedido" value="#{cc_pedido.pedidoB.fechapedido}" label="Fecha pedido" navigator="true" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+			<td>
+				<p:outputLabel  value="Tipo de Necesidad" for="somIdcatalogotiponecesidad"/>
+			</td>
+			<td>
+				<h:selectOneMenu  value="#{cc_pedido.pedidoB.idcatalogotiponecesidad}" id="somIdcatalogotiponecesidad" label="Tipo de Necesidad">
+					<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+					<f:selectItems value="#{cc_pedido.listaGentablaIdcatalogotiponecesidad}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
+				</h:selectOneMenu>
+			</td>
+			<td>
+				<p:outputLabel  value="Unidad Ejecutora" for="txtIdunidadejecutora"/>
+			</td>
+			<td>
+				<h:inputText  id="txtIdunidadejecutora" value="#{cc_pedido.pedidoB.idunidadejecutora}" maxlength="10" style="width:150px;" label="Unidad Ejecutora"/>
+			</td>
+			<td>
+				<p:outputLabel  value="Tipo de Sinad" for="txtTiposinad"/>
+			</td>
+			<td>
+				<h:inputText  id="txtTiposinad" value="#{cc_pedido.pedidoB.tiposinad}" maxlength="1" style="width:150px;" label="Tipo de Sinad"/>
+			</td>
+	</tr>
+	<tr>
+			<td>
+				<p:outputLabel  value="Idv Pedido" for="txtIdvpedido"/>
+			</td>
+			<td>
+				<h:inputText  id="txtIdvpedido" value="#{cc_pedido.pedidoB.idvpedido}" maxlength="10" style="width:150px;" label="Idv Pedido"/>
+			</td>
+		</tr>
+
+		<tr>
+			<td colspan="6">
+				<p:commandButton id="btnCPedido" widgetVar="btnCPedido"  value="Buscar" process="@form" actionListener="#{cc_pedido.buscar}" update="tblListaPedidoBuscar,pnlCBuscar" icon="ui-icon-search"/>
+			</td>
+		</tr>
+	</table>
+	</p:panel>
+
+	<p:dataTable id="tblListaPedidoBuscar" widgetVar="tblListaPedidoBuscar" value="#{cc_pedido.listaPedido}" var="var" emptyMessage="No se encontraron registros"  
+	selection="#{cc_pedido.selectedPedido}"
+	selectionMode="single" rowKey="#{var.idpedido}"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(cc_pedido.listaPedido)}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom">
+	<p:ajax event="rowSelect" listener="#{cc.ajaxEventListener}" oncomplete="#{cc.attrs.actionOncomplete}" update="#{cc.attrs.actionUpdate}" immediate="true"/>
+		<p:column headerText="Nro pedido" styleClass="c_center">
+			<h:outputText value="#{var.nropedido}" />
+		</p:column>
+		<p:column headerText="Tipo de bien(SIGA)" styleClass="c_center">
+			<h:outputText value="#{var.idcatalogotipobien}" />
+		</p:column>
+		<p:column headerText="Periódo" styleClass="c_numeric">
+			<h:outputText value="#{var.idperiodo}" />
+		</p:column>
+		<p:column headerText="Centro costo" styleClass="c_string">
+			<h:outputText value="#{var.codigocentrocosto}" />
+		</p:column>
+		<p:column headerText="Nombre de dependencia" styleClass="c_string">
+			<h:outputText value="#{var.nombredependencia}" />
+		</p:column>
+		<p:column headerText="Descripción" styleClass="c_string">
+			<h:outputText value="#{var.descripcionpedidosiga}" />
+		</p:column>
+		<p:column headerText="Monto del Pedido" styleClass="c_string">
+			<h:outputText value="#{var.montopedido}" />
+		</p:column>
+		<p:column headerText="Estado pedido" styleClass="c_numeric">
+			<h:outputText value="#{var.estadopedido}" />
+		</p:column>
+		<p:column headerText="Número Sindad" styleClass="c_numeric">
+			<h:outputText value="#{var.numerosinad}" />
+		</p:column>
+		<p:column headerText="Año Sinad" styleClass="c_numeric">
+			<h:outputText value="#{var.aniosinad}" />
+		</p:column>
+		<p:column headerText="Número de expediente (SINAD)" styleClass="c_string">
+			<h:outputText value="#{var.numeroexpedientesinad}" />
+		</p:column>
+		<p:column headerText="Fecha pedido" styleClass="c_string">
+			<h:outputText value="#{var.fechapedido}" />
+		</p:column>
+		<p:column headerText="Tipo de Necesidad" styleClass="c_center">
+			<h:outputText value="#{var.idcatalogotiponecesidad}" />
+		</p:column>
+		<p:column headerText="Unidad Ejecutora" styleClass="c_numeric">
+			<h:outputText value="#{var.idunidadejecutora}" />
+		</p:column>
+		<p:column headerText="Tipo de Sinad" styleClass="c_center">
+			<h:outputText value="#{var.tiposinad}" />
+		</p:column>
+		<p:column headerText="Idv Pedido" styleClass="c_numeric">
+			<h:outputText value="#{var.idvpedido}" />
+		</p:column>
+	</p:dataTable>
+
+	<table style="width: 100%;">
+		<tr>
+			<td>
+				<div align="right">
+				<p:commandButton value="Salir" onclick="#{cc.attrs.actionOncomplete};return false;" icon="ui-icon-arrowreturnthick-1-w" title="Salir" />
+				</div>
+			</td>
+		</tr>
+	</table>
+	</p:panel>
+	</composite:implementation>
+</html>

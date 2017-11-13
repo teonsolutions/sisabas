@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{estadospordocumentosiga.tituloParam} #{estadospordocumentosiga.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="ID" for="txtIdestadospordocumentosiga"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdestadospordocumentosiga" value="#{estadospordocumentosiga.estadospordocumentosigaB.idestadospordocumentosiga}" disabled="false" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:selectCheckboxMenu id="txtIdcatalogotipodocumentosiga" value="#{estadospordocumentosiga.listaIdcatalogotipodocumentosigaKeys}" filter="true" disabled="false" filterText="Filter" filterMatchMode="startsWith" label="Tipo de documento Siga">
+				 <f:selectItems  value="#{estadospordocumentosiga.listaGentablaIdcatalogotipodocumentosiga}" var="var" itemLabel ="#{var.vchregdescri}" itemValue ="#{var.vchregcodigo}"/>
+				 <p:ajax  event="change" listener="#{estadospordocumentosiga.getValuesListenerIdcatalogotipodocumentosiga}" update="txtKeyValuesIdcatalogotipodocumentosiga" process="@this"/>
+				 <p:ajax  event="toggleSelect" listener="#{estadospordocumentosiga.handleChangeIdcatalogotipodocumentosiga}" update="txtKeyValuesIdcatalogotipodocumentosiga,txtIdcatalogotipodocumentosiga" process="@this"/>
+			</p:selectCheckboxMenu>
+		</td>
+		<td>
+			<p:inputText  id="txtKeyValuesIdcatalogotipodocumentosiga" value="#{estadospordocumentosiga.valuesIdcatalogotipodocumentosiga}" disabled="true" style="width:150px;"/>
+		</td>
+		<td>
+			<p:outputLabel value="Código de Estado por Documento Siga" for="txtCodigoestadopordocumentosiga"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigoestadopordocumentosiga" value="#{estadospordocumentosiga.estadospordocumentosigaB.codigoestadopordocumentosiga}" disabled="false" maxlength="3" style="width:150px;" label="Código de Estado por Documento Siga"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Descripción de estados por documento Siga" for="txtDescripcionestadospordocumentosiga"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDescripcionestadospordocumentosiga" value="#{estadospordocumentosiga.estadospordocumentosigaB.descripcionestadospordocumentosiga}" disabled="false" maxlength="150" style="width:150px;" label="Descripción de estados por documento Siga"/>
+		</td>
+		<td>
+			<p:outputLabel value="Tipo de proceso" for="txtCodigotipoproceso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigotipoproceso" value="#{estadospordocumentosiga.estadospordocumentosigaB.codigotipoproceso}" disabled="false" maxlength="2" style="width:150px;" label="Tipo de proceso"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{estadospordocumentosiga.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{estadospordocumentosiga.buscar}"  update="tblListaEstadospordocumentosiga,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{estadospordocumentosiga.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{estadospordocumentosiga.irRegistrar}"  update="hidStatus,:frmEstadospordocumentosigaRegistrar:diEstadospordocumentosigaRegistrar" oncomplete="showDialog('form:hidStatus','frmEstadospordocumentosigaRegistrar:diEstadospordocumentosigaRegistrar');" icon="ui-icon-document"  rendered="#{estadospordocumentosiga.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{estadospordocumentosiga.irEditar}"  update="hidStatus,:frmEstadospordocumentosigaRegistrar:diEstadospordocumentosigaRegistrar" oncomplete="showDialog('form:hidStatus','frmEstadospordocumentosigaRegistrar:diEstadospordocumentosigaRegistrar');" icon="ui-icon-pencil" disabled="#{!estadospordocumentosiga.esSeleccionado}"  rendered="#{estadospordocumentosiga.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{estadospordocumentosiga.irDetalle}"  update="hidStatus,:frmEstadospordocumentosigaDetalle:diEstadospordocumentosigaDetalle" oncomplete="showDialog('form:hidStatus','frmEstadospordocumentosigaDetalle:diEstadospordocumentosigaDetalle');" icon="ui-icon-zoomin" disabled="#{!estadospordocumentosiga.esSeleccionado}"   rendered="#{estadospordocumentosiga.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{estadospordocumentosiga.irAnular}"  update="hidStatus,:frmEstadospordocumentosigaAnular:diEstadospordocumentosigaAnular" oncomplete="showDialog('form:hidStatus','frmEstadospordocumentosigaAnular:diEstadospordocumentosigaAnular');" icon="ui-icon-circle-minus" disabled="#{!estadospordocumentosiga.esSeleccionado}"   rendered="#{estadospordocumentosiga.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{estadospordocumentosiga.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!estadospordocumentosiga.esSeleccionado}"   rendered="#{estadospordocumentosiga.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{estadospordocumentosiga.irImprimir}"  update="hidStatus,:frmEstadospordocumentosigaImprimir:diEstadospordocumentosigaImprimir" oncomplete="showDialog('form:hidStatus','frmEstadospordocumentosigaImprimir:diEstadospordocumentosigaImprimir');" icon="ui-icon-print"   rendered="#{estadospordocumentosiga.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaEstadospordocumentosiga">
+	<p:menuitem value="Editar" action="#{estadospordocumentosiga.irEditar}"   update="hidStatus,:frmEstadospordocumentosigaRegistrar:diEstadospordocumentosigaRegistrar"  oncomplete="showDialog('form:hidStatus','frmEstadospordocumentosigaRegistrar:diEstadospordocumentosigaRegistrar');"  icon="ui-icon-pencil" rendered="#{estadospordocumentosiga.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{estadospordocumentosiga.irDetalle}"   update="hidStatus,:frmEstadospordocumentosigaDetalle:diEstadospordocumentosigaDetalle"  oncomplete="showDialog('form:hidStatus','frmEstadospordocumentosigaDetalle:diEstadospordocumentosigaDetalle');"  icon="ui-icon-zoomin" rendered="#{estadospordocumentosiga.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{estadospordocumentosiga.irAnular}"   update="hidStatus,:frmEstadospordocumentosigaAnular:diEstadospordocumentosigaAnular"  oncomplete="showDialog('form:hidStatus','frmEstadospordocumentosigaAnular:diEstadospordocumentosigaAnular');"  icon="ui-icon-circle-minus" rendered="#{estadospordocumentosiga.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{estadospordocumentosiga.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{estadospordocumentosiga.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaEstadospordocumentosiga" value="#{estadospordocumentosiga.listaEstadospordocumentosiga}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaEstadospordocumentosiga" selection="#{estadospordocumentosiga.selectedEstadospordocumentosiga}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(estadospordocumentosiga.listaEstadospordocumentosiga)}"
+	selectionMode="single" rowKey="#{var.idestadospordocumentosiga}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{estadospordocumentosiga.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.idestadospordocumentosiga}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idestadospordocumentosiga}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.gentablaIdcatalogotipodocumentosiga.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="Tipo de documento Siga" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.gentablaIdcatalogotipodocumentosiga.vchregdescri}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.codigoestadopordocumentosiga}">
+			<f:facet name="header">
+				<h:outputText value="Código de Estado por Documento Siga" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.codigoestadopordocumentosiga}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.descripcionestadospordocumentosiga}">
+			<f:facet name="header">
+				<h:outputText value="Descripción de estados por documento Siga" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.descripcionestadospordocumentosiga}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.codigotipoproceso}">
+			<f:facet name="header">
+				<h:outputText value="Tipo de proceso" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.codigotipoproceso}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{estadospordocumentosiga.eliminar}"  update=":form:tblListaEstadospordocumentosiga,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmEstadospordocumentosigaImprimir">
+	<p:dialog id="diEstadospordocumentosigaImprimir" header="#{estadospordocumentosiga.titulo}" widgetVar="diEstadospordocumentosigaImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaEstadospordocumentosiga" fileName="datosEstadospordocumentosiga" postProcessor="#{estadospordocumentosiga.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaEstadospordocumentosiga" fileName="datos" preProcessor="#{estadospordocumentosiga.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEstadospordocumentosigaRegistrar">
+	<p:dialog id="diEstadospordocumentosigaRegistrar" header="#{estadospordocumentosiga.titulo}" widgetVar="diEstadospordocumentosigaRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsEstadospordocumentosigaR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/estadospordocumentosiga/component/c_estadospordocumentosigaRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{estadospordocumentosiga.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{estadospordocumentosiga.aceptar}" update="hidStatus,:form:tblListaEstadospordocumentosiga,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmEstadospordocumentosigaRegistrar:hidStatus','frmEstadospordocumentosigaRegistrar:diEstadospordocumentosigaRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEstadospordocumentosigaRegistrar:diEstadospordocumentosigaRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEstadospordocumentosigaDetalle">
+	<p:dialog id="diEstadospordocumentosigaDetalle" header="#{estadospordocumentosiga.titulo}" widgetVar="diEstadospordocumentosigaDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/estadospordocumentosiga/component/c_estadospordocumentosigaDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEstadospordocumentosigaDetalle:diEstadospordocumentosigaDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEstadospordocumentosigaAnular">
+	<p:dialog id="diEstadospordocumentosigaAnular" header="#{estadospordocumentosiga.titulo}" widgetVar="diEstadospordocumentosigaAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsEstadospordocumentosigaA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/estadospordocumentosiga/component/c_estadospordocumentosigaDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{estadospordocumentosiga.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{estadospordocumentosiga.anular}" update="hidStatus,:form:tblListaEstadospordocumentosiga,:form:growl,panelDetailC" oncomplete="hideDialog('frmEstadospordocumentosigaAnular:hidStatus','frmEstadospordocumentosigaAnular:diEstadospordocumentosigaAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEstadospordocumentosigaAnular:diEstadospordocumentosigaAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+
+</ui:define>
+</ui:composition>

@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pe.com.sisabas.persistence.EstadosporetapapordocumentoMapper" >
+
+	<resultMap id="BasicResultMap" type="pe.com.sisabas.be.Estadosporetapapordocumento">
+	<result column="A1_IDESTADOSPORETAPAPORDOCUMENTO" property="idestadosporetapapordocumento" jdbcType="INTEGER" />
+	<result column="A1_IDESTADOSPORTIPODOCUMENTO" property="idestadosportipodocumento" jdbcType="INTEGER" />
+	<result column="A1_IDGRUPODOCUMENTO" property="idgrupodocumento" jdbcType="INTEGER" />
+	<result column="A1_NRODOCUMENTO" property="nrodocumento" jdbcType="INTEGER" />
+	<result column="A1_FECHAINGRESO" property="fechaingreso" jdbcType="TIMESTAMP" />
+	<result column="A1_FECHASALIDA" property="fechasalida" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIORESPONSABLEINGRESO" property="usuarioresponsableingreso" jdbcType="BIGINT" />
+	<result column="A1_USUARIORESPONSABLESALIDA" property="usuarioresponsablesalida" jdbcType="BIGINT" />
+	<result column="A1_IDTIPODOCUMENTO" property="idtipodocumento" jdbcType="INTEGER" />
+	<result column="A1_FECHACREACIONAUDITORIA" property="fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOCREACIONAUDITORIA" property="usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_FECHAMODIFICACIONAUDITORIA" property="fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOMODIFICACIONAUDITORIA" property="usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<resultMap id="FullResultMap" type="pe.com.sisabas.be.Estadosporetapapordocumento">
+	<result column="A1_IDESTADOSPORETAPAPORDOCUMENTO" property="idestadosporetapapordocumento" jdbcType="INTEGER" />
+	<result column="A1_IDESTADOSPORTIPODOCUMENTO" property="idestadosportipodocumento" jdbcType="INTEGER" />
+	<result column="A1_IDGRUPODOCUMENTO" property="idgrupodocumento" jdbcType="INTEGER" />
+	<result column="A1_NRODOCUMENTO" property="nrodocumento" jdbcType="INTEGER" />
+	<result column="A1_FECHAINGRESO" property="fechaingreso" jdbcType="TIMESTAMP" />
+	<result column="A1_FECHASALIDA" property="fechasalida" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIORESPONSABLEINGRESO" property="usuarioresponsableingreso" jdbcType="BIGINT" />
+	<result column="A1_USUARIORESPONSABLESALIDA" property="usuarioresponsablesalida" jdbcType="BIGINT" />
+	<result column="A1_IDTIPODOCUMENTO" property="idtipodocumento" jdbcType="INTEGER" />
+	<result column="A1_FECHACREACIONAUDITORIA" property="fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOCREACIONAUDITORIA" property="usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_FECHAMODIFICACIONAUDITORIA" property="fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOMODIFICACIONAUDITORIA" property="usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	<result column="A3_IDESTADOSPORTIPODOCUMENTO" property="estadosportipodocumentoIdestadosportipodocumento.idestadosportipodocumento" jdbcType="INTEGER" />
+	<result column="A3_IDESTADOSPORETAPA" property="estadosportipodocumentoIdestadosportipodocumento.idestadosporetapa" jdbcType="INTEGER" />
+	<result column="A3_IDTIPODOCUMENTO" property="estadosportipodocumentoIdestadosportipodocumento.idtipodocumento" jdbcType="INTEGER" />
+	<result column="A3_IDESTADOSPORDOCUMENTOSIGA" property="estadosportipodocumentoIdestadosportipodocumento.idestadospordocumentosiga" jdbcType="INTEGER" />
+	<result column="A3_FECHACREACIONAUDITORIA" property="estadosportipodocumentoIdestadosportipodocumento.fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A3_USUARIOCREACIONAUDITORIA" property="estadosportipodocumentoIdestadosportipodocumento.usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A3_FECHAMODIFICACIONAUDITORIA" property="estadosportipodocumentoIdestadosportipodocumento.fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A3_USUARIOMODIFICACIONAUDITORIA" property="estadosportipodocumentoIdestadosportipodocumento.usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A3_EQUIPOAUDITORIA" property="estadosportipodocumentoIdestadosportipodocumento.equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A3_PROGRAMAAUDITORIA" property="estadosportipodocumentoIdestadosportipodocumento.programaauditoria" jdbcType="VARCHAR" />
+	<result column="A3_ESTADOAUDITORIA" property="estadosportipodocumentoIdestadosportipodocumento.estadoauditoria" jdbcType="VARCHAR" />
+
+	<result column="A7_IDGRUPODOCUMENTO" property="grupodocumentoIdgrupodocumento.idgrupodocumento" jdbcType="INTEGER" />
+	<result column="A7_ANIO" property="grupodocumentoIdgrupodocumento.anio" jdbcType="INTEGER" />
+	<result column="A7_CODIGOCENTROCOSTO" property="grupodocumentoIdgrupodocumento.codigocentrocosto" jdbcType="VARCHAR" />
+	<result column="A7_FECHACREACIONAUDITORIA" property="grupodocumentoIdgrupodocumento.fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A7_USUARIOCREACIONAUDITORIA" property="grupodocumentoIdgrupodocumento.usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A7_FECHAMODIFICACIONAUDITORIA" property="grupodocumentoIdgrupodocumento.fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A7_USUARIOMODIFICACIONAUDITORIA" property="grupodocumentoIdgrupodocumento.usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A7_EQUIPOAUDITORIA" property="grupodocumentoIdgrupodocumento.equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A7_PROGRAMAAUDITORIA" property="grupodocumentoIdgrupodocumento.programaauditoria" jdbcType="VARCHAR" />
+	<result column="A7_ESTADOAUDITORIA" property="grupodocumentoIdgrupodocumento.estadoauditoria" jdbcType="VARCHAR" />
+
+	<result column="A8_IDTIPODOCUMENTO" property="tipodocumentoIdtipodocumento.idtipodocumento" jdbcType="INTEGER" />
+	<result column="A8_DESCRIPCIONTIPODOCUMENTO" property="tipodocumentoIdtipodocumento.descripciontipodocumento" jdbcType="VARCHAR" />
+	<result column="A8_DESCRIPCION" property="tipodocumentoIdtipodocumento.descripcion" jdbcType="VARCHAR" />
+	<result column="A8_FECHACREACIONAUDITORIA" property="tipodocumentoIdtipodocumento.fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A8_USUARIOCREACIONAUDITORIA" property="tipodocumentoIdtipodocumento.usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A8_FECHAMODIFICACIONAUDITORIA" property="tipodocumentoIdtipodocumento.fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A8_USUARIOMODIFICACIONAUDITORIA" property="tipodocumentoIdtipodocumento.usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A8_EQUIPOAUDITORIA" property="tipodocumentoIdtipodocumento.equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A8_PROGRAMAAUDITORIA" property="tipodocumentoIdtipodocumento.programaauditoria" jdbcType="VARCHAR" />
+	<result column="A8_ESTADOAUDITORIA" property="tipodocumentoIdtipodocumento.estadoauditoria" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<sql id="Basic_Column_List">
+	A1.IDESTADOSPORETAPAPORDOCUMENTO as A1_IDESTADOSPORETAPAPORDOCUMENTO, A1.IDESTADOSPORTIPODOCUMENTO as A1_IDESTADOSPORTIPODOCUMENTO, A1.IDGRUPODOCUMENTO as A1_IDGRUPODOCUMENTO, A1.NRODOCUMENTO as A1_NRODOCUMENTO, 
+	A1.FECHAINGRESO as A1_FECHAINGRESO, A1.FECHASALIDA as A1_FECHASALIDA, A1.USUARIORESPONSABLEINGRESO as A1_USUARIORESPONSABLEINGRESO, A1.USUARIORESPONSABLESALIDA as A1_USUARIORESPONSABLESALIDA, 
+	A1.IDTIPODOCUMENTO as A1_IDTIPODOCUMENTO, A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, 
+	A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA 
+	
+	</sql>
+
+
+	<sql id="Full_Column_List">
+	A1.IDESTADOSPORETAPAPORDOCUMENTO as A1_IDESTADOSPORETAPAPORDOCUMENTO, A1.IDESTADOSPORTIPODOCUMENTO as A1_IDESTADOSPORTIPODOCUMENTO, A1.IDGRUPODOCUMENTO as A1_IDGRUPODOCUMENTO, A1.NRODOCUMENTO as A1_NRODOCUMENTO, 
+	A1.FECHAINGRESO as A1_FECHAINGRESO, A1.FECHASALIDA as A1_FECHASALIDA, A1.USUARIORESPONSABLEINGRESO as A1_USUARIORESPONSABLEINGRESO, A1.USUARIORESPONSABLESALIDA as A1_USUARIORESPONSABLESALIDA, 
+	A1.IDTIPODOCUMENTO as A1_IDTIPODOCUMENTO, A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, 
+	A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA, 
+	
+	A3.IDESTADOSPORTIPODOCUMENTO as A3_IDESTADOSPORTIPODOCUMENTO, A3.IDESTADOSPORETAPA as A3_IDESTADOSPORETAPA, A3.IDTIPODOCUMENTO as A3_IDTIPODOCUMENTO, A3.IDESTADOSPORDOCUMENTOSIGA as A3_IDESTADOSPORDOCUMENTOSIGA, 
+	A3.FECHACREACIONAUDITORIA as A3_FECHACREACIONAUDITORIA, A3.USUARIOCREACIONAUDITORIA as A3_USUARIOCREACIONAUDITORIA, A3.FECHAMODIFICACIONAUDITORIA as A3_FECHAMODIFICACIONAUDITORIA, A3.USUARIOMODIFICACIONAUDITORIA as A3_USUARIOMODIFICACIONAUDITORIA, 
+	A3.EQUIPOAUDITORIA as A3_EQUIPOAUDITORIA, A3.PROGRAMAAUDITORIA as A3_PROGRAMAAUDITORIA, A3.ESTADOAUDITORIA as A3_ESTADOAUDITORIA, 
+	A7.IDGRUPODOCUMENTO as A7_IDGRUPODOCUMENTO, A7.ANIO as A7_ANIO, A7.CODIGOCENTROCOSTO as A7_CODIGOCENTROCOSTO, A7.FECHACREACIONAUDITORIA as A7_FECHACREACIONAUDITORIA, 
+	A7.USUARIOCREACIONAUDITORIA as A7_USUARIOCREACIONAUDITORIA, A7.FECHAMODIFICACIONAUDITORIA as A7_FECHAMODIFICACIONAUDITORIA, A7.USUARIOMODIFICACIONAUDITORIA as A7_USUARIOMODIFICACIONAUDITORIA, A7.EQUIPOAUDITORIA as A7_EQUIPOAUDITORIA, 
+	A7.PROGRAMAAUDITORIA as A7_PROGRAMAAUDITORIA, A7.ESTADOAUDITORIA as A7_ESTADOAUDITORIA, 
+	A8.IDTIPODOCUMENTO as A8_IDTIPODOCUMENTO, A8.DESCRIPCIONTIPODOCUMENTO as A8_DESCRIPCIONTIPODOCUMENTO, A8.DESCRIPCION as A8_DESCRIPCION, A8.FECHACREACIONAUDITORIA as A8_FECHACREACIONAUDITORIA, 
+	A8.USUARIOCREACIONAUDITORIA as A8_USUARIOCREACIONAUDITORIA, A8.FECHAMODIFICACIONAUDITORIA as A8_FECHAMODIFICACIONAUDITORIA, A8.USUARIOMODIFICACIONAUDITORIA as A8_USUARIOMODIFICACIONAUDITORIA, A8.EQUIPOAUDITORIA as A8_EQUIPOAUDITORIA, 
+	A8.PROGRAMAAUDITORIA as A8_PROGRAMAAUDITORIA, A8.ESTADOAUDITORIA as A8_ESTADOAUDITORIA 
+	</sql>
+
+
+
+	<select id="selectByPrimaryKeyBasic" resultMap="BasicResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.EstadosPorEtapaPorDocumento A1
+	
+	where A1.IdEstadosPorEtapaPorDocumento = #{idestadosporetapapordocumento,jdbcType=INTEGER}
+</select>
+
+
+
+	<select id="selectByPrimaryKeyBasicActive" resultMap="BasicResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.EstadosPorEtapaPorDocumento A1
+	
+	where A1.IdEstadosPorEtapaPorDocumento = #{idestadosporetapapordocumento,jdbcType=INTEGER}
+	and A1.estadoauditoria='1'
+	</select>
+
+
+
+	<select id="selectByPrimaryKeyFull" resultMap="FullResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.EstadosPorEtapaPorDocumento A1
+	
+	LEFT JOIN abas.EstadosPorTipoDocumento A3 ON A1.IdEstadosPorTipoDocumento = A3.IdEstadosPorTipoDocumento
+	LEFT JOIN abas.GrupoDocumento A7 ON A1.IdGrupoDocumento = A7.IdGrupoDocumento
+	LEFT JOIN abas.TipoDocumento A8 ON A1.IdTipoDocumento = A8.IdTipoDocumento
+	where A1.IdEstadosPorEtapaPorDocumento = #{idestadosporetapapordocumento,jdbcType=INTEGER}
+</select>
+
+
+
+	<select id="selectByPrimaryKeyFullActive" resultMap="FullResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.EstadosPorEtapaPorDocumento A1
+	
+	LEFT JOIN abas.EstadosPorTipoDocumento A3 ON A1.IdEstadosPorTipoDocumento = A3.IdEstadosPorTipoDocumento
+	LEFT JOIN abas.GrupoDocumento A7 ON A1.IdGrupoDocumento = A7.IdGrupoDocumento
+	LEFT JOIN abas.TipoDocumento A8 ON A1.IdTipoDocumento = A8.IdTipoDocumento
+	where A1.IdEstadosPorEtapaPorDocumento = #{idestadosporetapapordocumento,jdbcType=INTEGER}
+	and A1.estadoauditoria='1'
+	</select>
+
+
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	delete from abas.EstadosPorEtapaPorDocumento 
+	where IdEstadosPorEtapaPorDocumento = #{idestadosporetapapordocumento,jdbcType=INTEGER}
+	</delete>
+
+
+
+
+
+	<insert id="insert" parameterType="pe.com.sisabas.be.Estadosporetapapordocumento" >
+	insert into abas.EstadosPorEtapaPorDocumento (
+	IDESTADOSPORETAPAPORDOCUMENTO, IDESTADOSPORTIPODOCUMENTO, IDGRUPODOCUMENTO, NRODOCUMENTO, 
+	FECHAINGRESO, FECHASALIDA, USUARIORESPONSABLEINGRESO, USUARIORESPONSABLESALIDA, 
+	IDTIPODOCUMENTO, FECHACREACIONAUDITORIA, USUARIOCREACIONAUDITORIA, FECHAMODIFICACIONAUDITORIA, 
+	USUARIOMODIFICACIONAUDITORIA, EQUIPOAUDITORIA, PROGRAMAAUDITORIA, ESTADOAUDITORIA 
+	) 
+	VALUES (
+	#{idestadosporetapapordocumento,jdbcType=INTEGER}, #{idestadosportipodocumento,jdbcType=INTEGER}, #{idgrupodocumento,jdbcType=INTEGER}, #{nrodocumento,jdbcType=INTEGER}, 
+	#{fechaingreso,jdbcType=TIMESTAMP}, #{fechasalida,jdbcType=TIMESTAMP}, #{usuarioresponsableingreso,jdbcType=BIGINT}, #{usuarioresponsablesalida,jdbcType=BIGINT}, 
+	#{idtipodocumento,jdbcType=INTEGER}, #{fechacreacionauditoria,jdbcType=TIMESTAMP}, #{usuariocreacionauditoria,jdbcType=VARCHAR}, #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	#{usuariomodificacionauditoria,jdbcType=VARCHAR}, #{equipoauditoria,jdbcType=VARCHAR}, #{programaauditoria,jdbcType=VARCHAR}, #{estadoauditoria,jdbcType=VARCHAR} 
+	) 
+	</insert>
+
+
+
+	<insert id="insertSelective" parameterType="pe.com.sisabas.be.Estadosporetapapordocumento" >
+	insert into abas.EstadosPorEtapaPorDocumento 
+	<trim prefix="(" suffix=")" suffixOverrides="," >
+	<if test="idestadosporetapapordocumento != null" >
+		IdEstadosPorEtapaPorDocumento,
+	</if>
+	<if test="idestadosportipodocumento != null" >
+		IdEstadosPorTipoDocumento,
+	</if>
+	<if test="idgrupodocumento != null" >
+		IdGrupoDocumento,
+	</if>
+	<if test="nrodocumento != null" >
+		NroDocumento,
+	</if>
+	<if test="fechaingreso != null" >
+		FechaIngreso,
+	</if>
+	<if test="fechasalida != null" >
+		FechaSalida,
+	</if>
+	<if test="usuarioresponsableingreso != null" >
+		UsuarioResponsableIngreso,
+	</if>
+	<if test="usuarioresponsablesalida != null" >
+		UsuarioResponsableSalida,
+	</if>
+	<if test="idtipodocumento != null" >
+		IdTipoDocumento,
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		FechaCreacionAuditoria,
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		UsuarioCreacionAuditoria,
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		FechaModificacionAuditoria,
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		UsuarioModificacionAuditoria,
+	</if>
+	<if test="equipoauditoria != null" >
+		EquipoAuditoria,
+	</if>
+	<if test="programaauditoria != null" >
+		ProgramaAuditoria,
+	</if>
+	<if test="estadoauditoria != null" >
+		EstadoAuditoria,
+	</if>
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides="," >
+	<if test="idestadosporetapapordocumento != null" >
+		#{idestadosporetapapordocumento,jdbcType=INTEGER}, 
+	</if>
+	<if test="idestadosportipodocumento != null" >
+		#{idestadosportipodocumento,jdbcType=INTEGER}, 
+	</if>
+	<if test="idgrupodocumento != null" >
+		#{idgrupodocumento,jdbcType=INTEGER}, 
+	</if>
+	<if test="nrodocumento != null" >
+		#{nrodocumento,jdbcType=INTEGER}, 
+	</if>
+	<if test="fechaingreso != null" >
+		#{fechaingreso,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="fechasalida != null" >
+		#{fechasalida,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuarioresponsableingreso != null" >
+		#{usuarioresponsableingreso,jdbcType=BIGINT}, 
+	</if>
+	<if test="usuarioresponsablesalida != null" >
+		#{usuarioresponsablesalida,jdbcType=BIGINT}, 
+	</if>
+	<if test="idtipodocumento != null" >
+		#{idtipodocumento,jdbcType=INTEGER}, 
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		#{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		#{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		#{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		#{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="equipoauditoria != null" >
+		#{equipoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="programaauditoria != null" >
+		#{programaauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoauditoria != null" >
+		#{estadoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	</trim>
+	</insert>
+
+
+
+	<update id="updateByPrimaryKey" parameterType="pe.com.sisabas.be.Estadosporetapapordocumento" >
+	update abas.EstadosPorEtapaPorDocumento 
+	set 
+	IDESTADOSPORETAPAPORDOCUMENTO = #{idestadosporetapapordocumento,jdbcType=INTEGER}, IDESTADOSPORTIPODOCUMENTO = #{idestadosportipodocumento,jdbcType=INTEGER}, 
+	IDGRUPODOCUMENTO = #{idgrupodocumento,jdbcType=INTEGER}, NRODOCUMENTO = #{nrodocumento,jdbcType=INTEGER}, 
+	FECHAINGRESO = #{fechaingreso,jdbcType=TIMESTAMP}, FECHASALIDA = #{fechasalida,jdbcType=TIMESTAMP}, 
+	USUARIORESPONSABLEINGRESO = #{usuarioresponsableingreso,jdbcType=BIGINT}, USUARIORESPONSABLESALIDA = #{usuarioresponsablesalida,jdbcType=BIGINT}, 
+	IDTIPODOCUMENTO = #{idtipodocumento,jdbcType=INTEGER}, FECHACREACIONAUDITORIA = #{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	USUARIOCREACIONAUDITORIA = #{usuariocreacionauditoria,jdbcType=VARCHAR}, FECHAMODIFICACIONAUDITORIA = #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	USUARIOMODIFICACIONAUDITORIA = #{usuariomodificacionauditoria,jdbcType=VARCHAR}, EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, 
+	PROGRAMAAUDITORIA = #{programaauditoria,jdbcType=VARCHAR}, ESTADOAUDITORIA = #{estadoauditoria,jdbcType=VARCHAR} 
+	
+	where IdEstadosPorEtapaPorDocumento = #{idestadosporetapapordocumento,jdbcType=INTEGER}
+	</update>
+
+
+
+	<update id="updateByPrimaryKeySelective" parameterType="pe.com.sisabas.be.Estadosporetapapordocumento" >
+	update abas.EstadosPorEtapaPorDocumento 
+	<set>
+	<if test="idestadosporetapapordocumento != null" >
+		IDESTADOSPORETAPAPORDOCUMENTO = #{idestadosporetapapordocumento,jdbcType=INTEGER}, 
+	</if>
+	<if test="idestadosportipodocumento != null" >
+		IDESTADOSPORTIPODOCUMENTO = #{idestadosportipodocumento,jdbcType=INTEGER}, 
+	</if>
+	<if test="idgrupodocumento != null" >
+		IDGRUPODOCUMENTO = #{idgrupodocumento,jdbcType=INTEGER}, 
+	</if>
+	<if test="nrodocumento != null" >
+		NRODOCUMENTO = #{nrodocumento,jdbcType=INTEGER}, 
+	</if>
+	<if test="fechaingreso != null" >
+		FECHAINGRESO = #{fechaingreso,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="fechasalida != null" >
+		FECHASALIDA = #{fechasalida,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuarioresponsableingreso != null" >
+		USUARIORESPONSABLEINGRESO = #{usuarioresponsableingreso,jdbcType=BIGINT}, 
+	</if>
+	<if test="usuarioresponsablesalida != null" >
+		USUARIORESPONSABLESALIDA = #{usuarioresponsablesalida,jdbcType=BIGINT}, 
+	</if>
+	<if test="idtipodocumento != null" >
+		IDTIPODOCUMENTO = #{idtipodocumento,jdbcType=INTEGER}, 
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		FECHACREACIONAUDITORIA = #{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		USUARIOCREACIONAUDITORIA = #{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		FECHAMODIFICACIONAUDITORIA = #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		USUARIOMODIFICACIONAUDITORIA = #{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="equipoauditoria != null" >
+		EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="programaauditoria != null" >
+		PROGRAMAAUDITORIA = #{programaauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoauditoria != null" >
+		ESTADOAUDITORIA = #{estadoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	</set>
+
+	where IdEstadosPorEtapaPorDocumento = #{idestadosporetapapordocumento,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="selectDynamicBasic" resultMap="BasicResultMap"  parameterType="pe.com.sisabas.be.Estadosporetapapordocumento" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.EstadosPorEtapaPorDocumento A1
+	<where>
+		<if test="idestadosporetapapordocumento != null" >
+			 AND A1.IDESTADOSPORETAPAPORDOCUMENTO = #{idestadosporetapapordocumento,jdbcType=INTEGER} 
+		</if>
+		<if test="idestadosportipodocumento != null" >
+			 AND A1.IDESTADOSPORTIPODOCUMENTO = #{idestadosportipodocumento,jdbcType=INTEGER} 
+		</if>
+		<if test="idgrupodocumento != null" >
+			 AND A1.IDGRUPODOCUMENTO = #{idgrupodocumento,jdbcType=INTEGER} 
+		</if>
+		<if test="nrodocumento != null" >
+			 AND A1.NRODOCUMENTO = #{nrodocumento,jdbcType=INTEGER} 
+		</if>
+		<if test="fechaingresoini != null" >
+			 AND  (A1.FECHAINGRESO)  <![CDATA[ >= ]]>  #{fechaingresoini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechaingresofin != null" >
+			 AND (A1.FECHAINGRESO) <![CDATA[ <= ]]>  #{fechaingresofin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="fechasalidaini != null" >
+			 AND  (A1.FECHASALIDA)  <![CDATA[ >= ]]>  #{fechasalidaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechasalidafin != null" >
+			 AND (A1.FECHASALIDA) <![CDATA[ <= ]]>  #{fechasalidafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuarioresponsableingreso != null" >
+			 AND A1.USUARIORESPONSABLEINGRESO = #{usuarioresponsableingreso,jdbcType=BIGINT} 
+		</if>
+		<if test="usuarioresponsablesalida != null" >
+			 AND A1.USUARIORESPONSABLESALIDA = #{usuarioresponsablesalida,jdbcType=BIGINT} 
+		</if>
+		<if test="idtipodocumento != null" >
+			 AND A1.IDTIPODOCUMENTO = #{idtipodocumento,jdbcType=INTEGER} 
+		</if>
+		<if test="fechacreacionauditoriaini != null" >
+			 AND  (A1.FECHACREACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechacreacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechacreacionauditoriafin != null" >
+			 AND (A1.FECHACREACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechacreacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariocreacionauditoria != null" >
+			 AND A1.USUARIOCREACIONAUDITORIA LIKE ('%' + #{usuariocreacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechamodificacionauditoriaini != null" >
+			 AND  (A1.FECHAMODIFICACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechamodificacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechamodificacionauditoriafin != null" >
+			 AND (A1.FECHAMODIFICACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechamodificacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariomodificacionauditoria != null" >
+			 AND A1.USUARIOMODIFICACIONAUDITORIA LIKE ('%' + #{usuariomodificacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="equipoauditoria != null" >
+			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="programaauditoria != null" >
+			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoauditoria != null" >
+			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+
+		<if test="listaIdestadosportipodocumentoInKeys != null" >
+			AND A1.IDESTADOSPORTIPODOCUMENTO IN
+			<foreach collection="listaIdestadosportipodocumentoInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+
+		<if test="listaIdgrupodocumentoInKeys != null" >
+			AND A1.IDGRUPODOCUMENTO IN
+			<foreach collection="listaIdgrupodocumentoInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+
+		<if test="listaIdtipodocumentoInKeys != null" >
+			AND A1.IDTIPODOCUMENTO IN
+			<foreach collection="listaIdtipodocumentoInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+	</where>
+
+	<if test="ordenListaCampos != null" >
+		 ORDER BY 
+		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+		<if test="ordenTipo != null" >
+			 ${ordenTipo} 
+		</if>
+	</if>
+
+	<if test="cantidadRegistros != null" >
+
+	</if>
+	</select>
+
+
+	<select id="selectDynamicFull" resultMap="FullResultMap"  parameterType="pe.com.sisabas.be.Estadosporetapapordocumento" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.EstadosPorEtapaPorDocumento A1
+	LEFT JOIN abas.EstadosPorTipoDocumento A3 ON A1.IdEstadosPorTipoDocumento = A3.IdEstadosPorTipoDocumento
+	LEFT JOIN abas.GrupoDocumento A7 ON A1.IdGrupoDocumento = A7.IdGrupoDocumento
+	LEFT JOIN abas.TipoDocumento A8 ON A1.IdTipoDocumento = A8.IdTipoDocumento
+	<where>
+		<if test="idestadosporetapapordocumento != null" >
+			 AND A1.IDESTADOSPORETAPAPORDOCUMENTO = #{idestadosporetapapordocumento,jdbcType=INTEGER} 
+		</if>
+		<if test="idestadosportipodocumento != null" >
+			 AND A1.IDESTADOSPORTIPODOCUMENTO = #{idestadosportipodocumento,jdbcType=INTEGER} 
+		</if>
+		<if test="idgrupodocumento != null" >
+			 AND A1.IDGRUPODOCUMENTO = #{idgrupodocumento,jdbcType=INTEGER} 
+		</if>
+		<if test="nrodocumento != null" >
+			 AND A1.NRODOCUMENTO = #{nrodocumento,jdbcType=INTEGER} 
+		</if>
+		<if test="fechaingresoini != null" >
+			 AND  (A1.FECHAINGRESO)  <![CDATA[ >= ]]>  #{fechaingresoini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechaingresofin != null" >
+			 AND (A1.FECHAINGRESO) <![CDATA[ <= ]]>  #{fechaingresofin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="fechasalidaini != null" >
+			 AND  (A1.FECHASALIDA)  <![CDATA[ >= ]]>  #{fechasalidaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechasalidafin != null" >
+			 AND (A1.FECHASALIDA) <![CDATA[ <= ]]>  #{fechasalidafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuarioresponsableingreso != null" >
+			 AND A1.USUARIORESPONSABLEINGRESO = #{usuarioresponsableingreso,jdbcType=BIGINT} 
+		</if>
+		<if test="usuarioresponsablesalida != null" >
+			 AND A1.USUARIORESPONSABLESALIDA = #{usuarioresponsablesalida,jdbcType=BIGINT} 
+		</if>
+		<if test="idtipodocumento != null" >
+			 AND A1.IDTIPODOCUMENTO = #{idtipodocumento,jdbcType=INTEGER} 
+		</if>
+		<if test="fechacreacionauditoriaini != null" >
+			 AND  (A1.FECHACREACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechacreacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechacreacionauditoriafin != null" >
+			 AND (A1.FECHACREACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechacreacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariocreacionauditoria != null" >
+			 AND A1.USUARIOCREACIONAUDITORIA LIKE ('%' + #{usuariocreacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechamodificacionauditoriaini != null" >
+			 AND  (A1.FECHAMODIFICACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechamodificacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechamodificacionauditoriafin != null" >
+			 AND (A1.FECHAMODIFICACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechamodificacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariomodificacionauditoria != null" >
+			 AND A1.USUARIOMODIFICACIONAUDITORIA LIKE ('%' + #{usuariomodificacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="equipoauditoria != null" >
+			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="programaauditoria != null" >
+			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoauditoria != null" >
+			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+
+		<if test="listaIdestadosportipodocumentoInKeys != null" >
+			AND A1.IDESTADOSPORTIPODOCUMENTO IN
+			<foreach collection="listaIdestadosportipodocumentoInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+
+		<if test="listaIdgrupodocumentoInKeys != null" >
+			AND A1.IDGRUPODOCUMENTO IN
+			<foreach collection="listaIdgrupodocumentoInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+
+		<if test="listaIdtipodocumentoInKeys != null" >
+			AND A1.IDTIPODOCUMENTO IN
+			<foreach collection="listaIdtipodocumentoInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+	</where>
+
+	<if test="ordenListaCampos != null" >
+		 ORDER BY 
+		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+		<if test="ordenTipo != null" >
+			 ${ordenTipo} 
+		</if>
+	</if>
+
+	<if test="cantidadRegistros != null" >
+
+	</if>
+	</select>
+</mapper>

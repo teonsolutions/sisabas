@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:tabView id="panelDetailC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<p:tab title="Detalle">
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIdpersona"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpersona" value="#{persona.persona.idpersona}" disabled="true" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Tipo Documento" for="txtIdcatalogotipodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogotipodocumento" value="#{persona.persona.gentablaIdcatalogotipodocumento.vchregdescri}" disabled="true" style="width:150px;" label="Tipo Documento"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Numero Documento" for="txtNumerodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerodocumento" value="#{persona.persona.numerodocumento}" disabled="true" style="width:150px;" label="Numero Documento"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Nombres" for="txtNombres"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombres" value="#{persona.persona.nombres}" disabled="true" style="width:300px;" label="Nombres"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Apellido Paterno" for="txtApellidopaterno"/>
+		</td>
+		<td>
+			<p:inputText  id="txtApellidopaterno" value="#{persona.persona.apellidopaterno}" disabled="true" style="width:300px;" label="Apellido Paterno"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Apellido Materno" for="txtApellidomaterno"/>
+		</td>
+		<td>
+			<p:inputText  id="txtApellidomaterno" value="#{persona.persona.apellidomaterno}" disabled="true" style="width:300px;" label="Apellido Materno"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Dirección" for="txtDireccion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDireccion" value="#{persona.persona.direccion}" disabled="true" style="width:300px;" label="Dirección"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+	</p:tab>
+
+	<p:tab title="Datos de Auditoría">
+
+	<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="Estado Registro" for="txtEstadoauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadoauditoria" value="#{persona.persona.estadoauditoria}" disabled="true" style="width:150px;" label="Estado Registro"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Usuario de Creación" for="txtUsuariocreacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuariocreacionauditoria" value="#{persona.persona.usuariocreacionauditoria}" disabled="true" style="width:150px;" label="Usuario de Creación"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Usuario de última modificacion" for="txtUsuariomodificacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuariomodificacionauditoria" value="#{persona.persona.usuariomodificacionauditoria}" disabled="true" style="width:150px;" label="Usuario de última modificacion"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Fecha de Creación" for="txtFechacreacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechacreacionauditoria" value="#{persona.persona.fechacreacionauditoria}" disabled="true" style="width:150px;" label="Fecha de Creación">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>
+			</p:inputText>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha de última modificacion" for="txtFechamodificacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechamodificacionauditoria" value="#{persona.persona.fechamodificacionauditoria}" disabled="true" style="width:150px;" label="Fecha de última modificacion">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>
+			</p:inputText>
+		</td>
+		<td>
+			<p:outputLabel  value="IP/Nombre Equipo" for="txtEquipoauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEquipoauditoria" value="#{persona.persona.equipoauditoria}" disabled="true" style="width:300px;" label="IP/Nombre Equipo"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Programa/Clase" for="txtProgramaauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtProgramaauditoria" value="#{persona.persona.programaauditoria}" disabled="true" style="width:300px;" label="Programa/Clase"/>
+		</td>
+	</tr>
+
+	</table>
+	</p:tab>
+
+</p:tabView>
+</html>

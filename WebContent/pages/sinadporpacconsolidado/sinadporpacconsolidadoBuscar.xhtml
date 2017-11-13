@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{sinadporpacconsolidado.tituloParam} #{sinadporpacconsolidado.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="ID" for="txtIdsinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdsinad" value="#{sinadporpacconsolidado.sinadporpacconsolidadoB.idsinad}" disabled="false" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel value="Pac Consolid In" for="txtIdpacconsolidado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpacconsolidado" value="#{sinadporpacconsolidado.sinadporpacconsolidadoB.pacconsolidadoIdpacconsolidado.nroconsolid}" disabled="true" maxlength="10" style="width:150px;" label="Pac Consolid In"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_pacconsolidado.init}"  oncomplete="showDialogPF('frmMainIdpacconsolidadoBuscar:diPacconsolidadoBuscar');" update=":frmMainIdpacconsolidadoBuscar:diPacconsolidadoBuscar" style="width:20px;height:20px;" title="Buscar"  disabled="#{sinadporpacconsolidado.esDerivada=='1'?true:false}"/>
+			<p:commandButton icon="ui-icon-close" action="#{sinadporpacconsolidado.resetMainIdpacconsolidado}"  update="txtIdpacconsolidado" style="width:20px;height:20px;" title="Borrar Filtro" immediate="true" disabled="#{sinadporpacconsolidado.esDerivada=='1'?true:false}"/>
+		</td>
+		<td>
+			<p:outputLabel value="Numero Sinad" for="txtNumerosinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerosinad" value="#{sinadporpacconsolidado.sinadporpacconsolidadoB.numerosinad}" disabled="false" maxlength="10" style="width:150px;" label="Numero Sinad"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Número Expediente" for="txtNumeroexpediente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumeroexpediente" value="#{sinadporpacconsolidado.sinadporpacconsolidadoB.numeroexpediente}" disabled="false" maxlength="30" style="width:150px;" label="Número Expediente"/>
+		</td>
+		<td>
+			<p:outputLabel value="Año Expediente" for="txtAnioexpediente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnioexpediente" value="#{sinadporpacconsolidado.sinadporpacconsolidadoB.anioexpediente}" disabled="false" maxlength="10" style="width:150px;" label="Año Expediente"/>
+		</td>
+		<td>
+			<p:outputLabel value="Código Sede Expediente" for="txtCodigosedeexpediente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigosedeexpediente" value="#{sinadporpacconsolidado.sinadporpacconsolidadoB.codigosedeexpediente}" disabled="false" maxlength="10" style="width:150px;" label="Código Sede Expediente"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Descripción Tipo Documento" for="txtDescripciontipodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDescripciontipodocumento" value="#{sinadporpacconsolidado.sinadporpacconsolidadoB.descripciontipodocumento}" disabled="false" maxlength="2147483647" style="width:150px;" label="Descripción Tipo Documento"/>
+		</td>
+		<td>
+			<p:outputLabel value="Descripción Oficina Expediente" for="txtDescripcionoficinaexpediente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDescripcionoficinaexpediente" value="#{sinadporpacconsolidado.sinadporpacconsolidadoB.descripcionoficinaexpediente}" disabled="false" maxlength="2147483647" style="width:150px;" label="Descripción Oficina Expediente"/>
+		</td>
+		<td>
+			<p:outputLabel value="Número de Documento" for="txtNumerodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerodocumento" value="#{sinadporpacconsolidado.sinadporpacconsolidadoB.numerodocumento}" disabled="false" maxlength="100" style="width:150px;" label="Número de Documento"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Principal" for="txtEsprincipal"/>
+		</td>
+		<td>
+			<p:selectOneMenu id="txtEsprincipal" value ="#{sinadporpacconsolidado.sinadporpacconsolidadoB.esprincipal}" label="Principal">
+				<f:selectItem itemLabel="Seleccione..." itemValue=""/>
+				<f:selectItem itemLabel="SI" itemValue="1"/>
+				<f:selectItem itemLabel="NO" itemValue="0"/>
+			</p:selectOneMenu>
+		</td>
+		<td>
+			<p:outputLabel value="Nuevo Asignado" for="txtEsnuevoasignado"/>
+		</td>
+		<td>
+			<p:selectOneMenu id="txtEsnuevoasignado" value ="#{sinadporpacconsolidado.sinadporpacconsolidadoB.esnuevoasignado}" label="Nuevo Asignado">
+				<f:selectItem itemLabel="Seleccione..." itemValue=""/>
+				<f:selectItem itemLabel="SI" itemValue="1"/>
+				<f:selectItem itemLabel="NO" itemValue="0"/>
+			</p:selectOneMenu>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{sinadporpacconsolidado.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{sinadporpacconsolidado.buscar}"  update="tblListaSinadporpacconsolidado,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{sinadporpacconsolidado.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{sinadporpacconsolidado.irRegistrar}"  update="hidStatus,:frmSinadporpacconsolidadoRegistrar:diSinadporpacconsolidadoRegistrar" oncomplete="showDialog('form:hidStatus','frmSinadporpacconsolidadoRegistrar:diSinadporpacconsolidadoRegistrar');" icon="ui-icon-document"  rendered="#{sinadporpacconsolidado.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{sinadporpacconsolidado.irEditar}"  update="hidStatus,:frmSinadporpacconsolidadoRegistrar:diSinadporpacconsolidadoRegistrar" oncomplete="showDialog('form:hidStatus','frmSinadporpacconsolidadoRegistrar:diSinadporpacconsolidadoRegistrar');" icon="ui-icon-pencil" disabled="#{!sinadporpacconsolidado.esSeleccionado}"  rendered="#{sinadporpacconsolidado.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{sinadporpacconsolidado.irDetalle}"  update="hidStatus,:frmSinadporpacconsolidadoDetalle:diSinadporpacconsolidadoDetalle" oncomplete="showDialog('form:hidStatus','frmSinadporpacconsolidadoDetalle:diSinadporpacconsolidadoDetalle');" icon="ui-icon-zoomin" disabled="#{!sinadporpacconsolidado.esSeleccionado}"   rendered="#{sinadporpacconsolidado.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{sinadporpacconsolidado.irAnular}"  update="hidStatus,:frmSinadporpacconsolidadoAnular:diSinadporpacconsolidadoAnular" oncomplete="showDialog('form:hidStatus','frmSinadporpacconsolidadoAnular:diSinadporpacconsolidadoAnular');" icon="ui-icon-circle-minus" disabled="#{!sinadporpacconsolidado.esSeleccionado}"   rendered="#{sinadporpacconsolidado.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{sinadporpacconsolidado.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!sinadporpacconsolidado.esSeleccionado}"   rendered="#{sinadporpacconsolidado.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{sinadporpacconsolidado.irImprimir}"  update="hidStatus,:frmSinadporpacconsolidadoImprimir:diSinadporpacconsolidadoImprimir" oncomplete="showDialog('form:hidStatus','frmSinadporpacconsolidadoImprimir:diSinadporpacconsolidadoImprimir');" icon="ui-icon-print"   rendered="#{sinadporpacconsolidado.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="#{pacconsolidado.load}" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{sinadporpacconsolidado.esDerivada=='1'}"/>
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{sinadporpacconsolidado.esDerivada=='0'}"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaSinadporpacconsolidado">
+	<p:menuitem value="Editar" action="#{sinadporpacconsolidado.irEditar}"   update="hidStatus,:frmSinadporpacconsolidadoRegistrar:diSinadporpacconsolidadoRegistrar"  oncomplete="showDialog('form:hidStatus','frmSinadporpacconsolidadoRegistrar:diSinadporpacconsolidadoRegistrar');"  icon="ui-icon-pencil" rendered="#{sinadporpacconsolidado.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{sinadporpacconsolidado.irDetalle}"   update="hidStatus,:frmSinadporpacconsolidadoDetalle:diSinadporpacconsolidadoDetalle"  oncomplete="showDialog('form:hidStatus','frmSinadporpacconsolidadoDetalle:diSinadporpacconsolidadoDetalle');"  icon="ui-icon-zoomin" rendered="#{sinadporpacconsolidado.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{sinadporpacconsolidado.irAnular}"   update="hidStatus,:frmSinadporpacconsolidadoAnular:diSinadporpacconsolidadoAnular"  oncomplete="showDialog('form:hidStatus','frmSinadporpacconsolidadoAnular:diSinadporpacconsolidadoAnular');"  icon="ui-icon-circle-minus" rendered="#{sinadporpacconsolidado.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{sinadporpacconsolidado.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{sinadporpacconsolidado.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaSinadporpacconsolidado" value="#{sinadporpacconsolidado.listaSinadporpacconsolidado}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaSinadporpacconsolidado" selection="#{sinadporpacconsolidado.selectedSinadporpacconsolidado}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(sinadporpacconsolidado.listaSinadporpacconsolidado)}"
+	selectionMode="single" rowKey="#{var.idsinad}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{sinadporpacconsolidado.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.idsinad}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idsinad}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.pacconsolidadoIdpacconsolidado.nroconsolid}">
+			<f:facet name="header">
+				<h:outputText value="Pac Consolid In" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.pacconsolidadoIdpacconsolidado.nroconsolid}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.numerosinad}">
+			<f:facet name="header">
+				<h:outputText value="Numero Sinad" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.numerosinad}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.numeroexpediente}">
+			<f:facet name="header">
+				<h:outputText value="Número Expediente" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.numeroexpediente}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.anioexpediente}">
+			<f:facet name="header">
+				<h:outputText value="Año Expediente" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.anioexpediente}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.codigosedeexpediente}">
+			<f:facet name="header">
+				<h:outputText value="Código Sede Expediente" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.codigosedeexpediente}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.descripciontipodocumento}">
+			<f:facet name="header">
+				<h:outputText value="Descripción Tipo Documento" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.descripciontipodocumento}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.descripcionoficinaexpediente}">
+			<f:facet name="header">
+				<h:outputText value="Descripción Oficina Expediente" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.descripcionoficinaexpediente}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.numerodocumento}">
+			<f:facet name="header">
+				<h:outputText value="Número de Documento" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.numerodocumento}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.esprincipal}">
+			<f:facet name="header">
+				<h:outputText value="Principal" styleClass="c_center"/>
+			</f:facet>
+			<h:graphicImage url="/resources/img/check.png" width="10" height="10" rendered="#{var.esprincipal=='1'}"/>		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.esnuevoasignado}">
+			<f:facet name="header">
+				<h:outputText value="Nuevo Asignado" styleClass="c_center"/>
+			</f:facet>
+			<h:graphicImage url="/resources/img/check.png" width="10" height="10" rendered="#{var.esnuevoasignado=='1'}"/>		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{sinadporpacconsolidado.eliminar}"  update=":form:tblListaSinadporpacconsolidado,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmSinadporpacconsolidadoImprimir">
+	<p:dialog id="diSinadporpacconsolidadoImprimir" header="#{sinadporpacconsolidado.titulo}" widgetVar="diSinadporpacconsolidadoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaSinadporpacconsolidado" fileName="datosSinadporpacconsolidado" postProcessor="#{sinadporpacconsolidado.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaSinadporpacconsolidado" fileName="datos" preProcessor="#{sinadporpacconsolidado.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmSinadporpacconsolidadoRegistrar">
+	<p:dialog id="diSinadporpacconsolidadoRegistrar" header="#{sinadporpacconsolidado.titulo}" widgetVar="diSinadporpacconsolidadoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsSinadporpacconsolidadoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/sinadporpacconsolidado/component/c_sinadporpacconsolidadoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{sinadporpacconsolidado.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{sinadporpacconsolidado.aceptar}" update="hidStatus,:form:tblListaSinadporpacconsolidado,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmSinadporpacconsolidadoRegistrar:hidStatus','frmSinadporpacconsolidadoRegistrar:diSinadporpacconsolidadoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmSinadporpacconsolidadoRegistrar:diSinadporpacconsolidadoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmSinadporpacconsolidadoDetalle">
+	<p:dialog id="diSinadporpacconsolidadoDetalle" header="#{sinadporpacconsolidado.titulo}" widgetVar="diSinadporpacconsolidadoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/sinadporpacconsolidado/component/c_sinadporpacconsolidadoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmSinadporpacconsolidadoDetalle:diSinadporpacconsolidadoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmSinadporpacconsolidadoAnular">
+	<p:dialog id="diSinadporpacconsolidadoAnular" header="#{sinadporpacconsolidado.titulo}" widgetVar="diSinadporpacconsolidadoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsSinadporpacconsolidadoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/sinadporpacconsolidado/component/c_sinadporpacconsolidadoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{sinadporpacconsolidado.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{sinadporpacconsolidado.anular}" update="hidStatus,:form:tblListaSinadporpacconsolidado,:form:growl,panelDetailC" oncomplete="hideDialog('frmSinadporpacconsolidadoAnular:hidStatus','frmSinadporpacconsolidadoAnular:diSinadporpacconsolidadoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmSinadporpacconsolidadoAnular:diSinadporpacconsolidadoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMainIdpacconsolidadoBuscar">
+	<p:dialog id="diPacconsolidadoBuscar" header="Pac Consolidacion » Buscar" widgetVar="diPacconsolidadoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Pacconsolidado" autoUpdate="true" closable="true"/>
+	 <cc:cc_pacconsolidadoBuscar
+	 ajaxEventListener="#{sinadporpacconsolidado.loadMainIdpacconsolidado}"
+	 actionOncomplete="hideDialogPF('frmMainIdpacconsolidadoBuscar:diPacconsolidadoBuscar');"
+	 actionUpdate=":form:txtIdpacconsolidado"/>
+	</p:dialog>
+</h:form>
+
+
+
+</ui:define>
+</ui:composition>

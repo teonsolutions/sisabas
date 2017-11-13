@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pe.com.sisabas.persistence.ItinerarioconveniomarcoMapper" >
+
+	<resultMap id="BasicResultMap" type="pe.com.sisabas.be.Itinerarioconveniomarco">
+	<result column="A1_IDITINERARIOCONVENIOMARCO" property="iditinerarioconveniomarco" jdbcType="INTEGER" />
+	<result column="A1_IDDOCUMENTOTECNICO" property="iddocumentotecnico" jdbcType="INTEGER" />
+	<result column="A1_TIPOITINERARIO" property="tipoitinerario" jdbcType="VARCHAR" />
+	<result column="A1_CIUDADORIGEN" property="ciudadorigen" jdbcType="VARCHAR" />
+	<result column="A1_FECHASALIDA" property="fechasalida" jdbcType="DATE" />
+	<result column="A1_HORASALIDA" property="horasalida" jdbcType="TIMESTAMP" />
+	<result column="A1_CIUDADDESTINO" property="ciudaddestino" jdbcType="VARCHAR" />
+	<result column="A1_FECHARETERNO" property="fechareterno" jdbcType="DATE" />
+	<result column="A1_HORARETORNO" property="horaretorno" jdbcType="TIMESTAMP" />
+	<result column="A1_DNI" property="dni" jdbcType="VARCHAR" />
+	<result column="A1_APELLIDOPATERNO" property="apellidopaterno" jdbcType="VARCHAR" />
+	<result column="A1_APELLIDOMATERNO" property="apellidomaterno" jdbcType="VARCHAR" />
+	<result column="A1_NOMBERS" property="nombers" jdbcType="VARCHAR" />
+	<result column="A1_CORREO" property="correo" jdbcType="VARCHAR" />
+	<result column="A1_TELEFONO" property="telefono" jdbcType="VARCHAR" />
+	<result column="A1_TIPOCONTRATOPERSONAL" property="tipocontratopersonal" jdbcType="VARCHAR" />
+	<result column="A1_USUARIOCREACIONAUDITORIA" property="usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_FECHAMODIFICACIONAUDITORIA" property="fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOMODIFICACIONAUDITORIA" property="usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<resultMap id="FullResultMap" type="pe.com.sisabas.be.Itinerarioconveniomarco">
+	<result column="A1_IDITINERARIOCONVENIOMARCO" property="iditinerarioconveniomarco" jdbcType="INTEGER" />
+	<result column="A1_IDDOCUMENTOTECNICO" property="iddocumentotecnico" jdbcType="INTEGER" />
+	<result column="A1_TIPOITINERARIO" property="tipoitinerario" jdbcType="VARCHAR" />
+	<result column="A1_CIUDADORIGEN" property="ciudadorigen" jdbcType="VARCHAR" />
+	<result column="A1_FECHASALIDA" property="fechasalida" jdbcType="DATE" />
+	<result column="A1_HORASALIDA" property="horasalida" jdbcType="TIMESTAMP" />
+	<result column="A1_CIUDADDESTINO" property="ciudaddestino" jdbcType="VARCHAR" />
+	<result column="A1_FECHARETERNO" property="fechareterno" jdbcType="DATE" />
+	<result column="A1_HORARETORNO" property="horaretorno" jdbcType="TIMESTAMP" />
+	<result column="A1_DNI" property="dni" jdbcType="VARCHAR" />
+	<result column="A1_APELLIDOPATERNO" property="apellidopaterno" jdbcType="VARCHAR" />
+	<result column="A1_APELLIDOMATERNO" property="apellidomaterno" jdbcType="VARCHAR" />
+	<result column="A1_NOMBERS" property="nombers" jdbcType="VARCHAR" />
+	<result column="A1_CORREO" property="correo" jdbcType="VARCHAR" />
+	<result column="A1_TELEFONO" property="telefono" jdbcType="VARCHAR" />
+	<result column="A1_TIPOCONTRATOPERSONAL" property="tipocontratopersonal" jdbcType="VARCHAR" />
+	<result column="A1_USUARIOCREACIONAUDITORIA" property="usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_FECHAMODIFICACIONAUDITORIA" property="fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOMODIFICACIONAUDITORIA" property="usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	<result column="A3_IDDOCUMENTOTECNICO" property="documentotecnicoIddocumentotecnico.iddocumentotecnico" jdbcType="INTEGER" />
+	<result column="A3_IDPEDIDO" property="documentotecnicoIddocumentotecnico.idpedido" jdbcType="INTEGER" />
+	<result column="A3_IDPACPROGRAMADO" property="documentotecnicoIddocumentotecnico.idpacprogramado" jdbcType="INTEGER" />
+	<result column="A3_IDCOMITEPROCESO" property="documentotecnicoIddocumentotecnico.idcomiteproceso" jdbcType="INTEGER" />
+	<result column="A3_DENOMINACIONCONTRATACION" property="documentotecnicoIddocumentotecnico.denominacioncontratacion" jdbcType="VARCHAR" />
+	<result column="A3_FINALIDADPUBLICA" property="documentotecnicoIddocumentotecnico.finalidadpublica" jdbcType="VARCHAR" />
+	<result column="A3_NROPAC" property="documentotecnicoIddocumentotecnico.nropac" jdbcType="INTEGER" />
+	<result column="A3_OBJETOCONTRATACION" property="documentotecnicoIddocumentotecnico.objetocontratacion" jdbcType="VARCHAR" />
+	<result column="A3_CENTROCOSTO" property="documentotecnicoIddocumentotecnico.centrocosto" jdbcType="VARCHAR" />
+	<result column="A3_ANTECEDENTES" property="documentotecnicoIddocumentotecnico.antecedentes" jdbcType="VARCHAR" />
+	<result column="A3_DNIRESPONSABLE" property="documentotecnicoIddocumentotecnico.dniresponsable" jdbcType="VARCHAR" />
+	<result column="A3_NOMBRERESPONSABLE" property="documentotecnicoIddocumentotecnico.nombreresponsable" jdbcType="VARCHAR" />
+	<result column="A3_NROANEXORESPONSABLE" property="documentotecnicoIddocumentotecnico.nroanexoresponsable" jdbcType="VARCHAR" />
+	<result column="A3_CORREORESPONSABLE" property="documentotecnicoIddocumentotecnico.correoresponsable" jdbcType="VARCHAR" />
+	<result column="A3_IDCATALOGOTIPODOCUMENTOTECNICO" property="documentotecnicoIddocumentotecnico.idcatalogotipodocumentotecnico" jdbcType="VARCHAR" />
+	<result column="A3_IDCATALOGOTIPOTDR" property="documentotecnicoIddocumentotecnico.idcatalogotipotdr" jdbcType="VARCHAR" />
+	<result column="A3_RUTAANEXO" property="documentotecnicoIddocumentotecnico.rutaanexo" jdbcType="VARCHAR" />
+	<result column="A3_FECHACREACIONAUDITORIA" property="documentotecnicoIddocumentotecnico.fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A3_USUARIOCREACIONAUDITORIA" property="documentotecnicoIddocumentotecnico.usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A3_FECHAMODIFICACIONAUDITORIA" property="documentotecnicoIddocumentotecnico.fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A3_USUARIOMODIFICACIONAUDITORIA" property="documentotecnicoIddocumentotecnico.usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A3_UBIGEO" property="documentotecnicoIddocumentotecnico.ubigeo" jdbcType="VARCHAR" />
+	<result column="A3_DIRECCION" property="documentotecnicoIddocumentotecnico.direccion" jdbcType="VARCHAR" />
+	<result column="A3_NUMEROSINAD" property="documentotecnicoIddocumentotecnico.numerosinad" jdbcType="INTEGER" />
+	<result column="A3_ANIOEXPEDIENTE" property="documentotecnicoIddocumentotecnico.anioexpediente" jdbcType="INTEGER" />
+	<result column="A3_NUMEROEXPEDIENTE" property="documentotecnicoIddocumentotecnico.numeroexpediente" jdbcType="VARCHAR" />
+	<result column="A3_TIENECOMITE" property="documentotecnicoIddocumentotecnico.tienecomite" jdbcType="VARCHAR" />
+	<result column="A3_TIPOITINERARIO" property="documentotecnicoIddocumentotecnico.tipoitinerario" jdbcType="VARCHAR" />
+	<result column="A3_NROPEDIDOITINERARIO" property="documentotecnicoIddocumentotecnico.nropedidoitinerario" jdbcType="VARCHAR" />
+	<result column="A3_ANIOPEDIDOITINERARIO" property="documentotecnicoIddocumentotecnico.aniopedidoitinerario" jdbcType="INTEGER" />
+	<result column="A3_UEPEDIDOITINERARIO" property="documentotecnicoIddocumentotecnico.uepedidoitinerario" jdbcType="VARCHAR" />
+	<result column="A3_JUSTIFICACIONPEDIDOITINERARIO" property="documentotecnicoIddocumentotecnico.justificacionpedidoitinerario" jdbcType="VARCHAR" />
+	<result column="A3_ITINERARIOORIGENREGISTRADO" property="documentotecnicoIddocumentotecnico.itinerarioorigenregistrado" jdbcType="VARCHAR" />
+	<result column="A3_EQUIPOAUDITORIA" property="documentotecnicoIddocumentotecnico.equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A3_PROGRAMAAUDITORIA" property="documentotecnicoIddocumentotecnico.programaauditoria" jdbcType="VARCHAR" />
+	<result column="A3_ESTADOAUDITORIA" property="documentotecnicoIddocumentotecnico.estadoauditoria" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<sql id="Basic_Column_List">
+	A1.IDITINERARIOCONVENIOMARCO as A1_IDITINERARIOCONVENIOMARCO, A1.IDDOCUMENTOTECNICO as A1_IDDOCUMENTOTECNICO, A1.TIPOITINERARIO as A1_TIPOITINERARIO, A1.CIUDADORIGEN as A1_CIUDADORIGEN, 
+	A1.FECHASALIDA as A1_FECHASALIDA, A1.HORASALIDA as A1_HORASALIDA, A1.CIUDADDESTINO as A1_CIUDADDESTINO, A1.FECHARETERNO as A1_FECHARETERNO, 
+	A1.HORARETORNO as A1_HORARETORNO, A1.DNI as A1_DNI, A1.APELLIDOPATERNO as A1_APELLIDOPATERNO, A1.APELLIDOMATERNO as A1_APELLIDOMATERNO, 
+	A1.NOMBERS as A1_NOMBERS, A1.CORREO as A1_CORREO, A1.TELEFONO as A1_TELEFONO, A1.TIPOCONTRATOPERSONAL as A1_TIPOCONTRATOPERSONAL, 
+	A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, 
+	A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA 
+	</sql>
+
+
+	<sql id="Full_Column_List">
+	A1.IDITINERARIOCONVENIOMARCO as A1_IDITINERARIOCONVENIOMARCO, A1.IDDOCUMENTOTECNICO as A1_IDDOCUMENTOTECNICO, A1.TIPOITINERARIO as A1_TIPOITINERARIO, A1.CIUDADORIGEN as A1_CIUDADORIGEN, 
+	A1.FECHASALIDA as A1_FECHASALIDA, A1.HORASALIDA as A1_HORASALIDA, A1.CIUDADDESTINO as A1_CIUDADDESTINO, A1.FECHARETERNO as A1_FECHARETERNO, 
+	A1.HORARETORNO as A1_HORARETORNO, A1.DNI as A1_DNI, A1.APELLIDOPATERNO as A1_APELLIDOPATERNO, A1.APELLIDOMATERNO as A1_APELLIDOMATERNO, 
+	A1.NOMBERS as A1_NOMBERS, A1.CORREO as A1_CORREO, A1.TELEFONO as A1_TELEFONO, A1.TIPOCONTRATOPERSONAL as A1_TIPOCONTRATOPERSONAL, 
+	A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, 
+	A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA, 
+	A3.IDDOCUMENTOTECNICO as A3_IDDOCUMENTOTECNICO, A3.IDPEDIDO as A3_IDPEDIDO, A3.IDPACPROGRAMADO as A3_IDPACPROGRAMADO, A3.IDCOMITEPROCESO as A3_IDCOMITEPROCESO, 
+	A3.DENOMINACIONCONTRATACION as A3_DENOMINACIONCONTRATACION, A3.FINALIDADPUBLICA as A3_FINALIDADPUBLICA, A3.NROPAC as A3_NROPAC, A3.OBJETOCONTRATACION as A3_OBJETOCONTRATACION, 
+	A3.CENTROCOSTO as A3_CENTROCOSTO, A3.ANTECEDENTES as A3_ANTECEDENTES, A3.DNIRESPONSABLE as A3_DNIRESPONSABLE, A3.NOMBRERESPONSABLE as A3_NOMBRERESPONSABLE, 
+	A3.NROANEXORESPONSABLE as A3_NROANEXORESPONSABLE, A3.CORREORESPONSABLE as A3_CORREORESPONSABLE, A3.IDCATALOGOTIPODOCUMENTOTECNICO as A3_IDCATALOGOTIPODOCUMENTOTECNICO, A3.IDCATALOGOTIPOTDR as A3_IDCATALOGOTIPOTDR, 
+	A3.RUTAANEXO as A3_RUTAANEXO, A3.FECHACREACIONAUDITORIA as A3_FECHACREACIONAUDITORIA, A3.USUARIOCREACIONAUDITORIA as A3_USUARIOCREACIONAUDITORIA, A3.FECHAMODIFICACIONAUDITORIA as A3_FECHAMODIFICACIONAUDITORIA, 
+	A3.USUARIOMODIFICACIONAUDITORIA as A3_USUARIOMODIFICACIONAUDITORIA, A3.UBIGEO as A3_UBIGEO, A3.DIRECCION as A3_DIRECCION, A3.NUMEROSINAD as A3_NUMEROSINAD, 
+	A3.ANIOEXPEDIENTE as A3_ANIOEXPEDIENTE, A3.NUMEROEXPEDIENTE as A3_NUMEROEXPEDIENTE, A3.TIENECOMITE as A3_TIENECOMITE, A3.TIPOITINERARIO as A3_TIPOITINERARIO, 
+	A3.NROPEDIDOITINERARIO as A3_NROPEDIDOITINERARIO, A3.ANIOPEDIDOITINERARIO as A3_ANIOPEDIDOITINERARIO, A3.UEPEDIDOITINERARIO as A3_UEPEDIDOITINERARIO, A3.JUSTIFICACIONPEDIDOITINERARIO as A3_JUSTIFICACIONPEDIDOITINERARIO, 
+	A3.ITINERARIOORIGENREGISTRADO as A3_ITINERARIOORIGENREGISTRADO, A3.EQUIPOAUDITORIA as A3_EQUIPOAUDITORIA, A3.PROGRAMAAUDITORIA as A3_PROGRAMAAUDITORIA, A3.ESTADOAUDITORIA as A3_ESTADOAUDITORIA 
+	
+	</sql>
+
+
+
+	<select id="selectByPrimaryKeyBasic" resultMap="BasicResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.ItinerarioConvenioMarco A1
+	
+	where A1.IdItinerarioConvenioMarco = #{iditinerarioconveniomarco,jdbcType=INTEGER}
+</select>
+
+
+
+	<select id="selectByPrimaryKeyBasicActive" resultMap="BasicResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.ItinerarioConvenioMarco A1
+	
+	where A1.IdItinerarioConvenioMarco = #{iditinerarioconveniomarco,jdbcType=INTEGER}
+	and A1.estadoauditoria='1'
+	</select>
+
+
+
+	<select id="selectByPrimaryKeyFull" resultMap="FullResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.ItinerarioConvenioMarco A1
+	
+	LEFT JOIN abas.DocumentoTecnico A3 ON A1.IdDocumentoTecnico = A3.IdDocumentoTecnico
+	where A1.IdItinerarioConvenioMarco = #{iditinerarioconveniomarco,jdbcType=INTEGER}
+</select>
+
+
+
+	<select id="selectByPrimaryKeyFullActive" resultMap="FullResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.ItinerarioConvenioMarco A1
+	
+	LEFT JOIN abas.DocumentoTecnico A3 ON A1.IdDocumentoTecnico = A3.IdDocumentoTecnico
+	where A1.IdItinerarioConvenioMarco = #{iditinerarioconveniomarco,jdbcType=INTEGER}
+	and A1.estadoauditoria='1'
+	</select>
+
+
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	delete from abas.ItinerarioConvenioMarco 
+	where IdItinerarioConvenioMarco = #{iditinerarioconveniomarco,jdbcType=INTEGER}
+	</delete>
+
+
+
+
+
+	<insert id="insert" parameterType="pe.com.sisabas.be.Itinerarioconveniomarco" >
+	insert into abas.ItinerarioConvenioMarco (
+	IDITINERARIOCONVENIOMARCO, IDDOCUMENTOTECNICO, TIPOITINERARIO, CIUDADORIGEN, 
+	FECHASALIDA, HORASALIDA, CIUDADDESTINO, FECHARETERNO, 
+	HORARETORNO, DNI, APELLIDOPATERNO, APELLIDOMATERNO, 
+	NOMBERS, CORREO, TELEFONO, TIPOCONTRATOPERSONAL, 
+	USUARIOCREACIONAUDITORIA, FECHAMODIFICACIONAUDITORIA, USUARIOMODIFICACIONAUDITORIA, EQUIPOAUDITORIA, 
+	PROGRAMAAUDITORIA, ESTADOAUDITORIA ) 
+	VALUES (
+	#{iditinerarioconveniomarco,jdbcType=INTEGER}, #{iddocumentotecnico,jdbcType=INTEGER}, #{tipoitinerario,jdbcType=VARCHAR}, #{ciudadorigen,jdbcType=VARCHAR}, 
+	#{fechasalida,jdbcType=DATE}, #{horasalida,jdbcType=TIMESTAMP}, #{ciudaddestino,jdbcType=VARCHAR}, #{fechareterno,jdbcType=DATE}, 
+	#{horaretorno,jdbcType=TIMESTAMP}, #{dni,jdbcType=VARCHAR}, #{apellidopaterno,jdbcType=VARCHAR}, #{apellidomaterno,jdbcType=VARCHAR}, 
+	#{nombers,jdbcType=VARCHAR}, #{correo,jdbcType=VARCHAR}, #{telefono,jdbcType=VARCHAR}, #{tipocontratopersonal,jdbcType=VARCHAR}, 
+	#{usuariocreacionauditoria,jdbcType=VARCHAR}, #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, #{usuariomodificacionauditoria,jdbcType=VARCHAR}, #{equipoauditoria,jdbcType=VARCHAR}, 
+	#{programaauditoria,jdbcType=VARCHAR}, #{estadoauditoria,jdbcType=VARCHAR} ) 
+	</insert>
+
+
+
+	<insert id="insertSelective" parameterType="pe.com.sisabas.be.Itinerarioconveniomarco" >
+	insert into abas.ItinerarioConvenioMarco 
+	<trim prefix="(" suffix=")" suffixOverrides="," >
+	<if test="iditinerarioconveniomarco != null" >
+		IdItinerarioConvenioMarco,
+	</if>
+	<if test="iddocumentotecnico != null" >
+		IdDocumentoTecnico,
+	</if>
+	<if test="tipoitinerario != null" >
+		TipoItinerario,
+	</if>
+	<if test="ciudadorigen != null" >
+		CiudadOrigen,
+	</if>
+	<if test="fechasalida != null" >
+		FechaSalida,
+	</if>
+	<if test="horasalida != null" >
+		HoraSalida,
+	</if>
+	<if test="ciudaddestino != null" >
+		CiudadDestino,
+	</if>
+	<if test="fechareterno != null" >
+		FechaReterno,
+	</if>
+	<if test="horaretorno != null" >
+		HoraRetorno,
+	</if>
+	<if test="dni != null" >
+		DNI,
+	</if>
+	<if test="apellidopaterno != null" >
+		ApellidoPaterno,
+	</if>
+	<if test="apellidomaterno != null" >
+		ApellidoMaterno,
+	</if>
+	<if test="nombers != null" >
+		Nombers,
+	</if>
+	<if test="correo != null" >
+		Correo,
+	</if>
+	<if test="telefono != null" >
+		Telefono,
+	</if>
+	<if test="tipocontratopersonal != null" >
+		TipoContratoPersonal,
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		UsuarioCreacionAuditoria,
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		FechaModificacionAuditoria,
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		UsuarioModificacionAuditoria,
+	</if>
+	<if test="equipoauditoria != null" >
+		EquipoAuditoria,
+	</if>
+	<if test="programaauditoria != null" >
+		ProgramaAuditoria,
+	</if>
+	<if test="estadoauditoria != null" >
+		EstadoAuditoria,
+	</if>
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides="," >
+	<if test="iditinerarioconveniomarco != null" >
+		#{iditinerarioconveniomarco,jdbcType=INTEGER}, 
+	</if>
+	<if test="iddocumentotecnico != null" >
+		#{iddocumentotecnico,jdbcType=INTEGER}, 
+	</if>
+	<if test="tipoitinerario != null" >
+		#{tipoitinerario,jdbcType=VARCHAR}, 
+	</if>
+	<if test="ciudadorigen != null" >
+		#{ciudadorigen,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechasalida != null" >
+		#{fechasalida,jdbcType=DATE}, 
+	</if>
+	<if test="horasalida != null" >
+		#{horasalida,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="ciudaddestino != null" >
+		#{ciudaddestino,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechareterno != null" >
+		#{fechareterno,jdbcType=DATE}, 
+	</if>
+	<if test="horaretorno != null" >
+		#{horaretorno,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="dni != null" >
+		#{dni,jdbcType=VARCHAR}, 
+	</if>
+	<if test="apellidopaterno != null" >
+		#{apellidopaterno,jdbcType=VARCHAR}, 
+	</if>
+	<if test="apellidomaterno != null" >
+		#{apellidomaterno,jdbcType=VARCHAR}, 
+	</if>
+	<if test="nombers != null" >
+		#{nombers,jdbcType=VARCHAR}, 
+	</if>
+	<if test="correo != null" >
+		#{correo,jdbcType=VARCHAR}, 
+	</if>
+	<if test="telefono != null" >
+		#{telefono,jdbcType=VARCHAR}, 
+	</if>
+	<if test="tipocontratopersonal != null" >
+		#{tipocontratopersonal,jdbcType=VARCHAR}, 
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		#{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		#{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		#{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="equipoauditoria != null" >
+		#{equipoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="programaauditoria != null" >
+		#{programaauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoauditoria != null" >
+		#{estadoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	</trim>
+	</insert>
+
+
+
+	<update id="updateByPrimaryKey" parameterType="pe.com.sisabas.be.Itinerarioconveniomarco" >
+	update abas.ItinerarioConvenioMarco 
+	set 
+	IDITINERARIOCONVENIOMARCO = #{iditinerarioconveniomarco,jdbcType=INTEGER}, IDDOCUMENTOTECNICO = #{iddocumentotecnico,jdbcType=INTEGER}, 
+	TIPOITINERARIO = #{tipoitinerario,jdbcType=VARCHAR}, CIUDADORIGEN = #{ciudadorigen,jdbcType=VARCHAR}, 
+	FECHASALIDA = #{fechasalida,jdbcType=DATE}, HORASALIDA = #{horasalida,jdbcType=TIMESTAMP}, 
+	CIUDADDESTINO = #{ciudaddestino,jdbcType=VARCHAR}, FECHARETERNO = #{fechareterno,jdbcType=DATE}, 
+	HORARETORNO = #{horaretorno,jdbcType=TIMESTAMP}, DNI = #{dni,jdbcType=VARCHAR}, 
+	APELLIDOPATERNO = #{apellidopaterno,jdbcType=VARCHAR}, APELLIDOMATERNO = #{apellidomaterno,jdbcType=VARCHAR}, 
+	NOMBERS = #{nombers,jdbcType=VARCHAR}, CORREO = #{correo,jdbcType=VARCHAR}, 
+	TELEFONO = #{telefono,jdbcType=VARCHAR}, TIPOCONTRATOPERSONAL = #{tipocontratopersonal,jdbcType=VARCHAR}, 
+	USUARIOCREACIONAUDITORIA = #{usuariocreacionauditoria,jdbcType=VARCHAR}, FECHAMODIFICACIONAUDITORIA = #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	USUARIOMODIFICACIONAUDITORIA = #{usuariomodificacionauditoria,jdbcType=VARCHAR}, EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, 
+	PROGRAMAAUDITORIA = #{programaauditoria,jdbcType=VARCHAR}, ESTADOAUDITORIA = #{estadoauditoria,jdbcType=VARCHAR} 
+	
+	where IdItinerarioConvenioMarco = #{iditinerarioconveniomarco,jdbcType=INTEGER}
+	</update>
+
+
+
+	<update id="updateByPrimaryKeySelective" parameterType="pe.com.sisabas.be.Itinerarioconveniomarco" >
+	update abas.ItinerarioConvenioMarco 
+	<set>
+	<if test="iditinerarioconveniomarco != null" >
+		IDITINERARIOCONVENIOMARCO = #{iditinerarioconveniomarco,jdbcType=INTEGER}, 
+	</if>
+	<if test="iddocumentotecnico != null" >
+		IDDOCUMENTOTECNICO = #{iddocumentotecnico,jdbcType=INTEGER}, 
+	</if>
+	<if test="tipoitinerario != null" >
+		TIPOITINERARIO = #{tipoitinerario,jdbcType=VARCHAR}, 
+	</if>
+	<if test="ciudadorigen != null" >
+		CIUDADORIGEN = #{ciudadorigen,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechasalida != null" >
+		FECHASALIDA = #{fechasalida,jdbcType=DATE}, 
+	</if>
+	<if test="horasalida != null" >
+		HORASALIDA = #{horasalida,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="ciudaddestino != null" >
+		CIUDADDESTINO = #{ciudaddestino,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechareterno != null" >
+		FECHARETERNO = #{fechareterno,jdbcType=DATE}, 
+	</if>
+	<if test="horaretorno != null" >
+		HORARETORNO = #{horaretorno,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="dni != null" >
+		DNI = #{dni,jdbcType=VARCHAR}, 
+	</if>
+	<if test="apellidopaterno != null" >
+		APELLIDOPATERNO = #{apellidopaterno,jdbcType=VARCHAR}, 
+	</if>
+	<if test="apellidomaterno != null" >
+		APELLIDOMATERNO = #{apellidomaterno,jdbcType=VARCHAR}, 
+	</if>
+	<if test="nombers != null" >
+		NOMBERS = #{nombers,jdbcType=VARCHAR}, 
+	</if>
+	<if test="correo != null" >
+		CORREO = #{correo,jdbcType=VARCHAR}, 
+	</if>
+	<if test="telefono != null" >
+		TELEFONO = #{telefono,jdbcType=VARCHAR}, 
+	</if>
+	<if test="tipocontratopersonal != null" >
+		TIPOCONTRATOPERSONAL = #{tipocontratopersonal,jdbcType=VARCHAR}, 
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		USUARIOCREACIONAUDITORIA = #{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		FECHAMODIFICACIONAUDITORIA = #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		USUARIOMODIFICACIONAUDITORIA = #{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="equipoauditoria != null" >
+		EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="programaauditoria != null" >
+		PROGRAMAAUDITORIA = #{programaauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoauditoria != null" >
+		ESTADOAUDITORIA = #{estadoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	</set>
+
+	where IdItinerarioConvenioMarco = #{iditinerarioconveniomarco,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="selectDynamicBasic" resultMap="BasicResultMap"  parameterType="pe.com.sisabas.be.Itinerarioconveniomarco" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.ItinerarioConvenioMarco A1
+	<where>
+		<if test="iditinerarioconveniomarco != null" >
+			 AND A1.IDITINERARIOCONVENIOMARCO = #{iditinerarioconveniomarco,jdbcType=INTEGER} 
+		</if>
+		<if test="iddocumentotecnico != null" >
+			 AND A1.IDDOCUMENTOTECNICO = #{iddocumentotecnico,jdbcType=INTEGER} 
+		</if>
+		<if test="tipoitinerario != null" >
+			 AND A1.TIPOITINERARIO LIKE ('%' + #{tipoitinerario,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="ciudadorigen != null" >
+			 AND A1.CIUDADORIGEN LIKE ('%' + #{ciudadorigen,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechasalidaini != null" >
+			 AND A1.FECHASALIDA <![CDATA[ >= ]]> #{fechasalidaini,jdbcType=DATE} 
+		</if>
+
+		<if test="fechasalidafin != null" >
+			 AND A1.FECHASALIDA <![CDATA[ <= ]]>  #{fechasalidafin,jdbcType=DATE} 
+
+		</if>
+		<if test="horasalidaini != null" >
+			 AND  (A1.HORASALIDA)  <![CDATA[ >= ]]>  #{horasalidaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="horasalidafin != null" >
+			 AND (A1.HORASALIDA) <![CDATA[ <= ]]>  #{horasalidafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="ciudaddestino != null" >
+			 AND A1.CIUDADDESTINO LIKE ('%' + #{ciudaddestino,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechareternoini != null" >
+			 AND A1.FECHARETERNO <![CDATA[ >= ]]> #{fechareternoini,jdbcType=DATE} 
+		</if>
+
+		<if test="fechareternofin != null" >
+			 AND A1.FECHARETERNO <![CDATA[ <= ]]>  #{fechareternofin,jdbcType=DATE} 
+
+		</if>
+		<if test="horaretornoini != null" >
+			 AND  (A1.HORARETORNO)  <![CDATA[ >= ]]>  #{horaretornoini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="horaretornofin != null" >
+			 AND (A1.HORARETORNO) <![CDATA[ <= ]]>  #{horaretornofin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="dni != null" >
+			 AND A1.DNI LIKE ('%' + #{dni,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="apellidopaterno != null" >
+			 AND A1.APELLIDOPATERNO LIKE ('%' + #{apellidopaterno,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="apellidomaterno != null" >
+			 AND A1.APELLIDOMATERNO LIKE ('%' + #{apellidomaterno,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="nombers != null" >
+			 AND A1.NOMBERS LIKE ('%' + #{nombers,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="correo != null" >
+			 AND A1.CORREO LIKE ('%' + #{correo,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="telefono != null" >
+			 AND A1.TELEFONO LIKE ('%' + #{telefono,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="tipocontratopersonal != null" >
+			 AND A1.TIPOCONTRATOPERSONAL LIKE ('%' + #{tipocontratopersonal,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="usuariocreacionauditoria != null" >
+			 AND A1.USUARIOCREACIONAUDITORIA LIKE ('%' + #{usuariocreacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechamodificacionauditoriaini != null" >
+			 AND  (A1.FECHAMODIFICACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechamodificacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechamodificacionauditoriafin != null" >
+			 AND (A1.FECHAMODIFICACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechamodificacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariomodificacionauditoria != null" >
+			 AND A1.USUARIOMODIFICACIONAUDITORIA LIKE ('%' + #{usuariomodificacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="equipoauditoria != null" >
+			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="programaauditoria != null" >
+			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoauditoria != null" >
+			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+
+		<if test="listaIddocumentotecnicoInKeys != null" >
+			AND A1.IDDOCUMENTOTECNICO IN
+			<foreach collection="listaIddocumentotecnicoInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+	</where>
+
+	<if test="ordenListaCampos != null" >
+		 ORDER BY 
+		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+		<if test="ordenTipo != null" >
+			 ${ordenTipo} 
+		</if>
+	</if>
+
+	<if test="cantidadRegistros != null" >
+
+	</if>
+	</select>
+
+
+	<select id="selectDynamicFull" resultMap="FullResultMap"  parameterType="pe.com.sisabas.be.Itinerarioconveniomarco" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.ItinerarioConvenioMarco A1
+	LEFT JOIN abas.DocumentoTecnico A3 ON A1.IdDocumentoTecnico = A3.IdDocumentoTecnico
+	<where>
+		<if test="iditinerarioconveniomarco != null" >
+			 AND A1.IDITINERARIOCONVENIOMARCO = #{iditinerarioconveniomarco,jdbcType=INTEGER} 
+		</if>
+		<if test="iddocumentotecnico != null" >
+			 AND A1.IDDOCUMENTOTECNICO = #{iddocumentotecnico,jdbcType=INTEGER} 
+		</if>
+		<if test="tipoitinerario != null" >
+			 AND A1.TIPOITINERARIO LIKE ('%' + #{tipoitinerario,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="ciudadorigen != null" >
+			 AND A1.CIUDADORIGEN LIKE ('%' + #{ciudadorigen,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechasalidaini != null" >
+			 AND A1.FECHASALIDA <![CDATA[ >= ]]> #{fechasalidaini,jdbcType=DATE} 
+		</if>
+
+		<if test="fechasalidafin != null" >
+			 AND A1.FECHASALIDA <![CDATA[ <= ]]>  #{fechasalidafin,jdbcType=DATE} 
+
+		</if>
+		<if test="horasalidaini != null" >
+			 AND  (A1.HORASALIDA)  <![CDATA[ >= ]]>  #{horasalidaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="horasalidafin != null" >
+			 AND (A1.HORASALIDA) <![CDATA[ <= ]]>  #{horasalidafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="ciudaddestino != null" >
+			 AND A1.CIUDADDESTINO LIKE ('%' + #{ciudaddestino,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechareternoini != null" >
+			 AND A1.FECHARETERNO <![CDATA[ >= ]]> #{fechareternoini,jdbcType=DATE} 
+		</if>
+
+		<if test="fechareternofin != null" >
+			 AND A1.FECHARETERNO <![CDATA[ <= ]]>  #{fechareternofin,jdbcType=DATE} 
+
+		</if>
+		<if test="horaretornoini != null" >
+			 AND  (A1.HORARETORNO)  <![CDATA[ >= ]]>  #{horaretornoini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="horaretornofin != null" >
+			 AND (A1.HORARETORNO) <![CDATA[ <= ]]>  #{horaretornofin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="dni != null" >
+			 AND A1.DNI LIKE ('%' + #{dni,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="apellidopaterno != null" >
+			 AND A1.APELLIDOPATERNO LIKE ('%' + #{apellidopaterno,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="apellidomaterno != null" >
+			 AND A1.APELLIDOMATERNO LIKE ('%' + #{apellidomaterno,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="nombers != null" >
+			 AND A1.NOMBERS LIKE ('%' + #{nombers,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="correo != null" >
+			 AND A1.CORREO LIKE ('%' + #{correo,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="telefono != null" >
+			 AND A1.TELEFONO LIKE ('%' + #{telefono,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="tipocontratopersonal != null" >
+			 AND A1.TIPOCONTRATOPERSONAL LIKE ('%' + #{tipocontratopersonal,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="usuariocreacionauditoria != null" >
+			 AND A1.USUARIOCREACIONAUDITORIA LIKE ('%' + #{usuariocreacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechamodificacionauditoriaini != null" >
+			 AND  (A1.FECHAMODIFICACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechamodificacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechamodificacionauditoriafin != null" >
+			 AND (A1.FECHAMODIFICACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechamodificacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariomodificacionauditoria != null" >
+			 AND A1.USUARIOMODIFICACIONAUDITORIA LIKE ('%' + #{usuariomodificacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="equipoauditoria != null" >
+			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="programaauditoria != null" >
+			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoauditoria != null" >
+			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+
+		<if test="listaIddocumentotecnicoInKeys != null" >
+			AND A1.IDDOCUMENTOTECNICO IN
+			<foreach collection="listaIddocumentotecnicoInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+	</where>
+
+	<if test="ordenListaCampos != null" >
+		 ORDER BY 
+		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+		<if test="ordenTipo != null" >
+			 ${ordenTipo} 
+		</if>
+	</if>
+
+	<if test="cantidadRegistros != null" >
+
+	</if>
+	</select>
+</mapper>

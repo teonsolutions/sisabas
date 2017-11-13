@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmEstadosporetapapordocumentoImprimir">
+	<p:dialog id="diEstadosporetapapordocumentoImprimir" header="#{estadosporetapapordocumento.titulo}" widgetVar="diEstadosporetapapordocumentoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaEstadosporetapapordocumento" fileName="datosEstadosporetapapordocumento" postProcessor="#{estadosporetapapordocumento.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaEstadosporetapapordocumento" fileName="datos" preProcessor="#{estadosporetapapordocumento.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEstadosporetapapordocumentoRegistrar">
+	<p:dialog id="diEstadosporetapapordocumentoRegistrar" header="#{estadosporetapapordocumento.titulo}" widgetVar="diEstadosporetapapordocumentoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsEstadosporetapapordocumentoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/estadosporetapapordocumento/component/c_estadosporetapapordocumentoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{estadosporetapapordocumento.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{estadosporetapapordocumento.aceptar}" update="hidStatus,:form:tblListaEstadosporetapapordocumento,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmEstadosporetapapordocumentoRegistrar:hidStatus','frmEstadosporetapapordocumentoRegistrar:diEstadosporetapapordocumentoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEstadosporetapapordocumentoRegistrar:diEstadosporetapapordocumentoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEstadosporetapapordocumentoDetalle">
+	<p:dialog id="diEstadosporetapapordocumentoDetalle" header="#{estadosporetapapordocumento.titulo}" widgetVar="diEstadosporetapapordocumentoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/estadosporetapapordocumento/component/c_estadosporetapapordocumentoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEstadosporetapapordocumentoDetalle:diEstadosporetapapordocumentoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEstadosporetapapordocumentoAnular">
+	<p:dialog id="diEstadosporetapapordocumentoAnular" header="#{estadosporetapapordocumento.titulo}" widgetVar="diEstadosporetapapordocumentoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsEstadosporetapapordocumentoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/estadosporetapapordocumento/component/c_estadosporetapapordocumentoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{estadosporetapapordocumento.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{estadosporetapapordocumento.anular}" update="hidStatus,:form:tblListaEstadosporetapapordocumento,:form:growl,panelDetailC" oncomplete="hideDialog('frmEstadosporetapapordocumentoAnular:hidStatus','frmEstadosporetapapordocumentoAnular:diEstadosporetapapordocumentoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEstadosporetapapordocumentoAnular:diEstadosporetapapordocumentoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdgrupodocumentoBuscar">
+	<p:dialog id="diGrupodocumentoBuscar" header="Grupo documento » Buscar" widgetVar="diGrupodocumentoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Grupodocumento" autoUpdate="true" closable="true"/>
+	 <cc:cc_grupodocumentoBuscar
+	 ajaxEventListener="#{estadosporetapapordocumento.loadRegIdgrupodocumento}"
+	 actionOncomplete="hideDialogPF('frmRegIdgrupodocumentoBuscar:diGrupodocumentoBuscar');"
+	 actionUpdate=":frmEstadosporetapapordocumentoRegistrar:txtIdgrupodocumento"/>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdtipodocumentoBuscar">
+	<p:dialog id="diTipodocumentoBuscar" header="TipoDocumento » Buscar" widgetVar="diTipodocumentoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Tipodocumento" autoUpdate="true" closable="true"/>
+	 <cc:cc_tipodocumentoBuscar
+	 ajaxEventListener="#{estadosporetapapordocumento.loadRegIdtipodocumento}"
+	 actionOncomplete="hideDialogPF('frmRegIdtipodocumentoBuscar:diTipodocumentoBuscar');"
+	 actionUpdate=":frmEstadosporetapapordocumentoRegistrar:txtIdtipodocumento"/>
+	</p:dialog>
+</h:form>
+
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelDetailC">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIdunidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdunidadejecutora" value="#{unidadejecutora.unidadejecutora.idunidadejecutora}" disabled="true" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Código de Unidad Ejecutora" for="txtCodigounidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigounidadejecutora" value="#{unidadejecutora.unidadejecutora.codigounidadejecutora}" disabled="true" style="width:150px;" label="Código de Unidad Ejecutora"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Nombre de Unidad Ejecutora" for="txtNombreunidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombreunidadejecutora" value="#{unidadejecutora.unidadejecutora.nombreunidadejecutora}" disabled="true" style="width:300px;" label="Nombre de Unidad Ejecutora"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Código Siaf Unidad Ejecutora" for="txtCodigosiafunidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigosiafunidadejecutora" value="#{unidadejecutora.unidadejecutora.codigosiafunidadejecutora}" disabled="true" style="width:150px;" label="Código Siaf Unidad Ejecutora"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Ubicación Datos Siaf" for="txtUbicaciondatossiaf"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUbicaciondatossiaf" value="#{unidadejecutora.unidadejecutora.ubicaciondatossiaf}" disabled="true" style="width:300px;" label="Ubicación Datos Siaf"/>
+		</td>
+	</tr>
+
+</table>
+</p:panel>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmGentipoImprimir">
+	<p:dialog id="diGentipoImprimir" header="#{gentipo.titulo}" widgetVar="diGentipoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaGentipo" fileName="datosGentipo" postProcessor="#{gentipo.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaGentipo" fileName="datos" preProcessor="#{gentipo.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmGentipoRegistrar">
+	<p:dialog id="diGentipoRegistrar" header="#{gentipo.titulo}" widgetVar="diGentipoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsGentipoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/gentipo/component/c_gentipoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{gentipo.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{gentipo.aceptar}" update="hidStatus,:form:tblListaGentipo,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmGentipoRegistrar:hidStatus','frmGentipoRegistrar:diGentipoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmGentipoRegistrar:diGentipoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmGentipoDetalle">
+	<p:dialog id="diGentipoDetalle" header="#{gentipo.titulo}" widgetVar="diGentipoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/gentipo/component/c_gentipoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmGentipoDetalle:diGentipoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmGentipoAnular">
+	<p:dialog id="diGentipoAnular" header="#{gentipo.titulo}" widgetVar="diGentipoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsGentipoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/gentipo/component/c_gentipoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{gentipo.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{gentipo.anular}" update="hidStatus,:form:tblListaGentipo,:form:growl,panelDetailC" oncomplete="hideDialog('frmGentipoAnular:hidStatus','frmGentipoAnular:diGentipoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmGentipoAnular:diGentipoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+	<!-- Derived Table Main (gentabla)  -->
+<h:form id="frmGentablaDetalle">
+	<p:dialog id="diGentablaDetalle" header="#{gentabla.titulo}" widgetVar="diGentablaDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/gentabla/component/c_gentablaDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmGentablaDetalle:diGentablaDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+</html>

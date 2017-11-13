@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{persona.tituloParam} #{persona.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="ID" for="txtIdpersona"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpersona" value="#{persona.personaB.idpersona}" disabled="false" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:selectCheckboxMenu id="txtIdcatalogotipodocumento" value="#{persona.listaIdcatalogotipodocumentoKeys}" filter="true" disabled="false" filterText="Filter" filterMatchMode="startsWith" label="Tipo Documento">
+				 <f:selectItems  value="#{persona.listaGentablaIdcatalogotipodocumento}" var="var" itemLabel ="#{var.vchregdescri}" itemValue ="#{var.vchregcodigo}"/>
+				 <p:ajax  event="change" listener="#{persona.getValuesListenerIdcatalogotipodocumento}" update="txtKeyValuesIdcatalogotipodocumento" process="@this"/>
+				 <p:ajax  event="toggleSelect" listener="#{persona.handleChangeIdcatalogotipodocumento}" update="txtKeyValuesIdcatalogotipodocumento,txtIdcatalogotipodocumento" process="@this"/>
+			</p:selectCheckboxMenu>
+		</td>
+		<td>
+			<p:inputText  id="txtKeyValuesIdcatalogotipodocumento" value="#{persona.valuesIdcatalogotipodocumento}" disabled="true" style="width:150px;"/>
+		</td>
+		<td>
+			<p:outputLabel value="Numero Documento" for="txtNumerodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerodocumento" value="#{persona.personaB.numerodocumento}" disabled="false" maxlength="10" style="width:150px;" label="Numero Documento"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Nombres" for="txtNombres"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombres" value="#{persona.personaB.nombres}" disabled="false" maxlength="40" style="width:150px;" label="Nombres"/>
+		</td>
+		<td>
+			<p:outputLabel value="Apellido Paterno" for="txtApellidopaterno"/>
+		</td>
+		<td>
+			<p:inputText  id="txtApellidopaterno" value="#{persona.personaB.apellidopaterno}" disabled="false" maxlength="40" style="width:150px;" label="Apellido Paterno"/>
+		</td>
+		<td>
+			<p:outputLabel value="Apellido Materno" for="txtApellidomaterno"/>
+		</td>
+		<td>
+			<p:inputText  id="txtApellidomaterno" value="#{persona.personaB.apellidomaterno}" disabled="false" maxlength="40" style="width:150px;" label="Apellido Materno"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Dirección" for="txtDireccion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDireccion" value="#{persona.personaB.direccion}" disabled="false" maxlength="100" style="width:150px;" label="Dirección"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{persona.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{persona.buscar}"  update="tblListaPersona,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{persona.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{persona.irRegistrar}"  update="hidStatus,:frmPersonaRegistrar:diPersonaRegistrar" oncomplete="showDialog('form:hidStatus','frmPersonaRegistrar:diPersonaRegistrar');" icon="ui-icon-document"  rendered="#{persona.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{persona.irEditar}"  update="hidStatus,:frmPersonaRegistrar:diPersonaRegistrar" oncomplete="showDialog('form:hidStatus','frmPersonaRegistrar:diPersonaRegistrar');" icon="ui-icon-pencil" disabled="#{!persona.esSeleccionado}"  rendered="#{persona.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{persona.irDetalle}"  update="hidStatus,:frmPersonaDetalle:diPersonaDetalle" oncomplete="showDialog('form:hidStatus','frmPersonaDetalle:diPersonaDetalle');" icon="ui-icon-zoomin" disabled="#{!persona.esSeleccionado}"   rendered="#{persona.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{persona.irAnular}"  update="hidStatus,:frmPersonaAnular:diPersonaAnular" oncomplete="showDialog('form:hidStatus','frmPersonaAnular:diPersonaAnular');" icon="ui-icon-circle-minus" disabled="#{!persona.esSeleccionado}"   rendered="#{persona.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{persona.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!persona.esSeleccionado}"   rendered="#{persona.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{persona.irImprimir}"  update="hidStatus,:frmPersonaImprimir:diPersonaImprimir" oncomplete="showDialog('form:hidStatus','frmPersonaImprimir:diPersonaImprimir');" icon="ui-icon-print"   rendered="#{persona.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaPersona">
+	<p:menuitem value="Editar" action="#{persona.irEditar}"   update="hidStatus,:frmPersonaRegistrar:diPersonaRegistrar"  oncomplete="showDialog('form:hidStatus','frmPersonaRegistrar:diPersonaRegistrar');"  icon="ui-icon-pencil" rendered="#{persona.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{persona.irDetalle}"   update="hidStatus,:frmPersonaDetalle:diPersonaDetalle"  oncomplete="showDialog('form:hidStatus','frmPersonaDetalle:diPersonaDetalle');"  icon="ui-icon-zoomin" rendered="#{persona.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{persona.irAnular}"   update="hidStatus,:frmPersonaAnular:diPersonaAnular"  oncomplete="showDialog('form:hidStatus','frmPersonaAnular:diPersonaAnular');"  icon="ui-icon-circle-minus" rendered="#{persona.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{persona.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{persona.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaPersona" value="#{persona.listaPersona}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaPersona" selection="#{persona.selectedPersona}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(persona.listaPersona)}"
+	selectionMode="single" rowKey="#{var.idpersona}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{persona.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.idpersona}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idpersona}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.gentablaIdcatalogotipodocumento.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="Tipo Documento" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.gentablaIdcatalogotipodocumento.vchregdescri}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.numerodocumento}">
+			<f:facet name="header">
+				<h:outputText value="Numero Documento" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.numerodocumento}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nombres}">
+			<f:facet name="header">
+				<h:outputText value="Nombres" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nombres}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.apellidopaterno}">
+			<f:facet name="header">
+				<h:outputText value="Apellido Paterno" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.apellidopaterno}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.apellidomaterno}">
+			<f:facet name="header">
+				<h:outputText value="Apellido Materno" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.apellidomaterno}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.direccion}">
+			<f:facet name="header">
+				<h:outputText value="Dirección" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.direccion}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{persona.eliminar}"  update=":form:tblListaPersona,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmPersonaImprimir">
+	<p:dialog id="diPersonaImprimir" header="#{persona.titulo}" widgetVar="diPersonaImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaPersona" fileName="datosPersona" postProcessor="#{persona.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaPersona" fileName="datos" preProcessor="#{persona.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPersonaRegistrar">
+	<p:dialog id="diPersonaRegistrar" header="#{persona.titulo}" widgetVar="diPersonaRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsPersonaR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/persona/component/c_personaRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{persona.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{persona.aceptar}" update="hidStatus,:form:tblListaPersona,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmPersonaRegistrar:hidStatus','frmPersonaRegistrar:diPersonaRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPersonaRegistrar:diPersonaRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPersonaDetalle">
+	<p:dialog id="diPersonaDetalle" header="#{persona.titulo}" widgetVar="diPersonaDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/persona/component/c_personaDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPersonaDetalle:diPersonaDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPersonaAnular">
+	<p:dialog id="diPersonaAnular" header="#{persona.titulo}" widgetVar="diPersonaAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsPersonaA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/persona/component/c_personaDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{persona.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{persona.anular}" update="hidStatus,:form:tblListaPersona,:form:growl,panelDetailC" oncomplete="hideDialog('frmPersonaAnular:hidStatus','frmPersonaAnular:diPersonaAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPersonaAnular:diPersonaAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+
+</ui:define>
+</ui:composition>

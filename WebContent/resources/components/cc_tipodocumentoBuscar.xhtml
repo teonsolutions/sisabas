@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+	<composite:interface componentType="customComponent">
+	<composite:attribute name="ajaxEventListener" method-signature="void listener(org.primefaces.event.SelectEvent)" />
+	<composite:attribute name="actionOncomplete" type="java.lang.String"/>
+	<composite:attribute name="actionUpdate"  type="java.lang.String"/>
+	</composite:interface>
+	<composite:implementation>
+	<p:panel id="pnlCBuscar">
+	<p:panel>
+	<table style="width: 100%;" cellpadding="0" cellspacing="5">
+
+		<tr>
+			<td>
+				<p:outputLabel  value="ID" for="txtIdtipodocumento"/>
+			</td>
+			<td>
+				<h:inputText  id="txtIdtipodocumento" value="#{cc_tipodocumento.tipodocumentoB.idtipodocumento}" maxlength="10" style="width:150px;" label="ID"/>
+			</td>
+			<td>
+				<p:outputLabel  value="Descripción Tipo Documento" for="txtDescripciontipodocumento"/>
+			</td>
+			<td>
+				<h:inputText  id="txtDescripciontipodocumento" value="#{cc_tipodocumento.tipodocumentoB.descripciontipodocumento}" maxlength="100" style="width:300px;" label="Descripción Tipo Documento"/>
+			</td>
+			<td>
+				<p:outputLabel  value="Descripción" for="txtDescripcion"/>
+			</td>
+			<td>
+				<h:inputText  id="txtDescripcion" value="#{cc_tipodocumento.tipodocumentoB.descripcion}" maxlength="300" style="width:300px;" label="Descripción"/>
+			</td>
+		</tr>
+
+		<tr>
+			<td colspan="6">
+				<p:commandButton id="btnCTipodocumento" widgetVar="btnCTipodocumento"  value="Buscar" process="@form" actionListener="#{cc_tipodocumento.buscar}" update="tblListaTipodocumentoBuscar,pnlCBuscar" icon="ui-icon-search"/>
+			</td>
+		</tr>
+	</table>
+	</p:panel>
+
+	<p:dataTable id="tblListaTipodocumentoBuscar" widgetVar="tblListaTipodocumentoBuscar" value="#{cc_tipodocumento.listaTipodocumento}" var="var" emptyMessage="No se encontraron registros"  
+	selection="#{cc_tipodocumento.selectedTipodocumento}"
+	selectionMode="single" rowKey="#{var.idtipodocumento}"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(cc_tipodocumento.listaTipodocumento)}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom">
+	<p:ajax event="rowSelect" listener="#{cc.ajaxEventListener}" oncomplete="#{cc.attrs.actionOncomplete}" update="#{cc.attrs.actionUpdate}" immediate="true"/>
+		<p:column headerText="ID" styleClass="c_numeric">
+			<h:outputText value="#{var.idtipodocumento}" />
+		</p:column>
+		<p:column headerText="Descripción Tipo Documento" styleClass="c_string">
+			<h:outputText value="#{var.descripciontipodocumento}" />
+		</p:column>
+		<p:column headerText="Descripción" styleClass="c_string">
+			<h:outputText value="#{var.descripcion}" />
+		</p:column>
+	</p:dataTable>
+
+	<table style="width: 100%;">
+		<tr>
+			<td>
+				<div align="right">
+				<p:commandButton value="Salir" onclick="#{cc.attrs.actionOncomplete};return false;" icon="ui-icon-arrowreturnthick-1-w" title="Salir" />
+				</div>
+			</td>
+		</tr>
+	</table>
+	</p:panel>
+	</composite:implementation>
+</html>

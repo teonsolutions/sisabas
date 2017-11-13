@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{requisitosconformidad.tituloParam} #{requisitosconformidad.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="IdRequisitoConformidad" for="txtIdrequisitoconformidad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdrequisitoconformidad" value="#{requisitosconformidad.requisitosconformidadB.idrequisitoconformidad}" disabled="false" maxlength="10" style="width:150px;" label="IdRequisitoConformidad"/>
+		</td>
+		<td>
+			<p:outputLabel value="IdPacConsolidado" for="txtIdpacconsolidado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpacconsolidado" value="#{requisitosconformidad.requisitosconformidadB.pacconsolidadoIdpacconsolidado.nroconsolid}" disabled="true" maxlength="10" style="width:150px;" label="IdPacConsolidado"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_pacconsolidado.init}"  oncomplete="showDialogPF('frmMainIdpacconsolidadoBuscar:diPacconsolidadoBuscar');" update=":frmMainIdpacconsolidadoBuscar:diPacconsolidadoBuscar" style="width:20px;height:20px;" title="Buscar"  disabled="#{requisitosconformidad.esDerivada=='1'?true:false}"/>
+			<p:commandButton icon="ui-icon-close" action="#{requisitosconformidad.resetMainIdpacconsolidado}"  update="txtIdpacconsolidado" style="width:20px;height:20px;" title="Borrar Filtro" immediate="true" disabled="#{requisitosconformidad.esDerivada=='1'?true:false}"/>
+		</td>
+		<td>
+			<p:outputLabel value="IdCatalogoTipoDocumento" for="txtIdcatalogotipodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogotipodocumento" value="#{requisitosconformidad.requisitosconformidadB.idcatalogotipodocumento}" disabled="false" maxlength="10" style="width:150px;" label="IdCatalogoTipoDocumento"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="FechaDocumento - Desde" for="txtFechadocumentoini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechadocumentoini" value="#{requisitosconformidad.requisitosconformidadB.fechadocumentoini}" label="FechaDocumento - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="FechaDocumento - Hasta" for="txtFechadocumentofin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechadocumentofin" value="#{requisitosconformidad.requisitosconformidadB.fechadocumentofin}" label="FechaDocumento - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="RutaArchivo" for="txtRutaarchivo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtRutaarchivo" value="#{requisitosconformidad.requisitosconformidadB.rutaarchivo}" disabled="false" maxlength="300" style="width:150px;" label="RutaArchivo"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{requisitosconformidad.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{requisitosconformidad.buscar}"  update="tblListaRequisitosconformidad,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{requisitosconformidad.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{requisitosconformidad.irRegistrar}"  update="hidStatus,:frmRequisitosconformidadRegistrar:diRequisitosconformidadRegistrar" oncomplete="showDialog('form:hidStatus','frmRequisitosconformidadRegistrar:diRequisitosconformidadRegistrar');" icon="ui-icon-document"  rendered="#{requisitosconformidad.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{requisitosconformidad.irEditar}"  update="hidStatus,:frmRequisitosconformidadRegistrar:diRequisitosconformidadRegistrar" oncomplete="showDialog('form:hidStatus','frmRequisitosconformidadRegistrar:diRequisitosconformidadRegistrar');" icon="ui-icon-pencil" disabled="#{!requisitosconformidad.esSeleccionado}"  rendered="#{requisitosconformidad.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{requisitosconformidad.irDetalle}"  update="hidStatus,:frmRequisitosconformidadDetalle:diRequisitosconformidadDetalle" oncomplete="showDialog('form:hidStatus','frmRequisitosconformidadDetalle:diRequisitosconformidadDetalle');" icon="ui-icon-zoomin" disabled="#{!requisitosconformidad.esSeleccionado}"   rendered="#{requisitosconformidad.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{requisitosconformidad.irAnular}"  update="hidStatus,:frmRequisitosconformidadAnular:diRequisitosconformidadAnular" oncomplete="showDialog('form:hidStatus','frmRequisitosconformidadAnular:diRequisitosconformidadAnular');" icon="ui-icon-circle-minus" disabled="#{!requisitosconformidad.esSeleccionado}"   rendered="#{requisitosconformidad.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{requisitosconformidad.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!requisitosconformidad.esSeleccionado}"   rendered="#{requisitosconformidad.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{requisitosconformidad.irImprimir}"  update="hidStatus,:frmRequisitosconformidadImprimir:diRequisitosconformidadImprimir" oncomplete="showDialog('form:hidStatus','frmRequisitosconformidadImprimir:diRequisitosconformidadImprimir');" icon="ui-icon-print"   rendered="#{requisitosconformidad.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="#{pacconsolidado.load}" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{requisitosconformidad.esDerivada=='1'}"/>
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{requisitosconformidad.esDerivada=='0'}"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaRequisitosconformidad">
+	<p:menuitem value="Editar" action="#{requisitosconformidad.irEditar}"   update="hidStatus,:frmRequisitosconformidadRegistrar:diRequisitosconformidadRegistrar"  oncomplete="showDialog('form:hidStatus','frmRequisitosconformidadRegistrar:diRequisitosconformidadRegistrar');"  icon="ui-icon-pencil" rendered="#{requisitosconformidad.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{requisitosconformidad.irDetalle}"   update="hidStatus,:frmRequisitosconformidadDetalle:diRequisitosconformidadDetalle"  oncomplete="showDialog('form:hidStatus','frmRequisitosconformidadDetalle:diRequisitosconformidadDetalle');"  icon="ui-icon-zoomin" rendered="#{requisitosconformidad.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{requisitosconformidad.irAnular}"   update="hidStatus,:frmRequisitosconformidadAnular:diRequisitosconformidadAnular"  oncomplete="showDialog('form:hidStatus','frmRequisitosconformidadAnular:diRequisitosconformidadAnular');"  icon="ui-icon-circle-minus" rendered="#{requisitosconformidad.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{requisitosconformidad.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{requisitosconformidad.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaRequisitosconformidad" value="#{requisitosconformidad.listaRequisitosconformidad}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaRequisitosconformidad" selection="#{requisitosconformidad.selectedRequisitosconformidad}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(requisitosconformidad.listaRequisitosconformidad)}"
+	selectionMode="single" rowKey="#{var.idrequisitoconformidad}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{requisitosconformidad.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.idrequisitoconformidad}">
+			<f:facet name="header">
+				<h:outputText value="IdRequisitoConformidad" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idrequisitoconformidad}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.pacconsolidadoIdpacconsolidado.nroconsolid}">
+			<f:facet name="header">
+				<h:outputText value="IdPacConsolidado" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.pacconsolidadoIdpacconsolidado.nroconsolid}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.idcatalogotipodocumento}">
+			<f:facet name="header">
+				<h:outputText value="IdCatalogoTipoDocumento" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idcatalogotipodocumento}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechadocumento}">
+			<f:facet name="header">
+				<h:outputText value="FechaDocumento" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechadocumento}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.rutaarchivo}">
+			<f:facet name="header">
+				<h:outputText value="RutaArchivo" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.rutaarchivo}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{requisitosconformidad.eliminar}"  update=":form:tblListaRequisitosconformidad,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmRequisitosconformidadImprimir">
+	<p:dialog id="diRequisitosconformidadImprimir" header="#{requisitosconformidad.titulo}" widgetVar="diRequisitosconformidadImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaRequisitosconformidad" fileName="datosRequisitosconformidad" postProcessor="#{requisitosconformidad.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaRequisitosconformidad" fileName="datos" preProcessor="#{requisitosconformidad.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRequisitosconformidadRegistrar">
+	<p:dialog id="diRequisitosconformidadRegistrar" header="#{requisitosconformidad.titulo}" widgetVar="diRequisitosconformidadRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsRequisitosconformidadR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/requisitosconformidad/component/c_requisitosconformidadRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{requisitosconformidad.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{requisitosconformidad.aceptar}" update="hidStatus,:form:tblListaRequisitosconformidad,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmRequisitosconformidadRegistrar:hidStatus','frmRequisitosconformidadRegistrar:diRequisitosconformidadRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmRequisitosconformidadRegistrar:diRequisitosconformidadRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRequisitosconformidadDetalle">
+	<p:dialog id="diRequisitosconformidadDetalle" header="#{requisitosconformidad.titulo}" widgetVar="diRequisitosconformidadDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/requisitosconformidad/component/c_requisitosconformidadDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmRequisitosconformidadDetalle:diRequisitosconformidadDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRequisitosconformidadAnular">
+	<p:dialog id="diRequisitosconformidadAnular" header="#{requisitosconformidad.titulo}" widgetVar="diRequisitosconformidadAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsRequisitosconformidadA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/requisitosconformidad/component/c_requisitosconformidadDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{requisitosconformidad.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{requisitosconformidad.anular}" update="hidStatus,:form:tblListaRequisitosconformidad,:form:growl,panelDetailC" oncomplete="hideDialog('frmRequisitosconformidadAnular:hidStatus','frmRequisitosconformidadAnular:diRequisitosconformidadAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmRequisitosconformidadAnular:diRequisitosconformidadAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMainIdpacconsolidadoBuscar">
+	<p:dialog id="diPacconsolidadoBuscar" header="Pac Consolidacion » Buscar" widgetVar="diPacconsolidadoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Pacconsolidado" autoUpdate="true" closable="true"/>
+	 <cc:cc_pacconsolidadoBuscar
+	 ajaxEventListener="#{requisitosconformidad.loadMainIdpacconsolidado}"
+	 actionOncomplete="hideDialogPF('frmMainIdpacconsolidadoBuscar:diPacconsolidadoBuscar');"
+	 actionUpdate=":form:txtIdpacconsolidado"/>
+	</p:dialog>
+</h:form>
+
+
+
+</ui:define>
+</ui:composition>

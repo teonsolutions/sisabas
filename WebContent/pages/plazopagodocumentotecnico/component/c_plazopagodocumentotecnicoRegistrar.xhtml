@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<div align="left">
+		<p:message id="msgIdplazopagodocumentotecnico" for="txtIdplazopagodocumentotecnico"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCronograma" for="txtCronograma"  showSummary="true" showDetail="false"/>
+		<p:message id="msgPlazo" for="txtPlazo"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNivelavance" for="txtNivelavance"  showSummary="true" showDetail="false"/>
+		<p:message id="msgPorcentajeavance" for="txtPorcentajeavance"  showSummary="true" showDetail="false"/>
+	</div>
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIdplazopagodocumentotecnico" id="lblIdplazopagodocumentotecnico"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdplazopagodocumentotecnico" value="#{plazopagodocumentotecnico.plazopagodocumentotecnico.idplazopagodocumentotecnico}" required="true" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Cronograma" for="txtCronograma" id="lblCronograma"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCronograma" value="#{plazopagodocumentotecnico.plazopagodocumentotecnico.cronograma}" required="false" maxlength="50" style="width:150px;" label="Cronograma"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Plazo" for="txtPlazo" id="lblPlazo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtPlazo" value="#{plazopagodocumentotecnico.plazopagodocumentotecnico.plazo}" required="false" maxlength="10" style="width:150px;" label="Plazo"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Nivel Avance" for="txtNivelavance" id="lblNivelavance"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNivelavance" value="#{plazopagodocumentotecnico.plazopagodocumentotecnico.nivelavance}" required="false" maxlength="100" style="width:150px;" label="Nivel Avance"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Porcentaje Avance" for="txtPorcentajeavance" id="lblPorcentajeavance"/>
+		</td>
+		<td>
+			<p:inputText  id="txtPorcentajeavance" value="#{plazopagodocumentotecnico.plazopagodocumentotecnico.porcentajeavance}" required="false" maxlength="18" style="width:150px;" label="Porcentaje Avance"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+</p:panel>
+</html>

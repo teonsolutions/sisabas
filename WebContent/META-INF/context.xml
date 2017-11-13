@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context crossContext="true" debug="5" docBase="lab33"
+	path="/lab33" reload="true">
+	
+	<Resource name="jdbc/sisabas" auth="Container"
+		type="javax.sql.DataSource" maxActive="100" maxIdle="30"
+		maxWait="10000" username="sa" password="sql"
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+		url="jdbc:sqlserver://DESKTOP-N8HSGG4\MSSQLSERVER2008;databaseName=BD_ABAS" />
+	
+</Context>

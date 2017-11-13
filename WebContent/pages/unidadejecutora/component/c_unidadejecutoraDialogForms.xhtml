@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmUnidadejecutoraImprimir">
+	<p:dialog id="diUnidadejecutoraImprimir" header="#{unidadejecutora.titulo}" widgetVar="diUnidadejecutoraImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaUnidadejecutora" fileName="datosUnidadejecutora" postProcessor="#{unidadejecutora.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaUnidadejecutora" fileName="datos" preProcessor="#{unidadejecutora.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmUnidadejecutoraRegistrar">
+	<p:dialog id="diUnidadejecutoraRegistrar" header="#{unidadejecutora.titulo}" widgetVar="diUnidadejecutoraRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsUnidadejecutoraR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/unidadejecutora/component/c_unidadejecutoraRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{unidadejecutora.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{unidadejecutora.aceptar}" update="hidStatus,:form:tblListaUnidadejecutora,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmUnidadejecutoraRegistrar:hidStatus','frmUnidadejecutoraRegistrar:diUnidadejecutoraRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmUnidadejecutoraRegistrar:diUnidadejecutoraRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmUnidadejecutoraDetalle">
+	<p:dialog id="diUnidadejecutoraDetalle" header="#{unidadejecutora.titulo}" widgetVar="diUnidadejecutoraDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/unidadejecutora/component/c_unidadejecutoraDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmUnidadejecutoraDetalle:diUnidadejecutoraDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmUnidadejecutoraAnular">
+	<p:dialog id="diUnidadejecutoraAnular" header="#{unidadejecutora.titulo}" widgetVar="diUnidadejecutoraAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsUnidadejecutoraA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/unidadejecutora/component/c_unidadejecutoraDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{unidadejecutora.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{unidadejecutora.anular}" update="hidStatus,:form:tblListaUnidadejecutora,:form:growl,panelDetailC" oncomplete="hideDialog('frmUnidadejecutoraAnular:hidStatus','frmUnidadejecutoraAnular:diUnidadejecutoraAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmUnidadejecutoraAnular:diUnidadejecutoraAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+</html>

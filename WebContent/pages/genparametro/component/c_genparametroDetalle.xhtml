@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:tabView id="panelDetailC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<p:tab title="Detalle">
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="Código" for="txtVchparamcodigo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchparamcodigo" value="#{genparametro.genparametro.vchparamcodigo}" disabled="true" style="width:300px;" label="Código"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Valor" for="txtVchparamvalor"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchparamvalor" value="#{genparametro.genparametro.vchparamvalor}" disabled="true" style="width:300px;" label="Valor"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Descripción" for="txtVchparamdescri"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchparamdescri" value="#{genparametro.genparametro.vchparamdescri}" disabled="true" style="width:300px;" label="Descripción"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Descripción Adicional" for="txtVchparamdescriadi"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchparamdescriadi" value="#{genparametro.genparametro.vchparamdescriadi}" disabled="true" style="width:300px;" label="Descripción Adicional"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Grupo" for="txtVchparamgrupo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchparamgrupo" value="#{genparametro.genparametro.gentablaVchparamgrupo.vchregdescri}" disabled="true" style="width:150px;" label="Grupo"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+	</p:tab>
+
+	<p:tab title="Datos de Auditoría">
+
+	<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="Estado Registro" for="txtEstadoauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadoauditoria" value="#{genparametro.genparametro.estadoauditoria}" disabled="true" style="width:150px;" label="Estado Registro"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Usuario de Creación" for="txtUsuariocreacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuariocreacionauditoria" value="#{genparametro.genparametro.usuariocreacionauditoria}" disabled="true" style="width:150px;" label="Usuario de Creación"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Usuario de última modificacion" for="txtUsuariomodificacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuariomodificacionauditoria" value="#{genparametro.genparametro.usuariomodificacionauditoria}" disabled="true" style="width:150px;" label="Usuario de última modificacion"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Fecha de Creación" for="txtFechacreacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechacreacionauditoria" value="#{genparametro.genparametro.fechacreacionauditoria}" disabled="true" style="width:150px;" label="Fecha de Creación">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>
+			</p:inputText>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha de última modificacion" for="txtFechamodificacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechamodificacionauditoria" value="#{genparametro.genparametro.fechamodificacionauditoria}" disabled="true" style="width:150px;" label="Fecha de última modificacion">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>
+			</p:inputText>
+		</td>
+		<td>
+			<p:outputLabel  value="IP/Nombre Equipo" for="txtEquipoauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEquipoauditoria" value="#{genparametro.genparametro.equipoauditoria}" disabled="true" style="width:300px;" label="IP/Nombre Equipo"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Programa/Clase" for="txtProgramaauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtProgramaauditoria" value="#{genparametro.genparametro.programaauditoria}" disabled="true" style="width:300px;" label="Programa/Clase"/>
+		</td>
+	</tr>
+
+	</table>
+	</p:tab>
+
+</p:tabView>
+</html>

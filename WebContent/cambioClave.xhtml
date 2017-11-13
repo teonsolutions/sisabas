@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+
+<h:form id="form">
+<p:panel id="panel" header="Cambio de clave" style="width:400px;">
+<p:focus  for="txtPassword0"/>
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:messages autoUpdate="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+<p:panel styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width:100%;" cellpadding="0">
+	<colgroup>
+		<col width="40%"></col>
+		<col width="60%"></col>
+	</colgroup>
+		<tr>
+			<td>
+				<p:graphicImage value="/resources/img/keys.png" width="64" height="64"/>
+			</td>
+			<td>			
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p:outputLabel value="Usuario: "  for="txtUsuario"/>
+			</td>
+			<td>
+				<p:inputText id="txtUsuario" value="#{loginBean.user}" widgetVar="txtUsuario" size="30" maxlength="10" required="true" label="Usuario" requiredMessage="Ingrese Usuario" readonly="true" style="width:width:90%;"/>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<p:outputLabel value="Clave Anterior " for="txtPassword0" rendered="#{cambioclaveBean.modo=='CAM'}"/>
+			</td>
+			<td>
+				<p:password id="txtPassword0" value="#{cambioclaveBean.claveAnterior}" size="30" label="Clave Anterior" maxlength="10" required="true" requiredMessage="Ingrese Clave Anterior" rendered="#{cambioclaveBean.modo=='CAM'}" style="width:width:90%;"/>
+			</td>
+		</tr>		
+		<tr>
+			<td>
+				<p:outputLabel value="Nueva Clave: " for="txtPassword1" rendered="#{cambioclaveBean.modo=='CAM'}"/>
+			</td>
+			<td>
+				<p:password id="txtPassword1" value="#{cambioclaveBean.nuevaclave}" size="30" label="Clave" maxlength="10" required="true" requiredMessage="Ingrese Clave Nueva" rendered="#{cambioclaveBean.modo=='CAM'}" style="width:width:90%;"/>
+			</td>
+		</tr>			
+		<tr>
+			<td>
+				<p:outputLabel value="Confirmar Clave: " for="txtPassword2" rendered="#{cambioclaveBean.modo=='CAM'}"/>
+			</td>
+			<td>
+				<p:password id="txtPassword2" value="#{cambioclaveBean.confirmaclave}" size="30" label="Confirmar nueva clave" maxlength="10" required="true" requiredMessage="Confirmar Clave" rendered="#{cambioclaveBean.modo=='CAM'}" style="width:width:90%;"/>
+			</td>
+		</tr>		
+		<tr>
+			<td colspan="2" style="text-align:center">
+				<p:separator/>
+			</td>			
+		</tr>	
+		<tr>
+		<td>
+			<p:panel id="pnlBotones" style="border:0px;" styleClass="gandalfPanelClassSectionFormHeader">
+				<p:commandButton value="Aceptar" action="#{cambioclaveBean.actualizarClave}" ajax="false" icon="ui-icon-circle-check"  rendered="#{cambioclaveBean.modo=='CAM'}" style="width:100%;"/>
+				<p:commandButton value="Ir a login"    action="/logout.xhtml"      ajax="false" immediate="true" rendered="#{cambioclaveBean.modo=='LOG'}" style="width:100%;"/>
+			</p:panel>
+		</td>
+		<td>
+			<div align="right">
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" immediate="true"/>
+			</div>
+		</td>
+	</tr>
+		
+</table>			
+</p:panel>
+</p:panel>
+</h:form>
+</ui:define>
+</ui:composition>

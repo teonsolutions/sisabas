@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{detallecertificadopresupuestal.tituloParam} #{detallecertificadopresupuestal.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="IdDetalleCertificadoPresupuestal" for="txtIddetallecertificadopresupuestal"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIddetallecertificadopresupuestal" value="#{detallecertificadopresupuestal.detallecertificadopresupuestalB.iddetallecertificadopresupuestal}" disabled="false" maxlength="10" style="width:150px;" label="IdDetalleCertificadoPresupuestal"/>
+		</td>
+		<td>
+			<p:outputLabel value="IdCertificadoPresupuestal" for="txtIdcertificadopresupuestal"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcertificadopresupuestal" value="#{detallecertificadopresupuestal.detallecertificadopresupuestalB.idcertificadopresupuestal}" disabled="true" maxlength="10" style="width:150px;" label="IdCertificadoPresupuestal"/>
+		</td>
+		<td>
+			<p:outputLabel value="Anio - Desde" for="txtAnioini"/>
+		</td>
+		<td>
+			<p:inputText id="txtAnioini" value ="#{detallecertificadopresupuestal.detallecertificadopresupuestalB.anioini}" maxlength="4" style="width:150px;" label="Anio - Desde"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Anio - Hasta" for="txtAniofin"/>
+		</td>
+		<td>
+			<p:inputText id="txtAniofin" value ="#{detallecertificadopresupuestal.detallecertificadopresupuestalB.aniofin}" maxlength="4" style="width:150px;" label="Anio - Hasta"/>
+		</td>
+		<td>
+			<p:outputLabel value="SecEjec - Desde" for="txtSecejecini"/>
+		</td>
+		<td>
+			<p:inputText id="txtSecejecini" value ="#{detallecertificadopresupuestal.detallecertificadopresupuestalB.secejecini}" maxlength="6" style="width:150px;" label="SecEjec - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="SecEjec - Hasta" for="txtSecejecfin"/>
+		</td>
+		<td>
+			<p:inputText id="txtSecejecfin" value ="#{detallecertificadopresupuestal.detallecertificadopresupuestalB.secejecfin}" maxlength="6" style="width:150px;" label="SecEjec - Hasta"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="NroCertifica - Desde" for="txtNrocertificaini"/>
+		</td>
+		<td>
+			<p:inputText id="txtNrocertificaini" value ="#{detallecertificadopresupuestal.detallecertificadopresupuestalB.nrocertificaini}" maxlength="10" style="width:150px;" label="NroCertifica - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="NroCertifica - Hasta" for="txtNrocertificafin"/>
+		</td>
+		<td>
+			<p:inputText id="txtNrocertificafin" value ="#{detallecertificadopresupuestal.detallecertificadopresupuestalB.nrocertificafin}" maxlength="10" style="width:150px;" label="NroCertifica - Hasta"/>
+		</td>
+		<td>
+			<p:outputLabel value="FuenteFinancimiento" for="txtFuentefinancimiento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFuentefinancimiento" value="#{detallecertificadopresupuestal.detallecertificadopresupuestalB.fuentefinancimiento}" disabled="false" maxlength="2" style="width:150px;" label="FuenteFinancimiento"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Secuencia" for="txtSecuencia"/>
+		</td>
+		<td>
+			<p:inputText  id="txtSecuencia" value="#{detallecertificadopresupuestal.detallecertificadopresupuestalB.secuencia}" disabled="false" maxlength="5" style="width:150px;" label="Secuencia"/>
+		</td>
+		<td>
+			<p:outputLabel value="Clasificador" for="txtClasificador"/>
+		</td>
+		<td>
+			<p:inputText  id="txtClasificador" value="#{detallecertificadopresupuestal.detallecertificadopresupuestalB.clasificador}" disabled="false" maxlength="20" style="width:150px;" label="Clasificador"/>
+		</td>
+		<td>
+			<p:outputLabel value="CodigoCentroCosto" for="txtCodigocentrocosto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigocentrocosto" value="#{detallecertificadopresupuestal.detallecertificadopresupuestalB.codigocentrocosto}" disabled="false" maxlength="15" style="width:150px;" label="CodigoCentroCosto"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="MontoNacional - Desde" for="txtMontonacionalini"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontonacionalini" value ="#{detallecertificadopresupuestal.detallecertificadopresupuestalB.montonacionalini}" maxlength="18" style="width:150px;" label="MontoNacional - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="MontoNacional - Hasta" for="txtMontonacionalfin"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontonacionalfin" value ="#{detallecertificadopresupuestal.detallecertificadopresupuestalB.montonacionalfin}" maxlength="18" style="width:150px;" label="MontoNacional - Hasta"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{detallecertificadopresupuestal.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{detallecertificadopresupuestal.buscar}"  update="tblListaDetallecertificadopresupuestal,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{detallecertificadopresupuestal.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{detallecertificadopresupuestal.irRegistrar}"  update="hidStatus,:frmDetallecertificadopresupuestalRegistrar:diDetallecertificadopresupuestalRegistrar" oncomplete="showDialog('form:hidStatus','frmDetallecertificadopresupuestalRegistrar:diDetallecertificadopresupuestalRegistrar');" icon="ui-icon-document"  rendered="#{detallecertificadopresupuestal.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{detallecertificadopresupuestal.irEditar}"  update="hidStatus,:frmDetallecertificadopresupuestalRegistrar:diDetallecertificadopresupuestalRegistrar" oncomplete="showDialog('form:hidStatus','frmDetallecertificadopresupuestalRegistrar:diDetallecertificadopresupuestalRegistrar');" icon="ui-icon-pencil" disabled="#{!detallecertificadopresupuestal.esSeleccionado}"  rendered="#{detallecertificadopresupuestal.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{detallecertificadopresupuestal.irDetalle}"  update="hidStatus,:frmDetallecertificadopresupuestalDetalle:diDetallecertificadopresupuestalDetalle" oncomplete="showDialog('form:hidStatus','frmDetallecertificadopresupuestalDetalle:diDetallecertificadopresupuestalDetalle');" icon="ui-icon-zoomin" disabled="#{!detallecertificadopresupuestal.esSeleccionado}"   rendered="#{detallecertificadopresupuestal.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{detallecertificadopresupuestal.irAnular}"  update="hidStatus,:frmDetallecertificadopresupuestalAnular:diDetallecertificadopresupuestalAnular" oncomplete="showDialog('form:hidStatus','frmDetallecertificadopresupuestalAnular:diDetallecertificadopresupuestalAnular');" icon="ui-icon-circle-minus" disabled="#{!detallecertificadopresupuestal.esSeleccionado}"   rendered="#{detallecertificadopresupuestal.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{detallecertificadopresupuestal.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!detallecertificadopresupuestal.esSeleccionado}"   rendered="#{detallecertificadopresupuestal.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{detallecertificadopresupuestal.irImprimir}"  update="hidStatus,:frmDetallecertificadopresupuestalImprimir:diDetallecertificadopresupuestalImprimir" oncomplete="showDialog('form:hidStatus','frmDetallecertificadopresupuestalImprimir:diDetallecertificadopresupuestalImprimir');" icon="ui-icon-print"   rendered="#{detallecertificadopresupuestal.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="#{certificadopresupuestal.load}" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{detallecertificadopresupuestal.esDerivada=='1'}"/>
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{detallecertificadopresupuestal.esDerivada=='0'}"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaDetallecertificadopresupuestal">
+	<p:menuitem value="Editar" action="#{detallecertificadopresupuestal.irEditar}"   update="hidStatus,:frmDetallecertificadopresupuestalRegistrar:diDetallecertificadopresupuestalRegistrar"  oncomplete="showDialog('form:hidStatus','frmDetallecertificadopresupuestalRegistrar:diDetallecertificadopresupuestalRegistrar');"  icon="ui-icon-pencil" rendered="#{detallecertificadopresupuestal.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{detallecertificadopresupuestal.irDetalle}"   update="hidStatus,:frmDetallecertificadopresupuestalDetalle:diDetallecertificadopresupuestalDetalle"  oncomplete="showDialog('form:hidStatus','frmDetallecertificadopresupuestalDetalle:diDetallecertificadopresupuestalDetalle');"  icon="ui-icon-zoomin" rendered="#{detallecertificadopresupuestal.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{detallecertificadopresupuestal.irAnular}"   update="hidStatus,:frmDetallecertificadopresupuestalAnular:diDetallecertificadopresupuestalAnular"  oncomplete="showDialog('form:hidStatus','frmDetallecertificadopresupuestalAnular:diDetallecertificadopresupuestalAnular');"  icon="ui-icon-circle-minus" rendered="#{detallecertificadopresupuestal.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{detallecertificadopresupuestal.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{detallecertificadopresupuestal.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaDetallecertificadopresupuestal" value="#{detallecertificadopresupuestal.listaDetallecertificadopresupuestal}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaDetallecertificadopresupuestal" selection="#{detallecertificadopresupuestal.selectedDetallecertificadopresupuestal}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(detallecertificadopresupuestal.listaDetallecertificadopresupuestal)}"
+	selectionMode="single" rowKey="#{var.iddetallecertificadopresupuestal}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{detallecertificadopresupuestal.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.iddetallecertificadopresupuestal}">
+			<f:facet name="header">
+				<h:outputText value="IdDetalleCertificadoPresupuestal" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.iddetallecertificadopresupuestal}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.idcertificadopresupuestal}">
+			<f:facet name="header">
+				<h:outputText value="IdCertificadoPresupuestal" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idcertificadopresupuestal}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.anio}">
+			<f:facet name="header">
+				<h:outputText value="Anio" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.anio}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.secejec}">
+			<f:facet name="header">
+				<h:outputText value="SecEjec" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.secejec}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.nrocertifica}">
+			<f:facet name="header">
+				<h:outputText value="NroCertifica" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.nrocertifica}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.fuentefinancimiento}">
+			<f:facet name="header">
+				<h:outputText value="FuenteFinancimiento" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.fuentefinancimiento}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.secuencia}">
+			<f:facet name="header">
+				<h:outputText value="Secuencia" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.secuencia}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.clasificador}">
+			<f:facet name="header">
+				<h:outputText value="Clasificador" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.clasificador}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.codigocentrocosto}">
+			<f:facet name="header">
+				<h:outputText value="CodigoCentroCosto" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.codigocentrocosto}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.montonacional}">
+			<f:facet name="header">
+				<h:outputText value="MontoNacional" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.montonacional}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{detallecertificadopresupuestal.eliminar}"  update=":form:tblListaDetallecertificadopresupuestal,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmDetallecertificadopresupuestalImprimir">
+	<p:dialog id="diDetallecertificadopresupuestalImprimir" header="#{detallecertificadopresupuestal.titulo}" widgetVar="diDetallecertificadopresupuestalImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaDetallecertificadopresupuestal" fileName="datosDetallecertificadopresupuestal" postProcessor="#{detallecertificadopresupuestal.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaDetallecertificadopresupuestal" fileName="datos" preProcessor="#{detallecertificadopresupuestal.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmDetallecertificadopresupuestalRegistrar">
+	<p:dialog id="diDetallecertificadopresupuestalRegistrar" header="#{detallecertificadopresupuestal.titulo}" widgetVar="diDetallecertificadopresupuestalRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsDetallecertificadopresupuestalR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/detallecertificadopresupuestal/component/c_detallecertificadopresupuestalRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{detallecertificadopresupuestal.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{detallecertificadopresupuestal.aceptar}" update="hidStatus,:form:tblListaDetallecertificadopresupuestal,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmDetallecertificadopresupuestalRegistrar:hidStatus','frmDetallecertificadopresupuestalRegistrar:diDetallecertificadopresupuestalRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmDetallecertificadopresupuestalRegistrar:diDetallecertificadopresupuestalRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmDetallecertificadopresupuestalDetalle">
+	<p:dialog id="diDetallecertificadopresupuestalDetalle" header="#{detallecertificadopresupuestal.titulo}" widgetVar="diDetallecertificadopresupuestalDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/detallecertificadopresupuestal/component/c_detallecertificadopresupuestalDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmDetallecertificadopresupuestalDetalle:diDetallecertificadopresupuestalDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmDetallecertificadopresupuestalAnular">
+	<p:dialog id="diDetallecertificadopresupuestalAnular" header="#{detallecertificadopresupuestal.titulo}" widgetVar="diDetallecertificadopresupuestalAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsDetallecertificadopresupuestalA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/detallecertificadopresupuestal/component/c_detallecertificadopresupuestalDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{detallecertificadopresupuestal.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{detallecertificadopresupuestal.anular}" update="hidStatus,:form:tblListaDetallecertificadopresupuestal,:form:growl,panelDetailC" oncomplete="hideDialog('frmDetallecertificadopresupuestalAnular:hidStatus','frmDetallecertificadopresupuestalAnular:diDetallecertificadopresupuestalAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmDetallecertificadopresupuestalAnular:diDetallecertificadopresupuestalAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+
+</ui:define>
+</ui:composition>

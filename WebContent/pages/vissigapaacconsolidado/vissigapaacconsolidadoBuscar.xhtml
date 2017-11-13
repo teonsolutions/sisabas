@@ -1,0 +1,701 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{vissigapaacconsolidado.tituloParam} #{vissigapaacconsolidado.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="visIdSigaPaacConsolidado" for="txtVisidsigapaacconsolidado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVisidsigapaacconsolidado" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.visidsigapaacconsolidado}" disabled="false" maxlength="10" style="width:150px;" label="visIdSigaPaacConsolidado"/>
+		</td>
+		<td>
+			<p:outputLabel value="CodigoUnidadEjecutora" for="txtCodigounidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigounidadejecutora" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.codigounidadejecutora}" disabled="false" maxlength="3" style="width:150px;" label="CodigoUnidadEjecutora"/>
+		</td>
+		<td>
+			<p:outputLabel value="Anio - Desde" for="txtAnioini"/>
+		</td>
+		<td>
+			<p:inputText id="txtAnioini" value ="#{vissigapaacconsolidado.vissigapaacconsolidadoB.anioini}" maxlength="4" style="width:150px;" label="Anio - Desde"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Anio - Hasta" for="txtAniofin"/>
+		</td>
+		<td>
+			<p:inputText id="txtAniofin" value ="#{vissigapaacconsolidado.vissigapaacconsolidadoB.aniofin}" maxlength="4" style="width:150px;" label="Anio - Hasta"/>
+		</td>
+		<td>
+			<p:outputLabel value="SecEjec - Desde" for="txtSecejecini"/>
+		</td>
+		<td>
+			<p:inputText id="txtSecejecini" value ="#{vissigapaacconsolidado.vissigapaacconsolidadoB.secejecini}" maxlength="6" style="width:150px;" label="SecEjec - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="SecEjec - Hasta" for="txtSecejecfin"/>
+		</td>
+		<td>
+			<p:inputText id="txtSecejecfin" value ="#{vissigapaacconsolidado.vissigapaacconsolidadoB.secejecfin}" maxlength="6" style="width:150px;" label="SecEjec - Hasta"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="TipoConsolid" for="txtTipoconsolid"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipoconsolid" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.tipoconsolid}" disabled="false" maxlength="1" style="width:150px;" label="TipoConsolid"/>
+		</td>
+		<td>
+			<p:outputLabel value="NroConsolid - Desde" for="txtNroconsolidini"/>
+		</td>
+		<td>
+			<p:inputText id="txtNroconsolidini" value ="#{vissigapaacconsolidado.vissigapaacconsolidadoB.nroconsolidini}" maxlength="5" style="width:150px;" label="NroConsolid - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="NroConsolid - Hasta" for="txtNroconsolidfin"/>
+		</td>
+		<td>
+			<p:inputText id="txtNroconsolidfin" value ="#{vissigapaacconsolidado.vissigapaacconsolidadoB.nroconsolidfin}" maxlength="5" style="width:150px;" label="NroConsolid - Hasta"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="EstadoPaac" for="txtEstadopaac"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadopaac" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.estadopaac}" disabled="false" maxlength="1" style="width:150px;" label="EstadoPaac"/>
+		</td>
+		<td>
+			<p:outputLabel value="NroCertifica - Desde" for="txtNrocertificaini"/>
+		</td>
+		<td>
+			<p:inputText id="txtNrocertificaini" value ="#{vissigapaacconsolidado.vissigapaacconsolidadoB.nrocertificaini}" maxlength="10" style="width:150px;" label="NroCertifica - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="NroCertifica - Hasta" for="txtNrocertificafin"/>
+		</td>
+		<td>
+			<p:inputText id="txtNrocertificafin" value ="#{vissigapaacconsolidado.vissigapaacconsolidadoB.nrocertificafin}" maxlength="10" style="width:150px;" label="NroCertifica - Hasta"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="ModalCompra" for="txtModalcompra"/>
+		</td>
+		<td>
+			<p:inputText  id="txtModalcompra" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.modalcompra}" disabled="false" maxlength="2" style="width:150px;" label="ModalCompra"/>
+		</td>
+		<td>
+			<p:outputLabel value="FechaCons - Desde" for="txtFechaconsini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechaconsini" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.fechaconsini}" label="FechaCons - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="FechaCons - Hasta" for="txtFechaconsfin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechaconsfin" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.fechaconsfin}" label="FechaCons - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="NroPaac" for="txtNropaac"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNropaac" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.nropaac}" disabled="false" maxlength="4" style="width:150px;" label="NroPaac"/>
+		</td>
+		<td>
+			<p:outputLabel value="MesInicial" for="txtMesinicial"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMesinicial" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.mesinicial}" disabled="false" maxlength="2" style="width:150px;" label="MesInicial"/>
+		</td>
+		<td>
+			<p:outputLabel value="MesFinal" for="txtMesfinal"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMesfinal" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.mesfinal}" disabled="false" maxlength="2" style="width:150px;" label="MesFinal"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="MesPropuesto" for="txtMespropuesto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMespropuesto" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.mespropuesto}" disabled="false" maxlength="2" style="width:150px;" label="MesPropuesto"/>
+		</td>
+		<td>
+			<p:outputLabel value="TipoBien" for="txtTipobien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipobien" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.tipobien}" disabled="false" maxlength="1" style="width:150px;" label="TipoBien"/>
+		</td>
+		<td>
+			<p:outputLabel value="FlagPaac" for="txtFlagpaac"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFlagpaac" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.flagpaac}" disabled="false" maxlength="1" style="width:150px;" label="FlagPaac"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="TipoProceso" for="txtTipoproceso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipoproceso" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.tipoproceso}" disabled="false" maxlength="2" style="width:150px;" label="TipoProceso"/>
+		</td>
+		<td>
+			<p:outputLabel value="DescripcionTipoProceso" for="txtDescripciontipoproceso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDescripciontipoproceso" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.descripciontipoproceso}" disabled="false" maxlength="150" style="width:150px;" label="DescripcionTipoProceso"/>
+		</td>
+		<td>
+			<p:outputLabel value="Objeto" for="txtObjeto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtObjeto" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.objeto}" disabled="false" maxlength="2" style="width:150px;" label="Objeto"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="EspecificacionTecnicas" for="txtEspecificaciontecnicas"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEspecificaciontecnicas" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.especificaciontecnicas}" disabled="false" maxlength="100" style="width:150px;" label="EspecificacionTecnicas"/>
+		</td>
+		<td>
+			<p:outputLabel value="ValorMoneda - Desde" for="txtValormonedaini"/>
+		</td>
+		<td>
+			<p:inputText id="txtValormonedaini" value ="#{vissigapaacconsolidado.vissigapaacconsolidadoB.valormonedaini}" maxlength="16" style="width:150px;" label="ValorMoneda - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="ValorMoneda - Hasta" for="txtValormonedafin"/>
+		</td>
+		<td>
+			<p:inputText id="txtValormonedafin" value ="#{vissigapaacconsolidado.vissigapaacconsolidadoB.valormonedafin}" maxlength="16" style="width:150px;" label="ValorMoneda - Hasta"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="ValorPlan - Desde" for="txtValorplanini"/>
+		</td>
+		<td>
+			<p:inputText id="txtValorplanini" value ="#{vissigapaacconsolidado.vissigapaacconsolidadoB.valorplanini}" maxlength="16" style="width:150px;" label="ValorPlan - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="ValorPlan - Hasta" for="txtValorplanfin"/>
+		</td>
+		<td>
+			<p:inputText id="txtValorplanfin" value ="#{vissigapaacconsolidado.vissigapaacconsolidadoB.valorplanfin}" maxlength="16" style="width:150px;" label="ValorPlan - Hasta"/>
+		</td>
+		<td>
+			<p:outputLabel value="Pais" for="txtPais"/>
+		</td>
+		<td>
+			<p:inputText  id="txtPais" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.pais}" disabled="false" maxlength="4" style="width:150px;" label="Pais"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Departamento" for="txtDepartamento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDepartamento" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.departamento}" disabled="false" maxlength="2" style="width:150px;" label="Departamento"/>
+		</td>
+		<td>
+			<p:outputLabel value="Provincia" for="txtProvincia"/>
+		</td>
+		<td>
+			<p:inputText  id="txtProvincia" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.provincia}" disabled="false" maxlength="2" style="width:150px;" label="Provincia"/>
+		</td>
+		<td>
+			<p:outputLabel value="Distrito" for="txtDistrito"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDistrito" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.distrito}" disabled="false" maxlength="2" style="width:150px;" label="Distrito"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="ExpSiga - Desde" for="txtExpsigaini"/>
+		</td>
+		<td>
+			<p:inputText id="txtExpsigaini" value ="#{vissigapaacconsolidado.vissigapaacconsolidadoB.expsigaini}" maxlength="10" style="width:150px;" label="ExpSiga - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="ExpSiga - Hasta" for="txtExpsigafin"/>
+		</td>
+		<td>
+			<p:inputText id="txtExpsigafin" value ="#{vissigapaacconsolidado.vissigapaacconsolidadoB.expsigafin}" maxlength="10" style="width:150px;" label="ExpSiga - Hasta"/>
+		</td>
+		<td>
+			<p:outputLabel value="ExpSiaf - Desde" for="txtExpsiafini"/>
+		</td>
+		<td>
+			<p:inputText id="txtExpsiafini" value ="#{vissigapaacconsolidado.vissigapaacconsolidadoB.expsiafini}" maxlength="10" style="width:150px;" label="ExpSiaf - Desde"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="ExpSiaf - Hasta" for="txtExpsiaffin"/>
+		</td>
+		<td>
+			<p:inputText id="txtExpsiaffin" value ="#{vissigapaacconsolidado.vissigapaacconsolidadoB.expsiaffin}" maxlength="10" style="width:150px;" label="ExpSiaf - Hasta"/>
+		</td>
+		<td>
+			<p:outputLabel value="ExpSiafTipoEjec" for="txtExpsiaftipoejec"/>
+		</td>
+		<td>
+			<p:inputText  id="txtExpsiaftipoejec" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.expsiaftipoejec}" disabled="false" maxlength="2" style="width:150px;" label="ExpSiafTipoEjec"/>
+		</td>
+		<td>
+			<p:outputLabel value="FechaTipoEjec - Desde" for="txtFechatipoejecini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechatipoejecini" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.fechatipoejecini}" label="FechaTipoEjec - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="FechaTipoEjec - Hasta" for="txtFechatipoejecfin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechatipoejecfin" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.fechatipoejecfin}" label="FechaTipoEjec - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="ModalidadCsc" for="txtModalidadcsc"/>
+		</td>
+		<td>
+			<p:inputText  id="txtModalidadcsc" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.modalidadcsc}" disabled="false" maxlength="2" style="width:150px;" label="ModalidadCsc"/>
+		</td>
+		<td>
+			<p:outputLabel value="CodSnip" for="txtCodsnip"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodsnip" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.codsnip}" disabled="false" maxlength="20" style="width:150px;" label="CodSnip"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="DocViaSnip" for="txtDocviasnip"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDocviasnip" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.docviasnip}" disabled="false" maxlength="100" style="width:150px;" label="DocViaSnip"/>
+		</td>
+		<td>
+			<p:outputLabel value="FechaReg - Desde" for="txtFecharegini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFecharegini" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.fecharegini}" label="FechaReg - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="FechaReg - Hasta" for="txtFecharegfin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFecharegfin" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.fecharegfin}" label="FechaReg - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="FechaMod - Desde" for="txtFechamodini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechamodini" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.fechamodini}" label="FechaMod - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="FechaMod - Hasta" for="txtFechamodfin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechamodfin" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.fechamodfin}" label="FechaMod - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="TipoContratacion" for="txtTipocontratacion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipocontratacion" value="#{vissigapaacconsolidado.vissigapaacconsolidadoB.tipocontratacion}" disabled="false" maxlength="2" style="width:150px;" label="TipoContratacion"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{vissigapaacconsolidado.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{vissigapaacconsolidado.buscar}"  update="tblListaVissigapaacconsolidado,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{vissigapaacconsolidado.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{vissigapaacconsolidado.irRegistrar}"  update="hidStatus,:frmVissigapaacconsolidadoRegistrar:diVissigapaacconsolidadoRegistrar" oncomplete="showDialog('form:hidStatus','frmVissigapaacconsolidadoRegistrar:diVissigapaacconsolidadoRegistrar');" icon="ui-icon-document"  rendered="#{vissigapaacconsolidado.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{vissigapaacconsolidado.irEditar}"  update="hidStatus,:frmVissigapaacconsolidadoRegistrar:diVissigapaacconsolidadoRegistrar" oncomplete="showDialog('form:hidStatus','frmVissigapaacconsolidadoRegistrar:diVissigapaacconsolidadoRegistrar');" icon="ui-icon-pencil" disabled="#{!vissigapaacconsolidado.esSeleccionado}"  rendered="#{vissigapaacconsolidado.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{vissigapaacconsolidado.irDetalle}"  update="hidStatus,:frmVissigapaacconsolidadoDetalle:diVissigapaacconsolidadoDetalle" oncomplete="showDialog('form:hidStatus','frmVissigapaacconsolidadoDetalle:diVissigapaacconsolidadoDetalle');" icon="ui-icon-zoomin" disabled="#{!vissigapaacconsolidado.esSeleccionado}"   rendered="#{vissigapaacconsolidado.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{vissigapaacconsolidado.irAnular}"  update="hidStatus,:frmVissigapaacconsolidadoAnular:diVissigapaacconsolidadoAnular" oncomplete="showDialog('form:hidStatus','frmVissigapaacconsolidadoAnular:diVissigapaacconsolidadoAnular');" icon="ui-icon-circle-minus" disabled="#{!vissigapaacconsolidado.esSeleccionado}"   rendered="#{vissigapaacconsolidado.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{vissigapaacconsolidado.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!vissigapaacconsolidado.esSeleccionado}"   rendered="#{vissigapaacconsolidado.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{vissigapaacconsolidado.irImprimir}"  update="hidStatus,:frmVissigapaacconsolidadoImprimir:diVissigapaacconsolidadoImprimir" oncomplete="showDialog('form:hidStatus','frmVissigapaacconsolidadoImprimir:diVissigapaacconsolidadoImprimir');" icon="ui-icon-print"   rendered="#{vissigapaacconsolidado.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaVissigapaacconsolidado">
+	<p:menuitem value="Editar" action="#{vissigapaacconsolidado.irEditar}"   update="hidStatus,:frmVissigapaacconsolidadoRegistrar:diVissigapaacconsolidadoRegistrar"  oncomplete="showDialog('form:hidStatus','frmVissigapaacconsolidadoRegistrar:diVissigapaacconsolidadoRegistrar');"  icon="ui-icon-pencil" rendered="#{vissigapaacconsolidado.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{vissigapaacconsolidado.irDetalle}"   update="hidStatus,:frmVissigapaacconsolidadoDetalle:diVissigapaacconsolidadoDetalle"  oncomplete="showDialog('form:hidStatus','frmVissigapaacconsolidadoDetalle:diVissigapaacconsolidadoDetalle');"  icon="ui-icon-zoomin" rendered="#{vissigapaacconsolidado.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{vissigapaacconsolidado.irAnular}"   update="hidStatus,:frmVissigapaacconsolidadoAnular:diVissigapaacconsolidadoAnular"  oncomplete="showDialog('form:hidStatus','frmVissigapaacconsolidadoAnular:diVissigapaacconsolidadoAnular');"  icon="ui-icon-circle-minus" rendered="#{vissigapaacconsolidado.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{vissigapaacconsolidado.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{vissigapaacconsolidado.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaVissigapaacconsolidado" value="#{vissigapaacconsolidado.listaVissigapaacconsolidado}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaVissigapaacconsolidado" selection="#{vissigapaacconsolidado.selectedVissigapaacconsolidado}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(vissigapaacconsolidado.listaVissigapaacconsolidado)}"
+	selectionMode="single" rowKey="#{var.visidsigapaacconsolidado}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{vissigapaacconsolidado.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.visidsigapaacconsolidado}">
+			<f:facet name="header">
+				<h:outputText value="visIdSigaPaacConsolidado" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.visidsigapaacconsolidado}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.codigounidadejecutora}">
+			<f:facet name="header">
+				<h:outputText value="CodigoUnidadEjecutora" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.codigounidadejecutora}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.anio}">
+			<f:facet name="header">
+				<h:outputText value="Anio" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.anio}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.secejec}">
+			<f:facet name="header">
+				<h:outputText value="SecEjec" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.secejec}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.tipoconsolid}">
+			<f:facet name="header">
+				<h:outputText value="TipoConsolid" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.tipoconsolid}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.nroconsolid}">
+			<f:facet name="header">
+				<h:outputText value="NroConsolid" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.nroconsolid}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.estadopaac}">
+			<f:facet name="header">
+				<h:outputText value="EstadoPaac" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.estadopaac}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.nrocertifica}">
+			<f:facet name="header">
+				<h:outputText value="NroCertifica" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.nrocertifica}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.modalcompra}">
+			<f:facet name="header">
+				<h:outputText value="ModalCompra" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.modalcompra}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechacons}">
+			<f:facet name="header">
+				<h:outputText value="FechaCons" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechacons}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.nropaac}">
+			<f:facet name="header">
+				<h:outputText value="NroPaac" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.nropaac}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.mesinicial}">
+			<f:facet name="header">
+				<h:outputText value="MesInicial" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.mesinicial}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.mesfinal}">
+			<f:facet name="header">
+				<h:outputText value="MesFinal" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.mesfinal}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.mespropuesto}">
+			<f:facet name="header">
+				<h:outputText value="MesPropuesto" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.mespropuesto}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.tipobien}">
+			<f:facet name="header">
+				<h:outputText value="TipoBien" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.tipobien}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.flagpaac}">
+			<f:facet name="header">
+				<h:outputText value="FlagPaac" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.flagpaac}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.tipoproceso}">
+			<f:facet name="header">
+				<h:outputText value="TipoProceso" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.tipoproceso}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.descripciontipoproceso}">
+			<f:facet name="header">
+				<h:outputText value="DescripcionTipoProceso" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.descripciontipoproceso}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.objeto}">
+			<f:facet name="header">
+				<h:outputText value="Objeto" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.objeto}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.especificaciontecnicas}">
+			<f:facet name="header">
+				<h:outputText value="EspecificacionTecnicas" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.especificaciontecnicas}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.valormoneda}">
+			<f:facet name="header">
+				<h:outputText value="ValorMoneda" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.valormoneda}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.valorplan}">
+			<f:facet name="header">
+				<h:outputText value="ValorPlan" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.valorplan}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.pais}">
+			<f:facet name="header">
+				<h:outputText value="Pais" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.pais}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.departamento}">
+			<f:facet name="header">
+				<h:outputText value="Departamento" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.departamento}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.provincia}">
+			<f:facet name="header">
+				<h:outputText value="Provincia" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.provincia}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.distrito}">
+			<f:facet name="header">
+				<h:outputText value="Distrito" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.distrito}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.expsiga}">
+			<f:facet name="header">
+				<h:outputText value="ExpSiga" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.expsiga}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.expsiaf}">
+			<f:facet name="header">
+				<h:outputText value="ExpSiaf" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.expsiaf}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.expsiaftipoejec}">
+			<f:facet name="header">
+				<h:outputText value="ExpSiafTipoEjec" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.expsiaftipoejec}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechatipoejec}">
+			<f:facet name="header">
+				<h:outputText value="FechaTipoEjec" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechatipoejec}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.modalidadcsc}">
+			<f:facet name="header">
+				<h:outputText value="ModalidadCsc" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.modalidadcsc}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.codsnip}">
+			<f:facet name="header">
+				<h:outputText value="CodSnip" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.codsnip}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.docviasnip}">
+			<f:facet name="header">
+				<h:outputText value="DocViaSnip" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.docviasnip}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechareg}">
+			<f:facet name="header">
+				<h:outputText value="FechaReg" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechareg}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechamod}">
+			<f:facet name="header">
+				<h:outputText value="FechaMod" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechamod}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.tipocontratacion}">
+			<f:facet name="header">
+				<h:outputText value="TipoContratacion" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.tipocontratacion}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{vissigapaacconsolidado.eliminar}"  update=":form:tblListaVissigapaacconsolidado,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmVissigapaacconsolidadoImprimir">
+	<p:dialog id="diVissigapaacconsolidadoImprimir" header="#{vissigapaacconsolidado.titulo}" widgetVar="diVissigapaacconsolidadoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaVissigapaacconsolidado" fileName="datosVissigapaacconsolidado" postProcessor="#{vissigapaacconsolidado.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaVissigapaacconsolidado" fileName="datos" preProcessor="#{vissigapaacconsolidado.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmVissigapaacconsolidadoRegistrar">
+	<p:dialog id="diVissigapaacconsolidadoRegistrar" header="#{vissigapaacconsolidado.titulo}" widgetVar="diVissigapaacconsolidadoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsVissigapaacconsolidadoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/vissigapaacconsolidado/component/c_vissigapaacconsolidadoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{vissigapaacconsolidado.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{vissigapaacconsolidado.aceptar}" update="hidStatus,:form:tblListaVissigapaacconsolidado,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmVissigapaacconsolidadoRegistrar:hidStatus','frmVissigapaacconsolidadoRegistrar:diVissigapaacconsolidadoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmVissigapaacconsolidadoRegistrar:diVissigapaacconsolidadoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmVissigapaacconsolidadoDetalle">
+	<p:dialog id="diVissigapaacconsolidadoDetalle" header="#{vissigapaacconsolidado.titulo}" widgetVar="diVissigapaacconsolidadoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/vissigapaacconsolidado/component/c_vissigapaacconsolidadoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmVissigapaacconsolidadoDetalle:diVissigapaacconsolidadoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmVissigapaacconsolidadoAnular">
+	<p:dialog id="diVissigapaacconsolidadoAnular" header="#{vissigapaacconsolidado.titulo}" widgetVar="diVissigapaacconsolidadoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsVissigapaacconsolidadoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/vissigapaacconsolidado/component/c_vissigapaacconsolidadoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{vissigapaacconsolidado.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{vissigapaacconsolidado.anular}" update="hidStatus,:form:tblListaVissigapaacconsolidado,:form:growl,panelDetailC" oncomplete="hideDialog('frmVissigapaacconsolidadoAnular:hidStatus','frmVissigapaacconsolidadoAnular:diVissigapaacconsolidadoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmVissigapaacconsolidadoAnular:diVissigapaacconsolidadoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+
+</ui:define>
+</ui:composition>

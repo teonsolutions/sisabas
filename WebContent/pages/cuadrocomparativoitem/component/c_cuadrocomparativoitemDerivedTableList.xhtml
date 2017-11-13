@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<h:inputHidden id="hidStatusCuadrocomparativoitem" value="#{cuadrocomparativoitem.status}"/>
+<p:contextMenu for="tblListaCuadrocomparativoitem">
+	<p:menuitem value="Detalle" action="#{cuadrocomparativoitem.irDetalle}"  process="@this,hidStatusCuadrocomparativoitem,tblListaCuadrocomparativoitem"  update="hidStatusCuadrocomparativoitem,:frmCuadrocomparativoitemDetalle:diCuadrocomparativoitemDetalle"  oncomplete="showDialog('frmCuadrocomparativofuenteDetalle:panelDetailC:hidStatusCuadrocomparativoitem','frmCuadrocomparativoitemDetalle:diCuadrocomparativoitemDetalle');"  icon="ui-icon-zoomin" rendered="#{cuadrocomparativoitem.renderButton('btnDetalle')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaCuadrocomparativoitem" value="#{cuadrocomparativoitem.listaCuadrocomparativoitem}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaCuadrocomparativoitem" selection="#{cuadrocomparativoitem.selectedCuadrocomparativoitem}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(cuadrocomparativoitem.listaCuadrocomparativoitem)}"
+	selectionMode="single" rowKey="#{var.idcuadrocomparativoitem}" styleClass="gandalfTableClass" rowStyleClass="#{var.params.ACTION!=null?(var.params.ACTION=='INSERT'?'old':'dead'):''}">
+		<p:column styleClass="c_numeric" sortBy="#{var.idcuadrocomparativoitem}">
+			<f:facet name="header">
+				<h:outputText value="IdCuadroComparativoItem" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idcuadrocomparativoitem}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.idcuadrocomparativofuente}">
+			<f:facet name="header">
+				<h:outputText value="Cuadro Comparativo" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idcuadrocomparativofuente}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.iddetallepedido}">
+			<f:facet name="header">
+				<h:outputText value="Detalle pedido" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.iddetallepedido}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.precioreferencial}">
+			<f:facet name="header">
+				<h:outputText value="Precio Total" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.precioreferencial}"/>
+		</p:column>
+</p:dataTable>
+</html>

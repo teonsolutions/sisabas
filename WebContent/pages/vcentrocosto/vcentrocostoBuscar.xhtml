@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{vcentrocosto.tituloParam} #{vcentrocosto.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="id" for="txtCodigocentrocosto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigocentrocosto" value="#{vcentrocosto.vcentrocostoB.codigocentrocosto}" disabled="false" maxlength="15" style="width:150px;" label="id"/>
+		</td>
+		<td>
+			<p:outputLabel value="NombreDependencia" for="txtNombredependencia"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombredependencia" value="#{vcentrocosto.vcentrocostoB.nombredependencia}" disabled="false" maxlength="100" style="width:150px;" label="NombreDependencia"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{vcentrocosto.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{vcentrocosto.buscar}"  update="tblListaVcentrocosto,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{vcentrocosto.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{vcentrocosto.irRegistrar}"  update="hidStatus,:frmVcentrocostoRegistrar:diVcentrocostoRegistrar" oncomplete="showDialog('form:hidStatus','frmVcentrocostoRegistrar:diVcentrocostoRegistrar');" icon="ui-icon-document"  rendered="#{vcentrocosto.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{vcentrocosto.irEditar}"  update="hidStatus,:frmVcentrocostoRegistrar:diVcentrocostoRegistrar" oncomplete="showDialog('form:hidStatus','frmVcentrocostoRegistrar:diVcentrocostoRegistrar');" icon="ui-icon-pencil" disabled="#{!vcentrocosto.esSeleccionado}"  rendered="#{vcentrocosto.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{vcentrocosto.irDetalle}"  update="hidStatus,:frmVcentrocostoDetalle:diVcentrocostoDetalle" oncomplete="showDialog('form:hidStatus','frmVcentrocostoDetalle:diVcentrocostoDetalle');" icon="ui-icon-zoomin" disabled="#{!vcentrocosto.esSeleccionado}"   rendered="#{vcentrocosto.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{vcentrocosto.irAnular}"  update="hidStatus,:frmVcentrocostoAnular:diVcentrocostoAnular" oncomplete="showDialog('form:hidStatus','frmVcentrocostoAnular:diVcentrocostoAnular');" icon="ui-icon-circle-minus" disabled="#{!vcentrocosto.esSeleccionado}"   rendered="#{vcentrocosto.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{vcentrocosto.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!vcentrocosto.esSeleccionado}"   rendered="#{vcentrocosto.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{vcentrocosto.irImprimir}"  update="hidStatus,:frmVcentrocostoImprimir:diVcentrocostoImprimir" oncomplete="showDialog('form:hidStatus','frmVcentrocostoImprimir:diVcentrocostoImprimir');" icon="ui-icon-print"   rendered="#{vcentrocosto.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaVcentrocosto">
+	<p:menuitem value="Editar" action="#{vcentrocosto.irEditar}"   update="hidStatus,:frmVcentrocostoRegistrar:diVcentrocostoRegistrar"  oncomplete="showDialog('form:hidStatus','frmVcentrocostoRegistrar:diVcentrocostoRegistrar');"  icon="ui-icon-pencil" rendered="#{vcentrocosto.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{vcentrocosto.irDetalle}"   update="hidStatus,:frmVcentrocostoDetalle:diVcentrocostoDetalle"  oncomplete="showDialog('form:hidStatus','frmVcentrocostoDetalle:diVcentrocostoDetalle');"  icon="ui-icon-zoomin" rendered="#{vcentrocosto.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{vcentrocosto.irAnular}"   update="hidStatus,:frmVcentrocostoAnular:diVcentrocostoAnular"  oncomplete="showDialog('form:hidStatus','frmVcentrocostoAnular:diVcentrocostoAnular');"  icon="ui-icon-circle-minus" rendered="#{vcentrocosto.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{vcentrocosto.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{vcentrocosto.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaVcentrocosto" value="#{vcentrocosto.listaVcentrocosto}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaVcentrocosto" selection="#{vcentrocosto.selectedVcentrocosto}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(vcentrocosto.listaVcentrocosto)}"
+	selectionMode="single" rowKey="#{var.codigocentrocosto}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{vcentrocosto.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_string" sortBy="#{var.codigocentrocosto}">
+			<f:facet name="header">
+				<h:outputText value="id" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.codigocentrocosto}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nombredependencia}">
+			<f:facet name="header">
+				<h:outputText value="NombreDependencia" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nombredependencia}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{vcentrocosto.eliminar}"  update=":form:tblListaVcentrocosto,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmVcentrocostoImprimir">
+	<p:dialog id="diVcentrocostoImprimir" header="#{vcentrocosto.titulo}" widgetVar="diVcentrocostoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaVcentrocosto" fileName="datosVcentrocosto" postProcessor="#{vcentrocosto.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaVcentrocosto" fileName="datos" preProcessor="#{vcentrocosto.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmVcentrocostoRegistrar">
+	<p:dialog id="diVcentrocostoRegistrar" header="#{vcentrocosto.titulo}" widgetVar="diVcentrocostoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsVcentrocostoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/vcentrocosto/component/c_vcentrocostoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{vcentrocosto.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{vcentrocosto.aceptar}" update="hidStatus,:form:tblListaVcentrocosto,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmVcentrocostoRegistrar:hidStatus','frmVcentrocostoRegistrar:diVcentrocostoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmVcentrocostoRegistrar:diVcentrocostoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmVcentrocostoDetalle">
+	<p:dialog id="diVcentrocostoDetalle" header="#{vcentrocosto.titulo}" widgetVar="diVcentrocostoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/vcentrocosto/component/c_vcentrocostoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmVcentrocostoDetalle:diVcentrocostoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmVcentrocostoAnular">
+	<p:dialog id="diVcentrocostoAnular" header="#{vcentrocosto.titulo}" widgetVar="diVcentrocostoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsVcentrocostoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/vcentrocosto/component/c_vcentrocostoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{vcentrocosto.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{vcentrocosto.anular}" update="hidStatus,:form:tblListaVcentrocosto,:form:growl,panelDetailC" oncomplete="hideDialog('frmVcentrocostoAnular:hidStatus','frmVcentrocostoAnular:diVcentrocostoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmVcentrocostoAnular:diVcentrocostoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+
+</ui:define>
+</ui:composition>

@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+	<composite:interface componentType="customComponent">
+	<composite:attribute name="ajaxEventListener" method-signature="void listener(org.primefaces.event.SelectEvent)" />
+	<composite:attribute name="actionOncomplete" type="java.lang.String"/>
+	<composite:attribute name="actionUpdate"  type="java.lang.String"/>
+	</composite:interface>
+	<composite:implementation>
+	<p:panel id="pnlCBuscar">
+	<p:panel>
+	<table style="width: 100%;" cellpadding="0" cellspacing="5">
+
+		<tr>
+			<td>
+				<p:outputLabel  value="ID" for="txtIdgrupodocumento"/>
+			</td>
+			<td>
+				<h:inputText  id="txtIdgrupodocumento" value="#{cc_grupodocumento.grupodocumentoB.idgrupodocumento}" maxlength="10" style="width:150px;" label="ID"/>
+			</td>
+			<td>
+				<p:outputLabel  value="Año" for="txtAnio"/>
+			</td>
+			<td>
+				<h:inputText  id="txtAnio" value="#{cc_grupodocumento.grupodocumentoB.anio}" maxlength="10" style="width:150px;" label="Año"/>
+			</td>
+			<td>
+				<p:outputLabel  value="Código Unidad Ejecutora" for="txtCodigocentrocosto"/>
+			</td>
+			<td>
+				<h:inputText  id="txtCodigocentrocosto" value="#{cc_grupodocumento.grupodocumentoB.codigocentrocosto}" maxlength="10" style="width:150px;" label="Código Unidad Ejecutora"/>
+			</td>
+		</tr>
+
+		<tr>
+			<td colspan="6">
+				<p:commandButton id="btnCGrupodocumento" widgetVar="btnCGrupodocumento"  value="Buscar" process="@form" actionListener="#{cc_grupodocumento.buscar}" update="tblListaGrupodocumentoBuscar,pnlCBuscar" icon="ui-icon-search"/>
+			</td>
+		</tr>
+	</table>
+	</p:panel>
+
+	<p:dataTable id="tblListaGrupodocumentoBuscar" widgetVar="tblListaGrupodocumentoBuscar" value="#{cc_grupodocumento.listaGrupodocumento}" var="var" emptyMessage="No se encontraron registros"  
+	selection="#{cc_grupodocumento.selectedGrupodocumento}"
+	selectionMode="single" rowKey="#{var.idgrupodocumento}"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(cc_grupodocumento.listaGrupodocumento)}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom">
+	<p:ajax event="rowSelect" listener="#{cc.ajaxEventListener}" oncomplete="#{cc.attrs.actionOncomplete}" update="#{cc.attrs.actionUpdate}" immediate="true"/>
+		<p:column headerText="ID" styleClass="c_numeric">
+			<h:outputText value="#{var.idgrupodocumento}" />
+		</p:column>
+		<p:column headerText="Año" styleClass="c_numeric">
+			<h:outputText value="#{var.anio}" />
+		</p:column>
+		<p:column headerText="Código Unidad Ejecutora" styleClass="c_center">
+			<h:outputText value="#{var.codigocentrocosto}" />
+		</p:column>
+	</p:dataTable>
+
+	<table style="width: 100%;">
+		<tr>
+			<td>
+				<div align="right">
+				<p:commandButton value="Salir" onclick="#{cc.attrs.actionOncomplete};return false;" icon="ui-icon-arrowreturnthick-1-w" title="Salir" />
+				</div>
+			</td>
+		</tr>
+	</table>
+	</p:panel>
+	</composite:implementation>
+</html>

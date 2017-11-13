@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<div align="left">
+		<p:message id="msgIdestadosporetapapordocumento" for="txtIdestadosporetapapordocumento"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdestadosportipodocumento" for="txtIdestadosportipodocumento"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdgrupodocumento" for="txtIdgrupodocumento"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNrodocumento" for="txtNrodocumento"  showSummary="true" showDetail="false"/>
+		<p:message id="msgFechaingreso" for="txtFechaingreso"  showSummary="true" showDetail="false"/>
+		<p:message id="msgFechasalida" for="txtFechasalida"  showSummary="true" showDetail="false"/>
+		<p:message id="msgUsuarioresponsableingreso" for="txtUsuarioresponsableingreso"  showSummary="true" showDetail="false"/>
+		<p:message id="msgUsuarioresponsablesalida" for="txtUsuarioresponsablesalida"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdtipodocumento" for="txtIdtipodocumento"  showSummary="true" showDetail="false"/>
+	</div>
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIdestadosporetapapordocumento" id="lblIdestadosporetapapordocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdestadosporetapapordocumento" value="#{estadosporetapapordocumento.estadosporetapapordocumento.idestadosporetapapordocumento}" required="true" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Estados Por Tipo Documento" for="txtIdestadosportipodocumento" id="lblIdestadosportipodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdestadosportipodocumento" value="#{estadosporetapapordocumento.estadosporetapapordocumento.idestadosportipodocumento}" required="false" maxlength="10" style="width:150px;" label="Estados Por Tipo Documento"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Grupo Documento" for="txtIdgrupodocumento" id="lblIdgrupodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdgrupodocumento" value="#{estadosporetapapordocumento.estadosporetapapordocumento.grupodocumentoIdgrupodocumento.anio}" disabled="true" required="false" maxlength="10" style="width:150px;" label="Grupo Documento"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_grupodocumento.init}" immediate="true" oncomplete="showDialogPF('frmRegIdgrupodocumentoBuscar:diGrupodocumentoBuscar');" update=":frmRegIdgrupodocumentoBuscar:diGrupodocumentoBuscar" style="width:20px;height:20px;"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Documento" for="txtNrodocumento" id="lblNrodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNrodocumento" value="#{estadosporetapapordocumento.estadosporetapapordocumento.nrodocumento}" required="false" maxlength="10" style="width:150px;" label="Documento"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha Ingreso" for="txtFechaingreso" id="lblFechaingreso"/>
+		</td>
+		<td>
+			<p:calendar   id="txtFechaingreso" value="#{estadosporetapapordocumento.estadosporetapapordocumento.fechaingreso}" required="false" pattern="dd/MM/yyyy HH:mm" label="Fecha Ingreso" navigator="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Fecha Salida" for="txtFechasalida" id="lblFechasalida"/>
+		</td>
+		<td>
+			<p:calendar   id="txtFechasalida" value="#{estadosporetapapordocumento.estadosporetapapordocumento.fechasalida}" required="false" pattern="dd/MM/yyyy HH:mm" label="Fecha Salida" navigator="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Usuario Responsable Ingreso" for="txtUsuarioresponsableingreso" id="lblUsuarioresponsableingreso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuarioresponsableingreso" value="#{estadosporetapapordocumento.estadosporetapapordocumento.usuarioresponsableingreso}" required="false" maxlength="19" style="width:150px;" label="Usuario Responsable Ingreso"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Usuario Responsable Salida" for="txtUsuarioresponsablesalida" id="lblUsuarioresponsablesalida"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuarioresponsablesalida" value="#{estadosporetapapordocumento.estadosporetapapordocumento.usuarioresponsablesalida}" required="false" maxlength="19" style="width:150px;" label="Usuario Responsable Salida"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Id Tipo Documento" for="txtIdtipodocumento" id="lblIdtipodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdtipodocumento" value="#{estadosporetapapordocumento.estadosporetapapordocumento.tipodocumentoIdtipodocumento.descripcion}" disabled="true" required="false" maxlength="10" style="width:150px;" label="Id Tipo Documento"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_tipodocumento.init}" immediate="true" oncomplete="showDialogPF('frmRegIdtipodocumentoBuscar:diTipodocumentoBuscar');" update=":frmRegIdtipodocumentoBuscar:diTipodocumentoBuscar" style="width:20px;height:20px;"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+</p:panel>
+</html>

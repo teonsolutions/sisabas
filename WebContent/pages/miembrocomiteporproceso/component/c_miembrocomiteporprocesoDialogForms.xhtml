@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmMiembrocomiteporprocesoImprimir">
+	<p:dialog id="diMiembrocomiteporprocesoImprimir" header="#{miembrocomiteporproceso.titulo}" widgetVar="diMiembrocomiteporprocesoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaMiembrocomiteporproceso" fileName="datosMiembrocomiteporproceso" postProcessor="#{miembrocomiteporproceso.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaMiembrocomiteporproceso" fileName="datos" preProcessor="#{miembrocomiteporproceso.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMiembrocomiteporprocesoRegistrar">
+	<p:dialog id="diMiembrocomiteporprocesoRegistrar" header="#{miembrocomiteporproceso.titulo}" widgetVar="diMiembrocomiteporprocesoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsMiembrocomiteporprocesoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/miembrocomiteporproceso/component/c_miembrocomiteporprocesoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{miembrocomiteporproceso.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{miembrocomiteporproceso.aceptar}" update="hidStatus,:form:tblListaMiembrocomiteporproceso,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmMiembrocomiteporprocesoRegistrar:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMiembrocomiteporprocesoDetalle">
+	<p:dialog id="diMiembrocomiteporprocesoDetalle" header="#{miembrocomiteporproceso.titulo}" widgetVar="diMiembrocomiteporprocesoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/miembrocomiteporproceso/component/c_miembrocomiteporprocesoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmMiembrocomiteporprocesoDetalle:diMiembrocomiteporprocesoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMiembrocomiteporprocesoAnular">
+	<p:dialog id="diMiembrocomiteporprocesoAnular" header="#{miembrocomiteporproceso.titulo}" widgetVar="diMiembrocomiteporprocesoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsMiembrocomiteporprocesoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/miembrocomiteporproceso/component/c_miembrocomiteporprocesoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{miembrocomiteporproceso.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{miembrocomiteporproceso.anular}" update="hidStatus,:form:tblListaMiembrocomiteporproceso,:form:growl,panelDetailC" oncomplete="hideDialog('frmMiembrocomiteporprocesoAnular:hidStatus','frmMiembrocomiteporprocesoAnular:diMiembrocomiteporprocesoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmMiembrocomiteporprocesoAnular:diMiembrocomiteporprocesoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdcomiteprocesoBuscar">
+	<p:dialog id="diComiteprocesoBuscar" header="Comite Proceso » Buscar" widgetVar="diComiteprocesoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Comiteproceso" autoUpdate="true" closable="true"/>
+	 <cc:cc_comiteprocesoBuscar
+	 ajaxEventListener="#{miembrocomiteporproceso.loadRegIdcomiteproceso}"
+	 actionOncomplete="hideDialogPF('frmRegIdcomiteprocesoBuscar:diComiteprocesoBuscar');"
+	 actionUpdate=":frmMiembrocomiteporprocesoRegistrar:txtIdcomiteproceso"/>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdpersonaBuscar">
+	<p:dialog id="diPersonaBuscar" header="Persona » Buscar" widgetVar="diPersonaBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Persona" autoUpdate="true" closable="true"/>
+	 <cc:cc_personaBuscar
+	 ajaxEventListener="#{miembrocomiteporproceso.loadRegIdpersona}"
+	 actionOncomplete="hideDialogPF('frmRegIdpersonaBuscar:diPersonaBuscar');"
+	 actionUpdate=":frmMiembrocomiteporprocesoRegistrar:txtIdpersona"/>
+	</p:dialog>
+</h:form>
+
+
+</html>

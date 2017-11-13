@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<h:inputHidden id="hidStatusDocumentotecnico" value="#{documentotecnico.status}"/>
+<p:contextMenu for="tblListaDocumentotecnico">
+	<p:menuitem value="Detalle" action="#{documentotecnico.irDetalle}"  process="@this,hidStatusDocumentotecnico,tblListaDocumentotecnico"  update="hidStatusDocumentotecnico,:frmDocumentotecnicoDetalle:diDocumentotecnicoDetalle"  oncomplete="showDialog('frmPedidoDetalle:panelDetailC:hidStatusDocumentotecnico','frmDocumentotecnicoDetalle:diDocumentotecnicoDetalle');"  icon="ui-icon-zoomin" rendered="#{documentotecnico.renderButton('btnDetalle')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaDocumentotecnico" value="#{documentotecnico.listaDocumentotecnico}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaDocumentotecnico" selection="#{documentotecnico.selectedDocumentotecnico}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(documentotecnico.listaDocumentotecnico)}"
+	selectionMode="single" rowKey="#{var.iddocumentotecnico}" styleClass="gandalfTableClass" rowStyleClass="#{var.params.ACTION!=null?(var.params.ACTION=='INSERT'?'old':'dead'):''}">
+		<p:column styleClass="c_numeric" sortBy="#{var.iddocumentotecnico}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.iddocumentotecnico}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.pedidoIdpedido.nropedido}">
+			<f:facet name="header">
+				<h:outputText value="Pedido In" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.pedidoIdpedido.nropedido}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.pacprogramadoIdpacprogramado.nroconsolid}">
+			<f:facet name="header">
+				<h:outputText value="Pac Programado" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.pacprogramadoIdpacprogramado.nroconsolid}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.comiteprocesoIdcomiteproceso.idcomiteproceso}">
+			<f:facet name="header">
+				<h:outputText value="Comité Proceso" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.comiteprocesoIdcomiteproceso.idcomiteproceso}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.denominacioncontratacion}">
+			<f:facet name="header">
+				<h:outputText value="Denominación de Contratación" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.denominacioncontratacion}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.finalidadpublica}">
+			<f:facet name="header">
+				<h:outputText value="Finalidad Pública" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.finalidadpublica}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.nropac}">
+			<f:facet name="header">
+				<h:outputText value="Número(Pac)" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.nropac}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.objetocontratacion}">
+			<f:facet name="header">
+				<h:outputText value="Objeto de Contratación" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.objetocontratacion}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.centrocosto}">
+			<f:facet name="header">
+				<h:outputText value="Centro de costo" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.centrocosto}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.antecedentes}">
+			<f:facet name="header">
+				<h:outputText value="Antecedentes" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.antecedentes}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.dniresponsable}">
+			<f:facet name="header">
+				<h:outputText value="Dni Responsable" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.dniresponsable}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nombreresponsable}">
+			<f:facet name="header">
+				<h:outputText value="Nombre de responsable" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nombreresponsable}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.nroanexoresponsable}">
+			<f:facet name="header">
+				<h:outputText value="Número de Anexo Responsable" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.nroanexoresponsable}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.correoresponsable}">
+			<f:facet name="header">
+				<h:outputText value="Correo Responsable" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.correoresponsable}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.gentablaIdcatalogotipodocumentotecnico.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="Tipo de documento técnico" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.gentablaIdcatalogotipodocumentotecnico.vchregdescri}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.gentablaIdcatalogotipotdr.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="Tipo Tdr" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.gentablaIdcatalogotipotdr.vchregdescri}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.rutaanexo}">
+			<f:facet name="header">
+				<h:outputText value="Ruta Anexo" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.rutaanexo}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.ubigeo}">
+			<f:facet name="header">
+				<h:outputText value="Ubigeo" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.ubigeo}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.direccion}">
+			<f:facet name="header">
+				<h:outputText value="Dirección" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.direccion}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.numerosinad}">
+			<f:facet name="header">
+				<h:outputText value="Numero Sinad" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.numerosinad}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.anioexpediente}">
+			<f:facet name="header">
+				<h:outputText value="Año de Expediente" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.anioexpediente}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.numeroexpediente}">
+			<f:facet name="header">
+				<h:outputText value="Número de Expediente" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.numeroexpediente}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.tienecomite}">
+			<f:facet name="header">
+				<h:outputText value="Tiene Comité" styleClass="c_center"/>
+			</f:facet>
+			<h:graphicImage url="/resources/img/check.png" width="10" height="10" rendered="#{var.tienecomite=='1'}"/>		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.tipoitinerario}">
+			<f:facet name="header">
+				<h:outputText value="Tipo Itinerario" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.tipoitinerario}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.nropedidoitinerario}">
+			<f:facet name="header">
+				<h:outputText value="Número Pedido" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.nropedidoitinerario}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.aniopedidoitinerario}">
+			<f:facet name="header">
+				<h:outputText value="Año Pedido Itinerario" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.aniopedidoitinerario}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.uepedidoitinerario}">
+			<f:facet name="header">
+				<h:outputText value="UE Pedido Itinerario" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.uepedidoitinerario}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.justificacionpedidoitinerario}">
+			<f:facet name="header">
+				<h:outputText value="Justificación Pedido Itinerario" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.justificacionpedidoitinerario}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.itinerarioorigenregistrado}">
+			<f:facet name="header">
+				<h:outputText value="Itinerario Origen Registrado" styleClass="c_center"/>
+			</f:facet>
+			<h:graphicImage url="/resources/img/check.png" width="10" height="10" rendered="#{var.itinerarioorigenregistrado=='1'}"/>		</p:column>
+</p:dataTable>
+</html>

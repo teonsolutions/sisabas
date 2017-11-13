@@ -1,0 +1,360 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{entregable.tituloParam} #{entregable.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="ID" for="txtIdentregable"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdentregable" value="#{entregable.entregableB.identregable}" disabled="false" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel value="Orden" for="txtIdorden"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdorden" value="#{entregable.entregableB.idorden}" disabled="true" maxlength="10" style="width:150px;" label="Orden"/>
+		</td>
+		<td>
+			<p:outputLabel value="Número Proveido" for="txtNroproveido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroproveido" value="#{entregable.entregableB.nroproveido}" disabled="false" maxlength="10" style="width:150px;" label="Número Proveido"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Número Entregable" for="txtNroentregable"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroentregable" value="#{entregable.entregableB.nroentregable}" disabled="false" maxlength="15" style="width:150px;" label="Número Entregable"/>
+		</td>
+		<td>
+			<p:outputLabel value="Plazo Entregable" for="txtPlazoentregable"/>
+		</td>
+		<td>
+			<p:inputText  id="txtPlazoentregable" value="#{entregable.entregableB.plazoentregable}" disabled="false" maxlength="4" style="width:150px;" label="Plazo Entregable"/>
+		</td>
+		<td>
+			<p:outputLabel value="Monto Entregable - Desde" for="txtMontoentregableini"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontoentregableini" value ="#{entregable.entregableB.montoentregableini}" maxlength="18" style="width:150px;" label="Monto Entregable - Desde"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Monto Entregable - Hasta" for="txtMontoentregablefin"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontoentregablefin" value ="#{entregable.entregableB.montoentregablefin}" maxlength="18" style="width:150px;" label="Monto Entregable - Hasta"/>
+		</td>
+		<td>
+			<p:outputLabel value="Monto Penalidad Entregable - Desde" for="txtMontopenalidadentregableini"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontopenalidadentregableini" value ="#{entregable.entregableB.montopenalidadentregableini}" maxlength="18" style="width:150px;" label="Monto Penalidad Entregable - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="Monto Penalidad Entregable - Hasta" for="txtMontopenalidadentregablefin"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontopenalidadentregablefin" value ="#{entregable.entregableB.montopenalidadentregablefin}" maxlength="18" style="width:150px;" label="Monto Penalidad Entregable - Hasta"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Fecha Presentación Entregable - Desde" for="txtFechapresentacionentregableini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechapresentacionentregableini" value="#{entregable.entregableB.fechapresentacionentregableini}" label="Fecha Presentación Entregable - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="Fecha Presentación Entregable - Hasta" for="txtFechapresentacionentregablefin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechapresentacionentregablefin" value="#{entregable.entregableB.fechapresentacionentregablefin}" label="Fecha Presentación Entregable - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="Observaciones Entregables" for="txtObservacionesentregable"/>
+		</td>
+		<td>
+			<p:inputText  id="txtObservacionesentregable" value="#{entregable.entregableB.observacionesentregable}" disabled="false" maxlength="500" style="width:150px;" label="Observaciones Entregables"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:selectCheckboxMenu id="txtIdcatalogoestadoentregable" value="#{entregable.listaIdcatalogoestadoentregableKeys}" filter="true" disabled="false" filterText="Filter" filterMatchMode="startsWith" label="Estado Entregable">
+				 <f:selectItems  value="#{entregable.listaGentablaIdcatalogoestadoentregable}" var="var" itemLabel ="#{var.vchregdescri}" itemValue ="#{var.vchregcodigo}"/>
+				 <p:ajax  event="change" listener="#{entregable.getValuesListenerIdcatalogoestadoentregable}" update="txtKeyValuesIdcatalogoestadoentregable" process="@this"/>
+				 <p:ajax  event="toggleSelect" listener="#{entregable.handleChangeIdcatalogoestadoentregable}" update="txtKeyValuesIdcatalogoestadoentregable,txtIdcatalogoestadoentregable" process="@this"/>
+			</p:selectCheckboxMenu>
+		</td>
+		<td>
+			<p:inputText  id="txtKeyValuesIdcatalogoestadoentregable" value="#{entregable.valuesIdcatalogoestadoentregable}" disabled="true" style="width:150px;"/>
+		</td>
+		<td>
+			<p:outputLabel value="Grupo Documento" for="txtIdgrupodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdgrupodocumento" value="#{entregable.entregableB.grupodocumentoIdgrupodocumento.anio}" disabled="true" maxlength="10" style="width:150px;" label="Grupo Documento"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_grupodocumento.init}"  oncomplete="showDialogPF('frmMainIdgrupodocumentoBuscar:diGrupodocumentoBuscar');" update=":frmMainIdgrupodocumentoBuscar:diGrupodocumentoBuscar" style="width:20px;height:20px;" title="Buscar"  disabled="false"/>
+			<p:commandButton icon="ui-icon-close" action="#{entregable.resetMainIdgrupodocumento}"  update="txtIdgrupodocumento" style="width:20px;height:20px;" title="Borrar Filtro" immediate="true" disabled="false"/>
+		</td>
+		<td>
+			<p:outputLabel value="Ejercicio" for="txtAnio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnio" value="#{entregable.entregableB.anio}" disabled="false" maxlength="10" style="width:150px;" label="Ejercicio"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{entregable.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{entregable.buscar}"  update="tblListaEntregable,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{entregable.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{entregable.irRegistrar}"  update="hidStatus,:frmEntregableRegistrar:diEntregableRegistrar" oncomplete="showDialog('form:hidStatus','frmEntregableRegistrar:diEntregableRegistrar');" icon="ui-icon-document"  rendered="#{entregable.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{entregable.irEditar}"  update="hidStatus,:frmEntregableRegistrar:diEntregableRegistrar" oncomplete="showDialog('form:hidStatus','frmEntregableRegistrar:diEntregableRegistrar');" icon="ui-icon-pencil" disabled="#{!entregable.esSeleccionado}"  rendered="#{entregable.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{entregable.irDetalle}"  update="hidStatus,:frmEntregableDetalle:diEntregableDetalle" oncomplete="showDialog('form:hidStatus','frmEntregableDetalle:diEntregableDetalle');" icon="ui-icon-zoomin" disabled="#{!entregable.esSeleccionado}"   rendered="#{entregable.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{entregable.irAnular}"  update="hidStatus,:frmEntregableAnular:diEntregableAnular" oncomplete="showDialog('form:hidStatus','frmEntregableAnular:diEntregableAnular');" icon="ui-icon-circle-minus" disabled="#{!entregable.esSeleccionado}"   rendered="#{entregable.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{entregable.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!entregable.esSeleccionado}"   rendered="#{entregable.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{entregable.irImprimir}"  update="hidStatus,:frmEntregableImprimir:diEntregableImprimir" oncomplete="showDialog('form:hidStatus','frmEntregableImprimir:diEntregableImprimir');" icon="ui-icon-print"   rendered="#{entregable.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="#{orden.load}" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{entregable.esDerivada=='1'}"/>
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{entregable.esDerivada=='0'}"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaEntregable">
+	<p:menuitem value="Editar" action="#{entregable.irEditar}"   update="hidStatus,:frmEntregableRegistrar:diEntregableRegistrar"  oncomplete="showDialog('form:hidStatus','frmEntregableRegistrar:diEntregableRegistrar');"  icon="ui-icon-pencil" rendered="#{entregable.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{entregable.irDetalle}"   update="hidStatus,:frmEntregableDetalle:diEntregableDetalle"  oncomplete="showDialog('form:hidStatus','frmEntregableDetalle:diEntregableDetalle');"  icon="ui-icon-zoomin" rendered="#{entregable.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{entregable.irAnular}"   update="hidStatus,:frmEntregableAnular:diEntregableAnular"  oncomplete="showDialog('form:hidStatus','frmEntregableAnular:diEntregableAnular');"  icon="ui-icon-circle-minus" rendered="#{entregable.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{entregable.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{entregable.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaEntregable" value="#{entregable.listaEntregable}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaEntregable" selection="#{entregable.selectedEntregable}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(entregable.listaEntregable)}"
+	selectionMode="single" rowKey="#{var.identregable}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{entregable.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.identregable}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.identregable}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.idorden}">
+			<f:facet name="header">
+				<h:outputText value="Orden" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idorden}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.nroproveido}">
+			<f:facet name="header">
+				<h:outputText value="Número Proveido" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.nroproveido}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nroentregable}">
+			<f:facet name="header">
+				<h:outputText value="Número Entregable" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nroentregable}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.plazoentregable}">
+			<f:facet name="header">
+				<h:outputText value="Plazo Entregable" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.plazoentregable}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.montoentregable}">
+			<f:facet name="header">
+				<h:outputText value="Monto Entregable" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.montoentregable}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.montopenalidadentregable}">
+			<f:facet name="header">
+				<h:outputText value="Monto Penalidad Entregable" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.montopenalidadentregable}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechapresentacionentregable}">
+			<f:facet name="header">
+				<h:outputText value="Fecha Presentación Entregable" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechapresentacionentregable}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.observacionesentregable}">
+			<f:facet name="header">
+				<h:outputText value="Observaciones Entregables" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.observacionesentregable}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.gentablaIdcatalogoestadoentregable.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="Estado Entregable" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.gentablaIdcatalogoestadoentregable.vchregdescri}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.grupodocumentoIdgrupodocumento.anio}">
+			<f:facet name="header">
+				<h:outputText value="Grupo Documento" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.grupodocumentoIdgrupodocumento.anio}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.anio}">
+			<f:facet name="header">
+				<h:outputText value="Ejercicio" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.anio}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{entregable.eliminar}"  update=":form:tblListaEntregable,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmEntregableImprimir">
+	<p:dialog id="diEntregableImprimir" header="#{entregable.titulo}" widgetVar="diEntregableImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaEntregable" fileName="datosEntregable" postProcessor="#{entregable.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaEntregable" fileName="datos" preProcessor="#{entregable.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEntregableRegistrar">
+	<p:dialog id="diEntregableRegistrar" header="#{entregable.titulo}" widgetVar="diEntregableRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsEntregableR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/entregable/component/c_entregableRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{entregable.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{entregable.aceptar}" update="hidStatus,:form:tblListaEntregable,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmEntregableRegistrar:hidStatus','frmEntregableRegistrar:diEntregableRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEntregableRegistrar:diEntregableRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEntregableDetalle">
+	<p:dialog id="diEntregableDetalle" header="#{entregable.titulo}" widgetVar="diEntregableDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/entregable/component/c_entregableDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEntregableDetalle:diEntregableDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEntregableAnular">
+	<p:dialog id="diEntregableAnular" header="#{entregable.titulo}" widgetVar="diEntregableAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsEntregableA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/entregable/component/c_entregableDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{entregable.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{entregable.anular}" update="hidStatus,:form:tblListaEntregable,:form:growl,panelDetailC" oncomplete="hideDialog('frmEntregableAnular:hidStatus','frmEntregableAnular:diEntregableAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEntregableAnular:diEntregableAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMainIdgrupodocumentoBuscar">
+	<p:dialog id="diGrupodocumentoBuscar" header="Grupo documento » Buscar" widgetVar="diGrupodocumentoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Grupodocumento" autoUpdate="true" closable="true"/>
+	 <cc:cc_grupodocumentoBuscar
+	 ajaxEventListener="#{entregable.loadMainIdgrupodocumento}"
+	 actionOncomplete="hideDialogPF('frmMainIdgrupodocumentoBuscar:diGrupodocumentoBuscar');"
+	 actionUpdate=":form:txtIdgrupodocumento"/>
+	</p:dialog>
+</h:form>
+
+
+
+<h:form id="frmRegIdgrupodocumentoBuscar">
+	<p:dialog id="diGrupodocumentoBuscar" header="Grupo documento » Buscar" widgetVar="diGrupodocumentoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Grupodocumento" autoUpdate="true" closable="true"/>
+	 <cc:cc_grupodocumentoBuscar
+	 ajaxEventListener="#{entregable.loadRegIdgrupodocumento}"
+	 actionOncomplete="hideDialogPF('frmRegIdgrupodocumentoBuscar:diGrupodocumentoBuscar');"
+	 actionUpdate=":frmEntregableRegistrar:txtIdgrupodocumento"/>
+	</p:dialog>
+</h:form>
+
+
+</ui:define>
+</ui:composition>

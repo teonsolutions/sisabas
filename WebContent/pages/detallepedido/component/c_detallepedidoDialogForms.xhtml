@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmDetallepedidoImprimir">
+	<p:dialog id="diDetallepedidoImprimir" header="#{detallepedido.titulo}" widgetVar="diDetallepedidoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaDetallepedido" fileName="datosDetallepedido" postProcessor="#{detallepedido.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaDetallepedido" fileName="datos" preProcessor="#{detallepedido.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmDetallepedidoRegistrar">
+	<p:dialog id="diDetallepedidoRegistrar" header="#{detallepedido.titulo}" widgetVar="diDetallepedidoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsDetallepedidoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/detallepedido/component/c_detallepedidoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{detallepedido.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{detallepedido.aceptar}" update="hidStatus,:form:tblListaDetallepedido,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmDetallepedidoRegistrar:hidStatus','frmDetallepedidoRegistrar:diDetallepedidoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmDetallepedidoRegistrar:diDetallepedidoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmDetallepedidoDetalle">
+	<p:dialog id="diDetallepedidoDetalle" header="#{detallepedido.titulo}" widgetVar="diDetallepedidoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/detallepedido/component/c_detallepedidoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmDetallepedidoDetalle:diDetallepedidoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmDetallepedidoAnular">
+	<p:dialog id="diDetallepedidoAnular" header="#{detallepedido.titulo}" widgetVar="diDetallepedidoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsDetallepedidoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/detallepedido/component/c_detallepedidoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{detallepedido.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{detallepedido.anular}" update="hidStatus,:form:tblListaDetallepedido,:form:growl,panelDetailC" oncomplete="hideDialog('frmDetallepedidoAnular:hidStatus','frmDetallepedidoAnular:diDetallepedidoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmDetallepedidoAnular:diDetallepedidoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+</html>

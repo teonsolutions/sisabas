@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelDetailC">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="Nro pedido" for="txtNropedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNropedido" value="#{pedido.pedido.nropedido}" disabled="true" style="width:150px;" label="Nro pedido"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Tipo de bien(SIGA)" for="txtIdcatalogotipobien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogotipobien" value="#{pedido.pedido.gentablaIdcatalogotipobien.vchregdescri}" disabled="true" style="width:150px;" label="Tipo de bien(SIGA)"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Periódo" for="txtIdperiodo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdperiodo" value="#{pedido.pedido.periodoIdperiodo.nombreperiodo}" disabled="true" style="width:150px;" label="Periódo"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Centro costo" for="txtCodigocentrocosto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigocentrocosto" value="#{pedido.pedido.vcentrocostoCodigocentrocosto.nombredependencia}" disabled="true" style="width:150px;" label="Centro costo"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Nombre de dependencia" for="txtNombredependencia"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombredependencia" value="#{pedido.pedido.nombredependencia}" disabled="true" style="width:300px;" label="Nombre de dependencia"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Descripción" for="txtDescripcionpedidosiga"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDescripcionpedidosiga" value="#{pedido.pedido.descripcionpedidosiga}" disabled="true" style="width:300px;" label="Descripción"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Monto del Pedido" for="txtMontopedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMontopedido" value="#{pedido.pedido.montopedido}" disabled="true" style="width:150px;" label="Monto del Pedido"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Estado pedido" for="txtEstadopedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadopedido" value="#{pedido.pedido.estadopedido}" disabled="true" style="width:150px;" label="Estado pedido"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Número Sindad" for="txtNumerosinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerosinad" value="#{pedido.pedido.numerosinad}" disabled="true" style="width:150px;" label="Número Sindad"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Año Sinad" for="txtAniosinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAniosinad" value="#{pedido.pedido.aniosinad}" disabled="true" style="width:150px;" label="Año Sinad"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Número de expediente (SINAD)" for="txtNumeroexpedientesinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumeroexpedientesinad" value="#{pedido.pedido.numeroexpedientesinad}" disabled="true" style="width:150px;" label="Número de expediente (SINAD)"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Fecha pedido" for="txtFechapedido"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechapedido" value="#{pedido.pedido.fechapedido}" disabled="true" style="width:150px;" label="Fecha pedido">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Tipo de Necesidad" for="txtIdcatalogotiponecesidad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogotiponecesidad" value="#{pedido.pedido.gentablaIdcatalogotiponecesidad.vchregdescri}" disabled="true" style="width:150px;" label="Tipo de Necesidad"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Unidad Ejecutora" for="txtIdunidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdunidadejecutora" value="#{pedido.pedido.unidadejecutoraIdunidadejecutora.nombreunidadejecutora}" disabled="true" style="width:150px;" label="Unidad Ejecutora"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Tipo de Sinad" for="txtTiposinad"/>
+		</td>
+		<td>
+			<h:graphicImage id="txtTiposinad" url="/resources/img/checkbox_yes.png"  rendered="#{pedido.pedido.tiposinad=='1'}" alt="Tipo de Sinad" title="Tipo de Sinad"/>
+			<h:graphicImage url="/resources/img/checkbox_no.png"  rendered="#{pedido.pedido.tiposinad=='0'}" alt="Tipo de Sinad" title="Tipo de Sinad"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Idv Pedido" for="txtIdvpedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdvpedido" value="#{pedido.pedido.vispedidoIdvpedido.anio}" disabled="true" style="width:150px;" label="Idv Pedido"/>
+		</td>
+	</tr>
+
+</table>
+</p:panel>
+</html>

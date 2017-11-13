@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<h:inputHidden id="hidStatusObservacionesdocumentotecnico" value="#{observacionesdocumentotecnico.status}"/>
+<p:contextMenu for="tblListaObservacionesdocumentotecnico">
+	<p:menuitem value="Detalle" action="#{observacionesdocumentotecnico.irDetalle}"  process="@this,hidStatusObservacionesdocumentotecnico,tblListaObservacionesdocumentotecnico"  update="hidStatusObservacionesdocumentotecnico,:frmObservacionesdocumentotecnicoDetalle:diObservacionesdocumentotecnicoDetalle"  oncomplete="showDialog('frmDocumentotecnicoDetalle:panelDetailC:hidStatusObservacionesdocumentotecnico','frmObservacionesdocumentotecnicoDetalle:diObservacionesdocumentotecnicoDetalle');"  icon="ui-icon-zoomin" rendered="#{observacionesdocumentotecnico.renderButton('btnDetalle')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaObservacionesdocumentotecnico" value="#{observacionesdocumentotecnico.listaObservacionesdocumentotecnico}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaObservacionesdocumentotecnico" selection="#{observacionesdocumentotecnico.selectedObservacionesdocumentotecnico}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(observacionesdocumentotecnico.listaObservacionesdocumentotecnico)}"
+	selectionMode="single" rowKey="#{var.idobservacionesdocumentotecnico}" styleClass="gandalfTableClass" rowStyleClass="#{var.params.ACTION!=null?(var.params.ACTION=='INSERT'?'old':'dead'):''}">
+		<p:column styleClass="c_numeric" sortBy="#{var.idobservacionesdocumentotecnico}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idobservacionesdocumentotecnico}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.iddocumentotecnico}">
+			<f:facet name="header">
+				<h:outputText value="Documento Técnico" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.iddocumentotecnico}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.seccionesdocumentotecnicoIdseccionesdocumentotecnico.idcatalogotipodocumentotecnico}">
+			<f:facet name="header">
+				<h:outputText value="Secciones Documento Técnico" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.seccionesdocumentotecnicoIdseccionesdocumentotecnico.idcatalogotipodocumentotecnico}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.observacion}">
+			<f:facet name="header">
+				<h:outputText value="Observación" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.observacion}"/>
+		</p:column>
+</p:dataTable>
+</html>

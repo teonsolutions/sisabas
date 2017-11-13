@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:tabView id="panelDetailC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<p:tab title="Detalle">
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="IdPedidoSiga" for="txtIdvpedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdvpedido" value="#{vispedido.vispedido.idvpedido}" disabled="true" style="width:150px;" label="IdPedidoSiga"/>
+		</td>
+		<td>
+			<p:outputLabel  value="CodigoUnidadEjecutora" for="txtCodigounidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigounidadejecutora" value="#{vispedido.vispedido.codigounidadejecutora}" disabled="true" style="width:150px;" label="CodigoUnidadEjecutora"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Anio" for="txtAnio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnio" value="#{vispedido.vispedido.anio}" disabled="true" style="width:150px;" label="Anio"/>
+		</td>
+		<td>
+			<p:outputLabel  value="SecEjec" for="txtSecejec"/>
+		</td>
+		<td>
+			<p:inputText  id="txtSecejec" value="#{vispedido.vispedido.secejec}" disabled="true" style="width:150px;" label="SecEjec"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="TipoBien" for="txtTipobien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipobien" value="#{vispedido.vispedido.tipobien}" disabled="true" style="width:150px;" label="TipoBien"/>
+		</td>
+		<td>
+			<p:outputLabel  value="TipoPedido" for="txtTipopedido"/>
+		</td>
+		<td>
+			<h:graphicImage id="txtTipopedido" url="/resources/img/checkbox_yes.png"  rendered="#{vispedido.vispedido.tipopedido=='1'}" alt="TipoPedido" title="TipoPedido"/>
+			<h:graphicImage url="/resources/img/checkbox_no.png"  rendered="#{vispedido.vispedido.tipopedido=='0'}" alt="TipoPedido" title="TipoPedido"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="NroPedido" for="txtNropedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNropedido" value="#{vispedido.vispedido.nropedido}" disabled="true" style="width:150px;" label="NroPedido"/>
+		</td>
+		<td>
+			<p:outputLabel  value="CodigoCentroCosto" for="txtCodigocentrocosto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigocentrocosto" value="#{vispedido.vispedido.codigocentrocosto}" disabled="true" style="width:150px;" label="CodigoCentroCosto"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="NombreDependencia" for="txtNombredependencia"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombredependencia" value="#{vispedido.vispedido.nombredependencia}" disabled="true" style="width:300px;" label="NombreDependencia"/>
+		</td>
+		<td>
+			<p:outputLabel  value="FechaPedido" for="txtFechapedido"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechapedido" value="#{vispedido.vispedido.fechapedido}" disabled="true" style="width:150px;" label="FechaPedido">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="FechaAprobacion" for="txtFechaaprobacion"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechaaprobacion" value="#{vispedido.vispedido.fechaaprobacion}" disabled="true" style="width:150px;" label="FechaAprobacion">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+		<td>
+			<p:outputLabel  value="MotivoPedido" for="txtMotivopedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMotivopedido" value="#{vispedido.vispedido.motivopedido}" disabled="true" style="width:300px;" label="MotivoPedido"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="SecFunc" for="txtSecfunc"/>
+		</td>
+		<td>
+			<p:inputText  id="txtSecfunc" value="#{vispedido.vispedido.secfunc}" disabled="true" style="width:150px;" label="SecFunc"/>
+		</td>
+		<td>
+			<p:outputLabel  value="TipoTarea" for="txtTipotarea"/>
+		</td>
+		<td>
+			<h:graphicImage id="txtTipotarea" url="/resources/img/checkbox_yes.png"  rendered="#{vispedido.vispedido.tipotarea=='1'}" alt="TipoTarea" title="TipoTarea"/>
+			<h:graphicImage url="/resources/img/checkbox_no.png"  rendered="#{vispedido.vispedido.tipotarea=='0'}" alt="TipoTarea" title="TipoTarea"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="NivelTarea" for="txtNiveltarea"/>
+		</td>
+		<td>
+			<h:graphicImage id="txtNiveltarea" url="/resources/img/checkbox_yes.png"  rendered="#{vispedido.vispedido.niveltarea=='1'}" alt="NivelTarea" title="NivelTarea"/>
+			<h:graphicImage url="/resources/img/checkbox_no.png"  rendered="#{vispedido.vispedido.niveltarea=='0'}" alt="NivelTarea" title="NivelTarea"/>
+		</td>
+		<td>
+			<p:outputLabel  value="CodigoTarea" for="txtCodigotarea"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigotarea" value="#{vispedido.vispedido.codigotarea}" disabled="true" style="width:150px;" label="CodigoTarea"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="MesPedido" for="txtMespedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMespedido" value="#{vispedido.vispedido.mespedido}" disabled="true" style="width:150px;" label="MesPedido"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Estado" for="txtEstado"/>
+		</td>
+		<td>
+			<h:graphicImage id="txtEstado" url="/resources/img/checkbox_yes.png"  rendered="#{vispedido.vispedido.estado=='1'}" alt="Estado" title="Estado"/>
+			<h:graphicImage url="/resources/img/checkbox_no.png"  rendered="#{vispedido.vispedido.estado=='0'}" alt="Estado" title="Estado"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+	</p:tab>
+
+	<p:tab title="Datos de Auditoría">
+
+	<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha de Creación" for="txtFechacreacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechacreacionauditoria" value="#{vispedido.vispedido.fechacreacionauditoria}" disabled="true" style="width:150px;" label="Fecha de Creación">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>
+			</p:inputText>
+		</td>
+		<td>
+			<p:outputLabel  value="Usuario de Creación" for="txtUsuariocreacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuariocreacionauditoria" value="#{vispedido.vispedido.usuariocreacionauditoria}" disabled="true" style="width:150px;" label="Usuario de Creación"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha de última modificacion" for="txtFechamodificacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechamodificacionauditoria" value="#{vispedido.vispedido.fechamodificacionauditoria}" disabled="true" style="width:150px;" label="Fecha de última modificacion">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>
+			</p:inputText>
+		</td>
+		<td>
+			<p:outputLabel  value="Usuario de última modificacion" for="txtUsuariomodificacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuariomodificacionauditoria" value="#{vispedido.vispedido.usuariomodificacionauditoria}" disabled="true" style="width:150px;" label="Usuario de última modificacion"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="IP/Nombre Equipo" for="txtEquipoauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEquipoauditoria" value="#{vispedido.vispedido.equipoauditoria}" disabled="true" style="width:300px;" label="IP/Nombre Equipo"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Programa/Clase" for="txtProgramaauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtProgramaauditoria" value="#{vispedido.vispedido.programaauditoria}" disabled="true" style="width:300px;" label="Programa/Clase"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Estado Registro" for="txtEstadoauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadoauditoria" value="#{vispedido.vispedido.estadoauditoria}" disabled="true" style="width:150px;" label="Estado Registro"/>
+		</td>
+	</tr>
+
+	</table>
+	</p:tab>
+
+</p:tabView>
+</html>

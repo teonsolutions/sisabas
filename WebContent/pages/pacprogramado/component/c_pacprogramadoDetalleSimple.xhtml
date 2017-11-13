@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelDetailC">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIdpacprogramado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpacprogramado" value="#{pacprogramado.pacprogramado.idpacprogramado}" disabled="true" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="anio" for="txtAnio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnio" value="#{pacprogramado.pacprogramado.anio}" disabled="true" style="width:150px;" label="anio"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Unidad Ejecutora" for="txtIdunidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdunidadejecutora" value="#{pacprogramado.pacprogramado.unidadejecutoraIdunidadejecutora.nombreunidadejecutora}" disabled="true" style="width:150px;" label="Unidad Ejecutora"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Numero consolidacion" for="txtNroconsolid"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroconsolid" value="#{pacprogramado.pacprogramado.nroconsolid}" disabled="true" style="width:150px;" label="Numero consolidacion"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Especificación Técnica" for="txtEspecificaciontecnica"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEspecificaciontecnica" value="#{pacprogramado.pacprogramado.especificaciontecnica}" disabled="true" style="width:300px;" label="Especificación Técnica"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Tipo bien" for="txtIdcatalogotipobien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogotipobien" value="#{pacprogramado.pacprogramado.gentablaIdcatalogotipobien.vchregdescri}" disabled="true" style="width:150px;" label="Tipo bien"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Monto PAO" for="txtMontopao"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMontopao" value="#{pacprogramado.pacprogramado.montopao}" disabled="true" style="width:150px;" label="Monto PAO"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Código Centro Costo" for="txtCodigocentrocosto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigocentrocosto" value="#{pacprogramado.pacprogramado.codigocentrocosto}" disabled="true" style="width:150px;" label="Código Centro Costo"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Nombre de dependencia" for="txtNombredependencia"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombredependencia" value="#{pacprogramado.pacprogramado.nombredependencia}" disabled="true" style="width:300px;" label="Nombre de dependencia"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Estado" for="txtIdcatalogoestado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogoestado" value="#{pacprogramado.pacprogramado.gentablaIdcatalogoestado.vchregdescri}" disabled="true" style="width:150px;" label="Estado"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Tipo documento Sinad" for="txtTipodocumentosinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipodocumentosinad" value="#{pacprogramado.pacprogramado.tipodocumentosinad}" disabled="true" style="width:300px;" label="Tipo documento Sinad"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Número documento Sinad" for="txtNumerodocumentosinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerodocumentosinad" value="#{pacprogramado.pacprogramado.numerodocumentosinad}" disabled="true" style="width:300px;" label="Número documento Sinad"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Número Sinad" for="txtNumerosinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerosinad" value="#{pacprogramado.pacprogramado.numerosinad}" disabled="true" style="width:150px;" label="Número Sinad"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Año Sinad" for="txtAniosinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAniosinad" value="#{pacprogramado.pacprogramado.aniosinad}" disabled="true" style="width:150px;" label="Año Sinad"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Número Expediente Sinad" for="txtNumeroexpedientesinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumeroexpedientesinad" value="#{pacprogramado.pacprogramado.numeroexpedientesinad}" disabled="true" style="width:150px;" label="Número Expediente Sinad"/>
+		</td>
+	</tr>
+
+</table>
+</p:panel>
+</html>

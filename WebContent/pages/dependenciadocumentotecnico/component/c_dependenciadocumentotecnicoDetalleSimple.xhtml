@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelDetailC">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIddependenciadocumentotecnico"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIddependenciadocumentotecnico" value="#{dependenciadocumentotecnico.dependenciadocumentotecnico.iddependenciadocumentotecnico}" disabled="true" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Documento Técnico" for="txtIddocumentotecnico"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIddocumentotecnico" value="#{dependenciadocumentotecnico.dependenciadocumentotecnico.iddocumentotecnico}" disabled="true" style="width:150px;" label="Documento Técnico"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Dirección" for="txtDireccion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDireccion" value="#{dependenciadocumentotecnico.dependenciadocumentotecnico.direccion}" disabled="true" style="width:300px;" label="Dirección"/>
+		</td>
+	</tr>
+
+</table>
+</p:panel>
+</html>

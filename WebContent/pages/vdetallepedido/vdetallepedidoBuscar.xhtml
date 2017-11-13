@@ -1,0 +1,591 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{vdetallepedido.tituloParam} #{vdetallepedido.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="IdVDetallePedido" for="txtIdvdetallepedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdvdetallepedido" value="#{vdetallepedido.vdetallepedidoB.idvdetallepedido}" disabled="false" maxlength="10" style="width:150px;" label="IdVDetallePedido"/>
+		</td>
+		<td>
+			<p:outputLabel value="IdVPedido" for="txtIdvpedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdvpedido" value="#{vdetallepedido.vdetallepedidoB.vispedidoIdvpedido.anio}" disabled="true" maxlength="10" style="width:150px;" label="IdVPedido"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_vispedido.init}"  oncomplete="showDialogPF('frmMainIdvpedidoBuscar:diVispedidoBuscar');" update=":frmMainIdvpedidoBuscar:diVispedidoBuscar" style="width:20px;height:20px;" title="Buscar"  disabled="false"/>
+			<p:commandButton icon="ui-icon-close" action="#{vdetallepedido.resetMainIdvpedido}"  update="txtIdvpedido" style="width:20px;height:20px;" title="Borrar Filtro" immediate="true" disabled="false"/>
+		</td>
+		<td>
+			<p:outputLabel value="Código Unidad Ejecutora" for="txtCodigounidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigounidadejecutora" value="#{vdetallepedido.vdetallepedidoB.codigounidadejecutora}" disabled="false" maxlength="3" style="width:150px;" label="Código Unidad Ejecutora"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Anio - Desde" for="txtAnioini"/>
+		</td>
+		<td>
+			<p:inputText id="txtAnioini" value ="#{vdetallepedido.vdetallepedidoB.anioini}" maxlength="4" style="width:150px;" label="Anio - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="Anio - Hasta" for="txtAniofin"/>
+		</td>
+		<td>
+			<p:inputText id="txtAniofin" value ="#{vdetallepedido.vdetallepedidoB.aniofin}" maxlength="4" style="width:150px;" label="Anio - Hasta"/>
+		</td>
+		<td>
+			<p:outputLabel value="SecEjec - Desde" for="txtSecejecini"/>
+		</td>
+		<td>
+			<p:inputText id="txtSecejecini" value ="#{vdetallepedido.vdetallepedidoB.secejecini}" maxlength="6" style="width:150px;" label="SecEjec - Desde"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="SecEjec - Hasta" for="txtSecejecfin"/>
+		</td>
+		<td>
+			<p:inputText id="txtSecejecfin" value ="#{vdetallepedido.vdetallepedidoB.secejecfin}" maxlength="6" style="width:150px;" label="SecEjec - Hasta"/>
+		</td>
+		<td>
+			<p:outputLabel value="NroCuadro - Desde" for="txtNrocuadroini"/>
+		</td>
+		<td>
+			<p:inputText id="txtNrocuadroini" value ="#{vdetallepedido.vdetallepedidoB.nrocuadroini}" maxlength="6" style="width:150px;" label="NroCuadro - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="NroCuadro - Hasta" for="txtNrocuadrofin"/>
+		</td>
+		<td>
+			<p:inputText id="txtNrocuadrofin" value ="#{vdetallepedido.vdetallepedidoB.nrocuadrofin}" maxlength="6" style="width:150px;" label="NroCuadro - Hasta"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="CentroCosto" for="txtCentrocosto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCentrocosto" value="#{vdetallepedido.vdetallepedidoB.centrocosto}" disabled="false" maxlength="15" style="width:150px;" label="CentroCosto"/>
+		</td>
+		<td>
+			<p:outputLabel value="TipoBien" for="txtTipobien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipobien" value="#{vdetallepedido.vdetallepedidoB.tipobien}" disabled="false" maxlength="1" style="width:150px;" label="TipoBien"/>
+		</td>
+		<td>
+			<p:outputLabel value="NroPedido" for="txtNropedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNropedido" value="#{vdetallepedido.vdetallepedidoB.nropedido}" disabled="false" maxlength="5" style="width:150px;" label="NroPedido"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="GrupoBien" for="txtGrupobien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtGrupobien" value="#{vdetallepedido.vdetallepedidoB.grupobien}" disabled="false" maxlength="2" style="width:150px;" label="GrupoBien"/>
+		</td>
+		<td>
+			<p:outputLabel value="ClaseBien" for="txtClasebien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtClasebien" value="#{vdetallepedido.vdetallepedidoB.clasebien}" disabled="false" maxlength="2" style="width:150px;" label="ClaseBien"/>
+		</td>
+		<td>
+			<p:outputLabel value="FamiliaBien" for="txtFamiliabien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFamiliabien" value="#{vdetallepedido.vdetallepedidoB.familiabien}" disabled="false" maxlength="4" style="width:150px;" label="FamiliaBien"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="ItemBien" for="txtItembien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtItembien" value="#{vdetallepedido.vdetallepedidoB.itembien}" disabled="false" maxlength="4" style="width:150px;" label="ItemBien"/>
+		</td>
+		<td>
+			<p:outputLabel value="UnidadMedida - Desde" for="txtUnidadmedidaini"/>
+		</td>
+		<td>
+			<p:inputText id="txtUnidadmedidaini" value ="#{vdetallepedido.vdetallepedidoB.unidadmedidaini}" maxlength="3" style="width:150px;" label="UnidadMedida - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="UnidadMedida - Hasta" for="txtUnidadmedidafin"/>
+		</td>
+		<td>
+			<p:inputText id="txtUnidadmedidafin" value ="#{vdetallepedido.vdetallepedidoB.unidadmedidafin}" maxlength="3" style="width:150px;" label="UnidadMedida - Hasta"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="NombreItem" for="txtNombreitem"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombreitem" value="#{vdetallepedido.vdetallepedidoB.nombreitem}" disabled="false" maxlength="150" style="width:150px;" label="NombreItem"/>
+		</td>
+		<td>
+			<p:outputLabel value="CantidadSolicitada - Desde" for="txtCantidadsolicitadaini"/>
+		</td>
+		<td>
+			<p:inputText id="txtCantidadsolicitadaini" value ="#{vdetallepedido.vdetallepedidoB.cantidadsolicitadaini}" maxlength="20" style="width:150px;" label="CantidadSolicitada - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="CantidadSolicitada - Hasta" for="txtCantidadsolicitadafin"/>
+		</td>
+		<td>
+			<p:inputText id="txtCantidadsolicitadafin" value ="#{vdetallepedido.vdetallepedidoB.cantidadsolicitadafin}" maxlength="20" style="width:150px;" label="CantidadSolicitada - Hasta"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="CantidadAprobada - Desde" for="txtCantidadaprobadaini"/>
+		</td>
+		<td>
+			<p:inputText id="txtCantidadaprobadaini" value ="#{vdetallepedido.vdetallepedidoB.cantidadaprobadaini}" maxlength="20" style="width:150px;" label="CantidadAprobada - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="CantidadAprobada - Hasta" for="txtCantidadaprobadafin"/>
+		</td>
+		<td>
+			<p:inputText id="txtCantidadaprobadafin" value ="#{vdetallepedido.vdetallepedidoB.cantidadaprobadafin}" maxlength="20" style="width:150px;" label="CantidadAprobada - Hasta"/>
+		</td>
+		<td>
+			<p:outputLabel value="CantidadAtendida - Desde" for="txtCantidadatendidaini"/>
+		</td>
+		<td>
+			<p:inputText id="txtCantidadatendidaini" value ="#{vdetallepedido.vdetallepedidoB.cantidadatendidaini}" maxlength="20" style="width:150px;" label="CantidadAtendida - Desde"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="CantidadAtendida - Hasta" for="txtCantidadatendidafin"/>
+		</td>
+		<td>
+			<p:inputText id="txtCantidadatendidafin" value ="#{vdetallepedido.vdetallepedidoB.cantidadatendidafin}" maxlength="20" style="width:150px;" label="CantidadAtendida - Hasta"/>
+		</td>
+		<td>
+			<p:outputLabel value="PrecioUnitario - Desde" for="txtPreciounitarioini"/>
+		</td>
+		<td>
+			<p:inputText id="txtPreciounitarioini" value ="#{vdetallepedido.vdetallepedidoB.preciounitarioini}" maxlength="16" style="width:150px;" label="PrecioUnitario - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="PrecioUnitario - Hasta" for="txtPreciounitariofin"/>
+		</td>
+		<td>
+			<p:inputText id="txtPreciounitariofin" value ="#{vdetallepedido.vdetallepedidoB.preciounitariofin}" maxlength="16" style="width:150px;" label="PrecioUnitario - Hasta"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="ValorTotal - Desde" for="txtValortotalini"/>
+		</td>
+		<td>
+			<p:inputText id="txtValortotalini" value ="#{vdetallepedido.vdetallepedidoB.valortotalini}" maxlength="16" style="width:150px;" label="ValorTotal - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="ValorTotal - Hasta" for="txtValortotalfin"/>
+		</td>
+		<td>
+			<p:inputText id="txtValortotalfin" value ="#{vdetallepedido.vdetallepedidoB.valortotalfin}" maxlength="16" style="width:150px;" label="ValorTotal - Hasta"/>
+		</td>
+		<td>
+			<p:outputLabel value="TipoTarea" for="txtTipotarea"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipotarea" value="#{vdetallepedido.vdetallepedidoB.tipotarea}" disabled="false" maxlength="1" style="width:150px;" label="TipoTarea"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="NivelTarea" for="txtNiveltarea"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNiveltarea" value="#{vdetallepedido.vdetallepedidoB.niveltarea}" disabled="false" maxlength="1" style="width:150px;" label="NivelTarea"/>
+		</td>
+		<td>
+			<p:outputLabel value="CodigoTarea - Desde" for="txtCodigotareaini"/>
+		</td>
+		<td>
+			<p:inputText id="txtCodigotareaini" value ="#{vdetallepedido.vdetallepedidoB.codigotareaini}" maxlength="10" style="width:150px;" label="CodigoTarea - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="CodigoTarea - Hasta" for="txtCodigotareafin"/>
+		</td>
+		<td>
+			<p:inputText id="txtCodigotareafin" value ="#{vdetallepedido.vdetallepedidoB.codigotareafin}" maxlength="10" style="width:150px;" label="CodigoTarea - Hasta"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="EstadoPendiente" for="txtEstadopendiente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadopendiente" value="#{vdetallepedido.vdetallepedidoB.estadopendiente}" disabled="false" maxlength="1" style="width:150px;" label="EstadoPendiente"/>
+		</td>
+		<td>
+			<p:outputLabel value="IdClasificador" for="txtIdclasificador"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdclasificador" value="#{vdetallepedido.vdetallepedidoB.idclasificador}" disabled="false" maxlength="7" style="width:150px;" label="IdClasificador"/>
+		</td>
+		<td>
+			<p:outputLabel value="Clasificador" for="txtClasificador"/>
+		</td>
+		<td>
+			<p:inputText  id="txtClasificador" value="#{vdetallepedido.vdetallepedidoB.clasificador}" disabled="false" maxlength="20" style="width:150px;" label="Clasificador"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="CodigoTipoBien" for="txtCodigotipobien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigotipobien" value="#{vdetallepedido.vdetallepedidoB.codigotipobien}" disabled="false" maxlength="10" style="width:150px;" label="CodigoTipoBien"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{vdetallepedido.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{vdetallepedido.buscar}"  update="tblListaVdetallepedido,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{vdetallepedido.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{vdetallepedido.irRegistrar}"  update="hidStatus,:frmVdetallepedidoRegistrar:diVdetallepedidoRegistrar" oncomplete="showDialog('form:hidStatus','frmVdetallepedidoRegistrar:diVdetallepedidoRegistrar');" icon="ui-icon-document"  rendered="#{vdetallepedido.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{vdetallepedido.irEditar}"  update="hidStatus,:frmVdetallepedidoRegistrar:diVdetallepedidoRegistrar" oncomplete="showDialog('form:hidStatus','frmVdetallepedidoRegistrar:diVdetallepedidoRegistrar');" icon="ui-icon-pencil" disabled="#{!vdetallepedido.esSeleccionado}"  rendered="#{vdetallepedido.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{vdetallepedido.irDetalle}"  update="hidStatus,:frmVdetallepedidoDetalle:diVdetallepedidoDetalle" oncomplete="showDialog('form:hidStatus','frmVdetallepedidoDetalle:diVdetallepedidoDetalle');" icon="ui-icon-zoomin" disabled="#{!vdetallepedido.esSeleccionado}"   rendered="#{vdetallepedido.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{vdetallepedido.irAnular}"  update="hidStatus,:frmVdetallepedidoAnular:diVdetallepedidoAnular" oncomplete="showDialog('form:hidStatus','frmVdetallepedidoAnular:diVdetallepedidoAnular');" icon="ui-icon-circle-minus" disabled="#{!vdetallepedido.esSeleccionado}"   rendered="#{vdetallepedido.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{vdetallepedido.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!vdetallepedido.esSeleccionado}"   rendered="#{vdetallepedido.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{vdetallepedido.irImprimir}"  update="hidStatus,:frmVdetallepedidoImprimir:diVdetallepedidoImprimir" oncomplete="showDialog('form:hidStatus','frmVdetallepedidoImprimir:diVdetallepedidoImprimir');" icon="ui-icon-print"   rendered="#{vdetallepedido.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaVdetallepedido">
+	<p:menuitem value="Editar" action="#{vdetallepedido.irEditar}"   update="hidStatus,:frmVdetallepedidoRegistrar:diVdetallepedidoRegistrar"  oncomplete="showDialog('form:hidStatus','frmVdetallepedidoRegistrar:diVdetallepedidoRegistrar');"  icon="ui-icon-pencil" rendered="#{vdetallepedido.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{vdetallepedido.irDetalle}"   update="hidStatus,:frmVdetallepedidoDetalle:diVdetallepedidoDetalle"  oncomplete="showDialog('form:hidStatus','frmVdetallepedidoDetalle:diVdetallepedidoDetalle');"  icon="ui-icon-zoomin" rendered="#{vdetallepedido.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{vdetallepedido.irAnular}"   update="hidStatus,:frmVdetallepedidoAnular:diVdetallepedidoAnular"  oncomplete="showDialog('form:hidStatus','frmVdetallepedidoAnular:diVdetallepedidoAnular');"  icon="ui-icon-circle-minus" rendered="#{vdetallepedido.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{vdetallepedido.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{vdetallepedido.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaVdetallepedido" value="#{vdetallepedido.listaVdetallepedido}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaVdetallepedido" selection="#{vdetallepedido.selectedVdetallepedido}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(vdetallepedido.listaVdetallepedido)}"
+	selectionMode="single" rowKey="#{var.idvdetallepedido}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{vdetallepedido.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.idvdetallepedido}">
+			<f:facet name="header">
+				<h:outputText value="IdVDetallePedido" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idvdetallepedido}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.vispedidoIdvpedido.anio}">
+			<f:facet name="header">
+				<h:outputText value="IdVPedido" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.vispedidoIdvpedido.anio}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.codigounidadejecutora}">
+			<f:facet name="header">
+				<h:outputText value="Código Unidad Ejecutora" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.codigounidadejecutora}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.anio}">
+			<f:facet name="header">
+				<h:outputText value="Anio" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.anio}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.secejec}">
+			<f:facet name="header">
+				<h:outputText value="SecEjec" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.secejec}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.nrocuadro}">
+			<f:facet name="header">
+				<h:outputText value="NroCuadro" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.nrocuadro}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.centrocosto}">
+			<f:facet name="header">
+				<h:outputText value="CentroCosto" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.centrocosto}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.tipobien}">
+			<f:facet name="header">
+				<h:outputText value="TipoBien" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.tipobien}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.nropedido}">
+			<f:facet name="header">
+				<h:outputText value="NroPedido" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.nropedido}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.grupobien}">
+			<f:facet name="header">
+				<h:outputText value="GrupoBien" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.grupobien}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.clasebien}">
+			<f:facet name="header">
+				<h:outputText value="ClaseBien" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.clasebien}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.familiabien}">
+			<f:facet name="header">
+				<h:outputText value="FamiliaBien" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.familiabien}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.itembien}">
+			<f:facet name="header">
+				<h:outputText value="ItemBien" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.itembien}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.unidadmedida}">
+			<f:facet name="header">
+				<h:outputText value="UnidadMedida" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.unidadmedida}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nombreitem}">
+			<f:facet name="header">
+				<h:outputText value="NombreItem" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nombreitem}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.cantidadsolicitada}">
+			<f:facet name="header">
+				<h:outputText value="CantidadSolicitada" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.cantidadsolicitada}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.cantidadaprobada}">
+			<f:facet name="header">
+				<h:outputText value="CantidadAprobada" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.cantidadaprobada}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.cantidadatendida}">
+			<f:facet name="header">
+				<h:outputText value="CantidadAtendida" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.cantidadatendida}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.preciounitario}">
+			<f:facet name="header">
+				<h:outputText value="PrecioUnitario" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.preciounitario}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.valortotal}">
+			<f:facet name="header">
+				<h:outputText value="ValorTotal" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.valortotal}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.tipotarea}">
+			<f:facet name="header">
+				<h:outputText value="TipoTarea" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.tipotarea}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.niveltarea}">
+			<f:facet name="header">
+				<h:outputText value="NivelTarea" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.niveltarea}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.codigotarea}">
+			<f:facet name="header">
+				<h:outputText value="CodigoTarea" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.codigotarea}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.estadopendiente}">
+			<f:facet name="header">
+				<h:outputText value="EstadoPendiente" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.estadopendiente}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.idclasificador}">
+			<f:facet name="header">
+				<h:outputText value="IdClasificador" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.idclasificador}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.clasificador}">
+			<f:facet name="header">
+				<h:outputText value="Clasificador" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.clasificador}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.codigotipobien}">
+			<f:facet name="header">
+				<h:outputText value="CodigoTipoBien" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.codigotipobien}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{vdetallepedido.eliminar}"  update=":form:tblListaVdetallepedido,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmVdetallepedidoImprimir">
+	<p:dialog id="diVdetallepedidoImprimir" header="#{vdetallepedido.titulo}" widgetVar="diVdetallepedidoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaVdetallepedido" fileName="datosVdetallepedido" postProcessor="#{vdetallepedido.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaVdetallepedido" fileName="datos" preProcessor="#{vdetallepedido.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmVdetallepedidoRegistrar">
+	<p:dialog id="diVdetallepedidoRegistrar" header="#{vdetallepedido.titulo}" widgetVar="diVdetallepedidoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsVdetallepedidoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/vdetallepedido/component/c_vdetallepedidoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{vdetallepedido.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{vdetallepedido.aceptar}" update="hidStatus,:form:tblListaVdetallepedido,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmVdetallepedidoRegistrar:hidStatus','frmVdetallepedidoRegistrar:diVdetallepedidoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmVdetallepedidoRegistrar:diVdetallepedidoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmVdetallepedidoDetalle">
+	<p:dialog id="diVdetallepedidoDetalle" header="#{vdetallepedido.titulo}" widgetVar="diVdetallepedidoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/vdetallepedido/component/c_vdetallepedidoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmVdetallepedidoDetalle:diVdetallepedidoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmVdetallepedidoAnular">
+	<p:dialog id="diVdetallepedidoAnular" header="#{vdetallepedido.titulo}" widgetVar="diVdetallepedidoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsVdetallepedidoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/vdetallepedido/component/c_vdetallepedidoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{vdetallepedido.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{vdetallepedido.anular}" update="hidStatus,:form:tblListaVdetallepedido,:form:growl,panelDetailC" oncomplete="hideDialog('frmVdetallepedidoAnular:hidStatus','frmVdetallepedidoAnular:diVdetallepedidoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmVdetallepedidoAnular:diVdetallepedidoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMainIdvpedidoBuscar">
+	<p:dialog id="diVispedidoBuscar" header="VPedidoSiga » Buscar" widgetVar="diVispedidoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Vispedido" autoUpdate="true" closable="true"/>
+	 <cc:cc_vispedidoBuscar
+	 ajaxEventListener="#{vdetallepedido.loadMainIdvpedido}"
+	 actionOncomplete="hideDialogPF('frmMainIdvpedidoBuscar:diVispedidoBuscar');"
+	 actionUpdate=":form:txtIdvpedido"/>
+	</p:dialog>
+</h:form>
+
+
+
+<h:form id="frmRegIdvpedidoBuscar">
+	<p:dialog id="diVispedidoBuscar" header="VPedidoSiga » Buscar" widgetVar="diVispedidoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Vispedido" autoUpdate="true" closable="true"/>
+	 <cc:cc_vispedidoBuscar
+	 ajaxEventListener="#{vdetallepedido.loadRegIdvpedido}"
+	 actionOncomplete="hideDialogPF('frmRegIdvpedidoBuscar:diVispedidoBuscar');"
+	 actionUpdate=":frmVdetallepedidoRegistrar:txtIdvpedido"/>
+	</p:dialog>
+</h:form>
+
+
+</ui:define>
+</ui:composition>

@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{pedidosporpacconsolidado.tituloParam} #{pedidosporpacconsolidado.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="ID" for="txtIdpedidoporpacconsolidado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpedidoporpacconsolidado" value="#{pedidosporpacconsolidado.pedidosporpacconsolidadoB.idpedidoporpacconsolidado}" disabled="false" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel value="Pac Consolid In" for="txtIdpacconsolidado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpacconsolidado" value="#{pedidosporpacconsolidado.pedidosporpacconsolidadoB.pacconsolidadoIdpacconsolidado.nroconsolid}" disabled="true" maxlength="10" style="width:150px;" label="Pac Consolid In"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_pacconsolidado.init}"  oncomplete="showDialogPF('frmMainIdpacconsolidadoBuscar:diPacconsolidadoBuscar');" update=":frmMainIdpacconsolidadoBuscar:diPacconsolidadoBuscar" style="width:20px;height:20px;" title="Buscar"  disabled="false"/>
+			<p:commandButton icon="ui-icon-close" action="#{pedidosporpacconsolidado.resetMainIdpacconsolidado}"  update="txtIdpacconsolidado" style="width:20px;height:20px;" title="Borrar Filtro" immediate="true" disabled="false"/>
+		</td>
+		<td>
+			<p:outputLabel value="Pedido In" for="txtIdpedido"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpedido" value="#{pedidosporpacconsolidado.pedidosporpacconsolidadoB.pedidoIdpedido.nropedido}" disabled="true" maxlength="10" style="width:150px;" label="Pedido In"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_pedido.init}"  oncomplete="showDialogPF('frmMainIdpedidoBuscar:diPedidoBuscar');" update=":frmMainIdpedidoBuscar:diPedidoBuscar" style="width:20px;height:20px;" title="Buscar"  disabled="false"/>
+			<p:commandButton icon="ui-icon-close" action="#{pedidosporpacconsolidado.resetMainIdpedido}"  update="txtIdpedido" style="width:20px;height:20px;" title="Borrar Filtro" immediate="true" disabled="false"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{pedidosporpacconsolidado.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{pedidosporpacconsolidado.buscar}"  update="tblListaPedidosporpacconsolidado,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{pedidosporpacconsolidado.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{pedidosporpacconsolidado.irRegistrar}"  update="hidStatus,:frmPedidosporpacconsolidadoRegistrar:diPedidosporpacconsolidadoRegistrar" oncomplete="showDialog('form:hidStatus','frmPedidosporpacconsolidadoRegistrar:diPedidosporpacconsolidadoRegistrar');" icon="ui-icon-document"  rendered="#{pedidosporpacconsolidado.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{pedidosporpacconsolidado.irEditar}"  update="hidStatus,:frmPedidosporpacconsolidadoRegistrar:diPedidosporpacconsolidadoRegistrar" oncomplete="showDialog('form:hidStatus','frmPedidosporpacconsolidadoRegistrar:diPedidosporpacconsolidadoRegistrar');" icon="ui-icon-pencil" disabled="#{!pedidosporpacconsolidado.esSeleccionado}"  rendered="#{pedidosporpacconsolidado.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{pedidosporpacconsolidado.irDetalle}"  update="hidStatus,:frmPedidosporpacconsolidadoDetalle:diPedidosporpacconsolidadoDetalle" oncomplete="showDialog('form:hidStatus','frmPedidosporpacconsolidadoDetalle:diPedidosporpacconsolidadoDetalle');" icon="ui-icon-zoomin" disabled="#{!pedidosporpacconsolidado.esSeleccionado}"   rendered="#{pedidosporpacconsolidado.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{pedidosporpacconsolidado.irAnular}"  update="hidStatus,:frmPedidosporpacconsolidadoAnular:diPedidosporpacconsolidadoAnular" oncomplete="showDialog('form:hidStatus','frmPedidosporpacconsolidadoAnular:diPedidosporpacconsolidadoAnular');" icon="ui-icon-circle-minus" disabled="#{!pedidosporpacconsolidado.esSeleccionado}"   rendered="#{pedidosporpacconsolidado.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{pedidosporpacconsolidado.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!pedidosporpacconsolidado.esSeleccionado}"   rendered="#{pedidosporpacconsolidado.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{pedidosporpacconsolidado.irImprimir}"  update="hidStatus,:frmPedidosporpacconsolidadoImprimir:diPedidosporpacconsolidadoImprimir" oncomplete="showDialog('form:hidStatus','frmPedidosporpacconsolidadoImprimir:diPedidosporpacconsolidadoImprimir');" icon="ui-icon-print"   rendered="#{pedidosporpacconsolidado.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaPedidosporpacconsolidado">
+	<p:menuitem value="Editar" action="#{pedidosporpacconsolidado.irEditar}"   update="hidStatus,:frmPedidosporpacconsolidadoRegistrar:diPedidosporpacconsolidadoRegistrar"  oncomplete="showDialog('form:hidStatus','frmPedidosporpacconsolidadoRegistrar:diPedidosporpacconsolidadoRegistrar');"  icon="ui-icon-pencil" rendered="#{pedidosporpacconsolidado.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{pedidosporpacconsolidado.irDetalle}"   update="hidStatus,:frmPedidosporpacconsolidadoDetalle:diPedidosporpacconsolidadoDetalle"  oncomplete="showDialog('form:hidStatus','frmPedidosporpacconsolidadoDetalle:diPedidosporpacconsolidadoDetalle');"  icon="ui-icon-zoomin" rendered="#{pedidosporpacconsolidado.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{pedidosporpacconsolidado.irAnular}"   update="hidStatus,:frmPedidosporpacconsolidadoAnular:diPedidosporpacconsolidadoAnular"  oncomplete="showDialog('form:hidStatus','frmPedidosporpacconsolidadoAnular:diPedidosporpacconsolidadoAnular');"  icon="ui-icon-circle-minus" rendered="#{pedidosporpacconsolidado.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{pedidosporpacconsolidado.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{pedidosporpacconsolidado.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaPedidosporpacconsolidado" value="#{pedidosporpacconsolidado.listaPedidosporpacconsolidado}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaPedidosporpacconsolidado" selection="#{pedidosporpacconsolidado.selectedPedidosporpacconsolidado}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(pedidosporpacconsolidado.listaPedidosporpacconsolidado)}"
+	selectionMode="single" rowKey="#{var.idpedidoporpacconsolidado}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{pedidosporpacconsolidado.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.idpedidoporpacconsolidado}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idpedidoporpacconsolidado}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.pacconsolidadoIdpacconsolidado.nroconsolid}">
+			<f:facet name="header">
+				<h:outputText value="Pac Consolid In" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.pacconsolidadoIdpacconsolidado.nroconsolid}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.pedidoIdpedido.nropedido}">
+			<f:facet name="header">
+				<h:outputText value="Pedido In" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.pedidoIdpedido.nropedido}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{pedidosporpacconsolidado.eliminar}"  update=":form:tblListaPedidosporpacconsolidado,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmPedidosporpacconsolidadoImprimir">
+	<p:dialog id="diPedidosporpacconsolidadoImprimir" header="#{pedidosporpacconsolidado.titulo}" widgetVar="diPedidosporpacconsolidadoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaPedidosporpacconsolidado" fileName="datosPedidosporpacconsolidado" postProcessor="#{pedidosporpacconsolidado.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaPedidosporpacconsolidado" fileName="datos" preProcessor="#{pedidosporpacconsolidado.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPedidosporpacconsolidadoRegistrar">
+	<p:dialog id="diPedidosporpacconsolidadoRegistrar" header="#{pedidosporpacconsolidado.titulo}" widgetVar="diPedidosporpacconsolidadoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsPedidosporpacconsolidadoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/pedidosporpacconsolidado/component/c_pedidosporpacconsolidadoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{pedidosporpacconsolidado.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{pedidosporpacconsolidado.aceptar}" update="hidStatus,:form:tblListaPedidosporpacconsolidado,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmPedidosporpacconsolidadoRegistrar:hidStatus','frmPedidosporpacconsolidadoRegistrar:diPedidosporpacconsolidadoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPedidosporpacconsolidadoRegistrar:diPedidosporpacconsolidadoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPedidosporpacconsolidadoDetalle">
+	<p:dialog id="diPedidosporpacconsolidadoDetalle" header="#{pedidosporpacconsolidado.titulo}" widgetVar="diPedidosporpacconsolidadoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/pedidosporpacconsolidado/component/c_pedidosporpacconsolidadoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPedidosporpacconsolidadoDetalle:diPedidosporpacconsolidadoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPedidosporpacconsolidadoAnular">
+	<p:dialog id="diPedidosporpacconsolidadoAnular" header="#{pedidosporpacconsolidado.titulo}" widgetVar="diPedidosporpacconsolidadoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsPedidosporpacconsolidadoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/pedidosporpacconsolidado/component/c_pedidosporpacconsolidadoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{pedidosporpacconsolidado.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{pedidosporpacconsolidado.anular}" update="hidStatus,:form:tblListaPedidosporpacconsolidado,:form:growl,panelDetailC" oncomplete="hideDialog('frmPedidosporpacconsolidadoAnular:hidStatus','frmPedidosporpacconsolidadoAnular:diPedidosporpacconsolidadoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPedidosporpacconsolidadoAnular:diPedidosporpacconsolidadoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMainIdpacconsolidadoBuscar">
+	<p:dialog id="diPacconsolidadoBuscar" header="Pac Consolidacion » Buscar" widgetVar="diPacconsolidadoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Pacconsolidado" autoUpdate="true" closable="true"/>
+	 <cc:cc_pacconsolidadoBuscar
+	 ajaxEventListener="#{pedidosporpacconsolidado.loadMainIdpacconsolidado}"
+	 actionOncomplete="hideDialogPF('frmMainIdpacconsolidadoBuscar:diPacconsolidadoBuscar');"
+	 actionUpdate=":form:txtIdpacconsolidado"/>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMainIdpedidoBuscar">
+	<p:dialog id="diPedidoBuscar" header="PedidoIn » Buscar" widgetVar="diPedidoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Pedido" autoUpdate="true" closable="true"/>
+	 <cc:cc_pedidoBuscar
+	 ajaxEventListener="#{pedidosporpacconsolidado.loadMainIdpedido}"
+	 actionOncomplete="hideDialogPF('frmMainIdpedidoBuscar:diPedidoBuscar');"
+	 actionUpdate=":form:txtIdpedido"/>
+	</p:dialog>
+</h:form>
+
+
+
+<h:form id="frmRegIdpacconsolidadoBuscar">
+	<p:dialog id="diPacconsolidadoBuscar" header="Pac Consolidacion » Buscar" widgetVar="diPacconsolidadoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Pacconsolidado" autoUpdate="true" closable="true"/>
+	 <cc:cc_pacconsolidadoBuscar
+	 ajaxEventListener="#{pedidosporpacconsolidado.loadRegIdpacconsolidado}"
+	 actionOncomplete="hideDialogPF('frmRegIdpacconsolidadoBuscar:diPacconsolidadoBuscar');"
+	 actionUpdate=":frmPedidosporpacconsolidadoRegistrar:txtIdpacconsolidado"/>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdpedidoBuscar">
+	<p:dialog id="diPedidoBuscar" header="PedidoIn » Buscar" widgetVar="diPedidoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Pedido" autoUpdate="true" closable="true"/>
+	 <cc:cc_pedidoBuscar
+	 ajaxEventListener="#{pedidosporpacconsolidado.loadRegIdpedido}"
+	 actionOncomplete="hideDialogPF('frmRegIdpedidoBuscar:diPedidoBuscar');"
+	 actionUpdate=":frmPedidosporpacconsolidadoRegistrar:txtIdpedido"/>
+	</p:dialog>
+</h:form>
+
+
+</ui:define>
+</ui:composition>

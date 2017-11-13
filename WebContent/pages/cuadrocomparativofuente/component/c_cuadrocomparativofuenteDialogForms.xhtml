@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmCuadrocomparativofuenteImprimir">
+	<p:dialog id="diCuadrocomparativofuenteImprimir" header="#{cuadrocomparativofuente.titulo}" widgetVar="diCuadrocomparativofuenteImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaCuadrocomparativofuente" fileName="datosCuadrocomparativofuente" postProcessor="#{cuadrocomparativofuente.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaCuadrocomparativofuente" fileName="datos" preProcessor="#{cuadrocomparativofuente.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmCuadrocomparativofuenteRegistrar">
+	<p:dialog id="diCuadrocomparativofuenteRegistrar" header="#{cuadrocomparativofuente.titulo}" widgetVar="diCuadrocomparativofuenteRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsCuadrocomparativofuenteR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/cuadrocomparativofuente/component/c_cuadrocomparativofuenteRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{cuadrocomparativofuente.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{cuadrocomparativofuente.aceptar}" update="hidStatus,:form:tblListaCuadrocomparativofuente,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmCuadrocomparativofuenteRegistrar:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmCuadrocomparativofuenteDetalle">
+	<p:dialog id="diCuadrocomparativofuenteDetalle" header="#{cuadrocomparativofuente.titulo}" widgetVar="diCuadrocomparativofuenteDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/cuadrocomparativofuente/component/c_cuadrocomparativofuenteDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmCuadrocomparativofuenteDetalle:diCuadrocomparativofuenteDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmCuadrocomparativofuenteAnular">
+	<p:dialog id="diCuadrocomparativofuenteAnular" header="#{cuadrocomparativofuente.titulo}" widgetVar="diCuadrocomparativofuenteAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsCuadrocomparativofuenteA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/cuadrocomparativofuente/component/c_cuadrocomparativofuenteDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{cuadrocomparativofuente.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{cuadrocomparativofuente.anular}" update="hidStatus,:form:tblListaCuadrocomparativofuente,:form:growl,panelDetailC" oncomplete="hideDialog('frmCuadrocomparativofuenteAnular:hidStatus','frmCuadrocomparativofuenteAnular:diCuadrocomparativofuenteAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmCuadrocomparativofuenteAnular:diCuadrocomparativofuenteAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+	<!-- Derived Table Main (cuadrocomparativoitem)  -->
+<h:form id="frmCuadrocomparativoitemDetalle">
+	<p:dialog id="diCuadrocomparativoitemDetalle" header="#{cuadrocomparativoitem.titulo}" widgetVar="diCuadrocomparativoitemDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/cuadrocomparativoitem/component/c_cuadrocomparativoitemDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmCuadrocomparativoitemDetalle:diCuadrocomparativoitemDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+</html>

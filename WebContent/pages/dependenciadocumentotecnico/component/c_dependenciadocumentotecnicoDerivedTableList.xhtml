@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<h:inputHidden id="hidStatusDependenciadocumentotecnico" value="#{dependenciadocumentotecnico.status}"/>
+<p:contextMenu for="tblListaDependenciadocumentotecnico">
+	<p:menuitem value="Detalle" action="#{dependenciadocumentotecnico.irDetalle}"  process="@this,hidStatusDependenciadocumentotecnico,tblListaDependenciadocumentotecnico"  update="hidStatusDependenciadocumentotecnico,:frmDependenciadocumentotecnicoDetalle:diDependenciadocumentotecnicoDetalle"  oncomplete="showDialog('frmDocumentotecnicoDetalle:panelDetailC:hidStatusDependenciadocumentotecnico','frmDependenciadocumentotecnicoDetalle:diDependenciadocumentotecnicoDetalle');"  icon="ui-icon-zoomin" rendered="#{dependenciadocumentotecnico.renderButton('btnDetalle')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaDependenciadocumentotecnico" value="#{dependenciadocumentotecnico.listaDependenciadocumentotecnico}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaDependenciadocumentotecnico" selection="#{dependenciadocumentotecnico.selectedDependenciadocumentotecnico}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(dependenciadocumentotecnico.listaDependenciadocumentotecnico)}"
+	selectionMode="single" rowKey="#{var.iddependenciadocumentotecnico}" styleClass="gandalfTableClass" rowStyleClass="#{var.params.ACTION!=null?(var.params.ACTION=='INSERT'?'old':'dead'):''}">
+		<p:column styleClass="c_numeric" sortBy="#{var.iddependenciadocumentotecnico}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.iddependenciadocumentotecnico}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.iddocumentotecnico}">
+			<f:facet name="header">
+				<h:outputText value="Documento Técnico" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.iddocumentotecnico}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.direccion}">
+			<f:facet name="header">
+				<h:outputText value="Dirección" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.direccion}"/>
+		</p:column>
+</p:dataTable>
+</html>

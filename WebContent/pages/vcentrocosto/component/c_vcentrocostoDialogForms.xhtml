@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmVcentrocostoImprimir">
+	<p:dialog id="diVcentrocostoImprimir" header="#{vcentrocosto.titulo}" widgetVar="diVcentrocostoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaVcentrocosto" fileName="datosVcentrocosto" postProcessor="#{vcentrocosto.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaVcentrocosto" fileName="datos" preProcessor="#{vcentrocosto.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmVcentrocostoRegistrar">
+	<p:dialog id="diVcentrocostoRegistrar" header="#{vcentrocosto.titulo}" widgetVar="diVcentrocostoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsVcentrocostoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/vcentrocosto/component/c_vcentrocostoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{vcentrocosto.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{vcentrocosto.aceptar}" update="hidStatus,:form:tblListaVcentrocosto,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmVcentrocostoRegistrar:hidStatus','frmVcentrocostoRegistrar:diVcentrocostoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmVcentrocostoRegistrar:diVcentrocostoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmVcentrocostoDetalle">
+	<p:dialog id="diVcentrocostoDetalle" header="#{vcentrocosto.titulo}" widgetVar="diVcentrocostoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/vcentrocosto/component/c_vcentrocostoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmVcentrocostoDetalle:diVcentrocostoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmVcentrocostoAnular">
+	<p:dialog id="diVcentrocostoAnular" header="#{vcentrocosto.titulo}" widgetVar="diVcentrocostoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsVcentrocostoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/vcentrocosto/component/c_vcentrocostoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{vcentrocosto.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{vcentrocosto.anular}" update="hidStatus,:form:tblListaVcentrocosto,:form:growl,panelDetailC" oncomplete="hideDialog('frmVcentrocostoAnular:hidStatus','frmVcentrocostoAnular:diVcentrocostoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmVcentrocostoAnular:diVcentrocostoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+</html>

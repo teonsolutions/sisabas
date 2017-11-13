@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<h:inputHidden id="hidStatusSinadporpacconsolidado" value="#{sinadporpacconsolidado.status}"/>
+<p:contextMenu for="tblListaSinadporpacconsolidado">
+	<p:menuitem value="Detalle" action="#{sinadporpacconsolidado.irDetalle}"  process="@this,hidStatusSinadporpacconsolidado,tblListaSinadporpacconsolidado"  update="hidStatusSinadporpacconsolidado,:frmSinadporpacconsolidadoDetalle:diSinadporpacconsolidadoDetalle"  oncomplete="showDialog('frmPacconsolidadoDetalle:panelDetailC:hidStatusSinadporpacconsolidado','frmSinadporpacconsolidadoDetalle:diSinadporpacconsolidadoDetalle');"  icon="ui-icon-zoomin" rendered="#{sinadporpacconsolidado.renderButton('btnDetalle')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaSinadporpacconsolidado" value="#{sinadporpacconsolidado.listaSinadporpacconsolidado}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaSinadporpacconsolidado" selection="#{sinadporpacconsolidado.selectedSinadporpacconsolidado}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(sinadporpacconsolidado.listaSinadporpacconsolidado)}"
+	selectionMode="single" rowKey="#{var.idsinad}" styleClass="gandalfTableClass" rowStyleClass="#{var.params.ACTION!=null?(var.params.ACTION=='INSERT'?'old':'dead'):''}">
+		<p:column styleClass="c_numeric" sortBy="#{var.idsinad}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idsinad}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.pacconsolidadoIdpacconsolidado.nroconsolid}">
+			<f:facet name="header">
+				<h:outputText value="Pac Consolid In" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.pacconsolidadoIdpacconsolidado.nroconsolid}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.numerosinad}">
+			<f:facet name="header">
+				<h:outputText value="Numero Sinad" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.numerosinad}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.numeroexpediente}">
+			<f:facet name="header">
+				<h:outputText value="Número Expediente" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.numeroexpediente}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.anioexpediente}">
+			<f:facet name="header">
+				<h:outputText value="Año Expediente" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.anioexpediente}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.codigosedeexpediente}">
+			<f:facet name="header">
+				<h:outputText value="Código Sede Expediente" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.codigosedeexpediente}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.descripciontipodocumento}">
+			<f:facet name="header">
+				<h:outputText value="Descripción Tipo Documento" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.descripciontipodocumento}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.descripcionoficinaexpediente}">
+			<f:facet name="header">
+				<h:outputText value="Descripción Oficina Expediente" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.descripcionoficinaexpediente}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.numerodocumento}">
+			<f:facet name="header">
+				<h:outputText value="Número de Documento" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.numerodocumento}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.esprincipal}">
+			<f:facet name="header">
+				<h:outputText value="Principal" styleClass="c_center"/>
+			</f:facet>
+			<h:graphicImage url="/resources/img/check.png" width="10" height="10" rendered="#{var.esprincipal=='1'}"/>		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.esnuevoasignado}">
+			<f:facet name="header">
+				<h:outputText value="Nuevo Asignado" styleClass="c_center"/>
+			</f:facet>
+			<h:graphicImage url="/resources/img/check.png" width="10" height="10" rendered="#{var.esnuevoasignado=='1'}"/>		</p:column>
+</p:dataTable>
+</html>

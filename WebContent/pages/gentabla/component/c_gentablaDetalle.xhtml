@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:tabView id="panelDetailC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<p:tab title="Detalle">
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="Código" for="txtVchregcodigo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchregcodigo" value="#{gentabla.gentabla.vchregcodigo}" disabled="true" style="width:150px;" label="Código"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Descripción" for="txtVchregdescri"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchregdescri" value="#{gentabla.gentabla.vchregdescri}" disabled="true" style="width:300px;" label="Descripción"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Abreviado" for="txtVchregabreviado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchregabreviado" value="#{gentabla.gentabla.vchregabreviado}" disabled="true" style="width:300px;" label="Abreviado"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Tipo" for="txtVchtipcodigo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchtipcodigo" value="#{gentabla.gentabla.gentipoVchtipcodigo.vchtipdescripcion}" disabled="true" style="width:150px;" label="Tipo"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Orden" for="txtIntregorden"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIntregorden" value="#{gentabla.gentabla.intregorden}" disabled="true" style="width:150px;" label="Orden"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Otro 1" for="txtVchtabotro1"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchtabotro1" value="#{gentabla.gentabla.vchtabotro1}" disabled="true" style="width:300px;" label="Otro 1"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Otro 2" for="txtVchtabotro2"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchtabotro2" value="#{gentabla.gentabla.vchtabotro2}" disabled="true" style="width:300px;" label="Otro 2"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Otro 3" for="txtVchtabotro3"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchtabotro3" value="#{gentabla.gentabla.vchtabotro3}" disabled="true" style="width:300px;" label="Otro 3"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Otro 4" for="txtVchtabotro4"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchtabotro4" value="#{gentabla.gentabla.vchtabotro4}" disabled="true" style="width:300px;" label="Otro 4"/>
+		</td>
+		<td>
+			<p:outputLabel  value="intganempid" for="txtIntganempid"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIntganempid" value="#{gentabla.gentabla.intganempid}" disabled="true" style="width:150px;" label="intganempid"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+	</p:tab>
+
+	<p:tab title="Datos de Auditoría">
+
+	<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="Estado Registro" for="txtEstadoauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadoauditoria" value="#{gentabla.gentabla.estadoauditoria}" disabled="true" style="width:150px;" label="Estado Registro"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Usuario de Creación" for="txtUsuariocreacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuariocreacionauditoria" value="#{gentabla.gentabla.usuariocreacionauditoria}" disabled="true" style="width:150px;" label="Usuario de Creación"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Usuario de última modificacion" for="txtUsuariomodificacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuariomodificacionauditoria" value="#{gentabla.gentabla.usuariomodificacionauditoria}" disabled="true" style="width:150px;" label="Usuario de última modificacion"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Fecha de Creación" for="txtFechacreacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechacreacionauditoria" value="#{gentabla.gentabla.fechacreacionauditoria}" disabled="true" style="width:150px;" label="Fecha de Creación">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>
+			</p:inputText>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha de última modificacion" for="txtFechamodificacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechamodificacionauditoria" value="#{gentabla.gentabla.fechamodificacionauditoria}" disabled="true" style="width:150px;" label="Fecha de última modificacion">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>
+			</p:inputText>
+		</td>
+		<td>
+			<p:outputLabel  value="IP/Nombre Equipo" for="txtEquipoauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEquipoauditoria" value="#{gentabla.gentabla.equipoauditoria}" disabled="true" style="width:300px;" label="IP/Nombre Equipo"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Programa/Clase" for="txtProgramaauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtProgramaauditoria" value="#{gentabla.gentabla.programaauditoria}" disabled="true" style="width:300px;" label="Programa/Clase"/>
+		</td>
+	</tr>
+
+	</table>
+	</p:tab>
+
+</p:tabView>
+</html>

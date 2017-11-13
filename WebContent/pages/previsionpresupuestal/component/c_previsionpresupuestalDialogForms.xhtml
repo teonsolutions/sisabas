@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmPrevisionpresupuestalImprimir">
+	<p:dialog id="diPrevisionpresupuestalImprimir" header="#{previsionpresupuestal.titulo}" widgetVar="diPrevisionpresupuestalImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaPrevisionpresupuestal" fileName="datosPrevisionpresupuestal" postProcessor="#{previsionpresupuestal.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaPrevisionpresupuestal" fileName="datos" preProcessor="#{previsionpresupuestal.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPrevisionpresupuestalRegistrar">
+	<p:dialog id="diPrevisionpresupuestalRegistrar" header="#{previsionpresupuestal.titulo}" widgetVar="diPrevisionpresupuestalRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsPrevisionpresupuestalR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/previsionpresupuestal/component/c_previsionpresupuestalRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{previsionpresupuestal.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{previsionpresupuestal.aceptar}" update="hidStatus,:form:tblListaPrevisionpresupuestal,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmPrevisionpresupuestalRegistrar:hidStatus','frmPrevisionpresupuestalRegistrar:diPrevisionpresupuestalRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPrevisionpresupuestalRegistrar:diPrevisionpresupuestalRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPrevisionpresupuestalDetalle">
+	<p:dialog id="diPrevisionpresupuestalDetalle" header="#{previsionpresupuestal.titulo}" widgetVar="diPrevisionpresupuestalDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/previsionpresupuestal/component/c_previsionpresupuestalDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPrevisionpresupuestalDetalle:diPrevisionpresupuestalDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPrevisionpresupuestalAnular">
+	<p:dialog id="diPrevisionpresupuestalAnular" header="#{previsionpresupuestal.titulo}" widgetVar="diPrevisionpresupuestalAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsPrevisionpresupuestalA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/previsionpresupuestal/component/c_previsionpresupuestalDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{previsionpresupuestal.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{previsionpresupuestal.anular}" update="hidStatus,:form:tblListaPrevisionpresupuestal,:form:growl,panelDetailC" oncomplete="hideDialog('frmPrevisionpresupuestalAnular:hidStatus','frmPrevisionpresupuestalAnular:diPrevisionpresupuestalAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPrevisionpresupuestalAnular:diPrevisionpresupuestalAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+</html>

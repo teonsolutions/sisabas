@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="menu">
+</ui:define>
+<ui:define name="center">
+
+<h:form id="form">
+<p:panel id="diLogin" widgetVar="diLogin" header="sisabas: SISTEMA DE ABASTECIMIENTOS"  style="width:380px;margin-top:5%;">
+	<p:panel>
+	<p:focus  for="txtUsuario"/>
+	<table>		
+		<tr>
+			<td>
+				<p:graphicImage value="/resources/img/keys.png" width="64" height="64"/>
+			</td>
+			<td>
+				<p:outputLabel value="Solicitar cambio de clave"/>	
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p:outputLabel value="Usuario: "  for="txtUsuario"/>
+			</td>
+			<td>
+				<p:inputText id="txtUsuario" value="#{loginBean.user}" widgetVar="txtUsuario" size="30" maxlength="20" required="true" label="Usuario" requiredMessage="Ingrese Usuario"/>
+			</td>
+		</tr>	
+		<tr>
+			<td>				
+			</td>
+			<td>
+				<p:message for="txtUsuario"/>
+			</td>
+		</tr>  
+
+	    <tr>
+			<td colspan="2" style="text-align:center">
+				<p:spacer width="20" />
+			</td>			
+		</tr>
+		
+	    <tr>
+			<td colspan="2" style="text-align:center">
+				<p:separator/>
+			</td>			
+		</tr>
+				  
+	    <tr>			
+			<td colspan="1" style="text-align:center">
+				<p:commandButton value="Solicitar" action="#{loginBean.solicitarCambioDeClave}" ajax="false"/>				
+			</td>
+			
+			<td colspan="1" style="text-align:center">			
+				<p:commandLink value="Volver a login" action="#{loginBean.logoutForceLocal}" immediate="true"/>  								
+			</td>	
+			
+		</tr>
+	</table>			
+	<p:tooltip for="txtUsuario" value="Ingrese Usuario" showEffect="fade" hideEffect="fade" />
+	<p:messages autoUpdate="true"/>
+	</p:panel>
+	  	
+</p:panel>
+</h:form>
+</ui:define>
+</ui:composition>

@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmObservacionesdocumentotecnicoImprimir">
+	<p:dialog id="diObservacionesdocumentotecnicoImprimir" header="#{observacionesdocumentotecnico.titulo}" widgetVar="diObservacionesdocumentotecnicoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaObservacionesdocumentotecnico" fileName="datosObservacionesdocumentotecnico" postProcessor="#{observacionesdocumentotecnico.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaObservacionesdocumentotecnico" fileName="datos" preProcessor="#{observacionesdocumentotecnico.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmObservacionesdocumentotecnicoRegistrar">
+	<p:dialog id="diObservacionesdocumentotecnicoRegistrar" header="#{observacionesdocumentotecnico.titulo}" widgetVar="diObservacionesdocumentotecnicoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsObservacionesdocumentotecnicoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/observacionesdocumentotecnico/component/c_observacionesdocumentotecnicoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{observacionesdocumentotecnico.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{observacionesdocumentotecnico.aceptar}" update="hidStatus,:form:tblListaObservacionesdocumentotecnico,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmObservacionesdocumentotecnicoRegistrar:hidStatus','frmObservacionesdocumentotecnicoRegistrar:diObservacionesdocumentotecnicoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmObservacionesdocumentotecnicoRegistrar:diObservacionesdocumentotecnicoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmObservacionesdocumentotecnicoDetalle">
+	<p:dialog id="diObservacionesdocumentotecnicoDetalle" header="#{observacionesdocumentotecnico.titulo}" widgetVar="diObservacionesdocumentotecnicoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/observacionesdocumentotecnico/component/c_observacionesdocumentotecnicoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmObservacionesdocumentotecnicoDetalle:diObservacionesdocumentotecnicoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmObservacionesdocumentotecnicoAnular">
+	<p:dialog id="diObservacionesdocumentotecnicoAnular" header="#{observacionesdocumentotecnico.titulo}" widgetVar="diObservacionesdocumentotecnicoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsObservacionesdocumentotecnicoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/observacionesdocumentotecnico/component/c_observacionesdocumentotecnicoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{observacionesdocumentotecnico.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{observacionesdocumentotecnico.anular}" update="hidStatus,:form:tblListaObservacionesdocumentotecnico,:form:growl,panelDetailC" oncomplete="hideDialog('frmObservacionesdocumentotecnicoAnular:hidStatus','frmObservacionesdocumentotecnicoAnular:diObservacionesdocumentotecnicoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmObservacionesdocumentotecnicoAnular:diObservacionesdocumentotecnicoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdseccionesdocumentotecnicoBuscar">
+	<p:dialog id="diSeccionesdocumentotecnicoBuscar" header="SeccionesDocumentoTecnico » Buscar" widgetVar="diSeccionesdocumentotecnicoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Seccionesdocumentotecnico" autoUpdate="true" closable="true"/>
+	 <cc:cc_seccionesdocumentotecnicoBuscar
+	 ajaxEventListener="#{observacionesdocumentotecnico.loadRegIdseccionesdocumentotecnico}"
+	 actionOncomplete="hideDialogPF('frmRegIdseccionesdocumentotecnicoBuscar:diSeccionesdocumentotecnicoBuscar');"
+	 actionUpdate=":frmObservacionesdocumentotecnicoRegistrar:txtIdseccionesdocumentotecnico"/>
+	</p:dialog>
+</h:form>
+
+
+</html>

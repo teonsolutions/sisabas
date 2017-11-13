@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmDocumentotecnicoImprimir">
+	<p:dialog id="diDocumentotecnicoImprimir" header="#{documentotecnico.titulo}" widgetVar="diDocumentotecnicoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaDocumentotecnico" fileName="datosDocumentotecnico" postProcessor="#{documentotecnico.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaDocumentotecnico" fileName="datos" preProcessor="#{documentotecnico.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmDocumentotecnicoRegistrar">
+	<p:dialog id="diDocumentotecnicoRegistrar" header="#{documentotecnico.titulo}" widgetVar="diDocumentotecnicoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsDocumentotecnicoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/documentotecnico/component/c_documentotecnicoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{documentotecnico.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{documentotecnico.aceptar}" update="hidStatus,:form:tblListaDocumentotecnico,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmDocumentotecnicoRegistrar:hidStatus','frmDocumentotecnicoRegistrar:diDocumentotecnicoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmDocumentotecnicoRegistrar:diDocumentotecnicoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmDocumentotecnicoDetalle">
+	<p:dialog id="diDocumentotecnicoDetalle" header="#{documentotecnico.titulo}" widgetVar="diDocumentotecnicoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/documentotecnico/component/c_documentotecnicoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmDocumentotecnicoDetalle:diDocumentotecnicoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmDocumentotecnicoAnular">
+	<p:dialog id="diDocumentotecnicoAnular" header="#{documentotecnico.titulo}" widgetVar="diDocumentotecnicoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsDocumentotecnicoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/documentotecnico/component/c_documentotecnicoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{documentotecnico.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{documentotecnico.anular}" update="hidStatus,:form:tblListaDocumentotecnico,:form:growl,panelDetailC" oncomplete="hideDialog('frmDocumentotecnicoAnular:hidStatus','frmDocumentotecnicoAnular:diDocumentotecnicoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmDocumentotecnicoAnular:diDocumentotecnicoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdpacprogramadoBuscar">
+	<p:dialog id="diPacprogramadoBuscar" header="PacProgramado » Buscar" widgetVar="diPacprogramadoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Pacprogramado" autoUpdate="true" closable="true"/>
+	 <cc:cc_pacprogramadoBuscar
+	 ajaxEventListener="#{documentotecnico.loadRegIdpacprogramado}"
+	 actionOncomplete="hideDialogPF('frmRegIdpacprogramadoBuscar:diPacprogramadoBuscar');"
+	 actionUpdate=":frmDocumentotecnicoRegistrar:txtIdpacprogramado"/>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdcomiteprocesoBuscar">
+	<p:dialog id="diComiteprocesoBuscar" header="Comite Proceso » Buscar" widgetVar="diComiteprocesoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Comiteproceso" autoUpdate="true" closable="true"/>
+	 <cc:cc_comiteprocesoBuscar
+	 ajaxEventListener="#{documentotecnico.loadRegIdcomiteproceso}"
+	 actionOncomplete="hideDialogPF('frmRegIdcomiteprocesoBuscar:diComiteprocesoBuscar');"
+	 actionUpdate=":frmDocumentotecnicoRegistrar:txtIdcomiteproceso"/>
+	</p:dialog>
+</h:form>
+
+
+	<!-- Derived Table Main (plazopagodocumentotecnico)  -->
+<h:form id="frmPlazopagodocumentotecnicoDetalle">
+	<p:dialog id="diPlazopagodocumentotecnicoDetalle" header="#{plazopagodocumentotecnico.titulo}" widgetVar="diPlazopagodocumentotecnicoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/plazopagodocumentotecnico/component/c_plazopagodocumentotecnicoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPlazopagodocumentotecnicoDetalle:diPlazopagodocumentotecnicoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+	<!-- Derived Table Main (dependenciadocumentotecnico)  -->
+<h:form id="frmDependenciadocumentotecnicoDetalle">
+	<p:dialog id="diDependenciadocumentotecnicoDetalle" header="#{dependenciadocumentotecnico.titulo}" widgetVar="diDependenciadocumentotecnicoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/dependenciadocumentotecnico/component/c_dependenciadocumentotecnicoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmDependenciadocumentotecnicoDetalle:diDependenciadocumentotecnicoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+	<!-- Derived Table Main (itinerarioconveniomarco)  -->
+<h:form id="frmItinerarioconveniomarcoDetalle">
+	<p:dialog id="diItinerarioconveniomarcoDetalle" header="#{itinerarioconveniomarco.titulo}" widgetVar="diItinerarioconveniomarcoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/itinerarioconveniomarco/component/c_itinerarioconveniomarcoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmItinerarioconveniomarcoDetalle:diItinerarioconveniomarcoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+	<!-- Derived Table Main (observacionesdocumentotecnico)  -->
+<h:form id="frmObservacionesdocumentotecnicoDetalle">
+	<p:dialog id="diObservacionesdocumentotecnicoDetalle" header="#{observacionesdocumentotecnico.titulo}" widgetVar="diObservacionesdocumentotecnicoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/observacionesdocumentotecnico/component/c_observacionesdocumentotecnicoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmObservacionesdocumentotecnicoDetalle:diObservacionesdocumentotecnicoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+</html>

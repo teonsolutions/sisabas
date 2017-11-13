@@ -1,0 +1,947 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pe.com.sisabas.persistence.VdetallepedidoMapper" >
+
+	<resultMap id="BasicResultMap" type="pe.com.sisabas.be.Vdetallepedido">
+	<result column="A1_IDVDETALLEPEDIDO" property="idvdetallepedido" jdbcType="INTEGER" />
+	<result column="A1_IDVPEDIDO" property="idvpedido" jdbcType="INTEGER" />
+	<result column="A1_CODIGOUNIDADEJECUTORA" property="codigounidadejecutora" jdbcType="VARCHAR" />
+	<result column="A1_ANIO" property="anio" jdbcType="DECIMAL" />
+	<result column="A1_SECEJEC" property="secejec" jdbcType="DECIMAL" />
+	<result column="A1_NROCUADRO" property="nrocuadro" jdbcType="DECIMAL" />
+	<result column="A1_CENTROCOSTO" property="centrocosto" jdbcType="VARCHAR" />
+	<result column="A1_TIPOBIEN" property="tipobien" jdbcType="VARCHAR" />
+	<result column="A1_NROPEDIDO" property="nropedido" jdbcType="VARCHAR" />
+	<result column="A1_GRUPOBIEN" property="grupobien" jdbcType="VARCHAR" />
+	<result column="A1_CLASEBIEN" property="clasebien" jdbcType="VARCHAR" />
+	<result column="A1_FAMILIABIEN" property="familiabien" jdbcType="VARCHAR" />
+	<result column="A1_ITEMBIEN" property="itembien" jdbcType="VARCHAR" />
+	<result column="A1_UNIDADMEDIDA" property="unidadmedida" jdbcType="DECIMAL" />
+	<result column="A1_NOMBREITEM" property="nombreitem" jdbcType="VARCHAR" />
+	<result column="A1_CANTIDADSOLICITADA" property="cantidadsolicitada" jdbcType="DECIMAL" />
+	<result column="A1_CANTIDADAPROBADA" property="cantidadaprobada" jdbcType="DECIMAL" />
+	<result column="A1_CANTIDADATENDIDA" property="cantidadatendida" jdbcType="DECIMAL" />
+	<result column="A1_PRECIOUNITARIO" property="preciounitario" jdbcType="DECIMAL" />
+	<result column="A1_VALORTOTAL" property="valortotal" jdbcType="DECIMAL" />
+	<result column="A1_TIPOTAREA" property="tipotarea" jdbcType="VARCHAR" />
+	<result column="A1_NIVELTAREA" property="niveltarea" jdbcType="VARCHAR" />
+	<result column="A1_CODIGOTAREA" property="codigotarea" jdbcType="DECIMAL" />
+	<result column="A1_ESTADOPENDIENTE" property="estadopendiente" jdbcType="VARCHAR" />
+	<result column="A1_IDCLASIFICADOR" property="idclasificador" jdbcType="VARCHAR" />
+	<result column="A1_CLASIFICADOR" property="clasificador" jdbcType="VARCHAR" />
+	<result column="A1_CODIGOTIPOBIEN" property="codigotipobien" jdbcType="INTEGER" />
+	<result column="A1_FECHACREACIONAUDITORIA" property="fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOCREACIONAUDITORIA" property="usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_FECHAMODIFICACIONAUDITORIA" property="fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOMODIFICACIONAUDITORIA" property="usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<resultMap id="FullResultMap" type="pe.com.sisabas.be.Vdetallepedido">
+	<result column="A1_IDVDETALLEPEDIDO" property="idvdetallepedido" jdbcType="INTEGER" />
+	<result column="A1_IDVPEDIDO" property="idvpedido" jdbcType="INTEGER" />
+	<result column="A1_CODIGOUNIDADEJECUTORA" property="codigounidadejecutora" jdbcType="VARCHAR" />
+	<result column="A1_ANIO" property="anio" jdbcType="DECIMAL" />
+	<result column="A1_SECEJEC" property="secejec" jdbcType="DECIMAL" />
+	<result column="A1_NROCUADRO" property="nrocuadro" jdbcType="DECIMAL" />
+	<result column="A1_CENTROCOSTO" property="centrocosto" jdbcType="VARCHAR" />
+	<result column="A1_TIPOBIEN" property="tipobien" jdbcType="VARCHAR" />
+	<result column="A1_NROPEDIDO" property="nropedido" jdbcType="VARCHAR" />
+	<result column="A1_GRUPOBIEN" property="grupobien" jdbcType="VARCHAR" />
+	<result column="A1_CLASEBIEN" property="clasebien" jdbcType="VARCHAR" />
+	<result column="A1_FAMILIABIEN" property="familiabien" jdbcType="VARCHAR" />
+	<result column="A1_ITEMBIEN" property="itembien" jdbcType="VARCHAR" />
+	<result column="A1_UNIDADMEDIDA" property="unidadmedida" jdbcType="DECIMAL" />
+	<result column="A1_NOMBREITEM" property="nombreitem" jdbcType="VARCHAR" />
+	<result column="A1_CANTIDADSOLICITADA" property="cantidadsolicitada" jdbcType="DECIMAL" />
+	<result column="A1_CANTIDADAPROBADA" property="cantidadaprobada" jdbcType="DECIMAL" />
+	<result column="A1_CANTIDADATENDIDA" property="cantidadatendida" jdbcType="DECIMAL" />
+	<result column="A1_PRECIOUNITARIO" property="preciounitario" jdbcType="DECIMAL" />
+	<result column="A1_VALORTOTAL" property="valortotal" jdbcType="DECIMAL" />
+	<result column="A1_TIPOTAREA" property="tipotarea" jdbcType="VARCHAR" />
+	<result column="A1_NIVELTAREA" property="niveltarea" jdbcType="VARCHAR" />
+	<result column="A1_CODIGOTAREA" property="codigotarea" jdbcType="DECIMAL" />
+	<result column="A1_ESTADOPENDIENTE" property="estadopendiente" jdbcType="VARCHAR" />
+	<result column="A1_IDCLASIFICADOR" property="idclasificador" jdbcType="VARCHAR" />
+	<result column="A1_CLASIFICADOR" property="clasificador" jdbcType="VARCHAR" />
+	<result column="A1_CODIGOTIPOBIEN" property="codigotipobien" jdbcType="INTEGER" />
+	<result column="A1_FECHACREACIONAUDITORIA" property="fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOCREACIONAUDITORIA" property="usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_FECHAMODIFICACIONAUDITORIA" property="fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOMODIFICACIONAUDITORIA" property="usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	<result column="A3_IDVPEDIDO" property="vispedidoIdvpedido.idvpedido" jdbcType="INTEGER" />
+	<result column="A3_CODIGOUNIDADEJECUTORA" property="vispedidoIdvpedido.codigounidadejecutora" jdbcType="VARCHAR" />
+	<result column="A3_ANIO" property="vispedidoIdvpedido.anio" jdbcType="DECIMAL" />
+	<result column="A3_SECEJEC" property="vispedidoIdvpedido.secejec" jdbcType="DECIMAL" />
+	<result column="A3_TIPOBIEN" property="vispedidoIdvpedido.tipobien" jdbcType="VARCHAR" />
+	<result column="A3_TIPOPEDIDO" property="vispedidoIdvpedido.tipopedido" jdbcType="VARCHAR" />
+	<result column="A3_NROPEDIDO" property="vispedidoIdvpedido.nropedido" jdbcType="VARCHAR" />
+	<result column="A3_CODIGOCENTROCOSTO" property="vispedidoIdvpedido.codigocentrocosto" jdbcType="VARCHAR" />
+	<result column="A3_NOMBREDEPENDENCIA" property="vispedidoIdvpedido.nombredependencia" jdbcType="VARCHAR" />
+	<result column="A3_FECHAPEDIDO" property="vispedidoIdvpedido.fechapedido" jdbcType="TIMESTAMP" />
+	<result column="A3_FECHAAPROBACION" property="vispedidoIdvpedido.fechaaprobacion" jdbcType="TIMESTAMP" />
+	<result column="A3_MOTIVOPEDIDO" property="vispedidoIdvpedido.motivopedido" jdbcType="VARCHAR" />
+	<result column="A3_SECFUNC" property="vispedidoIdvpedido.secfunc" jdbcType="DECIMAL" />
+	<result column="A3_TIPOTAREA" property="vispedidoIdvpedido.tipotarea" jdbcType="VARCHAR" />
+	<result column="A3_NIVELTAREA" property="vispedidoIdvpedido.niveltarea" jdbcType="VARCHAR" />
+	<result column="A3_CODIGOTAREA" property="vispedidoIdvpedido.codigotarea" jdbcType="DECIMAL" />
+	<result column="A3_MESPEDIDO" property="vispedidoIdvpedido.mespedido" jdbcType="VARCHAR" />
+	<result column="A3_ESTADO" property="vispedidoIdvpedido.estado" jdbcType="VARCHAR" />
+	<result column="A3_FECHACREACIONAUDITORIA" property="vispedidoIdvpedido.fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A3_USUARIOCREACIONAUDITORIA" property="vispedidoIdvpedido.usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A3_FECHAMODIFICACIONAUDITORIA" property="vispedidoIdvpedido.fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A3_USUARIOMODIFICACIONAUDITORIA" property="vispedidoIdvpedido.usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A3_EQUIPOAUDITORIA" property="vispedidoIdvpedido.equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A3_PROGRAMAAUDITORIA" property="vispedidoIdvpedido.programaauditoria" jdbcType="VARCHAR" />
+	<result column="A3_ESTADOAUDITORIA" property="vispedidoIdvpedido.estadoauditoria" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<sql id="Basic_Column_List">
+	A1.IDVDETALLEPEDIDO as A1_IDVDETALLEPEDIDO, A1.IDVPEDIDO as A1_IDVPEDIDO, A1.CODIGOUNIDADEJECUTORA as A1_CODIGOUNIDADEJECUTORA, A1.ANIO as A1_ANIO, 
+	A1.SECEJEC as A1_SECEJEC, A1.NROCUADRO as A1_NROCUADRO, A1.CENTROCOSTO as A1_CENTROCOSTO, A1.TIPOBIEN as A1_TIPOBIEN, 
+	A1.NROPEDIDO as A1_NROPEDIDO, A1.GRUPOBIEN as A1_GRUPOBIEN, A1.CLASEBIEN as A1_CLASEBIEN, A1.FAMILIABIEN as A1_FAMILIABIEN, 
+	A1.ITEMBIEN as A1_ITEMBIEN, A1.UNIDADMEDIDA as A1_UNIDADMEDIDA, A1.NOMBREITEM as A1_NOMBREITEM, A1.CANTIDADSOLICITADA as A1_CANTIDADSOLICITADA, 
+	A1.CANTIDADAPROBADA as A1_CANTIDADAPROBADA, A1.CANTIDADATENDIDA as A1_CANTIDADATENDIDA, A1.PRECIOUNITARIO as A1_PRECIOUNITARIO, A1.VALORTOTAL as A1_VALORTOTAL, 
+	A1.TIPOTAREA as A1_TIPOTAREA, A1.NIVELTAREA as A1_NIVELTAREA, A1.CODIGOTAREA as A1_CODIGOTAREA, A1.ESTADOPENDIENTE as A1_ESTADOPENDIENTE, 
+	A1.IDCLASIFICADOR as A1_IDCLASIFICADOR, A1.CLASIFICADOR as A1_CLASIFICADOR, A1.CODIGOTIPOBIEN as A1_CODIGOTIPOBIEN, A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, 
+	A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, 
+	A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA 
+	</sql>
+
+
+	<sql id="Full_Column_List">
+	A1.IDVDETALLEPEDIDO as A1_IDVDETALLEPEDIDO, A1.IDVPEDIDO as A1_IDVPEDIDO, A1.CODIGOUNIDADEJECUTORA as A1_CODIGOUNIDADEJECUTORA, A1.ANIO as A1_ANIO, 
+	A1.SECEJEC as A1_SECEJEC, A1.NROCUADRO as A1_NROCUADRO, A1.CENTROCOSTO as A1_CENTROCOSTO, A1.TIPOBIEN as A1_TIPOBIEN, 
+	A1.NROPEDIDO as A1_NROPEDIDO, A1.GRUPOBIEN as A1_GRUPOBIEN, A1.CLASEBIEN as A1_CLASEBIEN, A1.FAMILIABIEN as A1_FAMILIABIEN, 
+	A1.ITEMBIEN as A1_ITEMBIEN, A1.UNIDADMEDIDA as A1_UNIDADMEDIDA, A1.NOMBREITEM as A1_NOMBREITEM, A1.CANTIDADSOLICITADA as A1_CANTIDADSOLICITADA, 
+	A1.CANTIDADAPROBADA as A1_CANTIDADAPROBADA, A1.CANTIDADATENDIDA as A1_CANTIDADATENDIDA, A1.PRECIOUNITARIO as A1_PRECIOUNITARIO, A1.VALORTOTAL as A1_VALORTOTAL, 
+	A1.TIPOTAREA as A1_TIPOTAREA, A1.NIVELTAREA as A1_NIVELTAREA, A1.CODIGOTAREA as A1_CODIGOTAREA, A1.ESTADOPENDIENTE as A1_ESTADOPENDIENTE, 
+	A1.IDCLASIFICADOR as A1_IDCLASIFICADOR, A1.CLASIFICADOR as A1_CLASIFICADOR, A1.CODIGOTIPOBIEN as A1_CODIGOTIPOBIEN, A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, 
+	A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, 
+	A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA, 
+	A3.IDVPEDIDO as A3_IDVPEDIDO, A3.CODIGOUNIDADEJECUTORA as A3_CODIGOUNIDADEJECUTORA, A3.ANIO as A3_ANIO, A3.SECEJEC as A3_SECEJEC, 
+	A3.TIPOBIEN as A3_TIPOBIEN, A3.TIPOPEDIDO as A3_TIPOPEDIDO, A3.NROPEDIDO as A3_NROPEDIDO, A3.CODIGOCENTROCOSTO as A3_CODIGOCENTROCOSTO, 
+	A3.NOMBREDEPENDENCIA as A3_NOMBREDEPENDENCIA, A3.FECHAPEDIDO as A3_FECHAPEDIDO, A3.FECHAAPROBACION as A3_FECHAAPROBACION, A3.MOTIVOPEDIDO as A3_MOTIVOPEDIDO, 
+	A3.SECFUNC as A3_SECFUNC, A3.TIPOTAREA as A3_TIPOTAREA, A3.NIVELTAREA as A3_NIVELTAREA, A3.CODIGOTAREA as A3_CODIGOTAREA, 
+	A3.MESPEDIDO as A3_MESPEDIDO, A3.ESTADO as A3_ESTADO, A3.FECHACREACIONAUDITORIA as A3_FECHACREACIONAUDITORIA, A3.USUARIOCREACIONAUDITORIA as A3_USUARIOCREACIONAUDITORIA, 
+	A3.FECHAMODIFICACIONAUDITORIA as A3_FECHAMODIFICACIONAUDITORIA, A3.USUARIOMODIFICACIONAUDITORIA as A3_USUARIOMODIFICACIONAUDITORIA, A3.EQUIPOAUDITORIA as A3_EQUIPOAUDITORIA, A3.PROGRAMAAUDITORIA as A3_PROGRAMAAUDITORIA, 
+	A3.ESTADOAUDITORIA as A3_ESTADOAUDITORIA 
+	</sql>
+
+
+
+	<select id="selectByPrimaryKeyBasic" resultMap="BasicResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.VDetallePedido A1
+	
+	where A1.IdVDetallePedido = #{idvdetallepedido,jdbcType=INTEGER}
+</select>
+
+
+
+	<select id="selectByPrimaryKeyBasicActive" resultMap="BasicResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.VDetallePedido A1
+	
+	where A1.IdVDetallePedido = #{idvdetallepedido,jdbcType=INTEGER}
+	and A1.estadoauditoria='1'
+	</select>
+
+
+
+	<select id="selectByPrimaryKeyFull" resultMap="FullResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.VDetallePedido A1
+	
+	LEFT JOIN abas.visPedido A3 ON A1.IdVPedido = A3.IdVPedido
+	where A1.IdVDetallePedido = #{idvdetallepedido,jdbcType=INTEGER}
+</select>
+
+
+
+	<select id="selectByPrimaryKeyFullActive" resultMap="FullResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.VDetallePedido A1
+	
+	LEFT JOIN abas.visPedido A3 ON A1.IdVPedido = A3.IdVPedido
+	where A1.IdVDetallePedido = #{idvdetallepedido,jdbcType=INTEGER}
+	and A1.estadoauditoria='1'
+	</select>
+
+
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	delete from abas.VDetallePedido 
+	where IdVDetallePedido = #{idvdetallepedido,jdbcType=INTEGER}
+	</delete>
+
+
+
+
+
+	<insert id="insert" parameterType="pe.com.sisabas.be.Vdetallepedido" >
+	insert into abas.VDetallePedido (
+	IDVDETALLEPEDIDO, IDVPEDIDO, CODIGOUNIDADEJECUTORA, ANIO, 
+	SECEJEC, NROCUADRO, CENTROCOSTO, TIPOBIEN, 
+	NROPEDIDO, GRUPOBIEN, CLASEBIEN, FAMILIABIEN, 
+	ITEMBIEN, UNIDADMEDIDA, NOMBREITEM, CANTIDADSOLICITADA, 
+	CANTIDADAPROBADA, CANTIDADATENDIDA, PRECIOUNITARIO, VALORTOTAL, 
+	TIPOTAREA, NIVELTAREA, CODIGOTAREA, ESTADOPENDIENTE, 
+	IDCLASIFICADOR, CLASIFICADOR, CODIGOTIPOBIEN, FECHACREACIONAUDITORIA, 
+	USUARIOCREACIONAUDITORIA, FECHAMODIFICACIONAUDITORIA, USUARIOMODIFICACIONAUDITORIA, EQUIPOAUDITORIA, 
+	PROGRAMAAUDITORIA, ESTADOAUDITORIA ) 
+	VALUES (
+	#{idvdetallepedido,jdbcType=INTEGER}, #{idvpedido,jdbcType=INTEGER}, #{codigounidadejecutora,jdbcType=VARCHAR}, #{anio,jdbcType=DECIMAL}, 
+	#{secejec,jdbcType=DECIMAL}, #{nrocuadro,jdbcType=DECIMAL}, #{centrocosto,jdbcType=VARCHAR}, #{tipobien,jdbcType=VARCHAR}, 
+	#{nropedido,jdbcType=VARCHAR}, #{grupobien,jdbcType=VARCHAR}, #{clasebien,jdbcType=VARCHAR}, #{familiabien,jdbcType=VARCHAR}, 
+	#{itembien,jdbcType=VARCHAR}, #{unidadmedida,jdbcType=DECIMAL}, #{nombreitem,jdbcType=VARCHAR}, #{cantidadsolicitada,jdbcType=DECIMAL}, 
+	#{cantidadaprobada,jdbcType=DECIMAL}, #{cantidadatendida,jdbcType=DECIMAL}, #{preciounitario,jdbcType=DECIMAL}, #{valortotal,jdbcType=DECIMAL}, 
+	#{tipotarea,jdbcType=VARCHAR}, #{niveltarea,jdbcType=VARCHAR}, #{codigotarea,jdbcType=DECIMAL}, #{estadopendiente,jdbcType=VARCHAR}, 
+	#{idclasificador,jdbcType=VARCHAR}, #{clasificador,jdbcType=VARCHAR}, #{codigotipobien,jdbcType=INTEGER}, #{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	#{usuariocreacionauditoria,jdbcType=VARCHAR}, #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, #{usuariomodificacionauditoria,jdbcType=VARCHAR}, #{equipoauditoria,jdbcType=VARCHAR}, 
+	#{programaauditoria,jdbcType=VARCHAR}, #{estadoauditoria,jdbcType=VARCHAR} ) 
+	</insert>
+
+
+
+	<insert id="insertSelective" parameterType="pe.com.sisabas.be.Vdetallepedido" >
+	insert into abas.VDetallePedido 
+	<trim prefix="(" suffix=")" suffixOverrides="," >
+	<if test="idvdetallepedido != null" >
+		IdVDetallePedido,
+	</if>
+	<if test="idvpedido != null" >
+		IdVPedido,
+	</if>
+	<if test="codigounidadejecutora != null" >
+		CodigoUnidadEjecutora,
+	</if>
+	<if test="anio != null" >
+		Anio,
+	</if>
+	<if test="secejec != null" >
+		SecEjec,
+	</if>
+	<if test="nrocuadro != null" >
+		NroCuadro,
+	</if>
+	<if test="centrocosto != null" >
+		CentroCosto,
+	</if>
+	<if test="tipobien != null" >
+		TipoBien,
+	</if>
+	<if test="nropedido != null" >
+		NroPedido,
+	</if>
+	<if test="grupobien != null" >
+		GrupoBien,
+	</if>
+	<if test="clasebien != null" >
+		ClaseBien,
+	</if>
+	<if test="familiabien != null" >
+		FamiliaBien,
+	</if>
+	<if test="itembien != null" >
+		ItemBien,
+	</if>
+	<if test="unidadmedida != null" >
+		UnidadMedida,
+	</if>
+	<if test="nombreitem != null" >
+		NombreItem,
+	</if>
+	<if test="cantidadsolicitada != null" >
+		CantidadSolicitada,
+	</if>
+	<if test="cantidadaprobada != null" >
+		CantidadAprobada,
+	</if>
+	<if test="cantidadatendida != null" >
+		CantidadAtendida,
+	</if>
+	<if test="preciounitario != null" >
+		PrecioUnitario,
+	</if>
+	<if test="valortotal != null" >
+		ValorTotal,
+	</if>
+	<if test="tipotarea != null" >
+		TipoTarea,
+	</if>
+	<if test="niveltarea != null" >
+		NivelTarea,
+	</if>
+	<if test="codigotarea != null" >
+		CodigoTarea,
+	</if>
+	<if test="estadopendiente != null" >
+		EstadoPendiente,
+	</if>
+	<if test="idclasificador != null" >
+		IdClasificador,
+	</if>
+	<if test="clasificador != null" >
+		Clasificador,
+	</if>
+	<if test="codigotipobien != null" >
+		CodigoTipoBien,
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		FechaCreacionAuditoria,
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		UsuarioCreacionAuditoria,
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		FechaModificacionAuditoria,
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		UsuarioModificacionAuditoria,
+	</if>
+	<if test="equipoauditoria != null" >
+		EquipoAuditoria,
+	</if>
+	<if test="programaauditoria != null" >
+		ProgramaAuditoria,
+	</if>
+	<if test="estadoauditoria != null" >
+		EstadoAuditoria,
+	</if>
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides="," >
+	<if test="idvdetallepedido != null" >
+		#{idvdetallepedido,jdbcType=INTEGER}, 
+	</if>
+	<if test="idvpedido != null" >
+		#{idvpedido,jdbcType=INTEGER}, 
+	</if>
+	<if test="codigounidadejecutora != null" >
+		#{codigounidadejecutora,jdbcType=VARCHAR}, 
+	</if>
+	<if test="anio != null" >
+		#{anio,jdbcType=DECIMAL}, 
+	</if>
+	<if test="secejec != null" >
+		#{secejec,jdbcType=DECIMAL}, 
+	</if>
+	<if test="nrocuadro != null" >
+		#{nrocuadro,jdbcType=DECIMAL}, 
+	</if>
+	<if test="centrocosto != null" >
+		#{centrocosto,jdbcType=VARCHAR}, 
+	</if>
+	<if test="tipobien != null" >
+		#{tipobien,jdbcType=VARCHAR}, 
+	</if>
+	<if test="nropedido != null" >
+		#{nropedido,jdbcType=VARCHAR}, 
+	</if>
+	<if test="grupobien != null" >
+		#{grupobien,jdbcType=VARCHAR}, 
+	</if>
+	<if test="clasebien != null" >
+		#{clasebien,jdbcType=VARCHAR}, 
+	</if>
+	<if test="familiabien != null" >
+		#{familiabien,jdbcType=VARCHAR}, 
+	</if>
+	<if test="itembien != null" >
+		#{itembien,jdbcType=VARCHAR}, 
+	</if>
+	<if test="unidadmedida != null" >
+		#{unidadmedida,jdbcType=DECIMAL}, 
+	</if>
+	<if test="nombreitem != null" >
+		#{nombreitem,jdbcType=VARCHAR}, 
+	</if>
+	<if test="cantidadsolicitada != null" >
+		#{cantidadsolicitada,jdbcType=DECIMAL}, 
+	</if>
+	<if test="cantidadaprobada != null" >
+		#{cantidadaprobada,jdbcType=DECIMAL}, 
+	</if>
+	<if test="cantidadatendida != null" >
+		#{cantidadatendida,jdbcType=DECIMAL}, 
+	</if>
+	<if test="preciounitario != null" >
+		#{preciounitario,jdbcType=DECIMAL}, 
+	</if>
+	<if test="valortotal != null" >
+		#{valortotal,jdbcType=DECIMAL}, 
+	</if>
+	<if test="tipotarea != null" >
+		#{tipotarea,jdbcType=VARCHAR}, 
+	</if>
+	<if test="niveltarea != null" >
+		#{niveltarea,jdbcType=VARCHAR}, 
+	</if>
+	<if test="codigotarea != null" >
+		#{codigotarea,jdbcType=DECIMAL}, 
+	</if>
+	<if test="estadopendiente != null" >
+		#{estadopendiente,jdbcType=VARCHAR}, 
+	</if>
+	<if test="idclasificador != null" >
+		#{idclasificador,jdbcType=VARCHAR}, 
+	</if>
+	<if test="clasificador != null" >
+		#{clasificador,jdbcType=VARCHAR}, 
+	</if>
+	<if test="codigotipobien != null" >
+		#{codigotipobien,jdbcType=INTEGER}, 
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		#{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		#{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		#{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		#{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="equipoauditoria != null" >
+		#{equipoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="programaauditoria != null" >
+		#{programaauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoauditoria != null" >
+		#{estadoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	</trim>
+	</insert>
+
+
+
+	<update id="updateByPrimaryKey" parameterType="pe.com.sisabas.be.Vdetallepedido" >
+	update abas.VDetallePedido 
+	set 
+	IDVDETALLEPEDIDO = #{idvdetallepedido,jdbcType=INTEGER}, IDVPEDIDO = #{idvpedido,jdbcType=INTEGER}, 
+	CODIGOUNIDADEJECUTORA = #{codigounidadejecutora,jdbcType=VARCHAR}, ANIO = #{anio,jdbcType=DECIMAL}, 
+	SECEJEC = #{secejec,jdbcType=DECIMAL}, NROCUADRO = #{nrocuadro,jdbcType=DECIMAL}, 
+	CENTROCOSTO = #{centrocosto,jdbcType=VARCHAR}, TIPOBIEN = #{tipobien,jdbcType=VARCHAR}, 
+	NROPEDIDO = #{nropedido,jdbcType=VARCHAR}, GRUPOBIEN = #{grupobien,jdbcType=VARCHAR}, 
+	CLASEBIEN = #{clasebien,jdbcType=VARCHAR}, FAMILIABIEN = #{familiabien,jdbcType=VARCHAR}, 
+	ITEMBIEN = #{itembien,jdbcType=VARCHAR}, UNIDADMEDIDA = #{unidadmedida,jdbcType=DECIMAL}, 
+	NOMBREITEM = #{nombreitem,jdbcType=VARCHAR}, CANTIDADSOLICITADA = #{cantidadsolicitada,jdbcType=DECIMAL}, 
+	CANTIDADAPROBADA = #{cantidadaprobada,jdbcType=DECIMAL}, CANTIDADATENDIDA = #{cantidadatendida,jdbcType=DECIMAL}, 
+	PRECIOUNITARIO = #{preciounitario,jdbcType=DECIMAL}, VALORTOTAL = #{valortotal,jdbcType=DECIMAL}, 
+	TIPOTAREA = #{tipotarea,jdbcType=VARCHAR}, NIVELTAREA = #{niveltarea,jdbcType=VARCHAR}, 
+	CODIGOTAREA = #{codigotarea,jdbcType=DECIMAL}, ESTADOPENDIENTE = #{estadopendiente,jdbcType=VARCHAR}, 
+	IDCLASIFICADOR = #{idclasificador,jdbcType=VARCHAR}, CLASIFICADOR = #{clasificador,jdbcType=VARCHAR}, 
+	CODIGOTIPOBIEN = #{codigotipobien,jdbcType=INTEGER}, FECHACREACIONAUDITORIA = #{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	USUARIOCREACIONAUDITORIA = #{usuariocreacionauditoria,jdbcType=VARCHAR}, FECHAMODIFICACIONAUDITORIA = #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	USUARIOMODIFICACIONAUDITORIA = #{usuariomodificacionauditoria,jdbcType=VARCHAR}, EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, 
+	PROGRAMAAUDITORIA = #{programaauditoria,jdbcType=VARCHAR}, ESTADOAUDITORIA = #{estadoauditoria,jdbcType=VARCHAR} 
+	
+	where IdVDetallePedido = #{idvdetallepedido,jdbcType=INTEGER}
+	</update>
+
+
+
+	<update id="updateByPrimaryKeySelective" parameterType="pe.com.sisabas.be.Vdetallepedido" >
+	update abas.VDetallePedido 
+	<set>
+	<if test="idvdetallepedido != null" >
+		IDVDETALLEPEDIDO = #{idvdetallepedido,jdbcType=INTEGER}, 
+	</if>
+	<if test="idvpedido != null" >
+		IDVPEDIDO = #{idvpedido,jdbcType=INTEGER}, 
+	</if>
+	<if test="codigounidadejecutora != null" >
+		CODIGOUNIDADEJECUTORA = #{codigounidadejecutora,jdbcType=VARCHAR}, 
+	</if>
+	<if test="anio != null" >
+		ANIO = #{anio,jdbcType=DECIMAL}, 
+	</if>
+	<if test="secejec != null" >
+		SECEJEC = #{secejec,jdbcType=DECIMAL}, 
+	</if>
+	<if test="nrocuadro != null" >
+		NROCUADRO = #{nrocuadro,jdbcType=DECIMAL}, 
+	</if>
+	<if test="centrocosto != null" >
+		CENTROCOSTO = #{centrocosto,jdbcType=VARCHAR}, 
+	</if>
+	<if test="tipobien != null" >
+		TIPOBIEN = #{tipobien,jdbcType=VARCHAR}, 
+	</if>
+	<if test="nropedido != null" >
+		NROPEDIDO = #{nropedido,jdbcType=VARCHAR}, 
+	</if>
+	<if test="grupobien != null" >
+		GRUPOBIEN = #{grupobien,jdbcType=VARCHAR}, 
+	</if>
+	<if test="clasebien != null" >
+		CLASEBIEN = #{clasebien,jdbcType=VARCHAR}, 
+	</if>
+	<if test="familiabien != null" >
+		FAMILIABIEN = #{familiabien,jdbcType=VARCHAR}, 
+	</if>
+	<if test="itembien != null" >
+		ITEMBIEN = #{itembien,jdbcType=VARCHAR}, 
+	</if>
+	<if test="unidadmedida != null" >
+		UNIDADMEDIDA = #{unidadmedida,jdbcType=DECIMAL}, 
+	</if>
+	<if test="nombreitem != null" >
+		NOMBREITEM = #{nombreitem,jdbcType=VARCHAR}, 
+	</if>
+	<if test="cantidadsolicitada != null" >
+		CANTIDADSOLICITADA = #{cantidadsolicitada,jdbcType=DECIMAL}, 
+	</if>
+	<if test="cantidadaprobada != null" >
+		CANTIDADAPROBADA = #{cantidadaprobada,jdbcType=DECIMAL}, 
+	</if>
+	<if test="cantidadatendida != null" >
+		CANTIDADATENDIDA = #{cantidadatendida,jdbcType=DECIMAL}, 
+	</if>
+	<if test="preciounitario != null" >
+		PRECIOUNITARIO = #{preciounitario,jdbcType=DECIMAL}, 
+	</if>
+	<if test="valortotal != null" >
+		VALORTOTAL = #{valortotal,jdbcType=DECIMAL}, 
+	</if>
+	<if test="tipotarea != null" >
+		TIPOTAREA = #{tipotarea,jdbcType=VARCHAR}, 
+	</if>
+	<if test="niveltarea != null" >
+		NIVELTAREA = #{niveltarea,jdbcType=VARCHAR}, 
+	</if>
+	<if test="codigotarea != null" >
+		CODIGOTAREA = #{codigotarea,jdbcType=DECIMAL}, 
+	</if>
+	<if test="estadopendiente != null" >
+		ESTADOPENDIENTE = #{estadopendiente,jdbcType=VARCHAR}, 
+	</if>
+	<if test="idclasificador != null" >
+		IDCLASIFICADOR = #{idclasificador,jdbcType=VARCHAR}, 
+	</if>
+	<if test="clasificador != null" >
+		CLASIFICADOR = #{clasificador,jdbcType=VARCHAR}, 
+	</if>
+	<if test="codigotipobien != null" >
+		CODIGOTIPOBIEN = #{codigotipobien,jdbcType=INTEGER}, 
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		FECHACREACIONAUDITORIA = #{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		USUARIOCREACIONAUDITORIA = #{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		FECHAMODIFICACIONAUDITORIA = #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		USUARIOMODIFICACIONAUDITORIA = #{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="equipoauditoria != null" >
+		EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="programaauditoria != null" >
+		PROGRAMAAUDITORIA = #{programaauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoauditoria != null" >
+		ESTADOAUDITORIA = #{estadoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	</set>
+
+	where IdVDetallePedido = #{idvdetallepedido,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="selectDynamicBasic" resultMap="BasicResultMap"  parameterType="pe.com.sisabas.be.Vdetallepedido" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.VDetallePedido A1
+	<where>
+		<if test="idvdetallepedido != null" >
+			 AND A1.IDVDETALLEPEDIDO = #{idvdetallepedido,jdbcType=INTEGER} 
+		</if>
+		<if test="idvpedido != null" >
+			 AND A1.IDVPEDIDO = #{idvpedido,jdbcType=INTEGER} 
+		</if>
+		<if test="codigounidadejecutora != null" >
+			 AND A1.CODIGOUNIDADEJECUTORA LIKE ('%' + #{codigounidadejecutora,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="anioini != null" >
+			 AND A1.ANIO <![CDATA[ >= ]]> #{anioini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="aniofin != null" >
+			 AND A1.ANIO <![CDATA[ <= ]]>  #{aniofin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="secejecini != null" >
+			 AND A1.SECEJEC <![CDATA[ >= ]]> #{secejecini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="secejecfin != null" >
+			 AND A1.SECEJEC <![CDATA[ <= ]]>  #{secejecfin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="nrocuadroini != null" >
+			 AND A1.NROCUADRO <![CDATA[ >= ]]> #{nrocuadroini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="nrocuadrofin != null" >
+			 AND A1.NROCUADRO <![CDATA[ <= ]]>  #{nrocuadrofin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="centrocosto != null" >
+			 AND A1.CENTROCOSTO LIKE ('%' + #{centrocosto,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="tipobien != null" >
+			 AND A1.TIPOBIEN LIKE ('%' + #{tipobien,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="nropedido != null" >
+			 AND A1.NROPEDIDO LIKE ('%' + #{nropedido,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="grupobien != null" >
+			 AND A1.GRUPOBIEN LIKE ('%' + #{grupobien,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="clasebien != null" >
+			 AND A1.CLASEBIEN LIKE ('%' + #{clasebien,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="familiabien != null" >
+			 AND A1.FAMILIABIEN LIKE ('%' + #{familiabien,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="itembien != null" >
+			 AND A1.ITEMBIEN LIKE ('%' + #{itembien,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="unidadmedidaini != null" >
+			 AND A1.UNIDADMEDIDA <![CDATA[ >= ]]> #{unidadmedidaini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="unidadmedidafin != null" >
+			 AND A1.UNIDADMEDIDA <![CDATA[ <= ]]>  #{unidadmedidafin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="nombreitem != null" >
+			 AND A1.NOMBREITEM LIKE ('%' + #{nombreitem,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="cantidadsolicitadaini != null" >
+			 AND A1.CANTIDADSOLICITADA <![CDATA[ >= ]]> #{cantidadsolicitadaini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="cantidadsolicitadafin != null" >
+			 AND A1.CANTIDADSOLICITADA <![CDATA[ <= ]]>  #{cantidadsolicitadafin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="cantidadaprobadaini != null" >
+			 AND A1.CANTIDADAPROBADA <![CDATA[ >= ]]> #{cantidadaprobadaini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="cantidadaprobadafin != null" >
+			 AND A1.CANTIDADAPROBADA <![CDATA[ <= ]]>  #{cantidadaprobadafin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="cantidadatendidaini != null" >
+			 AND A1.CANTIDADATENDIDA <![CDATA[ >= ]]> #{cantidadatendidaini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="cantidadatendidafin != null" >
+			 AND A1.CANTIDADATENDIDA <![CDATA[ <= ]]>  #{cantidadatendidafin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="preciounitarioini != null" >
+			 AND A1.PRECIOUNITARIO <![CDATA[ >= ]]> #{preciounitarioini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="preciounitariofin != null" >
+			 AND A1.PRECIOUNITARIO <![CDATA[ <= ]]>  #{preciounitariofin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="valortotalini != null" >
+			 AND A1.VALORTOTAL <![CDATA[ >= ]]> #{valortotalini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="valortotalfin != null" >
+			 AND A1.VALORTOTAL <![CDATA[ <= ]]>  #{valortotalfin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="tipotarea != null" >
+			 AND A1.TIPOTAREA LIKE ('%' + #{tipotarea,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="niveltarea != null" >
+			 AND A1.NIVELTAREA LIKE ('%' + #{niveltarea,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="codigotareaini != null" >
+			 AND A1.CODIGOTAREA <![CDATA[ >= ]]> #{codigotareaini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="codigotareafin != null" >
+			 AND A1.CODIGOTAREA <![CDATA[ <= ]]>  #{codigotareafin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="estadopendiente != null" >
+			 AND A1.ESTADOPENDIENTE LIKE ('%' + #{estadopendiente,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="idclasificador != null" >
+			 AND A1.IDCLASIFICADOR LIKE ('%' + #{idclasificador,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="clasificador != null" >
+			 AND A1.CLASIFICADOR LIKE ('%' + #{clasificador,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="codigotipobien != null" >
+			 AND A1.CODIGOTIPOBIEN = #{codigotipobien,jdbcType=INTEGER} 
+		</if>
+		<if test="fechacreacionauditoriaini != null" >
+			 AND  (A1.FECHACREACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechacreacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechacreacionauditoriafin != null" >
+			 AND (A1.FECHACREACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechacreacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariocreacionauditoria != null" >
+			 AND A1.USUARIOCREACIONAUDITORIA LIKE ('%' + #{usuariocreacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechamodificacionauditoriaini != null" >
+			 AND  (A1.FECHAMODIFICACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechamodificacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechamodificacionauditoriafin != null" >
+			 AND (A1.FECHAMODIFICACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechamodificacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariomodificacionauditoria != null" >
+			 AND A1.USUARIOMODIFICACIONAUDITORIA LIKE ('%' + #{usuariomodificacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="equipoauditoria != null" >
+			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="programaauditoria != null" >
+			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoauditoria != null" >
+			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+
+		<if test="listaIdvpedidoInKeys != null" >
+			AND A1.IDVPEDIDO IN
+			<foreach collection="listaIdvpedidoInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+	</where>
+
+	<if test="ordenListaCampos != null" >
+		 ORDER BY 
+		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+		<if test="ordenTipo != null" >
+			 ${ordenTipo} 
+		</if>
+	</if>
+
+	<if test="cantidadRegistros != null" >
+
+	</if>
+	</select>
+
+
+	<select id="selectDynamicFull" resultMap="FullResultMap"  parameterType="pe.com.sisabas.be.Vdetallepedido" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.VDetallePedido A1
+	LEFT JOIN abas.visPedido A3 ON A1.IdVPedido = A3.IdVPedido
+	<where>
+		<if test="idvdetallepedido != null" >
+			 AND A1.IDVDETALLEPEDIDO = #{idvdetallepedido,jdbcType=INTEGER} 
+		</if>
+		<if test="idvpedido != null" >
+			 AND A1.IDVPEDIDO = #{idvpedido,jdbcType=INTEGER} 
+		</if>
+		<if test="codigounidadejecutora != null" >
+			 AND A1.CODIGOUNIDADEJECUTORA LIKE ('%' + #{codigounidadejecutora,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="anioini != null" >
+			 AND A1.ANIO <![CDATA[ >= ]]> #{anioini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="aniofin != null" >
+			 AND A1.ANIO <![CDATA[ <= ]]>  #{aniofin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="secejecini != null" >
+			 AND A1.SECEJEC <![CDATA[ >= ]]> #{secejecini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="secejecfin != null" >
+			 AND A1.SECEJEC <![CDATA[ <= ]]>  #{secejecfin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="nrocuadroini != null" >
+			 AND A1.NROCUADRO <![CDATA[ >= ]]> #{nrocuadroini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="nrocuadrofin != null" >
+			 AND A1.NROCUADRO <![CDATA[ <= ]]>  #{nrocuadrofin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="centrocosto != null" >
+			 AND A1.CENTROCOSTO LIKE ('%' + #{centrocosto,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="tipobien != null" >
+			 AND A1.TIPOBIEN LIKE ('%' + #{tipobien,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="nropedido != null" >
+			 AND A1.NROPEDIDO LIKE ('%' + #{nropedido,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="grupobien != null" >
+			 AND A1.GRUPOBIEN LIKE ('%' + #{grupobien,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="clasebien != null" >
+			 AND A1.CLASEBIEN LIKE ('%' + #{clasebien,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="familiabien != null" >
+			 AND A1.FAMILIABIEN LIKE ('%' + #{familiabien,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="itembien != null" >
+			 AND A1.ITEMBIEN LIKE ('%' + #{itembien,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="unidadmedidaini != null" >
+			 AND A1.UNIDADMEDIDA <![CDATA[ >= ]]> #{unidadmedidaini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="unidadmedidafin != null" >
+			 AND A1.UNIDADMEDIDA <![CDATA[ <= ]]>  #{unidadmedidafin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="nombreitem != null" >
+			 AND A1.NOMBREITEM LIKE ('%' + #{nombreitem,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="cantidadsolicitadaini != null" >
+			 AND A1.CANTIDADSOLICITADA <![CDATA[ >= ]]> #{cantidadsolicitadaini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="cantidadsolicitadafin != null" >
+			 AND A1.CANTIDADSOLICITADA <![CDATA[ <= ]]>  #{cantidadsolicitadafin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="cantidadaprobadaini != null" >
+			 AND A1.CANTIDADAPROBADA <![CDATA[ >= ]]> #{cantidadaprobadaini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="cantidadaprobadafin != null" >
+			 AND A1.CANTIDADAPROBADA <![CDATA[ <= ]]>  #{cantidadaprobadafin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="cantidadatendidaini != null" >
+			 AND A1.CANTIDADATENDIDA <![CDATA[ >= ]]> #{cantidadatendidaini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="cantidadatendidafin != null" >
+			 AND A1.CANTIDADATENDIDA <![CDATA[ <= ]]>  #{cantidadatendidafin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="preciounitarioini != null" >
+			 AND A1.PRECIOUNITARIO <![CDATA[ >= ]]> #{preciounitarioini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="preciounitariofin != null" >
+			 AND A1.PRECIOUNITARIO <![CDATA[ <= ]]>  #{preciounitariofin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="valortotalini != null" >
+			 AND A1.VALORTOTAL <![CDATA[ >= ]]> #{valortotalini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="valortotalfin != null" >
+			 AND A1.VALORTOTAL <![CDATA[ <= ]]>  #{valortotalfin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="tipotarea != null" >
+			 AND A1.TIPOTAREA LIKE ('%' + #{tipotarea,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="niveltarea != null" >
+			 AND A1.NIVELTAREA LIKE ('%' + #{niveltarea,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="codigotareaini != null" >
+			 AND A1.CODIGOTAREA <![CDATA[ >= ]]> #{codigotareaini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="codigotareafin != null" >
+			 AND A1.CODIGOTAREA <![CDATA[ <= ]]>  #{codigotareafin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="estadopendiente != null" >
+			 AND A1.ESTADOPENDIENTE LIKE ('%' + #{estadopendiente,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="idclasificador != null" >
+			 AND A1.IDCLASIFICADOR LIKE ('%' + #{idclasificador,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="clasificador != null" >
+			 AND A1.CLASIFICADOR LIKE ('%' + #{clasificador,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="codigotipobien != null" >
+			 AND A1.CODIGOTIPOBIEN = #{codigotipobien,jdbcType=INTEGER} 
+		</if>
+		<if test="fechacreacionauditoriaini != null" >
+			 AND  (A1.FECHACREACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechacreacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechacreacionauditoriafin != null" >
+			 AND (A1.FECHACREACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechacreacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariocreacionauditoria != null" >
+			 AND A1.USUARIOCREACIONAUDITORIA LIKE ('%' + #{usuariocreacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechamodificacionauditoriaini != null" >
+			 AND  (A1.FECHAMODIFICACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechamodificacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechamodificacionauditoriafin != null" >
+			 AND (A1.FECHAMODIFICACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechamodificacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariomodificacionauditoria != null" >
+			 AND A1.USUARIOMODIFICACIONAUDITORIA LIKE ('%' + #{usuariomodificacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="equipoauditoria != null" >
+			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="programaauditoria != null" >
+			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoauditoria != null" >
+			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+
+		<if test="listaIdvpedidoInKeys != null" >
+			AND A1.IDVPEDIDO IN
+			<foreach collection="listaIdvpedidoInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+	</where>
+
+	<if test="ordenListaCampos != null" >
+		 ORDER BY 
+		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+		<if test="ordenTipo != null" >
+			 ${ordenTipo} 
+		</if>
+	</if>
+
+	<if test="cantidadRegistros != null" >
+
+	</if>
+	</select>
+</mapper>

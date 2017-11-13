@@ -1,0 +1,387 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{pacprogramado.tituloParam} #{pacprogramado.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="ID" for="txtIdpacprogramado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpacprogramado" value="#{pacprogramado.pacprogramadoB.idpacprogramado}" disabled="false" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel value="anio" for="txtAnio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnio" value="#{pacprogramado.pacprogramadoB.anio}" disabled="false" maxlength="10" style="width:150px;" label="anio"/>
+		</td>
+		<td>
+			<p:outputLabel value="Unidad Ejecutora" for="txtIdunidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdunidadejecutora" value="#{pacprogramado.pacprogramadoB.unidadejecutoraIdunidadejecutora.nombreunidadejecutora}" disabled="true" maxlength="10" style="width:150px;" label="Unidad Ejecutora"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_unidadejecutora.init}"  oncomplete="showDialogPF('frmMainIdunidadejecutoraBuscar:diUnidadejecutoraBuscar');" update=":frmMainIdunidadejecutoraBuscar:diUnidadejecutoraBuscar" style="width:20px;height:20px;" title="Buscar"  disabled="false"/>
+			<p:commandButton icon="ui-icon-close" action="#{pacprogramado.resetMainIdunidadejecutora}"  update="txtIdunidadejecutora" style="width:20px;height:20px;" title="Borrar Filtro" immediate="true" disabled="false"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Numero consolidacion" for="txtNroconsolid"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroconsolid" value="#{pacprogramado.pacprogramadoB.nroconsolid}" disabled="false" maxlength="10" style="width:150px;" label="Numero consolidacion"/>
+		</td>
+		<td>
+			<p:outputLabel value="Especificación Técnica" for="txtEspecificaciontecnica"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEspecificaciontecnica" value="#{pacprogramado.pacprogramadoB.especificaciontecnica}" disabled="false" maxlength="100" style="width:150px;" label="Especificación Técnica"/>
+		</td>
+		<td>
+			<p:selectCheckboxMenu id="txtIdcatalogotipobien" value="#{pacprogramado.listaIdcatalogotipobienKeys}" filter="true" disabled="false" filterText="Filter" filterMatchMode="startsWith" label="Tipo bien">
+				 <f:selectItems  value="#{pacprogramado.listaGentablaIdcatalogotipobien}" var="var" itemLabel ="#{var.vchregdescri}" itemValue ="#{var.vchregcodigo}"/>
+				 <p:ajax  event="change" listener="#{pacprogramado.getValuesListenerIdcatalogotipobien}" update="txtKeyValuesIdcatalogotipobien" process="@this"/>
+				 <p:ajax  event="toggleSelect" listener="#{pacprogramado.handleChangeIdcatalogotipobien}" update="txtKeyValuesIdcatalogotipobien,txtIdcatalogotipobien" process="@this"/>
+			</p:selectCheckboxMenu>
+		</td>
+		<td>
+			<p:inputText  id="txtKeyValuesIdcatalogotipobien" value="#{pacprogramado.valuesIdcatalogotipobien}" disabled="true" style="width:150px;"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Monto PAO - Desde" for="txtMontopaoini"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontopaoini" value ="#{pacprogramado.pacprogramadoB.montopaoini}" maxlength="18" style="width:150px;" label="Monto PAO - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="Monto PAO - Hasta" for="txtMontopaofin"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontopaofin" value ="#{pacprogramado.pacprogramadoB.montopaofin}" maxlength="18" style="width:150px;" label="Monto PAO - Hasta"/>
+		</td>
+		<td>
+			<p:outputLabel value="Código Centro Costo" for="txtCodigocentrocosto"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigocentrocosto" value="#{pacprogramado.pacprogramadoB.codigocentrocosto}" disabled="false" maxlength="15" style="width:150px;" label="Código Centro Costo"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Nombre de dependencia" for="txtNombredependencia"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombredependencia" value="#{pacprogramado.pacprogramadoB.nombredependencia}" disabled="false" maxlength="100" style="width:150px;" label="Nombre de dependencia"/>
+		</td>
+		<td>
+			<p:selectCheckboxMenu id="txtIdcatalogoestado" value="#{pacprogramado.listaIdcatalogoestadoKeys}" filter="true" disabled="false" filterText="Filter" filterMatchMode="startsWith" label="Estado">
+				 <f:selectItems  value="#{pacprogramado.listaGentablaIdcatalogoestado}" var="var" itemLabel ="#{var.vchregdescri}" itemValue ="#{var.vchregcodigo}"/>
+				 <p:ajax  event="change" listener="#{pacprogramado.getValuesListenerIdcatalogoestado}" update="txtKeyValuesIdcatalogoestado" process="@this"/>
+				 <p:ajax  event="toggleSelect" listener="#{pacprogramado.handleChangeIdcatalogoestado}" update="txtKeyValuesIdcatalogoestado,txtIdcatalogoestado" process="@this"/>
+			</p:selectCheckboxMenu>
+		</td>
+		<td>
+			<p:inputText  id="txtKeyValuesIdcatalogoestado" value="#{pacprogramado.valuesIdcatalogoestado}" disabled="true" style="width:150px;"/>
+		</td>
+		<td>
+			<p:outputLabel value="Tipo documento Sinad" for="txtTipodocumentosinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTipodocumentosinad" value="#{pacprogramado.pacprogramadoB.tipodocumentosinad}" disabled="false" maxlength="50" style="width:150px;" label="Tipo documento Sinad"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Número documento Sinad" for="txtNumerodocumentosinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerodocumentosinad" value="#{pacprogramado.pacprogramadoB.numerodocumentosinad}" disabled="false" maxlength="100" style="width:150px;" label="Número documento Sinad"/>
+		</td>
+		<td>
+			<p:outputLabel value="Número Sinad" for="txtNumerosinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumerosinad" value="#{pacprogramado.pacprogramadoB.numerosinad}" disabled="false" maxlength="10" style="width:150px;" label="Número Sinad"/>
+		</td>
+		<td>
+			<p:outputLabel value="Año Sinad" for="txtAniosinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAniosinad" value="#{pacprogramado.pacprogramadoB.aniosinad}" disabled="false" maxlength="10" style="width:150px;" label="Año Sinad"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Número Expediente Sinad" for="txtNumeroexpedientesinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumeroexpedientesinad" value="#{pacprogramado.pacprogramadoB.numeroexpedientesinad}" disabled="false" maxlength="30" style="width:150px;" label="Número Expediente Sinad"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{pacprogramado.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{pacprogramado.buscar}"  update="tblListaPacprogramado,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{pacprogramado.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{pacprogramado.irRegistrar}"  update="hidStatus,:frmPacprogramadoRegistrar:diPacprogramadoRegistrar" oncomplete="showDialog('form:hidStatus','frmPacprogramadoRegistrar:diPacprogramadoRegistrar');" icon="ui-icon-document"  rendered="#{pacprogramado.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{pacprogramado.irEditar}"  update="hidStatus,:frmPacprogramadoRegistrar:diPacprogramadoRegistrar" oncomplete="showDialog('form:hidStatus','frmPacprogramadoRegistrar:diPacprogramadoRegistrar');" icon="ui-icon-pencil" disabled="#{!pacprogramado.esSeleccionado}"  rendered="#{pacprogramado.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{pacprogramado.irDetalle}"  update="hidStatus,:frmPacprogramadoDetalle:diPacprogramadoDetalle" oncomplete="showDialog('form:hidStatus','frmPacprogramadoDetalle:diPacprogramadoDetalle');" icon="ui-icon-zoomin" disabled="#{!pacprogramado.esSeleccionado}"   rendered="#{pacprogramado.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{pacprogramado.irAnular}"  update="hidStatus,:frmPacprogramadoAnular:diPacprogramadoAnular" oncomplete="showDialog('form:hidStatus','frmPacprogramadoAnular:diPacprogramadoAnular');" icon="ui-icon-circle-minus" disabled="#{!pacprogramado.esSeleccionado}"   rendered="#{pacprogramado.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{pacprogramado.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!pacprogramado.esSeleccionado}"   rendered="#{pacprogramado.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{pacprogramado.irImprimir}"  update="hidStatus,:frmPacprogramadoImprimir:diPacprogramadoImprimir" oncomplete="showDialog('form:hidStatus','frmPacprogramadoImprimir:diPacprogramadoImprimir');" icon="ui-icon-print"   rendered="#{pacprogramado.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaPacprogramado">
+	<p:menuitem value="Editar" action="#{pacprogramado.irEditar}"   update="hidStatus,:frmPacprogramadoRegistrar:diPacprogramadoRegistrar"  oncomplete="showDialog('form:hidStatus','frmPacprogramadoRegistrar:diPacprogramadoRegistrar');"  icon="ui-icon-pencil" rendered="#{pacprogramado.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{pacprogramado.irDetalle}"   update="hidStatus,:frmPacprogramadoDetalle:diPacprogramadoDetalle"  oncomplete="showDialog('form:hidStatus','frmPacprogramadoDetalle:diPacprogramadoDetalle');"  icon="ui-icon-zoomin" rendered="#{pacprogramado.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{pacprogramado.irAnular}"   update="hidStatus,:frmPacprogramadoAnular:diPacprogramadoAnular"  oncomplete="showDialog('form:hidStatus','frmPacprogramadoAnular:diPacprogramadoAnular');"  icon="ui-icon-circle-minus" rendered="#{pacprogramado.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{pacprogramado.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{pacprogramado.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaPacprogramado" value="#{pacprogramado.listaPacprogramado}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaPacprogramado" selection="#{pacprogramado.selectedPacprogramado}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(pacprogramado.listaPacprogramado)}"
+	selectionMode="single" rowKey="#{var.idpacprogramado}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{pacprogramado.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.idpacprogramado}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idpacprogramado}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.anio}">
+			<f:facet name="header">
+				<h:outputText value="anio" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.anio}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.unidadejecutoraIdunidadejecutora.nombreunidadejecutora}">
+			<f:facet name="header">
+				<h:outputText value="Unidad Ejecutora" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.unidadejecutoraIdunidadejecutora.nombreunidadejecutora}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.nroconsolid}">
+			<f:facet name="header">
+				<h:outputText value="Numero consolidacion" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.nroconsolid}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.especificaciontecnica}">
+			<f:facet name="header">
+				<h:outputText value="Especificación Técnica" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.especificaciontecnica}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.gentablaIdcatalogotipobien.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="Tipo bien" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.gentablaIdcatalogotipobien.vchregdescri}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.montopao}">
+			<f:facet name="header">
+				<h:outputText value="Monto PAO" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.montopao}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.codigocentrocosto}">
+			<f:facet name="header">
+				<h:outputText value="Código Centro Costo" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.codigocentrocosto}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.nombredependencia}">
+			<f:facet name="header">
+				<h:outputText value="Nombre de dependencia" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.nombredependencia}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.gentablaIdcatalogoestado.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="Estado" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.gentablaIdcatalogoestado.vchregdescri}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.tipodocumentosinad}">
+			<f:facet name="header">
+				<h:outputText value="Tipo documento Sinad" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.tipodocumentosinad}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.numerodocumentosinad}">
+			<f:facet name="header">
+				<h:outputText value="Número documento Sinad" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.numerodocumentosinad}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.numerosinad}">
+			<f:facet name="header">
+				<h:outputText value="Número Sinad" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.numerosinad}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.aniosinad}">
+			<f:facet name="header">
+				<h:outputText value="Año Sinad" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.aniosinad}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.numeroexpedientesinad}">
+			<f:facet name="header">
+				<h:outputText value="Número Expediente Sinad" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.numeroexpedientesinad}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{pacprogramado.eliminar}"  update=":form:tblListaPacprogramado,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmPacprogramadoImprimir">
+	<p:dialog id="diPacprogramadoImprimir" header="#{pacprogramado.titulo}" widgetVar="diPacprogramadoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaPacprogramado" fileName="datosPacprogramado" postProcessor="#{pacprogramado.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaPacprogramado" fileName="datos" preProcessor="#{pacprogramado.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPacprogramadoRegistrar">
+	<p:dialog id="diPacprogramadoRegistrar" header="#{pacprogramado.titulo}" widgetVar="diPacprogramadoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsPacprogramadoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/pacprogramado/component/c_pacprogramadoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{pacprogramado.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{pacprogramado.aceptar}" update="hidStatus,:form:tblListaPacprogramado,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmPacprogramadoRegistrar:hidStatus','frmPacprogramadoRegistrar:diPacprogramadoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPacprogramadoRegistrar:diPacprogramadoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPacprogramadoDetalle">
+	<p:dialog id="diPacprogramadoDetalle" header="#{pacprogramado.titulo}" widgetVar="diPacprogramadoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/pacprogramado/component/c_pacprogramadoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPacprogramadoDetalle:diPacprogramadoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPacprogramadoAnular">
+	<p:dialog id="diPacprogramadoAnular" header="#{pacprogramado.titulo}" widgetVar="diPacprogramadoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsPacprogramadoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/pacprogramado/component/c_pacprogramadoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{pacprogramado.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{pacprogramado.anular}" update="hidStatus,:form:tblListaPacprogramado,:form:growl,panelDetailC" oncomplete="hideDialog('frmPacprogramadoAnular:hidStatus','frmPacprogramadoAnular:diPacprogramadoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPacprogramadoAnular:diPacprogramadoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMainIdunidadejecutoraBuscar">
+	<p:dialog id="diUnidadejecutoraBuscar" header="Unidad Ejecutora » Buscar" widgetVar="diUnidadejecutoraBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Unidadejecutora" autoUpdate="true" closable="true"/>
+	 <cc:cc_unidadejecutoraBuscar
+	 ajaxEventListener="#{pacprogramado.loadMainIdunidadejecutora}"
+	 actionOncomplete="hideDialogPF('frmMainIdunidadejecutoraBuscar:diUnidadejecutoraBuscar');"
+	 actionUpdate=":form:txtIdunidadejecutora"/>
+	</p:dialog>
+</h:form>
+
+
+
+<h:form id="frmRegIdunidadejecutoraBuscar">
+	<p:dialog id="diUnidadejecutoraBuscar" header="Unidad Ejecutora » Buscar" widgetVar="diUnidadejecutoraBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Unidadejecutora" autoUpdate="true" closable="true"/>
+	 <cc:cc_unidadejecutoraBuscar
+	 ajaxEventListener="#{pacprogramado.loadRegIdunidadejecutora}"
+	 actionOncomplete="hideDialogPF('frmRegIdunidadejecutoraBuscar:diUnidadejecutoraBuscar');"
+	 actionUpdate=":frmPacprogramadoRegistrar:txtIdunidadejecutora"/>
+	</p:dialog>
+</h:form>
+
+
+</ui:define>
+</ui:composition>

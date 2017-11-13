@@ -1,0 +1,337 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{estadosporetapapordocumento.tituloParam} #{estadosporetapapordocumento.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="ID" for="txtIdestadosporetapapordocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdestadosporetapapordocumento" value="#{estadosporetapapordocumento.estadosporetapapordocumentoB.idestadosporetapapordocumento}" disabled="false" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel value="Estados Por Tipo Documento" for="txtIdestadosportipodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdestadosportipodocumento" value="#{estadosporetapapordocumento.estadosporetapapordocumentoB.idestadosportipodocumento}" disabled="false" maxlength="10" style="width:150px;" label="Estados Por Tipo Documento"/>
+		</td>
+		<td>
+			<p:outputLabel value="Grupo Documento" for="txtIdgrupodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdgrupodocumento" value="#{estadosporetapapordocumento.estadosporetapapordocumentoB.grupodocumentoIdgrupodocumento.anio}" disabled="true" maxlength="10" style="width:150px;" label="Grupo Documento"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_grupodocumento.init}"  oncomplete="showDialogPF('frmMainIdgrupodocumentoBuscar:diGrupodocumentoBuscar');" update=":frmMainIdgrupodocumentoBuscar:diGrupodocumentoBuscar" style="width:20px;height:20px;" title="Buscar"  disabled="false"/>
+			<p:commandButton icon="ui-icon-close" action="#{estadosporetapapordocumento.resetMainIdgrupodocumento}"  update="txtIdgrupodocumento" style="width:20px;height:20px;" title="Borrar Filtro" immediate="true" disabled="false"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Documento" for="txtNrodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNrodocumento" value="#{estadosporetapapordocumento.estadosporetapapordocumentoB.nrodocumento}" disabled="false" maxlength="10" style="width:150px;" label="Documento"/>
+		</td>
+		<td>
+			<p:outputLabel value="Fecha Ingreso - Desde" for="txtFechaingresoini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechaingresoini" value="#{estadosporetapapordocumento.estadosporetapapordocumentoB.fechaingresoini}" label="Fecha Ingreso - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="Fecha Ingreso - Hasta" for="txtFechaingresofin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechaingresofin" value="#{estadosporetapapordocumento.estadosporetapapordocumentoB.fechaingresofin}" label="Fecha Ingreso - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Fecha Salida - Desde" for="txtFechasalidaini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechasalidaini" value="#{estadosporetapapordocumento.estadosporetapapordocumentoB.fechasalidaini}" label="Fecha Salida - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="Fecha Salida - Hasta" for="txtFechasalidafin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechasalidafin" value="#{estadosporetapapordocumento.estadosporetapapordocumentoB.fechasalidafin}" label="Fecha Salida - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="Usuario Responsable Ingreso" for="txtUsuarioresponsableingreso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuarioresponsableingreso" value="#{estadosporetapapordocumento.estadosporetapapordocumentoB.usuarioresponsableingreso}" disabled="false" maxlength="19" style="width:150px;" label="Usuario Responsable Ingreso"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Usuario Responsable Salida" for="txtUsuarioresponsablesalida"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuarioresponsablesalida" value="#{estadosporetapapordocumento.estadosporetapapordocumentoB.usuarioresponsablesalida}" disabled="false" maxlength="19" style="width:150px;" label="Usuario Responsable Salida"/>
+		</td>
+		<td>
+			<p:outputLabel value="Id Tipo Documento" for="txtIdtipodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdtipodocumento" value="#{estadosporetapapordocumento.estadosporetapapordocumentoB.tipodocumentoIdtipodocumento.descripcion}" disabled="true" maxlength="10" style="width:150px;" label="Id Tipo Documento"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_tipodocumento.init}"  oncomplete="showDialogPF('frmMainIdtipodocumentoBuscar:diTipodocumentoBuscar');" update=":frmMainIdtipodocumentoBuscar:diTipodocumentoBuscar" style="width:20px;height:20px;" title="Buscar"  disabled="false"/>
+			<p:commandButton icon="ui-icon-close" action="#{estadosporetapapordocumento.resetMainIdtipodocumento}"  update="txtIdtipodocumento" style="width:20px;height:20px;" title="Borrar Filtro" immediate="true" disabled="false"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{estadosporetapapordocumento.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{estadosporetapapordocumento.buscar}"  update="tblListaEstadosporetapapordocumento,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{estadosporetapapordocumento.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{estadosporetapapordocumento.irRegistrar}"  update="hidStatus,:frmEstadosporetapapordocumentoRegistrar:diEstadosporetapapordocumentoRegistrar" oncomplete="showDialog('form:hidStatus','frmEstadosporetapapordocumentoRegistrar:diEstadosporetapapordocumentoRegistrar');" icon="ui-icon-document"  rendered="#{estadosporetapapordocumento.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{estadosporetapapordocumento.irEditar}"  update="hidStatus,:frmEstadosporetapapordocumentoRegistrar:diEstadosporetapapordocumentoRegistrar" oncomplete="showDialog('form:hidStatus','frmEstadosporetapapordocumentoRegistrar:diEstadosporetapapordocumentoRegistrar');" icon="ui-icon-pencil" disabled="#{!estadosporetapapordocumento.esSeleccionado}"  rendered="#{estadosporetapapordocumento.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{estadosporetapapordocumento.irDetalle}"  update="hidStatus,:frmEstadosporetapapordocumentoDetalle:diEstadosporetapapordocumentoDetalle" oncomplete="showDialog('form:hidStatus','frmEstadosporetapapordocumentoDetalle:diEstadosporetapapordocumentoDetalle');" icon="ui-icon-zoomin" disabled="#{!estadosporetapapordocumento.esSeleccionado}"   rendered="#{estadosporetapapordocumento.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{estadosporetapapordocumento.irAnular}"  update="hidStatus,:frmEstadosporetapapordocumentoAnular:diEstadosporetapapordocumentoAnular" oncomplete="showDialog('form:hidStatus','frmEstadosporetapapordocumentoAnular:diEstadosporetapapordocumentoAnular');" icon="ui-icon-circle-minus" disabled="#{!estadosporetapapordocumento.esSeleccionado}"   rendered="#{estadosporetapapordocumento.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{estadosporetapapordocumento.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!estadosporetapapordocumento.esSeleccionado}"   rendered="#{estadosporetapapordocumento.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{estadosporetapapordocumento.irImprimir}"  update="hidStatus,:frmEstadosporetapapordocumentoImprimir:diEstadosporetapapordocumentoImprimir" oncomplete="showDialog('form:hidStatus','frmEstadosporetapapordocumentoImprimir:diEstadosporetapapordocumentoImprimir');" icon="ui-icon-print"   rendered="#{estadosporetapapordocumento.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaEstadosporetapapordocumento">
+	<p:menuitem value="Editar" action="#{estadosporetapapordocumento.irEditar}"   update="hidStatus,:frmEstadosporetapapordocumentoRegistrar:diEstadosporetapapordocumentoRegistrar"  oncomplete="showDialog('form:hidStatus','frmEstadosporetapapordocumentoRegistrar:diEstadosporetapapordocumentoRegistrar');"  icon="ui-icon-pencil" rendered="#{estadosporetapapordocumento.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{estadosporetapapordocumento.irDetalle}"   update="hidStatus,:frmEstadosporetapapordocumentoDetalle:diEstadosporetapapordocumentoDetalle"  oncomplete="showDialog('form:hidStatus','frmEstadosporetapapordocumentoDetalle:diEstadosporetapapordocumentoDetalle');"  icon="ui-icon-zoomin" rendered="#{estadosporetapapordocumento.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{estadosporetapapordocumento.irAnular}"   update="hidStatus,:frmEstadosporetapapordocumentoAnular:diEstadosporetapapordocumentoAnular"  oncomplete="showDialog('form:hidStatus','frmEstadosporetapapordocumentoAnular:diEstadosporetapapordocumentoAnular');"  icon="ui-icon-circle-minus" rendered="#{estadosporetapapordocumento.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{estadosporetapapordocumento.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{estadosporetapapordocumento.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaEstadosporetapapordocumento" value="#{estadosporetapapordocumento.listaEstadosporetapapordocumento}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaEstadosporetapapordocumento" selection="#{estadosporetapapordocumento.selectedEstadosporetapapordocumento}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(estadosporetapapordocumento.listaEstadosporetapapordocumento)}"
+	selectionMode="single" rowKey="#{var.idestadosporetapapordocumento}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{estadosporetapapordocumento.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.idestadosporetapapordocumento}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idestadosporetapapordocumento}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.idestadosportipodocumento}">
+			<f:facet name="header">
+				<h:outputText value="Estados Por Tipo Documento" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idestadosportipodocumento}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.grupodocumentoIdgrupodocumento.anio}">
+			<f:facet name="header">
+				<h:outputText value="Grupo Documento" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.grupodocumentoIdgrupodocumento.anio}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.nrodocumento}">
+			<f:facet name="header">
+				<h:outputText value="Documento" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.nrodocumento}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechaingreso}">
+			<f:facet name="header">
+				<h:outputText value="Fecha Ingreso" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechaingreso}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechasalida}">
+			<f:facet name="header">
+				<h:outputText value="Fecha Salida" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechasalida}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.usuarioresponsableingreso}">
+			<f:facet name="header">
+				<h:outputText value="Usuario Responsable Ingreso" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.usuarioresponsableingreso}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.usuarioresponsablesalida}">
+			<f:facet name="header">
+				<h:outputText value="Usuario Responsable Salida" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.usuarioresponsablesalida}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.tipodocumentoIdtipodocumento.descripcion}">
+			<f:facet name="header">
+				<h:outputText value="Id Tipo Documento" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.tipodocumentoIdtipodocumento.descripcion}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{estadosporetapapordocumento.eliminar}"  update=":form:tblListaEstadosporetapapordocumento,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmEstadosporetapapordocumentoImprimir">
+	<p:dialog id="diEstadosporetapapordocumentoImprimir" header="#{estadosporetapapordocumento.titulo}" widgetVar="diEstadosporetapapordocumentoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaEstadosporetapapordocumento" fileName="datosEstadosporetapapordocumento" postProcessor="#{estadosporetapapordocumento.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaEstadosporetapapordocumento" fileName="datos" preProcessor="#{estadosporetapapordocumento.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEstadosporetapapordocumentoRegistrar">
+	<p:dialog id="diEstadosporetapapordocumentoRegistrar" header="#{estadosporetapapordocumento.titulo}" widgetVar="diEstadosporetapapordocumentoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsEstadosporetapapordocumentoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/estadosporetapapordocumento/component/c_estadosporetapapordocumentoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{estadosporetapapordocumento.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{estadosporetapapordocumento.aceptar}" update="hidStatus,:form:tblListaEstadosporetapapordocumento,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmEstadosporetapapordocumentoRegistrar:hidStatus','frmEstadosporetapapordocumentoRegistrar:diEstadosporetapapordocumentoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEstadosporetapapordocumentoRegistrar:diEstadosporetapapordocumentoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEstadosporetapapordocumentoDetalle">
+	<p:dialog id="diEstadosporetapapordocumentoDetalle" header="#{estadosporetapapordocumento.titulo}" widgetVar="diEstadosporetapapordocumentoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/estadosporetapapordocumento/component/c_estadosporetapapordocumentoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEstadosporetapapordocumentoDetalle:diEstadosporetapapordocumentoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmEstadosporetapapordocumentoAnular">
+	<p:dialog id="diEstadosporetapapordocumentoAnular" header="#{estadosporetapapordocumento.titulo}" widgetVar="diEstadosporetapapordocumentoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsEstadosporetapapordocumentoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/estadosporetapapordocumento/component/c_estadosporetapapordocumentoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{estadosporetapapordocumento.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{estadosporetapapordocumento.anular}" update="hidStatus,:form:tblListaEstadosporetapapordocumento,:form:growl,panelDetailC" oncomplete="hideDialog('frmEstadosporetapapordocumentoAnular:hidStatus','frmEstadosporetapapordocumentoAnular:diEstadosporetapapordocumentoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmEstadosporetapapordocumentoAnular:diEstadosporetapapordocumentoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMainIdgrupodocumentoBuscar">
+	<p:dialog id="diGrupodocumentoBuscar" header="Grupo documento » Buscar" widgetVar="diGrupodocumentoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Grupodocumento" autoUpdate="true" closable="true"/>
+	 <cc:cc_grupodocumentoBuscar
+	 ajaxEventListener="#{estadosporetapapordocumento.loadMainIdgrupodocumento}"
+	 actionOncomplete="hideDialogPF('frmMainIdgrupodocumentoBuscar:diGrupodocumentoBuscar');"
+	 actionUpdate=":form:txtIdgrupodocumento"/>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMainIdtipodocumentoBuscar">
+	<p:dialog id="diTipodocumentoBuscar" header="TipoDocumento » Buscar" widgetVar="diTipodocumentoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Tipodocumento" autoUpdate="true" closable="true"/>
+	 <cc:cc_tipodocumentoBuscar
+	 ajaxEventListener="#{estadosporetapapordocumento.loadMainIdtipodocumento}"
+	 actionOncomplete="hideDialogPF('frmMainIdtipodocumentoBuscar:diTipodocumentoBuscar');"
+	 actionUpdate=":form:txtIdtipodocumento"/>
+	</p:dialog>
+</h:form>
+
+
+
+<h:form id="frmRegIdgrupodocumentoBuscar">
+	<p:dialog id="diGrupodocumentoBuscar" header="Grupo documento » Buscar" widgetVar="diGrupodocumentoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Grupodocumento" autoUpdate="true" closable="true"/>
+	 <cc:cc_grupodocumentoBuscar
+	 ajaxEventListener="#{estadosporetapapordocumento.loadRegIdgrupodocumento}"
+	 actionOncomplete="hideDialogPF('frmRegIdgrupodocumentoBuscar:diGrupodocumentoBuscar');"
+	 actionUpdate=":frmEstadosporetapapordocumentoRegistrar:txtIdgrupodocumento"/>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdtipodocumentoBuscar">
+	<p:dialog id="diTipodocumentoBuscar" header="TipoDocumento » Buscar" widgetVar="diTipodocumentoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Tipodocumento" autoUpdate="true" closable="true"/>
+	 <cc:cc_tipodocumentoBuscar
+	 ajaxEventListener="#{estadosporetapapordocumento.loadRegIdtipodocumento}"
+	 actionOncomplete="hideDialogPF('frmRegIdtipodocumentoBuscar:diTipodocumentoBuscar');"
+	 actionUpdate=":frmEstadosporetapapordocumentoRegistrar:txtIdtipodocumento"/>
+	</p:dialog>
+</h:form>
+
+
+</ui:define>
+</ui:composition>

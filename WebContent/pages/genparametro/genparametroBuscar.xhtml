@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{genparametro.tituloParam} #{genparametro.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="Código" for="txtVchparamcodigo"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchparamcodigo" value="#{genparametro.genparametroB.vchparamcodigo}" disabled="false" maxlength="50" style="width:150px;" label="Código"/>
+		</td>
+		<td>
+			<p:outputLabel value="Valor" for="txtVchparamvalor"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchparamvalor" value="#{genparametro.genparametroB.vchparamvalor}" disabled="false" maxlength="200" style="width:150px;" label="Valor"/>
+		</td>
+		<td>
+			<p:outputLabel value="Descripción" for="txtVchparamdescri"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchparamdescri" value="#{genparametro.genparametroB.vchparamdescri}" disabled="false" maxlength="45" style="width:150px;" label="Descripción"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Descripción Adicional" for="txtVchparamdescriadi"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVchparamdescriadi" value="#{genparametro.genparametroB.vchparamdescriadi}" disabled="false" maxlength="200" style="width:150px;" label="Descripción Adicional"/>
+		</td>
+		<td>
+			<p:selectCheckboxMenu id="txtVchparamgrupo" value="#{genparametro.listaVchparamgrupoKeys}" filter="true" disabled="false" filterText="Filter" filterMatchMode="startsWith" label="Grupo">
+				 <f:selectItems  value="#{genparametro.listaGentablaVchparamgrupo}" var="var" itemLabel ="#{var.vchregdescri}" itemValue ="#{var.vchregcodigo}"/>
+				 <p:ajax  event="change" listener="#{genparametro.getValuesListenerVchparamgrupo}" update="txtKeyValuesVchparamgrupo" process="@this"/>
+				 <p:ajax  event="toggleSelect" listener="#{genparametro.handleChangeVchparamgrupo}" update="txtKeyValuesVchparamgrupo,txtVchparamgrupo" process="@this"/>
+			</p:selectCheckboxMenu>
+		</td>
+		<td>
+			<p:inputText  id="txtKeyValuesVchparamgrupo" value="#{genparametro.valuesVchparamgrupo}" disabled="true" style="width:150px;"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{genparametro.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{genparametro.buscar}"  update="tblListaGenparametro,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{genparametro.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{genparametro.irRegistrar}"  update="hidStatus,:frmGenparametroRegistrar:diGenparametroRegistrar" oncomplete="showDialog('form:hidStatus','frmGenparametroRegistrar:diGenparametroRegistrar');" icon="ui-icon-document"  rendered="#{genparametro.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{genparametro.irEditar}"  update="hidStatus,:frmGenparametroRegistrar:diGenparametroRegistrar" oncomplete="showDialog('form:hidStatus','frmGenparametroRegistrar:diGenparametroRegistrar');" icon="ui-icon-pencil" disabled="#{!genparametro.esSeleccionado}"  rendered="#{genparametro.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{genparametro.irDetalle}"  update="hidStatus,:frmGenparametroDetalle:diGenparametroDetalle" oncomplete="showDialog('form:hidStatus','frmGenparametroDetalle:diGenparametroDetalle');" icon="ui-icon-zoomin" disabled="#{!genparametro.esSeleccionado}"   rendered="#{genparametro.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{genparametro.irAnular}"  update="hidStatus,:frmGenparametroAnular:diGenparametroAnular" oncomplete="showDialog('form:hidStatus','frmGenparametroAnular:diGenparametroAnular');" icon="ui-icon-circle-minus" disabled="#{!genparametro.esSeleccionado}"   rendered="#{genparametro.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{genparametro.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!genparametro.esSeleccionado}"   rendered="#{genparametro.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{genparametro.irImprimir}"  update="hidStatus,:frmGenparametroImprimir:diGenparametroImprimir" oncomplete="showDialog('form:hidStatus','frmGenparametroImprimir:diGenparametroImprimir');" icon="ui-icon-print"   rendered="#{genparametro.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaGenparametro">
+	<p:menuitem value="Editar" action="#{genparametro.irEditar}"   update="hidStatus,:frmGenparametroRegistrar:diGenparametroRegistrar"  oncomplete="showDialog('form:hidStatus','frmGenparametroRegistrar:diGenparametroRegistrar');"  icon="ui-icon-pencil" rendered="#{genparametro.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{genparametro.irDetalle}"   update="hidStatus,:frmGenparametroDetalle:diGenparametroDetalle"  oncomplete="showDialog('form:hidStatus','frmGenparametroDetalle:diGenparametroDetalle');"  icon="ui-icon-zoomin" rendered="#{genparametro.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{genparametro.irAnular}"   update="hidStatus,:frmGenparametroAnular:diGenparametroAnular"  oncomplete="showDialog('form:hidStatus','frmGenparametroAnular:diGenparametroAnular');"  icon="ui-icon-circle-minus" rendered="#{genparametro.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{genparametro.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{genparametro.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaGenparametro" value="#{genparametro.listaGenparametro}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaGenparametro" selection="#{genparametro.selectedGenparametro}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(genparametro.listaGenparametro)}"
+	selectionMode="single" rowKey="#{var.vchparamcodigo}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{genparametro.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_string" sortBy="#{var.vchparamcodigo}">
+			<f:facet name="header">
+				<h:outputText value="Código" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.vchparamcodigo}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.vchparamvalor}">
+			<f:facet name="header">
+				<h:outputText value="Valor" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.vchparamvalor}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.vchparamdescri}">
+			<f:facet name="header">
+				<h:outputText value="Descripción" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.vchparamdescri}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.vchparamdescriadi}">
+			<f:facet name="header">
+				<h:outputText value="Descripción Adicional" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.vchparamdescriadi}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.gentablaVchparamgrupo.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="Grupo" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.gentablaVchparamgrupo.vchregdescri}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.estadoauditoria}">
+			<f:facet name="header">
+				<h:outputText value="Estado" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.estadoauditoria=='1'?'ACTIVO':'INACTIVO'}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{genparametro.eliminar}"  update=":form:tblListaGenparametro,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmGenparametroImprimir">
+	<p:dialog id="diGenparametroImprimir" header="#{genparametro.titulo}" widgetVar="diGenparametroImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaGenparametro" fileName="datosGenparametro" postProcessor="#{genparametro.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaGenparametro" fileName="datos" preProcessor="#{genparametro.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmGenparametroRegistrar">
+	<p:dialog id="diGenparametroRegistrar" header="#{genparametro.titulo}" widgetVar="diGenparametroRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsGenparametroR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/genparametro/component/c_genparametroRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{genparametro.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{genparametro.aceptar}" update="hidStatus,:form:tblListaGenparametro,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmGenparametroRegistrar:hidStatus','frmGenparametroRegistrar:diGenparametroRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmGenparametroRegistrar:diGenparametroRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmGenparametroDetalle">
+	<p:dialog id="diGenparametroDetalle" header="#{genparametro.titulo}" widgetVar="diGenparametroDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/genparametro/component/c_genparametroDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmGenparametroDetalle:diGenparametroDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmGenparametroAnular">
+	<p:dialog id="diGenparametroAnular" header="#{genparametro.titulo}" widgetVar="diGenparametroAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsGenparametroA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/genparametro/component/c_genparametroDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{genparametro.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{genparametro.anular}" update="hidStatus,:form:tblListaGenparametro,:form:growl,panelDetailC" oncomplete="hideDialog('frmGenparametroAnular:hidStatus','frmGenparametroAnular:diGenparametroAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmGenparametroAnular:diGenparametroAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+
+</ui:define>
+</ui:composition>

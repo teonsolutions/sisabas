@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pe.com.sisabas.persistence.SiaflogMapper" >
+
+	<resultMap id="BasicResultMap" type="pe.com.sisabas.be.Siaflog">
+	<result column="A1_IDLOG" property="idlog" jdbcType="INTEGER" />
+	<result column="A1_FECHACARGA" property="fechacarga" jdbcType="INTEGER" />
+	<result column="A1_IDUNIDADEJECUTORA" property="idunidadejecutora" jdbcType="INTEGER" />
+	<result column="A1_PERIODICIDAD" property="periodicidad" jdbcType="VARCHAR" />
+	<result column="A1_FECHAINICIO" property="fechainicio" jdbcType="TIMESTAMP" />
+	<result column="A1_FECHAFIN" property="fechafin" jdbcType="TIMESTAMP" />
+	<result column="A1_ESTADO" property="estado" jdbcType="VARCHAR" />
+	<result column="A1_DESCRIPCIONESTADO" property="descripcionestado" jdbcType="VARCHAR" />
+	<result column="A1_FECHACREACIONAUDITORIA" property="fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOCREACIONAUDITORIA" property="usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_FECHAMODIFICACIONAUDITORIA" property="fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOMODIFICACIONAUDITORIA" property="usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<resultMap id="FullResultMap" type="pe.com.sisabas.be.Siaflog">
+	<result column="A1_IDLOG" property="idlog" jdbcType="INTEGER" />
+	<result column="A1_FECHACARGA" property="fechacarga" jdbcType="INTEGER" />
+	<result column="A1_IDUNIDADEJECUTORA" property="idunidadejecutora" jdbcType="INTEGER" />
+	<result column="A1_PERIODICIDAD" property="periodicidad" jdbcType="VARCHAR" />
+	<result column="A1_FECHAINICIO" property="fechainicio" jdbcType="TIMESTAMP" />
+	<result column="A1_FECHAFIN" property="fechafin" jdbcType="TIMESTAMP" />
+	<result column="A1_ESTADO" property="estado" jdbcType="VARCHAR" />
+	<result column="A1_DESCRIPCIONESTADO" property="descripcionestado" jdbcType="VARCHAR" />
+	<result column="A1_FECHACREACIONAUDITORIA" property="fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOCREACIONAUDITORIA" property="usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_FECHAMODIFICACIONAUDITORIA" property="fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOMODIFICACIONAUDITORIA" property="usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<sql id="Basic_Column_List">
+	A1.IDLOG as A1_IDLOG, A1.FECHACARGA as A1_FECHACARGA, A1.IDUNIDADEJECUTORA as A1_IDUNIDADEJECUTORA, A1.PERIODICIDAD as A1_PERIODICIDAD, 
+	A1.FECHAINICIO as A1_FECHAINICIO, A1.FECHAFIN as A1_FECHAFIN, A1.ESTADO as A1_ESTADO, A1.DESCRIPCIONESTADO as A1_DESCRIPCIONESTADO, 
+	A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, 
+	A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA 
+	</sql>
+
+
+	<sql id="Full_Column_List">
+	A1.IDLOG as A1_IDLOG, A1.FECHACARGA as A1_FECHACARGA, A1.IDUNIDADEJECUTORA as A1_IDUNIDADEJECUTORA, A1.PERIODICIDAD as A1_PERIODICIDAD, 
+	A1.FECHAINICIO as A1_FECHAINICIO, A1.FECHAFIN as A1_FECHAFIN, A1.ESTADO as A1_ESTADO, A1.DESCRIPCIONESTADO as A1_DESCRIPCIONESTADO, 
+	A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, 
+	A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA 
+	</sql>
+
+
+
+	<select id="selectByPrimaryKeyBasic" resultMap="BasicResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.SiafLog A1
+	
+	where A1.IdLog = #{idlog,jdbcType=INTEGER}
+</select>
+
+
+
+	<select id="selectByPrimaryKeyBasicActive" resultMap="BasicResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.SiafLog A1
+	
+	where A1.IdLog = #{idlog,jdbcType=INTEGER}
+	and A1.estadoauditoria='1'
+	</select>
+
+
+
+	<select id="selectByPrimaryKeyFull" resultMap="FullResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.SiafLog A1
+	
+	where A1.IdLog = #{idlog,jdbcType=INTEGER}
+</select>
+
+
+
+	<select id="selectByPrimaryKeyFullActive" resultMap="FullResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.SiafLog A1
+	
+	where A1.IdLog = #{idlog,jdbcType=INTEGER}
+	and A1.estadoauditoria='1'
+	</select>
+
+
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	delete from abas.SiafLog 
+	where IdLog = #{idlog,jdbcType=INTEGER}
+	</delete>
+
+
+
+
+
+	<insert id="insert" parameterType="pe.com.sisabas.be.Siaflog" >
+	insert into abas.SiafLog (
+	IDLOG, FECHACARGA, IDUNIDADEJECUTORA, PERIODICIDAD, 
+	FECHAINICIO, FECHAFIN, ESTADO, DESCRIPCIONESTADO, 
+	FECHACREACIONAUDITORIA, USUARIOCREACIONAUDITORIA, FECHAMODIFICACIONAUDITORIA, USUARIOMODIFICACIONAUDITORIA, 
+	EQUIPOAUDITORIA, PROGRAMAAUDITORIA, ESTADOAUDITORIA ) 
+	VALUES (
+	#{idlog,jdbcType=INTEGER}, #{fechacarga,jdbcType=INTEGER}, #{idunidadejecutora,jdbcType=INTEGER}, #{periodicidad,jdbcType=VARCHAR}, 
+	#{fechainicio,jdbcType=TIMESTAMP}, #{fechafin,jdbcType=TIMESTAMP}, #{estado,jdbcType=VARCHAR}, #{descripcionestado,jdbcType=VARCHAR}, 
+	#{fechacreacionauditoria,jdbcType=TIMESTAMP}, #{usuariocreacionauditoria,jdbcType=VARCHAR}, #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, #{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	#{equipoauditoria,jdbcType=VARCHAR}, #{programaauditoria,jdbcType=VARCHAR}, #{estadoauditoria,jdbcType=VARCHAR} ) 
+	</insert>
+
+
+
+	<insert id="insertSelective" parameterType="pe.com.sisabas.be.Siaflog" >
+	insert into abas.SiafLog 
+	<trim prefix="(" suffix=")" suffixOverrides="," >
+	<if test="idlog != null" >
+		IdLog,
+	</if>
+	<if test="fechacarga != null" >
+		FechaCarga,
+	</if>
+	<if test="idunidadejecutora != null" >
+		IdUnidadEjecutora,
+	</if>
+	<if test="periodicidad != null" >
+		Periodicidad,
+	</if>
+	<if test="fechainicio != null" >
+		FechaInicio,
+	</if>
+	<if test="fechafin != null" >
+		FechaFin,
+	</if>
+	<if test="estado != null" >
+		Estado,
+	</if>
+	<if test="descripcionestado != null" >
+		DescripcionEstado,
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		FechaCreacionAuditoria,
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		UsuarioCreacionAuditoria,
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		FechaModificacionAuditoria,
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		UsuarioModificacionAuditoria,
+	</if>
+	<if test="equipoauditoria != null" >
+		EquipoAuditoria,
+	</if>
+	<if test="programaauditoria != null" >
+		ProgramaAuditoria,
+	</if>
+	<if test="estadoauditoria != null" >
+		EstadoAuditoria,
+	</if>
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides="," >
+	<if test="idlog != null" >
+		#{idlog,jdbcType=INTEGER}, 
+	</if>
+	<if test="fechacarga != null" >
+		#{fechacarga,jdbcType=INTEGER}, 
+	</if>
+	<if test="idunidadejecutora != null" >
+		#{idunidadejecutora,jdbcType=INTEGER}, 
+	</if>
+	<if test="periodicidad != null" >
+		#{periodicidad,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechainicio != null" >
+		#{fechainicio,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="fechafin != null" >
+		#{fechafin,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="estado != null" >
+		#{estado,jdbcType=VARCHAR}, 
+	</if>
+	<if test="descripcionestado != null" >
+		#{descripcionestado,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		#{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		#{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		#{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		#{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="equipoauditoria != null" >
+		#{equipoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="programaauditoria != null" >
+		#{programaauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoauditoria != null" >
+		#{estadoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	</trim>
+	</insert>
+
+
+
+	<update id="updateByPrimaryKey" parameterType="pe.com.sisabas.be.Siaflog" >
+	update abas.SiafLog 
+	set 
+	IDLOG = #{idlog,jdbcType=INTEGER}, FECHACARGA = #{fechacarga,jdbcType=INTEGER}, 
+	IDUNIDADEJECUTORA = #{idunidadejecutora,jdbcType=INTEGER}, PERIODICIDAD = #{periodicidad,jdbcType=VARCHAR}, 
+	FECHAINICIO = #{fechainicio,jdbcType=TIMESTAMP}, FECHAFIN = #{fechafin,jdbcType=TIMESTAMP}, 
+	ESTADO = #{estado,jdbcType=VARCHAR}, DESCRIPCIONESTADO = #{descripcionestado,jdbcType=VARCHAR}, 
+	FECHACREACIONAUDITORIA = #{fechacreacionauditoria,jdbcType=TIMESTAMP}, USUARIOCREACIONAUDITORIA = #{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	FECHAMODIFICACIONAUDITORIA = #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, USUARIOMODIFICACIONAUDITORIA = #{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, PROGRAMAAUDITORIA = #{programaauditoria,jdbcType=VARCHAR}, 
+	ESTADOAUDITORIA = #{estadoauditoria,jdbcType=VARCHAR} 
+	where IdLog = #{idlog,jdbcType=INTEGER}
+	</update>
+
+
+
+	<update id="updateByPrimaryKeySelective" parameterType="pe.com.sisabas.be.Siaflog" >
+	update abas.SiafLog 
+	<set>
+	<if test="idlog != null" >
+		IDLOG = #{idlog,jdbcType=INTEGER}, 
+	</if>
+	<if test="fechacarga != null" >
+		FECHACARGA = #{fechacarga,jdbcType=INTEGER}, 
+	</if>
+	<if test="idunidadejecutora != null" >
+		IDUNIDADEJECUTORA = #{idunidadejecutora,jdbcType=INTEGER}, 
+	</if>
+	<if test="periodicidad != null" >
+		PERIODICIDAD = #{periodicidad,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechainicio != null" >
+		FECHAINICIO = #{fechainicio,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="fechafin != null" >
+		FECHAFIN = #{fechafin,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="estado != null" >
+		ESTADO = #{estado,jdbcType=VARCHAR}, 
+	</if>
+	<if test="descripcionestado != null" >
+		DESCRIPCIONESTADO = #{descripcionestado,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		FECHACREACIONAUDITORIA = #{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		USUARIOCREACIONAUDITORIA = #{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		FECHAMODIFICACIONAUDITORIA = #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		USUARIOMODIFICACIONAUDITORIA = #{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="equipoauditoria != null" >
+		EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="programaauditoria != null" >
+		PROGRAMAAUDITORIA = #{programaauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoauditoria != null" >
+		ESTADOAUDITORIA = #{estadoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	</set>
+
+	where IdLog = #{idlog,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="selectDynamicBasic" resultMap="BasicResultMap"  parameterType="pe.com.sisabas.be.Siaflog" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.SiafLog A1
+	<where>
+		<if test="idlog != null" >
+			 AND A1.IDLOG = #{idlog,jdbcType=INTEGER} 
+		</if>
+		<if test="fechacarga != null" >
+			 AND A1.FECHACARGA = #{fechacarga,jdbcType=INTEGER} 
+		</if>
+		<if test="idunidadejecutora != null" >
+			 AND A1.IDUNIDADEJECUTORA = #{idunidadejecutora,jdbcType=INTEGER} 
+		</if>
+		<if test="periodicidad != null" >
+			 AND A1.PERIODICIDAD LIKE ('%' + #{periodicidad,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechainicioini != null" >
+			 AND  (A1.FECHAINICIO)  <![CDATA[ >= ]]>  #{fechainicioini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechainiciofin != null" >
+			 AND (A1.FECHAINICIO) <![CDATA[ <= ]]>  #{fechainiciofin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="fechafinini != null" >
+			 AND  (A1.FECHAFIN)  <![CDATA[ >= ]]>  #{fechafinini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechafinfin != null" >
+			 AND (A1.FECHAFIN) <![CDATA[ <= ]]>  #{fechafinfin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="estado != null" >
+			 AND A1.ESTADO LIKE ('%' + #{estado,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="descripcionestado != null" >
+			 AND A1.DESCRIPCIONESTADO LIKE ('%' + #{descripcionestado,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechacreacionauditoriaini != null" >
+			 AND  (A1.FECHACREACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechacreacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechacreacionauditoriafin != null" >
+			 AND (A1.FECHACREACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechacreacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariocreacionauditoria != null" >
+			 AND A1.USUARIOCREACIONAUDITORIA LIKE ('%' + #{usuariocreacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechamodificacionauditoriaini != null" >
+			 AND  (A1.FECHAMODIFICACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechamodificacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechamodificacionauditoriafin != null" >
+			 AND (A1.FECHAMODIFICACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechamodificacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariomodificacionauditoria != null" >
+			 AND A1.USUARIOMODIFICACIONAUDITORIA LIKE ('%' + #{usuariomodificacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="equipoauditoria != null" >
+			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="programaauditoria != null" >
+			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoauditoria != null" >
+			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+	</where>
+
+	<if test="ordenListaCampos != null" >
+		 ORDER BY 
+		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+		<if test="ordenTipo != null" >
+			 ${ordenTipo} 
+		</if>
+	</if>
+
+	<if test="cantidadRegistros != null" >
+
+	</if>
+	</select>
+
+
+	<select id="selectDynamicFull" resultMap="FullResultMap"  parameterType="pe.com.sisabas.be.Siaflog" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.SiafLog A1
+	<where>
+		<if test="idlog != null" >
+			 AND A1.IDLOG = #{idlog,jdbcType=INTEGER} 
+		</if>
+		<if test="fechacarga != null" >
+			 AND A1.FECHACARGA = #{fechacarga,jdbcType=INTEGER} 
+		</if>
+		<if test="idunidadejecutora != null" >
+			 AND A1.IDUNIDADEJECUTORA = #{idunidadejecutora,jdbcType=INTEGER} 
+		</if>
+		<if test="periodicidad != null" >
+			 AND A1.PERIODICIDAD LIKE ('%' + #{periodicidad,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechainicioini != null" >
+			 AND  (A1.FECHAINICIO)  <![CDATA[ >= ]]>  #{fechainicioini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechainiciofin != null" >
+			 AND (A1.FECHAINICIO) <![CDATA[ <= ]]>  #{fechainiciofin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="fechafinini != null" >
+			 AND  (A1.FECHAFIN)  <![CDATA[ >= ]]>  #{fechafinini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechafinfin != null" >
+			 AND (A1.FECHAFIN) <![CDATA[ <= ]]>  #{fechafinfin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="estado != null" >
+			 AND A1.ESTADO LIKE ('%' + #{estado,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="descripcionestado != null" >
+			 AND A1.DESCRIPCIONESTADO LIKE ('%' + #{descripcionestado,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechacreacionauditoriaini != null" >
+			 AND  (A1.FECHACREACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechacreacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechacreacionauditoriafin != null" >
+			 AND (A1.FECHACREACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechacreacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariocreacionauditoria != null" >
+			 AND A1.USUARIOCREACIONAUDITORIA LIKE ('%' + #{usuariocreacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechamodificacionauditoriaini != null" >
+			 AND  (A1.FECHAMODIFICACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechamodificacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechamodificacionauditoriafin != null" >
+			 AND (A1.FECHAMODIFICACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechamodificacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariomodificacionauditoria != null" >
+			 AND A1.USUARIOMODIFICACIONAUDITORIA LIKE ('%' + #{usuariomodificacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="equipoauditoria != null" >
+			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="programaauditoria != null" >
+			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoauditoria != null" >
+			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+	</where>
+
+	<if test="ordenListaCampos != null" >
+		 ORDER BY 
+		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+		<if test="ordenTipo != null" >
+			 ${ordenTipo} 
+		</if>
+	</if>
+
+	<if test="cantidadRegistros != null" >
+
+	</if>
+	</select>
+</mapper>

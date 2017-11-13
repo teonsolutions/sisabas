@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelDetailC">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="IdCuadroComparativoVR" for="txtIdcuadrocomparativovr"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcuadrocomparativovr" value="#{cuadrocomparativovr.cuadrocomparativovr.idcuadrocomparativovr}" disabled="true" style="width:150px;" label="IdCuadroComparativoVR"/>
+		</td>
+		<td>
+			<p:outputLabel  value="IdCuadroComparativoItem" for="txtIdcuadrocomparativoitem"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcuadrocomparativoitem" value="#{cuadrocomparativovr.cuadrocomparativovr.idcuadrocomparativoitem}" disabled="true" style="width:150px;" label="IdCuadroComparativoItem"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="IdCatalogoProcedimientoVR" for="txtIdcatalogoprocedimientovr"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogoprocedimientovr" value="#{cuadrocomparativovr.cuadrocomparativovr.gentablaIdcatalogoprocedimientovr.vchregdescri}" disabled="true" style="width:150px;" label="IdCatalogoProcedimientoVR"/>
+		</td>
+		<td>
+			<p:outputLabel  value="ValorReferencialItem" for="txtValorreferencialitem"/>
+		</td>
+		<td>
+			<p:inputText  id="txtValorreferencialitem" value="#{cuadrocomparativovr.cuadrocomparativovr.valorreferencialitem}" disabled="true" style="width:150px;" label="ValorReferencialItem"/>
+		</td>
+	</tr>
+
+</table>
+</p:panel>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{vcertificacion.tituloParam} #{vcertificacion.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="ID" for="txtVcertificacion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVcertificacion" value="#{vcertificacion.vcertificacionB.vcertificacion}" disabled="false" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel value="Código Unidad Ejecutora" for="txtCodigounidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigounidadejecutora" value="#{vcertificacion.vcertificacionB.codigounidadejecutora}" disabled="false" maxlength="3" style="width:150px;" label="Código Unidad Ejecutora"/>
+		</td>
+		<td>
+			<p:outputLabel value="Anio - Desde" for="txtAnioini"/>
+		</td>
+		<td>
+			<p:inputText id="txtAnioini" value ="#{vcertificacion.vcertificacionB.anioini}" maxlength="4" style="width:150px;" label="Anio - Desde"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Anio - Hasta" for="txtAniofin"/>
+		</td>
+		<td>
+			<p:inputText id="txtAniofin" value ="#{vcertificacion.vcertificacionB.aniofin}" maxlength="4" style="width:150px;" label="Anio - Hasta"/>
+		</td>
+		<td>
+			<p:outputLabel value="Sec Ejec - Desde" for="txtSecejecini"/>
+		</td>
+		<td>
+			<p:inputText id="txtSecejecini" value ="#{vcertificacion.vcertificacionB.secejecini}" maxlength="6" style="width:150px;" label="Sec Ejec - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="Sec Ejec - Hasta" for="txtSecejecfin"/>
+		</td>
+		<td>
+			<p:inputText id="txtSecejecfin" value ="#{vcertificacion.vcertificacionB.secejecfin}" maxlength="6" style="width:150px;" label="Sec Ejec - Hasta"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Número Certificado - Desde" for="txtNrocertificaini"/>
+		</td>
+		<td>
+			<p:inputText id="txtNrocertificaini" value ="#{vcertificacion.vcertificacionB.nrocertificaini}" maxlength="10" style="width:150px;" label="Número Certificado - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="Número Certificado - Hasta" for="txtNrocertificafin"/>
+		</td>
+		<td>
+			<p:inputText id="txtNrocertificafin" value ="#{vcertificacion.vcertificacionB.nrocertificafin}" maxlength="10" style="width:150px;" label="Número Certificado - Hasta"/>
+		</td>
+		<td>
+			<p:outputLabel value="Caso" for="txtCaso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCaso" value="#{vcertificacion.vcertificacionB.caso}" disabled="false" maxlength="1" style="width:150px;" label="Caso"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Fecha Registro - Desde" for="txtFecharegini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFecharegini" value="#{vcertificacion.vcertificacionB.fecharegini}" label="Fecha Registro - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="Fecha Registro - Hasta" for="txtFecharegfin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFecharegfin" value="#{vcertificacion.vcertificacionB.fecharegfin}" label="Fecha Registro - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{vcertificacion.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{vcertificacion.buscar}"  update="tblListaVcertificacion,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{vcertificacion.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{vcertificacion.irRegistrar}"  update="hidStatus,:frmVcertificacionRegistrar:diVcertificacionRegistrar" oncomplete="showDialog('form:hidStatus','frmVcertificacionRegistrar:diVcertificacionRegistrar');" icon="ui-icon-document"  rendered="#{vcertificacion.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{vcertificacion.irEditar}"  update="hidStatus,:frmVcertificacionRegistrar:diVcertificacionRegistrar" oncomplete="showDialog('form:hidStatus','frmVcertificacionRegistrar:diVcertificacionRegistrar');" icon="ui-icon-pencil" disabled="#{!vcertificacion.esSeleccionado}"  rendered="#{vcertificacion.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{vcertificacion.irDetalle}"  update="hidStatus,:frmVcertificacionDetalle:diVcertificacionDetalle" oncomplete="showDialog('form:hidStatus','frmVcertificacionDetalle:diVcertificacionDetalle');" icon="ui-icon-zoomin" disabled="#{!vcertificacion.esSeleccionado}"   rendered="#{vcertificacion.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{vcertificacion.irAnular}"  update="hidStatus,:frmVcertificacionAnular:diVcertificacionAnular" oncomplete="showDialog('form:hidStatus','frmVcertificacionAnular:diVcertificacionAnular');" icon="ui-icon-circle-minus" disabled="#{!vcertificacion.esSeleccionado}"   rendered="#{vcertificacion.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{vcertificacion.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!vcertificacion.esSeleccionado}"   rendered="#{vcertificacion.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{vcertificacion.irImprimir}"  update="hidStatus,:frmVcertificacionImprimir:diVcertificacionImprimir" oncomplete="showDialog('form:hidStatus','frmVcertificacionImprimir:diVcertificacionImprimir');" icon="ui-icon-print"   rendered="#{vcertificacion.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaVcertificacion">
+	<p:menuitem value="Editar" action="#{vcertificacion.irEditar}"   update="hidStatus,:frmVcertificacionRegistrar:diVcertificacionRegistrar"  oncomplete="showDialog('form:hidStatus','frmVcertificacionRegistrar:diVcertificacionRegistrar');"  icon="ui-icon-pencil" rendered="#{vcertificacion.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{vcertificacion.irDetalle}"   update="hidStatus,:frmVcertificacionDetalle:diVcertificacionDetalle"  oncomplete="showDialog('form:hidStatus','frmVcertificacionDetalle:diVcertificacionDetalle');"  icon="ui-icon-zoomin" rendered="#{vcertificacion.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{vcertificacion.irAnular}"   update="hidStatus,:frmVcertificacionAnular:diVcertificacionAnular"  oncomplete="showDialog('form:hidStatus','frmVcertificacionAnular:diVcertificacionAnular');"  icon="ui-icon-circle-minus" rendered="#{vcertificacion.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{vcertificacion.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{vcertificacion.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaVcertificacion" value="#{vcertificacion.listaVcertificacion}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaVcertificacion" selection="#{vcertificacion.selectedVcertificacion}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(vcertificacion.listaVcertificacion)}"
+	selectionMode="single" rowKey="#{var.vcertificacion}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{vcertificacion.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.vcertificacion}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.vcertificacion}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.codigounidadejecutora}">
+			<f:facet name="header">
+				<h:outputText value="Código Unidad Ejecutora" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.codigounidadejecutora}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.anio}">
+			<f:facet name="header">
+				<h:outputText value="Anio" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.anio}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.secejec}">
+			<f:facet name="header">
+				<h:outputText value="Sec Ejec" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.secejec}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.nrocertifica}">
+			<f:facet name="header">
+				<h:outputText value="Número Certificado" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.nrocertifica}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.caso}">
+			<f:facet name="header">
+				<h:outputText value="Caso" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.caso}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechareg}">
+			<f:facet name="header">
+				<h:outputText value="Fecha Registro" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechareg}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{vcertificacion.eliminar}"  update=":form:tblListaVcertificacion,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmVcertificacionImprimir">
+	<p:dialog id="diVcertificacionImprimir" header="#{vcertificacion.titulo}" widgetVar="diVcertificacionImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaVcertificacion" fileName="datosVcertificacion" postProcessor="#{vcertificacion.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaVcertificacion" fileName="datos" preProcessor="#{vcertificacion.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmVcertificacionRegistrar">
+	<p:dialog id="diVcertificacionRegistrar" header="#{vcertificacion.titulo}" widgetVar="diVcertificacionRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsVcertificacionR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/vcertificacion/component/c_vcertificacionRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{vcertificacion.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{vcertificacion.aceptar}" update="hidStatus,:form:tblListaVcertificacion,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmVcertificacionRegistrar:hidStatus','frmVcertificacionRegistrar:diVcertificacionRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmVcertificacionRegistrar:diVcertificacionRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmVcertificacionDetalle">
+	<p:dialog id="diVcertificacionDetalle" header="#{vcertificacion.titulo}" widgetVar="diVcertificacionDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/vcertificacion/component/c_vcertificacionDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmVcertificacionDetalle:diVcertificacionDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmVcertificacionAnular">
+	<p:dialog id="diVcertificacionAnular" header="#{vcertificacion.titulo}" widgetVar="diVcertificacionAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsVcertificacionA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/vcertificacion/component/c_vcertificacionDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{vcertificacion.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{vcertificacion.anular}" update="hidStatus,:form:tblListaVcertificacion,:form:growl,panelDetailC" oncomplete="hideDialog('frmVcertificacionAnular:hidStatus','frmVcertificacionAnular:diVcertificacionAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmVcertificacionAnular:diVcertificacionAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+
+</ui:define>
+</ui:composition>

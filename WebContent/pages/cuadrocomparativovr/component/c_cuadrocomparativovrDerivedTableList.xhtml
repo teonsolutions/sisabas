@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<h:inputHidden id="hidStatusCuadrocomparativovr" value="#{cuadrocomparativovr.status}"/>
+<p:contextMenu for="tblListaCuadrocomparativovr">
+	<p:menuitem value="Detalle" action="#{cuadrocomparativovr.irDetalle}"  process="@this,hidStatusCuadrocomparativovr,tblListaCuadrocomparativovr"  update="hidStatusCuadrocomparativovr,:frmCuadrocomparativovrDetalle:diCuadrocomparativovrDetalle"  oncomplete="showDialog('frmCuadrocomparativoitemDetalle:panelDetailC:hidStatusCuadrocomparativovr','frmCuadrocomparativovrDetalle:diCuadrocomparativovrDetalle');"  icon="ui-icon-zoomin" rendered="#{cuadrocomparativovr.renderButton('btnDetalle')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaCuadrocomparativovr" value="#{cuadrocomparativovr.listaCuadrocomparativovr}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaCuadrocomparativovr" selection="#{cuadrocomparativovr.selectedCuadrocomparativovr}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(cuadrocomparativovr.listaCuadrocomparativovr)}"
+	selectionMode="single" rowKey="#{var.idcuadrocomparativovr}" styleClass="gandalfTableClass" rowStyleClass="#{var.params.ACTION!=null?(var.params.ACTION=='INSERT'?'old':'dead'):''}">
+		<p:column styleClass="c_numeric" sortBy="#{var.idcuadrocomparativovr}">
+			<f:facet name="header">
+				<h:outputText value="IdCuadroComparativoVR" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idcuadrocomparativovr}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.idcuadrocomparativoitem}">
+			<f:facet name="header">
+				<h:outputText value="IdCuadroComparativoItem" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idcuadrocomparativoitem}"/>
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.gentablaIdcatalogoprocedimientovr.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="IdCatalogoProcedimientoVR" styleClass="c_center"/>
+			</f:facet>
+			<h:outputText value="#{var.gentablaIdcatalogoprocedimientovr.vchregdescri}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.valorreferencialitem}">
+			<f:facet name="header">
+				<h:outputText value="ValorReferencialItem" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.valorreferencialitem}"/>
+		</p:column>
+</p:dataTable>
+</html>

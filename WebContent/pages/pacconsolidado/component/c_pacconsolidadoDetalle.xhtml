@@ -1,0 +1,576 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:tabView id="panelDetailC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<p:tab title="Detalle">
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIdpacconsolidado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdpacconsolidado" value="#{pacconsolidado.pacconsolidado.idpacconsolidado}" disabled="true" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Comité Proceso" for="txtIdcomiteproceso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcomiteproceso" value="#{pacconsolidado.pacconsolidado.comiteprocesoIdcomiteproceso.idcomiteproceso}" disabled="true" style="width:150px;" label="Comité Proceso"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Grupo Documento" for="txtIdgrupodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdgrupodocumento" value="#{pacconsolidado.pacconsolidado.grupodocumentoIdgrupodocumento.anio}" disabled="true" style="width:150px;" label="Grupo Documento"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Nro Consolid" for="txtNroconsolid"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroconsolid" value="#{pacconsolidado.pacconsolidado.nroconsolid}" disabled="true" style="width:150px;" label="Nro Consolid"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Item Único" for="txtEsitemunico"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEsitemunico" value="#{pacconsolidado.pacconsolidado.esitemunico}" disabled="true" style="width:150px;" label="Item Único"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Antecedente Id Pac ConsolidIn" for="txtAntecedenteidpacconsolidin"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAntecedenteidpacconsolidin" value="#{pacconsolidado.pacconsolidado.antecedenteidpacconsolidin}" disabled="true" style="width:150px;" label="Antecedente Id Pac ConsolidIn"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Antecedente Proceso Pac Dsc" for="txtAntecedenteprocesopacdsc"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAntecedenteprocesopacdsc" value="#{pacconsolidado.pacconsolidado.antecedenteprocesopacdsc}" disabled="true" style="width:150px;" label="Antecedente Proceso Pac Dsc"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Número Pac" for="txtNropac"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNropac" value="#{pacconsolidado.pacconsolidado.nropac}" disabled="true" style="width:150px;" label="Número Pac"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Estado Pac" for="txtIdcatalogoestadopac"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogoestadopac" value="#{pacconsolidado.pacconsolidado.gentablaIdcatalogoestadopac.vchregdescri}" disabled="true" style="width:150px;" label="Estado Pac"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Tipo de Proceso Inicial" for="txtCodigotipoprocesoinicial"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigotipoprocesoinicial" value="#{pacconsolidado.pacconsolidado.codigotipoprocesoinicial}" disabled="true" style="width:150px;" label="Tipo de Proceso Inicial"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Código Tipo Bien" for="txtIdcatalogotipobien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogotipobien" value="#{pacconsolidado.pacconsolidado.gentablaIdcatalogotipobien.vchregdescri}" disabled="true" style="width:150px;" label="Código Tipo Bien"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Tipo Necesidad" for="txtIdcatalogotiponecesidad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogotiponecesidad" value="#{pacconsolidado.pacconsolidado.gentablaIdcatalogotiponecesidad.vchregdescri}" disabled="true" style="width:150px;" label="Tipo Necesidad"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Tipo Contratación" for="txtIdcatalogotipocontratacion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogotipocontratacion" value="#{pacconsolidado.pacconsolidado.gentablaIdcatalogotipocontratacion.vchregdescri}" disabled="true" style="width:150px;" label="Tipo Contratación"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Número Items" for="txtNroitems"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroitems" value="#{pacconsolidado.pacconsolidado.nroitems}" disabled="true" style="width:150px;" label="Número Items"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Descripción de Pac" for="txtDescpac"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDescpac" value="#{pacconsolidado.pacconsolidado.descpac}" disabled="true" style="width:300px;" label="Descripción de Pac"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Unidad de medida" for="txtUnidadmedida"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUnidadmedida" value="#{pacconsolidado.pacconsolidado.unidadmedida}" disabled="true" style="width:150px;" label="Unidad de medida"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Cantidad" for="txtCantidad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCantidad" value="#{pacconsolidado.pacconsolidado.cantidad}" disabled="true" style="width:150px;" label="Cantidad"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Valor Estimación Contratacion" for="txtValorestimadocontracion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtValorestimadocontracion" value="#{pacconsolidado.pacconsolidado.valorestimadocontracion}" disabled="true" style="width:150px;" label="Valor Estimación Contratacion"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Mes Previsto Convocatoria" for="txtMesprevistoconvocatoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMesprevistoconvocatoria" value="#{pacconsolidado.pacconsolidado.mesprevistoconvocatoria}" disabled="true" style="width:150px;" label="Mes Previsto Convocatoria"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Nombre Especialista VR" for="txtNombreespecialistavr"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombreespecialistavr" value="#{pacconsolidado.pacconsolidado.nombreespecialistavr}" disabled="true" style="width:300px;" label="Nombre Especialista VR"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha Recepción Documento Técnico" for="txtFecharecepciondocumentotecnico"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFecharecepciondocumentotecnico" value="#{pacconsolidado.pacconsolidado.fecharecepciondocumentotecnico}" disabled="true" style="width:150px;" label="Fecha Recepción Documento Técnico">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+		<td>
+			<p:outputLabel  value="Fecha Asignación Especialista" for="txtFechaasignacionespecialista"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechaasignacionespecialista" value="#{pacconsolidado.pacconsolidado.fechaasignacionespecialista}" disabled="true" style="width:150px;" label="Fecha Asignación Especialista">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha de Envío Area Consultas Observaciones" for="txtFechaenvioareausuariaobservacion"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechaenvioareausuariaobservacion" value="#{pacconsolidado.pacconsolidado.fechaenvioareausuariaobservacion}" disabled="true" style="width:150px;" label="Fecha de Envío Area Consultas Observaciones">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+		<td>
+			<p:outputLabel  value="Fecha Abs del Area Usuaria Observación" for="txtFechaabsconsultasobservaciones"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechaabsconsultasobservaciones" value="#{pacconsolidado.pacconsolidado.fechaabsconsultasobservaciones}" disabled="true" style="width:150px;" label="Fecha Abs del Area Usuaria Observación">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha Elaboración Epom" for="txtFechaelaboracionepom"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechaelaboracionepom" value="#{pacconsolidado.pacconsolidado.fechaelaboracionepom}" disabled="true" style="width:150px;" label="Fecha Elaboración Epom">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+		<td>
+			<p:outputLabel  value="Fecha Notificación Epom" for="txtFechanotificacionepom"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechanotificacionepom" value="#{pacconsolidado.pacconsolidado.fechanotificacionepom}" disabled="true" style="width:150px;" label="Fecha Notificación Epom">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Tiempo Demora Epom" for="txtTiempodemoraepom"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTiempodemoraepom" value="#{pacconsolidado.pacconsolidado.tiempodemoraepom}" disabled="true" style="width:150px;" label="Tiempo Demora Epom"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Tiempo Elaboración Epom" for="txtTiempoelaboracionepom"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTiempoelaboracionepom" value="#{pacconsolidado.pacconsolidado.tiempoelaboracionepom}" disabled="true" style="width:150px;" label="Tiempo Elaboración Epom"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha Solicitud CP" for="txtFechasolicitudcp"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechasolicitudcp" value="#{pacconsolidado.pacconsolidado.fechasolicitudcp}" disabled="true" style="width:150px;" label="Fecha Solicitud CP">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+		<td>
+			<p:outputLabel  value="Fecha CP" for="txtFechacp"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechacp" value="#{pacconsolidado.pacconsolidado.fechacp}" disabled="true" style="width:150px;" label="Fecha CP">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Nro CP" for="txtNrocp"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNrocp" value="#{pacconsolidado.pacconsolidado.nrocp}" disabled="true" style="width:150px;" label="Nro CP"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Monto CP" for="txtMontocp"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMontocp" value="#{pacconsolidado.pacconsolidado.montocp}" disabled="true" style="width:150px;" label="Monto CP"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Tiene Previsión" for="txtTieneprevision"/>
+		</td>
+		<td>
+			<h:graphicImage id="txtTieneprevision" url="/resources/img/checkbox_yes.png"  rendered="#{pacconsolidado.pacconsolidado.tieneprevision=='1'}" alt="Tiene Previsión" title="Tiene Previsión"/>
+			<h:graphicImage url="/resources/img/checkbox_no.png"  rendered="#{pacconsolidado.pacconsolidado.tieneprevision=='0'}" alt="Tiene Previsión" title="Tiene Previsión"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Rebajado" for="txtEsrebajado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEsrebajado" value="#{pacconsolidado.pacconsolidado.esrebajado}" disabled="true" style="width:150px;" label="Rebajado"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Monto Rebajado" for="txtMontorebajado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMontorebajado" value="#{pacconsolidado.pacconsolidado.montorebajado}" disabled="true" style="width:150px;" label="Monto Rebajado"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Nro Versión Pac" for="txtNroversionpac"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroversionpac" value="#{pacconsolidado.pacconsolidado.nroversionpac}" disabled="true" style="width:150px;" label="Nro Versión Pac"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha Resolución Pac" for="txtFecharesolucionpac"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFecharesolucionpac" value="#{pacconsolidado.pacconsolidado.fecharesolucionpac}" disabled="true" style="width:150px;" label="Fecha Resolución Pac">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+		<td>
+			<p:outputLabel  value="Fecha Modificación Seace" for="txtFechamodificacionseace"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechamodificacionseace" value="#{pacconsolidado.pacconsolidado.fechamodificacionseace}" disabled="true" style="width:150px;" label="Fecha Modificación Seace">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Código tipo Proceso" for="txtCodigotipoproceso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCodigotipoproceso" value="#{pacconsolidado.pacconsolidado.codigotipoproceso}" disabled="true" style="width:150px;" label="Código tipo Proceso"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Número Proceso" for="txtNroproceso"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroproceso" value="#{pacconsolidado.pacconsolidado.nroproceso}" disabled="true" style="width:150px;" label="Número Proceso"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Número Convocatoria" for="txtNroconvocatoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroconvocatoria" value="#{pacconsolidado.pacconsolidado.nroconvocatoria}" disabled="true" style="width:150px;" label="Número Convocatoria"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Tiempo de servicio" for="txtTiemposervicio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTiemposervicio" value="#{pacconsolidado.pacconsolidado.tiemposervicio}" disabled="true" style="width:300px;" label="Tiempo de servicio"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Estado de Requerimiento" for="txtEstadorequerimiento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadorequerimiento" value="#{pacconsolidado.pacconsolidado.estadorequerimiento}" disabled="true" style="width:150px;" label="Estado de Requerimiento"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Fecha Solicitud Aprobación Expediente" for="txtFechasolicitudaprobacionexpediente"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechasolicitudaprobacionexpediente" value="#{pacconsolidado.pacconsolidado.fechasolicitudaprobacionexpediente}" disabled="true" style="width:150px;" label="Fecha Solicitud Aprobación Expediente">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha Aprobación de Expediente" for="txtFechaaprobacionexpediente"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechaaprobacionexpediente" value="#{pacconsolidado.pacconsolidado.fechaaprobacionexpediente}" disabled="true" style="width:150px;" label="Fecha Aprobación de Expediente">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+		<td>
+			<p:outputLabel  value="Ejercicio" for="txtAnio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnio" value="#{pacconsolidado.pacconsolidado.anio}" disabled="true" style="width:150px;" label="Ejercicio"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Codigo Unidad Ejecutora" for="txtIdunidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdunidadejecutora" value="#{pacconsolidado.pacconsolidado.unidadejecutoraIdunidadejecutora.nombreunidadejecutora}" disabled="true" style="width:150px;" label="Codigo Unidad Ejecutora"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Flag Aprobación Estandarizacion" for="txtFlagaprobacionestandarizacion"/>
+		</td>
+		<td>
+			<h:graphicImage id="txtFlagaprobacionestandarizacion" url="/resources/img/checkbox_yes.png"  rendered="#{pacconsolidado.pacconsolidado.flagaprobacionestandarizacion=='1'}" alt="Flag Aprobación Estandarizacion" title="Flag Aprobación Estandarizacion"/>
+			<h:graphicImage url="/resources/img/checkbox_no.png"  rendered="#{pacconsolidado.pacconsolidado.flagaprobacionestandarizacion=='0'}" alt="Flag Aprobación Estandarizacion" title="Flag Aprobación Estandarizacion"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Documento de Aprobación de Estandarización" for="txtDocaprobacionestandarizacion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDocaprobacionestandarizacion" value="#{pacconsolidado.pacconsolidado.docaprobacionestandarizacion}" disabled="true" style="width:300px;" label="Documento de Aprobación de Estandarización"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Fecha Aprobación Estandarización" for="txtFechaaprobacionestandarizacion"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechaaprobacionestandarizacion" value="#{pacconsolidado.pacconsolidado.fechaaprobacionestandarizacion}" disabled="true" style="width:150px;" label="Fecha Aprobación Estandarización">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha Emisión Resumen Ejecutivo" for="txtFechaemisionresumenejecutivo"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechaemisionresumenejecutivo" value="#{pacconsolidado.pacconsolidado.fechaemisionresumenejecutivo}" disabled="true" style="width:150px;" label="Fecha Emisión Resumen Ejecutivo">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+		<td>
+			<p:outputLabel  value="Detalle Honorarios" for="txtDetallehonorarios"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDetallehonorarios" value="#{pacconsolidado.pacconsolidado.detallehonorarios}" disabled="true" style="width:300px;" label="Detalle Honorarios"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Resolución Pac" for="txtResolucionpac"/>
+		</td>
+		<td>
+			<p:inputText  id="txtResolucionpac" value="#{pacconsolidado.pacconsolidado.resolucionpac}" disabled="true" style="width:300px;" label="Resolución Pac"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Documento no programado" for="txtDocumentonoprogramado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDocumentonoprogramado" value="#{pacconsolidado.pacconsolidado.documentonoprogramado}" disabled="true" style="width:300px;" label="Documento no programado"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Documento Epom" for="txtDocumentoepom"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDocumentoepom" value="#{pacconsolidado.pacconsolidado.documentoepom}" disabled="true" style="width:300px;" label="Documento Epom"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Sistema Contratación" for="txtSistemacontratacion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtSistemacontratacion" value="#{pacconsolidado.pacconsolidado.sistemacontratacion}" disabled="true" style="width:150px;" label="Sistema Contratación"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Modalidad Selección" for="txtModalidadseleccion"/>
+		</td>
+		<td>
+			<h:graphicImage id="txtModalidadseleccion" url="/resources/img/checkbox_yes.png"  rendered="#{pacconsolidado.pacconsolidado.modalidadseleccion=='1'}" alt="Modalidad Selección" title="Modalidad Selección"/>
+			<h:graphicImage url="/resources/img/checkbox_no.png"  rendered="#{pacconsolidado.pacconsolidado.modalidadseleccion=='0'}" alt="Modalidad Selección" title="Modalidad Selección"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Modalidad Contratación" for="txtModalidadcontratacion"/>
+		</td>
+		<td>
+			<h:graphicImage id="txtModalidadcontratacion" url="/resources/img/checkbox_yes.png"  rendered="#{pacconsolidado.pacconsolidado.modalidadcontratacion=='1'}" alt="Modalidad Contratación" title="Modalidad Contratación"/>
+			<h:graphicImage url="/resources/img/checkbox_no.png"  rendered="#{pacconsolidado.pacconsolidado.modalidadcontratacion=='0'}" alt="Modalidad Contratación" title="Modalidad Contratación"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Reajuste" for="txtReajuste"/>
+		</td>
+		<td>
+			<h:graphicImage id="txtReajuste" url="/resources/img/checkbox_yes.png"  rendered="#{pacconsolidado.pacconsolidado.reajuste=='1'}" alt="Reajuste" title="Reajuste"/>
+			<h:graphicImage url="/resources/img/checkbox_no.png"  rendered="#{pacconsolidado.pacconsolidado.reajuste=='0'}" alt="Reajuste" title="Reajuste"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Flag CD" for="txtFlagcd"/>
+		</td>
+		<td>
+			<h:graphicImage id="txtFlagcd" url="/resources/img/checkbox_yes.png"  rendered="#{pacconsolidado.pacconsolidado.flagcd=='1'}" alt="Flag CD" title="Flag CD"/>
+			<h:graphicImage url="/resources/img/checkbox_no.png"  rendered="#{pacconsolidado.pacconsolidado.flagcd=='0'}" alt="Flag CD" title="Flag CD"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Objeto Procedimiento" for="txtObjetoprocedimiento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtObjetoprocedimiento" value="#{pacconsolidado.pacconsolidado.objetoprocedimiento}" disabled="true" style="width:150px;" label="Objeto Procedimiento"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Indagación de Valor Estimado" for="txtIndagacionvalorestimado"/>
+		</td>
+		<td>
+			<h:graphicImage id="txtIndagacionvalorestimado" url="/resources/img/checkbox_yes.png"  rendered="#{pacconsolidado.pacconsolidado.indagacionvalorestimado=='1'}" alt="Indagación de Valor Estimado" title="Indagación de Valor Estimado"/>
+			<h:graphicImage url="/resources/img/checkbox_no.png"  rendered="#{pacconsolidado.pacconsolidado.indagacionvalorestimado=='0'}" alt="Indagación de Valor Estimado" title="Indagación de Valor Estimado"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Número de Ruc" for="txtNroruc"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroruc" value="#{pacconsolidado.pacconsolidado.nroruc}" disabled="true" style="width:150px;" label="Número de Ruc"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Número Proceso Proveedor" for="txtNroprocesoproveedor"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroprocesoproveedor" value="#{pacconsolidado.pacconsolidado.nroprocesoproveedor}" disabled="true" style="width:150px;" label="Número Proceso Proveedor"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Certificacion" for="txtVcertificacion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVcertificacion" value="#{pacconsolidado.pacconsolidado.vcertificacionVcertificacion.nrocertifica}" disabled="true" style="width:150px;" label="Certificacion"/>
+		</td>
+		<td>
+			<p:outputLabel  value="visIdSigaPaacConsolidado" for="txtVisidsigapaacconsolidado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtVisidsigapaacconsolidado" value="#{pacconsolidado.pacconsolidado.vissigapaacconsolidadoVisidsigapaacconsolidado.nroconsolid}" disabled="true" style="width:150px;" label="visIdSigaPaacConsolidado"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+	</p:tab>
+
+	<p:tab title="Datos de Auditoría">
+
+	<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha de Creación" for="txtFechacreacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechacreacionauditoria" value="#{pacconsolidado.pacconsolidado.fechacreacionauditoria}" disabled="true" style="width:150px;" label="Fecha de Creación">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>
+			</p:inputText>
+		</td>
+		<td>
+			<p:outputLabel  value="Usuario de Creación" for="txtUsuariocreacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuariocreacionauditoria" value="#{pacconsolidado.pacconsolidado.usuariocreacionauditoria}" disabled="true" style="width:150px;" label="Usuario de Creación"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha de última modificacion" for="txtFechamodificacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechamodificacionauditoria" value="#{pacconsolidado.pacconsolidado.fechamodificacionauditoria}" disabled="true" style="width:150px;" label="Fecha de última modificacion">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>
+			</p:inputText>
+		</td>
+		<td>
+			<p:outputLabel  value="Usuario de última modificacion" for="txtUsuariomodificacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuariomodificacionauditoria" value="#{pacconsolidado.pacconsolidado.usuariomodificacionauditoria}" disabled="true" style="width:150px;" label="Usuario de última modificacion"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="IP/Nombre Equipo" for="txtEquipoauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEquipoauditoria" value="#{pacconsolidado.pacconsolidado.equipoauditoria}" disabled="true" style="width:300px;" label="IP/Nombre Equipo"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Programa/Clase" for="txtProgramaauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtProgramaauditoria" value="#{pacconsolidado.pacconsolidado.programaauditoria}" disabled="true" style="width:300px;" label="Programa/Clase"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Estado Registro" for="txtEstadoauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadoauditoria" value="#{pacconsolidado.pacconsolidado.estadoauditoria}" disabled="true" style="width:150px;" label="Estado Registro"/>
+		</td>
+	</tr>
+
+	</table>
+	</p:tab>
+
+	<p:tab title="RequisitosConformidad">
+		<ui:include src="/pages/requisitosconformidad/component/c_requisitosconformidadDerivedTableList.xhtml"/>
+	</p:tab>
+	<p:tab title="Orden">
+		<ui:include src="/pages/orden/component/c_ordenDerivedTableList.xhtml"/>
+	</p:tab>
+	<p:tab title="Sinad Por Pac Consolidado">
+		<ui:include src="/pages/sinadporpacconsolidado/component/c_sinadporpacconsolidadoDerivedTableList.xhtml"/>
+	</p:tab>
+	<p:tab title="CertificadoPresupuestal">
+		<ui:include src="/pages/certificadopresupuestal/component/c_certificadopresupuestalDerivedTableList.xhtml"/>
+	</p:tab>
+	<p:tab title="PrevisionPresupuestal">
+		<ui:include src="/pages/previsionpresupuestal/component/c_previsionpresupuestalDerivedTableList.xhtml"/>
+	</p:tab>
+	<p:tab title="CuadroComparativoFuente">
+		<ui:include src="/pages/cuadrocomparativofuente/component/c_cuadrocomparativofuenteDerivedTableList.xhtml"/>
+	</p:tab>
+</p:tabView>
+</html>

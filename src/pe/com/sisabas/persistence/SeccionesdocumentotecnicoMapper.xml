@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pe.com.sisabas.persistence.SeccionesdocumentotecnicoMapper" >
+
+	<resultMap id="BasicResultMap" type="pe.com.sisabas.be.Seccionesdocumentotecnico">
+	<result column="A1_IDSECCIONESDOCUMENTOTECNICO" property="idseccionesdocumentotecnico" jdbcType="INTEGER" />
+	<result column="A1_IDCATALOGOTIPODOCUMENTOTECNICO" property="idcatalogotipodocumentotecnico" jdbcType="VARCHAR" />
+	<result column="A1_IDCATALOGOTIPOTDR" property="idcatalogotipotdr" jdbcType="VARCHAR" />
+	<result column="A1_DESCRIPCIONSECCION" property="descripcionseccion" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<resultMap id="FullResultMap" type="pe.com.sisabas.be.Seccionesdocumentotecnico">
+	<result column="A1_IDSECCIONESDOCUMENTOTECNICO" property="idseccionesdocumentotecnico" jdbcType="INTEGER" />
+	<result column="A1_IDCATALOGOTIPODOCUMENTOTECNICO" property="idcatalogotipodocumentotecnico" jdbcType="VARCHAR" />
+	<result column="A1_IDCATALOGOTIPOTDR" property="idcatalogotipotdr" jdbcType="VARCHAR" />
+	<result column="A1_DESCRIPCIONSECCION" property="descripcionseccion" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	<result column="A3_VCHREGCODIGO" property="gentablaIdcatalogotipodocumentotecnico.vchregcodigo" jdbcType="VARCHAR" />
+	<result column="A3_VCHREGDESCRI" property="gentablaIdcatalogotipodocumentotecnico.vchregdescri" jdbcType="VARCHAR" />
+	<result column="A3_VCHREGABREVIADO" property="gentablaIdcatalogotipodocumentotecnico.vchregabreviado" jdbcType="VARCHAR" />
+	<result column="A3_VCHTIPCODIGO" property="gentablaIdcatalogotipodocumentotecnico.vchtipcodigo" jdbcType="VARCHAR" />
+	<result column="A3_INTREGORDEN" property="gentablaIdcatalogotipodocumentotecnico.intregorden" jdbcType="INTEGER" />
+	<result column="A3_VCHTABOTRO1" property="gentablaIdcatalogotipodocumentotecnico.vchtabotro1" jdbcType="VARCHAR" />
+	<result column="A3_VCHTABOTRO2" property="gentablaIdcatalogotipodocumentotecnico.vchtabotro2" jdbcType="VARCHAR" />
+	<result column="A3_VCHTABOTRO3" property="gentablaIdcatalogotipodocumentotecnico.vchtabotro3" jdbcType="VARCHAR" />
+	<result column="A3_VCHTABOTRO4" property="gentablaIdcatalogotipodocumentotecnico.vchtabotro4" jdbcType="VARCHAR" />
+	<result column="A3_ESTADOAUDITORIA" property="gentablaIdcatalogotipodocumentotecnico.estadoauditoria" jdbcType="VARCHAR" />
+	<result column="A3_USUARIOCREACIONAUDITORIA" property="gentablaIdcatalogotipodocumentotecnico.usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A3_USUARIOMODIFICACIONAUDITORIA" property="gentablaIdcatalogotipodocumentotecnico.usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A3_FECHACREACIONAUDITORIA" property="gentablaIdcatalogotipodocumentotecnico.fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A3_FECHAMODIFICACIONAUDITORIA" property="gentablaIdcatalogotipodocumentotecnico.fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A3_EQUIPOAUDITORIA" property="gentablaIdcatalogotipodocumentotecnico.equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A3_PROGRAMAAUDITORIA" property="gentablaIdcatalogotipodocumentotecnico.programaauditoria" jdbcType="VARCHAR" />
+	<result column="A3_INTGANEMPID" property="gentablaIdcatalogotipodocumentotecnico.intganempid" jdbcType="INTEGER" />
+
+	<result column="A5_VCHREGCODIGO" property="gentablaIdcatalogotipotdr.vchregcodigo" jdbcType="VARCHAR" />
+	<result column="A5_VCHREGDESCRI" property="gentablaIdcatalogotipotdr.vchregdescri" jdbcType="VARCHAR" />
+	<result column="A5_VCHREGABREVIADO" property="gentablaIdcatalogotipotdr.vchregabreviado" jdbcType="VARCHAR" />
+	<result column="A5_VCHTIPCODIGO" property="gentablaIdcatalogotipotdr.vchtipcodigo" jdbcType="VARCHAR" />
+	<result column="A5_INTREGORDEN" property="gentablaIdcatalogotipotdr.intregorden" jdbcType="INTEGER" />
+	<result column="A5_VCHTABOTRO1" property="gentablaIdcatalogotipotdr.vchtabotro1" jdbcType="VARCHAR" />
+	<result column="A5_VCHTABOTRO2" property="gentablaIdcatalogotipotdr.vchtabotro2" jdbcType="VARCHAR" />
+	<result column="A5_VCHTABOTRO3" property="gentablaIdcatalogotipotdr.vchtabotro3" jdbcType="VARCHAR" />
+	<result column="A5_VCHTABOTRO4" property="gentablaIdcatalogotipotdr.vchtabotro4" jdbcType="VARCHAR" />
+	<result column="A5_ESTADOAUDITORIA" property="gentablaIdcatalogotipotdr.estadoauditoria" jdbcType="VARCHAR" />
+	<result column="A5_USUARIOCREACIONAUDITORIA" property="gentablaIdcatalogotipotdr.usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A5_USUARIOMODIFICACIONAUDITORIA" property="gentablaIdcatalogotipotdr.usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A5_FECHACREACIONAUDITORIA" property="gentablaIdcatalogotipotdr.fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A5_FECHAMODIFICACIONAUDITORIA" property="gentablaIdcatalogotipotdr.fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A5_EQUIPOAUDITORIA" property="gentablaIdcatalogotipotdr.equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A5_PROGRAMAAUDITORIA" property="gentablaIdcatalogotipotdr.programaauditoria" jdbcType="VARCHAR" />
+	<result column="A5_INTGANEMPID" property="gentablaIdcatalogotipotdr.intganempid" jdbcType="INTEGER" />
+
+	</resultMap>
+
+
+	<sql id="Basic_Column_List">
+	A1.IDSECCIONESDOCUMENTOTECNICO as A1_IDSECCIONESDOCUMENTOTECNICO, A1.IDCATALOGOTIPODOCUMENTOTECNICO as A1_IDCATALOGOTIPODOCUMENTOTECNICO, A1.IDCATALOGOTIPOTDR as A1_IDCATALOGOTIPOTDR, A1.DESCRIPCIONSECCION as A1_DESCRIPCIONSECCION, 
+	A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA 
+	</sql>
+
+
+	<sql id="Full_Column_List">
+	A1.IDSECCIONESDOCUMENTOTECNICO as A1_IDSECCIONESDOCUMENTOTECNICO, A1.IDCATALOGOTIPODOCUMENTOTECNICO as A1_IDCATALOGOTIPODOCUMENTOTECNICO, A1.IDCATALOGOTIPOTDR as A1_IDCATALOGOTIPOTDR, A1.DESCRIPCIONSECCION as A1_DESCRIPCIONSECCION, 
+	A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA, 
+	A3.VCHREGCODIGO as A3_VCHREGCODIGO, A3.VCHREGDESCRI as A3_VCHREGDESCRI, A3.VCHREGABREVIADO as A3_VCHREGABREVIADO, A3.VCHTIPCODIGO as A3_VCHTIPCODIGO, 
+	A3.INTREGORDEN as A3_INTREGORDEN, A3.VCHTABOTRO1 as A3_VCHTABOTRO1, A3.VCHTABOTRO2 as A3_VCHTABOTRO2, A3.VCHTABOTRO3 as A3_VCHTABOTRO3, 
+	A3.VCHTABOTRO4 as A3_VCHTABOTRO4, A3.ESTADOAUDITORIA as A3_ESTADOAUDITORIA, A3.USUARIOCREACIONAUDITORIA as A3_USUARIOCREACIONAUDITORIA, A3.USUARIOMODIFICACIONAUDITORIA as A3_USUARIOMODIFICACIONAUDITORIA, 
+	A3.FECHACREACIONAUDITORIA as A3_FECHACREACIONAUDITORIA, A3.FECHAMODIFICACIONAUDITORIA as A3_FECHAMODIFICACIONAUDITORIA, A3.EQUIPOAUDITORIA as A3_EQUIPOAUDITORIA, A3.PROGRAMAAUDITORIA as A3_PROGRAMAAUDITORIA, 
+	A3.INTGANEMPID as A3_INTGANEMPID, 
+	A5.VCHREGCODIGO as A5_VCHREGCODIGO, A5.VCHREGDESCRI as A5_VCHREGDESCRI, A5.VCHREGABREVIADO as A5_VCHREGABREVIADO, A5.VCHTIPCODIGO as A5_VCHTIPCODIGO, 
+	A5.INTREGORDEN as A5_INTREGORDEN, A5.VCHTABOTRO1 as A5_VCHTABOTRO1, A5.VCHTABOTRO2 as A5_VCHTABOTRO2, A5.VCHTABOTRO3 as A5_VCHTABOTRO3, 
+	A5.VCHTABOTRO4 as A5_VCHTABOTRO4, A5.ESTADOAUDITORIA as A5_ESTADOAUDITORIA, A5.USUARIOCREACIONAUDITORIA as A5_USUARIOCREACIONAUDITORIA, A5.USUARIOMODIFICACIONAUDITORIA as A5_USUARIOMODIFICACIONAUDITORIA, 
+	A5.FECHACREACIONAUDITORIA as A5_FECHACREACIONAUDITORIA, A5.FECHAMODIFICACIONAUDITORIA as A5_FECHAMODIFICACIONAUDITORIA, A5.EQUIPOAUDITORIA as A5_EQUIPOAUDITORIA, A5.PROGRAMAAUDITORIA as A5_PROGRAMAAUDITORIA, 
+	A5.INTGANEMPID as A5_INTGANEMPID 
+	</sql>
+
+
+
+	<select id="selectByPrimaryKeyBasic" resultMap="BasicResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.SeccionesDocumentoTecnico A1
+	
+	where A1.IdSeccionesDocumentoTecnico = #{idseccionesdocumentotecnico,jdbcType=INTEGER}
+</select>
+
+
+
+	<select id="selectByPrimaryKeyBasicActive" resultMap="BasicResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.SeccionesDocumentoTecnico A1
+	
+	where A1.IdSeccionesDocumentoTecnico = #{idseccionesdocumentotecnico,jdbcType=INTEGER}
+	and A1.estadoauditoria='1'
+	</select>
+
+
+
+	<select id="selectByPrimaryKeyFull" resultMap="FullResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.SeccionesDocumentoTecnico A1
+	
+	LEFT JOIN abas.gentabla A3 ON A1.IdCatalogoTipoDocumentoTecnico = A3.vchregCodigo
+	LEFT JOIN abas.gentabla A5 ON A1.IdCatalogoTipoTDR = A5.vchregCodigo
+	where A1.IdSeccionesDocumentoTecnico = #{idseccionesdocumentotecnico,jdbcType=INTEGER}
+</select>
+
+
+
+	<select id="selectByPrimaryKeyFullActive" resultMap="FullResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.SeccionesDocumentoTecnico A1
+	
+	LEFT JOIN abas.gentabla A3 ON A1.IdCatalogoTipoDocumentoTecnico = A3.vchregCodigo
+	LEFT JOIN abas.gentabla A5 ON A1.IdCatalogoTipoTDR = A5.vchregCodigo
+	where A1.IdSeccionesDocumentoTecnico = #{idseccionesdocumentotecnico,jdbcType=INTEGER}
+	and A1.estadoauditoria='1'
+	</select>
+
+
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	delete from abas.SeccionesDocumentoTecnico 
+	where IdSeccionesDocumentoTecnico = #{idseccionesdocumentotecnico,jdbcType=INTEGER}
+	</delete>
+
+
+
+
+
+	<insert id="insert" parameterType="pe.com.sisabas.be.Seccionesdocumentotecnico" >
+	insert into abas.SeccionesDocumentoTecnico (
+	IDSECCIONESDOCUMENTOTECNICO, IDCATALOGOTIPODOCUMENTOTECNICO, IDCATALOGOTIPOTDR, DESCRIPCIONSECCION, 
+	EQUIPOAUDITORIA, PROGRAMAAUDITORIA, ESTADOAUDITORIA ) 
+	VALUES (
+	#{idseccionesdocumentotecnico,jdbcType=INTEGER}, #{idcatalogotipodocumentotecnico,jdbcType=VARCHAR}, #{idcatalogotipotdr,jdbcType=VARCHAR}, #{descripcionseccion,jdbcType=VARCHAR}, 
+	#{equipoauditoria,jdbcType=VARCHAR}, #{programaauditoria,jdbcType=VARCHAR}, #{estadoauditoria,jdbcType=VARCHAR} ) 
+	</insert>
+
+
+
+	<insert id="insertSelective" parameterType="pe.com.sisabas.be.Seccionesdocumentotecnico" >
+	insert into abas.SeccionesDocumentoTecnico 
+	<trim prefix="(" suffix=")" suffixOverrides="," >
+	<if test="idseccionesdocumentotecnico != null" >
+		IdSeccionesDocumentoTecnico,
+	</if>
+	<if test="idcatalogotipodocumentotecnico != null" >
+		IdCatalogoTipoDocumentoTecnico,
+	</if>
+	<if test="idcatalogotipotdr != null" >
+		IdCatalogoTipoTDR,
+	</if>
+	<if test="descripcionseccion != null" >
+		DescripcionSeccion,
+	</if>
+	<if test="equipoauditoria != null" >
+		EquipoAuditoria,
+	</if>
+	<if test="programaauditoria != null" >
+		ProgramaAuditoria,
+	</if>
+	<if test="estadoauditoria != null" >
+		EstadoAuditoria,
+	</if>
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides="," >
+	<if test="idseccionesdocumentotecnico != null" >
+		#{idseccionesdocumentotecnico,jdbcType=INTEGER}, 
+	</if>
+	<if test="idcatalogotipodocumentotecnico != null" >
+		#{idcatalogotipodocumentotecnico,jdbcType=VARCHAR}, 
+	</if>
+	<if test="idcatalogotipotdr != null" >
+		#{idcatalogotipotdr,jdbcType=VARCHAR}, 
+	</if>
+	<if test="descripcionseccion != null" >
+		#{descripcionseccion,jdbcType=VARCHAR}, 
+	</if>
+	<if test="equipoauditoria != null" >
+		#{equipoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="programaauditoria != null" >
+		#{programaauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoauditoria != null" >
+		#{estadoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	</trim>
+	</insert>
+
+
+
+	<update id="updateByPrimaryKey" parameterType="pe.com.sisabas.be.Seccionesdocumentotecnico" >
+	update abas.SeccionesDocumentoTecnico 
+	set 
+	IDSECCIONESDOCUMENTOTECNICO = #{idseccionesdocumentotecnico,jdbcType=INTEGER}, IDCATALOGOTIPODOCUMENTOTECNICO = #{idcatalogotipodocumentotecnico,jdbcType=VARCHAR}, 
+	IDCATALOGOTIPOTDR = #{idcatalogotipotdr,jdbcType=VARCHAR}, DESCRIPCIONSECCION = #{descripcionseccion,jdbcType=VARCHAR}, 
+	EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, PROGRAMAAUDITORIA = #{programaauditoria,jdbcType=VARCHAR}, 
+	ESTADOAUDITORIA = #{estadoauditoria,jdbcType=VARCHAR} 
+	where IdSeccionesDocumentoTecnico = #{idseccionesdocumentotecnico,jdbcType=INTEGER}
+	</update>
+
+
+
+	<update id="updateByPrimaryKeySelective" parameterType="pe.com.sisabas.be.Seccionesdocumentotecnico" >
+	update abas.SeccionesDocumentoTecnico 
+	<set>
+	<if test="idseccionesdocumentotecnico != null" >
+		IDSECCIONESDOCUMENTOTECNICO = #{idseccionesdocumentotecnico,jdbcType=INTEGER}, 
+	</if>
+	<if test="idcatalogotipodocumentotecnico != null" >
+		IDCATALOGOTIPODOCUMENTOTECNICO = #{idcatalogotipodocumentotecnico,jdbcType=VARCHAR}, 
+	</if>
+	<if test="idcatalogotipotdr != null" >
+		IDCATALOGOTIPOTDR = #{idcatalogotipotdr,jdbcType=VARCHAR}, 
+	</if>
+	<if test="descripcionseccion != null" >
+		DESCRIPCIONSECCION = #{descripcionseccion,jdbcType=VARCHAR}, 
+	</if>
+	<if test="equipoauditoria != null" >
+		EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="programaauditoria != null" >
+		PROGRAMAAUDITORIA = #{programaauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoauditoria != null" >
+		ESTADOAUDITORIA = #{estadoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	</set>
+
+	where IdSeccionesDocumentoTecnico = #{idseccionesdocumentotecnico,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="selectDynamicBasic" resultMap="BasicResultMap"  parameterType="pe.com.sisabas.be.Seccionesdocumentotecnico" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.SeccionesDocumentoTecnico A1
+	<where>
+		<if test="idseccionesdocumentotecnico != null" >
+			 AND A1.IDSECCIONESDOCUMENTOTECNICO = #{idseccionesdocumentotecnico,jdbcType=INTEGER} 
+		</if>
+		<if test="idcatalogotipodocumentotecnico != null" >
+			 AND A1.IDCATALOGOTIPODOCUMENTOTECNICO = #{idcatalogotipodocumentotecnico,jdbcType=VARCHAR} 
+		</if>
+		<if test="idcatalogotipotdr != null" >
+			 AND A1.IDCATALOGOTIPOTDR = #{idcatalogotipotdr,jdbcType=VARCHAR} 
+		</if>
+		<if test="descripcionseccion != null" >
+			 AND A1.DESCRIPCIONSECCION LIKE ('%' + #{descripcionseccion,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="equipoauditoria != null" >
+			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="programaauditoria != null" >
+			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoauditoria != null" >
+			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+
+		<if test="listaIdcatalogotipodocumentotecnicoInKeys != null" >
+			AND A1.IDCATALOGOTIPODOCUMENTOTECNICO IN
+			<foreach collection="listaIdcatalogotipodocumentotecnicoInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=VARCHAR} </foreach>
+		</if>
+
+		<if test="listaIdcatalogotipotdrInKeys != null" >
+			AND A1.IDCATALOGOTIPOTDR IN
+			<foreach collection="listaIdcatalogotipotdrInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=VARCHAR} </foreach>
+		</if>
+	</where>
+
+	<if test="ordenListaCampos != null" >
+		 ORDER BY 
+		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+		<if test="ordenTipo != null" >
+			 ${ordenTipo} 
+		</if>
+	</if>
+
+	<if test="cantidadRegistros != null" >
+
+	</if>
+	</select>
+
+
+	<select id="selectDynamicFull" resultMap="FullResultMap"  parameterType="pe.com.sisabas.be.Seccionesdocumentotecnico" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.SeccionesDocumentoTecnico A1
+	LEFT JOIN abas.gentabla A3 ON A1.IdCatalogoTipoDocumentoTecnico = A3.vchregCodigo
+	LEFT JOIN abas.gentabla A5 ON A1.IdCatalogoTipoTDR = A5.vchregCodigo
+	<where>
+		<if test="idseccionesdocumentotecnico != null" >
+			 AND A1.IDSECCIONESDOCUMENTOTECNICO = #{idseccionesdocumentotecnico,jdbcType=INTEGER} 
+		</if>
+		<if test="idcatalogotipodocumentotecnico != null" >
+			 AND A1.IDCATALOGOTIPODOCUMENTOTECNICO = #{idcatalogotipodocumentotecnico,jdbcType=VARCHAR} 
+		</if>
+		<if test="idcatalogotipotdr != null" >
+			 AND A1.IDCATALOGOTIPOTDR = #{idcatalogotipotdr,jdbcType=VARCHAR} 
+		</if>
+		<if test="descripcionseccion != null" >
+			 AND A1.DESCRIPCIONSECCION LIKE ('%' + #{descripcionseccion,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="equipoauditoria != null" >
+			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="programaauditoria != null" >
+			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoauditoria != null" >
+			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+
+		<if test="listaIdcatalogotipodocumentotecnicoInKeys != null" >
+			AND A1.IDCATALOGOTIPODOCUMENTOTECNICO IN
+			<foreach collection="listaIdcatalogotipodocumentotecnicoInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=VARCHAR} </foreach>
+		</if>
+
+		<if test="listaIdcatalogotipotdrInKeys != null" >
+			AND A1.IDCATALOGOTIPOTDR IN
+			<foreach collection="listaIdcatalogotipotdrInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=VARCHAR} </foreach>
+		</if>
+	</where>
+
+	<if test="ordenListaCampos != null" >
+		 ORDER BY 
+		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+		<if test="ordenTipo != null" >
+			 ${ordenTipo} 
+		</if>
+	</if>
+
+	<if test="cantidadRegistros != null" >
+
+	</if>
+	</select>
+</mapper>
