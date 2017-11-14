@@ -52,12 +52,6 @@
 									<f:selectItem itemLabel="APROBADO" itemValue="2" />
 									<f:selectItem itemLabel="REMITIDO A PROGRAMACIÓN" itemValue="3" />
 									<f:selectItem itemLabel="ATENDIDO" itemValue="8" />
-									<!-- 
-									<f:selectItems
-										value="#{pacconsolidado.listaGentablaIdcatalogotipobien}"
-										var="var" itemLabel="#{var.vchregdescri}"
-										itemValue="#{var.vchregcodigo}" />
-										 -->
 								</p:selectOneMenu></td>
 
 							<td><p:outputLabel value="Número Pedido" for="txtNroPedido" /></td>
@@ -92,64 +86,23 @@
 									rendered="#{evaluacionDocumento.renderButton('btnBuscar')}" />
 								<p:spacer width="20" />
 
-								<p:commandButton value="Recibir"
-									action="#{evaluacionDocumento.recibir}"
-									update="hidStatus,:frmDocumentotecnicoRegistrar:diDocumentotecnicoRegistrar"
-									oncomplete="showDialog('form:hidStatus','frmDocumentotecnicoRegistrar:diDocumentotecnicoRegistrar');"
-									icon="fa fa-download"
-									disabled="#{!evaluacionDocumento.esSeleccionadoPorRecibir}"
-									rendered="#{evaluacionDocumento.renderButton('btnRecibir')}" />
-									
-								<p:commandButton value="Aprobar"
-									action="#{evaluacionDocumento.recibir}"
+							 
+																		
+								<p:commandButton value="Aprobación"
+									action="#{evaluacionDocumento.irAprobar}"
 									update="hidStatus,:frmDocumentotecnicoRegistrar:diDocumentotecnicoRegistrar"
 									oncomplete="showDialog('form:hidStatus','frmDocumentotecnicoRegistrar:diDocumentotecnicoRegistrar');"
 									icon="fa fa-arrow-circle-o-right"
-									disabled="#{!evaluacionDocumento.esSeleccionadoPorRecibir}"
-									rendered="#{evaluacionDocumento.renderButton('btnRecibir')}" />
-																		
-									<!--  -->
-								<p:commandButton value="Nuevo"
-									action="#{documentotecnico.irRegistrar}"
-									update="hidStatus,:frmDocumentotecnicoRegistrar:diDocumentotecnicoRegistrar"
-									oncomplete="showDialog('form:hidStatus','frmDocumentotecnicoRegistrar:diDocumentotecnicoRegistrar');"
-									icon="ui-icon-document"
-									rendered="#{documentotecnico.renderButton('btnNuevo')}" />
-								<p:commandButton value="Editar"
-									action="#{documentotecnico.irEditar}"
-									update="hidStatus,:frmDocumentotecnicoRegistrar:diDocumentotecnicoRegistrar"
-									oncomplete="showDialog('form:hidStatus','frmDocumentotecnicoRegistrar:diDocumentotecnicoRegistrar');"
-									icon="ui-icon-pencil"
-									disabled="#{!documentotecnico.esSeleccionado}"
-									rendered="#{documentotecnico.renderButton('btnEditar')}" />
-								<p:commandButton value="Detalle"
-									action="#{documentotecnico.irDetalle}"
-									update="hidStatus,:frmDocumentotecnicoDetalle:diDocumentotecnicoDetalle"
-									oncomplete="showDialog('form:hidStatus','frmDocumentotecnicoDetalle:diDocumentotecnicoDetalle');"
-									icon="ui-icon-zoomin"
-									disabled="#{!documentotecnico.esSeleccionado}"
-									rendered="#{documentotecnico.renderButton('btnDetalle')}" />
-								<p:commandButton value="Anular/Activar"
-									action="#{documentotecnico.irAnular}"
-									update="hidStatus,:frmDocumentotecnicoAnular:diDocumentotecnicoAnular"
-									oncomplete="showDialog('form:hidStatus','frmDocumentotecnicoAnular:diDocumentotecnicoAnular');"
-									icon="ui-icon-circle-minus"
-									disabled="#{!documentotecnico.esSeleccionado}"
-									rendered="#{documentotecnico.renderButton('btnAnularActivar')}" />
-									
-								<p:commandButton value="Eliminar"
-									action="#{documentotecnico.irEliminar}" update="hidStatus"
-									oncomplete="showDialog('form:hidStatus','form:cdEliminar');"
-									icon="ui-icon-circle-close" title="Eliminar"
-									disabled="#{!evaluacionDocumento.esSeleccionado}"
-									rendered="#{evaluacionDocumento.renderButton('btnEliminar')}" />
-									
+									disabled="#{!evaluacionDocumento.esSeleccionadoPorAprobar}"
+									rendered="#{evaluacionDocumento.renderButton('btnAprobar')}" />				
+
 								<p:commandButton value="Imprimir"
 									action="#{documentotecnico.irImprimir}"
 									update="hidStatus,:frmDocumentotecnicoImprimir:diDocumentotecnicoImprimir"
 									oncomplete="showDialog('form:hidStatus','frmDocumentotecnicoImprimir:diDocumentotecnicoImprimir');"
 									icon="ui-icon-print"
 									rendered="#{documentotecnico.renderButton('btnImprimir')}" />
+									
 							</p:panel></td>
 						<td valign="top">
 							<div align="right" style="margin-top: 12px">
@@ -182,11 +135,8 @@
 						oncomplete="showDialog('form:hidStatus','frmDocumentotecnicoAnular:diDocumentotecnicoAnular');"
 						icon="ui-icon-circle-minus"
 						rendered="#{documentotecnico.renderButton('btnAnularActivar')}" />
-					<p:menuitem value="Eliminar"
-						action="#{documentotecnico.irEliminar}" update="hidStatus"
-						oncomplete="showDialog('form:hidStatus','form:cdEliminar');"
-						icon="ui-icon-close"
-						rendered="#{documentotecnico.renderButton('btnEliminar')}" />
+						
+					
 				</p:contextMenu>
 
 				<p:dataTable id="tblListaDocumentotecnico"
@@ -281,27 +231,7 @@
 						<h:outputText value="#{var.numeroExpedienteSinad}" />
 					</p:column>
 				</p:dataTable>
-
-				<p:confirmDialog id="cdEliminar"
-					message="Esta seguro de eliminar este registro?"
-					header="Confirmación" severity="alert" widgetVar="cdEliminar">
-					<p:commandButton value="Si" action="#{documentotecnico.eliminar}"
-						update=":form:tblListaDocumentotecnico,:form:growl"
-						oncomplete="hideDialogPF('cdEliminar');" />
-					<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');"
-						type="button" />
-				</p:confirmDialog>
-
-				<p:confirmDialog id="cdRecibir"
-					message="Esta seguro de recibir el documento técnico?"
-					header="Confirmación" severity="alert" widgetVar="cdRecibir">
-					<p:commandButton value="Si" action="#{evaluacionDocumento.recibir}"
-						update=":form:tblListaDocumentotecnico,:form:growl"
-						oncomplete="hideDialogPF('cdRecibir');" />
-					<p:commandButton value="No" onclick="hideDialogPF('cdRecibir');"
-						type="button" />
-				</p:confirmDialog>
-				
+				 
 			</p:panel>
 		</h:form>
 
@@ -342,7 +272,7 @@
 					<p:messages for="msgsDocumentotecnicoR" autoUpdate="true"
 						closable="true" />
 					<ui:include
-						src="/pages/documentotecnico/component/c_documentotecnicoRegistrar.xhtml" />
+						src="/pages/evaluaciondocumento/component/c_evaluaciondocumentoAprobar.xhtml" />
 				</p:scrollPanel>
 				<table style="width: 100%;">
 					<tr>

@@ -1,8 +1,9 @@
 package pe.com.sisabas.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class EvaluacionDocumentoResponse {
+public class EvaluacionDocumentoResponse implements  Serializable,Cloneable {
 	private Integer iddocumentotecnico;
 	private Integer idpedido;
 	private Integer idPacProgramado;
@@ -110,4 +111,8 @@ public class EvaluacionDocumentoResponse {
 		this.fechaModificacionAuditoria = fechaModificacionAuditoria;
 	}
 	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	 }	
 }

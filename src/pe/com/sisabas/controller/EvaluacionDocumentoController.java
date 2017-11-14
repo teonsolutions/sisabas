@@ -10,6 +10,7 @@ import java.util.Arrays;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 
+import org.apache.taglibs.standard.lang.jstl.Evaluator;
 import org.omg.CORBA.TRANSACTION_MODE;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.ToggleSelectEvent;
@@ -52,8 +53,18 @@ public class EvaluacionDocumentoController extends BaseController {
 	private List<Documentotecnico> listaDocumentotecnico;
 	private List<EvaluacionDocumentoResponse> listaPedidos;
 	private EvaluacionDocumentoResponse selectedPedido;
+	private EvaluacionDocumentoResponse pedido;
 	private boolean esSeleccionadoPorRecibir = false;
+	private boolean esSeleccionadoPorAprobar = false;
 			
+	public boolean isEsSeleccionadoPorAprobar() {
+		return esSeleccionadoPorAprobar;
+	}
+
+	public void setEsSeleccionadoPorAprobar(boolean esSeleccionadoPorAprobar) {
+		this.esSeleccionadoPorAprobar = esSeleccionadoPorAprobar;
+	}
+
 	public Boolean getEsSeleccionadoPorRecibir() {
 		return esSeleccionadoPorRecibir;
 	}
@@ -71,10 +82,17 @@ public class EvaluacionDocumentoController extends BaseController {
 		
 		//para activar button recibir
 		boolean disabled = false;
-		if (this.selectedPedido == null) 
-			disabled = false;
-		else disabled = selectedPedido.getEstadoPedidoIn().equalsIgnoreCase("3");		
+		boolean disabledApprove = false;
+		if (this.selectedPedido == null)
+		{
+			disabled = false;			
+		}
+		else{
+			disabled = this.selectedPedido.getEstadoPedidoIn().equalsIgnoreCase("3");
+			disabledApprove = this.selectedPedido.getEstadoPedidoIn().equalsIgnoreCase("4");
+		}		
 		this.setEsSeleccionadoPorRecibir(disabled);
+		this.setEsSeleccionadoPorAprobar(disabledApprove);		
 	}
 
 		
@@ -259,7 +277,43 @@ public class EvaluacionDocumentoController extends BaseController {
 	public void resetRegisterForm() {
 		reset("frmDocumentotecnicoRegistrar:panelC");
 	}
+	
+	public void validateSelectedRow() throws UnselectedRowException, CloneNotSupportedException {
+		if (selectedDocumentotecnico == null)
+			throw new UnselectedRowException(Messages.getString("no.record.selected"));
+		else
+			pedido = (EvaluacionDocumentoResponse)selectedPedido.clone();
+	}
+	
 
+	public void irRecibir() {
+		STATUS_INIT();
+		try {
+			securityControlValidate("btnRecibir");
+			validateSelectedRow();
+
+			STATUS_SUCCESS();
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("no.access"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm",e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+		} catch (UnselectedRowException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", e.getMessage(),
+			FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			STATUS_ERROR();
+			addErrorMessageKey("msgsForm", e);
+		}
+	}	
+	
 	/*
 	 * Recibir documento técnico
 	 */

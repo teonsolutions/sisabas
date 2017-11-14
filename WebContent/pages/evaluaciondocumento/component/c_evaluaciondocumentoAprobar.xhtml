@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<div align="left">
+		<p:message id="msgIddocumentotecnico" for="ddlEstadoAprobacion"
+			showSummary="true" showDetail="false" />
+	</div>
+	<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+			<td colspan="2"><p:panel id="pnlHeader" widgetVar="pnlHeader"
+					styleClass="gandalfPanelClassSectionFormHeader">
+					<table style="width: 100%;" cellpadding="0" cellspacing="5"
+						border="0">
+						<tr>
+							<td><p:outputLabel value="Revisión:"
+									for="ddlEstadoAprobacion" id="lblIddocumentotecnico" /></td>
+							<td><p:selectOneMenu id="ddlEstadoAprobacion"
+									value="1" required="true">
+									<f:selectItem itemLabel="APROBAR" itemValue="1" />
+									<f:selectItem itemLabel="OBSERVAR" itemValue="2" />
+								</p:selectOneMenu></td>
+
+						</tr>
+					</table>
+				</p:panel></td>
+		</tr>
+	</table>
+</p:panel>
+</html>
