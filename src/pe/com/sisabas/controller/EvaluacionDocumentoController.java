@@ -56,7 +56,16 @@ public class EvaluacionDocumentoController extends BaseController {
 	private EvaluacionDocumentoResponse pedido;
 	private boolean esSeleccionadoPorRecibir = false;
 	private boolean esSeleccionadoPorAprobar = false;
+	private int selectAprobacion = 1;
 			
+	public int getSelectAprobacion() {
+		return selectAprobacion;
+	}
+
+	public void setSelectAprobacion(int selectAprobacion) {
+		this.selectAprobacion = selectAprobacion;
+	}
+
 	public boolean isEsSeleccionadoPorAprobar() {
 		return esSeleccionadoPorAprobar;
 	}
@@ -279,7 +288,7 @@ public class EvaluacionDocumentoController extends BaseController {
 	}
 	
 	public void validateSelectedRow() throws UnselectedRowException, CloneNotSupportedException {
-		if (selectedDocumentotecnico == null)
+		if (selectedPedido == null)
 			throw new UnselectedRowException(Messages.getString("no.record.selected"));
 		else
 			pedido = (EvaluacionDocumentoResponse)selectedPedido.clone();
@@ -318,18 +327,18 @@ public class EvaluacionDocumentoController extends BaseController {
 	 * Recibir documento técnico
 	 */
 	public void recibir() {
-		STATUS_INIT();
+		REGISTER_INIT();
 		try {
-			securityControlValidate("btnRecibir");
-			resetRegisterForm();
-			// accion = REGISTRAR;
+			securityControlValidate("btnRecibir");			
+			validateSelectedRow();
+			
 			TransactionRequest<Integer> request = new TransactionRequest<Integer>();
 			request.setUsuarioAuditoria("PRUEBA");
-			businessProgramacion.recibir(selectedPedido , request);				
+			businessProgramacion.recibirDocumentoTecnico(pedido, request);				
 			
-
-			STATUS_SUCCESS();
-			REGISTER_INIT();
+			showGrowlMessageSuccessfullyCompletedAction();
+			buscarPedidos();		
+			REGISTER_SUCCESS();
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
 		} catch (SecurityRestrictedControlException e) {
@@ -378,6 +387,42 @@ public class EvaluacionDocumentoController extends BaseController {
 		}
 	}
 	
+	public void aprobar() {
+		REGISTER_INIT();
+		try {
+			securityControlValidate("btnAprobar");			
+			validateSelectedRow();
+			
+			TransactionRequest<Integer> request = new TransactionRequest<Integer>();
+			request.setUsuarioAuditoria("PRUEBA");	
+			
+			if (this.selectAprobacion == 1){
+				businessProgramacion.aprobarDocumentoTecnico(pedido, request);	
+			}else{
+				businessProgramacion.observarDocumentoTecnico(pedido, request);
+			}				
+			
+			showGrowlMessageSuccessfullyCompletedAction();
+			buscarPedidos();		
+			REGISTER_SUCCESS();
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			STATUS_ERROR();
+			addErrorMessageKey("msgsForm", e);
+		}
+	}	
+	
 	public void aceptar(){
 		REGISTER_INIT();
 		try{
@@ -386,8 +431,7 @@ public class EvaluacionDocumentoController extends BaseController {
 			
 			buscarPedidos();
 			REGISTER_SUCCESS();
-			
-			/*
+						/*
 		} catch (ValidateException e) {
 			REGISTER_ERROR();
 			addMessageKey("msgsDocumentotecnicoR", e.getMessage(),

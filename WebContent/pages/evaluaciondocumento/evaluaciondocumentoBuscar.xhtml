@@ -86,7 +86,12 @@
 									rendered="#{evaluacionDocumento.renderButton('btnBuscar')}" />
 								<p:spacer width="20" />
 
-							 
+								<p:commandButton value="Recibir"
+									action="#{evaluacionDocumento.irRecibir}" update="hidStatus"
+									oncomplete="showDialog('form:hidStatus','form:cdRecibir');"
+									icon="fa fa-download" title="Recibir"
+									disabled="#{!evaluacionDocumento.esSeleccionadoPorRecibir}"
+									rendered="#{evaluacionDocumento.renderButton('btnRecibir')}" />							 
 																		
 								<p:commandButton value="Aprobación"
 									action="#{evaluacionDocumento.irAprobar}"
@@ -231,7 +236,17 @@
 						<h:outputText value="#{var.numeroExpedienteSinad}" />
 					</p:column>
 				</p:dataTable>
-				 
+
+				<p:confirmDialog id="cdRecibir"
+					message="Esta seguro de recibir el Documento técnico?"
+					header="Confirmación" severity="alert" widgetVar="cdRecibir">
+					<p:commandButton value="Si" action="#{evaluacionDocumento.recibir}"
+						update=":form:tblListaDocumentotecnico,:form:growl"
+						oncomplete="hideDialogPF('cdRecibir');" />
+					<p:commandButton value="No" onclick="hideDialogPF('cdRecibir');"
+						type="button" />
+				</p:confirmDialog>
+								 
 			</p:panel>
 		</h:form>
 
@@ -265,7 +280,7 @@
 
 		<h:form id="frmDocumentotecnicoRegistrar">
 			<p:dialog id="diDocumentotecnicoRegistrar"
-				header="#{documentotecnico.titulo}"
+				header="#{evaluacionDocumento.tituloParam} #{evaluacionDocumento.tituloBase} Aprobación"
 				widgetVar="diDocumentotecnicoRegistrar" resizable="false"
 				modal="true" dynamic="true">
 				<p:scrollPanel mode="native" style="width:100%;height:100%;">
@@ -278,10 +293,10 @@
 					<tr>
 						<td><h:inputHidden id="hidStatus"
 								value="#{documentotecnico.statusRegister}" /> <p:commandButton
-								value="Aceptar" action="#{documentotecnico.aceptar}"
+								value="Aceptar" action="#{evaluacionDocumento.aprobar}"
 								update="hidStatus,:form:tblListaDocumentotecnico,:form:growl,:form:pnlBotones,panelC"
 								oncomplete="hideDialog('frmDocumentotecnicoRegistrar:hidStatus','frmDocumentotecnicoRegistrar:diDocumentotecnicoRegistrar')"
-								icon="ui-icon-circle-check" title="Aceptar" /></td>
+								icon="ui-icon-circle-check" title="Aprobar / Observar" onclick="diDocumentotecnicoRegistrar.hide();" /></td>
 						<td>
 							<div align="right">
 								<p:commandButton value="Salir"

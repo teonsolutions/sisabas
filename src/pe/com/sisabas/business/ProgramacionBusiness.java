@@ -5,5 +5,7 @@ import pe.com.sisabas.dto.Resultado;
 import pe.com.sisabas.dto.TransactionRequest;
 
 public interface ProgramacionBusiness {
-	public Resultado recibir(EvaluacionDocumentoResponse item, TransactionRequest request) throws Exception;
+	public Resultado recibirDocumentoTecnico(EvaluacionDocumentoResponse item, TransactionRequest request) throws Exception;
+	public Resultado aprobarDocumentoTecnico(EvaluacionDocumentoResponse item, TransactionRequest request) throws Exception;
+	public Resultado observarDocumentoTecnico(EvaluacionDocumentoResponse item, TransactionRequest request) throws Exception;
 }

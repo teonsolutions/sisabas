@@ -21,7 +21,7 @@
 							<td><p:outputLabel value="Revisión:"
 									for="ddlEstadoAprobacion" id="lblIddocumentotecnico" /></td>
 							<td><p:selectOneMenu id="ddlEstadoAprobacion"
-									value="1" required="true">
+									value="#{evaluacionDocumento.selectAprobacion}" required="true">
 									<f:selectItem itemLabel="APROBAR" itemValue="1" />
 									<f:selectItem itemLabel="OBSERVAR" itemValue="2" />
 								</p:selectOneMenu></td>
