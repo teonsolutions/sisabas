@@ -64,10 +64,17 @@ public class ProgramacionController extends BaseController{
 								// padre)
 	
 	private String idOpcionText = "OPC_PAO";
+	public List<Gentabla> listaGentablaIdcatalogoestadopac;
+	public List<Gentabla> listaGentablaIdcatalogotipobien;
+	public List<Gentabla> listaGentablaIdcatalogotiponecesidad;
+	public List<Gentabla> listaGentablaIdcatalogotipocontratacion;
 	
 	//BUSINESS SECTION
 	@Autowired
 	public pe.com.sisabas.resources.business.UtilsBusiness utilsBusiness;
+	
+	@Autowired
+	public GentablaBusiness gentablaBusiness;
 	
 	@Autowired
 	public ProgramacionBusiness programacionBusiness;
@@ -99,6 +106,11 @@ public class ProgramacionController extends BaseController{
 			 * Gentabla().getObjBusqueda(Constantes.tabla.TITD));
 			 */
 
+			listaGentablaIdcatalogoestadopac = gentablaBusiness.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EPAC));
+			listaGentablaIdcatalogotipobien = gentablaBusiness.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TIBI));
+			listaGentablaIdcatalogotiponecesidad = gentablaBusiness.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TINE));
+			listaGentablaIdcatalogotipocontratacion = gentablaBusiness.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TCON));
+			
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
 		} catch (SecurityRestrictedControlException e) {
@@ -205,5 +217,37 @@ public class ProgramacionController extends BaseController{
 		this.currentPao = currentPao;
 	}
 
+	public List<Gentabla> getListaGentablaIdcatalogoestadopac() {
+		return listaGentablaIdcatalogoestadopac;
+	}
+
+	public void setListaGentablaIdcatalogoestadopac(List<Gentabla> listaGentablaIdcatalogoestadopac) {
+		this.listaGentablaIdcatalogoestadopac = listaGentablaIdcatalogoestadopac;
+	}
+
+	public List<Gentabla> getListaGentablaIdcatalogotipobien() {
+		return listaGentablaIdcatalogotipobien;
+	}
+
+	public void setListaGentablaIdcatalogotipobien(List<Gentabla> listaGentablaIdcatalogotipobien) {
+		this.listaGentablaIdcatalogotipobien = listaGentablaIdcatalogotipobien;
+	}
+
+	public List<Gentabla> getListaGentablaIdcatalogotiponecesidad() {
+		return listaGentablaIdcatalogotiponecesidad;
+	}
+
+	public void setListaGentablaIdcatalogotiponecesidad(List<Gentabla> listaGentablaIdcatalogotiponecesidad) {
+		this.listaGentablaIdcatalogotiponecesidad = listaGentablaIdcatalogotiponecesidad;
+	}
+
+	public List<Gentabla> getListaGentablaIdcatalogotipocontratacion() {
+		return listaGentablaIdcatalogotipocontratacion;
+	}
+
+	public void setListaGentablaIdcatalogotipocontratacion(List<Gentabla> listaGentablaIdcatalogotipocontratacion) {
+		this.listaGentablaIdcatalogotipocontratacion = listaGentablaIdcatalogotipocontratacion;
+	}
+	
 	
 }

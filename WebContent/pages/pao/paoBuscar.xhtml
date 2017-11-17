@@ -26,22 +26,59 @@
 							<td><p:outputLabel value="Tipo de Necesidad"
 									for="ddlTipoNecesidad" /></td>
 							<td><p:selectOneMenu id="ddlTipoNecesidad"
-									value="#{evaluacionDocumento.searchParam.idcatalogotiponecesidad}">
+									value="#{programacion.searchParam.idTipoNecesidad}">
 									<f:selectItems
-										value="#{pacconsolidado.listaGentablaIdcatalogotiponecesidad}"
-										var="var" itemLabel="#{var.vchregdescri}"
-										itemValue="#{var.vchregcodigo}" />
-								</p:selectOneMenu></td>
-							<td><p:outputLabel value="Tipo de bien" for="ddlTipoBien" /></td>
-							<td><p:selectOneMenu id="ddlTipoBien"
-									value="#{evaluacionDocumento.searchParam.idcatalogotipobien}">
-									<f:selectItem itemLabel="TODOS" itemValue="" />
-									<f:selectItems
-										value="#{pacconsolidado.listaGentablaIdcatalogotipobien}"
+										value="#{programacion.listaGentablaIdcatalogotiponecesidad}"
 										var="var" itemLabel="#{var.vchregdescri}"
 										itemValue="#{var.vchregcodigo}" />
 								</p:selectOneMenu></td>
 
+							<td><p:outputLabel value="Tipo de contratación"
+									for="ddlTipoContratacion" /></td>
+							<td><p:selectOneMenu id="ddlTipoContratacion"
+									value="#{programacion.searchParam.idTipoContratacion}">
+									<f:selectItem itemLabel="TODOS" itemValue="" />
+									<f:selectItems
+										value="#{programacion.listaGentablaIdcatalogotipocontratacion}"
+										var="var" itemLabel="#{var.vchregdescri}"
+										itemValue="#{var.vchregcodigo}" />
+								</p:selectOneMenu></td>
+
+							<td><p:outputLabel value="Tipo de Proceso"
+									for="ddlTipoProceso" /></td>
+							<td><p:selectOneMenu id="ddlTipoProceso"
+									value="#{evaluacionDocumento.searchParam.estadoPedido}">
+									<f:selectItem itemLabel="TODOS" itemValue="-1" />
+									<f:selectItem itemLabel="PENDIENTE" itemValue="0" />
+									<f:selectItem itemLabel="VB JEFE" itemValue="1" />
+									<f:selectItem itemLabel="APROBADO" itemValue="2" />
+									<f:selectItem itemLabel="REMITIDO A PROGRAMACIÓN" itemValue="3" />
+									<f:selectItem itemLabel="ATENDIDO" itemValue="8" />
+								</p:selectOneMenu></td>
+
+							<td><p:outputLabel value="Estado PAC" for="ddlEstadoPac" /></td>
+							<td><p:selectOneMenu id="ddlEstadoPac"
+									value="#{programacion.searchParam.estadoPac}">
+									<f:selectItem itemLabel="TODOS" itemValue="" />
+									<f:selectItems
+										value="#{programacion.listaGentablaIdcatalogoestadopac}"
+										var="var" itemLabel="#{var.vchregdescri}"
+										itemValue="#{var.vchregcodigo}" />
+								</p:selectOneMenu></td>
+
+
+							<td><p:outputLabel value="Tipo de bien" for="ddlTipoBien" /></td>
+							<td><p:selectOneMenu id="ddlTipoBien"
+									value="#{programacion.searchParam.idTipoBien}">
+									<f:selectItem itemLabel="TODOS" itemValue="" />
+									<f:selectItems
+										value="#{programacion.listaGentablaIdcatalogotipobien}"
+										var="var" itemLabel="#{var.vchregdescri}"
+										itemValue="#{var.vchregcodigo}" />
+								</p:selectOneMenu></td>
+
+						</tr>
+						<tr>
 							<td><p:outputLabel value="Estado de pedido"
 									for="ddlEstadoPedido" /></td>
 							<td><p:selectOneMenu id="ddlEstadoPedido"
@@ -54,21 +91,25 @@
 									<f:selectItem itemLabel="ATENDIDO" itemValue="8" />
 								</p:selectOneMenu></td>
 
-							<td><p:outputLabel value="Número Pedido" for="txtNroPedido" /></td>
-							<td><p:inputText id="txtNroPedido"
-									value="#{evaluacionDocumento.searchParam.nroDocumento}"
-									disabled="false" maxlength="5" style="width:150px;"
-									label="Número Pedido" /></td>
-
 							<td><p:outputLabel value="Número Sinad"
 									for="txtNumerosinad1" /></td>
 							<td><p:inputText id="txtNumerosinad1"
 									value="#{evaluacionDocumento.searchParam.numeroSinad}"
 									disabled="false" maxlength="10" style="width:150px;"
 									label="Numero Sinad" /></td>
+
+							<td><p:outputLabel value="Número PAO" for="txtNroPedido" /></td>
+							<td><p:inputText id="txtNroPedido"
+									value="#{evaluacionDocumento.searchParam.nroDocumento}"
+									disabled="false" maxlength="5" style="width:150px;"
+									label="Número Pedido" /></td>
+
+							<td><p:outputLabel value="Número PAAC" for="txtNroPac" /></td>
+							<td><p:inputText id="txtNroPac"
+									value="#{evaluacionDocumento.searchParam.nroDocumento}"
+									disabled="false" maxlength="5" style="width:150px;"
+									label="Número Paac" /></td>
 						</tr>
-
-
 					</table>
 				</p:panel>
 
