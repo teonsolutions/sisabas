@@ -179,4 +179,8 @@ public class Constantes {
 		public static final String ACTIVO = "1";
 		public static final String INACTIVO = "0";		
 	}
+	
+	public class unidadEjecutora{
+		public static final String PRONIED = "108";
+	}	
 }
