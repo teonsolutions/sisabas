@@ -26,6 +26,31 @@
       <result property = "tipoDocumentoSinad" column="TipoDocumentoSinad"/>
       <result property = "numeroDocumentoSinad" column="NumeroDocumentoSinad"/>
    </resultMap> 
+   
+   
+   <resultMap id = "result2" type = "pe.com.sisabas.be.RequerimientoItemResponse">
+      <result property = "idPedido" column="IdPedido"/>
+      <result property = "idDetallePedido" column="IdDetallePedido"/>
+      <result property = "grupoBien" column="GRUPO_BIEN"/>
+      <result property = "claseBien" column="CLASE_BIEN"/>
+      <result property = "familiaBien" column="FAMILIA_BIEN"/>
+      <result property = "itemBien" column="ITEM_BIEN"/>
+      <result property = "unidadMedida" column="UNIDAD_MEDIDA"/>
+      <result property = "nombreItem" column="NOMBRE_ITEM"/>
+      <result property = "cantSolicitada" column="CANTIDAD_SOLICITADA_SIGA"/>
+      <result property = "cantAprobada" column="CANTIDAD_APROBADA_SIGA"/>
+      <result property = "cantAtendida" column="CANTIDAD_ATENDIDA_SIGA"/>
+      <result property = "precioUnitario" column="PRECIO_UNITARIO"/>
+      <result property = "valortotal" column="VALOR_TOTAL"/>
+      <result property = "descripcionEstadoSiga" column="ESTA DO_PED_SIGA_DESC"/>
+      <result property = "idClasificador" column="ID_CLASIFICADOR"/>
+      <result property = "clasificador" column="CLASIFICADOR"/>
+      <result property = "tipoBien" column="TIPO_BIEN"/>
+      <result property = "codigoTareaPlanin" column="CodigoTareaPlanin"/>
+      <result property = "secFun" column="SEC_FUNC"/>
+      <result property = "nombreTarea" column="NOMBRE_TAREA_SIGA"/>
+   </resultMap> 
+   
 
    <select id = "selectDynamicFull" resultMap = "result" parameterType = "pe.com.sisabas.be.RequerimientoRequest" statementType = "CALLABLE">
       {call abas.paPedidosListarNoProgramado(
@@ -40,6 +65,14 @@
       )}
    </select> 
 
+   <select id = "selectDynamicBasic" resultMap = "result2" parameterType = "pe.com.sisabas.be.RequerimientoItemRequest" statementType = "CALLABLE">
+      {call abas.paPedidosListarItemsNoProgramados(
+            #{nroPedido},
+            #{codUnidadEjecutora},
+            #{ejercicio},
+            #{tipoBien}   
+      )}
+   </select> 
    
    </mapper>
    
