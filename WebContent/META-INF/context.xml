@@ -8,4 +8,7 @@
 		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
 		url="jdbc:sqlserver://10.40.7.126\insdes;databaseName=BDABASv1" />
 	
+	
+	<!-- jasaro21 -->
+	
 </Context>
