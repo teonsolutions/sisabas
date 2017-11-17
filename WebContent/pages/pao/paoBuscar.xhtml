@@ -1,0 +1,358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+	<ui:define name="center">
+		<h:form id="form">
+
+			<p:panel id="panel"
+				header="#{programacion.tituloParam} #{programacion.tituloBase} Buscar"
+				style="width:98%;">
+				<p:focus for="panel" />
+
+				<p:messages id="msgsForm" for="msgsForm" autoUpdate="true"
+					closable="true" showDetail="true" />
+				<p:growl id="growl" showDetail="true" for="growl" />
+
+				<p:panel>
+					<table style="width: 100%;" cellpadding="0" cellspacing="5">
+						<tr>
+							<td><p:outputLabel value="Tipo de Necesidad"
+									for="ddlTipoNecesidad" /></td>
+							<td><p:selectOneMenu id="ddlTipoNecesidad"
+									value="#{evaluacionDocumento.searchParam.idcatalogotiponecesidad}">
+									<f:selectItems
+										value="#{pacconsolidado.listaGentablaIdcatalogotiponecesidad}"
+										var="var" itemLabel="#{var.vchregdescri}"
+										itemValue="#{var.vchregcodigo}" />
+								</p:selectOneMenu></td>
+							<td><p:outputLabel value="Tipo de bien" for="ddlTipoBien" /></td>
+							<td><p:selectOneMenu id="ddlTipoBien"
+									value="#{evaluacionDocumento.searchParam.idcatalogotipobien}">
+									<f:selectItem itemLabel="TODOS" itemValue="" />
+									<f:selectItems
+										value="#{pacconsolidado.listaGentablaIdcatalogotipobien}"
+										var="var" itemLabel="#{var.vchregdescri}"
+										itemValue="#{var.vchregcodigo}" />
+								</p:selectOneMenu></td>
+
+							<td><p:outputLabel value="Estado de pedido"
+									for="ddlEstadoPedido" /></td>
+							<td><p:selectOneMenu id="ddlEstadoPedido"
+									value="#{evaluacionDocumento.searchParam.estadoPedido}">
+									<f:selectItem itemLabel="TODOS" itemValue="-1" />
+									<f:selectItem itemLabel="PENDIENTE" itemValue="0" />
+									<f:selectItem itemLabel="VB JEFE" itemValue="1" />
+									<f:selectItem itemLabel="APROBADO" itemValue="2" />
+									<f:selectItem itemLabel="REMITIDO A PROGRAMACIÓN" itemValue="3" />
+									<f:selectItem itemLabel="ATENDIDO" itemValue="8" />
+								</p:selectOneMenu></td>
+
+							<td><p:outputLabel value="Número Pedido" for="txtNroPedido" /></td>
+							<td><p:inputText id="txtNroPedido"
+									value="#{evaluacionDocumento.searchParam.nroDocumento}"
+									disabled="false" maxlength="5" style="width:150px;"
+									label="Número Pedido" /></td>
+
+							<td><p:outputLabel value="Número Sinad"
+									for="txtNumerosinad1" /></td>
+							<td><p:inputText id="txtNumerosinad1"
+									value="#{evaluacionDocumento.searchParam.numeroSinad}"
+									disabled="false" maxlength="10" style="width:150px;"
+									label="Numero Sinad" /></td>
+						</tr>
+
+
+					</table>
+				</p:panel>
+
+				<table style="width: 100%;" cellpadding="0" cellspacing="0"
+					border="0">
+					<tr>
+						<td valign="top"><p:panel id="pnlBotones"
+								styleClass="gandalfPnlBotonesClass">
+								<h:inputHidden id="hidStatus" value="#{programacion.status}" />
+								<p:commandButton widgetVar="btnBuscar" id="btnBuscar"
+									value="Buscar" action="#{programacion.buscarPao}"
+									update="tblListaDocumentotecnico,pnlBotones"
+									icon="ui-icon-search" title="Buscar"
+									rendered="#{programacion.renderButton('btnBuscar')}" />
+								<p:spacer width="20" />
+
+								<p:commandButton value="Registrar PAO"
+									action="#{evaluacionDocumento.irRecibir}" update="hidStatus"
+									oncomplete="showDialog('form:hidStatus','form:cdRecibir');"
+									icon="fa fa-pencil" title="Recibir"
+									disabled="#{!evaluacionDocumento.esSeleccionadoPorRecibir}"
+									rendered="#{evaluacionDocumento.renderButton('btnRecibir')}" />
+
+								<p:commandButton value="Aprobación"
+									action="#{evaluacionDocumento.irAprobar}"
+									update="hidStatus,:frmDocumentotecnicoRegistrar:diDocumentotecnicoRegistrar"
+									oncomplete="showDialog('form:hidStatus','frmDocumentotecnicoRegistrar:diDocumentotecnicoRegistrar');"
+									icon="fa fa-arrow-circle-o-right"
+									disabled="#{!evaluacionDocumento.esSeleccionadoPorAprobar}"
+									rendered="#{evaluacionDocumento.renderButton('btnAprobar')}" />
+
+								<p:commandButton value="Imprimir"
+									action="#{documentotecnico.irImprimir}"
+									update="hidStatus,:frmDocumentotecnicoImprimir:diDocumentotecnicoImprimir"
+									oncomplete="showDialog('form:hidStatus','frmDocumentotecnicoImprimir:diDocumentotecnicoImprimir');"
+									icon="ui-icon-print"
+									rendered="#{documentotecnico.renderButton('btnImprimir')}" />
+
+							</p:panel></td>
+						<td valign="top">
+							<div align="right" style="margin-top: 12px">
+								<p:commandButton value="Salir" action="#{pedido.load}"
+									ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir"
+									rendered="#{documentotecnico.esDerivada=='1'}" />
+								<p:commandButton value="Salir"
+									action="/pages/home.xhtml?faces-redirect=true" ajax="false"
+									icon="ui-icon-arrowreturnthick-1-w" title="Salir"
+									rendered="#{documentotecnico.esDerivada=='0'}" />
+							</div>
+						</td>
+					</tr>
+				</table>
+
+				<p:contextMenu for="tblListaDocumentotecnico">
+					<p:menuitem value="Editar" action="#{documentotecnico.irEditar}"
+						update="hidStatus,:frmDocumentotecnicoRegistrar:diDocumentotecnicoRegistrar"
+						oncomplete="showDialog('form:hidStatus','frmDocumentotecnicoRegistrar:diDocumentotecnicoRegistrar');"
+						icon="ui-icon-pencil"
+						rendered="#{documentotecnico.renderButton('btnEditar')}" />
+					<p:menuitem value="Detalle" action="#{documentotecnico.irDetalle}"
+						update="hidStatus,:frmDocumentotecnicoDetalle:diDocumentotecnicoDetalle"
+						oncomplete="showDialog('form:hidStatus','frmDocumentotecnicoDetalle:diDocumentotecnicoDetalle');"
+						icon="ui-icon-zoomin"
+						rendered="#{documentotecnico.renderButton('btnDetalle')}" />
+					<p:menuitem value="Anular/Activar"
+						action="#{documentotecnico.irAnular}"
+						update="hidStatus,:frmDocumentotecnicoAnular:diDocumentotecnicoAnular"
+						oncomplete="showDialog('form:hidStatus','frmDocumentotecnicoAnular:diDocumentotecnicoAnular');"
+						icon="ui-icon-circle-minus"
+						rendered="#{documentotecnico.renderButton('btnAnularActivar')}" />
+
+
+				</p:contextMenu>
+
+				<p:dataTable id="tblListaDocumentotecnico"
+					value="#{programacion.listaPao}" var="var"
+					emptyMessage="No se encontraron registros"
+					widgetVar="tblListaDocumentotecnico"
+					selection="#{programacion.selectedPao}" paginator="true"
+					rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(programacion.listaPao)}"
+					selectionMode="single" rowKey="#{var.nroConsolid}"
+					styleClass="gandalfTableClass">
+					<p:ajax event="rowSelect" listener="#{programacion.seleccionItem}"
+						update=":form:pnlBotones" immediate="true" />
+					<p:column styleClass="c_string" sortBy="#{var.nroConsolid}"
+						style="width: 100px">
+						<f:facet name="header">
+							<h:outputText value="Número PAO"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.nroConsolid}" />
+					</p:column>
+
+					<p:column styleClass="c_string" sortBy="#{var.numeroSinad}">
+						<f:facet name="header">
+							<h:outputText value="Número Sinad"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.numeroSinad}" />
+					</p:column>
+
+					<p:column styleClass="c_string" sortBy="#{var.tipoBienDesc}">
+						<f:facet name="header">
+							<h:outputText value="Tipo de bien"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.tipoBienDesc}" />
+					</p:column>
+
+					<p:column styleClass="c_string" sortBy="#{var.valorMoneda}">
+						<f:facet name="header">
+							<h:outputText value="Monto S/."></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.valorMoneda}" />
+					</p:column>
+					<p:column styleClass="c_string"
+						sortBy="#{var.especificacionTecnica}">
+						<f:facet name="header">
+							<h:outputText value="Descripción"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.especificacionTecnica}" />
+					</p:column>
+					<p:column styleClass="c_string"
+						sortBy="#{var.tipoContratacionDesc}">
+						<f:facet name="header">
+							<h:outputText value="Tipo de contratación"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.tipoContratacionDesc}" />
+					</p:column>
+					<p:column styleClass="c_string" sortBy="#{var.tipoNecesidadDesc}">
+						<f:facet name="header">
+							<h:outputText value="Tipo de necesidad"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.tipoNecesidadDesc}" />
+					</p:column>
+					<p:column styleClass="c_string" sortBy="#{var.tipoProcesoDesc}">
+						<f:facet name="header">
+							<h:outputText value="Tipo de Proceso"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.tipoProcesoDesc}" />
+					</p:column>
+					<p:column styleClass="c_string" sortBy="#{var.nroProceso}">
+						<f:facet name="header">
+							<h:outputText value="Número Proceso"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.nroProceso}" />
+					</p:column>
+					<p:column styleClass="c_string"
+						sortBy="#{var.estadoRequerimientoDesc}">
+						<f:facet name="header">
+							<h:outputText value="Estado Requerimiento"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.estadoRequerimientoDesc}" />
+					</p:column>
+				</p:dataTable>
+
+				<p:confirmDialog id="cdRecibir"
+					message="Esta seguro de recibir el Documento técnico?"
+					header="Confirmación" severity="alert" widgetVar="cdRecibir">
+					<p:commandButton value="Si" action="#{evaluacionDocumento.recibir}"
+						update=":form:tblListaDocumentotecnico,:form:growl"
+						oncomplete="hideDialogPF('cdRecibir');" />
+					<p:commandButton value="No" onclick="hideDialogPF('cdRecibir');"
+						type="button" />
+				</p:confirmDialog>
+
+			</p:panel>
+		</h:form>
+
+		<h:form id="frmDocumentotecnicoImprimir">
+			<p:dialog id="diDocumentotecnicoImprimir"
+				header="#{documentotecnico.titulo}"
+				widgetVar="diDocumentotecnicoImprimir" resizable="false"
+				modal="true" dynamic="true">
+				<h:panelGrid columns="1" style="text-align:center;">
+
+					<p:commandButton icon="ui-icon-circle-arrow-s"
+						value="Exportar Lista Excel" ajax="false" style="width:100px;">
+						<p:dataExporter type="xls" target=":form:tblListaDocumentotecnico"
+							fileName="datosDocumentotecnico"
+							postProcessor="#{documentotecnico.postProcessXLS}" />
+					</p:commandButton>
+
+					<ui:remove>
+						<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf"
+							ajax="false" style="width:100px;">
+							<p:dataExporter type="pdf"
+								target=":form:tblListaDocumentotecnico" fileName="datos"
+								preProcessor="#{documentotecnico.preProcessPDF}" />
+						</p:commandButton>
+					</ui:remove>
+
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+
+
+		<h:form id="frmDocumentotecnicoRegistrar">
+			<p:dialog id="diDocumentotecnicoRegistrar"
+				header="#{evaluacionDocumento.tituloParam} #{evaluacionDocumento.tituloBase} Aprobación"
+				widgetVar="diDocumentotecnicoRegistrar" resizable="false"
+				modal="true" dynamic="true">
+				<p:scrollPanel mode="native" style="width:100%;height:100%;">
+					<p:messages for="msgsDocumentotecnicoR" autoUpdate="true"
+						closable="true" />
+					<ui:include
+						src="/pages/evaluaciondocumento/component/c_evaluaciondocumentoAprobar.xhtml" />
+				</p:scrollPanel>
+				<table style="width: 100%;">
+					<tr>
+						<td><h:inputHidden id="hidStatus"
+								value="#{documentotecnico.statusRegister}" /> <p:commandButton
+								value="Aceptar" action="#{evaluacionDocumento.aprobar}"
+								update="hidStatus,:form:tblListaDocumentotecnico,:form:growl,:form:pnlBotones,panelC"
+								oncomplete="hideDialog('frmDocumentotecnicoRegistrar:hidStatus','frmDocumentotecnicoRegistrar:diDocumentotecnicoRegistrar')"
+								icon="ui-icon-circle-check" title="Aprobar / Observar"
+								onclick="diDocumentotecnicoRegistrar.hide();" /></td>
+						<td>
+							<div align="right">
+								<p:commandButton value="Salir"
+									icon="ui-icon-arrowreturnthick-1-w" title="Salir"
+									onclick="hideDialogPF('frmDocumentotecnicoRegistrar:diDocumentotecnicoRegistrar');return false;" />
+							</div>
+						</td>
+					</tr>
+				</table>
+			</p:dialog>
+		</h:form>
+
+
+		<h:form id="frmDocumentotecnicoDetalle">
+			<p:dialog id="diDocumentotecnicoDetalle"
+				header="#{documentotecnico.titulo}"
+				widgetVar="diDocumentotecnicoDetalle" resizable="false" modal="true"
+				dynamic="true">
+				<p:scrollPanel mode="native" style="width:100%;height:100%;">
+					<ui:include
+						src="/pages/documentotecnico/component/c_documentotecnicoDetalle.xhtml" />
+				</p:scrollPanel>
+				<table style="width: 100%;">
+					<tr>
+						<td>
+							<div align="right">
+								<p:commandButton value="Salir"
+									icon="ui-icon-arrowreturnthick-1-w" title="Salir"
+									onclick="hideDialogPF('frmDocumentotecnicoDetalle:diDocumentotecnicoDetalle');return false;" />
+							</div>
+						</td>
+					</tr>
+				</table>
+			</p:dialog>
+		</h:form>
+
+
+		<h:form id="frmDocumentotecnicoAnular">
+			<p:dialog id="diDocumentotecnicoAnular"
+				header="#{documentotecnico.titulo}"
+				widgetVar="diDocumentotecnicoAnular" resizable="false" modal="true"
+				dynamic="true">
+				<p:scrollPanel mode="native" style="width:100%;height:100%;">
+					<p:messages for="msgsDocumentotecnicoA" autoUpdate="true"
+						closable="true" />
+					<ui:include
+						src="/pages/documentotecnico/component/c_documentotecnicoDetalleSimple.xhtml" />
+				</p:scrollPanel>
+				<table style="width: 100%;">
+					<tr>
+						<td><h:inputHidden id="hidStatus"
+								value="#{documentotecnico.statusRegister}" /> <p:commandButton
+								value="Aceptar" action="#{documentotecnico.anular}"
+								update="hidStatus,:form:tblListaDocumentotecnico,:form:growl,panelDetailC"
+								oncomplete="hideDialog('frmDocumentotecnicoAnular:hidStatus','frmDocumentotecnicoAnular:diDocumentotecnicoAnular')"
+								icon="ui-icon-circle-check" title="Aceptar" /></td>
+						<td>
+							<div align="right">
+								<p:commandButton value="Salir"
+									icon="ui-icon-arrowreturnthick-1-w" title="Salir"
+									onclick="hideDialogPF('frmDocumentotecnicoAnular:diDocumentotecnicoAnular');return false;" />
+							</div>
+						</td>
+					</tr>
+				</table>
+			</p:dialog>
+		</h:form>
+
+
+
+	</ui:define>
+</ui:composition>

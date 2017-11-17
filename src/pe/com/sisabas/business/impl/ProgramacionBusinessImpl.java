@@ -1,6 +1,7 @@
 package pe.com.sisabas.business.impl;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,14 @@ import pe.com.sisabas.be.Pedido;
 import pe.com.sisabas.business.ProgramacionBusiness;
 import pe.com.sisabas.controller.PedidoController;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
+import pe.com.sisabas.dto.PaoRequest;
+import pe.com.sisabas.dto.PaoResponse;
 import pe.com.sisabas.dto.Resultado;
 import pe.com.sisabas.dto.TransactionRequest;
 import pe.com.sisabas.persistence.DocumentotecnicoMapper;
 import pe.com.sisabas.persistence.EstadosporetapapordocumentoMapper;
 import pe.com.sisabas.persistence.EstadosportipodocumentoMapper;
+import pe.com.sisabas.persistence.PacconsolidadoMapper;
 import pe.com.sisabas.persistence.PacprogramadoMapper;
 import pe.com.sisabas.persistence.PedidoMapper;
 import pe.com.sisabas.resources.Constantes;
@@ -41,6 +45,9 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 
 	@Autowired
 	public EstadosporetapapordocumentoMapper estadosporetapapordocumentoMapper;	
+
+	@Autowired
+	public PacconsolidadoMapper pacconsolidadoMapper;
 	
 	@Autowired
 	public UtilsBusiness utilsBusiness;
@@ -199,6 +206,12 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 		}		
 		
 		return result;
+	}
+
+	@Override
+	public List<PaoResponse> getPaoListado(PaoRequest record) throws Exception {
+		// TODO Auto-generated method stub
+		return pacconsolidadoMapper.getPaoListado(record);
 	}
 
 		
