@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pe.com.sisabas.be.Gentipo;
+import pe.com.sisabas.be.RequerimientoItemRequest;
+import pe.com.sisabas.be.RequerimientoItemResponse;
 import pe.com.sisabas.be.RequerimientoRequest;
 import pe.com.sisabas.be.RequerimientoResponse;
 import pe.com.sisabas.business.GentipoBusiness;
@@ -17,6 +19,11 @@ import pe.com.sisabas.persistence.RequerimientoMapper;
 
 @Service
 public class RequerimientoBusinessImpl implements RequerimientoBusiness, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static Logger logger=Logger.getLogger(RequerimientoBusinessImpl.class);
 
 	@Autowired
@@ -31,6 +38,12 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 				row.roundBigDecimals();
 			}
 
+			return lista;
+	}
+
+	@Override
+	public List<RequerimientoItemResponse> selectDynamicBasic(RequerimientoItemRequest request) throws Exception {
+		List<RequerimientoItemResponse> lista = requerimientoMapper.selectDynamicBasic(request);
 			return lista;
 	}
 
