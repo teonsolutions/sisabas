@@ -31,7 +31,7 @@
 <p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
 <p:growl id="growl" showDetail="true" for="growl"/>
 
-<p:panel>
+<p:panel id="entrada">
 <table style="width:100%;" cellpadding="0" cellspacing="5">
 	<tr>
 
@@ -99,9 +99,9 @@
 			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
 				<h:inputHidden id="hidStatus" value="#{requerimiento.status}"/>
 			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{requerimiento.buscarRequerimientos}"  update="tblListaRequerimiento,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{requerimiento.renderButton('btnBuscar')}"   />
-				<p:spacer width="20"/>
-				 <p:commandLink id="ajax" update="growl" actionListener="#{buttonView.buttonAction}">
-                   <p:outputLabel style="" value="Limpiar" />
+				<p:spacer width="10"/>
+				 <p:commandLink id="ajax" update="entrada"  value="Limpiar" process="@this" style="margin-right:20px;text-decoration: underline;">
+                   <p:resetInput target="entrada" />
                  </p:commandLink>      
 			</p:panel>
 		</td>
@@ -134,8 +134,8 @@
 			<f:facet name="header">
 				<h:outputText value="Acciones" styleClass="c_center"/>
 			</f:facet>
-			     <p:commandButton update=":form:requerimientoDetalle" oncomplete="PF('reqDialog').show()" icon="fa fa-child" title="Asociar al POI">
-                <f:setPropertyActionListener value="#{var}" target="#{requerimiento.requerimientoResponse}" />
+			     <p:commandButton update=":form:requerimientoDetalle"  icon="fa fa-child" title="Asociar al POI" action="#{requerimiento.buscarItemRequerimientos}"    oncomplete="PF('reqDialog').show()">
+                    <f:setPropertyActionListener value="#{var}" target="#{requerimiento.requerimientoResponse}" />
                  </p:commandButton>
 		</p:column> 
 		<p:column styleClass="c_center" sortBy="#{var.nropedido}">
@@ -169,14 +169,14 @@
 			<f:facet name="header">
 				<h:outputText value="Estado del pedido (SIGA)" styleClass="c_center"/>
 			</f:facet>
-			<h:outputText value="#{var.estadoSiga}"/>
+			<h:outputText value="#{var.estadoRequerimiento}"/>
 		</p:column>
 	
 		<p:column styleClass="c_string" sortBy="#{var.estadoPedidoIn}">
 			<f:facet name="header">
 				<h:outputText value="Estado del pedido(SisAbas)" styleClass="c_center"/>
 			</f:facet>
-			<h:outputText value="#{var.estadoPedidoIn}"/>
+			<h:outputText value="#{var.desEstadoIn}"/>
 		</p:column>
 		<p:column styleClass="c_string" sortBy="#{var.numeroExpedienteSinad}">
 			<f:facet name="header">
@@ -195,14 +195,18 @@
 	     <p:messages for="msgsGentablaR" autoUpdate="true" closable="true"/>
 	     <ui:include src="/pages/requerimiento/component/c_requerimientosPoi.xhtml"/>
   </p:scrollPanel>  
+  <div style="text-align: left;">
+   <p:outputLabel value="Las tareas corresponden al Plan Operativo Institucional registrado en el PLANIN." />
+   <br/><br/>
+  </div>
   <table style="width: 70%;">
 			<tr>
 				<td>
-					<p:commandButton value="Aceptar" action="#{gentipo.aceptar}" icon="ui-icon-circle-check" title="Aceptar"/>
+					<p:commandButton value="GRABAR" action="#{gentipo.aceptar}" icon="ui-icon-circle-check" title="Aceptar"/>
 				</td>
 				<td>
 					<div align="right">
-						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmGentipoRegistrar:diGentipoRegistrar');return false;"/>
+						<p:commandButton value="CANCELAR" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmGentipoRegistrar:diGentipoRegistrar');return false;"/>
 					</div>
 				</td>
 			</tr>

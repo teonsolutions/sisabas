@@ -33,6 +33,37 @@
                 
                </p:panelGrid>
               </div>
+                 
+                  <p:dataTable var="var" value="#{requerimiento.listaItemRequerimientos}" style="white-space:nowrap!important; width:800px; font-size:5px;" reflow="true" scrollable="true" scrollHeight="#{requerimiento.tam}">
+		            <p:column width="8%"  headerText="NÚMERO DEL ITEM">
+		                <h:outputText value="#{var.itemBien}" />
+		            </p:column>
+		         
+		            <p:column headerText="DESCRIPCIÓN">
+		                <h:outputText value="#{var.nombreItem}" />
+		            </p:column>
+		         
+		            <p:column headerText="TAREA(SIGA)">
+		                <h:outputText value="#{var.nombreTarea}" />
+		            </p:column>
+		         
+		            <p:column headerText="SEC_FUNC" width="8%" >
+		                <h:outputText value="#{var.secFun}" />
+		            </p:column>
+		            
+		             <p:column headerText="ACTIVIDAD(PLANIN)">
+		                <h:outputText value="---" />
+		            </p:column>
+		            
+		             <p:column headerText="TAREA(PLANIN)">
+		                <h:outputText value="---" />
+		            </p:column>
+		             <f:facet name="footer" >
+		             TOTAL DE ITEMS #{fn:length(requerimiento.listaItemRequerimientos)}.
+		            </f:facet>
+                  </p:dataTable>
+           
+           
              </div>
             </div>
          
