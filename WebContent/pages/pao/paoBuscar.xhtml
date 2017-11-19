@@ -127,11 +127,11 @@
 								<p:spacer width="20" />
 
 								<p:commandButton value="Registrar PAO"
-									action="#{evaluacionDocumento.irRecibir}" update="hidStatus"
+									action="#{programacion.ordenRegistrar}" update="hidStatus"
 									oncomplete="showDialog('form:hidStatus','form:cdRecibir');"
-									icon="fa fa-pencil" title="Recibir"
-									disabled="#{!evaluacionDocumento.esSeleccionadoPorRecibir}"
-									rendered="#{evaluacionDocumento.renderButton('btnRecibir')}" />
+									icon="fa fa-pencil" title="Registrar PAO"
+									disabled="#{!programacion.esSeleccionado}"
+									rendered="#{programacion.renderButton('btnRecibir')}" />
 
 								<p:commandButton value="Aprobación"
 									action="#{evaluacionDocumento.irAprobar}"
