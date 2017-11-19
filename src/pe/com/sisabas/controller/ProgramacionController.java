@@ -29,6 +29,7 @@ import pe.com.sisabas.resources.controller.BaseController;
 import pe.com.sisabas.resources.Messages;
 import pe.com.sisabas.resources.Constantes;
 import pe.com.sisabas.resources.Utils;
+import pe.com.sisabas.resources.UtilsSecurity;
 import pe.com.sisabas.service.SicuCallService;
 import java.rmi.RemoteException;
 import pe.com.sisabas.exception.SecurityRestrictedControlException;
@@ -68,6 +69,9 @@ public class ProgramacionController extends BaseController{
 	public List<Gentabla> listaGentablaIdcatalogotipobien;
 	public List<Gentabla> listaGentablaIdcatalogotiponecesidad;
 	public List<Gentabla> listaGentablaIdcatalogotipocontratacion;
+	
+	//Direct
+	public static String SUCCESS_ORDEN="/pages/pao/ordenRegistrar.xhtml?faces-redirect=true;";
 	
 	//BUSINESS SECTION
 	@Autowired
@@ -167,6 +171,36 @@ public class ProgramacionController extends BaseController{
 		else
 			this.setCurrentPao((PaoResponse)this.selectedPao.clone());
 	}	
+	
+	public String ordenRegistrar()
+	{
+		logger.debug("paoRegistrar....");	
+		try {
+			if (this.esSeleccionado){
+				
+			}
+			if (this.currentPao == null){
+				this.currentPao = new PaoResponse();
+			}
+			this.currentPao.setNroConsolid(1234);
+			/*
+		} catch (RemoteException e) {
+			STATUS_ERROR();				
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"),e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
+			return "/login.xhtml";
+		} catch (ValidateException e) {			
+			addMessage(e.getMessage(),
+			FacesMessage.SEVERITY_ERROR);
+			return "/login.xhtml";
+			*/
+		} catch (Exception e) {
+			addErrorMessage(e);
+			return "/login.xhtml";
+		}		
+			
+		return SUCCESS_ORDEN;
+	}
 	
 	//PROPERTIES	
 	public List<PaoResponse> getListaPao() {
