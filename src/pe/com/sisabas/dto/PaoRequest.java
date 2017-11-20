@@ -16,6 +16,7 @@ public class PaoRequest {
 	private String especificacionTecnica;
 	private int pageNumber;
 	private int pageSize;
+	private int idUnidadEjecutora;
 	
 	public String getCodigoUnidadEjecutora() {
 		return codigoUnidadEjecutora;
@@ -106,5 +107,12 @@ public class PaoRequest {
 	}
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
-	}	
+	}
+	
+	public int getIdUnidadEjecutora() {
+		return idUnidadEjecutora;
+	}
+	public void setIdUnidadEjecutora(int idUnidadEjecutora) {
+		this.idUnidadEjecutora = idUnidadEjecutora;
+	}
 }

@@ -1,8 +1,14 @@
 package pe.com.sisabas.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class PaoResponse implements  Serializable,Cloneable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Integer idPacConsolid;
 	private Integer idAntecedentePacConsolid;
 	private String nroPac;
@@ -20,8 +26,10 @@ public class PaoResponse implements  Serializable,Cloneable {
 	private Integer estadoRequerimiento;
 	private String estadoRequerimientoDesc;
 	private String idDocumentos;
-	private int rowTotal;	
-	
+	private int rowTotal;
+	private List<PedidosPaoResponse> pedidos;
+	private CompraDirectaDatosGeneralesDto compraDirecta;
+
 	public Integer getIdPacConsolid() {
 		return idPacConsolid;
 	}
@@ -129,6 +137,20 @@ public class PaoResponse implements  Serializable,Cloneable {
 	}
 	public void setRowTotal(int rowTotal) {
 		this.rowTotal = rowTotal;
+	}
+
+	public List<PedidosPaoResponse> getPedidos() {
+		return pedidos;
+	}
+	public void setPedidos(List<PedidosPaoResponse> pedidos) {
+		this.pedidos = pedidos;
+	}
+	
+	public CompraDirectaDatosGeneralesDto getCompraDirecta() {
+		return compraDirecta;
+	}
+	public void setCompraDirecta(CompraDirectaDatosGeneralesDto compraDirecta) {
+		this.compraDirecta = compraDirecta;
 	}
 	
 	@Override

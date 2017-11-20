@@ -39,8 +39,10 @@ import pe.com.sisabas.be.Documentotecnico;
 import pe.com.sisabas.business.DocumentotecnicoBusiness;
 import pe.com.sisabas.business.GentablaBusiness;
 import pe.com.sisabas.business.ProgramacionBusiness;
+import pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto;
 import pe.com.sisabas.dto.EvaluacionDocumentoRequest;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
+import pe.com.sisabas.dto.PedidosPaoResponse;
 import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
 import pe.com.sisabas.dto.TransactionRequest;
@@ -62,8 +64,11 @@ public class ProgramacionController extends BaseController{
 	private PaoResponse currentPao;
 	private String tituloBase; // titulo de la opcion
 	private String tituloParam;// titulo que llega como parametro (derivada
-								// padre)
-	
+								// padre)	
+	//To functionality
+	private boolean disabledTabEstudioMercado;
+	private boolean disabledTabOrden;
+
 	private String idOpcionText = "OPC_PAO";
 	public List<Gentabla> listaGentablaIdcatalogoestadopac;
 	public List<Gentabla> listaGentablaIdcatalogotipobien;
@@ -176,13 +181,32 @@ public class ProgramacionController extends BaseController{
 	{
 		logger.debug("paoRegistrar....");	
 		try {
+			
+			validateSelectedRow();
 			if (this.esSeleccionado){
 				
 			}
 			if (this.currentPao == null){
 				this.currentPao = new PaoResponse();
 			}
-			this.currentPao.setNroConsolid(1234);
+			
+			this.setDisabledTabEstudioMercado(this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);			
+			this.setDisabledTabOrden(this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
+			
+			PaoRequest record = new PaoRequest();
+			record.setIdUnidadEjecutora(1);
+			record.setAnio(2017);
+			record.setNroConsolid(this.currentPao.getNroConsolid());
+			
+			CompraDirectaDatosGeneralesDto cd = programacionBusiness.getCompraDirectaDatosGenerales(record);			
+			List<PedidosPaoResponse> pedidos = programacionBusiness.getPedidosPao(record);
+			
+			
+			this.currentPao.setCompraDirecta(cd);
+			this.currentPao.setPedidos(pedidos);
+			
+			//this.currentPao.setNroConsolid(1234);			
+			
 			/*
 		} catch (RemoteException e) {
 			STATUS_ERROR();				
@@ -283,5 +307,20 @@ public class ProgramacionController extends BaseController{
 		this.listaGentablaIdcatalogotipocontratacion = listaGentablaIdcatalogotipocontratacion;
 	}
 	
+	public boolean isDisabledTabEstudioMercado() {
+		return disabledTabEstudioMercado;
+	}
+
+	public void setDisabledTabEstudioMercado(boolean disabledTabEstudioMercado) {
+		this.disabledTabEstudioMercado = disabledTabEstudioMercado;
+	}
+
+	public boolean isDisabledTabOrden() {
+		return disabledTabOrden;
+	}
+
+	public void setDisabledTabOrden(boolean disabledTabOrden) {
+		this.disabledTabOrden = disabledTabOrden;
+	}
 	
 }

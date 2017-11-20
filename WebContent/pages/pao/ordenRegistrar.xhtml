@@ -17,30 +17,58 @@
 					<p:tab title="Datos generales">
 						<p:accordionPanel multiple="true" activeIndex="0,1,2,3,4">
 							<p:tab title="Identificación">
-								<p:dataTable>
-									<p:column headerText="N° Pedido">
-										<h:outputText value="009045" />
+								<p:dataTable id="tblListaPedidos"
+									value="#{programacion.currentPao.pedidos}" var="var"
+									widgetVar="tblListaPedidos"
+									emptyMessage="No se encontraron registros"
+									selectionMode="single" rowKey="#{var.nroPedido}"
+									styleClass="gandalfTableClass">
+									<!--  
+								<p:ajax event="rowSelect" update=":form:pnlBotones" immediate="true"/>
+								-->
+									<p:column styleClass="c_string" headerText="N° Pedido">
+										<f:facet name="header">
+											<h:outputText value="N° Pedido" />
+										</f:facet>
+										<h:outputText value="#{var.nroPedido}" />
 									</p:column>
 									<p:column headerText="Oficina Usuaria">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText value="Oficina Usuaria" />
+										</f:facet>
+										<h:outputText value="#{var.centroCostoDesc}" />
 									</p:column>
 									<p:column headerText="Descripción">
-										<h:outputText value="COMPRA DE COMPUTADORES" />
+										<f:facet name="header">
+											<h:outputText value="Descripción" />
+										</f:facet>
+										<h:outputText value="#{var.motivoPedido}" />
 									</p:column>
 									<p:column headerText="Estado">
-										<h:outputText value="DOCUMENTO TÉCNICO APROBADO" />
+										<f:facet name="header">
+											<h:outputText value="Estado" />
+										</f:facet>
+										<h:outputText value="#{var.descripcionEstadoPorEtapa}" />
 									</p:column>
 									<p:column headerText="Sinad">
-										<h:outputText value="UGME-545-4545" />
+										<f:facet name="header">
+											<h:outputText value="Sinad" />
+										</f:facet>
+										<h:outputText value="#{var.numeroExpedienteSinad}" />
 									</p:column>
 									<p:column headerText="Principal">
-										<h:outputText value="UGME-545-4545" />
+										<f:facet name="header">
+											<h:outputText value="Principal" />
+										</f:facet>
+										<h:outputText value="#{var.esPrincipal}" />
 									</p:column>
 								</p:dataTable>
 								<p:outputLabel value="Fecha de recepción"
 									for="txtFechaRecepcion" id="lblFechaRecepcion" />
-								<p:inputText id="txtFechaRecepcion" required="true" value="#{programacion.currentPao.nroConsolid}"
-									maxlength="10" style="width:150px;" label="Fecha de recepción" disabled="true" />
+								<p:inputText id="txtFechaRecepcion" required="true"
+									value="#{programacion.currentPao.compraDirecta.fechaDocumentoTecnico}"
+									maxlength="10" style="width:150px;" label="Fecha de recepción"
+									disabled="true" />
 
 							</p:tab>
 							<p:tab title="Control de producto">
@@ -71,11 +99,19 @@
 									</tr>
 									<tr>
 										<td><p:inputText id="txtNumeroPAO" required="true"
-												maxlength="10" style="width:150px;" label="Número PAO" disabled="true" /></td>
+												maxlength="10" style="width:150px;" label="Número PAO"
+												disabled="true"
+												value="#{programacion.currentPao.nroConsolid}" /></td>
 										<td><p:inputText id="txtFechaPAO" required="true"
-												maxlength="10" style="width:150px;" label="Fecha PAO" disabled="true"/></td>
-										<td><p:inputText id="txtMontoPAO" required="true"
-												maxlength="10" style="width:150px;" label="Monto del PAO" disabled="true" /></td>
+												maxlength="10" style="width:150px;" label="Fecha PAO"
+												disabled="true"
+												value="#{programacion.currentPao.compraDirecta.fechaPao}">
+												<f:convertDateTime pattern="dd/MM/yyyy" />
+											</p:inputText></td>
+										<td><p:inputNumber id="txtMontoPAO" required="true"
+												maxlength="10" style="width:150px;" label="Monto del PAO"
+												disabled="true"
+												value="#{programacion.currentPao.valorMoneda}" /></td>
 									</tr>
 									<tr>
 										<td colspan="3"><p:outputLabel
@@ -84,7 +120,9 @@
 									</tr>
 									<tr>
 										<td colspan="3"><p:inputTextarea id="txtDescripcionPAO"
-												rows="10" cols="50" queryDelay="750" minQueryLength="4" /></td>
+												rows="10" cols="50" queryDelay="750" minQueryLength="4"
+												disabled="true"
+												value="#{programacion.currentPao.compraDirecta.especificacionTecnica}" /></td>
 									</tr>
 									<tr>
 										<td colspan="3"><p:outputLabel value="Items"
@@ -125,13 +163,19 @@
 									</tr>
 									<tr>
 										<td><p:inputText id="txtNumeroCPP" required="true"
-												maxlength="10" style="width:150px;" label="Número de CPP" disabled="true" /></td>
+												maxlength="10" style="width:150px;" label="Número de CPP"
+												disabled="true"
+												value="#{programacion.currentPao.compraDirecta.nroCP}" /></td>
 										<td><p:inputText id="txtFechaAprobacionCPP"
 												required="true" maxlength="10" style="width:150px;"
-												label="Fecha aprobación" disabled="true" /></td>
-										<td><p:inputText id="txtMontoCertificado" required="true"
-												maxlength="10" style="width:150px;"
-												label="Monto certificado" disabled="true" /></td>
+												label="Fecha aprobación" disabled="true"
+												value="#{programacion.currentPao.compraDirecta.fechaCP}">
+												<f:convertDateTime pattern="dd/MM/yyyy" />
+											</p:inputText></td>
+										<td><p:inputNumber id="txtMontoCertificado"
+												required="true" maxlength="10" style="width:150px;"
+												label="Monto certificado" disabled="true"
+												value="#{programacion.currentPao.compraDirecta.montoCP}" /></td>
 									</tr>
 									<tr>
 										<td colspan="3"><p:dataTable>
@@ -172,7 +216,8 @@
 									<tr>
 										<td><p:inputText id="txtTipoAdquisicion" required="true"
 												maxlength="10" style="width:150px;"
-												label="Tipo de adquisión" disabled="true" /></td>
+												label="Tipo de adquisión" disabled="true"
+												value="ADQUISICIÓN SIN PROCESO" /></td>
 										<td><p:outputPanel id="customPanel"
 												style="margin-bottom:10px">
 												<p:selectOneRadio id="compraDirectaRadio" layout="custom">
@@ -200,8 +245,15 @@
 								</table>
 							</p:tab>
 						</p:accordionPanel>
+						<p:commandButton value="Guardar" icon="fa fa-pencil"
+							title="Guardar datos generales"
+							disabled="#{!programacion.esSeleccionado}"
+							rendered="#{programacion.renderButton('btnGuadarDatosGenerales')}" />
+						<p:commandButton value="Cancelar" action="#{programacion.load}"
+							ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Cancelar" />
 					</p:tab>
-					<p:tab title="Estudio del mercado">
+					<p:tab title="Estudio del mercado"
+						disabled="#{programacion.disabledTabEstudioMercado}">
 						<p:fieldset>
 							<h:panelGrid columns="2">
 								<p:dataTable>
@@ -249,7 +301,7 @@
 							</h:panelGrid>
 						</p:fieldset>
 					</p:tab>
-					<p:tab title="Orden">
+					<p:tab title="Orden" disabled="#{programacion.disabledTabOrden}">
 						<p:accordionPanel multiple="true" activeIndex="0,1,2,3">
 							<p:tab title="Orden">
 								<p:dataTable>

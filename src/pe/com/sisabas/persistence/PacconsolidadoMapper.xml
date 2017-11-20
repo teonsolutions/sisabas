@@ -100,6 +100,46 @@
 		<result column="ROWTOTAL" property="rowTotal" jdbcType="INTEGER"/>
 	</resultMap>	
 
+	<resultMap type="pe.com.sisabas.dto.PedidosPaoResponse" id="PedidosPao">
+		<result column="ID_PEDIDO_POR_PAC_CONSOLIDADO" property="idPedidoPorPacConsolidado" jdbcType="INTEGER"/>
+		<result column="IdPacConsolidado" property="idPacConsolidado" jdbcType="INTEGER"/>
+		<result column="IdPedido" property="idPedido" jdbcType="INTEGER"/>
+		<result column="EstadoPedido" property="estadoPedido" jdbcType="INTEGER"/>
+		<result column="DescripcionEstadoPorEtapa" property="descripcionEstadoPorEtapa" jdbcType="VARCHAR"/>
+		<result column="NumeroSinad" property="numeroSinad" jdbcType="VARCHAR"/>
+		<result column="AnioSinad" property="anioSinad" jdbcType="INTEGER"/>
+		<result column="NumeroExpedienteSinad" property="numeroExpedienteSinad" jdbcType="VARCHAR"/>
+		<result column="TipoDocumentoSinad" property="tipoDocumentoSinad" jdbcType="VARCHAR"/>
+		<result column="NumeroDocumentoSinad" property="numeroDocumentoSinad" jdbcType="VARCHAR"/>
+		<result column="TipoBienDesc" property="tipoBienDesc" jdbcType="VARCHAR"/>
+		<result column="NRO_PEDIDO" property="nroPedido" jdbcType="VARCHAR"/>
+		<result column="FECHA_PEDIDO" property="fechaPedido" jdbcType="DATE"/>
+		<result column="MOTIVO_PEDIDO" property="motivoPedido" jdbcType="VARCHAR"/>
+		<result column="CENTRO_COSTO" property="centroCosto" jdbcType="VARCHAR"/>
+		<result column="CENTRO_COSTO_DSC" property="centroCostoDesc" jdbcType="VARCHAR"/>
+		<result column="CODIGO_TIPO_TDR_DSC" property="tipoEtTdrDesc" jdbcType="VARCHAR"/>
+		<result column="IdSinad" property="idSinad" jdbcType="INTEGER"/>
+		<result column="EsPrincipal" property="esPrincipal" jdbcType="VARCHAR"/>
+		<result column="IdCatalogoTipoTDR" property="idCatalogoTipoTdr" jdbcType="VARCHAR"/>		
+	</resultMap>
+	
+	<resultMap type="pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto" id="CompraDirectaDatosGenelares">
+		<result column="IdPacConsolidado" property="idPacConsolid" jdbcType="INTEGER"/>
+		<result column="NRO_CONSOLID" property="nroConsolid" jdbcType="INTEGER"/>
+		<result column="FECHA_PAO" property="fechaPao" jdbcType="DATE"/>
+		<result column="COD_TIPO_BIEN" property="tipoOrden" jdbcType="VARCHAR"/>
+		<result column="VALOR_MONEDA" property="valorMoneda" jdbcType="DOUBLE"/>
+		<result column="DSC_PAC" property="especificacionTecnica" jdbcType="VARCHAR"/>
+		<result column="FECHA_CERTIFICACION_PRESUPUESTAL" property="fechaCP" jdbcType="DATE"/>
+		<result column="NRO_CERTIFICACION_PRESUPUESTAL" property="nroCP" jdbcType="INTEGER"/>
+		<result column="MontoCP" property="montoCP" jdbcType="DOUBLE"/>
+		<result column="NroProceso" property="nroProceso" jdbcType="VARCHAR"/>		
+		<result column="FlagCD" property="flagCD" jdbcType="VARCHAR"/>
+		<result column="FechaRecepcionDocumentoTecnico" property="fechaDocumentoTecnico" jdbcType="DATE"/>
+		<result column="EstadoRequerimiento" property="estadoRequerimiento" jdbcType="INTEGER"/>
+		<result column="NroRuc" property="nroRuc" jdbcType="VARCHAR"/>
+		<result column="NroProcesoProveedor" property="nroProcesoProveedor" jdbcType="INTEGER"/>
+	</resultMap>	
 		
 	<resultMap id="FullResultMap" type="pe.com.sisabas.be.Pacconsolidado">
 	<result column="A1_IDPACCONSOLIDADO" property="idpacconsolidado" jdbcType="INTEGER" />
@@ -2047,9 +2087,17 @@
 
 	</if>
 	</select>	
-		<select id="getPaoListado" resultMap="PaoResultMap" statementType="CALLABLE" parameterType="pe.com.sisabas.dto.PaoRequest">
+	<select id="getPaoListado" resultMap="PaoResultMap" statementType="CALLABLE" parameterType="pe.com.sisabas.dto.PaoRequest">
 		{call abas.paProgramacionListarPAACConsolidado(#{codigoUnidadEjecutora},#{anio},#{nroPac},#{nroConsolid},#{idTipoNecesidad},
 		#{idTipoContratacion},#{idTipoProceso},#{estadoPac},#{estadoRequerimiento},#{idTipoBien},#{codigoCentroCosto},#{nroSinad}
 		,#{especificacionTecnica},#{pageNumber},#{pageSize})}		
 	</select>
+	<select id="getPedidosPao" resultMap="PedidosPao" statementType="CALLABLE" parameterType="pe.com.sisabas.dto.PaoRequest">
+		{call abas.paProgramacionListarPedidosCompraDirecta(#{anio},#{idUnidadEjecutora},#{nroConsolid})}		
+	</select>
+	
+	<select id="getCompraDirectaDatosGenerales" resultMap="CompraDirectaDatosGenelares" statementType="CALLABLE" parameterType="pe.com.sisabas.dto.PaoRequest">
+		{call abas.paProgramacionObtenerCDDatosGenerales(#{anio},#{idUnidadEjecutora},#{nroConsolid})}		
+	</select>
+	
 </mapper>

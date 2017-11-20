@@ -3,6 +3,8 @@ package pe.com.sisabas.persistence;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import pe.com.sisabas.be.Pacconsolidado;
+import pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto;
+import pe.com.sisabas.dto.PedidosPaoResponse;
 import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
 
@@ -31,7 +33,13 @@ public interface PacconsolidadoMapper{
 	List<Pacconsolidado> selectDynamicFull(Pacconsolidado record) throws Exception;
 
 	List<Pacconsolidado> selectDynamicExtended(Pacconsolidado record) throws Exception;
+	
+	//NEW METHODS
 
 	List<PaoResponse> getPaoListado(PaoRequest record) throws Exception;
+	
+	List<PedidosPaoResponse> getPedidosPao(PaoRequest record) throws Exception;
+	
+	CompraDirectaDatosGeneralesDto getCompraDirectaDatosGenerales(PaoRequest record) throws Exception;
 	
 }

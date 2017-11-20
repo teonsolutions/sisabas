@@ -13,7 +13,9 @@ import pe.com.sisabas.be.Pacprogramado;
 import pe.com.sisabas.be.Pedido;
 import pe.com.sisabas.business.ProgramacionBusiness;
 import pe.com.sisabas.controller.PedidoController;
+import pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
+import pe.com.sisabas.dto.PedidosPaoResponse;
 import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
 import pe.com.sisabas.dto.Resultado;
@@ -212,6 +214,18 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 	public List<PaoResponse> getPaoListado(PaoRequest record) throws Exception {
 		// TODO Auto-generated method stub
 		return pacconsolidadoMapper.getPaoListado(record);
+	}
+
+	@Override
+	public List<PedidosPaoResponse> getPedidosPao(PaoRequest record) throws Exception {
+		// TODO Auto-generated method stub
+		return pacconsolidadoMapper.getPedidosPao(record);
+	}
+
+	@Override
+	public CompraDirectaDatosGeneralesDto getCompraDirectaDatosGenerales(PaoRequest record) throws Exception {
+		// TODO Auto-generated method stub
+		return pacconsolidadoMapper.getCompraDirectaDatosGenerales(record);
 	}
 
 		
