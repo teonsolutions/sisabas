@@ -9,6 +9,43 @@
 	xmlns:cc="http://java.sun.com/jsf/composite/components"
 	template="/pages/template/MasterPage.xhtml">
 	<ui:define name="center">
+<style>
+
+.ui-panelgrid td, .ui-panelgrid tr
+{
+    border-style: none !important
+}
+
+.ui-tabs-outline{
+   color:#000;
+
+}
+
+.ui-accordion .ui-accordion-header {
+		    cursor: pointer;
+		    position: relative;
+		    margin-top: 1px;
+		    min-height: 0;
+		    padding: .5em .5em .5em 2.2em;
+		    background: #0d6ab9;
+		    color: #ffffff;
+		}
+		
+		.ui-accordion .ui-accordion-header.ui-state-active {
+		    background: #fff;
+		    border-left: 0 none;
+		    border-right: 0 none;
+		    -webkit-border-radius: 0;
+		    -moz-border-radius: 0;
+		    border-radius: 0;
+		    background: #0d6ab9;
+		}
+		
+
+
+</style>
+
+	
 		<h:form id="form">
 
 			<p:panel id="panel"

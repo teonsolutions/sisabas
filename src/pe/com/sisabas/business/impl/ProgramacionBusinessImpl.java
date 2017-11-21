@@ -1,6 +1,8 @@
 package pe.com.sisabas.business.impl;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -9,8 +11,11 @@ import org.springframework.stereotype.Service;
 
 import pe.com.sisabas.be.Estadosporetapapordocumento;
 import pe.com.sisabas.be.Estadosportipodocumento;
+import pe.com.sisabas.be.Grupodocumento;
+import pe.com.sisabas.be.Pacconsolidado;
 import pe.com.sisabas.be.Pacprogramado;
 import pe.com.sisabas.be.Pedido;
+import pe.com.sisabas.be.Pedidosporpacconsolidado;
 import pe.com.sisabas.business.ProgramacionBusiness;
 import pe.com.sisabas.controller.PedidoController;
 import pe.com.sisabas.dto.CertificacionItemsDto;
@@ -19,13 +24,16 @@ import pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
 import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
+import pe.com.sisabas.dto.RecepcionDTResponse;
 import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
 import pe.com.sisabas.dto.Resultado;
 import pe.com.sisabas.dto.TransactionRequest;
+import pe.com.sisabas.dto.TransactionResponse;
 import pe.com.sisabas.persistence.DocumentotecnicoMapper;
 import pe.com.sisabas.persistence.EstadosporetapapordocumentoMapper;
 import pe.com.sisabas.persistence.EstadosportipodocumentoMapper;
+import pe.com.sisabas.persistence.GrupodocumentoMapper;
 import pe.com.sisabas.persistence.PacconsolidadoMapper;
 import pe.com.sisabas.persistence.PacprogramadoMapper;
 import pe.com.sisabas.persistence.PedidoMapper;
@@ -53,6 +61,9 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 
 	@Autowired
 	public PacconsolidadoMapper pacconsolidadoMapper;
+	
+	@Autowired
+	public GrupodocumentoMapper grupodocumentoMapper;
 	
 	@Autowired
 	public UtilsBusiness utilsBusiness;
@@ -232,7 +243,8 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 		if (cd != null){
 			//FECHA DE RECEPCION
 			if (cd.getFechaDocumentoTecnico() == null){
-				
+				RecepcionDTResponse recepcion = pacconsolidadoMapper.getFechaRecepcionDT(record);
+				if (recepcion != null) cd.setFechaDocumentoTecnico(recepcion.getFechaRecepcion());
 			}
 			
 			//PEDIDOS
@@ -251,6 +263,14 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 				cpParam.setNroCP(cd.getNroCP());
 				List<CertificacionItemsDto> cert = pacconsolidadoMapper.getCertificacionItems(cpParam);
 				cd.setCertificacionItems(cert);
+				
+				double montoCP = 0;
+				for (int i = 0; i < cert.size(); i++) {
+					montoCP += cert.get(i).getValor();
+				}
+				
+				//MONTO TOTAL DE CERTIFICACION PRESUPUESTAL
+				cd.setMontoCP(montoCP);
 			}
 		}		
 		return cd;
@@ -266,6 +286,92 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 	public List<CertificacionItemsDto> getCertificacionItems(CertificacionRequest record) throws Exception {
 		// TODO Auto-generated method stub
 		return pacconsolidadoMapper.getCertificacionItems(record);
+	}
+
+	@Override
+	public RecepcionDTResponse getFechaRecepcionDT(PaoRequest record) throws Exception {
+		// TODO Auto-generated method stub
+		return pacconsolidadoMapper.getFechaRecepcionDT(record);
+	}
+
+	@Override
+	public Resultado grabarCompraDirecta(TransactionRequest<CompraDirectaDatosGeneralesDto> record) throws Exception {
+		// TODO Auto-generated method stub
+		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
+		CompraDirectaDatosGeneralesDto compraDirecta = record.getEntityTransaction();
+		Pacconsolidado pc;
+		if (compraDirecta.getIdPacConsolid() != null){
+			 pc = pacconsolidadoMapper.selectByPrimaryKeyBasic(compraDirecta.getIdPacConsolid());
+			 if (pc != null){
+				 //UPDATE PAC CONSOLIDADO
+				 
+				 //pc.setNroproceso(compraDirecta.getNroProceso());
+				 pc.setCodigotipoproceso("14");
+				 pc.setNroproceso(compraDirecta.getNroProceso());
+				 double valorMoneda = compraDirecta.getValorMoneda();
+				 BigDecimal valorEstimado = new BigDecimal(valorMoneda);				 
+				 pc.setValorestimadocontracion(valorEstimado);
+				 //pc.setEstadoauditoria(); // ITEM UNICO
+				 //pc.setNroitems(0); // NUMERO DE ITEMS
+				 //pc.setCantidad(); // CANTIDAD DE ITEMS
+				 pc.setFlagcd(compraDirecta.getFlagCD());
+				 //pc.setUnidadmedida(); //UNIDAD DE MEDIDA
+				 //pc.setNombreespecialistavr(); //NOMBRE ESPECIALISTA VR
+				 pc.setEstadorequerimiento(compraDirecta.getEstadoRequerimiento());
+				 pc.setUsuariomodificacionauditoria(record.getUsuarioAuditoria());
+				 pc.setFechamodificacionauditoria(new Date());
+				 
+				 pc.setFechaasignacionespecialista(compraDirecta.getFechaDocumentoTecnico());
+				 pacconsolidadoMapper.updateByPrimaryKey(pc);
+			 }else{
+				 //Inserta grupo documento
+				 Grupodocumento grupodocumento = new Grupodocumento();
+				 Integer idgrupodocumento = (int)utilsBusiness.getNextSeq(Sequence.SEQ_GRUPODOCUMENTO).longValue();
+				 grupodocumento.setIdgrupodocumento(idgrupodocumento);
+				 grupodocumento.setAnio(compraDirecta.getAnio());
+				 grupodocumento.setCodigocentrocosto(compraDirecta.getCodigoCentroCosto());
+				 grupodocumento.setUsuariocreacionauditoria(record.getUsuarioAuditoria());
+				 grupodocumento.setProgramaauditoria(record.getProgramaAuditoria());
+				 grupodocumento.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+				 grupodocumentoMapper.insert(grupodocumento);				 
+				 
+				 
+				 //NEW PAC CONSOLIDADO
+				 pc.setIdgrupodocumento(idgrupodocumento);
+				 pc.setCodigotipoproceso("14");
+				 pc.setNroproceso(compraDirecta.getNroProceso());
+				 double valorMoneda = compraDirecta.getValorMoneda();
+				 BigDecimal valorEstimado = new BigDecimal(valorMoneda);				 
+				 pc.setValorestimadocontracion(valorEstimado);
+				 //pc.setEstadoauditoria(); // ITEM UNICO
+				 //pc.setNroitems(0); // NUMERO DE ITEMS
+				 //pc.setCantidad(); // CANTIDAD DE ITEMS
+				 pc.setFlagcd(compraDirecta.getFlagCD());
+				 //pc.setUnidadmedida(); //UNIDAD DE MEDIDA
+				 //pc.setNombreespecialistavr(); //NOMBRE ESPECIALISTA VR
+				 pc.setEstadorequerimiento(compraDirecta.getEstadoRequerimiento());
+				 pc.setUsuariomodificacionauditoria(record.getUsuarioAuditoria());
+				 pc.setFechamodificacionauditoria(new Date());	 				 				 
+				 pc.setFechaasignacionespecialista(compraDirecta.getFechaDocumentoTecnico());
+				 pacconsolidadoMapper.insert(pc);
+				 
+				 if (compraDirecta.getTipoNecesidad().equals(Constantes.tipoNecesidad.TIPO_NECESIDAD_NO_PROGRAMADO)){
+					 //PEDIDOS POR PAC CONSOLIDADO
+					 List<PedidosPaoResponse> pedidos = compraDirecta.getPedidos();
+					 for (int i = 0; i < pedidos.size(); i++) {
+						 Pedidosporpacconsolidado pedidoItem = new Pedidosporpacconsolidado();
+						 
+					 }
+					 
+					 //SINAD POR PAC CONSOLIDADO
+				 }
+			 }
+			 
+		}
+		
+			
+		
+		return result;
 	}
 
 		

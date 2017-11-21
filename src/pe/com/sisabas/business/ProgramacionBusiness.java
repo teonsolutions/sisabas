@@ -8,6 +8,7 @@ import pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
 import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
+import pe.com.sisabas.dto.RecepcionDTResponse;
 import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
 import pe.com.sisabas.dto.Resultado;
@@ -22,4 +23,6 @@ public interface ProgramacionBusiness {
 	public CompraDirectaDatosGeneralesDto getCompraDirectaDatosGenerales(PaoRequest record) throws Exception;
 	public List<PacItemsDto> getPacItems(PaoRequest record) throws Exception;
 	public List<CertificacionItemsDto> getCertificacionItems(CertificacionRequest record) throws Exception;
+	public RecepcionDTResponse getFechaRecepcionDT(PaoRequest record) throws Exception;
+	public Resultado grabarCompraDirecta(TransactionRequest<CompraDirectaDatosGeneralesDto> record) throws Exception;
 }

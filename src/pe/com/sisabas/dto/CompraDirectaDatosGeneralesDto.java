@@ -1,6 +1,7 @@
 package pe.com.sisabas.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class CompraDirectaDatosGeneralesDto implements  Serializable,Cloneable {
 	private Date fechaCP;
 	private Integer nroCP;
 	private Double montoCP;
-	private String nroProceso;
+	private BigDecimal nroProceso;
 	private String flagCD;
 	private Date fechaDocumentoTecnico;
 	private Integer estadoRequerimiento;
@@ -27,6 +28,11 @@ public class CompraDirectaDatosGeneralesDto implements  Serializable,Cloneable {
 	private List<PedidosPaoResponse> pedidos;
 	private List<PacItemsDto> items;
 	private List<CertificacionItemsDto> certificacionItems;
+	
+	//Adicionales para grabar informacion
+	private Integer anio;
+	private String codigoCentroCosto;
+	private String tipoNecesidad;
 
 	public Integer getIdPacConsolid() {
 		return idPacConsolid;
@@ -134,13 +140,13 @@ public class CompraDirectaDatosGeneralesDto implements  Serializable,Cloneable {
 
 
 
-	public String getNroProceso() {
+	public BigDecimal getNroProceso() {
 		return nroProceso;
 	}
 
 
 
-	public void setNroProceso(String nroProceso) {
+	public void setNroProceso(BigDecimal nroProceso) {
 		this.nroProceso = nroProceso;
 	}
 
@@ -232,6 +238,30 @@ public class CompraDirectaDatosGeneralesDto implements  Serializable,Cloneable {
 
 	public void setCertificacionItems(List<CertificacionItemsDto> certificacionItems) {
 		this.certificacionItems = certificacionItems;
+	}
+
+	public Integer getAnio() {
+		return anio;
+	}
+
+	public void setAnio(Integer anio) {
+		this.anio = anio;
+	}
+
+	public String getCodigoCentroCosto() {
+		return codigoCentroCosto;
+	}
+
+	public void setCodigoCentroCosto(String codigoCentroCosto) {
+		this.codigoCentroCosto = codigoCentroCosto;
+	}
+
+	public String getTipoNecesidad() {
+		return tipoNecesidad;
+	}
+
+	public void setTipoNecesidad(String tipoNecesidad) {
+		this.tipoNecesidad = tipoNecesidad;
 	}
 	
 	@Override

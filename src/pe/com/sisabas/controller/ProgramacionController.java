@@ -44,6 +44,7 @@ import pe.com.sisabas.dto.EvaluacionDocumentoRequest;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
 import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
+import pe.com.sisabas.dto.Resultado;
 import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
 import pe.com.sisabas.dto.TransactionRequest;
@@ -220,6 +221,37 @@ public class ProgramacionController extends BaseController{
 			
 		return SUCCESS_ORDEN;
 	}
+	
+	public void guardarDatosGenerales() {
+		REGISTER_INIT();
+	try {
+
+		TransactionRequest<CompraDirectaDatosGeneralesDto> transactionRequest = new TransactionRequest<CompraDirectaDatosGeneralesDto>();
+		transactionRequest.setUsuarioAuditoria("PRUEBA");
+		transactionRequest.setEquipoAuditoria("MI PC");
+		transactionRequest.setEntityTransaction(this.currentPao.getCompraDirecta());		
+		Resultado result = programacionBusiness.grabarCompraDirecta(transactionRequest);
+		
+		showGrowlMessageSuccessfullyCompletedAction();
+		buscarPao();
+
+		REGISTER_SUCCESS();
+	} catch (ValidateException e) {
+		REGISTER_ERROR();
+		addMessageKey("msgsDocumentotecnicoR", e.getMessage(),
+		FacesMessage.SEVERITY_ERROR);
+	} catch (BusinessException e) {
+		REGISTER_ERROR();
+		addMessageKey("msgsDocumentotecnicoR", e.getMessage(),
+		FacesMessage.SEVERITY_ERROR);
+	} catch(DataIntegrityViolationException e) {
+		addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),Messages.getString("exception.dataintegrity.message.detail"),
+		FacesMessage.SEVERITY_ERROR);
+	} catch (Exception e) {
+		REGISTER_ERROR();
+		addErrorMessageKey("msgsDocumentotecnicoR", e);
+	}
+}
 	
 	//PROPERTIES	
 	public List<PaoResponse> getListaPao() {

@@ -8,6 +8,7 @@ import pe.com.sisabas.dto.CertificacionRequest;
 import pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto;
 import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
+import pe.com.sisabas.dto.RecepcionDTResponse;
 import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
 
@@ -49,5 +50,6 @@ public interface PacconsolidadoMapper{
 	
 	List<CertificacionItemsDto> getCertificacionItems(CertificacionRequest record) throws Exception;
 	
+	RecepcionDTResponse getFechaRecepcionDT(PaoRequest record) throws Exception;
 	
 }

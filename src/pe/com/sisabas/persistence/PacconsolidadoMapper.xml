@@ -133,7 +133,7 @@
 		<result column="FECHA_CERTIFICACION_PRESUPUESTAL" property="fechaCP" jdbcType="DATE"/>
 		<result column="NRO_CERTIFICACION_PRESUPUESTAL" property="nroCP" jdbcType="INTEGER"/>
 		<result column="MontoCP" property="montoCP" jdbcType="DOUBLE"/>
-		<result column="NroProceso" property="nroProceso" jdbcType="VARCHAR"/>		
+		<result column="NroProceso" property="nroProceso" jdbcType="DECIMAL"/>		
 		<result column="FlagCD" property="flagCD" jdbcType="VARCHAR"/>
 		<result column="FechaRecepcionDocumentoTecnico" property="fechaDocumentoTecnico" jdbcType="DATE"/>
 		<result column="EstadoRequerimiento" property="estadoRequerimiento" jdbcType="INTEGER"/>
@@ -157,6 +157,12 @@
 		<result column="VALOR" property="valor" jdbcType="DOUBLE"/>		
 	</resultMap>	
 
+	<resultMap type="pe.com.sisabas.dto.RecepcionDTResponse" id="RecepcionDT">
+		<result column="IdEstadosPorEtapaPorDocumento" property="idEstadosPorEtapaPorDocumento" jdbcType="INTEGER"/>
+		<result column="FechaCreacionAuditoria" property="fechaRecepcion" jdbcType="DATE"/>
+		<result column="NOMBRE_COMPLETO" property="nombreUsuario" jdbcType="VARCHAR"/>
+	</resultMap>	
+	
 	<resultMap id="FullResultMap" type="pe.com.sisabas.be.Pacconsolidado">
 	<result column="A1_IDPACCONSOLIDADO" property="idpacconsolidado" jdbcType="INTEGER" />
 	<result column="A1_IDCOMITEPROCESO" property="idcomiteproceso" jdbcType="INTEGER" />
@@ -2132,5 +2138,9 @@
 		and t1.SEC_EJEC = (#{idUnidadEjecutoraSiaf})
 		and t1.NRO_CERTIFICA = (#{nroCP})	
 	</select>	
+	
+	<select id="getFechaRecepcionDT" resultMap="RecepcionDT" parameterType="pe.com.sisabas.dto.RecepcionDTResponse">
+		{call abas.paProgramacionObtenerFechaRecepcionNoProgramado(#{anio},#{nroConsolid},#{idUnidadEjecutoraSiaf})}
+	</select>		
 		
 </mapper>
