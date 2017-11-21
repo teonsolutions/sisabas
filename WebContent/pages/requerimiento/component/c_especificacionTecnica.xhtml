@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+
+
+		  <p:outputPanel  style="text-align:center;" >
+		  
+		  
+		  <h:form id="form">           
+		    <!--  <p:growl id="msgs" showDetail="true" />-->
+		 
+		    <p:accordionPanel multiple="true" >
+		        <p:tab title="Información del Pedido" >
+		        
+				       <p:panelGrid  columns="4" rendered="#{not empty requerimiento.requerimientoResponse}" columnClasses="label,value" styleClass="gandalfPanelClassSectionFormHeader" >
+		                 
+		                <p:column><p:outputLabel value="Número del pedido" /></p:column>
+		                <p:column><p:inputText  value="#{requerimiento.requerimientoResponse.nroPedido}" disabled="true"/></p:column>
+		                
+		                <p:column><p:outputLabel value="Fecha del Pedido:" /></p:column>
+		                <p:column><p:inputText  value="#{requerimiento.requerimientoResponse.formatoFecha}" disabled="true"/></p:column>
+		                
+		                <p:column><p:outputLabel value="Número de SINAD:" /></p:column>
+		                <p:column><p:inputText  value="#{requerimiento.requerimientoResponse.numeroSinad}" disabled="true"/></p:column>
+		                
+		                <p:column><p:outputLabel value="Monto del pedido" /></p:column>
+		                <p:column><p:inputText  value="#{requerimiento.requerimientoResponse.montoPedido}" disabled="true"/></p:column>
+		                 
+		                <p:column><p:outputLabel value="Estado del Pedido(SisAbas):" /></p:column>
+		                <p:column><p:inputText  value="#{requerimiento.requerimientoResponse.formatoFecha}" disabled="true"/></p:column>
+		                
+		                <p:column><p:outputLabel value="Tipo de documento SINAD:" /></p:column>
+		                <p:column><p:inputText  value="#{requerimiento.requerimientoResponse.numeroSinad}" disabled="true"/></p:column> 
+		                 
+		                <p:outputLabel value="Descripción del Pedido:" style=""/>		                
+		                <p:inputTextarea value="#{requerimiento.requerimientoResponse.motivoPedido}" disabled="true" style="width:300px"/>
+		                 
+		          </p:panelGrid>
+		            
+		            
+		        </p:tab>
+		        
+		        <p:tab title="Información general" titleStyleClass="blueTab">
+		            <p:panelGrid   rendered="#{not empty requerimiento.requerimientoResponse}" columnClasses="label,value" styleClass="gandalfPanelClassSectionFormHeader" >
+		                 
+		                <p:row>
+		                <p:column><p:outputLabel value="Tipo de especificación técnica" for="txtReq"/></p:column>
+		                <p:column>
+		                  <p:selectOneMenu  id="txtReq" value="prueba" style="width:200px;">
+		                     <f:selectItem itemLabel="REQUERIMIENTOS GENERALES" itemValue=""/>
+		                  </p:selectOneMenu>
+		                </p:column>
+		                
+		                <div><p:column><p:outputLabel value="Número de PAC:" /></p:column></div>
+		                <p:column><p:inputText  value="prueba" disabled="false" /></p:column>
+		                </p:row> 
+		                <p:row>
+		                
+		                <p:column><p:outputLabel value="Denominación de la contratación:"/></p:column>
+		                <p:column><p:inputTextarea  value="prueba" disabled="false" style="width:300px;"/></p:column>
+		                </p:row> 
+		                
+		                <p:row>
+		                <p:column><p:outputLabel value="Finalidad pública" /></p:column>
+		                <p:column><p:inputTextarea  value="prueba" disabled="false" style="width:300px;"/></p:column>
+		                </p:row> 
+		                
+		                <p:row>
+		                <p:column><p:outputLabel value="Objetivos de la contratación:" /></p:column>
+		                <p:column><p:inputTextarea   value="prueba" disabled="false" style="width:300px;"/></p:column>
+		                </p:row>
+		                
+		                <p:row>
+		                <p:column><p:outputLabel value="Antecedentes:" /></p:column>
+		                <p:column><p:inputTextarea   value="prueba" disabled="false" style="width:300px;"/></p:column> 
+		                </p:row>
+		                
+		                <p:row> 
+		                <p:column><p:outputLabel value="Descripción del Pedido:" style=""/>	</p:column>	                
+		                <p:column><p:inputTextarea value="prueba" disabled="false" style="width:300px;"/></p:column>
+		                </p:row>
+		                
+		          </p:panelGrid>
+		        </p:tab>
+		        
+		        <p:tab title="Items">
+		        
+		            <p:dataTable var="var" value="#{requerimiento.listaItemRequerimientos}" style="white-space:nowrap!important; width:800px; font-size:5px;" reflow="true" scrollable="true" scrollHeight="">
+			            <p:column width="8%"  headerText="NÚMERO">
+			                <h:outputText value="---" />
+			            </p:column>
+			         
+			            <p:column headerText="NÚMERO DE ITEM">
+			                <h:outputText value="#{var.itemBien}" />
+			            </p:column>
+			         
+			            <p:column headerText="DESCRIPCIÓN DEL ITEM">
+			                <h:outputText value="#{var.nombreItem}" />
+			            </p:column>
+			         
+			            <p:column headerText="CANTIDAD" width="15%" >
+			                <h:outputText value="#{var.cantSolicitada}" />
+			            </p:column>
+			            
+			       
+			             <f:facet name="footer" >
+			             TOTAL DE ITEMS #{fn:length(requerimiento.listaItemRequerimientos)}.
+			            </f:facet>
+                  </p:dataTable>
+		        </p:tab>
+		        <p:tab title="Lugar de prestación">
+		            <div align="right">
+					<p:commandButton value="Agregar" icon="ui-icon-circle-check" title="Aceptar" update=":form:growl" oncomplete=""/>
+					</div>
+					<p:spacer height="5"/>
+		            <p:dataTable var="var" value="" style="white-space:nowrap!important; width:800px; font-size:5px;" reflow="true" scrollable="true" scrollHeight="">
+			            <p:column headerText="DEPENDENCIA">
+			                <h:outputText value="---" />
+			            </p:column>
+			         
+			            <p:column headerText="DIRECCIÓN">
+			                <h:outputText value="---" />
+			            </p:column>
+			         
+			            <p:column headerText="ACCIONES" width="15%" >
+			                <h:outputText value="---" />
+			            </p:column>
+                  </p:dataTable>
+		        </p:tab>
+		        <p:tab title="Forma de pago">
+		           <div align="right">
+					<p:commandButton value="Agregar" icon="ui-icon-circle-check" title="Aceptar" update=":form:growl" oncomplete=""/>
+					</div>
+					<p:spacer height="5"/>
+		           <p:dataTable var="var" value="" style="white-space:nowrap!important; width:800px; font-size:5px;" reflow="true" scrollable="true" scrollHeight="">
+			            <p:column headerText="NÚMERO ARMADA">
+			                <h:outputText value="---" />
+			            </p:column>
+			         
+			            <p:column headerText="PORCENTAJE DE ARMADAS">
+			                <h:outputText value="---" />
+			            </p:column>
+			         
+			            <p:column headerText="ACCIONES" width="15%" >
+			                <h:outputText value="---" />
+			            </p:column>
+                  </p:dataTable>
+		        </p:tab>
+		        <p:tab title="Anexos">
+		            <h:panelGrid columns="2" cellpadding="10">
+		                <p:graphicImage name="demo/images/godfather/godfather3.jpg" />
+		                <h:outputText value="After a break of more than 15 years...." />
+		            </h:panelGrid>
+		        </p:tab>
+		        <p:tab title="Responsable de las coordinaciones">
+		            <h:panelGrid columns="2" cellpadding="10">
+		                <p:graphicImage name="demo/images/godfather/godfather3.jpg" />
+		                <h:outputText value="After a break of more than 15 years...." />
+		            </h:panelGrid>
+		        </p:tab>
+		    </p:accordionPanel>
+        </h:form>
+         
+       </p:outputPanel>
+    
+          
+</html>
