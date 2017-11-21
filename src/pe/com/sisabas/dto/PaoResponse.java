@@ -27,9 +27,14 @@ public class PaoResponse implements  Serializable,Cloneable {
 	private String estadoRequerimientoDesc;
 	private String idDocumentos;
 	private int rowTotal;
-	private List<PedidosPaoResponse> pedidos;
 	private CompraDirectaDatosGeneralesDto compraDirecta;
-
+		
+	public CompraDirectaDatosGeneralesDto getCompraDirecta() {
+		return compraDirecta;
+	}
+	public void setCompraDirecta(CompraDirectaDatosGeneralesDto compraDirecta) {
+		this.compraDirecta = compraDirecta;
+	}
 	public Integer getIdPacConsolid() {
 		return idPacConsolid;
 	}
@@ -137,20 +142,6 @@ public class PaoResponse implements  Serializable,Cloneable {
 	}
 	public void setRowTotal(int rowTotal) {
 		this.rowTotal = rowTotal;
-	}
-
-	public List<PedidosPaoResponse> getPedidos() {
-		return pedidos;
-	}
-	public void setPedidos(List<PedidosPaoResponse> pedidos) {
-		this.pedidos = pedidos;
-	}
-	
-	public CompraDirectaDatosGeneralesDto getCompraDirecta() {
-		return compraDirecta;
-	}
-	public void setCompraDirecta(CompraDirectaDatosGeneralesDto compraDirecta) {
-		this.compraDirecta = compraDirecta;
 	}
 	
 	@Override

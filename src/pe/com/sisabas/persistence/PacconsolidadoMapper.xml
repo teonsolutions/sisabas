@@ -140,7 +140,23 @@
 		<result column="NroRuc" property="nroRuc" jdbcType="VARCHAR"/>
 		<result column="NroProcesoProveedor" property="nroProcesoProveedor" jdbcType="INTEGER"/>
 	</resultMap>	
-		
+	
+	<resultMap type="pe.com.sisabas.dto.PacItemsDto" id="PacItems">
+		<result column="ITEM" property="item" jdbcType="VARCHAR"/>
+		<result column="NOMBRE_ITEM" property="nombreItem" jdbcType="VARCHAR"/>
+		<result column="CANTIDAD" property="cantidad" jdbcType="DOUBLE"/>
+		<result column="MONTO" property="monto" jdbcType="DOUBLE"/>
+		<result column="UNIDAD_MEDIDA" property="unidadMedida" jdbcType="INTEGER"/>		
+	</resultMap>
+	
+	<resultMap type="pe.com.sisabas.dto.CertificacionItemsDto" id="CertificacionItems">
+		<result column="NRO_CERTIFICA_SIAF" property="nroCP" jdbcType="INTEGER"/>
+		<result column="FUENTE_FINANC" property="fuenteFinanciamiento" jdbcType="VARCHAR"/>
+		<result column="SEC_FUNC" property="secuenciaFunc" jdbcType="VARCHAR"/>
+		<result column="CLASIFICADOR" property="clasificador" jdbcType="VARCHAR"/>
+		<result column="VALOR" property="valor" jdbcType="DOUBLE"/>		
+	</resultMap>	
+
 	<resultMap id="FullResultMap" type="pe.com.sisabas.be.Pacconsolidado">
 	<result column="A1_IDPACCONSOLIDADO" property="idpacconsolidado" jdbcType="INTEGER" />
 	<result column="A1_IDCOMITEPROCESO" property="idcomiteproceso" jdbcType="INTEGER" />
@@ -2099,5 +2115,22 @@
 	<select id="getCompraDirectaDatosGenerales" resultMap="CompraDirectaDatosGenelares" statementType="CALLABLE" parameterType="pe.com.sisabas.dto.PaoRequest">
 		{call abas.paProgramacionObtenerCDDatosGenerales(#{anio},#{idUnidadEjecutora},#{nroConsolid})}		
 	</select>
+
+	<select id="getPacItems" resultMap="PacItems" statementType="CALLABLE" parameterType="pe.com.sisabas.dto.PaoRequest">
+		{call abas.paProgramacionListarPacItems(#{idPacConsolidado},#{nroConsolid},#{anio},#{idUnidadEjecutoraSiaf})}		
+	</select>	
 	
+	<select id="getCertificacionItems" resultMap="CertificacionItems" parameterType="pe.com.sisabas.dto.CertificacionRequest">
+		select t1.NRO_CERTIFICA_SIAF,
+			t2.FUENTE_FINANC,
+			t2.SEC_FUNC,
+			t2.CLASIFICADOR,
+			t2.VALOR
+		from abas.visSigaCertificacion t1
+		inner join [abas].[visSigaCertificacionDocSec] t2 on t2.NRO_CERTIFICA = t1.NRO_CERTIFICA and t2.ANO_EJE = t1.ANO_EJE and t2.SEC_EJEC = t1.SEC_EJEC
+		where t1.ANO_EJE = (#{anio})
+		and t1.SEC_EJEC = (#{idUnidadEjecutoraSiaf})
+		and t1.NRO_CERTIFICA = (#{nroCP})	
+	</select>	
+		
 </mapper>

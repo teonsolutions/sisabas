@@ -182,5 +182,7 @@ public class Constantes {
 	
 	public class unidadEjecutora{
 		public static final String PRONIED = "108";
+		public static final int PRONIED_SIAF = 1253;
 	}	
+	
 }

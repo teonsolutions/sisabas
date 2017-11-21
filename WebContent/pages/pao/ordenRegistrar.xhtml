@@ -18,7 +18,7 @@
 						<p:accordionPanel multiple="true" activeIndex="0,1,2,3,4">
 							<p:tab title="Identificación">
 								<p:dataTable id="tblListaPedidos"
-									value="#{programacion.currentPao.pedidos}" var="var"
+									value="#{programacion.currentPao.compraDirecta.pedidos}" var="var"
 									widgetVar="tblListaPedidos"
 									emptyMessage="No se encontraron registros"
 									selectionMode="single" rowKey="#{var.nroPedido}"
@@ -129,21 +129,35 @@
 												id="lblItems" /></td>
 									</tr>
 									<tr>
-										<td colspan="3"><p:dataTable>
-												<p:column headerText="N°">
-													<h:outputText value="1" />
-												</p:column>
-												<p:column headerText="Item">
-													<h:outputText value="UGME" />
+										<td colspan="3"><p:dataTable id="tblListaItems" 
+										value="#{programacion.currentPao.compraDirecta.items}"
+										var="var"
+										emptyMessage="No se encontraron registros"
+										selectionMode="single" rowKey="#{var.item}"
+										styleClass="gandalfTableClass">
+												<p:column styleClass="c_string" headerText="Item">
+													<f:facet name="header">
+														<h:outputText value="Item" />
+													</f:facet>
+													<h:outputText value="#{var.item}" />
 												</p:column>
 												<p:column headerText="Descripción">
-													<h:outputText value="UGME" />
+													<f:facet name="header">
+														<h:outputText value="Descripción" />
+													</f:facet>
+													<h:outputText value="#{var.nombreItem}" />
 												</p:column>
 												<p:column headerText="Cantidad">
-													<h:outputText value="UGME" />
+													<f:facet name="header">
+														<h:outputText value="Cantidad" />
+													</f:facet>
+													<h:outputText value="#{var.cantidad}" />
 												</p:column>
 												<p:column headerText="Monto">
-													<h:outputText value="UGME" />
+													<f:facet name="header">
+														<h:outputText value="Monto" />
+													</f:facet>
+													<h:outputText value="#{var.monto}" />
 												</p:column>
 											</p:dataTable></td>
 									</tr>
@@ -178,24 +192,41 @@
 												value="#{programacion.currentPao.compraDirecta.montoCP}" /></td>
 									</tr>
 									<tr>
-										<td colspan="3"><p:dataTable>
-												<p:column headerText="N°">
-													<h:outputText value="1" />
-												</p:column>
+										<td colspan="3"><p:dataTable id="tblListaCertificacion"
+										value="#{programacion.currentPao.compraDirecta.certificacionItems}"
+										var="var"
+										emptyMessage="No se encontraron registros"
+										selectionMode="single" rowKey="#{var.nroCP}"
+										styleClass="gandalfTableClass">
 												<p:column headerText="Código">
-													<h:outputText value="UGME" />
+													<f:facet name="header">
+														<h:outputText value="Código" />
+													</f:facet>
+													<h:outputText value="#{var.nroCP}" />													
 												</p:column>
 												<p:column headerText="Fuente de financiamiento">
-													<h:outputText value="UGME" />
+													<f:facet name="header">
+														<h:outputText value="Fuente de financiamiento" />
+													</f:facet>
+													<h:outputText value="#{var.fuenteFinanciamiento}" />	
 												</p:column>
 												<p:column headerText="Código de cadena">
-													<h:outputText value="UGME" />
+													<f:facet name="header">
+														<h:outputText value="Código de cadena" />
+													</f:facet>
+													<h:outputText value="#{var.secuenciaFunc}" />	
 												</p:column>
 												<p:column headerText="Clasificador">
-													<h:outputText value="UGME" />
+													<f:facet name="header">
+														<h:outputText value="Clasificador" />
+													</f:facet>
+													<h:outputText value="#{var.clasificador}" />	
 												</p:column>
 												<p:column headerText="Monto">
-													<h:outputText value="UGME" />
+													<f:facet name="header">
+														<h:outputText value="Monto" />
+													</f:facet>
+													<h:outputText value="#{var.valor}" />
 												</p:column>
 											</p:dataTable></td>
 									</tr>

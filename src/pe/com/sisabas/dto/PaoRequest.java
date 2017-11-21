@@ -17,7 +17,15 @@ public class PaoRequest {
 	private int pageNumber;
 	private int pageSize;
 	private int idUnidadEjecutora;
-	
+	private Integer idPacConsolidado;
+	private Integer idUnidadEjecutoraSiaf;
+
+	public Integer getIdPacConsolidado() {
+		return idPacConsolidado;
+	}
+	public void setIdPacConsolidado(Integer idPacConsolidado) {
+		this.idPacConsolidado = idPacConsolidado;
+	}
 	public String getCodigoUnidadEjecutora() {
 		return codigoUnidadEjecutora;
 	}
@@ -114,5 +122,12 @@ public class PaoRequest {
 	}
 	public void setIdUnidadEjecutora(int idUnidadEjecutora) {
 		this.idUnidadEjecutora = idUnidadEjecutora;
+	}
+	
+	public Integer getIdUnidadEjecutoraSiaf() {
+		return idUnidadEjecutoraSiaf;
+	}
+	public void setIdUnidadEjecutoraSiaf(Integer idUnidadEjecutoraSiaf) {
+		this.idUnidadEjecutoraSiaf = idUnidadEjecutoraSiaf;
 	}
 }

@@ -13,8 +13,11 @@ import pe.com.sisabas.be.Pacprogramado;
 import pe.com.sisabas.be.Pedido;
 import pe.com.sisabas.business.ProgramacionBusiness;
 import pe.com.sisabas.controller.PedidoController;
+import pe.com.sisabas.dto.CertificacionItemsDto;
+import pe.com.sisabas.dto.CertificacionRequest;
 import pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
+import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
 import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
@@ -225,7 +228,44 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 	@Override
 	public CompraDirectaDatosGeneralesDto getCompraDirectaDatosGenerales(PaoRequest record) throws Exception {
 		// TODO Auto-generated method stub
-		return pacconsolidadoMapper.getCompraDirectaDatosGenerales(record);
+		CompraDirectaDatosGeneralesDto cd = pacconsolidadoMapper.getCompraDirectaDatosGenerales(record);				
+		if (cd != null){
+			//FECHA DE RECEPCION
+			if (cd.getFechaDocumentoTecnico() == null){
+				
+			}
+			
+			//PEDIDOS
+			List<PedidosPaoResponse> pedidos = pacconsolidadoMapper.getPedidosPao(record);
+			
+			//ITEMS
+			List<PacItemsDto> items = pacconsolidadoMapper.getPacItems(record);
+			cd.setPedidos(pedidos);
+			cd.setItems(items);
+			
+			if (cd.getNroCP() != null){
+				//CERTIFICACION PRESUPUESTAL
+				CertificacionRequest cpParam = new CertificacionRequest();
+				cpParam.setAnio(record.getAnio());
+				cpParam.setIdUnidadEjecutoraSiaf(record.getIdUnidadEjecutoraSiaf());
+				cpParam.setNroCP(cd.getNroCP());
+				List<CertificacionItemsDto> cert = pacconsolidadoMapper.getCertificacionItems(cpParam);
+				cd.setCertificacionItems(cert);
+			}
+		}		
+		return cd;
+	}
+
+	@Override
+	public List<PacItemsDto> getPacItems(PaoRequest record) throws Exception {
+		// TODO Auto-generated method stub
+		return pacconsolidadoMapper.getPacItems(record);
+	}
+
+	@Override
+	public List<CertificacionItemsDto> getCertificacionItems(CertificacionRequest record) throws Exception {
+		// TODO Auto-generated method stub
+		return pacconsolidadoMapper.getCertificacionItems(record);
 	}
 
 		

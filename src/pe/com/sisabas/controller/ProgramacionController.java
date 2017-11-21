@@ -42,6 +42,7 @@ import pe.com.sisabas.business.ProgramacionBusiness;
 import pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto;
 import pe.com.sisabas.dto.EvaluacionDocumentoRequest;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
+import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
 import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
@@ -197,16 +198,10 @@ public class ProgramacionController extends BaseController{
 			record.setIdUnidadEjecutora(1);
 			record.setAnio(2017);
 			record.setNroConsolid(this.currentPao.getNroConsolid());
-			
-			CompraDirectaDatosGeneralesDto cd = programacionBusiness.getCompraDirectaDatosGenerales(record);			
-			List<PedidosPaoResponse> pedidos = programacionBusiness.getPedidosPao(record);
-			
-			
-			this.currentPao.setCompraDirecta(cd);
-			this.currentPao.setPedidos(pedidos);
-			
-			//this.currentPao.setNroConsolid(1234);			
-			
+			record.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.PRONIED_SIAF);			
+			CompraDirectaDatosGeneralesDto cd = programacionBusiness.getCompraDirectaDatosGenerales(record);
+			this.currentPao.setCompraDirecta(cd);		
+					
 			/*
 		} catch (RemoteException e) {
 			STATUS_ERROR();				
@@ -322,5 +317,6 @@ public class ProgramacionController extends BaseController{
 	public void setDisabledTabOrden(boolean disabledTabOrden) {
 		this.disabledTabOrden = disabledTabOrden;
 	}
+	
 	
 }

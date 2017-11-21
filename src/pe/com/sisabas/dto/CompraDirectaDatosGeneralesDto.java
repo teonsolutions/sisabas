@@ -2,6 +2,7 @@ package pe.com.sisabas.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class CompraDirectaDatosGeneralesDto implements  Serializable,Cloneable {
 	/**
@@ -23,7 +24,10 @@ public class CompraDirectaDatosGeneralesDto implements  Serializable,Cloneable {
 	private Integer estadoRequerimiento;
 	private String nroRuc;
 	private String nroProcesoProveedor;
-	
+	private List<PedidosPaoResponse> pedidos;
+	private List<PacItemsDto> items;
+	private List<CertificacionItemsDto> certificacionItems;
+
 	public Integer getIdPacConsolid() {
 		return idPacConsolid;
 	}
@@ -204,6 +208,30 @@ public class CompraDirectaDatosGeneralesDto implements  Serializable,Cloneable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	
+	public List<PedidosPaoResponse> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<PedidosPaoResponse> pedidos) {
+		this.pedidos = pedidos;
+	}
+
+	public List<PacItemsDto> getItems() {
+		return items;
+	}
+
+	public void setItems(List<PacItemsDto> items) {
+		this.items = items;
+	}
+
+	public List<CertificacionItemsDto> getCertificacionItems() {
+		return certificacionItems;
+	}
+
+	public void setCertificacionItems(List<CertificacionItemsDto> certificacionItems) {
+		this.certificacionItems = certificacionItems;
 	}
 	
 	@Override
