@@ -168,7 +168,7 @@ public class CuadrocomparativofuenteController extends BaseController {
 			cuadrocomparativofuente.setBooleansetomoencuenta(false);
 
 			cuadrocomparativofuente.setIdcuadrocomparativofuente(new java.lang.Integer(0));
-			cuadrocomparativofuente.setIdcuadrocomparativofuente((int)utilsBusiness.getNextSeqTemporal(pe.com.sisabas.resources.Sequence.SEQ_CUADROCOMPARATIVOFUENTE).longValue());
+			cuadrocomparativofuente.setIdcuadrocomparativofuente((int)utilsBusiness.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_CUADROCOMPARATIVOFUENTE).longValue());
 			cuadrocomparativofuente.setPacconsolidadoIdpacconsolidado(new Pacconsolidado());
 
 			cuadrocomparativofuente.setIdpacconsolidado(cuadrocomparativofuenteB.getIdpacconsolidado());

@@ -123,7 +123,8 @@
 										<td colspan="3"><p:inputTextarea id="txtDescripcionPAO"
 												rows="5" cols="50" queryDelay="750" minQueryLength="4"
 												disabled="true"
-												value="#{programacion.currentPao.compraDirecta.especificacionTecnica}" style="width: 100%" /></td>
+												value="#{programacion.currentPao.compraDirecta.especificacionTecnica}"
+												style="width: 100%" /></td>
 									</tr>
 									<tr>
 										<td colspan="3"><p:outputLabel value="Items"
@@ -290,7 +291,32 @@
 					<p:tab title="Estudio del mercado"
 						disabled="#{programacion.disabledTabEstudioMercado}">
 						<p:fieldset>
+							<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+								<p:commandButton value="Nuevo"
+									action="#{cuadrocomparativofuente.irRegistrar}"
+									update="hidStatus,:frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar"
+									oncomplete="showDialog('form:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');"
+									icon="ui-icon-document"
+									rendered="#{cuadrocomparativofuente.renderButton('btnNuevo')}" />
+								<p:commandButton value="Editar"
+									action="#{cuadrocomparativofuente.irEditar}"
+									update="hidStatus,:frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar"
+									oncomplete="showDialog('form:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');"
+									icon="ui-icon-pencil"
+									disabled="#{!cuadrocomparativofuente.esSeleccionado}"
+									rendered="#{cuadrocomparativofuente.renderButton('btnEditar')}" />
+								<p:commandButton value="Eliminar"
+									action="#{cuadrocomparativofuente.irEliminar}"
+									update="hidStatus"
+									oncomplete="showDialog('form:hidStatus','form:cdEliminar');"
+									icon="ui-icon-circle-close" title="Eliminar"
+									disabled="#{!cuadrocomparativofuente.esSeleccionado}"
+									rendered="#{cuadrocomparativofuente.renderButton('btnEliminar')}" />
+								<h:inputHidden id="hidStatus"
+									value="#{cuadrocomparativofuente.status}" />
+							</p:panel>
 							<h:panelGrid columns="2">
+
 								<p:dataTable>
 									<p:column headerText="N°">
 										<h:outputText value="1" />
@@ -484,5 +510,36 @@
 				</p:tabView>
 			</p:panel>
 		</h:form>
+		<h:form id="frmCuadrocomparativofuenteRegistrar">
+			<p:dialog id="diCuadrocomparativofuenteRegistrar"
+				header="#{cuadrocomparativofuente.titulo}"
+				widgetVar="diCuadrocomparativofuenteRegistrar" resizable="false"
+				modal="true" dynamic="true">
+				<p:scrollPanel mode="native" style="width:100%;height:100%;">
+					<p:messages for="msgsCuadrocomparativofuenteR" autoUpdate="true"
+						closable="true" />
+					<ui:include
+						src="/pages/pao/component/c_cuadrocomparativofuenteRegistrar.xhtml" />
+				</p:scrollPanel>
+				<table style="width: 100%;">
+					<tr>
+						<td><h:inputHidden id="hidStatus"
+								value="#{cuadrocomparativofuente.statusRegister}" /> <p:commandButton
+								value="Aceptar" action="#{cuadrocomparativofuente.aceptar}"
+								update="hidStatus,:form:tblListaCuadrocomparativofuente,:form:growl,:form:pnlBotones,panelC"
+								oncomplete="hideDialog('frmCuadrocomparativofuenteRegistrar:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar')"
+								icon="ui-icon-circle-check" title="Aceptar" /></td>
+						<td>
+							<div align="right">
+								<p:commandButton value="Salir"
+									icon="ui-icon-arrowreturnthick-1-w" title="Salir"
+									onclick="hideDialogPF('frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');return false;" />
+							</div>
+						</td>
+					</tr>
+				</table>
+			</p:dialog>
+		</h:form>
 	</ui:define>
+
 </ui:composition>
