@@ -161,7 +161,9 @@ public class Constantes {
 		public static final int EN_REVISION_DE_DOCUMENTO_TECNICO = 4;
 		public static final int OBSERVADO_POR_DOCUMENTO_TECNICO = 5;
 		public static final int DOCUMENTO_TECNICO_APROBADO = 6;
-		public static final int EN_ESTUDIO_DE_MERCADO = 7;		
+		public static final int EN_ESTUDIO_DE_MERCADO = 7;	
+				
+		public static final int EN_GIRO_DE_ORDEN = 33;
 	}	
 	
 	public class tipoDocumento{
@@ -183,6 +185,16 @@ public class Constantes {
 	public class unidadEjecutora{
 		public static final String PRONIED = "108";
 		public static final int PRONIED_SIAF = 1253;
+		public static final int ID_UNIDAD_EJECUTORA_ABAS = 1;
 	}	
 	
+	public class tipoContratacion{
+		public static final String PAC = "TCON1";
+		public static final String NO_PAC = "TCON2";		
+	}
+	
+	public class maestroProcesoSiga{
+		public static final String ADJUDIACION_SIN_PROCESO = "14";
+	}	
+	//Constantes personalizados
 }

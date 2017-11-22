@@ -19,8 +19,20 @@ public class Sicuusuario  extends pe.com.sisabas.service.Sicurespuesta  implemen
     private java.lang.String vchusulogin;
 
     private java.lang.String vchusurol;
+    
+    //PARA GUARDAR PERIODO ACTIVO
+    private Sicuperiodo periodo;
 
-    public Sicuusuario() {
+    public Sicuperiodo getPeriodo() {
+		return periodo;
+	}
+
+	public void setPeriodo(Sicuperiodo periodo) {
+		this.periodo = periodo;
+	}
+	//END PARA GUARDAR PERIODO ACTIVO
+
+	public Sicuusuario() {
     }
 
     public Sicuusuario(

@@ -16,6 +16,7 @@ import org.primefaces.event.SelectEvent;
 import org.primefaces.event.ToggleSelectEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import org.springframework.aop.target.CommonsPoolTargetSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -31,6 +32,8 @@ import pe.com.sisabas.resources.Constantes;
 import pe.com.sisabas.resources.Utils;
 import pe.com.sisabas.resources.UtilsSecurity;
 import pe.com.sisabas.service.SicuCallService;
+import pe.com.sisabas.service.Sicuusuario;
+
 import java.rmi.RemoteException;
 import pe.com.sisabas.exception.SecurityRestrictedControlException;
 import pe.com.sisabas.exception.SecuritySessionExpiredException;
@@ -226,16 +229,39 @@ public class ProgramacionController extends BaseController{
 		REGISTER_INIT();
 	try {
 
-		TransactionRequest<CompraDirectaDatosGeneralesDto> transactionRequest = new TransactionRequest<CompraDirectaDatosGeneralesDto>();
-		transactionRequest.setUsuarioAuditoria("PRUEBA");
-		transactionRequest.setEquipoAuditoria("MI PC");
-		transactionRequest.setEntityTransaction(this.currentPao.getCompraDirecta());		
-		Resultado result = programacionBusiness.grabarCompraDirecta(transactionRequest);
+		Sicuusuario usuario = (Sicuusuario)getHttpSession().getAttribute("sicuusuarioSESSION");
+		if (usuario == null){
+			REGISTER_ERROR();
+			addMessageKey("msgsDocumentotecnicoR", "Teminó la sesión", FacesMessage.SEVERITY_ERROR);
+			return;
+		}
 		
-		showGrowlMessageSuccessfullyCompletedAction();
-		buscarPao();
+		CompraDirectaDatosGeneralesDto compraDirecta = this.currentPao.getCompraDirecta();
+		if (!compraDirecta.getEstadoRequerimiento().equals(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN)){
+			securityControlValidate("btnGuadarDatosGenerales");	
+			
+			CompraDirectaDatosGeneralesDto cDirecta = (CompraDirectaDatosGeneralesDto)compraDirecta.clone();
+			cDirecta.setIdTipoNecesidad(this.currentPao.getIdTipoNecesidad());
+			cDirecta.setIdUnidadEjecutora(Constantes.unidadEjecutora.ID_UNIDAD_EJECUTORA_ABAS);
+			cDirecta.setAnio(usuario.getPeriodo().getAnio());
+			cDirecta.setCodigoCentroCosto(usuario.getPeriodo().getCodigoCentroCosto());
+			cDirecta.setIdTipoContratacion(Constantes.tipoContratacion.NO_PAC);
+			cDirecta.setTipoProceso(Constantes.maestroProcesoSiga.ADJUDIACION_SIN_PROCESO);
+						
+			//VALIDAR SI ESTÁ EN GIRO DE ORDEN O ESTUDIO DEL MERCADO
+			cDirecta.setEstadoRequerimiento(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN);
+			
+			TransactionRequest<CompraDirectaDatosGeneralesDto> transactionRequest = new TransactionRequest<CompraDirectaDatosGeneralesDto>();
+			transactionRequest.setUsuarioAuditoria("PRUEBA");
+			transactionRequest.setEquipoAuditoria("MI PC");
+			transactionRequest.setEntityTransaction(cDirecta);
+			Resultado result = programacionBusiness.grabarCompraDirecta(transactionRequest);
+			
+			showGrowlMessageSuccessfullyCompletedAction();
+			buscarPao();
 
-		REGISTER_SUCCESS();
+			REGISTER_SUCCESS();		
+		}		
 	} catch (ValidateException e) {
 		REGISTER_ERROR();
 		addMessageKey("msgsDocumentotecnicoR", e.getMessage(),

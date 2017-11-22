@@ -10,10 +10,12 @@ public class CompraDirectaDatosGeneralesDto implements  Serializable,Cloneable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	//Query
 	private Integer idPacConsolid;
 	private String nroConsolid;
 	private Date fechaPao;
-	private String tipoOrden;
+	private String idTipoBien;
 	private Double valorMoneda;
 	private String especificacionTecnica;
 	private Date fechaCP;
@@ -33,6 +35,10 @@ public class CompraDirectaDatosGeneralesDto implements  Serializable,Cloneable {
 	private Integer anio;
 	private String codigoCentroCosto;
 	private String tipoNecesidad;
+	private String idTipoContratacion;
+	private String idTipoNecesidad;
+	private int idUnidadEjecutora; 
+	private String tipoProceso;
 
 	public Integer getIdPacConsolid() {
 		return idPacConsolid;
@@ -65,20 +71,6 @@ public class CompraDirectaDatosGeneralesDto implements  Serializable,Cloneable {
 	public void setFechaPao(Date fechaPao) {
 		this.fechaPao = fechaPao;
 	}
-
-
-
-	public String getTipoOrden() {
-		return tipoOrden;
-	}
-
-
-
-	public void setTipoOrden(String tipoOrden) {
-		this.tipoOrden = tipoOrden;
-	}
-
-
 
 	public Double getValorMoneda() {
 		return valorMoneda;
@@ -262,6 +254,46 @@ public class CompraDirectaDatosGeneralesDto implements  Serializable,Cloneable {
 
 	public void setTipoNecesidad(String tipoNecesidad) {
 		this.tipoNecesidad = tipoNecesidad;
+	}
+	
+	public String getIdTipoContratacion() {
+		return idTipoContratacion;
+	}
+
+	public void setIdTipoContratacion(String idTipoContratacion) {
+		this.idTipoContratacion = idTipoContratacion;
+	}
+	
+	public String getIdTipoNecesidad() {
+		return idTipoNecesidad;
+	}
+
+	public void setIdTipoNecesidad(String idTipoNecesidad) {
+		this.idTipoNecesidad = idTipoNecesidad;
+	}
+
+	public String getIdTipoBien() {
+		return idTipoBien;
+	}
+
+	public void setIdTipoBien(String idTipoBien) {
+		this.idTipoBien = idTipoBien;
+	}
+
+	public int getIdUnidadEjecutora() {
+		return idUnidadEjecutora;
+	}
+
+	public void setIdUnidadEjecutora(int idUnidadEjecutora) {
+		this.idUnidadEjecutora = idUnidadEjecutora;
+	}
+	
+	public String getTipoProceso() {
+		return tipoProceso;
+	}
+
+	public void setTipoProceso(String tipoProceso) {
+		this.tipoProceso = tipoProceso;
 	}
 	
 	@Override

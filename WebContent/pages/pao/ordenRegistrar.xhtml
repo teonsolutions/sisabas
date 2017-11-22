@@ -9,7 +9,7 @@
 	xmlns:cc="http://java.sun.com/jsf/composite/components"
 	template="/pages/template/MasterPage.xhtml">
 	<ui:define name="center">
-		<h:form>
+		<h:form id="form">
 			<p:growl id="msgs" showDetail="true"></p:growl>
 			<p:panel id="panel" header="Programación y costos > pao >Orden">
 				<p:focus for="panel" />
@@ -18,8 +18,8 @@
 						<p:accordionPanel multiple="true" activeIndex="0,1,2,3,4">
 							<p:tab title="Identificación">
 								<p:dataTable id="tblListaPedidos"
-									value="#{programacion.currentPao.compraDirecta.pedidos}" var="var"
-									widgetVar="tblListaPedidos"
+									value="#{programacion.currentPao.compraDirecta.pedidos}"
+									var="var" widgetVar="tblListaPedidos"
 									emptyMessage="No se encontraron registros"
 									selectionMode="single" rowKey="#{var.nroPedido}"
 									styleClass="gandalfTableClass">
@@ -63,13 +63,14 @@
 										<h:outputText value="#{var.esPrincipal}" />
 									</p:column>
 								</p:dataTable>
-								<p:outputLabel value="Fecha de recepción"
-									for="txtFechaRecepcion" id="lblFechaRecepcion" />
-								<p:inputText id="txtFechaRecepcion" required="true"
-									value="#{programacion.currentPao.compraDirecta.fechaDocumentoTecnico}"
-									maxlength="10" style="width:150px;" label="Fecha de recepción"
-									disabled="true" />
-
+								<p:panel>
+									<p:outputLabel value="Fecha de recepción"
+										for="txtFechaRecepcion" id="lblFechaRecepcion" />
+									<p:inputText id="txtFechaRecepcion" required="true"
+										value="#{programacion.currentPao.compraDirecta.fechaDocumentoTecnico}"
+										maxlength="10" style="width:150px;" label="Fecha de recepción"
+										disabled="true" />
+								</p:panel>
 							</p:tab>
 							<p:tab title="Control de producto">
 								<p:dataTable>
@@ -120,21 +121,20 @@
 									</tr>
 									<tr>
 										<td colspan="3"><p:inputTextarea id="txtDescripcionPAO"
-												rows="10" cols="50" queryDelay="750" minQueryLength="4"
+												rows="5" cols="50" queryDelay="750" minQueryLength="4"
 												disabled="true"
-												value="#{programacion.currentPao.compraDirecta.especificacionTecnica}" /></td>
+												value="#{programacion.currentPao.compraDirecta.especificacionTecnica}" style="width: 100%" /></td>
 									</tr>
 									<tr>
 										<td colspan="3"><p:outputLabel value="Items"
 												id="lblItems" /></td>
 									</tr>
 									<tr>
-										<td colspan="3"><p:dataTable id="tblListaItems" 
-										value="#{programacion.currentPao.compraDirecta.items}"
-										var="var"
-										emptyMessage="No se encontraron registros"
-										selectionMode="single" rowKey="#{var.item}"
-										styleClass="gandalfTableClass">
+										<td colspan="3"><p:dataTable id="tblListaItems"
+												value="#{programacion.currentPao.compraDirecta.items}"
+												var="var" emptyMessage="No se encontraron registros"
+												selectionMode="single" rowKey="#{var.item}"
+												styleClass="gandalfTableClass">
 												<p:column styleClass="c_string" headerText="Item">
 													<f:facet name="header">
 														<h:outputText value="Item" />
@@ -193,34 +193,33 @@
 									</tr>
 									<tr>
 										<td colspan="3"><p:dataTable id="tblListaCertificacion"
-										value="#{programacion.currentPao.compraDirecta.certificacionItems}"
-										var="var"
-										emptyMessage="No se encontraron registros"
-										selectionMode="single" rowKey="#{var.nroCP}"
-										styleClass="gandalfTableClass">
+												value="#{programacion.currentPao.compraDirecta.certificacionItems}"
+												var="var" emptyMessage="No se encontraron registros"
+												selectionMode="single" rowKey="#{var.nroCP}"
+												styleClass="gandalfTableClass">
 												<p:column headerText="Código">
 													<f:facet name="header">
 														<h:outputText value="Código" />
 													</f:facet>
-													<h:outputText value="#{var.nroCP}" />													
+													<h:outputText value="#{var.nroCP}" />
 												</p:column>
 												<p:column headerText="Fuente de financiamiento">
 													<f:facet name="header">
 														<h:outputText value="Fuente de financiamiento" />
 													</f:facet>
-													<h:outputText value="#{var.fuenteFinanciamiento}" />	
+													<h:outputText value="#{var.fuenteFinanciamiento}" />
 												</p:column>
 												<p:column headerText="Código de cadena">
 													<f:facet name="header">
 														<h:outputText value="Código de cadena" />
 													</f:facet>
-													<h:outputText value="#{var.secuenciaFunc}" />	
+													<h:outputText value="#{var.secuenciaFunc}" />
 												</p:column>
 												<p:column headerText="Clasificador">
 													<f:facet name="header">
 														<h:outputText value="Clasificador" />
 													</f:facet>
-													<h:outputText value="#{var.clasificador}" />	
+													<h:outputText value="#{var.clasificador}" />
 												</p:column>
 												<p:column headerText="Monto">
 													<f:facet name="header">
@@ -238,7 +237,7 @@
 									<tr>
 										<td><p:outputLabel value="Tipo de adquisión"
 												for="txtTipoAdquisicion" id="lblTipoAdquisicion" /></td>
-										<td><p:outputLabel value="Compra directa ?"
+										<td><p:outputLabel value="Es compra directa ?"
 												id="lblCompraDirecta" /></td>
 
 										<td><p:outputLabel value="Número de proceso"
@@ -246,31 +245,34 @@
 									</tr>
 									<tr>
 										<td><p:inputText id="txtTipoAdquisicion" required="true"
-												maxlength="10" style="width:150px;"
+												maxlength="10" style="width:200px;"
 												label="Tipo de adquisión" disabled="true"
 												value="ADQUISICIÓN SIN PROCESO" /></td>
 										<td><p:outputPanel id="customPanel"
 												style="margin-bottom:10px">
-												<p:selectOneRadio id="compraDirectaRadio" layout="custom">
+												<!--  
+												<p:outputLabel for="compraDirectaRadio" value="Es compra directa ?" />
+												-->
+												<p:selectOneRadio id="compraDirectaRadio" layout="custom"
+													value="#{programacion.currentPao.compraDirecta.flagCD}">
 													<f:selectItem itemLabel="SI" itemValue="1" />
 													<f:selectItem itemLabel="NO" itemValue="0" />
 												</p:selectOneRadio>
-												<h:panelGrid columns="3" cellpadding="5">
+												<h:panelGrid columns="4" cellpadding="5">
 													<p:radioButton id="opt1" for="compraDirectaRadio"
 														itemIndex="0" />
 													<h:outputLabel for="opt1" value="Si" />
-													<p:spinner />
 
 													<p:radioButton id="opt2" for="compraDirectaRadio"
 														itemIndex="1" />
 													<h:outputLabel for="opt2" value="No" />
-													<p:inputText />
 
 												</h:panelGrid>
 											</p:outputPanel></td>
-										<td><p:inputText id="txtNumeroProceso" required="true"
+										<td><p:inputNumber id="txtNumeroProceso" required="true"
+												value="#{programacion.currentPao.compraDirecta.nroProceso}"
 												maxlength="10" style="width:150px;"
-												label="Número de proceso" /></td>
+												label="Número de proceso" decimalPlaces="0" /></td>
 									</tr>
 
 								</table>
@@ -279,7 +281,9 @@
 						<p:commandButton value="Guardar" icon="fa fa-pencil"
 							title="Guardar datos generales"
 							disabled="#{!programacion.esSeleccionado}"
-							rendered="#{programacion.renderButton('btnGuadarDatosGenerales')}" />
+							action="#{programacion.guardarDatosGenerales}"
+							rendered="#{programacion.renderButton('btnGuadarDatosGenerales')}"
+							update="form:msgs" />
 						<p:commandButton value="Cancelar" action="#{programacion.load}"
 							ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Cancelar" />
 					</p:tab>

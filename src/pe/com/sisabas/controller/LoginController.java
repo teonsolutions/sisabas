@@ -20,6 +20,7 @@ import pe.com.sisabas.resources.Utils;
 import pe.com.sisabas.resources.UtilsSecurity;
 import pe.com.sisabas.resources.controller.BaseController;
 import pe.com.sisabas.service.SicuCallService;
+import pe.com.sisabas.service.Sicuperiodo;
 import pe.com.sisabas.service.Sicurespuesta;
 import pe.com.sisabas.service.Sicuusuario;
 
@@ -87,6 +88,13 @@ public class LoginController extends BaseController{
 			}else{
 				authorized=true;
 				setRole(ROLE_USER);				
+				
+				if (sicuusuario == null) sicuusuario = new Sicuusuario();
+				Sicuperiodo periodo = new Sicuperiodo();
+				periodo.setCodigoCentroCosto("108.01.09.01");
+				periodo.setIdPeriodo(1);
+				periodo.setAnio(2017);				
+				sicuusuario.setPeriodo(periodo);
 			    getHttpSession().setAttribute("sicuusuarioSESSION", sicuusuario);		
 			}
 		} catch (RemoteException e) {

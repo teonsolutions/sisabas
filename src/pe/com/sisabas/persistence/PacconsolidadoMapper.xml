@@ -85,12 +85,13 @@
 		<result column="NRO_PAC" property="nroPac" jdbcType="VARCHAR"/>
 		<result column="NRO_CONSOLID" property="nroConsolid" jdbcType="INTEGER"/>
 		<result column="ESPEC_TECNICAS" property="especificacionTecnica" jdbcType="VARCHAR"/>
-		<result column="ID_TIPO_NECESIDAD" property="idTipoNecesidad" jdbcType="INTEGER"/>
+		<result column="ID_TIPO_NECESIDAD" property="idTipoNecesidad" jdbcType="VARCHAR"/>
 		<result column="TIPO_NECESIDAD_DSC" property="tipoNecesidadDesc" jdbcType="VARCHAR"/>
 		<result column="TIPO_CONTRATACION_DSC" property="tipoContratacionDesc" jdbcType="VARCHAR"/>
 		<result column="TIPO_PROCESO_DSC" property="tipoProcesoDesc" jdbcType="VARCHAR"/>
 		<result column="NRO_PROCESO" property="nroProceso" jdbcType="INTEGER"/>
 		<result column="ESTADO_PROCESO_DSC" property="estadoProcesoDesc" jdbcType="VARCHAR"/>
+		<result column="ID_TIPO_BIEN" property="idTipoBien" jdbcType="VARCHAR"/>
 		<result column="TIPO_BIEN_DSC" property="tipoBienDesc" jdbcType="VARCHAR"/>
 		<result column="VALOR_MONEDA" property="valorMoneda" jdbcType="DECIMAL"/>
 		<result column="NRO_SINAD" property="numeroSinad" jdbcType="VARCHAR"/>
@@ -127,7 +128,7 @@
 		<result column="IdPacConsolidado" property="idPacConsolid" jdbcType="INTEGER"/>
 		<result column="NRO_CONSOLID" property="nroConsolid" jdbcType="INTEGER"/>
 		<result column="FECHA_PAO" property="fechaPao" jdbcType="DATE"/>
-		<result column="COD_TIPO_BIEN" property="tipoOrden" jdbcType="VARCHAR"/>
+		<result column="COD_TIPO_BIEN" property="idTipoBien" jdbcType="VARCHAR"/>
 		<result column="VALOR_MONEDA" property="valorMoneda" jdbcType="DOUBLE"/>
 		<result column="DSC_PAC" property="especificacionTecnica" jdbcType="VARCHAR"/>
 		<result column="FECHA_CERTIFICACION_PRESUPUESTAL" property="fechaCP" jdbcType="DATE"/>

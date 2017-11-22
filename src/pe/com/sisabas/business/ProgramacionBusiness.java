@@ -24,5 +24,5 @@ public interface ProgramacionBusiness {
 	public List<PacItemsDto> getPacItems(PaoRequest record) throws Exception;
 	public List<CertificacionItemsDto> getCertificacionItems(CertificacionRequest record) throws Exception;
 	public RecepcionDTResponse getFechaRecepcionDT(PaoRequest record) throws Exception;
-	public Resultado grabarCompraDirecta(TransactionRequest<CompraDirectaDatosGeneralesDto> record) throws Exception;
+	public Resultado grabarCompraDirecta(TransactionRequest<CompraDirectaDatosGeneralesDto> request) throws Exception;
 }

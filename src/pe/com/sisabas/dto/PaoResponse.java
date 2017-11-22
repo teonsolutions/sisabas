@@ -14,12 +14,13 @@ public class PaoResponse implements  Serializable,Cloneable {
 	private String nroPac;
 	private Integer nroConsolid;
 	private String especificacionTecnica;
-	private int idTipoNecesidad;
+	private String idTipoNecesidad;
 	private String tipoNecesidadDesc;
 	private String tipoContratacionDesc;
 	private String tipoProcesoDesc;
 	private Integer nroProceso;
 	private String estadoProcesoDesc;
+	private String idTipoBien;
 	private String tipoBienDesc;
 	private double valorMoneda;
 	private String numeroSinad;
@@ -65,10 +66,10 @@ public class PaoResponse implements  Serializable,Cloneable {
 	public void setEspecificacionTecnica(String especificacionTecnica) {
 		this.especificacionTecnica = especificacionTecnica;
 	}
-	public int getIdTipoNecesidad() {
+	public String getIdTipoNecesidad() {
 		return idTipoNecesidad;
 	}
-	public void setIdTipoNecesidad(int idTipoNecesidad) {
+	public void setIdTipoNecesidad(String idTipoNecesidad) {
 		this.idTipoNecesidad = idTipoNecesidad;
 	}
 	public String getTipoNecesidadDesc() {
@@ -101,6 +102,12 @@ public class PaoResponse implements  Serializable,Cloneable {
 	public void setEstadoProcesoDesc(String estadoProcesoDesc) {
 		this.estadoProcesoDesc = estadoProcesoDesc;
 	}
+	public String getIdTipoBien() {
+		return idTipoBien;
+	}
+	public void setIdTipoBien(String idTipoBien) {
+		this.idTipoBien = idTipoBien;
+	}	
 	public String getTipoBienDesc() {
 		return tipoBienDesc;
 	}
