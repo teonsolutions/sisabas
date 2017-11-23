@@ -73,20 +73,11 @@
 	</div>
 	<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
 		<tr>
-			<td colspan="2"><p:panel id="pnlHeader" widgetVar="pnlHeader"
+			<td colspan="2"><p:panel id="pnlFuente" widgetVar="pnlFuente"
 					styleClass="gandalfPanelClassSectionFormHeader">
-					<table style="width: 100%;" cellpadding="0" cellspacing="5"
-						border="0">
-
+					<table cellpadding="0" cellspacing="5" border="0">
 						<tr>
-							<td><p:outputLabel value="id"
-									for="txtIdcuadrocomparativofuente"
-									id="lblIdcuadrocomparativofuente" /></td>
-							<td><p:inputText id="txtIdcuadrocomparativofuente"
-									value="#{cuadrocomparativofuente.cuadrocomparativofuente.idcuadrocomparativofuente}"
-									required="true" maxlength="10" style="width:150px;" label="id" />
-							</td>
-							<td><p:outputLabel value="Catalogo Tipofuente"
+							<td><p:outputLabel value="Fuente"
 									for="txtIdcatalogotipofuente" id="lblIdcatalogotipofuente" /></td>
 							<td><p:selectOneMenu
 									value="#{cuadrocomparativofuente.cuadrocomparativofuente.idcatalogotipofuente}"
@@ -98,6 +89,112 @@
 										var="var" itemLabel="#{var.vchregdescri}"
 										itemValue="#{var.vchregcodigo}" />
 								</p:selectOneMenu></td>
+						</tr>
+					</table>
+				</p:panel> <p:fieldset legend="Proveedor">
+					<p:panel id="pnlProveedor">
+						<table>
+							<tr>
+								<td><p:outputLabel value="Nro. RUC" for="txtRucproveedor"
+										id="lblRucproveedor" /></td>
+								<td><p:inputText id="txtRucproveedor"
+										value="#{cuadrocomparativofuente.cuadrocomparativofuente.rucproveedor}"
+										required="false" maxlength="11" style="width:100px;"
+										label="Ruc Proveedor" /></td>
+							</tr>
+							<tr>
+								<td><p:outputLabel value="Nombre del Proveedor"
+										for="txtNombreproveedor" id="lblNombreproveedor" /></td>
+								<td><p:inputText id="txtNombreproveedor"
+										value="#{cuadrocomparativofuente.cuadrocomparativofuente.nombreproveedor}"
+										required="false" maxlength="150" style="width:250px;"
+										label="Nombre Proveedor" /></td>
+							</tr>
+							<tr>
+								<td><p:outputLabel value="Nombre Contacto"
+										for="txtNombrecontacto" id="lblNombrecontacto" /></td>
+								<td><p:inputText id="txtNombrecontacto"
+										value="#{cuadrocomparativofuente.cuadrocomparativofuente.nombrecontacto}"
+										required="false" maxlength="50" style="width:250px;"
+										label="Nombre Contacto" /></td>
+							</tr>
+							<tr>
+								<td><p:outputLabel value="Correo electrónico"
+										for="txtCorreoproveedor" id="lblCorreoproveedor" /></td>
+								<td><p:inputText id="txtCorreoproveedor"
+										value="#{cuadrocomparativofuente.cuadrocomparativofuente.correoproveedor}"
+										required="false" maxlength="60" style="width:250px;"
+										label="Correo Proveedor" /></td>
+							</tr>
+						</table>
+					</p:panel>
+					<p:panel id="pnlConvocante">
+						<table>
+							<tr>
+								<td><p:outputLabel value="Nombre de entidad"
+										for="txtEntidadconvocante" id="lblEntidadconvocante" /></td>
+								<td><p:inputText id="txtEntidadconvocante"
+										value="#{cuadrocomparativofuente.cuadrocomparativofuente.entidadconvocante}"
+										required="false" maxlength="150" style="width:250px;"
+										label="Nombre de entidad" /></td>
+								<td></td>
+								<td></td>
+
+							</tr>
+							<tr>
+								<td><p:outputLabel value="Tipo y Nro. de proceso"
+										for="txtTiponumeroproceso" id="lblTiponumeroproceso" /></td>
+								<td><p:inputText id="txtTiponumeroproceso"
+										value="#{cuadrocomparativofuente.cuadrocomparativofuente.tiponumeroproceso}"
+										required="false" maxlength="50" style="width:150px;"
+										label="Tipo y Nro. de proceso" /></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</table>
+					</p:panel>
+				</p:fieldset> <p:panel id="pnlItems">
+					<h:panelGrid columns="1">
+						<p:dataTable id="tblItemsCC">
+							<p:column headerText="N°">
+								<h:outputText value="1" />
+							</p:column>
+							<p:column headerText="Descripción / denominación">
+								<h:outputText value="UGME" />
+							</p:column>
+							<p:column headerText="Unidad">
+								<h:outputText value="UGME" />
+							</p:column>
+							<p:column headerText="Cantidad">
+								<h:outputText value="UGME" />
+							</p:column>
+							<p:column
+								headerText="Precio Total (Consignar moneda del valor referencial)">
+								<h:outputText value="UGME" />
+							</p:column>
+						</p:dataTable>
+					</h:panelGrid>
+				</p:panel> <p:accordionPanel id="accItems" value="Items">
+					<p:tab>
+					</p:tab>
+				</p:accordionPanel> <p:panel id="pnlHeader" widgetVar="pnlHeader"
+					styleClass="gandalfPanelClassSectionFormHeader">
+
+
+
+					<table style="width: 100%;" cellpadding="0" cellspacing="5"
+						border="0">
+
+						<tr>
+							<td><p:outputLabel value="id"
+									for="txtIdcuadrocomparativofuente"
+									id="lblIdcuadrocomparativofuente" /></td>
+							<td><p:inputText id="txtIdcuadrocomparativofuente"
+									value="#{cuadrocomparativofuente.cuadrocomparativofuente.idcuadrocomparativofuente}"
+									required="true" maxlength="10" style="width:150px;" label="id" />
+							</td>
+							<td></td>
+							<td></td>
 						</tr>
 						<tr>
 							<td><p:outputLabel value="Tipo bien"
@@ -119,26 +216,14 @@
 									label="Proveedor" /></td>
 						</tr>
 						<tr>
-							<td><p:outputLabel value="Ruc Proveedor"
-									for="txtRucproveedor" id="lblRucproveedor" /></td>
-							<td><p:inputText id="txtRucproveedor"
-									value="#{cuadrocomparativofuente.cuadrocomparativofuente.rucproveedor}"
-									required="false" maxlength="11" style="width:150px;"
-									label="Ruc Proveedor" /></td>
-							<td><p:outputLabel value="Nombre Proveedor"
-									for="txtNombreproveedor" id="lblNombreproveedor" /></td>
-							<td><p:inputText id="txtNombreproveedor"
-									value="#{cuadrocomparativofuente.cuadrocomparativofuente.nombreproveedor}"
-									required="false" maxlength="150" style="width:150px;"
-									label="Nombre Proveedor" /></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
 						</tr>
 						<tr>
-							<td><p:outputLabel value="Nombre Contacto"
-									for="txtNombrecontacto" id="lblNombrecontacto" /></td>
-							<td><p:inputText id="txtNombrecontacto"
-									value="#{cuadrocomparativofuente.cuadrocomparativofuente.nombrecontacto}"
-									required="false" maxlength="50" style="width:150px;"
-									label="Nombre Contacto" /></td>
+							<td></td>
+							<td></td>
 							<td><p:outputLabel value="Telefono Proveedor"
 									for="txtTelefonoproveedor" id="lblTelefonoproveedor" /></td>
 							<td><p:inputText id="txtTelefonoproveedor"
@@ -147,26 +232,14 @@
 									label="Telefono Proveedor" /></td>
 						</tr>
 						<tr>
-							<td><p:outputLabel value="Correo Proveedor"
-									for="txtCorreoproveedor" id="lblCorreoproveedor" /></td>
-							<td><p:inputText id="txtCorreoproveedor"
-									value="#{cuadrocomparativofuente.cuadrocomparativofuente.correoproveedor}"
-									required="false" maxlength="60" style="width:150px;"
-									label="Correo Proveedor" /></td>
-							<td><p:outputLabel value="Entidad Convocante"
-									for="txtEntidadconvocante" id="lblEntidadconvocante" /></td>
-							<td><p:inputText id="txtEntidadconvocante"
-									value="#{cuadrocomparativofuente.cuadrocomparativofuente.entidadconvocante}"
-									required="false" maxlength="150" style="width:150px;"
-									label="Entidad Convocante" /></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
 						</tr>
 						<tr>
-							<td><p:outputLabel value="Tipo numero proceso"
-									for="txtTiponumeroproceso" id="lblTiponumeroproceso" /></td>
-							<td><p:inputText id="txtTiponumeroproceso"
-									value="#{cuadrocomparativofuente.cuadrocomparativofuente.tiponumeroproceso}"
-									required="false" maxlength="50" style="width:150px;"
-									label="Tipo numero proceso" /></td>
+							<td></td>
+							<td></td>
 							<td><p:outputLabel value="Fecha Consentimiento Buena Pro"
 									for="txtFechaconsentimientobuenapro"
 									id="lblFechaconsentimientobuenapro" /></td>
