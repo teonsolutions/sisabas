@@ -38,6 +38,7 @@ import java.rmi.RemoteException;
 import pe.com.sisabas.exception.SecurityRestrictedControlException;
 import pe.com.sisabas.exception.SecuritySessionExpiredException;
 import pe.com.sisabas.exception.SecurityValidateException;
+import pe.com.sisabas.be.Cuadrocomparativofuente;
 import pe.com.sisabas.be.Documentotecnico;
 import pe.com.sisabas.business.DocumentotecnicoBusiness;
 import pe.com.sisabas.business.GentablaBusiness;
@@ -52,6 +53,7 @@ import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
 import pe.com.sisabas.dto.TransactionRequest;
 import pe.com.sisabas.be.Gentabla;
+import pe.com.sisabas.be.Pacconsolidado;
 import pe.com.sisabas.business.GentablaBusiness;
 import pe.com.sisabas.be.Gentabla;
 
@@ -59,18 +61,18 @@ import pe.com.sisabas.resources.controller.BaseController;
 
 @Component(value = "programacion")
 @Scope(value = "session")
-public class ProgramacionController extends BaseController{
+public class ProgramacionController extends BaseController {
 	private static final long serialVersionUID = 1L;
 
-	//PROPERTIES
+	// PROPERTIES
 	private List<PaoResponse> listaPao;
 	private PaoResponse selectedPao;
 	private PaoRequest searchParam;
 	private PaoResponse currentPao;
 	private String tituloBase; // titulo de la opcion
 	private String tituloParam;// titulo que llega como parametro (derivada
-								// padre)	
-	//To functionality
+								// padre)
+	// To functionality
 	private boolean disabledTabEstudioMercado;
 	private boolean disabledTabOrden;
 
@@ -79,26 +81,29 @@ public class ProgramacionController extends BaseController{
 	public List<Gentabla> listaGentablaIdcatalogotipobien;
 	public List<Gentabla> listaGentablaIdcatalogotiponecesidad;
 	public List<Gentabla> listaGentablaIdcatalogotipocontratacion;
-	
-	//Direct
-	public static String SUCCESS_ORDEN="/pages/pao/ordenRegistrar.xhtml?faces-redirect=true;";
-	
-	//BUSINESS SECTION
+
+	// Direct
+	public static String SUCCESS_ORDEN = "/pages/pao/ordenRegistrar.xhtml?faces-redirect=true;";
+
+	//Estudio del mercado
+	private Cuadrocomparativofuente cuadrocomparativofuente;
+
+	// BUSINESS SECTION
 	@Autowired
 	public pe.com.sisabas.resources.business.UtilsBusiness utilsBusiness;
-	
+
 	@Autowired
 	public GentablaBusiness gentablaBusiness;
-	
+
 	@Autowired
 	public ProgramacionBusiness programacionBusiness;
-	
-	public ProgramacionController(){
-		
+
+	public ProgramacionController() {
+
 	}
-	
+
 	@PostConstruct
-	public void init(){
+	public void init() {
 		try {
 			searchParam = new PaoRequest(); // search parameters
 			tituloBase = "PAO » ";
@@ -107,8 +112,8 @@ public class ProgramacionController extends BaseController{
 				sicuopcion = SicuCallService.obtenercontroles(idOpcion);
 			}
 
-			//´Fill combo filters
-			
+			// ´Fill combo filters
+
 			/*
 			 * listaIdcatalogotipodocumentotecnicoKeys= new ArrayList<String>();
 			 * listaIdcatalogotipotdrKeys= new ArrayList<String>();
@@ -120,11 +125,15 @@ public class ProgramacionController extends BaseController{
 			 * Gentabla().getObjBusqueda(Constantes.tabla.TITD));
 			 */
 
-			listaGentablaIdcatalogoestadopac = gentablaBusiness.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EPAC));
-			listaGentablaIdcatalogotipobien = gentablaBusiness.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TIBI));
-			listaGentablaIdcatalogotiponecesidad = gentablaBusiness.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TINE));
-			listaGentablaIdcatalogotipocontratacion = gentablaBusiness.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TCON));
-			
+			listaGentablaIdcatalogoestadopac = gentablaBusiness
+					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EPAC));
+			listaGentablaIdcatalogotipobien = gentablaBusiness
+					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TIBI));
+			listaGentablaIdcatalogotiponecesidad = gentablaBusiness
+					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TINE));
+			listaGentablaIdcatalogotipocontratacion = gentablaBusiness
+					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TCON));
+
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
 		} catch (SecurityRestrictedControlException e) {
@@ -139,147 +148,177 @@ public class ProgramacionController extends BaseController{
 					FacesMessage.SEVERITY_ERROR);
 		} catch (Exception e) {
 			addErrorMessageKey("msgsForm", e);
-		}		
+		}
 	}
-	
-	//METHODS
-	public void buscarPao(){
 
-		try{
+	// METHODS
+	public void buscarPao() {
+
+		try {
 			this.searchParam.setCodigoUnidadEjecutora(Constantes.unidadEjecutora.PRONIED);
 			this.searchParam.setAnio(2017);
 			this.searchParam.setPageNumber(1);
 			this.searchParam.setPageSize(10);
-			
+
 			this.listaPao = programacionBusiness.getPaoListado(searchParam);
 			this.setEsSeleccionado(false);
 			if (listaPao.size() == 0)
-				addMessageKey("msgsForm",
-					Messages.getString("no.records.found"),
-					FacesMessage.SEVERITY_INFO);
-			
+				addMessageKey("msgsForm", Messages.getString("no.records.found"), FacesMessage.SEVERITY_INFO);
+
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
 		} catch (SecurityRestrictedControlException e) {
-			addMessageKey("msgsForm", Messages.getString("no.access"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
 		} catch (SecurityValidateException e) {
-			addMessageKey("msgsForm",e.getMessage(), FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
 		} catch (RemoteException e) {
-			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
 		} catch (Exception e) {
 			addErrorMessageKey("msgsForm", e);
-		}		
+		}
 	}
-	
+
 	public void resetRegisterForm() {
-		reset("frmDocumentotecnicoRegistrar:panelC");
+		reset("frmCuadrocomparativofuenteRegistrar:panelC");
 	}
-	
+
 	public void validateSelectedRow() throws UnselectedRowException, CloneNotSupportedException {
 		if (this.selectedPao == null)
 			throw new UnselectedRowException(Messages.getString("no.record.selected"));
 		else
-			this.setCurrentPao((PaoResponse)this.selectedPao.clone());
-	}	
-	
-	public String ordenRegistrar()
-	{
-		logger.debug("paoRegistrar....");	
+			this.setCurrentPao((PaoResponse) this.selectedPao.clone());
+	}
+
+	public String ordenRegistrar() {
+		logger.debug("paoRegistrar....");
 		try {
-			
+
 			validateSelectedRow();
-			if (this.esSeleccionado){
-				
+			if (this.esSeleccionado) {
+
 			}
-			if (this.currentPao == null){
+			if (this.currentPao == null) {
 				this.currentPao = new PaoResponse();
 			}
-			
-			this.setDisabledTabEstudioMercado(this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);			
-			this.setDisabledTabOrden(this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
-			
+
+			this.setDisabledTabEstudioMercado(
+					this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
+			this.setDisabledTabOrden(
+					this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
+
 			PaoRequest record = new PaoRequest();
 			record.setIdUnidadEjecutora(1);
 			record.setAnio(2017);
 			record.setNroConsolid(this.currentPao.getNroConsolid());
-			record.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.PRONIED_SIAF);			
+			record.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.PRONIED_SIAF);
 			CompraDirectaDatosGeneralesDto cd = programacionBusiness.getCompraDirectaDatosGenerales(record);
-			this.currentPao.setCompraDirecta(cd);		
-					
+			this.currentPao.setCompraDirecta(cd);
+
 			/*
-		} catch (RemoteException e) {
-			STATUS_ERROR();				
-			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"),e.getMessage(),
-					FacesMessage.SEVERITY_ERROR);
-			return "/login.xhtml";
-		} catch (ValidateException e) {			
-			addMessage(e.getMessage(),
-			FacesMessage.SEVERITY_ERROR);
-			return "/login.xhtml";
-			*/
+			 * } catch (RemoteException e) { STATUS_ERROR();
+			 * addMessageKey("msgsForm",
+			 * Messages.getString("sicu.remote.exeption"),e.getMessage(),
+			 * FacesMessage.SEVERITY_ERROR); return "/login.xhtml"; } catch
+			 * (ValidateException e) { addMessage(e.getMessage(),
+			 * FacesMessage.SEVERITY_ERROR); return "/login.xhtml";
+			 */
 		} catch (Exception e) {
 			addErrorMessage(e);
 			return "/login.xhtml";
-		}		
-			
+		}
+
 		return SUCCESS_ORDEN;
 	}
-	
+
 	public void guardarDatosGenerales() {
 		REGISTER_INIT();
-	try {
+		try {
 
-		Sicuusuario usuario = (Sicuusuario)getHttpSession().getAttribute("sicuusuarioSESSION");
-		if (usuario == null){
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
+			if (usuario == null) {
+				REGISTER_ERROR();
+				addMessageKey("msgsDocumentotecnicoR", "Teminó la sesión", FacesMessage.SEVERITY_ERROR);
+				return;
+			}
+
+			CompraDirectaDatosGeneralesDto compraDirecta = this.currentPao.getCompraDirecta();
+			if (!compraDirecta.getEstadoRequerimiento().equals(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN)) {
+				securityControlValidate("btnGuadarDatosGenerales");
+
+				CompraDirectaDatosGeneralesDto cDirecta = (CompraDirectaDatosGeneralesDto) compraDirecta.clone();
+				cDirecta.setIdTipoNecesidad(this.currentPao.getIdTipoNecesidad());
+				cDirecta.setIdUnidadEjecutora(Constantes.unidadEjecutora.ID_UNIDAD_EJECUTORA_ABAS);
+				cDirecta.setAnio(usuario.getPeriodo().getAnio());
+				cDirecta.setCodigoCentroCosto(usuario.getPeriodo().getCodigoCentroCosto());
+				cDirecta.setIdTipoContratacion(Constantes.tipoContratacion.NO_PAC);
+				cDirecta.setTipoProceso(Constantes.maestroProcesoSiga.ADJUDIACION_SIN_PROCESO);
+
+				// VALIDAR SI ESTÁ EN GIRO DE ORDEN O ESTUDIO DEL MERCADO
+				cDirecta.setEstadoRequerimiento(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN);
+
+				TransactionRequest<CompraDirectaDatosGeneralesDto> transactionRequest = new TransactionRequest<CompraDirectaDatosGeneralesDto>();
+				transactionRequest.setUsuarioAuditoria("PRUEBA");
+				transactionRequest.setEquipoAuditoria("MI PC");
+				transactionRequest.setEntityTransaction(cDirecta);
+				Resultado result = programacionBusiness.grabarCompraDirecta(transactionRequest);
+
+				showGrowlMessageSuccessfullyCompletedAction();
+				buscarPao();
+
+				REGISTER_SUCCESS();
+			}
+		} catch (ValidateException e) {
 			REGISTER_ERROR();
-			addMessageKey("msgsDocumentotecnicoR", "Teminó la sesión", FacesMessage.SEVERITY_ERROR);
-			return;
+			addMessageKey("msgsDocumentotecnicoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (BusinessException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsDocumentotecnicoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (DataIntegrityViolationException e) {
+			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),
+					Messages.getString("exception.dataintegrity.message.detail"), FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			REGISTER_ERROR();
+			addErrorMessageKey("msgsDocumentotecnicoR", e);
 		}
-		
-		CompraDirectaDatosGeneralesDto compraDirecta = this.currentPao.getCompraDirecta();
-		if (!compraDirecta.getEstadoRequerimiento().equals(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN)){
-			securityControlValidate("btnGuadarDatosGenerales");	
-			
-			CompraDirectaDatosGeneralesDto cDirecta = (CompraDirectaDatosGeneralesDto)compraDirecta.clone();
-			cDirecta.setIdTipoNecesidad(this.currentPao.getIdTipoNecesidad());
-			cDirecta.setIdUnidadEjecutora(Constantes.unidadEjecutora.ID_UNIDAD_EJECUTORA_ABAS);
-			cDirecta.setAnio(usuario.getPeriodo().getAnio());
-			cDirecta.setCodigoCentroCosto(usuario.getPeriodo().getCodigoCentroCosto());
-			cDirecta.setIdTipoContratacion(Constantes.tipoContratacion.NO_PAC);
-			cDirecta.setTipoProceso(Constantes.maestroProcesoSiga.ADJUDIACION_SIN_PROCESO);
-						
-			//VALIDAR SI ESTÁ EN GIRO DE ORDEN O ESTUDIO DEL MERCADO
-			cDirecta.setEstadoRequerimiento(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN);
-			
-			TransactionRequest<CompraDirectaDatosGeneralesDto> transactionRequest = new TransactionRequest<CompraDirectaDatosGeneralesDto>();
-			transactionRequest.setUsuarioAuditoria("PRUEBA");
-			transactionRequest.setEquipoAuditoria("MI PC");
-			transactionRequest.setEntityTransaction(cDirecta);
-			Resultado result = programacionBusiness.grabarCompraDirecta(transactionRequest);
-			
-			showGrowlMessageSuccessfullyCompletedAction();
-			buscarPao();
-
-			REGISTER_SUCCESS();		
-		}		
-	} catch (ValidateException e) {
-		REGISTER_ERROR();
-		addMessageKey("msgsDocumentotecnicoR", e.getMessage(),
-		FacesMessage.SEVERITY_ERROR);
-	} catch (BusinessException e) {
-		REGISTER_ERROR();
-		addMessageKey("msgsDocumentotecnicoR", e.getMessage(),
-		FacesMessage.SEVERITY_ERROR);
-	} catch(DataIntegrityViolationException e) {
-		addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),Messages.getString("exception.dataintegrity.message.detail"),
-		FacesMessage.SEVERITY_ERROR);
-	} catch (Exception e) {
-		REGISTER_ERROR();
-		addErrorMessageKey("msgsDocumentotecnicoR", e);
 	}
-}
 	
-	//PROPERTIES	
+	public void irRegistrarFuente() {
+		STATUS_INIT();
+		try {
+			
+			securityControlValidate("btnNuevoEM");
+			resetRegisterForm();
+			//accion = REGISTRAR;
+			//titulo = "CuadroComparativoFuente » " + REGISTRAR;
+			this.cuadrocomparativofuente = new Cuadrocomparativofuente();
+			this.cuadrocomparativofuente.setBooleanproveedordedicacontratacion(false);
+			this.cuadrocomparativofuente.setBooleanusuarioparticiportm(false);
+			this.cuadrocomparativofuente.setBooleancumplertm(false);
+			this.cuadrocomparativofuente.setBooleansetomoencuenta(false);
+			this.cuadrocomparativofuente.setIdcuadrocomparativofuente(new java.lang.Integer(0));
+			this.cuadrocomparativofuente.setIdcuadrocomparativofuente((int)utilsBusiness.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_CUADROCOMPARATIVOFUENTE).longValue());
+
+			STATUS_SUCCESS();
+			REGISTER_INIT();
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("no.access"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm",e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			STATUS_ERROR();
+			addErrorMessageKey("msgsForm", e);
+		}
+	}	
+
+	// PROPERTIES
 	public List<PaoResponse> getListaPao() {
 		return listaPao;
 	}
@@ -359,7 +398,7 @@ public class ProgramacionController extends BaseController{
 	public void setListaGentablaIdcatalogotipocontratacion(List<Gentabla> listaGentablaIdcatalogotipocontratacion) {
 		this.listaGentablaIdcatalogotipocontratacion = listaGentablaIdcatalogotipocontratacion;
 	}
-	
+
 	public boolean isDisabledTabEstudioMercado() {
 		return disabledTabEstudioMercado;
 	}
@@ -376,5 +415,13 @@ public class ProgramacionController extends BaseController{
 		this.disabledTabOrden = disabledTabOrden;
 	}
 	
+	public Cuadrocomparativofuente getCuadrocomparativofuente() {
+		return cuadrocomparativofuente;
+	}
+
+	public void setCuadrocomparativofuente(Cuadrocomparativofuente cuadrocomparativofuente) {
+		this.cuadrocomparativofuente = cuadrocomparativofuente;
+	}
 	
+
 }

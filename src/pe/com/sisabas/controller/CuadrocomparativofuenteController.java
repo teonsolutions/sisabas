@@ -156,6 +156,7 @@ public class CuadrocomparativofuenteController extends BaseController {
 	public void irRegistrar() {
 		STATUS_INIT();
 		try {
+			
 			securityControlValidate("btnNuevo");
 			resetRegisterForm();
 			accion = REGISTRAR;
@@ -171,6 +172,7 @@ public class CuadrocomparativofuenteController extends BaseController {
 			cuadrocomparativofuente.setIdcuadrocomparativofuente((int)utilsBusiness.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_CUADROCOMPARATIVOFUENTE).longValue());
 			cuadrocomparativofuente.setPacconsolidadoIdpacconsolidado(new Pacconsolidado());
 
+			
 			cuadrocomparativofuente.setIdpacconsolidado(cuadrocomparativofuenteB.getIdpacconsolidado());
 
 			STATUS_SUCCESS();

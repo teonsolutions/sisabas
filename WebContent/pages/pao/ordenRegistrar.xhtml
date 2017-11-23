@@ -11,9 +11,10 @@
 	<ui:define name="center">
 		<h:form id="form">
 			<p:growl id="msgs" showDetail="true"></p:growl>
+			<p:growl id="growl" showDetail="true" for="growl" />
 			<p:panel id="panel" header="Programación y costos > pao >Orden">
 				<p:focus for="panel" />
-				<p:tabView>
+				<p:tabView id="tabViewPao">
 					<p:tab title="Datos generales">
 						<p:accordionPanel multiple="true" activeIndex="0,1,2,3,4">
 							<p:tab title="Identificación">
@@ -293,11 +294,12 @@
 						<p:fieldset>
 							<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
 								<p:commandButton value="Nuevo"
-									action="#{cuadrocomparativofuente.irRegistrar}"
+									action="#{programacion.irRegistrarFuente}"
 									update="hidStatus,:frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar"
-									oncomplete="showDialog('form:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');"
+									oncomplete="showDialog('form:tabViewPao:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');"
 									icon="ui-icon-document"
-									rendered="#{cuadrocomparativofuente.renderButton('btnNuevo')}" />
+									rendered="#{programacion.renderButton('btnNuevoEM')}" />
+
 								<p:commandButton value="Editar"
 									action="#{cuadrocomparativofuente.irEditar}"
 									update="hidStatus,:frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar"
@@ -312,26 +314,25 @@
 									icon="ui-icon-circle-close" title="Eliminar"
 									disabled="#{!cuadrocomparativofuente.esSeleccionado}"
 									rendered="#{cuadrocomparativofuente.renderButton('btnEliminar')}" />
-								<h:inputHidden id="hidStatus"
-									value="#{cuadrocomparativofuente.status}" />
+								<h:inputHidden id="hidStatus" value="true" />
 							</p:panel>
-							<h:panelGrid columns="2">
 
-								<p:dataTable>
-									<p:column headerText="N°">
-										<h:outputText value="1" />
-									</p:column>
-									<p:column headerText="Fuente">
-										<h:outputText value="UGME" />
-									</p:column>
-									<p:column headerText="Proveedor / postor / entidad">
-										<h:outputText value="UGME" />
-									</p:column>
-									<p:column headerText="Acciones">
-										<h:outputText value="UGME" />
-									</p:column>
-								</p:dataTable>
-							</h:panelGrid>
+
+							<p:dataTable id="tblListaCuadrocomparativofuente">
+								<p:column headerText="N°">
+									<h:outputText value="1" />
+								</p:column>
+								<p:column headerText="Fuente">
+									<h:outputText value="UGME" />
+								</p:column>
+								<p:column headerText="Proveedor / postor / entidad">
+									<h:outputText value="UGME" />
+								</p:column>
+								<p:column headerText="Acciones">
+									<h:outputText value="UGME" />
+								</p:column>
+							</p:dataTable>
+
 							<p:outputLabel value="Items" id="lblItems" />
 							<h:panelGrid columns="2">
 								<p:dataTable>
@@ -512,7 +513,7 @@
 		</h:form>
 		<h:form id="frmCuadrocomparativofuenteRegistrar">
 			<p:dialog id="diCuadrocomparativofuenteRegistrar"
-				header="#{cuadrocomparativofuente.titulo}"
+				header="Registro de Estudio del Mercado"
 				widgetVar="diCuadrocomparativofuenteRegistrar" resizable="false"
 				modal="true" dynamic="true">
 				<p:scrollPanel mode="native" style="width:100%;height:100%;">
@@ -523,8 +524,7 @@
 				</p:scrollPanel>
 				<table style="width: 100%;">
 					<tr>
-						<td><h:inputHidden id="hidStatus"
-								value="#{cuadrocomparativofuente.statusRegister}" /> <p:commandButton
+						<td><h:inputHidden id="hidStatus" value="true" /> <p:commandButton
 								value="Aceptar" action="#{cuadrocomparativofuente.aceptar}"
 								update="hidStatus,:form:tblListaCuadrocomparativofuente,:form:growl,:form:pnlBotones,panelC"
 								oncomplete="hideDialog('frmCuadrocomparativofuenteRegistrar:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar')"
