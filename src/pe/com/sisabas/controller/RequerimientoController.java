@@ -1,12 +1,14 @@
 package pe.com.sisabas.controller;
 
 import java.rmi.RemoteException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +16,18 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import pe.com.sisabas.be.Gentipo;
+import pe.com.sisabas.be.RequerimientoInsertRequest;
 import pe.com.sisabas.be.RequerimientoItemRequest;
 import pe.com.sisabas.be.RequerimientoItemResponse;
 import pe.com.sisabas.be.RequerimientoRequest;
 import pe.com.sisabas.be.RequerimientoResponse;
 import pe.com.sisabas.business.PersonaBusiness;
 import pe.com.sisabas.business.RequerimientoBusiness;
+import pe.com.sisabas.dto.Lugar;
 import pe.com.sisabas.exception.SecurityRestrictedControlException;
 import pe.com.sisabas.exception.SecuritySessionExpiredException;
 import pe.com.sisabas.exception.SecurityValidateException;
+import pe.com.sisabas.resources.Constantes;
 import pe.com.sisabas.resources.Messages;
 import pe.com.sisabas.resources.controller.BaseController;
 import pe.com.sisabas.service.SicuCallService;
@@ -38,6 +43,11 @@ public class RequerimientoController extends BaseController{
 	
 	private int tam;
 	
+	
+	private String fechaformato=null;
+	
+	private RequerimientoInsertRequest requerimientoInsertRequest;
+	
 	private RequerimientoRequest requerimientoRequest;
 	private RequerimientoResponse requerimientoResponse;
 	
@@ -46,22 +56,49 @@ public class RequerimientoController extends BaseController{
 	
 	private List<RequerimientoResponse> listaRequerimientos = new ArrayList<RequerimientoResponse>();
 	private List<RequerimientoItemResponse> listaItemRequerimientos = new ArrayList<RequerimientoItemResponse>();
-	                           
+	//private static List<Lugar> lugares=new ArrayList<>();
+	
+
+	//private Lugar lugar; 
+	
+	private boolean auxiliar = true;
+	
+	
+	
 	private String tituloBase; //titulo de la opcion
 	private String tituloParam;//titulo que llega como parametro (derivada padre)
 	
+
 	private String idOpcionText = "OPC_REQUERIMIENTO";
 	
 	public RequerimientoController() {
-		System.out.println("********** constructor Fer1************");
 		
+		//System.out.println("***************Fer0000000**************"+lugares.size());
 		
 	}
 	
+	
+	public String getFechaformato() {
+		return fechaformato;
+	}
+
+
+
+	public void setFechaformato(String fechaformato) {
+		this.fechaformato = fechaformato;
+	}
+
+
 	@PostConstruct
 	public void init(){
-		System.out.println("*************init Fer2 **************");
+		
 		try {
+			
+			
+			
+			//lugar=new Lugar();
+			requerimientoInsertRequest=new RequerimientoInsertRequest();
+			
 			requerimientoRequest = new RequerimientoRequest();
 			requerimientoResponse = new RequerimientoResponse();
 			requerimientoItemRequest = new RequerimientoItemRequest();
@@ -83,6 +120,7 @@ public class RequerimientoController extends BaseController{
 	
 	
 	public void buscarRequerimientos() {
+	//	System.out.println("***************FerRRRRRRRRRRR**************"+lugares.size());
 		try {
 			System.out.println("Fer3");
 			//Todos		
@@ -92,11 +130,8 @@ public class RequerimientoController extends BaseController{
 			requerimientoRequest.setPagenumber(1);  
 			requerimientoRequest.setPageSize(10);
 			
-			
+
 			listaRequerimientos = business.selectDynamicFull(requerimientoRequest);
-			
-			System.out.println("***********el tamanio es *********"+listaRequerimientos.size());
-			System.out.println("***********Valor de tipo de bien *********"+requerimientoRequest.getTipoBien());
 			
 			if (listaRequerimientos.size() == 0)
 				addMessageKey("msgsForm",
@@ -119,7 +154,57 @@ public class RequerimientoController extends BaseController{
 	
 	public void buscarItemRequerimientos() {
 		try {
+
 			System.out.println("***************Fer4**************"+requerimientoResponse.getEstadoSiga());
+			//Todos		
+			//getPedidosEvaluacion
+			requerimientoItemRequest.setCodUnidadEjecutora("108");
+			requerimientoItemRequest.setEjercicio(2017); 
+			
+			requerimientoItemRequest.setNroPedido(requerimientoResponse.getNroPedido());
+			
+			if(requerimientoResponse.getTipobien().equalsIgnoreCase("Servicio"))
+				requerimientoItemRequest.setTipoBien("S");
+			else if (requerimientoResponse.getTipobien().equalsIgnoreCase("Bien"))
+				requerimientoItemRequest.setTipoBien("B");
+
+			listaItemRequerimientos = business.selectDynamicBasic(requerimientoItemRequest);
+
+			
+			if(listaItemRequerimientos.size()==1)
+				tam=100;
+			else tam = 200;
+			
+			if (listaItemRequerimientos.size() == 0)
+				addMessageKey("msgsForm",
+					Messages.getString("no.records.found"),
+					FacesMessage.SEVERITY_INFO);	
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			addMessageKey("msgsForm", Messages.getString("no.access"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			addMessageKey("msgsForm",e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			addErrorMessageKey("msgsForm", e);
+		}
+		
+	}
+	
+	public void buscarItemRequerimientos2() {
+
+		try {
+
+			//if(auxiliar)
+		//	System.out.println("***************Fer11111111111**************"+lugares.size());
+		//	 lugares.add(lugar);
+		//	 lugares = new ArrayList<Lugar>();
+		//	 System.out.println("***************Fer2222222222**************"+lugares.size());
+		//	auxiliar=false;
+			
+			
 			//Todos		
 			//getPedidosEvaluacion
 			requerimientoItemRequest.setCodUnidadEjecutora("108");
@@ -145,6 +230,70 @@ public class RequerimientoController extends BaseController{
 				addMessageKey("msgsForm",
 					Messages.getString("no.records.found"),
 					FacesMessage.SEVERITY_INFO);	
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			addMessageKey("msgsForm", Messages.getString("no.access"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			addMessageKey("msgsForm",e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			addErrorMessageKey("msgsForm", e);
+		}
+		
+	}
+	
+	public void insertarRequerimientos() {
+		try {
+			System.out.println("***************Fer5**************"+requerimientoResponse.getNroPedido());
+			
+			System.out.println("valor 1 es: "+requerimientoInsertRequest.getNroPedido());
+			System.out.println("valor 3 es: "+requerimientoResponse.getNumeroSinad());
+			
+			
+			
+			
+			requerimientoInsertRequest.setNroPedido(requerimientoResponse.getNroPedido());
+			requerimientoInsertRequest.setCodUnidadEjecutora(Constantes.unidadEjecutora.PRONIED);
+			requerimientoInsertRequest.setAnoEje(2017);
+			requerimientoInsertRequest.setTipoBien(requerimientoResponse.getTipobien());
+			requerimientoInsertRequest.setIdPeriodo(1);
+			
+			
+			
+			System.out.println("xxxxxxxxxxxxxxxxxx " +requerimientoInsertRequest.getNroPedido());
+			System.out.println("xxxxxxxxxxxxxxxxxx " +requerimientoInsertRequest.getCodUnidadEjecutora());
+			System.out.println("xxxxxxxxxxxxxxxxxx " +requerimientoInsertRequest.getAnoEje());
+			System.out.println("xxxxxxxxxxxxxxxxxx " +requerimientoInsertRequest.getTipoBien());
+			System.out.println("xxxxxxxxxxxxxxxxxx " +requerimientoInsertRequest.getIdPeriodo());
+			
+			
+			//Todos		
+			//getPedidosEvaluacion
+            /*
+			if(requerimientoResponse.getTipobien().equalsIgnoreCase("Servicio"))
+				requerimientoItemRequest.setTipoBien("S");
+			else if (requerimientoResponse.getTipobien().equalsIgnoreCase("Bien"))
+				requerimientoItemRequest.setTipoBien("B");*/
+
+			business.insertBasic(requerimientoInsertRequest); 
+		
+			System.out.println("***********el valor de nropedidoZ es *********"+requerimientoResponse.getNroPedido());
+			
+			 FacesContext context = FacesContext.getCurrentInstance();
+			 context.addMessage(null, new FacesMessage("Mensaje", "Se Agrego al POI correctamente"));
+			 
+			 
+			 System.out.println("***********llego o no *********"+requerimientoResponse.getNroPedido());
+		
+			if (listaItemRequerimientos.size() == 0)
+				addMessageKey("msgsForm",
+					Messages.getString("no.records.found"),
+					FacesMessage.SEVERITY_INFO);	
+			
+			
+		  	
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
 		} catch (SecurityRestrictedControlException e) {
@@ -227,7 +376,35 @@ public class RequerimientoController extends BaseController{
 	public void setTam(int tam) {
 		this.tam = tam;
 	}
-	
+
+	public RequerimientoInsertRequest getRequerimientoInsertRequest() {
+		return requerimientoInsertRequest;
+	}
+
+	public void setRequerimientoInsertRequest(RequerimientoInsertRequest requerimientoInsertRequest) {
+		this.requerimientoInsertRequest = requerimientoInsertRequest;
+	}
+
+
 	
 
+
+
+
+
+	
+
+
+	public boolean isAuxiliar() {
+		return auxiliar;
+	}
+
+
+
+	public void setAuxiliar(boolean auxiliar) {
+		this.auxiliar = auxiliar;
+	}
+	
+    
+	
 }

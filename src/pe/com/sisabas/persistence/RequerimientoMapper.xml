@@ -74,6 +74,22 @@
       )}
    </select> 
    
+   <select id = "insertBasic" parameterType = "pe.com.sisabas.be.RequerimientoInsertRequest" statementType = "CALLABLE">
+      {call abas.paInsertarPedidos(
+            #{nroPedido},
+            #{codUnidadEjecutora},
+            #{anoEje},
+            #{tipoBien},
+            #{idPeriodo}
+      )}
+   </select> 
+   
+   
+   
+   
+   
+   
+   
    </mapper>
    
  

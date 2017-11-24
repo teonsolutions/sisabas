@@ -2,6 +2,7 @@ package pe.com.sisabas.persistence;
 
 import java.util.List;
 
+import pe.com.sisabas.be.RequerimientoInsertRequest;
 import pe.com.sisabas.be.RequerimientoItemRequest;
 import pe.com.sisabas.be.RequerimientoItemResponse;
 import pe.com.sisabas.be.RequerimientoRequest;
@@ -13,5 +14,6 @@ public interface RequerimientoMapper {
 	
 	List<RequerimientoItemResponse> selectDynamicBasic(RequerimientoItemRequest record) throws Exception;
 	
-
+	void insertBasic(RequerimientoInsertRequest record) throws Exception;
+	
 }
