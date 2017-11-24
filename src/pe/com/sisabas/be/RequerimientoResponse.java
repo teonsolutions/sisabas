@@ -2,6 +2,7 @@ package pe.com.sisabas.be;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import pe.com.sisabas.resources.Utils;
@@ -33,7 +34,21 @@ public class RequerimientoResponse extends SysTabla  implements  Serializable,Cl
 	private Integer rowtotal;
 	private String tipoDocumentoSinad;
 	private String numeroDocumentoSinad;
+	private String formatoFecha;
 	
+	
+	
+	
+	
+	public String getFormatoFecha() {
+		return formatoFecha;
+	}
+
+
+	public void setFormatoFecha(String formatoFecha) {
+		this.formatoFecha = formatoFecha;
+	}
+
 
 	public RequerimientoResponse() {
 		
@@ -76,6 +91,16 @@ public class RequerimientoResponse extends SysTabla  implements  Serializable,Cl
 			montoPedido=Utils.round(montoPedido);
 
 	 }
+	
+	
+	
+	public void formatoFecha(){
+		
+		this.formatoFecha=new SimpleDateFormat("dd-MM-yyyy").format(fechaPedido);
+		
+		
+		
+	}
 	
 	@Override
 	public Object clone() throws CloneNotSupportedException {

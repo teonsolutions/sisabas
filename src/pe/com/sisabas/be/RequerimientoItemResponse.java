@@ -29,6 +29,23 @@ public class RequerimientoItemResponse extends SysTabla  implements  Serializabl
 	private Integer codigoTareaPlanin;
 	private Integer secFun;
 	private String nombreTarea;
+	
+	private Integer numeracion;
+	
+	
+	
+	
+	
+	public Integer getNumeracion() {
+		return numeracion;
+	}
+	public void setNumeracion(Integer numeracion) {
+		this.numeracion = numeracion;
+	}
+	
+	
+	
+	
 	public Integer getIdPedido() {
 		return idPedido;
 	}

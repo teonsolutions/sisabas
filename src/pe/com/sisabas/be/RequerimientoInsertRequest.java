@@ -2,15 +2,17 @@ package pe.com.sisabas.be;
 
 import java.io.Serializable;
 
-public class RequerimientoItemRequest extends SysTabla  implements  Serializable,Cloneable{
+public class RequerimientoInsertRequest extends SysTabla  implements  Serializable,Cloneable{
 	
 	
 	private static final long serialVersionUID = 1L;
 	
+	
 	private String nroPedido;
 	private String codUnidadEjecutora;
-	private Integer ejercicio;
+	private Integer anoEje;
 	private String tipoBien;
+	private Integer idPeriodo;
 	
 	public String getNroPedido() {
 		return nroPedido;
@@ -24,11 +26,11 @@ public class RequerimientoItemRequest extends SysTabla  implements  Serializable
 	public void setCodUnidadEjecutora(String codUnidadEjecutora) {
 		this.codUnidadEjecutora = codUnidadEjecutora;
 	}
-	public Integer getEjercicio() {
-		return ejercicio;
+	public Integer getAnoEje() {
+		return anoEje;
 	}
-	public void setEjercicio(Integer ejercicio) {
-		this.ejercicio = ejercicio;
+	public void setAnoEje(Integer anoEje) {
+		this.anoEje = anoEje;
 	}
 	public String getTipoBien() {
 		return tipoBien;
@@ -36,6 +38,12 @@ public class RequerimientoItemRequest extends SysTabla  implements  Serializable
 	public void setTipoBien(String tipoBien) {
 		this.tipoBien = tipoBien;
 	}
+	public Integer getIdPeriodo() {
+		return idPeriodo;
+	}
+	public void setIdPeriodo(Integer idPeriodo) {
+		this.idPeriodo = idPeriodo;
+	}
 	
-	
+
 }
