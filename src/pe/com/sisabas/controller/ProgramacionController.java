@@ -40,6 +40,7 @@ import pe.com.sisabas.exception.SecuritySessionExpiredException;
 import pe.com.sisabas.exception.SecurityValidateException;
 import pe.com.sisabas.be.Cuadrocomparativofuente;
 import pe.com.sisabas.be.Documentotecnico;
+import pe.com.sisabas.business.CuadrocomparativofuenteBusiness;
 import pe.com.sisabas.business.DocumentotecnicoBusiness;
 import pe.com.sisabas.business.GentablaBusiness;
 import pe.com.sisabas.business.ProgramacionBusiness;
@@ -81,12 +82,18 @@ public class ProgramacionController extends BaseController {
 	public List<Gentabla> listaGentablaIdcatalogotipobien;
 	public List<Gentabla> listaGentablaIdcatalogotiponecesidad;
 	public List<Gentabla> listaGentablaIdcatalogotipocontratacion;
+	private Cuadrocomparativofuente selectedCuadrocomparativofuente;
+	public List<Gentabla> listaGentablaIdcatalogotipofuente;
+	public List<Gentabla> listaGentablaIdcatalogomonedafuente;
 
 	// Direct
 	public static String SUCCESS_ORDEN = "/pages/pao/ordenRegistrar.xhtml?faces-redirect=true;";
 
-	//Estudio del mercado
+	// Estudio del mercado
+	private List<Cuadrocomparativofuente> listaCuadrocomparativofuente;
 	private Cuadrocomparativofuente cuadrocomparativofuente;
+	private boolean esSeleccionadoFuente;
+	private String tituloFuente;
 
 	// BUSINESS SECTION
 	@Autowired
@@ -98,8 +105,16 @@ public class ProgramacionController extends BaseController {
 	@Autowired
 	public ProgramacionBusiness programacionBusiness;
 
+	@Autowired
+	public CuadrocomparativofuenteBusiness cuadroComparativoFuenteBusiness;
+
 	public ProgramacionController() {
 
+	}
+
+	/* seleccionado */
+	public void seleccionItemFuente(SelectEvent e) {
+		esSeleccionadoFuente = true;
 	}
 
 	@PostConstruct
@@ -133,6 +148,12 @@ public class ProgramacionController extends BaseController {
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TINE));
 			listaGentablaIdcatalogotipocontratacion = gentablaBusiness
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TCON));
+
+			// Estudio del mercado
+			listaGentablaIdcatalogotipofuente = gentablaBusiness
+					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TIFU));
+			listaGentablaIdcatalogomonedafuente = gentablaBusiness
+					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.MOFU));
 
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
@@ -179,6 +200,31 @@ public class ProgramacionController extends BaseController {
 		}
 	}
 
+	// METHODS
+	public void buscarFuente() {
+		try {
+			Cuadrocomparativofuente param = new Cuadrocomparativofuente();
+			param.setIdpacconsolidado(this.currentPao.getIdPacConsolid());
+			listaCuadrocomparativofuente = cuadroComparativoFuenteBusiness.selectDynamicFull(param);
+			setEsSeleccionadoFuente(false);
+			setSelectedCuadrocomparativofuente(null);
+			if (listaCuadrocomparativofuente.size() == 0)
+				addMessageKey("msgsForm", Messages.getString("no.records.found"), FacesMessage.SEVERITY_INFO);
+
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			addErrorMessageKey("msgsForm", e);
+		}
+	}
+
 	public void resetRegisterForm() {
 		reset("frmCuadrocomparativofuenteRegistrar:panelC");
 	}
@@ -188,6 +234,13 @@ public class ProgramacionController extends BaseController {
 			throw new UnselectedRowException(Messages.getString("no.record.selected"));
 		else
 			this.setCurrentPao((PaoResponse) this.selectedPao.clone());
+	}
+
+	public void validateSelectedRowFuente() throws UnselectedRowException, CloneNotSupportedException {
+		if (this.selectedCuadrocomparativofuente == null)
+			throw new UnselectedRowException(Messages.getString("no.record.selected"));
+		else
+			this.setCuadrocomparativofuente((Cuadrocomparativofuente) this.selectedCuadrocomparativofuente.clone());
 	}
 
 	public String ordenRegistrar() {
@@ -223,6 +276,9 @@ public class ProgramacionController extends BaseController {
 			 * (ValidateException e) { addMessage(e.getMessage(),
 			 * FacesMessage.SEVERITY_ERROR); return "/login.xhtml";
 			 */
+
+			// Estudio del Mercado
+			buscarFuente();
 		} catch (Exception e) {
 			addErrorMessage(e);
 			return "/login.xhtml";
@@ -282,25 +338,82 @@ public class ProgramacionController extends BaseController {
 			addErrorMessageKey("msgsDocumentotecnicoR", e);
 		}
 	}
-	
+
 	public void irRegistrarFuente() {
 		STATUS_INIT();
 		try {
-			
+
 			securityControlValidate("btnNuevoEM");
 			resetRegisterForm();
-			//accion = REGISTRAR;
-			//titulo = "CuadroComparativoFuente » " + REGISTRAR;
+			this.tituloFuente = "Cuadro comprarativo » " + REGISTRAR;
 			this.cuadrocomparativofuente = new Cuadrocomparativofuente();
 			this.cuadrocomparativofuente.setBooleanproveedordedicacontratacion(false);
 			this.cuadrocomparativofuente.setBooleanusuarioparticiportm(false);
 			this.cuadrocomparativofuente.setBooleancumplertm(false);
 			this.cuadrocomparativofuente.setBooleansetomoencuenta(false);
 			this.cuadrocomparativofuente.setIdcuadrocomparativofuente(new java.lang.Integer(0));
-			this.cuadrocomparativofuente.setIdcuadrocomparativofuente((int)utilsBusiness.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_CUADROCOMPARATIVOFUENTE).longValue());
+			this.cuadrocomparativofuente.setIdcuadrocomparativofuente(0);
 
 			STATUS_SUCCESS();
 			REGISTER_INIT();
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			STATUS_ERROR();
+			addErrorMessageKey("msgsForm", e);
+		}
+	}
+
+	public void irEditarFuente() {
+		STATUS_INIT();
+		try {
+			securityControlValidate("btnEditarEM");
+			resetRegisterForm();
+			validateSelectedRowFuente();
+			updateCharToBoolean(cuadrocomparativofuente);
+			cuadrocomparativofuente.roundBigDecimals();
+			this.tituloFuente = "Cuadro comprarativo » " + EDITAR;
+
+			STATUS_SUCCESS();
+			REGISTER_INIT();
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
+		} catch (UnselectedRowException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			STATUS_ERROR();
+			addErrorMessageKey("msgsForm", e);
+		}
+	}
+
+	public void irEliminarFuente() {
+		STATUS_INIT();
+		try {
+			securityControlValidate("btnEliminarEM");
+			validateSelectedRowFuente();
+
+			STATUS_SUCCESS();
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
 		} catch (SecurityRestrictedControlException e) {
@@ -312,11 +425,111 @@ public class ProgramacionController extends BaseController {
 		} catch (RemoteException e) {
 			STATUS_ERROR();
 			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+		} catch (UnselectedRowException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", e.getMessage(),
+			FacesMessage.SEVERITY_ERROR);
 		} catch (Exception e) {
 			STATUS_ERROR();
 			addErrorMessageKey("msgsForm", e);
 		}
+	}
+	
+	public void eliminarFuente() {
+		try {
+			validateSelectedRowFuente();
+			cuadrocomparativofuente.setUsuariomodificacionauditoria(getUserLogin());
+			cuadroComparativoFuenteBusiness.deleteByPrimaryKeyBasic(cuadrocomparativofuente);
+			showGrowlMessageSuccessfullyCompletedAction();
+			buscarFuente();
+		} catch (ValidateException e) {
+			addMessageKey("msgsForm", e.getMessage(),
+			FacesMessage.SEVERITY_ERROR);
+		} catch (UnselectedRowException e) {
+			addMessageKey("msgsForm", e.getMessage(),
+			FacesMessage.SEVERITY_ERROR);
+		} catch(DataIntegrityViolationException e) {
+			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),Messages.getString("exception.dataintegrity.message.detail"),
+			FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			addErrorMessageKey("msgsForm", e);
+		}
 	}	
+	
+	public void updateCharToBoolean(Cuadrocomparativofuente record) throws Exception {
+		if (cuadrocomparativofuente.getProveedordedicacontratacion() != null
+				&& cuadrocomparativofuente.getProveedordedicacontratacion().equalsIgnoreCase("1")) {
+			cuadrocomparativofuente.setBooleanproveedordedicacontratacion(true);
+		} else {
+			cuadrocomparativofuente.setBooleanproveedordedicacontratacion(false);
+		}
+
+		if (cuadrocomparativofuente.getUsuarioparticiportm() != null
+				&& cuadrocomparativofuente.getUsuarioparticiportm().equalsIgnoreCase("1")) {
+			cuadrocomparativofuente.setBooleanusuarioparticiportm(true);
+		} else {
+			cuadrocomparativofuente.setBooleanusuarioparticiportm(false);
+		}
+
+		if (cuadrocomparativofuente.getCumplertm() != null
+				&& cuadrocomparativofuente.getCumplertm().equalsIgnoreCase("1")) {
+			cuadrocomparativofuente.setBooleancumplertm(true);
+		} else {
+			cuadrocomparativofuente.setBooleancumplertm(false);
+		}
+
+		if (cuadrocomparativofuente.getSetomoencuenta() != null
+				&& cuadrocomparativofuente.getSetomoencuenta().equalsIgnoreCase("1")) {
+			cuadrocomparativofuente.setBooleansetomoencuenta(true);
+		} else {
+			cuadrocomparativofuente.setBooleansetomoencuenta(false);
+		}
+
+	}
+
+	public void aceptarFuente() {
+		REGISTER_INIT();
+		try {
+			if (this.cuadrocomparativofuente.getIdcuadrocomparativofuente() == null
+					|| this.cuadrocomparativofuente.getIdcuadrocomparativofuente() == 0) {
+				this.cuadrocomparativofuente.setUsuariocreacionauditoria(getUserLogin());
+				this.cuadrocomparativofuente.setEquipoauditoria(getRemoteAddr());
+				this.cuadrocomparativofuente
+						.setProgramaauditoria(pe.com.sisabas.resources.Utils.obtenerPrograma(this.getClass()));
+				this.cuadrocomparativofuente.setIdpacconsolidado(this.getCurrentPao().getIdPacConsolid());
+
+				this.cuadrocomparativofuente.setIdcatalogotipobien(this.currentPao.getIdTipoBien());
+
+				this.cuadrocomparativofuente.setIdcuadrocomparativofuente((int) utilsBusiness
+						.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_CUADROCOMPARATIVOFUENTE).longValue());
+				this.cuadroComparativoFuenteBusiness.insertBasic(this.cuadrocomparativofuente);
+
+			} else {
+				this.cuadrocomparativofuente.setUsuariomodificacionauditoria(getUserLogin());
+				this.cuadrocomparativofuente.setEquipoauditoria(getRemoteAddr());
+				this.cuadrocomparativofuente
+						.setProgramaauditoria(pe.com.sisabas.resources.Utils.obtenerPrograma(this.getClass()));
+				this.cuadroComparativoFuenteBusiness.updateByPrimaryKeyBasic(this.cuadrocomparativofuente);
+			}
+
+			showGrowlMessageSuccessfullyCompletedAction();
+			buscarFuente();
+
+			REGISTER_SUCCESS();
+		} catch (ValidateException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsCuadrocomparativofuenteR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (BusinessException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsCuadrocomparativofuenteR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (DataIntegrityViolationException e) {
+			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),
+					Messages.getString("exception.dataintegrity.message.detail"), FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			REGISTER_ERROR();
+			addErrorMessageKey("msgsCuadrocomparativofuenteR", e);
+		}
+	}
 
 	// PROPERTIES
 	public List<PaoResponse> getListaPao() {
@@ -414,7 +627,7 @@ public class ProgramacionController extends BaseController {
 	public void setDisabledTabOrden(boolean disabledTabOrden) {
 		this.disabledTabOrden = disabledTabOrden;
 	}
-	
+
 	public Cuadrocomparativofuente getCuadrocomparativofuente() {
 		return cuadrocomparativofuente;
 	}
@@ -422,6 +635,53 @@ public class ProgramacionController extends BaseController {
 	public void setCuadrocomparativofuente(Cuadrocomparativofuente cuadrocomparativofuente) {
 		this.cuadrocomparativofuente = cuadrocomparativofuente;
 	}
-	
+
+	public List<Cuadrocomparativofuente> getListaCuadrocomparativofuente() {
+		return listaCuadrocomparativofuente;
+	}
+
+	public void setListaCuadrocomparativofuente(List<Cuadrocomparativofuente> listaCuadrocomparativofuente) {
+		this.listaCuadrocomparativofuente = listaCuadrocomparativofuente;
+	}
+
+	public Cuadrocomparativofuente getSelectedCuadrocomparativofuente() {
+		return selectedCuadrocomparativofuente;
+	}
+
+	public void setSelectedCuadrocomparativofuente(Cuadrocomparativofuente selectedCuadrocomparativofuente) {
+		this.selectedCuadrocomparativofuente = selectedCuadrocomparativofuente;
+	}
+
+	public boolean isEsSeleccionadoFuente() {
+		return esSeleccionadoFuente;
+	}
+
+	public void setEsSeleccionadoFuente(boolean esSeleccionadoFuente) {
+		this.esSeleccionadoFuente = esSeleccionadoFuente;
+	}
+
+	public List<Gentabla> getListaGentablaIdcatalogotipofuente() {
+		return listaGentablaIdcatalogotipofuente;
+	}
+
+	public void setListaGentablaIdcatalogotipofuente(List<Gentabla> listaGentablaIdcatalogotipofuente) {
+		this.listaGentablaIdcatalogotipofuente = listaGentablaIdcatalogotipofuente;
+	}
+
+	public List<Gentabla> getListaGentablaIdcatalogomonedafuente() {
+		return listaGentablaIdcatalogomonedafuente;
+	}
+
+	public void setListaGentablaIdcatalogomonedafuente(List<Gentabla> listaGentablaIdcatalogomonedafuente) {
+		this.listaGentablaIdcatalogomonedafuente = listaGentablaIdcatalogomonedafuente;
+	}
+
+	public String getTituloFuente() {
+		return tituloFuente;
+	}
+
+	public void setTituloFuente(String tituloFuente) {
+		this.tituloFuente = tituloFuente;
+	}
 
 }

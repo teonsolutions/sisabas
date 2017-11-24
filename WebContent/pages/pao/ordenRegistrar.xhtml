@@ -301,35 +301,47 @@
 									rendered="#{programacion.renderButton('btnNuevoEM')}" />
 
 								<p:commandButton value="Editar"
-									action="#{cuadrocomparativofuente.irEditar}"
+									action="#{programacion.irEditarFuente}"
 									update="hidStatus,:frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar"
-									oncomplete="showDialog('form:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');"
+									oncomplete="showDialog('form:tabViewPao:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');"
 									icon="ui-icon-pencil"
-									disabled="#{!cuadrocomparativofuente.esSeleccionado}"
-									rendered="#{cuadrocomparativofuente.renderButton('btnEditar')}" />
+									disabled="#{!programacion.esSeleccionadoFuente}"
+									rendered="#{programacion.renderButton('btnEditarEM')}" />
 								<p:commandButton value="Eliminar"
-									action="#{cuadrocomparativofuente.irEliminar}"
+									action="#{programacion.irEliminarFuente}"
 									update="hidStatus"
-									oncomplete="showDialog('form:hidStatus','form:cdEliminar');"
+									oncomplete="showDialog('form:tabViewPao:hidStatus','form:cdEliminarFuente');"
 									icon="ui-icon-circle-close" title="Eliminar"
-									disabled="#{!cuadrocomparativofuente.esSeleccionado}"
-									rendered="#{cuadrocomparativofuente.renderButton('btnEliminar')}" />
+									disabled="#{!programacion.esSeleccionadoFuente}"
+									rendered="#{programacion.renderButton('btnEliminarEM')}" />
 								<h:inputHidden id="hidStatus" value="true" />
 							</p:panel>
 
 
-							<p:dataTable id="tblListaCuadrocomparativofuente">
-								<p:column headerText="N°">
-									<h:outputText value="1" />
-								</p:column>
+							<p:dataTable id="tblListaCuadrocomparativofuente"
+								value="#{programacion.listaCuadrocomparativofuente}" var="var"
+								emptyMessage="No se encontraron registros"
+								widgetVar="tblListaCuadrocomparativofuente"
+								selection="#{programacion.selectedCuadrocomparativofuente}"
+								paginator="true" rows="#{sisabascontrol.registros_mant}"
+								paginatorPosition="bottom"
+								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(programacion.listaCuadrocomparativofuente)}"
+								selectionMode="single" rowKey="#{var.idcuadrocomparativofuente}"
+								styleClass="gandalfTableClass">
+								<p:ajax event="rowSelect"
+									listener="#{programacion.seleccionItemFuente}"
+									update=":form:tabViewPao:pnlBotones" immediate="true" />
 								<p:column headerText="Fuente">
-									<h:outputText value="UGME" />
+									<f:facet name="header">
+										<h:outputText value="Fuente"></h:outputText>
+									</f:facet>
+									<h:outputText value="#{var.gentablaIdcatalogotipofuente.vchregdescri}" />									
 								</p:column>
-								<p:column headerText="Proveedor / postor / entidad">
-									<h:outputText value="UGME" />
-								</p:column>
-								<p:column headerText="Acciones">
-									<h:outputText value="UGME" />
+								<p:column headerText="Proveedor / Postor / Entidad">
+									<f:facet name="header">
+										<h:outputText value="Proveedor / Postor / Entidad"></h:outputText>
+									</f:facet>
+									<h:outputText value="#{var.nombreproveedor}" />
 								</p:column>
 							</p:dataTable>
 
@@ -509,6 +521,18 @@
 						</p:accordionPanel>
 					</p:tab>
 				</p:tabView>
+				
+				<!-- DIALOGS -->
+				<p:confirmDialog id="cdEliminarFuente"
+					message="Esta seguro de eliminar este registro?"
+					header="Confirmación" severity="alert" widgetVar="cdEliminarFuente">
+					<p:commandButton value="Si"
+						action="#{programacion.eliminarFuente}"
+						update=":form:tabViewPao:tblListaCuadrocomparativofuente,:form:growl"
+						oncomplete="hideDialogPF('cdEliminarFuente');" />
+					<p:commandButton value="No" onclick="hideDialogPF('cdEliminarFuente');"
+						type="button" />
+				</p:confirmDialog>				
 			</p:panel>
 		</h:form>
 		<h:form id="frmCuadrocomparativofuenteRegistrar">
@@ -525,9 +549,9 @@
 				<table style="width: 100%;">
 					<tr>
 						<td><h:inputHidden id="hidStatus" value="true" /> <p:commandButton
-								value="Aceptar" action="#{cuadrocomparativofuente.aceptar}"
-								update="hidStatus,:form:tblListaCuadrocomparativofuente,:form:growl,:form:pnlBotones,panelC"
-								oncomplete="hideDialog('frmCuadrocomparativofuenteRegistrar:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar')"
+								value="Aceptar" action="#{programacion.aceptarFuente}"
+								update="hidStatus,:form:tabViewPao:tblListaCuadrocomparativofuente,:form:growl,:form:tabViewPao:pnlBotones,panelC"
+								oncomplete="hideDialog('frmCuadrocomparativofuenteRegistrar:hidStatus','frmCuadrocomparativofuenteRegistrar:tabViewPao:diCuadrocomparativofuenteRegistrar')"
 								icon="ui-icon-circle-check" title="Aceptar" /></td>
 						<td>
 							<div align="right">

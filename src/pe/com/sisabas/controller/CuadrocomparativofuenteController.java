@@ -167,12 +167,9 @@ public class CuadrocomparativofuenteController extends BaseController {
 			cuadrocomparativofuente.setBooleanusuarioparticiportm(false);
 			cuadrocomparativofuente.setBooleancumplertm(false);
 			cuadrocomparativofuente.setBooleansetomoencuenta(false);
-
 			cuadrocomparativofuente.setIdcuadrocomparativofuente(new java.lang.Integer(0));
 			cuadrocomparativofuente.setIdcuadrocomparativofuente((int)utilsBusiness.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_CUADROCOMPARATIVOFUENTE).longValue());
-			cuadrocomparativofuente.setPacconsolidadoIdpacconsolidado(new Pacconsolidado());
-
-			
+			cuadrocomparativofuente.setPacconsolidadoIdpacconsolidado(new Pacconsolidado());			
 			cuadrocomparativofuente.setIdpacconsolidado(cuadrocomparativofuenteB.getIdpacconsolidado());
 
 			STATUS_SUCCESS();
