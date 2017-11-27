@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import pe.com.sisabas.be.Cuadrocomparativofuente;
 import pe.com.sisabas.be.Cuadrocomparativoitem;
+import pe.com.sisabas.be.Cuadrocomparativovr;
 import pe.com.sisabas.be.Estadosporetapapordocumento;
 import pe.com.sisabas.be.Estadosportipodocumento;
 import pe.com.sisabas.be.Grupodocumento;
@@ -37,6 +38,7 @@ import pe.com.sisabas.dto.TransactionRequest;
 import pe.com.sisabas.dto.TransactionResponse;
 import pe.com.sisabas.persistence.CuadrocomparativofuenteMapper;
 import pe.com.sisabas.persistence.CuadrocomparativoitemMapper;
+import pe.com.sisabas.persistence.CuadrocomparativovrMapper;
 import pe.com.sisabas.persistence.DocumentotecnicoMapper;
 import pe.com.sisabas.persistence.EstadosporetapapordocumentoMapper;
 import pe.com.sisabas.persistence.EstadosportipodocumentoMapper;
@@ -81,6 +83,9 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 
 	@Autowired
 	public CuadrocomparativoitemMapper cuadrocomparativoitemMapper;
+
+	@Autowired
+	public CuadrocomparativovrMapper cuadrocomparativovrMapper;
 	
 	@Autowired
 	public UtilsBusiness utilsBusiness;
@@ -390,10 +395,10 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			pc.setIdcatalogotipobien(compraDirecta.getIdTipoBien());
 			pc.setIdcatalogotiponecesidad(compraDirecta.getIdTipoNecesidad());
 			pc.setEstadorequerimiento(compraDirecta.getEstadoRequerimiento());
-									
+
 			// pc.setEstadoauditoria(); // ITEM UNICO
 			// pc.setNroitems(0); // NUMERO DE ITEMS
-			// pc.setCantidad(); // CANTIDAD DE ITEMS			
+			// pc.setCantidad(); // CANTIDAD DE ITEMS
 			// pc.setUnidadmedida(); //UNIDAD DE MEDIDA
 			// pc.setNombreespecialistavr(); //NOMBRE ESPECIALISTA VR
 			pc.setFechaasignacionespecialista(compraDirecta.getFechaDocumentoTecnico());
@@ -474,15 +479,17 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 	}
 
 	@Override
-	public List<CuadroComparativoItemsDto> getCuadroComparativoItems(CuadroComparativoRequest request) throws Exception {
+	public List<CuadroComparativoItemsDto> getCuadroComparativoItems(CuadroComparativoRequest request)
+			throws Exception {
 		// TODO Auto-generated method stub
 		return pacconsolidadoMapper.getCuadroComparativoItems(request);
 	}
 
 	@Override
-	public Resultado grabarCuadroComparativo(TransactionRequest<Cuadrocomparativofuente> request, List<CuadroComparativoItemsDto> items) throws Exception {
+	public Resultado grabarCuadroComparativo(TransactionRequest<Cuadrocomparativofuente> request,
+			List<CuadroComparativoItemsDto> items) throws Exception {
 		// TODO Auto-generated method stub
-		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);		
+		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
 		Cuadrocomparativofuente cuadrocomparativofuente = request.getEntityTransaction();
 		Integer idCuadroComparativoFuente;
 		if (cuadrocomparativofuente.getIdcuadrocomparativofuente() == null
@@ -490,22 +497,23 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			cuadrocomparativofuente
 					.setProgramaauditoria(pe.com.sisabas.resources.Utils.obtenerPrograma(this.getClass()));
 			/*
-			cuadrocomparativofuente.setIdcuadrocomparativofuente((int) utilsBusiness
-					.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_CUADROCOMPARATIVOFUENTE).longValue());
-					*/
+			 * cuadrocomparativofuente.setIdcuadrocomparativofuente((int)
+			 * utilsBusiness .getNextSeq(pe.com.sisabas.resources.Sequence.
+			 * SEQ_CUADROCOMPARATIVOFUENTE).longValue());
+			 */
 			idCuadroComparativoFuente = (int) utilsBusiness
 					.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_CUADROCOMPARATIVOFUENTE).longValue();
 			cuadrocomparativofuente.setIdcuadrocomparativofuente(idCuadroComparativoFuente);
 			cuadrocomparativofuenteMapper.insert(cuadrocomparativofuente);
-			
-			//Insert items del cuadro comparativo
-			Cuadrocomparativoitem cuadrocomparativoitem; 
+
+			// Insert items del cuadro comparativo
+			Cuadrocomparativoitem cuadrocomparativoitem;
 			Double precio;
 			for (int i = 0; i < items.size(); i++) {
 				cuadrocomparativoitem = new Cuadrocomparativoitem();
 				cuadrocomparativoitem.setIdcuadrocomparativofuente(idCuadroComparativoFuente);
 				cuadrocomparativoitem.setIddetallepedido(items.get(i).getIdDetallePedido());
-				precio = items.get(i).getPrecioReferencial();				
+				precio = items.get(i).getPrecioReferencial();
 				BigDecimal precioReferencial = new BigDecimal(0.00);
 				cuadrocomparativoitem.setPrecioreferencial(precioReferencial);
 				cuadrocomparativoitem.setEquipoauditoria(request.getEquipoAuditoria());
@@ -513,7 +521,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 				cuadrocomparativoitem.setFechacreacionauditoria(new Date());
 				cuadrocomparativoitem.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
 				cuadrocomparativoitem.setIdcuadrocomparativoitem((int) utilsBusiness
-					.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_CUADROCOMPARATIVOITEM).longValue());
+						.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_CUADROCOMPARATIVOITEM).longValue());
 				cuadrocomparativoitemMapper.insert(cuadrocomparativoitem);
 			}
 
@@ -522,13 +530,14 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 					.setProgramaauditoria(pe.com.sisabas.resources.Utils.obtenerPrograma(this.getClass()));
 			cuadrocomparativofuenteMapper.updateByPrimaryKey(cuadrocomparativofuente);
 			idCuadroComparativoFuente = cuadrocomparativofuente.getIdcuadrocomparativofuente();
-			
-			//Actualiza items del cuadro comparativo
+
+			// Actualiza items del cuadro comparativo
 			Cuadrocomparativoitem cuadrocomparativoitemEdit;
 			Double precio;
 			for (int i = 0; i < items.size(); i++) {
-				cuadrocomparativoitemEdit = cuadrocomparativoitemMapper.selectByPrimaryKeyBasicActive(items.get(i).getIdCuadroComparativoItem());
-				if (cuadrocomparativoitemEdit != null){
+				cuadrocomparativoitemEdit = cuadrocomparativoitemMapper
+						.selectByPrimaryKeyBasicActive(items.get(i).getIdCuadroComparativoItem());
+				if (cuadrocomparativoitemEdit != null) {
 					precio = items.get(i).getPrecioReferencial();
 					BigDecimal precioReferencial = new BigDecimal(3000.00);
 					cuadrocomparativoitemEdit.setPrecioreferencial(precioReferencial);
@@ -537,12 +546,35 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 					cuadrocomparativoitemEdit.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
 					cuadrocomparativoitemMapper.updateByPrimaryKey(cuadrocomparativoitemEdit);
 				}
-			}			
-		}		
+			}
+		}
 
-		//Determina el mínimo monto de valor referencial
+		//Delete cuadro comparativo valor referencia
+		cuadrocomparativofuenteMapper.deleteByPrimaryKey(cuadrocomparativofuente.getIdpacconsolidado());
 		
-		
+		// Determina el mínimo monto de valor referencial
+		List<CuadroComparativoItemsDto> vr = pacconsolidadoMapper
+				.getCuadroComparativoVR(cuadrocomparativofuente.getIdpacconsolidado());
+						
+		if (vr != null) {
+			// Inserta valor referencial
+			for (int i = 0; i < vr.size(); i++) {
+				Double precioReferencial = vr.get(i).getPrecioReferencial();
+				Cuadrocomparativovr cuadrocomparativovr = new Cuadrocomparativovr();
+				cuadrocomparativovr.setIddetallepedido(vr.get(i).getIdDetallePedido());
+				cuadrocomparativovr.setIdpacconsolidado(cuadrocomparativofuente.getIdpacconsolidado());
+				cuadrocomparativovr.setValorreferencialitem(new BigDecimal(precioReferencial));
+				cuadrocomparativovr.setIdcatalogoprocedimientovr(Constantes.procedimientoVR.COTIZACION_MENOR_PRECIO_OBTENIDA);				
+				cuadrocomparativovr.setFechacreacionauditoria(new Date());
+				cuadrocomparativovr.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+				cuadrocomparativovr.setEquipoauditoria(request.getEquipoAuditoria());
+				cuadrocomparativovr.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+				cuadrocomparativovr.setIdcuadrocomparativovr((int) utilsBusiness
+						.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_CUADROCOMPARATIVOVR).longValue());
+				cuadrocomparativovrMapper.insert(cuadrocomparativovr);			
+			}
+		}
+
 		return result;
 	}
 

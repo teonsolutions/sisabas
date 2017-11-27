@@ -198,6 +198,10 @@ public class Constantes {
 	
 	public class maestroProcesoSiga{
 		public static final String ADJUDIACION_SIN_PROCESO = "14";
+	}
+
+	public class procedimientoVR{
+		public static final String COTIZACION_MENOR_PRECIO_OBTENIDA = "PRVR1";
 	}	
 	//Constantes personalizados
 }

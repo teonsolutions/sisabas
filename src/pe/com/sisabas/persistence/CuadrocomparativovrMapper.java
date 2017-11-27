@@ -30,5 +30,5 @@ public interface CuadrocomparativovrMapper{
 
 	List<Cuadrocomparativovr> selectDynamicExtended(Cuadrocomparativovr record) throws Exception;
 
-
+	int deleteByIdPacConsolidado(@Param("idPacConsolidado") java.lang.Integer idPacConsolidado) throws Exception;
 }

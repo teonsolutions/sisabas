@@ -47,6 +47,14 @@ public class Cuadrocomparativovr extends SysTabla implements  Serializable,Clone
 	private java.lang.String programaauditoria;
 	/**[*][EstadoAuditoria]*/
 	private java.lang.String estadoauditoria;
+	
+	//ADD 27-11-2017
+	/**[IdDetallePedido]*/
+	private java.lang.Integer iddetallepedido;	
+	
+	/**[IdPacConsolidado]*/
+	private java.lang.Integer idpacconsolidado;
+	//END ADD 27-11-2017
 
 	public Cuadrocomparativovr() {}
 
@@ -300,4 +308,21 @@ public class Cuadrocomparativovr extends SysTabla implements  Serializable,Clone
 		this.estadoauditoria = estadoauditoria;
 	}
 
+	//add 27-11-2017
+	public java.lang.Integer getIddetallepedido() {
+		return iddetallepedido;
+	}
+
+	public void setIddetallepedido(java.lang.Integer iddetallepedido) {
+		this.iddetallepedido = iddetallepedido;
+	}
+	
+	public java.lang.Integer getIdpacconsolidado() {
+		return idpacconsolidado;
+	}
+
+	public void setIdpacconsolidado(java.lang.Integer idpacconsolidado) {
+		this.idpacconsolidado = idpacconsolidado;
+	}
+	//end add 27-11-2017
 }

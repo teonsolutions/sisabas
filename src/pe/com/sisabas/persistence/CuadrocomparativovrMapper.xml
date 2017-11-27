@@ -14,6 +14,8 @@
 	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
 	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
 	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_IDDETALLEPEDIDO" property="iddetallepedido" jdbcType="INTEGER" />
+	<result column="A1_IDPACCONSOLIDADO" property="idpacconsolidado" jdbcType="INTEGER" />
 
 	</resultMap>
 
@@ -30,6 +32,8 @@
 	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
 	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
 	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_IDDETALLEPEDIDO" property="iddetallepedido" jdbcType="INTEGER" />
+	<result column="A1_IDPACCONSOLIDADO" property="idpacconsolidado" jdbcType="INTEGER" />
 
 	<result column="A3_IDCUADROCOMPARATIVOITEM" property="cuadrocomparativoitemIdcuadrocomparativoitem.idcuadrocomparativoitem" jdbcType="INTEGER" />
 	<result column="A3_IDCUADROCOMPARATIVOFUENTE" property="cuadrocomparativoitemIdcuadrocomparativoitem.idcuadrocomparativofuente" jdbcType="INTEGER" />
@@ -41,6 +45,7 @@
 	<result column="A3_USUARIOMODIFICACIONAUDITORIA" property="cuadrocomparativoitemIdcuadrocomparativoitem.usuariomodificacionauditoria" jdbcType="VARCHAR" />
 	<result column="A3_EQUIPOAUDITORIA" property="cuadrocomparativoitemIdcuadrocomparativoitem.equipoauditoria" jdbcType="VARCHAR" />
 	<result column="A3_PROGRAMAAUDITORIA" property="cuadrocomparativoitemIdcuadrocomparativoitem.programaauditoria" jdbcType="VARCHAR" />
+	<result column="A3_ESTADOAUDITORIA" property="cuadrocomparativoitemIdcuadrocomparativoitem.estadoauditoria" jdbcType="VARCHAR" />
 	<result column="A3_ESTADOAUDITORIA" property="cuadrocomparativoitemIdcuadrocomparativoitem.estadoauditoria" jdbcType="VARCHAR" />
 
 	<result column="A6_VCHREGCODIGO" property="gentablaIdcatalogoprocedimientovr.vchregcodigo" jdbcType="VARCHAR" />
@@ -67,14 +72,14 @@
 	<sql id="Basic_Column_List">
 	A1.IDCUADROCOMPARATIVOVR as A1_IDCUADROCOMPARATIVOVR, A1.IDCUADROCOMPARATIVOITEM as A1_IDCUADROCOMPARATIVOITEM, A1.IDCATALOGOPROCEDIMIENTOVR as A1_IDCATALOGOPROCEDIMIENTOVR, A1.VALORREFERENCIALITEM as A1_VALORREFERENCIALITEM, 
 	A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, 
-	A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA 
+	A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA, A1.IDDETALLEPEDIDO as IDDETALLEPEDIDO, A1.IDPACCONSOLIDADO as IDPACCONSOLIDADO  
 	</sql>
 
 
 	<sql id="Full_Column_List">
 	A1.IDCUADROCOMPARATIVOVR as A1_IDCUADROCOMPARATIVOVR, A1.IDCUADROCOMPARATIVOITEM as A1_IDCUADROCOMPARATIVOITEM, A1.IDCATALOGOPROCEDIMIENTOVR as A1_IDCATALOGOPROCEDIMIENTOVR, A1.VALORREFERENCIALITEM as A1_VALORREFERENCIALITEM, 
 	A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, 
-	A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA, 
+	A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA, A1.IDDETALLEPEDIDO as IDDETALLEPEDIDO, A1.IDPACCONSOLIDADO as IDPACCONSOLIDADO,
 	A3.IDCUADROCOMPARATIVOITEM as A3_IDCUADROCOMPARATIVOITEM, A3.IDCUADROCOMPARATIVOFUENTE as A3_IDCUADROCOMPARATIVOFUENTE, A3.IDDETALLEPEDIDO as A3_IDDETALLEPEDIDO, A3.PRECIOREFERENCIAL as A3_PRECIOREFERENCIAL, 
 	A3.FECHACREACIONAUDITORIA as A3_FECHACREACIONAUDITORIA, A3.USUARIOCREACIONAUDITORIA as A3_USUARIOCREACIONAUDITORIA, A3.FECHAMODIFICACIONAUDITORIA as A3_FECHAMODIFICACIONAUDITORIA, A3.USUARIOMODIFICACIONAUDITORIA as A3_USUARIOMODIFICACIONAUDITORIA, 
 	A3.EQUIPOAUDITORIA as A3_EQUIPOAUDITORIA, A3.PROGRAMAAUDITORIA as A3_PROGRAMAAUDITORIA, A3.ESTADOAUDITORIA as A3_ESTADOAUDITORIA, 
@@ -138,19 +143,21 @@
 	where IdCuadroComparativoVR = #{idcuadrocomparativovr,jdbcType=INTEGER}
 	</delete>
 
-
-
-
+	<!-- add 27-11-2017 -->
+	<delete id="deleteByIdPacConsolidado" parameterType="java.lang.Integer" >
+	delete from abas.CuadroComparativoVR 
+	where IdPacConsolidado = #{idPacConsolidado,jdbcType=INTEGER}
+	</delete>
 
 	<insert id="insert" parameterType="pe.com.sisabas.be.Cuadrocomparativovr" >
 	insert into abas.CuadroComparativoVR (
 	IDCUADROCOMPARATIVOVR, IDCUADROCOMPARATIVOITEM, IDCATALOGOPROCEDIMIENTOVR, VALORREFERENCIALITEM, 
 	FECHACREACIONAUDITORIA, USUARIOCREACIONAUDITORIA, FECHAMODIFICACIONAUDITORIA, USUARIOMODIFICACIONAUDITORIA, 
-	EQUIPOAUDITORIA, PROGRAMAAUDITORIA, ESTADOAUDITORIA ) 
+	EQUIPOAUDITORIA, PROGRAMAAUDITORIA, ESTADOAUDITORIA, IDDETALLEPEDIDO, IDPACCONSOLIDADO ) 
 	VALUES (
 	#{idcuadrocomparativovr,jdbcType=INTEGER}, #{idcuadrocomparativoitem,jdbcType=INTEGER}, #{idcatalogoprocedimientovr,jdbcType=VARCHAR}, #{valorreferencialitem,jdbcType=DECIMAL}, 
 	#{fechacreacionauditoria,jdbcType=TIMESTAMP}, #{usuariocreacionauditoria,jdbcType=VARCHAR}, #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, #{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
-	#{equipoauditoria,jdbcType=VARCHAR}, #{programaauditoria,jdbcType=VARCHAR}, #{estadoauditoria,jdbcType=VARCHAR} ) 
+	#{equipoauditoria,jdbcType=VARCHAR}, #{programaauditoria,jdbcType=VARCHAR}, #{estadoauditoria,jdbcType=VARCHAR}, #{iddetallepedido,jdbcType=INTEGER}, #{idpacconsolidado,jdbcType=INTEGER} ) 
 	</insert>
 
 

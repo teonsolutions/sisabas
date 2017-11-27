@@ -56,5 +56,5 @@ public interface PacconsolidadoMapper{
 	
 	List<CuadroComparativoItemsDto> getCuadroComparativoItems(CuadroComparativoRequest request) throws Exception;
 	
-	
+	List<CuadroComparativoItemsDto> getCuadroComparativoVR(Integer idPacConsolidado) throws Exception;
 }
