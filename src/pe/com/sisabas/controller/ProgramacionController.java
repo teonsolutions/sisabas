@@ -45,6 +45,7 @@ import pe.com.sisabas.business.DocumentotecnicoBusiness;
 import pe.com.sisabas.business.GentablaBusiness;
 import pe.com.sisabas.business.ProgramacionBusiness;
 import pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto;
+import pe.com.sisabas.dto.CuadroComparativoItemsDto;
 import pe.com.sisabas.dto.EvaluacionDocumentoRequest;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
 import pe.com.sisabas.dto.PacItemsDto;
@@ -92,6 +93,8 @@ public class ProgramacionController extends BaseController {
 	// Estudio del mercado
 	private List<Cuadrocomparativofuente> listaCuadrocomparativofuente;
 	private Cuadrocomparativofuente cuadrocomparativofuente;
+	private List<CuadroComparativoItemsDto> listaCuadroComparativoItems;
+
 	private boolean esSeleccionadoFuente;
 	private String tituloFuente;
 
@@ -354,6 +357,11 @@ public class ProgramacionController extends BaseController {
 			this.cuadrocomparativofuente.setIdcuadrocomparativofuente(new java.lang.Integer(0));
 			this.cuadrocomparativofuente.setIdcuadrocomparativofuente(0);
 
+			// Items del cuadro comparativo
+			if (this.listaCuadroComparativoItems == null)
+				this.listaCuadroComparativoItems = this.programacionBusiness
+						.getCuadroComparativoItems(this.currentPao.getIdPacConsolid());
+
 			STATUS_SUCCESS();
 			REGISTER_INIT();
 		} catch (SecuritySessionExpiredException e) {
@@ -418,23 +426,23 @@ public class ProgramacionController extends BaseController {
 			redirectSessionExpiredPage();
 		} catch (SecurityRestrictedControlException e) {
 			STATUS_ERROR();
-			addMessageKey("msgsForm", Messages.getString("no.access"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
 		} catch (SecurityValidateException e) {
 			STATUS_ERROR();
-			addMessageKey("msgsForm",e.getMessage(), FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
 		} catch (RemoteException e) {
 			STATUS_ERROR();
-			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
 		} catch (UnselectedRowException e) {
 			STATUS_ERROR();
-			addMessageKey("msgsForm", e.getMessage(),
-			FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
 		} catch (Exception e) {
 			STATUS_ERROR();
 			addErrorMessageKey("msgsForm", e);
 		}
 	}
-	
+
 	public void eliminarFuente() {
 		try {
 			validateSelectedRowFuente();
@@ -443,19 +451,17 @@ public class ProgramacionController extends BaseController {
 			showGrowlMessageSuccessfullyCompletedAction();
 			buscarFuente();
 		} catch (ValidateException e) {
-			addMessageKey("msgsForm", e.getMessage(),
-			FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
 		} catch (UnselectedRowException e) {
-			addMessageKey("msgsForm", e.getMessage(),
-			FacesMessage.SEVERITY_ERROR);
-		} catch(DataIntegrityViolationException e) {
-			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),Messages.getString("exception.dataintegrity.message.detail"),
-			FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (DataIntegrityViolationException e) {
+			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),
+					Messages.getString("exception.dataintegrity.message.detail"), FacesMessage.SEVERITY_ERROR);
 		} catch (Exception e) {
 			addErrorMessageKey("msgsForm", e);
 		}
-	}	
-	
+	}
+
 	public void updateCharToBoolean(Cuadrocomparativofuente record) throws Exception {
 		if (cuadrocomparativofuente.getProveedordedicacontratacion() != null
 				&& cuadrocomparativofuente.getProveedordedicacontratacion().equalsIgnoreCase("1")) {
@@ -684,4 +690,11 @@ public class ProgramacionController extends BaseController {
 		this.tituloFuente = tituloFuente;
 	}
 
+	public List<CuadroComparativoItemsDto> getListaCuadroComparativoItems() {
+		return listaCuadroComparativoItems;
+	}
+
+	public void setListaCuadroComparativoItems(List<CuadroComparativoItemsDto> listaCuadroComparativoItems) {
+		this.listaCuadroComparativoItems = listaCuadroComparativoItems;
+	}
 }

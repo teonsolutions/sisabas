@@ -5,6 +5,7 @@ import java.util.List;
 import pe.com.sisabas.dto.CertificacionItemsDto;
 import pe.com.sisabas.dto.CertificacionRequest;
 import pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto;
+import pe.com.sisabas.dto.CuadroComparativoItemsDto;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
 import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
@@ -25,4 +26,5 @@ public interface ProgramacionBusiness {
 	public List<CertificacionItemsDto> getCertificacionItems(CertificacionRequest record) throws Exception;
 	public RecepcionDTResponse getFechaRecepcionDT(PaoRequest record) throws Exception;
 	public Resultado grabarCompraDirecta(TransactionRequest<CompraDirectaDatosGeneralesDto> request) throws Exception;
+	public List<CuadroComparativoItemsDto> getCuadroComparativoItems(Integer idPacConsolidado) throws Exception;
 }

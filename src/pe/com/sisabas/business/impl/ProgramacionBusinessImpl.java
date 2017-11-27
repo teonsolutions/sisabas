@@ -22,6 +22,7 @@ import pe.com.sisabas.controller.PedidoController;
 import pe.com.sisabas.dto.CertificacionItemsDto;
 import pe.com.sisabas.dto.CertificacionRequest;
 import pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto;
+import pe.com.sisabas.dto.CuadroComparativoItemsDto;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
 import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
@@ -89,7 +90,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 
 			pacprogramadoMapper.updateByPrimaryKey(programado);
 		} else {
-			Pedido pedido = pedidoMapper.selectByPrimaryKeyBasic(item.getIddocumentotecnico());
+			Pedido pedido = pedidoMapper.selectByPrimaryKeyBasic(item.getIdpedido());
 			pedido.setEstadopedido(Constantes.estadosPorEtapa.EN_REVISION_DE_DOCUMENTO_TECNICO);
 			pedido.setFechamodificacionauditoria(dateUpdate);
 			pedido.setEquipoauditoria(request.getEquipoAuditoria());
@@ -143,7 +144,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 
 			pacprogramadoMapper.updateByPrimaryKey(programado);
 		} else {
-			Pedido pedido = pedidoMapper.selectByPrimaryKeyBasic(item.getIddocumentotecnico());
+			Pedido pedido = pedidoMapper.selectByPrimaryKeyBasic(item.getIdpedido());
 			pedido.setEstadopedido(Constantes.estadosPorEtapa.DOCUMENTO_TECNICO_APROBADO);
 			pedido.setFechamodificacionauditoria(dateUpdate);
 			pedido.setEquipoauditoria(request.getEquipoAuditoria());
@@ -459,6 +460,12 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 		}
 
 		return result;
+	}
+
+	@Override
+	public List<CuadroComparativoItemsDto> getCuadroComparativoItems(Integer idPacConsolidado) throws Exception {
+		// TODO Auto-generated method stub
+		return pacconsolidadoMapper.getCuadroComparativoItems(idPacConsolidado);
 	}
 
 }

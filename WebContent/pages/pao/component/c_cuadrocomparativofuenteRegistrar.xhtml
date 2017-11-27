@@ -173,21 +173,37 @@
 
 				</p:fieldset> <p:fieldset legend="Items">
 					<h:panelGrid columns="2" width="700">
-						<p:dataTable id="tblItemsCC" style="width: 100%">
+						<p:dataTable id="tblItemsCC" style="width: 100%"
+							value="#{programacion.listaCuadroComparativoItems}" var="var"
+							widgetVar="tblItemsCC" emptyMessage="No se encontraron registros"
+							selectionMode="single" rowKey="#{var.idDetallePedido}"
+							styleClass="gandalfTableClass">
 							<p:column headerText="Descripción / denominación"
 								style="width: 300px">
-								<h:outputText value="UGME" />
+								<f:facet name="header">
+									<h:outputText value="Descripción / denominación" />
+								</f:facet>
+								<h:outputText value="#{var.nombreItem}" />
 							</p:column>
 							<p:column headerText="Unidad" style="width: 60px">
-								<h:outputText value="UGME" />
+								<f:facet name="header">
+									<h:outputText value="Unidad" />
+								</f:facet>
+								<h:outputText value="#{var.unidadMedida}" />
 							</p:column>
 							<p:column headerText="Cantidad" style="width: 100px">
-								<h:outputText value="UGME" />
+								<f:facet name="header">
+									<h:outputText value="Cantidad" />
+								</f:facet>
+								<h:outputText value="#{var.cantidadAprobadaSiga}" />
 							</p:column>
 							<p:column
 								headerText="Precio Total (Consignar moneda del valor referencial)"
 								style="width: 150px">
-								<h:outputText value="UGME" />
+								<f:facet name="header">
+									<h:outputText value="Precio Total (Consignar moneda del valor referencial)" />
+								</f:facet>
+								<h:outputText value="#{var.precioReferencial}" />
 							</p:column>
 						</p:dataTable>
 					</h:panelGrid>
