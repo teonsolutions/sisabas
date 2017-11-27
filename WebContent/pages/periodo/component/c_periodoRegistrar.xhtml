@@ -24,13 +24,13 @@
 			<p:outputLabel  value="ID" for="txtIdperiodo" id="lblIdperiodo"/>
 		</td>
 		<td>
-			<p:inputText  id="txtIdperiodo" value="#{periodo.periodo.idperiodo}" required="true" maxlength="10" style="width:150px;" label="ID"/>
+			<p:inputText  id="txtIdperiodo" value="#{periodo.periodo.idperiodo}" required="true" maxlength="10" style="width:150px;" label="ID" />
 		</td>
 		<td>
 			<p:outputLabel  value="Año" for="txtAnio" id="lblAnio"/>
 		</td>
 		<td>
-			<p:inputText  id="txtAnio" value="#{periodo.periodo.anio}" required="false" maxlength="10" style="width:150px;" label="Año"/>
+			<p:inputText  id="txtAnio" value="#{periodo.periodo.anio}" required="true" maxlength="10" style="width:150px;" label="Año" />
 		</td>
 	</tr>
 	<tr>
@@ -38,7 +38,7 @@
 			<p:outputLabel  value="NombrePeriodo" for="txtNombreperiodo" id="lblNombreperiodo"/>
 		</td>
 		<td>
-			<p:inputText  id="txtNombreperiodo" value="#{periodo.periodo.nombreperiodo}" required="false" maxlength="100" style="width:150px;" label="NombrePeriodo"/>
+			<p:inputText  id="txtNombreperiodo" value="#{periodo.periodo.nombreperiodo}" required="true" maxlength="100" style="width:150px;" label="NombrePeriodo"/>
 		</td>
 	</tr>
 

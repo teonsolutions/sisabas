@@ -26,75 +26,185 @@
 		<p:message id="msgTiposinad" for="txtTiposinad"  showSummary="true" showDetail="false"/>
 		<p:message id="msgIdvpedido" for="txtIdvpedido"  showSummary="true" showDetail="false"/>
 	</div>
-<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
 	<tr>
 		<td colspan="2">
 			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
 <table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+	
+	<tr>
+		<td width="20%;"/>
+		<td width="30%;"/>
+		<td width="20%;"/>
+		<td width="30%;"/>
+	</tr>
 
 	<tr>
 		<td>
 			<p:outputLabel  value="Nro pedido" for="txtNropedido" id="lblNropedido"/>
 		</td>
 		<td>
-			<p:inputText  id="txtNropedido" value="#{pedido.pedido.nropedido}" required="true" maxlength="5" style="width:150px;" label="Nro pedido"/>
+			<p:inputText  id="txtNropedido" value="#{pedido.pedido.nropedido}" required="true" maxlength="5" style="width:150px;" label="Nro pedido" 
+			 onkeypress="return validaNumeros(event)">
+			
+				
+				
+			</p:inputText>
 		</td>
+	</tr>	
+	
+	<tr>	
 		<td>
 			<p:outputLabel  value="Tipo de bien(SIGA)" for="txtIdcatalogotipobien" id="lblIdcatalogotipobien"/>
 		</td>
-		<td>
-			<p:selectOneMenu  value="#{pedido.pedido.idcatalogotipobien}" id="txtIdcatalogotipobien" required="false" label="Tipo de bien(SIGA)">
+		<td colspan="3">
+			<p:selectOneMenu  value="#{pedido.pedido.idcatalogotipobien}" id="txtIdcatalogotipobien" required="false" label="Tipo de bien(SIGA)" disabled="true">
 				<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
 				<f:selectItems value="#{pedido.listaGentablaIdcatalogotipobien}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
 			</p:selectOneMenu>
 		</td>
 	</tr>
+	
+	
 	<tr>
+		<td>
+			<p:outputLabel  value="Tipo de Necesidad" for="txtIdcatalogotiponecesidad" id="lblIdcatalogotiponecesidad"/>
+		</td>
+		<td>
+			<p:selectOneMenu  value="#{pedido.pedido.idcatalogotiponecesidad}" id="txtIdcatalogotiponecesidad" required="false" label="Tipo de Necesidad">
+				<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+				<f:selectItems value="#{pedido.listaGentablaIdcatalogotiponecesidad}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
+			</p:selectOneMenu>
+		</td>
+		
+	</tr>
+
+	<tr style="display: none;">
 		<td>
 			<p:outputLabel  value="Periódo" for="txtIdperiodo" id="lblIdperiodo"/>
 		</td>
 		<td>
-			<p:selectOneMenu  value="#{pedido.pedido.idperiodo}" id="txtIdperiodo" required="false" label="Periódo">
+			<p:selectOneMenu  value="#{pedido.pedido.idperiodo}" id="txtIdperiodo" required="false" label="Periódo" style="width: 75%;">
 				<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
 				<f:selectItems value="#{pedido.listaPeriodoIdperiodo}" var="var" itemLabel="#{var.nombreperiodo}" itemValue="#{var.idperiodo}" />
 			</p:selectOneMenu>
 		</td>
+	
+	</tr>
+	
+	<tr style="display: none;">
+		<td>
+			<p:outputLabel  value="Unidad Ejecutora" for="txtIdunidadejecutora" id="lblIdunidadejecutora"/>
+		</td>
+		
+		<td colspan="3">
+			<p:inputText  id="txtIdunidadejecutora" value="#{pedido.pedido.unidadejecutoraIdunidadejecutora.nombreunidadejecutora}" disabled="true" required="false" maxlength="10" 
+			style="width:400px;" label="Unidad Ejecutora"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_unidadejecutora.init}" immediate="true" oncomplete="showDialogPF('frmRegIdunidadejecutoraBuscar:diUnidadejecutoraBuscar');" update=":frmRegIdunidadejecutoraBuscar:diUnidadejecutoraBuscar" style="width:20px;height:20px;"/>
+		</td>
+		
+	</tr>
+	
+	<tr style="display: none;">
 		<td>
 			<p:outputLabel  value="Centro costo" for="txtCodigocentrocosto" id="lblCodigocentrocosto"/>
 		</td>
-		<td>
-			<p:inputText  id="txtCodigocentrocosto" value="#{pedido.pedido.vcentrocostoCodigocentrocosto.nombredependencia}" disabled="true" required="false" maxlength="15" style="width:150px;" label="Centro costo"/>
+		<td colspan="3">
+			<p:inputText  id="txtCodigocentrocosto" value="#{pedido.pedido.vcentrocostoCodigocentrocosto.nombredependencia}" disabled="true" required="false" maxlength="15" 
+			style="width:400px" label="Centro costo"/>
 			<p:commandButton icon="ui-icon-search" action="#{cc_vcentrocosto.init}" immediate="true" oncomplete="showDialogPF('frmRegCodigocentrocostoBuscar:diVcentrocostoBuscar');" update=":frmRegCodigocentrocostoBuscar:diVcentrocostoBuscar" style="width:20px;height:20px;"/>
 		</td>
 	</tr>
-	<tr>
+	
+	
+
+	
+	<tr style="display: none;">
 		<td>
 			<p:outputLabel  value="Nombre de dependencia" for="txtNombredependencia" id="lblNombredependencia"/>
 		</td>
 		<td>
-			<p:inputText  id="txtNombredependencia" value="#{pedido.pedido.nombredependencia}" required="false" maxlength="100" style="width:150px;" label="Nombre de dependencia"/>
-		</td>
-		<td>
-			<p:outputLabel  value="Descripción" for="txtDescripcionpedidosiga" id="lblDescripcionpedidosiga"/>
-		</td>
-		<td>
-			<p:inputText  id="txtDescripcionpedidosiga" value="#{pedido.pedido.descripcionpedidosiga}" required="false" maxlength="2000" style="width:150px;" label="Descripción"/>
+			<p:inputText  id="txtNombredependencia" value="#{pedido.pedido.nombredependencia}" required="false" maxlength="100" style="width:100%;" label="Nombre de dependencia"/>
 		</td>
 	</tr>
+	
+	
+	
+	<tr>
+		
+		<td>
+			<p:outputLabel  value="Fecha pedido" for="txtFechapedido" id="lblFechapedido"/>
+		</td>
+		<td colspan="3">
+			<p:calendar   id="txtFechapedido" value="#{pedido.pedido.fechapedido}" required="false" pattern="dd/MM/yyyy HH:mm" label="Fecha pedido" navigator="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	
 	<tr>
 		<td>
 			<p:outputLabel  value="Monto del Pedido" for="txtMontopedido" id="lblMontopedido"/>
 		</td>
 		<td>
-			<p:inputText  id="txtMontopedido" value="#{pedido.pedido.montopedido}" required="false" maxlength="18" style="width:150px;" label="Monto del Pedido"/>
+			<p:inputText  id="txtMontopedido" value="#{pedido.pedido.montopedido}" required="false" maxlength="18" style="width:150px;" 
+			 onkeypress="return validaMoneda(event)">
+			
+				
+			
+			</p:inputText>
 		</td>
+		
+	</tr>
+	
+	
+	<tr>
+		<td>
+			<p:outputLabel  value="Descripción" for="txtDescripcionpedidosiga" id="lblDescripcionpedidosiga"/>
+		</td>
+	
+	    <td colspan="3">
+		
+			<p:inputTextarea  id="txtDescripcionpedidosiga" value="#{pedido.pedido.descripcionpedidosiga}" rows="5" counter="display2" required="true" maxlength="2000" 
+									style="width:100%;" autoResize="false" requiredMessage="Descripción: Se requiere ingresar un valor."/>	
+									Restan <h:outputText id="display2" /> caracteres	
+		</td>
+	</tr>
+	
+	<tr>
 		<td>
 			<p:outputLabel  value="Estado pedido" for="txtEstadopedido" id="lblEstadopedido"/>
 		</td>
 		<td>
-			<p:inputText  id="txtEstadopedido" value="#{pedido.pedido.estadopedido}" required="false" maxlength="10" style="width:150px;" label="Estado pedido"/>
+			<p:inputText  id="txtEstadopedido" value="#{pedido.pedido.estadopedido}" required="false" maxlength="10" style="width:150px;"
+			 label="Estado pedido" readonly="true"/>
+		</td>
+	
+	</tr>
+	
+	
+	<tr><td><br/></td></tr>
+	
+
+	<tr>
+		<td colspan="4" style="text-decoration: underline;">Información SINAD</td>
+	</tr>
+	
+	<tr>
+		<td>
+			<p:outputLabel  value="Tipo de Sinad" for="txtTiposinad" id="lblTiposinad"/>
+		</td>
+		<td>
+			<p:selectBooleanCheckbox id="txtTiposinad" value ="#{pedido.pedido.booleantiposinad}" required="false" label="Tipo de Sinad"/>
+		</td>
+		
+		<td>
+			<p:outputLabel  value="Número de expediente (SINAD)" for="txtNumeroexpedientesinad" id="lblNumeroexpedientesinad"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumeroexpedientesinad" value="#{pedido.pedido.numeroexpedientesinad}" required="false" maxlength="30" style="width:150px;" label="Número de expediente (SINAD)"/>
 		</td>
 	</tr>
+	
+	
 	<tr>
 		<td>
 			<p:outputLabel  value="Número Sindad" for="txtNumerosinad" id="lblNumerosinad"/>
@@ -109,45 +219,13 @@
 			<p:inputText  id="txtAniosinad" value="#{pedido.pedido.aniosinad}" required="false" maxlength="10" style="width:150px;" label="Año Sinad"/>
 		</td>
 	</tr>
-	<tr>
-		<td>
-			<p:outputLabel  value="Número de expediente (SINAD)" for="txtNumeroexpedientesinad" id="lblNumeroexpedientesinad"/>
-		</td>
-		<td>
-			<p:inputText  id="txtNumeroexpedientesinad" value="#{pedido.pedido.numeroexpedientesinad}" required="false" maxlength="30" style="width:150px;" label="Número de expediente (SINAD)"/>
-		</td>
-		<td>
-			<p:outputLabel  value="Fecha pedido" for="txtFechapedido" id="lblFechapedido"/>
-		</td>
-		<td>
-			<p:calendar   id="txtFechapedido" value="#{pedido.pedido.fechapedido}" required="false" pattern="dd/MM/yyyy HH:mm" label="Fecha pedido" navigator="true" locale="es" styleClass="dateTimeField"/>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<p:outputLabel  value="Tipo de Necesidad" for="txtIdcatalogotiponecesidad" id="lblIdcatalogotiponecesidad"/>
-		</td>
-		<td>
-			<p:selectOneMenu  value="#{pedido.pedido.idcatalogotiponecesidad}" id="txtIdcatalogotiponecesidad" required="false" label="Tipo de Necesidad">
-				<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
-				<f:selectItems value="#{pedido.listaGentablaIdcatalogotiponecesidad}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
-			</p:selectOneMenu>
-		</td>
-		<td>
-			<p:outputLabel  value="Unidad Ejecutora" for="txtIdunidadejecutora" id="lblIdunidadejecutora"/>
-		</td>
-		<td>
-			<p:inputText  id="txtIdunidadejecutora" value="#{pedido.pedido.unidadejecutoraIdunidadejecutora.nombreunidadejecutora}" disabled="true" required="false" maxlength="10" style="width:150px;" label="Unidad Ejecutora"/>
-			<p:commandButton icon="ui-icon-search" action="#{cc_unidadejecutora.init}" immediate="true" oncomplete="showDialogPF('frmRegIdunidadejecutoraBuscar:diUnidadejecutoraBuscar');" update=":frmRegIdunidadejecutoraBuscar:diUnidadejecutoraBuscar" style="width:20px;height:20px;"/>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<p:outputLabel  value="Tipo de Sinad" for="txtTiposinad" id="lblTiposinad"/>
-		</td>
-		<td>
-			<p:selectBooleanCheckbox id="txtTiposinad" value ="#{pedido.pedido.booleantiposinad}" required="false" label="Tipo de Sinad"/>
-		</td>
+	
+	
+	
+	<tr><td><br/></td></tr>
+	
+	<tr style="display: none;">
+		
 		<td>
 			<p:outputLabel  value="Idv Pedido" for="txtIdvpedido" id="lblIdvpedido"/>
 		</td>
@@ -156,11 +234,29 @@
 			<p:commandButton icon="ui-icon-search" action="#{cc_vispedido.init}" immediate="true" oncomplete="showDialogPF('frmRegIdvpedidoBuscar:diVispedidoBuscar');" update=":frmRegIdvpedidoBuscar:diVispedidoBuscar" style="width:20px;height:20px;"/>
 		</td>
 	</tr>
+	
+	
+
 
 </table>
+
+
 			</p:panel>
+			
+	
+			
 		</td>
 	</tr>
+	
+
+	
+	
 </table>
 </p:panel>
+
+
+  		
+			
+
+
 </html>

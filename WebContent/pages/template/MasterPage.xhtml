@@ -7,6 +7,13 @@
 	xmlns:p="http://primefaces.org/ui">
     <f:view contentType="text/html" encoding="ISO-8859-1">
  <h:head> 
+ 
+ 	<script language="Javascript" src="#{request.contextPath}/resources/js/jasaro-validator.js"></script>	
+ 	
+ 	
+
+ 	
+ 
  	<p:importConstants type="pe.com.sisabas.resources.ConstantesPF" var="PFConstants" />		
  	<f:facet name="first">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -17,6 +24,7 @@
             <link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/syntaxhighlighter.css" />
             <link rel="stylesheet" href="#{request.contextPath}/resources/font-awesome/css/font-awesome.min.css"/>
             <link rel="stylesheet" href="#{request.contextPath}/resources/font-awesome/css/font-awesome-animation.css"/>
+
 
 
 
@@ -121,6 +129,7 @@
 		
 		        .ui-dialog.terminalDialog .ui-dialog-content {
 		            padding:0;
+		      
 		        }
 				
 				/**THEME DELTA - INICIO*/				
@@ -275,14 +284,16 @@
 				
 				/*PanelC de la pagina de registro y detalle*/
 				.gandalfDialog{
-				   
+					
+				    
 				}
 				
 				/*PanelC de la pagina de registro y detalle*/
-				.gandalfPanelClassSectionFormHeader{ 
+				.gandalfPanelClassSectionFormHeader{  
 				 	padding: 0px 1px 0px 0px;
 				    margin: 0px 0px 0px 0px;
 				    background-color: #F2F8FA;
+				    width: 900px;
 				}
 								
 				.gandalfPanelClassSectionFormHeaderP{ 
