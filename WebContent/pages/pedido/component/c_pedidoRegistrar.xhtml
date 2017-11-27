@@ -193,14 +193,15 @@
 			<p:outputLabel  value="Tipo de Sinad" for="txtTiposinad" id="lblTiposinad"/>
 		</td>
 		<td>
-			<p:selectBooleanCheckbox id="txtTiposinad" value ="#{pedido.pedido.booleantiposinad}" required="false" label="Tipo de Sinad"/>
+			<p:selectBooleanCheckbox id="txtTiposinad" value ="#{pedido.pedido.booleantiposinad}" required="false" label="Tipo de Sinad" disabled="true"/>
 		</td>
 		
 		<td>
 			<p:outputLabel  value="Número de expediente (SINAD)" for="txtNumeroexpedientesinad" id="lblNumeroexpedientesinad"/>
 		</td>
 		<td>
-			<p:inputText  id="txtNumeroexpedientesinad" value="#{pedido.pedido.numeroexpedientesinad}" required="false" maxlength="30" style="width:150px;" label="Número de expediente (SINAD)"/>
+			<p:inputText  id="txtNumeroexpedientesinad" value="#{pedido.pedido.numeroexpedientesinad}" required="false" maxlength="30" style="width:150px;" 
+			label="Número de expediente (SINAD)" readonly="true"/>
 		</td>
 	</tr>
 	
@@ -210,13 +211,13 @@
 			<p:outputLabel  value="Número Sindad" for="txtNumerosinad" id="lblNumerosinad"/>
 		</td>
 		<td>
-			<p:inputText  id="txtNumerosinad" value="#{pedido.pedido.numerosinad}" required="false" maxlength="10" style="width:150px;" label="Número Sindad"/>
+			<p:inputText  id="txtNumerosinad" value="#{pedido.pedido.numerosinad}" required="false" maxlength="10" style="width:150px;" label="Número Sindad" readonly="true"/>
 		</td>
 		<td>
 			<p:outputLabel  value="Año Sinad" for="txtAniosinad" id="lblAniosinad"/>
 		</td>
 		<td>
-			<p:inputText  id="txtAniosinad" value="#{pedido.pedido.aniosinad}" required="false" maxlength="10" style="width:150px;" label="Año Sinad"/>
+			<p:inputText  id="txtAniosinad" value="#{pedido.pedido.aniosinad}" required="false" maxlength="10" style="width:150px;" label="Año Sinad" readonly="true"/>
 		</td>
 	</tr>
 	
