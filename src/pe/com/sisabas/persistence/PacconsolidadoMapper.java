@@ -7,6 +7,7 @@ import pe.com.sisabas.dto.CertificacionItemsDto;
 import pe.com.sisabas.dto.CertificacionRequest;
 import pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto;
 import pe.com.sisabas.dto.CuadroComparativoItemsDto;
+import pe.com.sisabas.dto.CuadroComparativoRequest;
 import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
 import pe.com.sisabas.dto.RecepcionDTResponse;
@@ -53,7 +54,7 @@ public interface PacconsolidadoMapper{
 	
 	RecepcionDTResponse getFechaRecepcionDT(PaoRequest record) throws Exception;
 	
-	List<CuadroComparativoItemsDto> getCuadroComparativoItems(Integer idPacConsolidado) throws Exception;
+	List<CuadroComparativoItemsDto> getCuadroComparativoItems(CuadroComparativoRequest request) throws Exception;
 	
 	
 }

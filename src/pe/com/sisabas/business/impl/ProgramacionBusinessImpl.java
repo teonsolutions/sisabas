@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pe.com.sisabas.be.Cuadrocomparativofuente;
+import pe.com.sisabas.be.Cuadrocomparativoitem;
 import pe.com.sisabas.be.Estadosporetapapordocumento;
 import pe.com.sisabas.be.Estadosportipodocumento;
 import pe.com.sisabas.be.Grupodocumento;
@@ -23,6 +25,7 @@ import pe.com.sisabas.dto.CertificacionItemsDto;
 import pe.com.sisabas.dto.CertificacionRequest;
 import pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto;
 import pe.com.sisabas.dto.CuadroComparativoItemsDto;
+import pe.com.sisabas.dto.CuadroComparativoRequest;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
 import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
@@ -32,6 +35,8 @@ import pe.com.sisabas.dto.PaoResponse;
 import pe.com.sisabas.dto.Resultado;
 import pe.com.sisabas.dto.TransactionRequest;
 import pe.com.sisabas.dto.TransactionResponse;
+import pe.com.sisabas.persistence.CuadrocomparativofuenteMapper;
+import pe.com.sisabas.persistence.CuadrocomparativoitemMapper;
 import pe.com.sisabas.persistence.DocumentotecnicoMapper;
 import pe.com.sisabas.persistence.EstadosporetapapordocumentoMapper;
 import pe.com.sisabas.persistence.EstadosportipodocumentoMapper;
@@ -71,6 +76,12 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 	@Autowired
 	public PedidosporpacconsolidadoMapper pedidosporpacconsolidadoMapper;
 
+	@Autowired
+	public CuadrocomparativofuenteMapper cuadrocomparativofuenteMapper;
+
+	@Autowired
+	public CuadrocomparativoitemMapper cuadrocomparativoitemMapper;
+	
 	@Autowired
 	public UtilsBusiness utilsBusiness;
 
@@ -463,9 +474,76 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 	}
 
 	@Override
-	public List<CuadroComparativoItemsDto> getCuadroComparativoItems(Integer idPacConsolidado) throws Exception {
+	public List<CuadroComparativoItemsDto> getCuadroComparativoItems(CuadroComparativoRequest request) throws Exception {
 		// TODO Auto-generated method stub
-		return pacconsolidadoMapper.getCuadroComparativoItems(idPacConsolidado);
+		return pacconsolidadoMapper.getCuadroComparativoItems(request);
+	}
+
+	@Override
+	public Resultado grabarCuadroComparativo(TransactionRequest<Cuadrocomparativofuente> request, List<CuadroComparativoItemsDto> items) throws Exception {
+		// TODO Auto-generated method stub
+		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);		
+		Cuadrocomparativofuente cuadrocomparativofuente = request.getEntityTransaction();
+		Integer idCuadroComparativoFuente;
+		if (cuadrocomparativofuente.getIdcuadrocomparativofuente() == null
+				|| cuadrocomparativofuente.getIdcuadrocomparativofuente() == 0) {
+			cuadrocomparativofuente
+					.setProgramaauditoria(pe.com.sisabas.resources.Utils.obtenerPrograma(this.getClass()));
+			/*
+			cuadrocomparativofuente.setIdcuadrocomparativofuente((int) utilsBusiness
+					.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_CUADROCOMPARATIVOFUENTE).longValue());
+					*/
+			idCuadroComparativoFuente = (int) utilsBusiness
+					.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_CUADROCOMPARATIVOFUENTE).longValue();
+			cuadrocomparativofuente.setIdcuadrocomparativofuente(idCuadroComparativoFuente);
+			cuadrocomparativofuenteMapper.insert(cuadrocomparativofuente);
+			
+			//Insert items del cuadro comparativo
+			Cuadrocomparativoitem cuadrocomparativoitem; 
+			Double precio;
+			for (int i = 0; i < items.size(); i++) {
+				cuadrocomparativoitem = new Cuadrocomparativoitem();
+				cuadrocomparativoitem.setIdcuadrocomparativofuente(idCuadroComparativoFuente);
+				cuadrocomparativoitem.setIddetallepedido(items.get(i).getIdDetallePedido());
+				precio = items.get(i).getPrecioReferencial();				
+				BigDecimal precioReferencial = new BigDecimal(0.00);
+				cuadrocomparativoitem.setPrecioreferencial(precioReferencial);
+				cuadrocomparativoitem.setEquipoauditoria(request.getEquipoAuditoria());
+				cuadrocomparativoitem.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+				cuadrocomparativoitem.setFechacreacionauditoria(new Date());
+				cuadrocomparativoitem.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+				cuadrocomparativoitem.setIdcuadrocomparativoitem((int) utilsBusiness
+					.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_CUADROCOMPARATIVOITEM).longValue());
+				cuadrocomparativoitemMapper.insert(cuadrocomparativoitem);
+			}
+
+		} else {
+			cuadrocomparativofuente
+					.setProgramaauditoria(pe.com.sisabas.resources.Utils.obtenerPrograma(this.getClass()));
+			cuadrocomparativofuenteMapper.updateByPrimaryKey(cuadrocomparativofuente);
+			idCuadroComparativoFuente = cuadrocomparativofuente.getIdcuadrocomparativofuente();
+			
+			//Actualiza items del cuadro comparativo
+			Cuadrocomparativoitem cuadrocomparativoitemEdit;
+			Double precio;
+			for (int i = 0; i < items.size(); i++) {
+				cuadrocomparativoitemEdit = cuadrocomparativoitemMapper.selectByPrimaryKeyBasicActive(items.get(i).getIdCuadroComparativoItem());
+				if (cuadrocomparativoitemEdit != null){
+					precio = items.get(i).getPrecioReferencial();
+					BigDecimal precioReferencial = new BigDecimal(3000.00);
+					cuadrocomparativoitemEdit.setPrecioreferencial(precioReferencial);
+					cuadrocomparativoitemEdit.setEquipoauditoria(request.getEquipoAuditoria());
+					cuadrocomparativoitemEdit.setFechamodificacionauditoria(new Date());
+					cuadrocomparativoitemEdit.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+					cuadrocomparativoitemMapper.updateByPrimaryKey(cuadrocomparativoitemEdit);
+				}
+			}			
+		}		
+
+		//Determina el mínimo monto de valor referencial
+		
+		
+		return result;
 	}
 
 }

@@ -165,12 +165,14 @@
 	</resultMap>	
 	
 	<resultMap type="pe.com.sisabas.dto.CuadroComparativoItemsDto" id="CuadroComparativoItems">
+	<result column="IdCuadroComparativoItem" property="idCuadroComparativoItem" jdbcType="INTEGER"/>
 		<result column="IdDetallePedido" property="idDetallePedido" jdbcType="INTEGER"/>
 		<result column="IdPedido" property="idPedido" jdbcType="INTEGER"/>
 		<result column="NombreItem" property="nombreItem" jdbcType="VARCHAR"/>
 		<result column="UnidadMedida" property="unidadMedida" jdbcType="INTEGER"/>
 		<result column="CantidadAprobadaSiga" property="cantidadAprobadaSiga" jdbcType="INTEGER"/>
 		<result column="PrecioReferencial" property="precioReferencial" jdbcType="DOUBLE"/>
+		<result column="CantidadSolicitadaSiga" property="cantidadSolicitadaSiga" jdbcType="INTEGER"/>
 	</resultMap>	
 	
 	<resultMap id="FullResultMap" type="pe.com.sisabas.be.Pacconsolidado">
@@ -2153,12 +2155,13 @@
 		{call abas.paProgramacionObtenerFechaRecepcionNoProgramado(#{anio},#{nroConsolid},#{idUnidadEjecutoraSiaf})}
 	</select>	
 	
-	<select id="getCuadroComparativoItems" resultMap="CuadroComparativoItems" parameterType="java.lang.Integer">
-		select t2.IdDetallePedido, t1.IdPedido, t2.NombreItem, t2.UnidadMedida, t2.CantidadAprobadaSiga, t3.PrecioReferencial
+	<select id="getCuadroComparativoItems" resultMap="CuadroComparativoItems" parameterType="pe.com.sisabas.dto.CuadroComparativoRequest">
+		select t3.IdCuadroComparativoItem, t2.IdDetallePedido, t1.IdPedido, t2.NombreItem, t2.UnidadMedida, t2.CantidadAprobadaSiga, t3.PrecioReferencial, t2.CantidadSolicitadaSiga
 		from abas.PedidosPorPacConsolidado t1
 		inner join abas.DetallePedido t2 on t2.IdPedido = t1.IdPedido
 		left join abas.CuadroComparativoItem t3 on t3.IdDetallePedido = t2.IdDetallePedido
 		where t1.IdPacConsolidado = (#{idPacConsolidado})
+		and ((t3.IdCuadroComparativoFuente = #{idCuadroComparativoFuente}) or #{idCuadroComparativoFuente} is null or #{idCuadroComparativoFuente} = 0)
 	</select>		
 		
 </mapper>

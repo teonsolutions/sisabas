@@ -7,13 +7,15 @@ public class CuadroComparativoItemsDto implements Serializable,Cloneable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private Integer idCuadroComparativoItem;
 	private Integer idDetallePedido;
 	private Integer idPedido;
 	private String nombreItem;
 	private Integer unidadMedida;
 	private Integer cantidadAprobadaSiga;
 	private Double precioReferencial;
-	
+	private Integer cantidadSolicitadaSiga;
+
 	public Integer getIdDetallePedido() {
 		return idDetallePedido;
 	}
@@ -73,7 +75,23 @@ public class CuadroComparativoItemsDto implements Serializable,Cloneable{
 		this.precioReferencial = precioReferencial;
 	}
 
+	public Integer getCantidadSolicitadaSiga() {
+		return cantidadSolicitadaSiga;
+	}
 
+
+	public void setCantidadSolicitadaSiga(Integer cantidadSolicitadaSiga) {
+		this.cantidadSolicitadaSiga = cantidadSolicitadaSiga;
+	}
+	
+	public Integer getIdCuadroComparativoItem() {
+		return idCuadroComparativoItem;
+	}
+
+
+	public void setIdCuadroComparativoItem(Integer idCuadroComparativoItem) {
+		this.idCuadroComparativoItem = idCuadroComparativoItem;
+	}
 	
 	@Override
 	public Object clone() throws CloneNotSupportedException {

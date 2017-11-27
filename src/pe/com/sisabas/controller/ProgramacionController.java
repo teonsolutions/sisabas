@@ -9,9 +9,11 @@ import java.util.Arrays;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 import org.apache.taglibs.standard.lang.jstl.Evaluator;
 import org.omg.CORBA.TRANSACTION_MODE;
+import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.ToggleSelectEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -46,8 +48,10 @@ import pe.com.sisabas.business.GentablaBusiness;
 import pe.com.sisabas.business.ProgramacionBusiness;
 import pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto;
 import pe.com.sisabas.dto.CuadroComparativoItemsDto;
+import pe.com.sisabas.dto.CuadroComparativoRequest;
 import pe.com.sisabas.dto.EvaluacionDocumentoRequest;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
+import pe.com.sisabas.dto.Lugar;
 import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
 import pe.com.sisabas.dto.Resultado;
@@ -358,9 +362,11 @@ public class ProgramacionController extends BaseController {
 			this.cuadrocomparativofuente.setIdcuadrocomparativofuente(0);
 
 			// Items del cuadro comparativo
-			if (this.listaCuadroComparativoItems == null)
-				this.listaCuadroComparativoItems = this.programacionBusiness
-						.getCuadroComparativoItems(this.currentPao.getIdPacConsolid());
+			CuadroComparativoRequest request = new CuadroComparativoRequest();
+			request.setIdPacConsolidado(this.currentPao.getIdPacConsolid());
+			request.setIdCuadroComparativoFuente(this.cuadrocomparativofuente.getIdcuadrocomparativofuente());
+			this.listaCuadroComparativoItems = this.programacionBusiness
+					.getCuadroComparativoItems(request);
 
 			STATUS_SUCCESS();
 			REGISTER_INIT();
@@ -391,6 +397,13 @@ public class ProgramacionController extends BaseController {
 			updateCharToBoolean(cuadrocomparativofuente);
 			cuadrocomparativofuente.roundBigDecimals();
 			this.tituloFuente = "Cuadro comprarativo » " + EDITAR;
+
+			// Items del cuadro comparativo
+			CuadroComparativoRequest request = new CuadroComparativoRequest();
+			request.setIdPacConsolidado(this.currentPao.getIdPacConsolid());
+			request.setIdCuadroComparativoFuente(this.cuadrocomparativofuente.getIdcuadrocomparativofuente());
+			this.listaCuadroComparativoItems = this.programacionBusiness
+					.getCuadroComparativoItems(request);
 
 			STATUS_SUCCESS();
 			REGISTER_INIT();
@@ -506,18 +519,31 @@ public class ProgramacionController extends BaseController {
 
 				this.cuadrocomparativofuente.setIdcatalogotipobien(this.currentPao.getIdTipoBien());
 
-				this.cuadrocomparativofuente.setIdcuadrocomparativofuente((int) utilsBusiness
-						.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_CUADROCOMPARATIVOFUENTE).longValue());
-				this.cuadroComparativoFuenteBusiness.insertBasic(this.cuadrocomparativofuente);
+				/*
+				 * this.cuadrocomparativofuente.setIdcuadrocomparativofuente((
+				 * int) utilsBusiness
+				 * .getNextSeq(pe.com.sisabas.resources.Sequence.
+				 * SEQ_CUADROCOMPARATIVOFUENTE).longValue());
+				 * this.cuadroComparativoFuenteBusiness.insertBasic(this.
+				 * cuadrocomparativofuente);
+				 */
 
 			} else {
 				this.cuadrocomparativofuente.setUsuariomodificacionauditoria(getUserLogin());
 				this.cuadrocomparativofuente.setEquipoauditoria(getRemoteAddr());
 				this.cuadrocomparativofuente
 						.setProgramaauditoria(pe.com.sisabas.resources.Utils.obtenerPrograma(this.getClass()));
-				this.cuadroComparativoFuenteBusiness.updateByPrimaryKeyBasic(this.cuadrocomparativofuente);
+				/*
+				 * this.cuadroComparativoFuenteBusiness.updateByPrimaryKeyBasic(
+				 * this.cuadrocomparativofuente);
+				 */
 			}
 
+			TransactionRequest<Cuadrocomparativofuente> request = new TransactionRequest<Cuadrocomparativofuente>();
+			request.setEquipoAuditoria(getRemoteAddr());
+			request.setUsuarioAuditoria(getUserLogin());
+			request.setEntityTransaction(this.cuadrocomparativofuente);
+			programacionBusiness.grabarCuadroComparativo(request, this.listaCuadroComparativoItems);
 			showGrowlMessageSuccessfullyCompletedAction();
 			buscarFuente();
 
@@ -535,6 +561,19 @@ public class ProgramacionController extends BaseController {
 			REGISTER_ERROR();
 			addErrorMessageKey("msgsCuadrocomparativofuenteR", e);
 		}
+	}
+
+	// DATATABLE EDITABLE
+	public void onRowEdit(RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("Se editó correctamente",
+				"Dependencia: " + ((Lugar) event.getObject()).getDependencia());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void onRowCancel(RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("Se canceló la edición",
+				"Dependencia: " + ((Lugar) event.getObject()).getDependencia());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	// PROPERTIES

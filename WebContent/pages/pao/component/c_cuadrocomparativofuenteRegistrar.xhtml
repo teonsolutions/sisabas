@@ -177,7 +177,13 @@
 							value="#{programacion.listaCuadroComparativoItems}" var="var"
 							widgetVar="tblItemsCC" emptyMessage="No se encontraron registros"
 							selectionMode="single" rowKey="#{var.idDetallePedido}"
-							styleClass="gandalfTableClass">
+							styleClass="gandalfTableClass" editable="true" editMode="cell">
+
+							<p:ajax event="rowEdit" listener="#{programacion.onRowEdit}"
+								update=":form:growl" />
+							<p:ajax event="rowEditCancel"
+								listener="#{programacion.onRowCancel}" update=":form:growl" />
+
 							<p:column headerText="Descripción / denominación"
 								style="width: 300px">
 								<f:facet name="header">
@@ -195,15 +201,23 @@
 								<f:facet name="header">
 									<h:outputText value="Cantidad" />
 								</f:facet>
-								<h:outputText value="#{var.cantidadAprobadaSiga}" />
+								<h:outputText value="#{var.cantidadSolicitadaSiga}" />
 							</p:column>
 							<p:column
 								headerText="Precio Total (Consignar moneda del valor referencial)"
 								style="width: 150px">
 								<f:facet name="header">
-									<h:outputText value="Precio Total (Consignar moneda del valor referencial)" />
+									<f:facet name="output">
+										<h:outputText value="#{var.precioReferencial}" />
+									</f:facet>
 								</f:facet>
-								<h:outputText value="#{var.precioReferencial}" />
+								<f:facet name="input">
+									<p:inputText value="#{var.precioReferencial}" style="width:96%"
+										label="Year" />
+								</f:facet>
+							</p:column>
+							<p:column style="width:32px">
+								<p:rowEditor editTitle="Editar" />
 							</p:column>
 						</p:dataTable>
 					</h:panelGrid>
