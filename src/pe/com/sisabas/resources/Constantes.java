@@ -75,6 +75,9 @@ public class Constantes {
 		public static final String CADM="CADM";
 		public static final String APRO="APRO";
 		public static final String ANIO="ANIO";
+		
+		
+		public static final String TIBI3="TIBI3";
 	}
 	public class accion {
 		public static final String INSERT  = "INSERT";
