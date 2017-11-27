@@ -189,13 +189,13 @@ function myFunction() {
 							<f:setPropertyActionListener value="#{var}"
 								target="#{requerimiento.requerimientoResponse}" />
 						</p:commandButton>
-						<p:commandButton rendered="#{var.estadoPedidoIn eq 40}"
-							update=":formEsp:diEsp" icon="fa fa-edit" title="Registrar ET"
-							action="#{requerimiento.buscarItemRequerimientos2}"
-							oncomplete="PF('reqDialog2').show()">
-							<f:setPropertyActionListener value="#{var}"
-								target="#{requerimiento.requerimientoResponse}" />
+						
+						<p:commandButton rendered="#{var.estadoPedidoIn eq 40}" update=":formEsp:diEsp" icon="fa fa-edit" title="Registrar ET" oncomplete="PF('reqDialog2').show()">
+							<f:actionListener binding="#{requerimiento.buscarItemRequerimientos2()}"/>
+							<f:actionListener binding="#{documentotecnico.irRegistrar()}"/>
+							<f:setPropertyActionListener value="#{var}" target="#{requerimiento.requerimientoResponse()}" />
 						</p:commandButton>
+						
 					</p:column>
 					<p:column styleClass="c_center" sortBy="#{var.nropedido}">
 						<f:facet name="header">
@@ -298,8 +298,7 @@ function myFunction() {
 					modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 					<p:panel style="width:98%;">
 						<p:focus for="panel" />
-						<p:scrollPanel mode="native" style="width:100%;height:600px"
-							id="diEsp">
+						<p:scrollPanel mode="native" style="width:100%;height:600px" id="diEsp">
 							<p:messages for="msgsGentablaR" autoUpdate="true" closable="true" />
 							<ui:include
 								src="/pages/requerimiento/component/c_especificacionTecnica.xhtml" />
@@ -316,9 +315,9 @@ function myFunction() {
 								<td>
 									<div align="left">
 										<p:commandButton value="GRABAR"
-											actionListener="#{requerimiento.insertarRequerimientos}"
+											actionListener="#{documentotecnico.aceptar}"
 											icon="ui-icon-circle-check" title="Aceptar"
-											update=":form:growl" oncomplete="PF('reqDialog').hide();" />
+											update=":form:growl" oncomplete="PF('reqDialog2').hide();" />
 									</div>
 								</td>
 								<td>
@@ -419,11 +418,45 @@ function myFunction() {
 		</h:form>
 
 
-
-
-
-
-
+		      <h:form id="frmPago">
+						<p:dialog header="Agregar forma de pago"
+						widgetVar="diPago" resizable="false" modal="true"
+						dynamic="true">
+						<div class="ui-scrollpanel ui-scrollpanel-native ui-widget ui-widget-content ui-corner-all">
+							<p:panelGrid id="panelPago" columns="2" 
+								styleClass="gandalfPanelClassSectionFormHeader">
+								<p:column>
+									<p:outputLabel value="NÚMERO ARMADA" for="txtNumero" />
+								</p:column>
+								<p:column>
+									<p:inputText id="txtNumero"
+										value="#{requerimientoAux.pago.numero}"
+										style="width:300px;" label="Numero" />
+								</p:column>
+								<p:column>
+									<p:outputLabel value="PORCENTAJE DE ARMADA" for="txtPorcentaje" />
+								</p:column>
+								<p:column>
+									<p:inputText id="txtPorcentaje"
+										value="#{requerimientoAux.pago.porcentaje}" style="width:300px;"
+										label="Armada" />
+								</p:column>
+								<p:column>
+							    	<div align="left">
+								   	<p:commandButton value="GRABAR" actionListener="#{requerimientoAux.agregarPago}" update=":formEsp:diEsp,:form:growl"
+										icon="ui-icon-circle-check" title="Aceptar" oncomplete="PF('diPago').hide();" />
+									</div>
+								</p:column>
+								<p:column>
+									<div align="right">
+										<p:commandButton value="CANCELAR"
+											icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="PF('diPago').hide();"/>
+									</div>
+								</p:column>
+							</p:panelGrid>
+						</div>
+					</p:dialog>
+				</h:form>
 		</p:panel>
 	</ui:define>
 </ui:composition>

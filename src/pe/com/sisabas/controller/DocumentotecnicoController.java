@@ -157,7 +157,7 @@ public class DocumentotecnicoController extends BaseController {
 		STATUS_INIT();
 		try {
 			securityControlValidate("btnNuevo");
-			resetRegisterForm();
+			//resetRegisterForm();
 			accion = REGISTRAR;
 			titulo = "Documento tecnico » " + REGISTRAR;
 			documentotecnico = new Documentotecnico();

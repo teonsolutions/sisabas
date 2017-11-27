@@ -203,10 +203,8 @@
 				<p:commandButton
 					oncomplete="showDialogPF('frmPrestacion:diPrestacion')" onclick="myFunction();"
 					value="Agregar" icon="ui-icon-circle-check" />
-				
 			</div>
 			<p:spacer height="5" />
-
 			<p:dataTable id="tableLugares" var="var" emptyMessage="Lugares de prestacion vacía."
 				value="#{requerimientoAux.lugares}"
 				style="white-space:nowrap!important; width:800px; font-size:5px;"
@@ -214,9 +212,7 @@
 				
 				<p:ajax event="rowEdit" listener="#{requerimientoAux.onRowEdit}" update=":form:growl" />
                 <p:ajax event="rowEditCancel" listener="#{requerimientoAux.onRowCancel}" update=":form:growl" />
-				
-				
-				
+
 				<p:column headerText="DEPENDENCIA">
 					<p:cellEditor>
 		               <f:facet name="output"><h:outputText value="#{var.dependencia}" /></f:facet>
@@ -242,40 +238,54 @@
 						</p:commandButton>
 				</p:column>
 			</p:dataTable>
-
 		</p:tab>
 
 		<p:tab title="Forma de pago" id="formPago">
-
 			<div align="right">
-				<p:commandButton value="Agregar" icon="ui-icon-circle-check"
-					title="Aceptar" update=":form:growl" oncomplete="" />
+				<p:commandButton
+					oncomplete="showDialogPF('frmPago:diPago')" onclick="myFunction();"
+					value="Agregar" icon="ui-icon-circle-check" />
 			</div>
 			<p:spacer height="5" />
-			<h:form id="form2">
-				<p:dataTable var="var" value="xxxxx"
-					style="white-space:nowrap!important; width:800px; font-size:5px;"
-					reflow="true" scrollable="true" scrollHeight="">
-					<p:column width="8%" headerText="DEPENDENCIA">
-						<h:outputText value="xxxxxx" />
-					</p:column>
-
-					<p:column width="18%" headerText="DIRECCIONES">
-						<h:outputText value="xxxxxx" />
-					</p:column>
-
-					<p:column headerText="ACCIONES">
-						<h:outputText value="-----------" />
-					</p:column>
+				<p:dataTable id="tablePagos" var="var"  emptyMessage="Formas de pago vacía." value="#{requerimientoAux.pagos}" style="white-space:nowrap!important; width:800px; font-size:5px;" reflow="true" scrollable="true" editable="true">
+					
+					<p:ajax event="rowEdit" listener="#{requerimientoAux.onRowEdit2}" update=":form:growl" />
+					<p:ajax event="rowEditCancel" listener="#{requerimientoAux.onRowCancel2}" update=":form:growl" />
+					
+					<p:column headerText="NÚMERO ARMADA">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{var.numero}" /></f:facet>
+		               <f:facet name="input"><p:inputText id="modelInput" value="#{var.numero}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+				   </p:column>
+				   <p:column headerText="PORCENTAJE DE ARMADA">
+				    <p:cellEditor> 
+				       <f:facet name="output"><h:outputText value="#{var.porcentaje}" /></f:facet>
+                       <f:facet name="input"><p:inputText value="#{var.porcentaje}" style="width:100%" /></f:facet>
+					</p:cellEditor>  
+				    </p:column>
+  
+					<p:column headerText="EDITAR" styleClass="c_center" style="width: 9%;">
+				         <p:rowEditor editTitle="Editar"/>
+				    </p:column>
+				
+				    <p:column headerText="ELIMINAR" styleClass="c_center" style="width: 9%;">
+						<p:commandButton 
+							update=":formEsp:diEsp,:form:growl" icon="fa fa-remove" title="Eliminar"
+							actionListener="#{requerimientoAux.eliminarPago(var)}"
+							>
+						</p:commandButton>
+				   </p:column>
 				</p:dataTable>
-			</h:form>
 		</p:tab>
 
 		<p:tab title="Anexos">
-			<h:panelGrid columns="2" cellpadding="10">
-				<p:graphicImage name="demo/images/godfather/godfather3.jpg" />
-				<h:outputText value="After a break of more than 15 years...." />
-			</h:panelGrid>
+          <h:form>
+             <p:outputLabel value="Archivo formato PDF hasta 10 MB"/>
+             <p:fileUpload fileUploadListener="#{requerimientoAux.handleFileUpload}" mode="advanced" dragDropSupport="false" update="messages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(pdf)$/"  
+             label="Seleccione archivo" cancelLabel="Cancelar" uploadLabel="Subir"/>
+             <p:growl id="messages" showDetail="true" />
+          </h:form>
 		</p:tab>
 		<p:tab title="Responsable de las coordinaciones">
 			<h:panelGrid columns="2" cellpadding="10">
