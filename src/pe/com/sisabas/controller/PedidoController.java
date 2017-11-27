@@ -114,6 +114,7 @@ public class PedidoController extends BaseController {
 			listaPeriodoIdperiodo = periodoBusiness.selectDynamicBasic(new Periodo());
 			listaGentablaIdcatalogotiponecesidad = gentablaBusiness.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TINE));
 			listaGentablaIdcatalogotipoet = gentablaBusiness.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TIET));
+			
 
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
@@ -179,6 +180,8 @@ public class PedidoController extends BaseController {
 			pedido.setVcentrocostoCodigocentrocosto(new Vcentrocosto());
 			pedido.setUnidadejecutoraIdunidadejecutora(new Unidadejecutora());
 			pedido.setVispedidoIdvpedido(new Vispedido());
+			
+			pedido.setIdcatalogotipobien(Constantes.tabla.TIBI3);
 
 
 			STATUS_SUCCESS();
