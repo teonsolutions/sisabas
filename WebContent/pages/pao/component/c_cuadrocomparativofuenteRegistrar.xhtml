@@ -89,7 +89,7 @@
 					<p:outputPanel id="opnlEntidad">
 
 						<p:panel id="pnlProveedor"
-							visible="#{programacion.cuadrocomparativofuente.idcatalogotipofuente eq 'TIFU1'}">
+							rendered="#{programacion.cuadrocomparativofuente.idcatalogotipofuente eq 'TIFU1'}">
 							<table>
 								<tr>
 									<td><p:outputLabel value="Nro. RUC" for="txtRucproveedor"
@@ -132,7 +132,7 @@
 						</p:panel>
 
 						<p:panel id="pnlConvocante"
-							visible="#{programacion.cuadrocomparativofuente.idcatalogotipofuente eq 'TIFU2' || programacion.cuadrocomparativofuente.idcatalogotipofuente eq 'TIFU3'}">
+							rendered="#{programacion.cuadrocomparativofuente.idcatalogotipofuente eq 'TIFU2' || programacion.cuadrocomparativofuente.idcatalogotipofuente eq 'TIFU3'}">
 							<table>
 								<tr>
 									<td><p:outputLabel value="Nombre de entidad"
@@ -177,12 +177,20 @@
 							value="#{programacion.listaCuadroComparativoItems}" var="var"
 							widgetVar="tblItemsCC" emptyMessage="No se encontraron registros"
 							selectionMode="single" rowKey="#{var.idDetallePedido}"
-							styleClass="gandalfTableClass" editable="true" editMode="cell">
+							editable="true" editMode="cell" paginator="true"
+							rows="#{sisabascontrol.registros_mant}"
+							paginatorPosition="bottom"
+							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(programacion.listaCuadroComparativoItems)}"
+							styleClass="gandalfTableClass">
 
-							<p:ajax event="rowEdit" listener="#{programacion.onRowEdit}"
+							<!-- 
+							<p:ajax event="rowEdit" listener="{programacion.onRowEdit}"
 								update=":form:growl" />
 							<p:ajax event="rowEditCancel"
-								listener="#{programacion.onRowCancel}" update=":form:growl" />
+								listener="{programacion.onRowCancel}" update=":form:growl" />
+ -->
+							<p:ajax event="cellEdit" listener="#{programacion.onCellEdit}"
+								update=":form:msgs" />
 
 							<p:column headerText="Descripción / denominación"
 								style="width: 300px">
@@ -206,19 +214,23 @@
 							<p:column
 								headerText="Precio Total (Consignar moneda del valor referencial)"
 								style="width: 150px">
-								<f:facet name="header">
-									<f:facet name="output">
-										<h:outputText value="#{var.precioReferencial}" />
+								<p:cellEditor>
+									<f:facet name="header">
+										<f:facet name="output">
+											<h:outputText value="#{var.precioReferencial}" />
+										</f:facet>
 									</f:facet>
-								</f:facet>
-								<f:facet name="input">
-									<p:inputText value="#{var.precioReferencial}" style="width:96%"
-										label="Year" />
-								</f:facet>
+									<f:facet name="input">
+										<p:inputNumber value="#{var.precioReferencial}"
+											style="width:96%" label="Year" />
+									</f:facet>
+								</p:cellEditor>
 							</p:column>
+							<!-- 
 							<p:column style="width:32px">
 								<p:rowEditor editTitle="Editar" />
 							</p:column>
+							 -->
 						</p:dataTable>
 					</h:panelGrid>
 				</p:fieldset> <p:panel id="pnlHeader" widgetVar="pnlHeader"

@@ -8,6 +8,7 @@ import pe.com.sisabas.dto.CertificacionRequest;
 import pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto;
 import pe.com.sisabas.dto.CuadroComparativoItemsDto;
 import pe.com.sisabas.dto.CuadroComparativoRequest;
+import pe.com.sisabas.dto.CuadroComparativoVrDto;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
 import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
@@ -30,5 +31,7 @@ public interface ProgramacionBusiness {
 	public Resultado grabarCompraDirecta(TransactionRequest<CompraDirectaDatosGeneralesDto> request) throws Exception;
 	public List<CuadroComparativoItemsDto> getCuadroComparativoItems(CuadroComparativoRequest request) throws Exception;
 	public Resultado grabarCuadroComparativo(TransactionRequest<Cuadrocomparativofuente> request, List<CuadroComparativoItemsDto> items) throws Exception;
-	
+	public List<CuadroComparativoItemsDto> getCuadroComparativoItemsByConsolid(CuadroComparativoRequest request) throws Exception;
+	public List<CuadroComparativoVrDto> getCuadroComparativoVrFinal(Integer idPacConsolidado) throws Exception;	
+	public Resultado eliminarCuadroComparativo(TransactionRequest<Cuadrocomparativofuente> request) throws Exception;
 }

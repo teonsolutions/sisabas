@@ -30,5 +30,7 @@ public interface CuadrocomparativoitemMapper{
 
 	List<Cuadrocomparativoitem> selectDynamicExtended(Cuadrocomparativoitem record) throws Exception;
 
-
+	//CUSTOM
+	int deleteAllByCuadroComparativoFuente(@Param("idCuadroComparativoFuente") java.lang.Integer idCuadroComparativoFuente) throws Exception;
+	
 }

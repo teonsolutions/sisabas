@@ -182,7 +182,10 @@
 	where IdCuadroComparativoItem = #{idcuadrocomparativoitem,jdbcType=INTEGER}
 	</delete>
 
-
+	<delete id="deleteAllByCuadroComparativoFuente" parameterType="java.lang.Integer" >
+	delete from abas.CuadroComparativoItem 
+	where IdCuadroComparativoFuente = #{idCuadroComparativoFuente,jdbcType=INTEGER}
+	</delete>
 
 
 

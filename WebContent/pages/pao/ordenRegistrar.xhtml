@@ -308,8 +308,7 @@
 									disabled="#{!programacion.esSeleccionadoFuente}"
 									rendered="#{programacion.renderButton('btnEditarEM')}" />
 								<p:commandButton value="Eliminar"
-									action="#{programacion.irEliminarFuente}"
-									update="hidStatus"
+									action="#{programacion.irEliminarFuente}" update="hidStatus"
 									oncomplete="showDialog('form:tabViewPao:hidStatus','form:cdEliminarFuente');"
 									icon="ui-icon-circle-close" title="Eliminar"
 									disabled="#{!programacion.esSeleccionadoFuente}"
@@ -335,7 +334,8 @@
 									<f:facet name="header">
 										<h:outputText value="Fuente"></h:outputText>
 									</f:facet>
-									<h:outputText value="#{var.gentablaIdcatalogotipofuente.vchregdescri}" />									
+									<h:outputText
+										value="#{var.gentablaIdcatalogotipofuente.vchregdescri}" />
 								</p:column>
 								<p:column headerText="Proveedor / Postor / Entidad">
 									<f:facet name="header">
@@ -347,29 +347,54 @@
 
 							<p:outputLabel value="Items" id="lblItems" />
 							<h:panelGrid columns="2">
-								<p:dataTable>
-									<p:column headerText="N°">
-										<h:outputText value="1" />
-									</p:column>
+								<p:dataTable id="tblListaCuadrocomparativoVrFinal"
+									value="#{programacion.listaCuadroComparativoVrFinal}" var="var"
+									emptyMessage="No se encontraron registros"
+									widgetVar="tblListaCuadrocomparativoVrFinal" paginator="true"
+									rows="#{sisabascontrol.registros_mant}"
+									paginatorPosition="bottom"
+									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(programacion.listaCuadroComparativoVrFinal)}"
+									selectionMode="single" rowKey="#{var.idCuadroComparativoVR}"
+									styleClass="gandalfTableClass">
 									<p:column headerText="Descripción / denominación">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText value="Descripción / denominación"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.nombreItem}" />
 									</p:column>
 									<p:column headerText="Unidad">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText value="Unidad"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.unidadMedida}" />
 									</p:column>
 									<p:column headerText="Cantidad">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText value="Cantidad"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.cantidadSolicitadaSiga}" />
 									</p:column>
 									<p:column
 										headerText="Precio Total (Consignar moneda del valor referencial)">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText
+												value="Precio Total (Consignar moneda del valor referencial)"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.valorReferencialTotal}" />
 									</p:column>
 									<p:column
 										headerText="Procedimiento y/o metodología utilizadopara determinar el V.R.">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText
+												value="Procedimiento y/o metodología utilizadopara determinar el V.R."></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.procedimientoVrDesc}" />
 									</p:column>
 									<p:column headerText="Valor Referencial del Item">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText value="Valor Referencial del Item"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.valorReferencialItem}" />
 									</p:column>
 								</p:dataTable>
 							</h:panelGrid>
@@ -521,18 +546,17 @@
 						</p:accordionPanel>
 					</p:tab>
 				</p:tabView>
-				
+
 				<!-- DIALOGS -->
 				<p:confirmDialog id="cdEliminarFuente"
 					message="Esta seguro de eliminar este registro?"
 					header="Confirmación" severity="alert" widgetVar="cdEliminarFuente">
-					<p:commandButton value="Si"
-						action="#{programacion.eliminarFuente}"
+					<p:commandButton value="Si" action="#{programacion.eliminarFuente}"
 						update=":form:tabViewPao:tblListaCuadrocomparativofuente,:form:growl"
 						oncomplete="hideDialogPF('cdEliminarFuente');" />
-					<p:commandButton value="No" onclick="hideDialogPF('cdEliminarFuente');"
-						type="button" />
-				</p:confirmDialog>				
+					<p:commandButton value="No"
+						onclick="hideDialogPF('cdEliminarFuente');" type="button" />
+				</p:confirmDialog>
 			</p:panel>
 		</h:form>
 		<h:form id="frmCuadrocomparativofuenteRegistrar">

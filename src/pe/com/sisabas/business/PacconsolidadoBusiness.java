@@ -1,6 +1,8 @@
 package pe.com.sisabas.business;
 import java.util.List;
 import pe.com.sisabas.be.Pacconsolidado;
+import pe.com.sisabas.dto.CuadroComparativoItemsDto;
+import pe.com.sisabas.dto.CuadroComparativoRequest;
 
 public interface PacconsolidadoBusiness{
 
@@ -41,6 +43,5 @@ public interface PacconsolidadoBusiness{
 	public void updateByPrimaryKeyBasic(Pacconsolidado record) throws Exception;
 
 	public void updateByPrimaryKeyFull(Pacconsolidado record) throws Exception;
-
 
 }

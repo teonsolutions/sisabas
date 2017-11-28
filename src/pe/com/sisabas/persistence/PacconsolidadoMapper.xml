@@ -175,6 +175,20 @@
 		<result column="CantidadSolicitadaSiga" property="cantidadSolicitadaSiga" jdbcType="INTEGER"/>
 	</resultMap>	
 	
+	<resultMap type="pe.com.sisabas.dto.CuadroComparativoVrDto" id="CuadroComparativoValorReferencial">
+		<result column="IdCuadroComparativoVR" property="idCuadroComparativoVR" jdbcType="INTEGER"/>
+		<result column="IdPacConsolidado" property="idPacConsolidado" jdbcType="INTEGER"/>
+		<result column="IdDetallePedido" property="idDetallePedido" jdbcType="INTEGER"/>
+		<result column="IdPedido" property="idPedido" jdbcType="INTEGER"/>
+		<result column="NombreItem" property="nombreItem" jdbcType="VARCHAR"/>
+		<result column="UnidadMedida" property="unidadMedida" jdbcType="INTEGER"/>
+		<result column="CantidadAprobadaSiga" property="cantidadAprobadaSiga" jdbcType="INTEGER"/>
+		<result column="CantidadSolicitadaSiga" property="cantidadSolicitadaSiga" jdbcType="INTEGER"/>
+		<result column="ValorReferencialItem" property="valorReferencialItem" jdbcType="DOUBLE"/>
+		<result column="ValorReferencialTotal" property="valorReferencialTotal" jdbcType="DOUBLE"/>
+		<result column="ProcedimientoVrDesc" property="procedimientoVrDesc" jdbcType="VARCHAR"/>
+	</resultMap>
+	
 	<resultMap id="FullResultMap" type="pe.com.sisabas.be.Pacconsolidado">
 	<result column="A1_IDPACCONSOLIDADO" property="idpacconsolidado" jdbcType="INTEGER" />
 	<result column="A1_IDCOMITEPROCESO" property="idcomiteproceso" jdbcType="INTEGER" />
@@ -2163,13 +2177,35 @@
 		where t1.IdPacConsolidado = (#{idPacConsolidado})
 		and ((t3.IdCuadroComparativoFuente = #{idCuadroComparativoFuente}) or #{idCuadroComparativoFuente} is null or #{idCuadroComparativoFuente} = 0)
 	</select>		
+
+	<select id="getCuadroComparativoItemsByConsolid" resultMap="CuadroComparativoItems" parameterType="pe.com.sisabas.dto.CuadroComparativoRequest">
+		select t2.IdDetallePedido, t1.IdPedido, t2.NombreItem, t2.UnidadMedida, t2.CantidadAprobadaSiga, t2.CantidadSolicitadaSiga
+		from abas.PedidosPorPacConsolidado t1
+		inner join abas.DetallePedido t2 on t2.IdPedido = t1.IdPedido
+		where t1.IdPacConsolidado = (#{idPacConsolidado})
+	</select>		
+
 		
 	<select id="getCuadroComparativoVR" resultMap="CuadroComparativoItems" parameterType="java.lang.Integer">		
 		select  t1.IdDetallePedido, min(t1.PrecioReferencial) as PrecioReferencial
 		from abas.CuadroComparativoItem t1
 		inner join abas.CuadroComparativoFuente t2 on t2.IdCuadroComparativoFuente = t1.IdCuadroComparativoFuente
-		where t2.IdPacConsolidado = #{idPacConsolidado})
+		where t2.IdPacConsolidado = (#{idPacConsolidado})
 		group by t1.IdDetallePedido	
 		
-	</select>			
+	</select>		
+	
+	<select id="getCuadroComparativoVrFinal" resultMap="CuadroComparativoValorReferencial" parameterType="java.lang.Integer">
+		select t1.IdCuadroComparativoVR, t1.IdPacConsolidado, t1.IdDetallePedido, t2.IdPedido, t2.NombreItem, t2.UnidadMedida, t2.CantidadAprobadaSiga, t2.CantidadSolicitadaSiga, t1.ValorReferencialItem,
+			t2.CantidadSolicitadaSiga * t1.ValorReferencialItem	as ValorReferencialTotal,
+			t3.vchregdescri as ProcedimientoVrDesc
+		from abas.CuadroComparativoVR t1
+		inner join abas.DetallePedido t2 on t2.IdDetallePedido = t1.IdDetallePedido
+		left join abas.gentabla t3 on t3.vchregCodigo = t1.IdCatalogoProcedimientoVR
+		where t1.IdPacConsolidado = (#{idPacConsolidado})
+		order by t2.IdPedido asc, T1.IdDetallePedido asc
+	</select>		
+	
+	
+		
 </mapper>

@@ -27,6 +27,7 @@ import pe.com.sisabas.dto.CertificacionRequest;
 import pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto;
 import pe.com.sisabas.dto.CuadroComparativoItemsDto;
 import pe.com.sisabas.dto.CuadroComparativoRequest;
+import pe.com.sisabas.dto.CuadroComparativoVrDto;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
 import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
@@ -501,6 +502,14 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			 * utilsBusiness .getNextSeq(pe.com.sisabas.resources.Sequence.
 			 * SEQ_CUADROCOMPARATIVOFUENTE).longValue());
 			 */
+			//Audit
+			cuadrocomparativofuente.setFechacreacionauditoria(new Date());
+			cuadrocomparativofuente.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+			cuadrocomparativofuente.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+			cuadrocomparativofuente.setEquipoauditoria(request.getEquipoAuditoria());
+			cuadrocomparativofuente.setProgramaauditoria(request.getProgramaAuditoria());
+			//End audit
+			
 			idCuadroComparativoFuente = (int) utilsBusiness
 					.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_CUADROCOMPARATIVOFUENTE).longValue();
 			cuadrocomparativofuente.setIdcuadrocomparativofuente(idCuadroComparativoFuente);
@@ -514,12 +523,17 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 				cuadrocomparativoitem.setIdcuadrocomparativofuente(idCuadroComparativoFuente);
 				cuadrocomparativoitem.setIddetallepedido(items.get(i).getIdDetallePedido());
 				precio = items.get(i).getPrecioReferencial();
-				BigDecimal precioReferencial = new BigDecimal(0.00);
+				BigDecimal precioReferencial = new BigDecimal(precio);
 				cuadrocomparativoitem.setPrecioreferencial(precioReferencial);
+				
+				//Audit
 				cuadrocomparativoitem.setEquipoauditoria(request.getEquipoAuditoria());
-				cuadrocomparativoitem.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+				cuadrocomparativoitem.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
 				cuadrocomparativoitem.setFechacreacionauditoria(new Date());
 				cuadrocomparativoitem.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+				cuadrocomparativofuente.setProgramaauditoria(request.getProgramaAuditoria());
+				//End audit
+				
 				cuadrocomparativoitem.setIdcuadrocomparativoitem((int) utilsBusiness
 						.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_CUADROCOMPARATIVOITEM).longValue());
 				cuadrocomparativoitemMapper.insert(cuadrocomparativoitem);
@@ -528,6 +542,10 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 		} else {
 			cuadrocomparativofuente
 					.setProgramaauditoria(pe.com.sisabas.resources.Utils.obtenerPrograma(this.getClass()));
+			cuadrocomparativofuente.setFechamodificacionauditoria(new Date());
+			cuadrocomparativofuente.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
+			cuadrocomparativofuente.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+			cuadrocomparativofuente.setEquipoauditoria(request.getEquipoAuditoria());
 			cuadrocomparativofuenteMapper.updateByPrimaryKey(cuadrocomparativofuente);
 			idCuadroComparativoFuente = cuadrocomparativofuente.getIdcuadrocomparativofuente();
 
@@ -539,7 +557,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 						.selectByPrimaryKeyBasicActive(items.get(i).getIdCuadroComparativoItem());
 				if (cuadrocomparativoitemEdit != null) {
 					precio = items.get(i).getPrecioReferencial();
-					BigDecimal precioReferencial = new BigDecimal(3000.00);
+					BigDecimal precioReferencial = new BigDecimal(precio);
 					cuadrocomparativoitemEdit.setPrecioreferencial(precioReferencial);
 					cuadrocomparativoitemEdit.setEquipoauditoria(request.getEquipoAuditoria());
 					cuadrocomparativoitemEdit.setFechamodificacionauditoria(new Date());
@@ -550,8 +568,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 		}
 
 		//Delete cuadro comparativo valor referencia
-		cuadrocomparativofuenteMapper.deleteByPrimaryKey(cuadrocomparativofuente.getIdpacconsolidado());
-		
+		cuadrocomparativovrMapper.deleteByIdPacConsolidado(cuadrocomparativofuente.getIdpacconsolidado());
 		// Determina el mínimo monto de valor referencial
 		List<CuadroComparativoItemsDto> vr = pacconsolidadoMapper
 				.getCuadroComparativoVR(cuadrocomparativofuente.getIdpacconsolidado());
@@ -575,6 +592,57 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			}
 		}
 
+		return result;
+	}
+
+	@Override
+	public List<CuadroComparativoItemsDto> getCuadroComparativoItemsByConsolid(CuadroComparativoRequest request)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return pacconsolidadoMapper.getCuadroComparativoItemsByConsolid(request);
+	}
+
+	@Override
+	public List<CuadroComparativoVrDto> getCuadroComparativoVrFinal(Integer idPacConsolidado) throws Exception {
+		// TODO Auto-generated method stub
+		return pacconsolidadoMapper.getCuadroComparativoVrFinal(idPacConsolidado);
+	}
+
+	@Override
+	public Resultado eliminarCuadroComparativo(TransactionRequest<Cuadrocomparativofuente> request) throws Exception {
+		// TODO Auto-generated method stub
+		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
+		
+		//delete cuadro comparativo
+		Cuadrocomparativofuente cp = request.getEntityTransaction();
+		cuadrocomparativovrMapper.deleteByIdPacConsolidado(cp.getIdpacconsolidado());
+		cuadrocomparativoitemMapper.deleteAllByCuadroComparativoFuente(cp.getIdcuadrocomparativofuente());
+		cuadrocomparativofuenteMapper.deleteByPrimaryKey(cp.getIdcuadrocomparativofuente());
+		
+		/*vuelve determinar el valor referencial*/
+		// Determina el mínimo monto de valor referencial
+		List<CuadroComparativoItemsDto> vr = pacconsolidadoMapper
+				.getCuadroComparativoVR(cp.getIdpacconsolidado());
+						
+		if (vr != null) {
+			// Inserta valor referencial
+			for (int i = 0; i < vr.size(); i++) {
+				Double precioReferencial = vr.get(i).getPrecioReferencial();
+				Cuadrocomparativovr cuadrocomparativovr = new Cuadrocomparativovr();
+				cuadrocomparativovr.setIddetallepedido(vr.get(i).getIdDetallePedido());
+				cuadrocomparativovr.setIdpacconsolidado(cp.getIdpacconsolidado());
+				cuadrocomparativovr.setValorreferencialitem(new BigDecimal(precioReferencial));
+				cuadrocomparativovr.setIdcatalogoprocedimientovr(Constantes.procedimientoVR.COTIZACION_MENOR_PRECIO_OBTENIDA);				
+				cuadrocomparativovr.setFechacreacionauditoria(new Date());
+				cuadrocomparativovr.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+				cuadrocomparativovr.setEquipoauditoria(request.getEquipoAuditoria());
+				cuadrocomparativovr.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+				cuadrocomparativovr.setIdcuadrocomparativovr((int) utilsBusiness
+						.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_CUADROCOMPARATIVOVR).longValue());
+				cuadrocomparativovrMapper.insert(cuadrocomparativovr);			
+			}
+		}		
+		
 		return result;
 	}
 

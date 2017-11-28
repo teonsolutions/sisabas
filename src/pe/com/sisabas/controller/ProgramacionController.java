@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.taglibs.standard.lang.jstl.Evaluator;
 import org.omg.CORBA.TRANSACTION_MODE;
+import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.ToggleSelectEvent;
@@ -49,6 +50,7 @@ import pe.com.sisabas.business.ProgramacionBusiness;
 import pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto;
 import pe.com.sisabas.dto.CuadroComparativoItemsDto;
 import pe.com.sisabas.dto.CuadroComparativoRequest;
+import pe.com.sisabas.dto.CuadroComparativoVrDto;
 import pe.com.sisabas.dto.EvaluacionDocumentoRequest;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
 import pe.com.sisabas.dto.Lugar;
@@ -98,6 +100,7 @@ public class ProgramacionController extends BaseController {
 	private List<Cuadrocomparativofuente> listaCuadrocomparativofuente;
 	private Cuadrocomparativofuente cuadrocomparativofuente;
 	private List<CuadroComparativoItemsDto> listaCuadroComparativoItems;
+	private List<CuadroComparativoVrDto> listaCuadroComparativoVrFinal;
 
 	private boolean esSeleccionadoFuente;
 	private String tituloFuente;
@@ -286,6 +289,7 @@ public class ProgramacionController extends BaseController {
 
 			// Estudio del Mercado
 			buscarFuente();
+			buscarValorReferencialFinal();
 		} catch (Exception e) {
 			addErrorMessage(e);
 			return "/login.xhtml";
@@ -366,7 +370,7 @@ public class ProgramacionController extends BaseController {
 			request.setIdPacConsolidado(this.currentPao.getIdPacConsolid());
 			request.setIdCuadroComparativoFuente(this.cuadrocomparativofuente.getIdcuadrocomparativofuente());
 			this.listaCuadroComparativoItems = this.programacionBusiness
-					.getCuadroComparativoItems(request);
+					.getCuadroComparativoItemsByConsolid(request);
 
 			STATUS_SUCCESS();
 			REGISTER_INIT();
@@ -459,8 +463,15 @@ public class ProgramacionController extends BaseController {
 	public void eliminarFuente() {
 		try {
 			validateSelectedRowFuente();
+			
+			/*
 			cuadrocomparativofuente.setUsuariomodificacionauditoria(getUserLogin());
 			cuadroComparativoFuenteBusiness.deleteByPrimaryKeyBasic(cuadrocomparativofuente);
+			*/
+			TransactionRequest<Cuadrocomparativofuente> request = new TransactionRequest<Cuadrocomparativofuente>();
+			request.setEntityTransaction(cuadrocomparativofuente);
+			programacionBusiness.eliminarCuadroComparativo(request);
+			
 			showGrowlMessageSuccessfullyCompletedAction();
 			buscarFuente();
 		} catch (ValidateException e) {
@@ -546,6 +557,7 @@ public class ProgramacionController extends BaseController {
 			programacionBusiness.grabarCuadroComparativo(request, this.listaCuadroComparativoItems);
 			showGrowlMessageSuccessfullyCompletedAction();
 			buscarFuente();
+			buscarValorReferencialFinal();
 
 			REGISTER_SUCCESS();
 		} catch (ValidateException e) {
@@ -563,6 +575,27 @@ public class ProgramacionController extends BaseController {
 		}
 	}
 
+	public void buscarValorReferencialFinal() {
+		try {
+			
+			listaCuadroComparativoVrFinal = programacionBusiness.getCuadroComparativoVrFinal(currentPao.getIdPacConsolid());
+			if (listaCuadroComparativoVrFinal.size() == 0)
+				addMessageKey("msgsForm", Messages.getString("no.records.found"), FacesMessage.SEVERITY_INFO);
+
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			addErrorMessageKey("msgsForm", e);
+		}
+	}
+	
 	// DATATABLE EDITABLE
 	public void onRowEdit(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Se editó correctamente",
@@ -575,6 +608,16 @@ public class ProgramacionController extends BaseController {
 				"Dependencia: " + ((Lugar) event.getObject()).getDependencia());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
+	
+    public void onCellEdit(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+         
+        if(newValue != null && !newValue.equals(oldValue)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
 
 	// PROPERTIES
 	public List<PaoResponse> getListaPao() {
@@ -735,5 +778,13 @@ public class ProgramacionController extends BaseController {
 
 	public void setListaCuadroComparativoItems(List<CuadroComparativoItemsDto> listaCuadroComparativoItems) {
 		this.listaCuadroComparativoItems = listaCuadroComparativoItems;
+	}
+	
+	public List<CuadroComparativoVrDto> getListaCuadroComparativoVrFinal() {
+		return listaCuadroComparativoVrFinal;
+	}
+
+	public void setListaCuadroComparativoVrFinal(List<CuadroComparativoVrDto> listaCuadroComparativoVrFinal) {
+		this.listaCuadroComparativoVrFinal = listaCuadroComparativoVrFinal;
 	}
 }
