@@ -54,6 +54,13 @@ public class Documentotecnico extends SysTabla implements  Serializable,Cloneabl
 	/**[Tipo Tdr][TITD]*/
 	private java.lang.String idcatalogotipotdr;
 	private Gentabla gentablaIdcatalogotipotdr;
+	
+	
+	
+	
+	
+	
+	
 	/**[Ruta Anexo]*/
 	private java.lang.String rutaanexo;
 	/**[*][FechaCreacionAuditoria]*/
