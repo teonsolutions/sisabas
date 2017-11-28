@@ -7,6 +7,9 @@ import pe.com.sisabas.be.RequerimientoItemRequest;
 import pe.com.sisabas.be.RequerimientoItemResponse;
 import pe.com.sisabas.be.RequerimientoRequest;
 import pe.com.sisabas.be.RequerimientoResponse;
+import pe.com.sisabas.dto.EspecificacionTecnicaDto;
+import pe.com.sisabas.dto.Resultado;
+import pe.com.sisabas.dto.TransactionRequest;
 
 public interface RequerimientoBusiness {
 	
@@ -17,5 +20,6 @@ public interface RequerimientoBusiness {
 	
 	public void insertBasic(RequerimientoInsertRequest request) throws Exception;
 	
+	public Resultado guardarEspecificacionTecnica(TransactionRequest<EspecificacionTecnicaDto> request) throws Exception;
 
 }
