@@ -190,10 +190,13 @@ function myFunction() {
 								target="#{requerimiento.requerimientoResponse}" />
 						</p:commandButton>
 						
-						<p:commandButton rendered="#{var.estadoPedidoIn eq 40}" update=":formEsp:diEsp" icon="fa fa-edit" title="Registrar ET" oncomplete="PF('reqDialog2').show()">
-							<f:actionListener binding="#{requerimiento.buscarItemRequerimientos2()}"/>
-							<f:actionListener binding="#{documentotecnico.irRegistrar()}"/>
-							<f:setPropertyActionListener value="#{var}" target="#{requerimiento.requerimientoResponse()}" />
+						<p:commandButton rendered="#{var.estadoPedidoIn eq 40}" 
+						    update=":formEsp:diEsp" icon="fa fa-edit" 
+						    title="Registrar ET" 
+						    action="#{requerimiento.buscarItemRequerimientos2}" 
+						    oncomplete="PF('reqDialog2').show()">
+							<f:setPropertyActionListener value="#{var}" 
+							   target="#{requerimiento.requerimientoResponse}" />
 						</p:commandButton>
 						
 					</p:column>
@@ -315,14 +318,16 @@ function myFunction() {
 								<td>
 									<div align="left">
 										<p:commandButton value="GRABAR"
-											actionListener="#{documentotecnico.aceptar}"
 											icon="ui-icon-circle-check" title="Aceptar"
-											update=":form:growl" oncomplete="PF('reqDialog2').hide();" />
+											update=":form:growl" oncomplete="PF('reqDialog2').hide();" >
+											<f:actionListener binding="#{requerimiento.aceptarRequerimiento()}"/>
+											<f:actionListener binding="#{requerimiento.limpiar()}"/>
+										</p:commandButton>	
 									</div>
 								</td>
 								<td>
 									<div align="center">
-										<p:commandButton value="CANCELAR" actionListener="#{requerimientoAux.limpiar}"
+										<p:commandButton value="CANCELAR" actionListener="#{requerimiento.limpiar}"
 											icon="ui-icon-arrowreturnthick-1-w" title="Salir"
 											onclick="hideDialogPF('frmGentipoRegistrar:diGentipoRegistrar');return false;" />
 									</div>
@@ -343,12 +348,6 @@ function myFunction() {
 				</p:dialog>
 
 			</h:form>
-
-
-
-
-
-
 
 
 			<h:form id="frmPedidoImprimir">
@@ -389,7 +388,7 @@ function myFunction() {
 						</p:column>
 						<p:column>
 							<p:inputText id="txtDependencia"
-								value="#{requerimientoAux.lugar.dependencia}"
+								value="#{requerimiento.lugar.dependencia}"
 								style="width:300px;" label="Dependencia" />
 						</p:column>
 						<p:column>
@@ -397,12 +396,12 @@ function myFunction() {
 						</p:column>
 						<p:column>
 							<p:inputText id="txtDireccion"
-								value="#{requerimientoAux.lugar.direccion}" style="width:300px;"
+								value="#{requerimiento.lugar.direccion}" style="width:300px;"
 								label="Direccion" />
 						</p:column>
 						<p:column>
 					    	<div align="left">
-						   	<p:commandButton value="GRABAR" actionListener="#{requerimientoAux.agregarLugar}" update=":formEsp:diEsp,:form:growl"
+						   	<p:commandButton value="GRABAR" actionListener="#{requerimiento.agregarLugar}" update=":formEsp:diEsp,:form:growl"
 								icon="ui-icon-circle-check" title="Aceptar" oncomplete="PF('diPrestacion').hide();" />
 							</div>
 						</p:column>
@@ -430,7 +429,7 @@ function myFunction() {
 								</p:column>
 								<p:column>
 									<p:inputText id="txtNumero"
-										value="#{requerimientoAux.pago.numero}"
+										value="#{requerimiento.pago.numero}"
 										style="width:300px;" label="Numero" />
 								</p:column>
 								<p:column>
@@ -438,12 +437,12 @@ function myFunction() {
 								</p:column>
 								<p:column>
 									<p:inputText id="txtPorcentaje"
-										value="#{requerimientoAux.pago.porcentaje}" style="width:300px;"
+										value="#{requerimiento.pago.porcentaje}" style="width:300px;"
 										label="Armada" />
 								</p:column>
 								<p:column>
 							    	<div align="left">
-								   	<p:commandButton value="GRABAR" actionListener="#{requerimientoAux.agregarPago}" update=":formEsp:diEsp,:form:growl"
+								   	<p:commandButton value="GRABAR" actionListener="#{requerimiento.agregarPago}" update=":formEsp:diEsp,:form:growl"
 										icon="ui-icon-circle-check" title="Aceptar" oncomplete="PF('diPago').hide();" />
 									</div>
 								</p:column>

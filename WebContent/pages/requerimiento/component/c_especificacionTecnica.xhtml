@@ -94,7 +94,7 @@
 						<p:outputLabel value="Tipo de especificación técnica" for="txtReq" />
 					</p:column>
 					<p:column>
-						<p:selectOneMenu id="txtReq" value="prueba" style="width:200px;">
+						<p:selectOneMenu id="txtReq" value="#{requerimiento.documentotecnico.idcatalogotipotdr}" style="width:200px;">
 							<f:selectItems
 										value="#{pedido.listaGentablaIdcatalogotipoet}"
 										var="var" itemLabel="#{var.vchregdescri}"
@@ -108,7 +108,7 @@
 						</p:column>
 					</div>
 					<p:column>
-						<p:inputText value="prueba" disabled="false" />
+						<p:inputNumber value="#{requerimiento.documentotecnico.nropac}"  disabled="false" />
 					</p:column>
 				</p:row>
 				<p:row>
@@ -117,7 +117,7 @@
 						<p:outputLabel value="Denominación de la contratación:" />
 					</p:column>
 					<p:column>
-						<p:inputTextarea value="prueba" disabled="false"
+						<p:inputTextarea value="#{requerimiento.documentotecnico.denominacioncontratacion}" disabled="false"
 							style="width:300px;" />
 					</p:column>
 				</p:row>
@@ -127,7 +127,7 @@
 						<p:outputLabel value="Finalidad pública" />
 					</p:column>
 					<p:column>
-						<p:inputTextarea value="prueba" disabled="false"
+						<p:inputTextarea value="#{requerimiento.documentotecnico.finalidadpublica}" disabled="false"
 							style="width:300px;" />
 					</p:column>
 				</p:row>
@@ -137,7 +137,7 @@
 						<p:outputLabel value="Objetivos de la contratación:" />
 					</p:column>
 					<p:column>
-						<p:inputTextarea value="prueba" disabled="false"
+						<p:inputTextarea value="#{requerimiento.documentotecnico.objetocontratacion}" disabled="false"
 							style="width:300px;" />
 					</p:column>
 				</p:row>
@@ -147,17 +147,7 @@
 						<p:outputLabel value="Antecedentes:" />
 					</p:column>
 					<p:column>
-						<p:inputTextarea value="prueba" disabled="false"
-							style="width:300px;" />
-					</p:column>
-				</p:row>
-
-				<p:row>
-					<p:column>
-						<p:outputLabel value="Descripción del Pedido:" style="" />
-					</p:column>
-					<p:column>
-						<p:inputTextarea value="prueba" disabled="false"
+						<p:inputTextarea value="#{requerimiento.documentotecnico.antecedentes}" disabled="false"
 							style="width:300px;" />
 					</p:column>
 				</p:row>
@@ -206,12 +196,12 @@
 			</div>
 			<p:spacer height="5" />
 			<p:dataTable id="tableLugares" var="var" emptyMessage="Lugares de prestacion vacía."
-				value="#{requerimientoAux.lugares}"
+				value="#{requerimiento.lugares}"
 				style="white-space:nowrap!important; width:800px; font-size:5px;"
 				reflow="true" scrollable="true" editable="true">
 				
-				<p:ajax event="rowEdit" listener="#{requerimientoAux.onRowEdit}" update=":form:growl" />
-                <p:ajax event="rowEditCancel" listener="#{requerimientoAux.onRowCancel}" update=":form:growl" />
+				<p:ajax event="rowEdit" listener="#{requerimiento.onRowEdit}" update=":form:growl" />
+                <p:ajax event="rowEditCancel" listener="#{requerimiento.onRowCancel}" update=":form:growl" />
 
 				<p:column headerText="DEPENDENCIA">
 					<p:cellEditor>
@@ -233,7 +223,7 @@
 				<p:column headerText="ELIMINAR" styleClass="c_center" style="width: 9%;">
 						<p:commandButton 
 							update=":formEsp:diEsp,:form:growl" icon="fa fa-remove" title="Eliminar"
-							actionListener="#{requerimientoAux.eliminarLugar(var)}"
+							actionListener="#{requerimiento.eliminarLugar(var)}"
 							>
 						</p:commandButton>
 				</p:column>
@@ -247,10 +237,10 @@
 					value="Agregar" icon="ui-icon-circle-check" />
 			</div>
 			<p:spacer height="5" />
-				<p:dataTable id="tablePagos" var="var"  emptyMessage="Formas de pago vacía." value="#{requerimientoAux.pagos}" style="white-space:nowrap!important; width:800px; font-size:5px;" reflow="true" scrollable="true" editable="true">
+				<p:dataTable id="tablePagos" var="var"  emptyMessage="Formas de pago vacía." value="#{requerimiento.pagos}" style="white-space:nowrap!important; width:800px; font-size:5px;" reflow="true" scrollable="true" editable="true">
 					
-					<p:ajax event="rowEdit" listener="#{requerimientoAux.onRowEdit2}" update=":form:growl" />
-					<p:ajax event="rowEditCancel" listener="#{requerimientoAux.onRowCancel2}" update=":form:growl" />
+					<p:ajax event="rowEdit" listener="#{requerimiento.onRowEdit2}" update=":form:growl" />
+					<p:ajax event="rowEditCancel" listener="#{requerimiento.onRowCancel2}" update=":form:growl" />
 					
 					<p:column headerText="NÚMERO ARMADA">
 					<p:cellEditor>
@@ -272,7 +262,7 @@
 				    <p:column headerText="ELIMINAR" styleClass="c_center" style="width: 9%;">
 						<p:commandButton 
 							update=":formEsp:diEsp,:form:growl" icon="fa fa-remove" title="Eliminar"
-							actionListener="#{requerimientoAux.eliminarPago(var)}"
+							actionListener="#{requerimiento.eliminarPago(var)}"
 							>
 						</p:commandButton>
 				   </p:column>
@@ -282,15 +272,29 @@
 		<p:tab title="Anexos">
           <h:form>
              <p:outputLabel value="Archivo formato PDF hasta 10 MB"/>
-             <p:fileUpload fileUploadListener="#{requerimientoAux.handleFileUpload}" mode="advanced" dragDropSupport="false" update="messages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(pdf)$/"  
+             <p:fileUpload fileUploadListener="#{requerimiento.handleFileUpload}" mode="advanced" dragDropSupport="false" update="messages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(pdf)$/"  
              label="Seleccione archivo" cancelLabel="Cancelar" uploadLabel="Subir"/>
              <p:growl id="messages" showDetail="true" />
           </h:form>
 		</p:tab>
 		<p:tab title="Responsable de las coordinaciones">
 			<h:panelGrid columns="2" cellpadding="10">
-				<p:graphicImage name="demo/images/godfather/godfather3.jpg" />
-				<h:outputText value="After a break of more than 15 years...." />
+				<p:column>
+					<p:outputLabel value="Nombre del responsable" />
+				</p:column>
+				<p:column>
+					<p:inputText
+						value="#{requerimiento.documentotecnico.nombreresponsable}"
+						disabled="true" />
+				</p:column>
+				<p:column>
+					<p:outputLabel value="Correo electrónico" />
+				</p:column>
+				<p:column>
+					<p:inputText
+						value="#{requerimiento.documentotecnico.correoresponsable}"
+						disabled="true" />
+				</p:column>
 			</h:panelGrid>
 		</p:tab>
 	</p:accordionPanel>
