@@ -14,9 +14,14 @@ public class OrdenDto implements Serializable,Cloneable{
 	private Integer nroExpedienteSiaf;
 	private String idEstadoSiaf;
 	private String estadoSiafDesc;
-	
+		
 	//Additional
 	private Double importeDevengado;
+	private Integer armadas;
+	private Date fechaInicioPrestacion;
+	private Integer plazo;
+	private Date fechaFinPrestacion;
+	
 	
 	public Integer getNroOrden() {
 		return nroOrden;
@@ -124,6 +129,45 @@ public class OrdenDto implements Serializable,Cloneable{
 
 	public void setImporteDevengado(Double importeDevengado) {
 		this.importeDevengado = importeDevengado;
+	}
+
+	public Integer getArmadas() {
+		return armadas;
+	}
+
+
+	public void setArmadas(Integer armadas) {
+		this.armadas = armadas;
+	}
+
+
+	public Date getFechaInicioPrestacion() {
+		return fechaInicioPrestacion;
+	}
+
+
+	public void setFechaInicioPrestacion(Date fechaInicioPrestacion) {
+		this.fechaInicioPrestacion = fechaInicioPrestacion;
+	}
+
+
+	public Integer getPlazo() {
+		return plazo;
+	}
+
+
+	public void setPlazo(Integer plazo) {
+		this.plazo = plazo;
+	}
+
+
+	public Date getFechaFinPrestacion() {
+		return fechaFinPrestacion;
+	}
+
+
+	public void setFechaFinPrestacion(Date fechaFinPrestacion) {
+		this.fechaFinPrestacion = fechaFinPrestacion;
 	}
 	
 	@Override

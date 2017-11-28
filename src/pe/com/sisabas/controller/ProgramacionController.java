@@ -242,7 +242,7 @@ public class ProgramacionController extends BaseController {
 			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
 			PaoRequest request = new PaoRequest();
 			request.setAnio(usuario.getPeriodo().getAnio());
-			request.setIdPacConsolidado(currentPao.getIdPacConsolid());
+			request.setNroConsolid(currentPao.getNroConsolid());
 			request.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.PRONIED_SIAF);
 			
 			listaOrden = programacionBusiness.getCompraDirectaOrden(request);

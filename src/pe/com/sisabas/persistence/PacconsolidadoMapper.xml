@@ -2197,7 +2197,7 @@
 	
 	<select id="getCuadroComparativoVrFinal" resultMap="CuadroComparativoValorReferencial" parameterType="java.lang.Integer">
 		select t1.IdCuadroComparativoVR, t1.IdPacConsolidado, t1.IdDetallePedido, t2.IdPedido, t2.NombreItem, t2.UnidadMedida, t2.CantidadAprobadaSiga, t2.CantidadSolicitadaSiga, t1.ValorReferencialItem,
-			t2.CantidadSolicitadaSiga * t1.ValorReferencialItem	as ValorReferencialTotal,
+			t1.ValorReferencialItem / t2.CantidadSolicitadaSiga	as ValorReferencialTotal,
 			t3.vchregdescri as ProcedimientoVrDesc
 		from abas.CuadroComparativoVR t1
 		inner join abas.DetallePedido t2 on t2.IdDetallePedido = t1.IdDetallePedido
@@ -2205,7 +2205,6 @@
 		where t1.IdPacConsolidado = (#{idPacConsolidado})
 		order by t2.IdPedido asc, T1.IdDetallePedido asc
 	</select>		
-	
-	
+
 		
 </mapper>

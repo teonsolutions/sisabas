@@ -70,7 +70,9 @@
 									<p:inputText id="txtFechaRecepcion" required="true"
 										value="#{programacion.currentPao.compraDirecta.fechaDocumentoTecnico}"
 										maxlength="10" style="width:150px;" label="Fecha de recepción"
-										disabled="true" />
+										disabled="true">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</p:inputText>
 								</p:panel>
 							</p:tab>
 							<p:tab title="Control de producto">
@@ -406,7 +408,7 @@
 								<p:dataTable id="tblListaOrden"
 									value="#{programacion.listaOrden}" var="var"
 									emptyMessage="No se encontraron registros"
-									widgetVar="tblListaOrden" paginator="true"
+									widgetVar="tblListaOrden" paginator="false"
 									rows="#{sisabascontrol.registros_mant}"
 									paginatorPosition="bottom" selectionMode="single"
 									rowKey="#{var.nroOrden}" styleClass="gandalfTableClass">
@@ -468,24 +470,70 @@
 										<h:outputText value="#{var.estadoSiafDesc}" />
 									</p:column>
 								</p:dataTable>
-								<p:dataTable>
-									<p:column headerText="N°">
-										<h:outputText value="1" />
-									</p:column>
+								<p:dataTable id="tblListaOrdenEdit"
+									value="#{programacion.listaOrden}" var="var"
+									emptyMessage="No se encontraron registros"
+									widgetVar="tblListaOrden" paginator="false"
+									rows="#{sisabascontrol.registros_mant}"
+									paginatorPosition="bottom" selectionMode="single"
+									rowKey="#{var.nroOrden}" styleClass="gandalfTableClass"
+									editable="true" editMode="cell">
+
+									<p:ajax event="cellEdit" listener="#{programacion.onCellEdit}"
+										update=":form:msgs" />
 									<p:column headerText="Número Orden">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText value="Número Orden"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.nroOrden}" />
 									</p:column>
 									<p:column headerText="Aramadas">
-										<h:outputText value="UGME" />
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.armadas}" />
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:inputNumber value="#{var.armadas}" style="width:96%"
+													label="Year" maxlength="2" />
+											</f:facet>
+										</p:cellEditor>
 									</p:column>
 									<p:column headerText="Inicio de prestación">
-										<h:outputText value="UGME" />
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.fechaInicioPrestacion}" />
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:inputText value="#{var.fechaInicioPrestacion}"
+													style="width:96%" label="Year" />
+											</f:facet>
+										</p:cellEditor>
 									</p:column>
 									<p:column headerText="Plazo">
-										<h:outputText value="UGME" />
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.plazo}" />
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:inputNumber value="#{var.plazo}" style="width:96%"
+													label="Year" maxlength="2"/>
+											</f:facet>
+										</p:cellEditor>
 									</p:column>
 									<p:column headerText="Fin prestación">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText value="Fin prestación">
+											</h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.fechaFinPrestacion}">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputText>
 									</p:column>
 									<p:column headerText="Acciones">
 										<h:outputText value="UGME" />
@@ -607,7 +655,7 @@
 					<tr>
 						<td><h:inputHidden id="hidStatus" value="true" /> <p:commandButton
 								value="Aceptar" action="#{programacion.aceptarFuente}"
-								update="hidStatus,:form:tabViewPao:tblListaCuadrocomparativofuente,:form:growl,:form:tabViewPao:pnlBotones,panelC"
+								update="hidStatus,:form:tabViewPao:tblListaCuadrocomparativofuente,:form:tabViewPao:tblListaCuadrocomparativoVrFinal,:form:growl,:form:tabViewPao:pnlBotones,panelC"
 								oncomplete="hideDialog('frmCuadrocomparativofuenteRegistrar:hidStatus','frmCuadrocomparativofuenteRegistrar:tabViewPao:diCuadrocomparativofuenteRegistrar')"
 								icon="ui-icon-circle-check" title="Aceptar" /></td>
 						<td>
