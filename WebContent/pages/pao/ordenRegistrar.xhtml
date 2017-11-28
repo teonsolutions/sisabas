@@ -403,36 +403,69 @@
 					<p:tab title="Orden" disabled="#{programacion.disabledTabOrden}">
 						<p:accordionPanel multiple="true" activeIndex="0,1,2,3">
 							<p:tab title="Orden">
-								<p:dataTable>
-									<p:column headerText="N°">
-										<h:outputText value="1" />
-									</p:column>
+								<p:dataTable id="tblListaOrden"
+									value="#{programacion.listaOrden}" var="var"
+									emptyMessage="No se encontraron registros"
+									widgetVar="tblListaOrden" paginator="true"
+									rows="#{sisabascontrol.registros_mant}"
+									paginatorPosition="bottom" selectionMode="single"
+									rowKey="#{var.nroOrden}" styleClass="gandalfTableClass">
 									<p:column headerText="Número Orden">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText value="Número Orden"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.nroOrden}" />
 									</p:column>
 									<p:column headerText="Fecha Orden">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText value="Fecha Orden">
+											</h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.fechaOrden}">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputText>
 									</p:column>
 									<p:column headerText="Tipo de bien">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText value="Tipo de bien"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.tipoBienDesc}" />
 									</p:column>
-									<p:column headerText="RUC">
-										<h:outputText value="UGME" />
+									<p:column headerText="Nro. RUC">
+										<f:facet name="header">
+											<h:outputText value="Nro. RUC"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.nroRuc}" />
 									</p:column>
 									<p:column headerText="Proveedor">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText value="Proveedor"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.nombreProveedor}" />
 									</p:column>
 									<p:column headerText="Importe Orden">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText value="Importe Orden"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.totalFactSoles}" />
 									</p:column>
 									<p:column headerText="Importe devengado">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText value="Importe devengado"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.importeDevengado}" />
 									</p:column>
 									<p:column headerText="Expediente SIAF">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText value="Expediente SIAF"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.nroExpedienteSiaf}" />
 									</p:column>
 									<p:column headerText="Estado SIAF">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText value="Estado SIAF"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.estadoSiafDesc}" />
 									</p:column>
 								</p:dataTable>
 								<p:dataTable>

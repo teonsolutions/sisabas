@@ -29,6 +29,7 @@ import pe.com.sisabas.dto.CuadroComparativoItemsDto;
 import pe.com.sisabas.dto.CuadroComparativoRequest;
 import pe.com.sisabas.dto.CuadroComparativoVrDto;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
+import pe.com.sisabas.dto.OrdenDto;
 import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
 import pe.com.sisabas.dto.RecepcionDTResponse;
@@ -44,6 +45,7 @@ import pe.com.sisabas.persistence.DocumentotecnicoMapper;
 import pe.com.sisabas.persistence.EstadosporetapapordocumentoMapper;
 import pe.com.sisabas.persistence.EstadosportipodocumentoMapper;
 import pe.com.sisabas.persistence.GrupodocumentoMapper;
+import pe.com.sisabas.persistence.OrdenMapper;
 import pe.com.sisabas.persistence.PacconsolidadoMapper;
 import pe.com.sisabas.persistence.PacprogramadoMapper;
 import pe.com.sisabas.persistence.PedidoMapper;
@@ -87,6 +89,9 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 
 	@Autowired
 	public CuadrocomparativovrMapper cuadrocomparativovrMapper;
+
+	@Autowired
+	public OrdenMapper ordenMapper;
 	
 	@Autowired
 	public UtilsBusiness utilsBusiness;
@@ -644,6 +649,12 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 		}		
 		
 		return result;
+	}
+
+	@Override
+	public List<OrdenDto> getCompraDirectaOrden(PaoRequest request) throws Exception {
+		// TODO Auto-generated method stub
+		return ordenMapper.getCompraDirectaOrden(request);
 	}
 
 }

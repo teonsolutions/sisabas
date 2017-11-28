@@ -54,6 +54,7 @@ import pe.com.sisabas.dto.CuadroComparativoVrDto;
 import pe.com.sisabas.dto.EvaluacionDocumentoRequest;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
 import pe.com.sisabas.dto.Lugar;
+import pe.com.sisabas.dto.OrdenDto;
 import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
 import pe.com.sisabas.dto.Resultado;
@@ -91,7 +92,7 @@ public class ProgramacionController extends BaseController {
 	public List<Gentabla> listaGentablaIdcatalogotipocontratacion;
 	private Cuadrocomparativofuente selectedCuadrocomparativofuente;
 	public List<Gentabla> listaGentablaIdcatalogotipofuente;
-	public List<Gentabla> listaGentablaIdcatalogomonedafuente;
+	public List<Gentabla> listaGentablaIdcatalogomonedafuente;	
 
 	// Direct
 	public static String SUCCESS_ORDEN = "/pages/pao/ordenRegistrar.xhtml?faces-redirect=true;";
@@ -101,6 +102,7 @@ public class ProgramacionController extends BaseController {
 	private Cuadrocomparativofuente cuadrocomparativofuente;
 	private List<CuadroComparativoItemsDto> listaCuadroComparativoItems;
 	private List<CuadroComparativoVrDto> listaCuadroComparativoVrFinal;
+	private List<OrdenDto> listaOrden;
 
 	private boolean esSeleccionadoFuente;
 	private String tituloFuente;
@@ -235,6 +237,34 @@ public class ProgramacionController extends BaseController {
 		}
 	}
 
+	public void buscarOrden() {
+		try {
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
+			PaoRequest request = new PaoRequest();
+			request.setAnio(usuario.getPeriodo().getAnio());
+			request.setIdPacConsolidado(currentPao.getIdPacConsolid());
+			request.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.PRONIED_SIAF);
+			
+			listaOrden = programacionBusiness.getCompraDirectaOrden(request);
+			//setEsSeleccionadoFuente(false);
+			//setSelectedCuadrocomparativofuente(null);
+			if (listaOrden.size() == 0)
+				addMessageKey("msgsForm", Messages.getString("no.records.found"), FacesMessage.SEVERITY_INFO);
+
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			addErrorMessageKey("msgsForm", e);
+		}
+	}
+	
 	public void resetRegisterForm() {
 		reset("frmCuadrocomparativofuenteRegistrar:panelC");
 	}
@@ -290,6 +320,8 @@ public class ProgramacionController extends BaseController {
 			// Estudio del Mercado
 			buscarFuente();
 			buscarValorReferencialFinal();
+			buscarOrden();
+			
 		} catch (Exception e) {
 			addErrorMessage(e);
 			return "/login.xhtml";
@@ -786,5 +818,13 @@ public class ProgramacionController extends BaseController {
 
 	public void setListaCuadroComparativoVrFinal(List<CuadroComparativoVrDto> listaCuadroComparativoVrFinal) {
 		this.listaCuadroComparativoVrFinal = listaCuadroComparativoVrFinal;
+	}
+	
+	public List<OrdenDto> getListaOrden() {
+		return listaOrden;
+	}
+
+	public void setListaOrden(List<OrdenDto> listaOrden) {
+		this.listaOrden = listaOrden;
 	}
 }

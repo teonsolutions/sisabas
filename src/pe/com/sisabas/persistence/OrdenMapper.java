@@ -3,6 +3,8 @@ package pe.com.sisabas.persistence;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import pe.com.sisabas.be.Orden;
+import pe.com.sisabas.dto.OrdenDto;
+import pe.com.sisabas.dto.PaoRequest;
 
 public interface OrdenMapper{
 
@@ -30,5 +32,8 @@ public interface OrdenMapper{
 
 	List<Orden> selectDynamicExtended(Orden record) throws Exception;
 
+	//CUSTOM
+	List<OrdenDto> getCompraDirectaOrden(PaoRequest request) throws Exception;
+	
 
 }

@@ -180,6 +180,19 @@
 	</resultMap>
 
 
+	<resultMap id="OrdenResultMap" type="pe.com.sisabas.dto.OrdenDto">
+	<result column="NRO_ORDEN" property="nroOrden" jdbcType="INTEGER" />
+	<result column="FECHA_ORDEN" property="fechaOrden" jdbcType="DATE" />
+	<result column="ID_TIPO_BIEN" property="idTipoBien" jdbcType="VARCHAR" />
+	<result column="TIPO_BIEN" property="tipoBienDesc" jdbcType="VARCHAR" />
+	<result column="NRO_RUC" property="nroRuc" jdbcType="VARCHAR" />
+	<result column="NOMBRE_PROV" property="nombreProveedor" jdbcType="VARCHAR" />
+	<result column="TOTAL_FACT_SOLES" property="totalFactSoles" jdbcType="DOUBLE" />
+	<result column="EXP_SIAF" property="nroExpedienteSiaf" jdbcType="INTEGER" />
+	<result column="ID_ESTADO_SIAF" property="idEstadoSiaf" jdbcType="VARCHAR" />
+	<result column="ESTADO_SIAF" property="estadoSiafDesc" jdbcType="VARCHAR" />
+	</resultMap>
+		
 	<sql id="Basic_Column_List">
 	A1.IDORDEN as A1_IDORDEN, A1.IDPACCONSOLIDADO as A1_IDPACCONSOLIDADO, A1.IDGRUPODOCUMENTO as A1_IDGRUPODOCUMENTO, A1.NROORDEN as A1_NROORDEN, 
 	A1.FECHAORDEN as A1_FECHAORDEN, A1.ANIOORDEN as A1_ANIOORDEN, A1.ESTADOORDEN as A1_ESTADOORDEN, A1.NROEXPEDIENTESIAF as A1_NROEXPEDIENTESIAF, 
@@ -889,4 +902,9 @@
 
 	</if>
 	</select>
+	
+	<select id="getCompraDirectaOrden" resultMap="OrdenResultMap" statementType="CALLABLE" parameterType="pe.com.sisabas.dto.PaoRequest">
+		{call abas.paProgramacionCompraDirectaOrden(#{anio},#{nroConsolid},#{idUnidadEjecutoraSiaf})}		
+	</select>	
+
 </mapper>

@@ -82,5 +82,9 @@ public class CuadroComparativoVrDto implements Serializable,Cloneable {
 	public void setProcedimientoVrDesc(String procedimientoVrDesc) {
 		this.procedimientoVrDesc = procedimientoVrDesc;
 	}	
-	
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	 }	
 }
