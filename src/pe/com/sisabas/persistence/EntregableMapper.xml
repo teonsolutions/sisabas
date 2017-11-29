@@ -659,4 +659,9 @@
 
 	</if>
 	</select>
+
+	<select id="getEntegablesByOrden" resultMap="BasicResultMap" parameterType="java.lang.Integer">
+		select * from abas.Entregable where IdOrden = (#{idOrden})
+	</select>	
+	
 </mapper>

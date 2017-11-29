@@ -9,10 +9,44 @@
 	xmlns:cc="http://java.sun.com/jsf/composite/components"
 	template="/pages/template/MasterPage.xhtml">
 	<ui:define name="center">
+		<style>
+.ui-panelgrid td, .ui-panelgrid tr {
+	border-style: none !important
+}
+
+.fa-remove {
+	color: red;
+}
+
+.ui-tabs-outline {
+	color: #000;
+}
+
+.ui-accordion .ui-accordion-header {
+	cursor: pointer;
+	position: relative;
+	margin-top: 1px;
+	min-height: 0;
+	padding: .5em .5em .5em 2.2em;
+	background: #0d6ab9;
+	color: #ffffff;
+}
+
+.ui-accordion .ui-accordion-header.ui-state-active {
+	background: #fff;
+	border-left: 0 none;
+	border-right: 0 none;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	background: #0d6ab9;
+}
+</style>
 		<h:form id="form">
 			<p:growl id="msgs" showDetail="true"></p:growl>
 			<p:growl id="growl" showDetail="true" for="growl" />
-			<p:panel id="panel" header="Programación y costos > pao >Orden">
+			<p:panel id="panel" header="Programación y costos > pao >Orden"
+				style="width: 60%">
 				<p:focus for="panel" />
 				<p:tabView id="tabViewPao">
 					<p:tab title="Datos generales">
@@ -76,12 +110,26 @@
 								</p:panel>
 							</p:tab>
 							<p:tab title="Control de producto">
-								<p:dataTable>
-									<p:column headerText="N°">
-										<h:outputText value="1" />
-									</p:column>
+								<p:dataTable id="tblListaControl"
+									value="#{programacion.currentPao.listaRequisitosConformidad}"
+									var="var" emptyMessage="No se encontraron registros"
+									widgetVar="tblListaControl" paginator="false"
+									rows="#{sisabascontrol.registros_mant}"
+									paginatorPosition="bottom" selectionMode="single"
+									rowKey="#{var.IdRequisitoConformidad}"
+									styleClass="gandalfTableClass" editable="true" editMode="cell">
 									<p:column headerText="Tipo de documento">
-										<h:outputText value="UGME" />
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.idcatalogotipodocumento}" />
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:inputText value="#{var.idcatalogotipodocumento}"
+													style="width:96%" label="Year" maxlength="500" />
+											</f:facet>
+										</p:cellEditor>
 									</p:column>
 									<p:column headerText="Acciones">
 										<p:rowEditor></p:rowEditor>
@@ -522,7 +570,7 @@
 											</f:facet>
 											<f:facet name="input">
 												<p:inputNumber value="#{var.plazo}" style="width:96%"
-													label="Year" maxlength="2"/>
+													label="Year" maxlength="2" />
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
@@ -543,40 +591,116 @@
 						</p:accordionPanel>
 						<p:accordionPanel multiple="true" activeIndex="0,1,2,3,4">
 							<p:tab title="Control de entregables">
-								<p:dataTable>
-									<p:column headerText="N°">
-										<h:outputText value="1" />
-									</p:column>
+								<p:dataTable id="tblListaEntregable"
+									value="#{programacion.listaEntregable}" var="var"
+									emptyMessage="No se encontraron registros"
+									widgetVar="tblListaEntregable" paginator="false"
+									rows="#{sisabascontrol.registros_mant}"
+									paginatorPosition="bottom" selectionMode="single"
+									rowKey="#{var.identregable}" styleClass="gandalfTableClass"
+									editable="true" editMode="cell">
+									<p:ajax event="rowEdit" listener="#{programacion.onRowEdit}"
+										update=":form:growl" />
+									<p:ajax event="rowEditCancel"
+										listener="#{programacion.onRowCancel}" update=":form:growl" />
+									<!-- 
 									<p:column headerText="proveido">
 										<h:outputText value="UGME" />
 									</p:column>
+									 -->
 									<p:column headerText="Fecha">
-										<h:outputText value="UGME" />
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.fechapresentacionentregable}" />
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:inputNumber value="#{var.fechapresentacionentregable}"
+													style="width:96%" label="Year" maxlength="2">
+													<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+												</p:inputNumber>
+											</f:facet>
+										</p:cellEditor>
 									</p:column>
 									<p:column headerText="Descripción">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText value="Descripción"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.nroentregable}" />
 									</p:column>
 									<p:column headerText="Plazos (días)">
-										<h:outputText value="UGME" />
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.plazoentregable}" />
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:inputNumber value="#{var.plazoentregable}"
+													style="width:96%" label="Year" maxlength="2" />
+											</f:facet>
+										</p:cellEditor>
 									</p:column>
 									<p:column headerText="Importe">
-										<h:outputText value="UGME" />
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.montoentregable}" />
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:inputNumber value="#{var.montoentregable}"
+													style="width:96%" label="Year" maxlength="2" />
+											</f:facet>
+										</p:cellEditor>
 									</p:column>
 									<p:column headerText="Monto de penalidad">
-										<h:outputText value="UGME" />
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.montopenalidadentregable}" />
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:inputNumber value="#{var.montopenalidadentregable}"
+													style="width:96%" label="Year" maxlength="2" />
+											</f:facet>
+										</p:cellEditor>
 									</p:column>
 									<p:column headerText="Observaciones">
-										<h:outputText value="UGME" />
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.observacionesentregable}" />
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:inputText value="#{var.observacionesentregable}"
+													style="width:96%" label="Year" maxlength="500" />
+											</f:facet>
+										</p:cellEditor>
 									</p:column>
 									<p:column headerText="Estado">
-										<h:outputText value="UGME" />
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.idcatalogoestadoentregable}" />
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:inputText value="#{var.idcatalogoestadoentregable}"
+													style="width:96%" label="Year" maxlength="500" />
+											</f:facet>
+										</p:cellEditor>
 									</p:column>
 									<p:column headerText="Acciones">
-										<h:outputText value="UGME" />
+										<p:rowEditor editTitle="Editar" />
 									</p:column>
 								</p:dataTable>
 							</p:tab>
 						</p:accordionPanel>
+						<!-- 
 						<p:accordionPanel multiple="true" activeIndex="0,1,2,3,4">
 							<p:tab title="Requisitos de conformidad">
 								<p:dataTable>
@@ -597,34 +721,64 @@
 									</p:column>
 								</p:dataTable>
 							</p:tab>
-						</p:accordionPanel>
+						</p:accordionPanel>		
+						 -->
 						<p:accordionPanel multiple="true" activeIndex="0,1,2,3,4">
 							<p:tab title="Seguimiento de pagos">
-								<p:dataTable>
-									<p:column headerText="N°">
-										<h:outputText value="1" />
-									</p:column>
+								<p:dataTable id="tblListaPagosSiaf"
+									value="#{programacion.listaSeguimientoPagosSiaf}" var="var"
+									emptyMessage="No se encontraron registros"
+									widgetVar="tblListaPagosSiaf" paginator="false"
+									rows="#{sisabascontrol.registros_mant}"
+									paginatorPosition="bottom" selectionMode="single"
+									rowKey="#{var.expediente}" styleClass="gandalfTableClass">
 									<p:column headerText="Ciclo">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText value="Cilco"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.ciclo}" />
 									</p:column>
 									<p:column headerText="Fase">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText value="Fase"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.fase}" />
 									</p:column>
 									<p:column headerText="Tipo de documento">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText value="Tipo de documento"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.tipoDocumentoDesc}" />
 									</p:column>
 									<p:column headerText="Número documento">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText value="Número documento"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.nroDocumento}" />
 									</p:column>
-									<p:column headerText="Fecha">
-										<h:outputText value="UGME" />
+									<p:column headerText="Fecha Doc.">
+										<f:facet name="header">
+											<h:outputText value="Fecha Doc."></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.fechaDocumento}" />
 									</p:column>
 									<p:column headerText="Monto">
-										<h:outputText value="UGME" />
+										<f:facet name="header">
+											<h:outputText value="Monto"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.monto}" />
 									</p:column>
 								</p:dataTable>
 							</p:tab>
 						</p:accordionPanel>
+						<p:commandButton value="Guardar" icon="fa fa-pencil"
+							title="Guardar datos generales"
+							disabled="#{!programacion.esSeleccionado}"
+							action="#{programacion.guardarOrden}"
+							rendered="#{programacion.renderButton('btnGuadarDatosGenerales')}"
+							update="form:msgs" />
+						<p:commandButton value="Cancelar" action="#{programacion.load}"
+							ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Cancelar" />
 					</p:tab>
 				</p:tabView>
 

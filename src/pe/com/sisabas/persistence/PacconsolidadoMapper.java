@@ -12,6 +12,7 @@ import pe.com.sisabas.dto.CuadroComparativoVrDto;
 import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
 import pe.com.sisabas.dto.RecepcionDTResponse;
+import pe.com.sisabas.dto.SeguimientoPagosResponse;
 import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
 
@@ -62,5 +63,7 @@ public interface PacconsolidadoMapper{
 	List<CuadroComparativoItemsDto> getCuadroComparativoItemsByConsolid(CuadroComparativoRequest request) throws Exception;
 	
 	List<CuadroComparativoVrDto> getCuadroComparativoVrFinal(@Param("idPacConsolidado") Integer idPacConsolidado) throws Exception;
+	
+	List<SeguimientoPagosResponse> getSeguimientoPagosSiaf(PaoRequest request) throws Exception;
 	
 }

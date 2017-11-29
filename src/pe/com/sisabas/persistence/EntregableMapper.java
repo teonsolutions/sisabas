@@ -30,5 +30,6 @@ public interface EntregableMapper{
 
 	List<Entregable> selectDynamicExtended(Entregable record) throws Exception;
 
-
+	List<Entregable> getEntegablesByOrden(@Param("idOrden") java.lang.Integer idOrden) throws Exception;
+	
 }

@@ -43,6 +43,7 @@ import pe.com.sisabas.exception.SecuritySessionExpiredException;
 import pe.com.sisabas.exception.SecurityValidateException;
 import pe.com.sisabas.be.Cuadrocomparativofuente;
 import pe.com.sisabas.be.Documentotecnico;
+import pe.com.sisabas.be.Entregable;
 import pe.com.sisabas.business.CuadrocomparativofuenteBusiness;
 import pe.com.sisabas.business.DocumentotecnicoBusiness;
 import pe.com.sisabas.business.GentablaBusiness;
@@ -58,6 +59,7 @@ import pe.com.sisabas.dto.OrdenDto;
 import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
 import pe.com.sisabas.dto.Resultado;
+import pe.com.sisabas.dto.SeguimientoPagosResponse;
 import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
 import pe.com.sisabas.dto.TransactionRequest;
@@ -92,7 +94,7 @@ public class ProgramacionController extends BaseController {
 	public List<Gentabla> listaGentablaIdcatalogotipocontratacion;
 	private Cuadrocomparativofuente selectedCuadrocomparativofuente;
 	public List<Gentabla> listaGentablaIdcatalogotipofuente;
-	public List<Gentabla> listaGentablaIdcatalogomonedafuente;	
+	public List<Gentabla> listaGentablaIdcatalogomonedafuente;
 
 	// Direct
 	public static String SUCCESS_ORDEN = "/pages/pao/ordenRegistrar.xhtml?faces-redirect=true;";
@@ -103,7 +105,9 @@ public class ProgramacionController extends BaseController {
 	private List<CuadroComparativoItemsDto> listaCuadroComparativoItems;
 	private List<CuadroComparativoVrDto> listaCuadroComparativoVrFinal;
 	private List<OrdenDto> listaOrden;
-
+	private List<SeguimientoPagosResponse> listaSeguimientoPagosSiaf;
+	private List<Entregable> listaEntregable;
+	
 	private boolean esSeleccionadoFuente;
 	private String tituloFuente;
 
@@ -244,12 +248,22 @@ public class ProgramacionController extends BaseController {
 			request.setAnio(usuario.getPeriodo().getAnio());
 			request.setNroConsolid(currentPao.getNroConsolid());
 			request.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.PRONIED_SIAF);
-			
+
 			listaOrden = programacionBusiness.getCompraDirectaOrden(request);
-			//setEsSeleccionadoFuente(false);
-			//setSelectedCuadrocomparativofuente(null);
-			if (listaOrden.size() == 0)
+			// setEsSeleccionadoFuente(false);
+			// setSelectedCuadrocomparativofuente(null);
+			if (listaOrden.size() == 0) {
 				addMessageKey("msgsForm", Messages.getString("no.records.found"), FacesMessage.SEVERITY_INFO);
+			} else {
+				int nroExpediente = listaOrden.get(0).getNroExpedienteSiaf();
+				request.setNroExpedienteSiaf(nroExpediente);
+				listaSeguimientoPagosSiaf = programacionBusiness.getSeguimientoPagosSiaf(request);
+				
+				//Obtiene ordenes
+				if (listaOrden.get(0).getIdOrden() != null){
+					listaEntregable = programacionBusiness.getEntegablesByOrden(listaOrden.get(0).getIdOrden());
+				}
+			}
 
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
@@ -264,7 +278,7 @@ public class ProgramacionController extends BaseController {
 			addErrorMessageKey("msgsForm", e);
 		}
 	}
-	
+
 	public void resetRegisterForm() {
 		reset("frmCuadrocomparativofuenteRegistrar:panelC");
 	}
@@ -321,7 +335,7 @@ public class ProgramacionController extends BaseController {
 			buscarFuente();
 			buscarValorReferencialFinal();
 			buscarOrden();
-			
+
 		} catch (Exception e) {
 			addErrorMessage(e);
 			return "/login.xhtml";
@@ -382,6 +396,44 @@ public class ProgramacionController extends BaseController {
 		}
 	}
 
+	public void guardarOrden() {
+		REGISTER_INIT();
+		try {
+
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
+			if (usuario == null) {
+				REGISTER_ERROR();
+				addMessageKey("msgsDocumentotecnicoR", "Teminó la sesión", FacesMessage.SEVERITY_ERROR);
+				return;
+			}
+			
+			for (int i = 0; i < listaOrden.size(); i++) {
+				listaOrden.get(i).setAnio(usuario.getPeriodo().getAnio());
+				listaOrden.get(i).setCodigoCentroCosto(usuario.getPeriodo().getCodigoCentroCosto());
+			}
+			
+			TransactionRequest<List<OrdenDto>> request = new TransactionRequest<List<OrdenDto>>();
+			request.setUsuarioAuditoria("PRUEBA");
+			request.setEquipoAuditoria("MI PC");
+			request.setEntityTransaction(listaOrden);
+			programacionBusiness.grabarOrden(request);
+			REGISTER_SUCCESS();
+			/*
+			 * } catch (ValidateException e) { REGISTER_ERROR();
+			 * addMessageKey("msgsDocumentotecnicoR", e.getMessage(),
+			 * FacesMessage.SEVERITY_ERROR); } catch (BusinessException e) {
+			 * REGISTER_ERROR(); addMessageKey("msgsDocumentotecnicoR",
+			 * e.getMessage(), FacesMessage.SEVERITY_ERROR);
+			 */
+		} catch (DataIntegrityViolationException e) {
+			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),
+					Messages.getString("exception.dataintegrity.message.detail"), FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			REGISTER_ERROR();
+			addErrorMessageKey("msgsDocumentotecnicoR", e);
+		}
+	}
+
 	public void irRegistrarFuente() {
 		STATUS_INIT();
 		try {
@@ -401,8 +453,7 @@ public class ProgramacionController extends BaseController {
 			CuadroComparativoRequest request = new CuadroComparativoRequest();
 			request.setIdPacConsolidado(this.currentPao.getIdPacConsolid());
 			request.setIdCuadroComparativoFuente(this.cuadrocomparativofuente.getIdcuadrocomparativofuente());
-			this.listaCuadroComparativoItems = this.programacionBusiness
-					.getCuadroComparativoItemsByConsolid(request);
+			this.listaCuadroComparativoItems = this.programacionBusiness.getCuadroComparativoItemsByConsolid(request);
 
 			STATUS_SUCCESS();
 			REGISTER_INIT();
@@ -438,8 +489,7 @@ public class ProgramacionController extends BaseController {
 			CuadroComparativoRequest request = new CuadroComparativoRequest();
 			request.setIdPacConsolidado(this.currentPao.getIdPacConsolid());
 			request.setIdCuadroComparativoFuente(this.cuadrocomparativofuente.getIdcuadrocomparativofuente());
-			this.listaCuadroComparativoItems = this.programacionBusiness
-					.getCuadroComparativoItems(request);
+			this.listaCuadroComparativoItems = this.programacionBusiness.getCuadroComparativoItems(request);
 
 			STATUS_SUCCESS();
 			REGISTER_INIT();
@@ -495,15 +545,17 @@ public class ProgramacionController extends BaseController {
 	public void eliminarFuente() {
 		try {
 			validateSelectedRowFuente();
-			
+
 			/*
-			cuadrocomparativofuente.setUsuariomodificacionauditoria(getUserLogin());
-			cuadroComparativoFuenteBusiness.deleteByPrimaryKeyBasic(cuadrocomparativofuente);
-			*/
+			 * cuadrocomparativofuente.setUsuariomodificacionauditoria(
+			 * getUserLogin());
+			 * cuadroComparativoFuenteBusiness.deleteByPrimaryKeyBasic(
+			 * cuadrocomparativofuente);
+			 */
 			TransactionRequest<Cuadrocomparativofuente> request = new TransactionRequest<Cuadrocomparativofuente>();
 			request.setEntityTransaction(cuadrocomparativofuente);
 			programacionBusiness.eliminarCuadroComparativo(request);
-			
+
 			showGrowlMessageSuccessfullyCompletedAction();
 			buscarFuente();
 		} catch (ValidateException e) {
@@ -609,8 +661,9 @@ public class ProgramacionController extends BaseController {
 
 	public void buscarValorReferencialFinal() {
 		try {
-			
-			listaCuadroComparativoVrFinal = programacionBusiness.getCuadroComparativoVrFinal(currentPao.getIdPacConsolid());
+
+			listaCuadroComparativoVrFinal = programacionBusiness
+					.getCuadroComparativoVrFinal(currentPao.getIdPacConsolid());
 			if (listaCuadroComparativoVrFinal.size() == 0)
 				addMessageKey("msgsForm", Messages.getString("no.records.found"), FacesMessage.SEVERITY_INFO);
 
@@ -627,7 +680,7 @@ public class ProgramacionController extends BaseController {
 			addErrorMessageKey("msgsForm", e);
 		}
 	}
-	
+
 	// DATATABLE EDITABLE
 	public void onRowEdit(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Se editó correctamente",
@@ -640,16 +693,17 @@ public class ProgramacionController extends BaseController {
 				"Dependencia: " + ((Lugar) event.getObject()).getDependencia());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
-	
-    public void onCellEdit(CellEditEvent event) {
-        Object oldValue = event.getOldValue();
-        Object newValue = event.getNewValue();
-         
-        if(newValue != null && !newValue.equals(oldValue)) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-    }
+
+	public void onCellEdit(CellEditEvent event) {
+		Object oldValue = event.getOldValue();
+		Object newValue = event.getNewValue();
+
+		if (newValue != null && !newValue.equals(oldValue)) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed",
+					"Old: " + oldValue + ", New:" + newValue);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+	}
 
 	// PROPERTIES
 	public List<PaoResponse> getListaPao() {
@@ -811,7 +865,7 @@ public class ProgramacionController extends BaseController {
 	public void setListaCuadroComparativoItems(List<CuadroComparativoItemsDto> listaCuadroComparativoItems) {
 		this.listaCuadroComparativoItems = listaCuadroComparativoItems;
 	}
-	
+
 	public List<CuadroComparativoVrDto> getListaCuadroComparativoVrFinal() {
 		return listaCuadroComparativoVrFinal;
 	}
@@ -819,12 +873,28 @@ public class ProgramacionController extends BaseController {
 	public void setListaCuadroComparativoVrFinal(List<CuadroComparativoVrDto> listaCuadroComparativoVrFinal) {
 		this.listaCuadroComparativoVrFinal = listaCuadroComparativoVrFinal;
 	}
-	
+
 	public List<OrdenDto> getListaOrden() {
 		return listaOrden;
 	}
 
 	public void setListaOrden(List<OrdenDto> listaOrden) {
 		this.listaOrden = listaOrden;
+	}
+
+	public List<SeguimientoPagosResponse> getListaSeguimientoPagosSiaf() {
+		return listaSeguimientoPagosSiaf;
+	}
+
+	public void setListaSeguimientoPagosSiaf(List<SeguimientoPagosResponse> listaSeguimientoPagosSiaf) {
+		this.listaSeguimientoPagosSiaf = listaSeguimientoPagosSiaf;
+	}
+	
+	public List<Entregable> getListaEntregable() {
+		return listaEntregable;
+	}
+
+	public void setListaEntregable(List<Entregable> listaEntregable) {
+		this.listaEntregable = listaEntregable;
 	}
 }

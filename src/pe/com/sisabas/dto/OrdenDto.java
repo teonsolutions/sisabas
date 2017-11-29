@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class OrdenDto implements Serializable,Cloneable{
+	private Integer idOrden;
 	private Integer nroOrden;
 	private Date fechaOrden;
 	private String idTipoBien;
@@ -21,7 +22,20 @@ public class OrdenDto implements Serializable,Cloneable{
 	private Date fechaInicioPrestacion;
 	private Integer plazo;
 	private Date fechaFinPrestacion;
-	
+	private Integer anio;
+	private Integer anioOrden;
+	private Integer estadoOrden;
+	private String moneda;
+	private String codigoCentroCosto;
+
+	public Integer getIdOrden() {
+		return idOrden;
+	}
+
+
+	public void setIdOrden(Integer idOrden) {
+		this.idOrden = idOrden;
+	}
 	
 	public Integer getNroOrden() {
 		return nroOrden;
@@ -168,6 +182,50 @@ public class OrdenDto implements Serializable,Cloneable{
 
 	public void setFechaFinPrestacion(Date fechaFinPrestacion) {
 		this.fechaFinPrestacion = fechaFinPrestacion;
+	}
+
+	public Integer getAnioOrden() {
+		return anioOrden;
+	}
+
+	public Integer getAnio() {
+		return anio;
+	}
+
+
+	public void setAnio(Integer anio) {
+		this.anio = anio;
+	}
+
+	public void setAnioOrden(Integer anioOrden) {
+		this.anioOrden = anioOrden;
+	}
+	
+	public Integer getEstadoOrden() {
+		return estadoOrden;
+	}
+
+
+	public void setEstadoOrden(Integer estadoOrden) {
+		this.estadoOrden = estadoOrden;
+	}
+
+	public String getMoneda() {
+		return moneda;
+	}
+
+
+	public void setMoneda(String moneda) {
+		this.moneda = moneda;
+	}
+
+	public String getCodigoCentroCosto() {
+		return codigoCentroCosto;
+	}
+
+
+	public void setCodigoCentroCosto(String codigoCentroCosto) {
+		this.codigoCentroCosto = codigoCentroCosto;
 	}
 	
 	@Override

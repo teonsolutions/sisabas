@@ -189,6 +189,18 @@
 		<result column="ProcedimientoVrDesc" property="procedimientoVrDesc" jdbcType="VARCHAR"/>
 	</resultMap>
 	
+	<resultMap type="pe.com.sisabas.dto.SeguimientoPagosResponse" id="seguimientoPagosSiaf">
+		<result column="Expediente" property="expediente" jdbcType="VARCHAR"/>
+		<result column="AnioProceso" property="anioProceso" jdbcType="VARCHAR"/>
+		<result column="TipoDocumentoDesc" property="tipoDocumentoDesc" jdbcType="VARCHAR"/>
+		<result column="NumeroDocumento" property="nroDocumento" jdbcType="VARCHAR"/>
+		<result column="MontoNacional" property="monto" jdbcType="DOUBLE"/>
+		<result column="MesProceso" property="mesProceso" jdbcType="VARCHAR"/>
+		<result column="FechaDocumento" property="fechaDocumento" jdbcType="DATE"/>
+		<result column="Ciclo" property="ciclo" jdbcType="VARCHAR"/>
+		<result column="Fase" property="fase" jdbcType="VARCHAR"/>
+	</resultMap>
+		
 	<resultMap id="FullResultMap" type="pe.com.sisabas.be.Pacconsolidado">
 	<result column="A1_IDPACCONSOLIDADO" property="idpacconsolidado" jdbcType="INTEGER" />
 	<result column="A1_IDCOMITEPROCESO" property="idcomiteproceso" jdbcType="INTEGER" />
@@ -2206,5 +2218,8 @@
 		order by t2.IdPedido asc, T1.IdDetallePedido asc
 	</select>		
 
-		
+	<select id="getSeguimientoPagosSiaf" resultMap="seguimientoPagosSiaf" parameterType="pe.com.sisabas.dto.PaoRequest">
+		{call abas.paContratosListarPagoOrdenes(#{idUnidadEjecutoraSiaf},#{anio},#{nroExpedienteSiaf})}
+	</select>
+			
 </mapper>

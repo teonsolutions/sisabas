@@ -3,6 +3,10 @@ package pe.com.sisabas.dto;
 import java.util.Date;
 
 public class SeguimientoPagosResponse {
+
+	private String expediente;
+	private String anioProceso;
+	private String mesProceso;
 	private String ciclo;
 	private String fase;
 	private String tipoDocumentoDesc;
@@ -10,6 +14,24 @@ public class SeguimientoPagosResponse {
 	private Date fechaDocumento;
 	private Double monto;
 	
+	public String getExpediente() {
+		return expediente;
+	}
+	public void setExpediente(String expediente) {
+		this.expediente = expediente;
+	}
+	public String getAnioProceso() {
+		return anioProceso;
+	}
+	public void setAnioProceso(String anioProceso) {
+		this.anioProceso = anioProceso;
+	}
+	public String getMesProceso() {
+		return mesProceso;
+	}
+	public void setMesProceso(String mesProceso) {
+		this.mesProceso = mesProceso;
+	}
 	public String getCiclo() {
 		return ciclo;
 	}

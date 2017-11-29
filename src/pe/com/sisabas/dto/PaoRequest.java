@@ -19,7 +19,16 @@ public class PaoRequest {
 	private int idUnidadEjecutora;
 	private Integer idPacConsolidado;
 	private Integer idUnidadEjecutoraSiaf;
+	
+	//additionals
+	private Integer nroExpedienteSiaf;
 
+	public Integer getNroExpedienteSiaf() {
+		return nroExpedienteSiaf;
+	}
+	public void setNroExpedienteSiaf(Integer nroExpedienteSiaf) {
+		this.nroExpedienteSiaf = nroExpedienteSiaf;
+	}
 	public Integer getIdPacConsolidado() {
 		return idPacConsolidado;
 	}
@@ -130,4 +139,6 @@ public class PaoRequest {
 	public void setIdUnidadEjecutoraSiaf(Integer idUnidadEjecutoraSiaf) {
 		this.idUnidadEjecutoraSiaf = idUnidadEjecutoraSiaf;
 	}
+
+	
 }

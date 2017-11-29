@@ -13,9 +13,11 @@ import org.springframework.stereotype.Service;
 import pe.com.sisabas.be.Cuadrocomparativofuente;
 import pe.com.sisabas.be.Cuadrocomparativoitem;
 import pe.com.sisabas.be.Cuadrocomparativovr;
+import pe.com.sisabas.be.Entregable;
 import pe.com.sisabas.be.Estadosporetapapordocumento;
 import pe.com.sisabas.be.Estadosportipodocumento;
 import pe.com.sisabas.be.Grupodocumento;
+import pe.com.sisabas.be.Orden;
 import pe.com.sisabas.be.Pacconsolidado;
 import pe.com.sisabas.be.Pacprogramado;
 import pe.com.sisabas.be.Pedido;
@@ -36,12 +38,14 @@ import pe.com.sisabas.dto.RecepcionDTResponse;
 import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
 import pe.com.sisabas.dto.Resultado;
+import pe.com.sisabas.dto.SeguimientoPagosResponse;
 import pe.com.sisabas.dto.TransactionRequest;
 import pe.com.sisabas.dto.TransactionResponse;
 import pe.com.sisabas.persistence.CuadrocomparativofuenteMapper;
 import pe.com.sisabas.persistence.CuadrocomparativoitemMapper;
 import pe.com.sisabas.persistence.CuadrocomparativovrMapper;
 import pe.com.sisabas.persistence.DocumentotecnicoMapper;
+import pe.com.sisabas.persistence.EntregableMapper;
 import pe.com.sisabas.persistence.EstadosporetapapordocumentoMapper;
 import pe.com.sisabas.persistence.EstadosportipodocumentoMapper;
 import pe.com.sisabas.persistence.GrupodocumentoMapper;
@@ -92,6 +96,9 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 
 	@Autowired
 	public OrdenMapper ordenMapper;
+	
+	@Autowired
+	public EntregableMapper entregableMapper;
 	
 	@Autowired
 	public UtilsBusiness utilsBusiness;
@@ -655,6 +662,83 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 	public List<OrdenDto> getCompraDirectaOrden(PaoRequest request) throws Exception {
 		// TODO Auto-generated method stub
 		return ordenMapper.getCompraDirectaOrden(request);
+	}
+
+	@Override
+	public List<SeguimientoPagosResponse> getSeguimientoPagosSiaf(PaoRequest request) throws Exception {
+		// TODO Auto-generated method stub
+		return pacconsolidadoMapper.getSeguimientoPagosSiaf(request);
+	}
+
+	@Override
+	public List<Entregable> getEntegablesByOrden(Integer idOrden) throws Exception {
+		// TODO Auto-generated method stub
+		return entregableMapper.getEntegablesByOrden(idOrden);
+	}
+
+	@Override
+	public Resultado grabarOrden(TransactionRequest<List<OrdenDto>> request) throws Exception {
+		// TODO Auto-generated method stub
+		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
+		List<OrdenDto> ordenes = request.getEntityTransaction();
+		OrdenDto ordenDto = null;
+		Integer idOrden;
+		for (int i = 0; i < ordenes.size(); i++) {
+			ordenDto = ordenes.get(i);
+			if (ordenDto.getIdOrden() != null){
+				//Update
+				Orden ordenEdit = ordenMapper.selectByPrimaryKeyBasic(ordenDto.getIdOrden());
+				ordenEdit.setFechainicioprestacion(ordenDto.getFechaFinPrestacion());
+				ordenEdit.setFechafinprestacion(ordenDto.getFechaFinPrestacion());				
+				ordenEdit.setAnio(ordenDto.getAnio());
+				ordenEdit.setEstadoexpedientesiaf(ordenDto.getNroExpedienteSiaf());
+				ordenEdit.setEstadoorden(ordenDto.getEstadoOrden());
+				ordenEdit.setMoneda(ordenDto.getMoneda());
+				ordenEdit.setPlazoejecucion(ordenDto.getPlazo());		
+				
+				//Audit
+				ordenEdit.setFechamodificacionauditoria(new Date());
+				ordenEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
+				ordenEdit.setProgramaauditoria(request.getProgramaAuditoria());
+				ordenEdit.setEquipoauditoria(request.getEquipoAuditoria());
+				ordenMapper.updateByPrimaryKey(ordenEdit);
+				idOrden = ordenEdit.getIdorden();
+			}else{
+				//Insert grupo
+				// Inserta grupo documento
+				Grupodocumento grupodocumento = new Grupodocumento();
+				Integer idgrupodocumento = (int) utilsBusiness.getNextSeq(Sequence.SEQ_GRUPODOCUMENTO).longValue();
+				grupodocumento.setIdgrupodocumento(idgrupodocumento);
+				grupodocumento.setAnio(ordenDto.getAnio());
+				grupodocumento.setCodigocentrocosto(ordenDto.getCodigoCentroCosto());
+				grupodocumento.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+				grupodocumento.setProgramaauditoria(request.getProgramaAuditoria());
+				grupodocumento.setEquipoauditoria(request.getEquipoAuditoria());
+				grupodocumento.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+				grupodocumentoMapper.insert(grupodocumento);				
+				
+				//Insert
+				Orden ordenNew = new Orden();
+				ordenNew.setFechainicioprestacion(ordenDto.getFechaFinPrestacion());
+				ordenNew.setFechafinprestacion(ordenDto.getFechaFinPrestacion());				
+				ordenNew.setAnio(ordenDto.getAnio());
+				ordenNew.setEstadoexpedientesiaf(ordenDto.getNroExpedienteSiaf());
+				ordenNew.setEstadoorden(ordenDto.getEstadoOrden());
+				ordenNew.setMoneda(ordenDto.getMoneda());
+				ordenNew.setPlazoejecucion(ordenDto.getPlazo());		
+				
+				//Audit
+				ordenNew.setFechacreacionauditoria(new Date());
+				ordenNew.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+				ordenNew.setProgramaauditoria(request.getProgramaAuditoria());
+				ordenNew.setEquipoauditoria(request.getEquipoAuditoria());				
+				idOrden = (int) utilsBusiness
+						.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_CUADROCOMPARATIVOVR).longValue();
+				ordenNew.setIdorden(idOrden);
+				ordenMapper.insert(ordenNew);
+			}
+		}		
+		return result;
 	}
 
 }

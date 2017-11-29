@@ -3,6 +3,8 @@ package pe.com.sisabas.dto;
 import java.io.Serializable;
 import java.util.List;
 
+import pe.com.sisabas.be.Requisitosconformidad;
+
 public class PaoResponse implements  Serializable,Cloneable {
 	/**
 	 * 
@@ -29,7 +31,8 @@ public class PaoResponse implements  Serializable,Cloneable {
 	private String idDocumentos;
 	private int rowTotal;
 	private CompraDirectaDatosGeneralesDto compraDirecta;
-		
+	private List<Requisitosconformidad> listaRequisitosConformidad;
+
 	public CompraDirectaDatosGeneralesDto getCompraDirecta() {
 		return compraDirecta;
 	}
@@ -149,6 +152,12 @@ public class PaoResponse implements  Serializable,Cloneable {
 	}
 	public void setRowTotal(int rowTotal) {
 		this.rowTotal = rowTotal;
+	}
+	public List<Requisitosconformidad> getListaRequisitosConformidad() {
+		return listaRequisitosConformidad;
+	}
+	public void setListaRequisitosConformidad(List<Requisitosconformidad> listaRequisitosConformidad) {
+		this.listaRequisitosConformidad = listaRequisitosConformidad;
 	}
 	
 	@Override
