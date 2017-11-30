@@ -759,7 +759,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			
 			//save details			
 			for (int j = 0; j < ordenDto.getEntegables().size(); j++) {
-				Entregable entregable = ordenDto.getEntegables().get(i);
+				Entregable entregable = ordenDto.getEntegables().get(j);
 				if (entregable.getIdentregable() != null){
 					//Update
 					Entregable entregableEdit = entregableMapper.selectByPrimaryKeyBasic(entregable.getIdentregable());
@@ -770,7 +770,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 						entregableMapper.updateByPrimaryKey(entregableEdit);						
 					}
 				}else{
-					//Insert
+					//Insert					
 					entregable.setIdorden(idOrden);
 					entregable.setIdgrupodocumento(idgrupodocumento);
 					
