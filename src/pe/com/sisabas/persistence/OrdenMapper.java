@@ -35,5 +35,7 @@ public interface OrdenMapper{
 	//CUSTOM
 	List<OrdenDto> getCompraDirectaOrden(PaoRequest request) throws Exception;
 	
+	List<Orden> getOrdenByPacConsolid(@Param("idPacConsolidado") java.lang.Integer idPacConsolidado) throws Exception;
+	
 
 }

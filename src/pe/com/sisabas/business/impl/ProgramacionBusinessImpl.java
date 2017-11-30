@@ -688,13 +688,14 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			if (ordenDto.getIdOrden() != null){
 				//Update
 				Orden ordenEdit = ordenMapper.selectByPrimaryKeyBasic(ordenDto.getIdOrden());
-				ordenEdit.setFechainicioprestacion(ordenDto.getFechaFinPrestacion());
+				ordenEdit.setFechainicioprestacion(ordenDto.getFechaInicioPrestacion());
 				ordenEdit.setFechafinprestacion(ordenDto.getFechaFinPrestacion());				
 				ordenEdit.setAnio(ordenDto.getAnio());
 				ordenEdit.setEstadoexpedientesiaf(ordenDto.getNroExpedienteSiaf());
 				ordenEdit.setEstadoorden(ordenDto.getEstadoOrden());
 				ordenEdit.setMoneda(ordenDto.getMoneda());
-				ordenEdit.setPlazoejecucion(ordenDto.getPlazo());		
+				ordenEdit.setPlazoejecucion(ordenDto.getPlazo());
+				//ordenEdit.setEstadoorden(estadoorden); TODO: CHECK
 				
 				//Audit
 				ordenEdit.setFechamodificacionauditoria(new Date());
@@ -719,26 +720,75 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 				
 				//Insert
 				Orden ordenNew = new Orden();
+				ordenNew.setIdgrupodocumento(idgrupodocumento);
 				ordenNew.setFechainicioprestacion(ordenDto.getFechaFinPrestacion());
 				ordenNew.setFechafinprestacion(ordenDto.getFechaFinPrestacion());				
 				ordenNew.setAnio(ordenDto.getAnio());
 				ordenNew.setEstadoexpedientesiaf(ordenDto.getNroExpedienteSiaf());
 				ordenNew.setEstadoorden(ordenDto.getEstadoOrden());
 				ordenNew.setMoneda(ordenDto.getMoneda());
-				ordenNew.setPlazoejecucion(ordenDto.getPlazo());		
+				ordenNew.setPlazoejecucion(ordenDto.getPlazo());	
+				ordenNew.setIdpacconsolidado(ordenDto.getIdPacConsolidado());				
+				
+				//Orden data
+				ordenNew.setNroorden(ordenDto.getNroOrden().toString()); // verificar nro type
+				ordenNew.setFechaorden(ordenDto.getFechaOrden());
+				ordenNew.setAnio(ordenDto.getAnio());
+				ordenNew.setAnioorden(ordenDto.getAnio());
+				ordenNew.setNroexpedientesiaf(ordenDto.getNroExpedienteSiaf().toString());
+				ordenNew.setMoneda(ordenDto.getMoneda());
+				double monto = ordenDto.getTotalFactSoles();
+				ordenNew.setMontoorden(new BigDecimal(monto));
+				ordenNew.setEstadoexpedientesiaf(ordenDto.getEstadoOrden());
+				ordenNew.setIdcatalogotipobien(ordenDto.getIdTipoBien());
+				ordenNew.setIdunidadejecutora(ordenDto.getIdUnidadEjecutora());
 				
 				//Audit
 				ordenNew.setFechacreacionauditoria(new Date());
 				ordenNew.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
 				ordenNew.setProgramaauditoria(request.getProgramaAuditoria());
-				ordenNew.setEquipoauditoria(request.getEquipoAuditoria());				
+				ordenNew.setEquipoauditoria(request.getEquipoAuditoria());	
+				ordenNew.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
 				idOrden = (int) utilsBusiness
 						.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_CUADROCOMPARATIVOVR).longValue();
 				ordenNew.setIdorden(idOrden);
 				ordenMapper.insert(ordenNew);
 			}
+			
+			//save details			
+			for (int j = 0; j < ordenDto.getEntegables().size(); j++) {
+				Entregable entregable = ordenDto.getEntegables().get(i);
+				if (entregable.getIdentregable() != null){
+					//Update
+					Entregable entregableEdit = entregableMapper.selectByPrimaryKeyBasic(entregable.getIdentregable());
+					
+					//Audit
+					entregableEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
+					entregableEdit.setFechamodificacionauditoria(new Date());
+					entregableMapper.updateByPrimaryKey(entregableEdit);
+				}else{
+					//Insert
+					entregable.setIdorden(idOrden);
+					
+					//Audit
+					entregable.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+					entregable.setFechacreacionauditoria(new Date());
+					entregable.setEquipoauditoria(request.getEquipoAuditoria());
+					entregable.setProgramaauditoria(request.getProgramaAuditoria());
+					entregable.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+					entregable.setIdentregable((int) utilsBusiness
+						.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_ENTREGABLE).longValue());
+					entregableMapper.insert(entregable);
+				}
+			}
 		}		
 		return result;
+	}
+
+	@Override
+	public List<Orden> getOrdenByPacConsolid(Integer idPacConsolidado) throws Exception {
+		// TODO Auto-generated method stub
+		return ordenMapper.getOrdenByPacConsolid(idPacConsolidado);
 	}
 
 }

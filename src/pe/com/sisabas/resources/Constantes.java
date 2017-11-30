@@ -202,6 +202,12 @@ public class Constantes {
 
 	public class procedimientoVR{
 		public static final String COTIZACION_MENOR_PRECIO_OBTENIDA = "PRVR1";
+	}
+	
+	public class moneda{
+		public static final String SOLES = "S/.";
+		public static final String DOLARES = "US$";		
 	}	
+
 	//Constantes personalizados
 }

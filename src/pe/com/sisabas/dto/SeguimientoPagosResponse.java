@@ -11,7 +11,7 @@ public class SeguimientoPagosResponse {
 	private String fase;
 	private String tipoDocumentoDesc;
 	private String nroDocumento;
-	private Date fechaDocumento;
+	private String fechaDocumento;
 	private Double monto;
 	
 	public String getExpediente() {
@@ -56,10 +56,10 @@ public class SeguimientoPagosResponse {
 	public void setNroDocumento(String nroDocumento) {
 		this.nroDocumento = nroDocumento;
 	}
-	public Date getFechaDocumento() {
+	public String getFechaDocumento() {
 		return fechaDocumento;
 	}
-	public void setFechaDocumento(Date fechaDocumento) {
+	public void setFechaDocumento(String fechaDocumento) {
 		this.fechaDocumento = fechaDocumento;
 	}
 	public Double getMonto() {

@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -64,6 +66,7 @@ import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
 import pe.com.sisabas.dto.TransactionRequest;
 import pe.com.sisabas.be.Gentabla;
+import pe.com.sisabas.be.Orden;
 import pe.com.sisabas.be.Pacconsolidado;
 import pe.com.sisabas.business.GentablaBusiness;
 import pe.com.sisabas.be.Gentabla;
@@ -107,7 +110,7 @@ public class ProgramacionController extends BaseController {
 	private List<OrdenDto> listaOrden;
 	private List<SeguimientoPagosResponse> listaSeguimientoPagosSiaf;
 	private List<Entregable> listaEntregable;
-	
+
 	private boolean esSeleccionadoFuente;
 	private String tituloFuente;
 
@@ -258,13 +261,31 @@ public class ProgramacionController extends BaseController {
 				int nroExpediente = listaOrden.get(0).getNroExpedienteSiaf();
 				request.setNroExpedienteSiaf(nroExpediente);
 				listaSeguimientoPagosSiaf = programacionBusiness.getSeguimientoPagosSiaf(request);
-				
-				//Obtiene ordenes
-				if (listaOrden.get(0).getIdOrden() != null){
+
+				// Obtiene ordenes
+				if (listaOrden.get(0).getIdOrden() != null) {
 					listaEntregable = programacionBusiness.getEntegablesByOrden(listaOrden.get(0).getIdOrden());
 				}
 			}
 
+			// get orden registered in abas
+			List<Orden> ordenDetail = programacionBusiness.getOrdenByPacConsolid(currentPao.getIdPacConsolid());
+			for (int i = 0; i < listaOrden.size(); i++) {
+				for (int j = 0; j < ordenDetail.size(); j++) {
+					if (listaOrden.get(i).getNroOrden().toString().trim()
+							.equals(ordenDetail.get(j).getNroorden().trim())) {
+						listaOrden.get(i).setIdOrden(ordenDetail.get(j).getIdorden());
+						listaOrden.get(i).setIdPacConsolidado(ordenDetail.get(j).getIdpacconsolidado());
+						listaOrden.get(i).setFechaInicioPrestacion(ordenDetail.get(j).getFechainicioprestacion());
+						listaOrden.get(i).setFechaFinPrestacion(ordenDetail.get(j).getFechafinprestacion());
+						listaOrden.get(i).setPlazo(ordenDetail.get(j).getPlazoejecucion());
+						listaOrden.get(i).setArmadas(1); // DEBE SER ENTREGABLES
+															// .LENGHT
+					}
+				}
+			}
+			//Genera entregables
+			//generateEntregable(2);
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
 		} catch (SecurityRestrictedControlException e) {
@@ -376,11 +397,10 @@ public class ProgramacionController extends BaseController {
 				transactionRequest.setEntityTransaction(cDirecta);
 				Resultado result = programacionBusiness.grabarCompraDirecta(transactionRequest);
 
-				showGrowlMessageSuccessfullyCompletedAction();
-				buscarPao();
-
 				REGISTER_SUCCESS();
+				buscarPao();
 			}
+			showGrowlMessageSuccessfullyCompletedAction();
 		} catch (ValidateException e) {
 			REGISTER_ERROR();
 			addMessageKey("msgsDocumentotecnicoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
@@ -406,25 +426,31 @@ public class ProgramacionController extends BaseController {
 				addMessageKey("msgsDocumentotecnicoR", "Teminó la sesión", FacesMessage.SEVERITY_ERROR);
 				return;
 			}
-			
+
 			for (int i = 0; i < listaOrden.size(); i++) {
 				listaOrden.get(i).setAnio(usuario.getPeriodo().getAnio());
 				listaOrden.get(i).setCodigoCentroCosto(usuario.getPeriodo().getCodigoCentroCosto());
+				listaOrden.get(i).setIdPacConsolidado(currentPao.getIdPacConsolid());
+				listaOrden.get(i).setMoneda(Constantes.moneda.SOLES);
+				listaOrden.get(i).setIdUnidadEjecutora(Constantes.unidadEjecutora.ID_UNIDAD_EJECUTORA_ABAS);
+				listaOrden.get(i).setEntegables(listaEntregable);
 			}
-			
+
 			TransactionRequest<List<OrdenDto>> request = new TransactionRequest<List<OrdenDto>>();
 			request.setUsuarioAuditoria("PRUEBA");
 			request.setEquipoAuditoria("MI PC");
 			request.setEntityTransaction(listaOrden);
 			programacionBusiness.grabarOrden(request);
 			REGISTER_SUCCESS();
-			/*
-			 * } catch (ValidateException e) { REGISTER_ERROR();
-			 * addMessageKey("msgsDocumentotecnicoR", e.getMessage(),
-			 * FacesMessage.SEVERITY_ERROR); } catch (BusinessException e) {
-			 * REGISTER_ERROR(); addMessageKey("msgsDocumentotecnicoR",
-			 * e.getMessage(), FacesMessage.SEVERITY_ERROR);
-			 */
+			showGrowlMessageSuccessfullyCompletedAction();
+
+		} catch (ValidateException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsDocumentotecnicoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (BusinessException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsDocumentotecnicoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+
 		} catch (DataIntegrityViolationException e) {
 			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),
 					Messages.getString("exception.dataintegrity.message.detail"), FacesMessage.SEVERITY_ERROR);
@@ -644,6 +670,8 @@ public class ProgramacionController extends BaseController {
 			buscarValorReferencialFinal();
 
 			REGISTER_SUCCESS();
+			showGrowlMessageSuccessfullyCompletedAction();
+
 		} catch (ValidateException e) {
 			REGISTER_ERROR();
 			addMessageKey("msgsCuadrocomparativofuenteR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
@@ -681,16 +709,55 @@ public class ProgramacionController extends BaseController {
 		}
 	}
 
+	private void generateEntregable(int armadas){		
+		int pago = 1;
+		if (listaEntregable == null) 
+			listaEntregable = new ArrayList<Entregable>();		
+		int nroEntregables = this.listaEntregable.size();
+		
+		if (armadas > nroEntregables){
+			for (int i = 1; i <= armadas - nroEntregables; i++) {
+				Entregable item = new Entregable();		
+				item.setNroentregable("Pago " + (i + nroEntregables));
+				this.listaEntregable.add(item);
+				pago++;
+			}			
+		}else if(armadas < nroEntregables){
+			this.listaEntregable.clear();
+			for (int i = 1; i <= nroEntregables - armadas; i++) {
+				Entregable item = new Entregable();			
+				item.setNroentregable("Pago " + (i));
+				this.listaEntregable.add(item);
+				pago++;
+			}				
+		}
+	}
+	
 	// DATATABLE EDITABLE
 	public void onRowEdit(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Se editó correctamente",
-				"Dependencia: " + ((Lugar) event.getObject()).getDependencia());
+				"Orden: " + ((OrdenDto) event.getObject()).getNroOrden());
+		
+		//Cal final date
+		Integer plazo = ((OrdenDto) event.getObject()).getPlazo();
+		Integer armadas = ((OrdenDto) event.getObject()).getArmadas();
+		if (plazo != null)
+		{
+			Date inicio = ((OrdenDto) event.getObject()).getFechaInicioPrestacion();
+			Calendar c = Calendar.getInstance();
+			c.setTime(inicio);
+			c.add(c.DATE,  plazo);			
+			Date fin = c.getTime();
+			((OrdenDto) event.getObject()).setFechaFinPrestacion(fin);
+		}
+		
+		generateEntregable(armadas);
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void onRowCancel(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Se canceló la edición",
-				"Dependencia: " + ((Lugar) event.getObject()).getDependencia());
+				"Orden: " + ((OrdenDto) event.getObject()).getNroOrden());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
@@ -889,7 +956,7 @@ public class ProgramacionController extends BaseController {
 	public void setListaSeguimientoPagosSiaf(List<SeguimientoPagosResponse> listaSeguimientoPagosSiaf) {
 		this.listaSeguimientoPagosSiaf = listaSeguimientoPagosSiaf;
 	}
-	
+
 	public List<Entregable> getListaEntregable() {
 		return listaEntregable;
 	}

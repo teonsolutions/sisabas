@@ -906,5 +906,10 @@
 	<select id="getCompraDirectaOrden" resultMap="OrdenResultMap" statementType="CALLABLE" parameterType="pe.com.sisabas.dto.PaoRequest">
 		{call abas.paProgramacionCompraDirectaOrden(#{anio},#{nroConsolid},#{idUnidadEjecutoraSiaf})}		
 	</select>	
+	
+	<select id="getOrdenByPacConsolid" resultMap="BasicResultMap" statementType="CALLABLE" parameterType="java.lang.Integer">
+		select * from abas.Orden where IdPacConsolidado = (#{idPacConsolidado})		
+	</select>	
+	
 
 </mapper>

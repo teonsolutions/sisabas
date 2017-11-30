@@ -2,6 +2,9 @@ package pe.com.sisabas.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
+import pe.com.sisabas.be.Entregable;
 
 public class OrdenDto implements Serializable,Cloneable{
 	private Integer idOrden;
@@ -27,6 +30,10 @@ public class OrdenDto implements Serializable,Cloneable{
 	private Integer estadoOrden;
 	private String moneda;
 	private String codigoCentroCosto;
+	private Integer idPacConsolidado;
+	private Integer idUnidadEjecutora;
+	private List<Entregable> entegables;
+
 
 	public Integer getIdOrden() {
 		return idOrden;
@@ -226,6 +233,33 @@ public class OrdenDto implements Serializable,Cloneable{
 
 	public void setCodigoCentroCosto(String codigoCentroCosto) {
 		this.codigoCentroCosto = codigoCentroCosto;
+	}
+
+	public Integer getIdPacConsolidado() {
+		return idPacConsolidado;
+	}
+
+
+	public void setIdPacConsolidado(Integer idPacConsolidado) {
+		this.idPacConsolidado = idPacConsolidado;
+	}
+
+	public Integer getIdUnidadEjecutora() {
+		return idUnidadEjecutora;
+	}
+
+
+	public void setIdUnidadEjecutora(Integer idUnidadEjecutora) {
+		this.idUnidadEjecutora = idUnidadEjecutora;
+	}
+
+	public List<Entregable> getEntegables() {
+		return entegables;
+	}
+
+
+	public void setEntegables(List<Entregable> entegables) {
+		this.entegables = entegables;
 	}
 	
 	@Override

@@ -400,7 +400,7 @@
 								<p:dataTable id="tblListaCuadrocomparativoVrFinal"
 									value="#{programacion.listaCuadroComparativoVrFinal}" var="var"
 									emptyMessage="No se encontraron registros"
-									widgetVar="tblListaCuadrocomparativoVrFinal" paginator="true"
+									widgetVar="tblListaCuadrocomparativoVrFinal" paginator="false"
 									rows="#{sisabascontrol.registros_mant}"
 									paginatorPosition="bottom"
 									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(programacion.listaCuadroComparativoVrFinal)}"
@@ -451,7 +451,7 @@
 						</p:fieldset>
 					</p:tab>
 					<p:tab title="Orden" disabled="#{programacion.disabledTabOrden}">
-						<p:accordionPanel multiple="true" activeIndex="0,1,2,3">
+						<p:accordionPanel id="accOrden" multiple="true" activeIndex="0,1,2,3">
 							<p:tab title="Orden">
 								<p:dataTable id="tblListaOrden"
 									value="#{programacion.listaOrden}" var="var"
@@ -525,10 +525,17 @@
 									rows="#{sisabascontrol.registros_mant}"
 									paginatorPosition="bottom" selectionMode="single"
 									rowKey="#{var.nroOrden}" styleClass="gandalfTableClass"
-									editable="true" editMode="cell">
+									editable="true">
 
-									<p:ajax event="cellEdit" listener="#{programacion.onCellEdit}"
+									<!-- 
+									<p:ajax event="cellEdit" listener="{programacion.onCellEdit}"
 										update=":form:msgs" />
+ 									-->
+									<p:ajax event="rowEdit" listener="#{programacion.onRowEdit}"
+										update=":form:msgs,form:tabViewPao:accEntregable:tblListaEntregable" />
+									<p:ajax event="rowEditCancel"
+										listener="#{programacion.onRowCancel}" update=":form:msgs" />
+
 									<p:column headerText="Número Orden">
 										<f:facet name="header">
 											<h:outputText value="Número Orden"></h:outputText>
@@ -552,16 +559,21 @@
 										<p:cellEditor>
 											<f:facet name="header">
 												<f:facet name="output">
-													<h:outputText value="#{var.fechaInicioPrestacion}" />
+													<h:outputText value="#{var.fechaInicioPrestacion}">
+														<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+													</h:outputText>													
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:inputText value="#{var.fechaInicioPrestacion}"
-													style="width:96%" label="Year" />
+												<p:calendar
+													value="#{var.fechaInicioPrestacion}"
+													required="false" pattern="dd/MM/yyyy"
+													label="Fecha Consentimiento Buena Pro" navigator="true"
+													locale="es" styleClass="dateTimeField" />
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
-									<p:column headerText="Plazo">
+									<p:column headerText="Plazo (días)">
 										<p:cellEditor>
 											<f:facet name="header">
 												<f:facet name="output">
@@ -584,12 +596,12 @@
 										</h:outputText>
 									</p:column>
 									<p:column headerText="Acciones">
-										<h:outputText value="UGME" />
+										<p:rowEditor editTitle="Editar" />
 									</p:column>
 								</p:dataTable>
 							</p:tab>
 						</p:accordionPanel>
-						<p:accordionPanel multiple="true" activeIndex="0,1,2,3,4">
+						<p:accordionPanel id="accEntregable" multiple="true" activeIndex="0,1,2,3,4">
 							<p:tab title="Control de entregables">
 								<p:dataTable id="tblListaEntregable"
 									value="#{programacion.listaEntregable}" var="var"
@@ -597,12 +609,15 @@
 									widgetVar="tblListaEntregable" paginator="false"
 									rows="#{sisabascontrol.registros_mant}"
 									paginatorPosition="bottom" selectionMode="single"
-									rowKey="#{var.identregable}" styleClass="gandalfTableClass"
-									editable="true" editMode="cell">
-									<p:ajax event="rowEdit" listener="#{programacion.onRowEdit}"
+									rowKey="#{var.nroentregable}" styleClass="gandalfTableClass"
+									editable="true">
+									
+									<!-- 
+									<p:ajax event="rowEdit" listener="{programacion.onRowEdit}"
 										update=":form:growl" />
 									<p:ajax event="rowEditCancel"
-										listener="#{programacion.onRowCancel}" update=":form:growl" />
+										listener="{programacion.onRowCancel}" update=":form:growl" />
+										 -->
 									<!-- 
 									<p:column headerText="proveido">
 										<h:outputText value="UGME" />
@@ -728,7 +743,8 @@
 								<p:dataTable id="tblListaPagosSiaf"
 									value="#{programacion.listaSeguimientoPagosSiaf}" var="var"
 									emptyMessage="No se encontraron registros"
-									widgetVar="tblListaPagosSiaf" paginator="false"
+									widgetVar="tblListaPagosSiaf" paginator="true"
+									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(programacion.listaSeguimientoPagosSiaf)}"
 									rows="#{sisabascontrol.registros_mant}"
 									paginatorPosition="bottom" selectionMode="single"
 									rowKey="#{var.expediente}" styleClass="gandalfTableClass">

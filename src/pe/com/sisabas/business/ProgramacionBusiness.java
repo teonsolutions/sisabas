@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import pe.com.sisabas.be.Cuadrocomparativofuente;
 import pe.com.sisabas.be.Entregable;
+import pe.com.sisabas.be.Orden;
 import pe.com.sisabas.dto.CertificacionItemsDto;
 import pe.com.sisabas.dto.CertificacionRequest;
 import pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto;
@@ -41,6 +42,7 @@ public interface ProgramacionBusiness {
 	public Resultado eliminarCuadroComparativo(TransactionRequest<Cuadrocomparativofuente> request) throws Exception;
 	public List<OrdenDto> getCompraDirectaOrden(PaoRequest request) throws Exception;
 	public List<SeguimientoPagosResponse> getSeguimientoPagosSiaf(PaoRequest request) throws Exception;
-	public List<Entregable> getEntegablesByOrden(@Param("idOrden") java.lang.Integer idOrden) throws Exception;
+	public List<Entregable> getEntegablesByOrden(java.lang.Integer idOrden) throws Exception;
 	public Resultado grabarOrden(TransactionRequest<List<OrdenDto>> request) throws Exception;
+	public List<Orden> getOrdenByPacConsolid(java.lang.Integer idPacConsolidado) throws Exception;
 }

@@ -196,7 +196,7 @@
 		<result column="NumeroDocumento" property="nroDocumento" jdbcType="VARCHAR"/>
 		<result column="MontoNacional" property="monto" jdbcType="DOUBLE"/>
 		<result column="MesProceso" property="mesProceso" jdbcType="VARCHAR"/>
-		<result column="FechaDocumento" property="fechaDocumento" jdbcType="DATE"/>
+		<result column="FechaDocumento" property="fechaDocumento" jdbcType="VARCHAR"/>
 		<result column="Ciclo" property="ciclo" jdbcType="VARCHAR"/>
 		<result column="Fase" property="fase" jdbcType="VARCHAR"/>
 	</resultMap>
