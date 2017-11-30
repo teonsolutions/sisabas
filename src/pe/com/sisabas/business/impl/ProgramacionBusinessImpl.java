@@ -683,11 +683,13 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 		List<OrdenDto> ordenes = request.getEntityTransaction();
 		OrdenDto ordenDto = null;
 		Integer idOrden;
+		Integer idgrupodocumento;
 		for (int i = 0; i < ordenes.size(); i++) {
 			ordenDto = ordenes.get(i);
 			if (ordenDto.getIdOrden() != null){
 				//Update
 				Orden ordenEdit = ordenMapper.selectByPrimaryKeyBasic(ordenDto.getIdOrden());
+				idgrupodocumento = ordenEdit.getIdgrupodocumento();
 				ordenEdit.setFechainicioprestacion(ordenDto.getFechaInicioPrestacion());
 				ordenEdit.setFechafinprestacion(ordenDto.getFechaFinPrestacion());				
 				ordenEdit.setAnio(ordenDto.getAnio());
@@ -708,7 +710,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 				//Insert grupo
 				// Inserta grupo documento
 				Grupodocumento grupodocumento = new Grupodocumento();
-				Integer idgrupodocumento = (int) utilsBusiness.getNextSeq(Sequence.SEQ_GRUPODOCUMENTO).longValue();
+				idgrupodocumento = (int) utilsBusiness.getNextSeq(Sequence.SEQ_GRUPODOCUMENTO).longValue();
 				grupodocumento.setIdgrupodocumento(idgrupodocumento);
 				grupodocumento.setAnio(ordenDto.getAnio());
 				grupodocumento.setCodigocentrocosto(ordenDto.getCodigoCentroCosto());
@@ -761,14 +763,16 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 				if (entregable.getIdentregable() != null){
 					//Update
 					Entregable entregableEdit = entregableMapper.selectByPrimaryKeyBasic(entregable.getIdentregable());
-					
-					//Audit
-					entregableEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
-					entregableEdit.setFechamodificacionauditoria(new Date());
-					entregableMapper.updateByPrimaryKey(entregableEdit);
+					if (entregableEdit != null){
+						//Audit
+						entregableEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
+						entregableEdit.setFechamodificacionauditoria(new Date());
+						entregableMapper.updateByPrimaryKey(entregableEdit);						
+					}
 				}else{
 					//Insert
 					entregable.setIdorden(idOrden);
+					entregable.setIdgrupodocumento(idgrupodocumento);
 					
 					//Audit
 					entregable.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
