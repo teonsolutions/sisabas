@@ -50,7 +50,8 @@
 				<p:focus for="panel" />
 				<p:tabView id="tabViewPao">
 					<p:tab title="Datos generales">
-						<p:accordionPanel multiple="true" activeIndex="0,1,2,3,4">
+						<p:accordionPanel id="accDatosGenerales" multiple="true"
+							activeIndex="0,1,2,3,4">
 							<p:tab title="Identificación">
 								<p:dataTable id="tblListaPedidos"
 									value="#{programacion.currentPao.compraDirecta.pedidos}"
@@ -110,14 +111,32 @@
 								</p:panel>
 							</p:tab>
 							<p:tab title="Control de producto">
+								<p:panel id="pnlBotonesControl"
+									styleClass="gandalfPnlBotonesClass">
+									<div align="right">
+										<p:commandButton value="Agregar"
+											action="#{programacion.irRegistrarControl}"
+											update="hidStatus,:frmControlProductoRegistrar:diControlProductoRegistrar"
+											oncomplete="showDialog('form:tabViewPao:hidStatus','frmControlProductoRegistrar:diControlProductoRegistrar');"
+											icon="ui-icon-document"
+											rendered="#{programacion.renderButton('btnNuevoControl')}" />
+										<h:inputHidden id="hidStatus" value="true" />
+									</div>
+								</p:panel>
+								<p:spacer height="5" />
 								<p:dataTable id="tblListaControl"
 									value="#{programacion.currentPao.listaRequisitosConformidad}"
 									var="var" emptyMessage="No se encontraron registros"
 									widgetVar="tblListaControl" paginator="false"
 									rows="#{sisabascontrol.registros_mant}"
 									paginatorPosition="bottom" selectionMode="single"
-									rowKey="#{var.IdRequisitoConformidad}"
-									styleClass="gandalfTableClass" editable="true" editMode="cell">
+									rowKey="#{var.idrequisitoconformidad}"
+									styleClass="gandalfTableClass" editable="true">
+									<p:ajax event="rowSelect"
+										listener="#{programacion.seleccionItemRequisito}"
+										update=":form:tabViewPao:accDatosGenerales:pnlBotonesControl"
+										immediate="true" />
+
 									<p:column headerText="Tipo de documento">
 										<p:cellEditor>
 											<f:facet name="header">
@@ -126,15 +145,21 @@
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:inputText value="#{var.idcatalogotipodocumento}"
-													style="width:96%" label="Year" maxlength="500" />
+												<p:selectOneMenu value="#{var.idcatalogotipodocumento}"
+													id="ddlTipoDocumento" required="false"
+													label="Tipo de documento" style="width: 95%">
+													<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+													<f:selectItems
+														value="#{programacion.listaGentablaIdcatalogotipodocumento}"
+														var="var" itemLabel="#{var.vchregdescri}"
+														itemValue="#{var.vchregcodigo}" />
+												</p:selectOneMenu>
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
 									<p:column headerText="Acciones">
-										<p:rowEditor></p:rowEditor>
+										<p:rowEditor editTitle="Editar" />
 									</p:column>
-									<p:ajax event="rowEdit"></p:ajax>
 								</p:dataTable>
 							</p:tab>
 							<p:tab title="PAO">
@@ -342,30 +367,30 @@
 					<p:tab title="Estudio del mercado"
 						disabled="#{programacion.disabledTabEstudioMercado}">
 						<p:fieldset>
-							<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
-								<p:commandButton value="Nuevo"
-									action="#{programacion.irRegistrarFuente}"
-									update="hidStatus,:frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar"
-									oncomplete="showDialog('form:tabViewPao:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');"
-									icon="ui-icon-document"
-									rendered="#{programacion.renderButton('btnNuevoEM')}" />
-
-								<p:commandButton value="Editar"
-									action="#{programacion.irEditarFuente}"
-									update="hidStatus,:frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar"
-									oncomplete="showDialog('form:tabViewPao:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');"
-									icon="ui-icon-pencil"
-									disabled="#{!programacion.esSeleccionadoFuente}"
-									rendered="#{programacion.renderButton('btnEditarEM')}" />
-								<p:commandButton value="Eliminar"
-									action="#{programacion.irEliminarFuente}" update="hidStatus"
-									oncomplete="showDialog('form:tabViewPao:hidStatus','form:cdEliminarFuente');"
-									icon="ui-icon-circle-close" title="Eliminar"
-									disabled="#{!programacion.esSeleccionadoFuente}"
-									rendered="#{programacion.renderButton('btnEliminarEM')}" />
-								<h:inputHidden id="hidStatus" value="true" />
-							</p:panel>
-
+							<div align="left">
+								<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+									<p:commandButton value="Nuevo"
+										action="#{programacion.irRegistrarFuente}"
+										update="hidStatus,:frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar"
+										oncomplete="showDialog('form:tabViewPao:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');"
+										icon="ui-icon-document"
+										rendered="#{programacion.renderButton('btnNuevoEM')}" />
+									<p:commandButton value="Editar"
+										action="#{programacion.irEditarFuente}"
+										update="hidStatus,:frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar"
+										oncomplete="showDialog('form:tabViewPao:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');"
+										icon="ui-icon-pencil"
+										disabled="#{!programacion.esSeleccionadoFuente}"
+										rendered="#{programacion.renderButton('btnEditarEM')}" />
+									<p:commandButton value="Eliminar"
+										action="#{programacion.irEliminarFuente}" update="hidStatus"
+										oncomplete="showDialog('form:tabViewPao:hidStatus','form:cdEliminarFuente');"
+										icon="ui-icon-circle-close" title="Eliminar"
+										disabled="#{!programacion.esSeleccionadoFuente}"
+										rendered="#{programacion.renderButton('btnEliminarEM')}" />
+									<h:inputHidden id="hidStatus" value="true" />
+								</p:panel>
+							</div>
 
 							<p:dataTable id="tblListaCuadrocomparativofuente"
 								value="#{programacion.listaCuadrocomparativofuente}" var="var"
@@ -451,7 +476,8 @@
 						</p:fieldset>
 					</p:tab>
 					<p:tab title="Orden" disabled="#{programacion.disabledTabOrden}">
-						<p:accordionPanel id="accOrden" multiple="true" activeIndex="0,1,2,3">
+						<p:accordionPanel id="accOrden" multiple="true"
+							activeIndex="0,1,2,3">
 							<p:tab title="Orden">
 								<p:dataTable id="tblListaOrden"
 									value="#{programacion.listaOrden}" var="var"
@@ -550,7 +576,7 @@
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:inputNumber value="#{var.armadas}" style="width:96%"
+												<p:inputNumber value="#{var.armadas}" style="width:100%"
 													label="Year" maxlength="2" />
 											</f:facet>
 										</p:cellEditor>
@@ -561,15 +587,14 @@
 												<f:facet name="output">
 													<h:outputText value="#{var.fechaInicioPrestacion}">
 														<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
-													</h:outputText>													
+													</h:outputText>
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:calendar
-													value="#{var.fechaInicioPrestacion}"
+												<p:calendar value="#{var.fechaInicioPrestacion}"
 													required="false" pattern="dd/MM/yyyy"
 													label="Fecha Consentimiento Buena Pro" navigator="true"
-													locale="es" styleClass="dateTimeField" />
+													locale="es" styleClass="dateTimeField" style="width:100%" />
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
@@ -581,7 +606,7 @@
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:inputNumber value="#{var.plazo}" style="width:96%"
+												<p:inputNumber value="#{var.plazo}" style="width:100%"
 													label="Year" maxlength="2" />
 											</f:facet>
 										</p:cellEditor>
@@ -601,7 +626,8 @@
 								</p:dataTable>
 							</p:tab>
 						</p:accordionPanel>
-						<p:accordionPanel id="accEntregable" multiple="true" activeIndex="0,1,2,3,4">
+						<p:accordionPanel id="accEntregable" multiple="true"
+							activeIndex="0,1,2,3,4">
 							<p:tab title="Control de entregables">
 								<p:dataTable id="tblListaEntregable"
 									value="#{programacion.listaEntregable}" var="var"
@@ -611,7 +637,7 @@
 									paginatorPosition="bottom" selectionMode="single"
 									rowKey="#{var.nroentregable}" styleClass="gandalfTableClass"
 									editable="true">
-									
+
 									<!-- 
 									<p:ajax event="rowEdit" listener="{programacion.onRowEdit}"
 										update=":form:growl" />
@@ -627,14 +653,15 @@
 										<p:cellEditor>
 											<f:facet name="header">
 												<f:facet name="output">
-													<h:outputText value="#{var.fechapresentacionentregable}" />
+													<h:outputText value="#{var.fechapresentacionentregable}">
+														<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+													</h:outputText>
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:inputNumber value="#{var.fechapresentacionentregable}"
-													style="width:96%" label="Year" maxlength="2">
-													<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
-												</p:inputNumber>
+												<p:calendar value="#{var.fechapresentacionentregable}"
+													required="false" pattern="dd/MM/yyyy" label="Fecha"
+													navigator="true" locale="es" styleClass="dateTimeField" />
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
@@ -653,7 +680,7 @@
 											</f:facet>
 											<f:facet name="input">
 												<p:inputNumber value="#{var.plazoentregable}"
-													style="width:96%" label="Year" maxlength="2" />
+													style="width:100%" label="Year" maxlength="2" />
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
@@ -666,7 +693,7 @@
 											</f:facet>
 											<f:facet name="input">
 												<p:inputNumber value="#{var.montoentregable}"
-													style="width:96%" label="Year" maxlength="2" />
+													style="width:100%" label="Year" maxlength="2" />
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
@@ -679,7 +706,8 @@
 											</f:facet>
 											<f:facet name="input">
 												<p:inputNumber value="#{var.montopenalidadentregable}"
-													style="width:96%" label="Year" maxlength="2" />
+													style="width:100%" label="Year" maxlength="20"
+													decimalPlaces="2" />
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
@@ -692,7 +720,7 @@
 											</f:facet>
 											<f:facet name="input">
 												<p:inputText value="#{var.observacionesentregable}"
-													style="width:96%" label="Year" maxlength="500" />
+													style="width:100%" label="Year" maxlength="500" />
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
@@ -704,8 +732,15 @@
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:inputText value="#{var.idcatalogoestadoentregable}"
-													style="width:96%" label="Year" maxlength="500" />
+												<p:selectOneMenu value="#{var.idcatalogoestadoentregable}"
+													id="dllIdcatalogoestadoentregable" required="false"
+													label="Estado">
+													<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+													<f:selectItems
+														value="#{programacion.listaGentablaIdcatalogoestadoentregable}"
+														var="var" itemLabel="#{var.vchregdescri}"
+														itemValue="#{var.vchregcodigo}" />
+												</p:selectOneMenu>
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
@@ -833,6 +868,35 @@
 								<p:commandButton value="Salir"
 									icon="ui-icon-arrowreturnthick-1-w" title="Salir"
 									onclick="hideDialogPF('frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');return false;" />
+							</div>
+						</td>
+					</tr>
+				</table>
+			</p:dialog>
+		</h:form>
+
+		<h:form id="frmControlProductoRegistrar">
+			<p:dialog id="diControlProductoRegistrar"
+				header="Control de producto" widgetVar="diControlProductoRegistrar"
+				resizable="false" modal="true" dynamic="true">
+				<p:scrollPanel mode="native" style="width:100%;height:100%;">
+					<p:messages for="msgsControlProducto" autoUpdate="true"
+						closable="true" />
+					<ui:include
+						src="/pages/pao/component/c_requisitosconformidadRegistrar.xhtml" />
+				</p:scrollPanel>
+				<table style="width: 100%;">
+					<tr>
+						<td><h:inputHidden id="hidStatus" value="true" /> <p:commandButton
+								value="Aceptar" action="#{programacion.aceptarControl}"
+								update="hidStatus,:form:tabViewPao:accDatosGenerales:tblListaControl,:form:growl,:form:tabViewPao:accDatosGenerales:pnlBotonesControl,panelC"
+								oncomplete="hideDialog('frmControlProductoRegistrar:hidStatus','frmControlProductoRegistrar:tabViewPao:diControlProductoRegistrar')"
+								icon="ui-icon-circle-check" title="Aceptar" /></td>
+						<td>
+							<div align="right">
+								<p:commandButton value="Salir"
+									icon="ui-icon-arrowreturnthick-1-w" title="Salir"
+									onclick="hideDialogPF('frmControlProductoRegistrar:diControlProductoRegistrar');return false;" />
 							</div>
 						</td>
 					</tr>

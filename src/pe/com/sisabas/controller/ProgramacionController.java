@@ -68,6 +68,7 @@ import pe.com.sisabas.dto.TransactionRequest;
 import pe.com.sisabas.be.Gentabla;
 import pe.com.sisabas.be.Orden;
 import pe.com.sisabas.be.Pacconsolidado;
+import pe.com.sisabas.be.Requisitosconformidad;
 import pe.com.sisabas.business.GentablaBusiness;
 import pe.com.sisabas.be.Gentabla;
 
@@ -98,6 +99,8 @@ public class ProgramacionController extends BaseController {
 	private Cuadrocomparativofuente selectedCuadrocomparativofuente;
 	public List<Gentabla> listaGentablaIdcatalogotipofuente;
 	public List<Gentabla> listaGentablaIdcatalogomonedafuente;
+	public List<Gentabla> listaGentablaIdcatalogoestadoentregable;
+	public List<Gentabla> listaGentablaIdcatalogotipodocumento;
 
 	// Direct
 	public static String SUCCESS_ORDEN = "/pages/pao/ordenRegistrar.xhtml?faces-redirect=true;";
@@ -109,10 +112,13 @@ public class ProgramacionController extends BaseController {
 	private List<CuadroComparativoVrDto> listaCuadroComparativoVrFinal;
 	private List<OrdenDto> listaOrden;
 	private List<SeguimientoPagosResponse> listaSeguimientoPagosSiaf;
-	private List<Entregable> listaEntregable;
+	private List<Entregable> listaEntregable;	
+	private Requisitosconformidad requisitosconformidad;
 
 	private boolean esSeleccionadoFuente;
 	private String tituloFuente;
+	private String tituloControlProducto;
+	private boolean esSeleccionadoRequisito;
 
 	// BUSINESS SECTION
 	@Autowired
@@ -134,6 +140,10 @@ public class ProgramacionController extends BaseController {
 	/* seleccionado */
 	public void seleccionItemFuente(SelectEvent e) {
 		esSeleccionadoFuente = true;
+	}
+	
+	public void seleccionItemRequisito(SelectEvent e){
+		esSeleccionadoRequisito = true;
 	}
 
 	@PostConstruct
@@ -167,12 +177,18 @@ public class ProgramacionController extends BaseController {
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TINE));
 			listaGentablaIdcatalogotipocontratacion = gentablaBusiness
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TCON));
+			listaGentablaIdcatalogotipodocumento = gentablaBusiness
+					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.DPRO));			
 
 			// Estudio del mercado
 			listaGentablaIdcatalogotipofuente = gentablaBusiness
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TIFU));
 			listaGentablaIdcatalogomonedafuente = gentablaBusiness
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.MOFU));
+
+			// Orden
+			listaGentablaIdcatalogoestadoentregable = gentablaBusiness
+					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EENT));			
 
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
@@ -261,15 +277,17 @@ public class ProgramacionController extends BaseController {
 				int nroExpediente = listaOrden.get(0).getNroExpedienteSiaf();
 				request.setNroExpedienteSiaf(nroExpediente);
 				listaSeguimientoPagosSiaf = programacionBusiness.getSeguimientoPagosSiaf(request);
-
-				// Obtiene ordenes
-				if (listaOrden.get(0).getIdOrden() != null) {
-					listaEntregable = programacionBusiness.getEntegablesByOrden(listaOrden.get(0).getIdOrden());
-				}
 			}
 
 			// get orden registered in abas
 			List<Orden> ordenDetail = programacionBusiness.getOrdenByPacConsolid(currentPao.getIdPacConsolid());
+			// Obtiene entregables, hay un solo orden por Pac consolidado
+			Integer armadas = null;
+			if (ordenDetail.get(0).getIdorden() != null) {
+				listaEntregable = programacionBusiness.getEntegablesByOrden(ordenDetail.get(0).getIdorden());
+				armadas = listaEntregable.size() > 0 ? listaEntregable.size() : null;
+			}
+
 			for (int i = 0; i < listaOrden.size(); i++) {
 				for (int j = 0; j < ordenDetail.size(); j++) {
 					if (listaOrden.get(i).getNroOrden().toString().trim()
@@ -279,13 +297,15 @@ public class ProgramacionController extends BaseController {
 						listaOrden.get(i).setFechaInicioPrestacion(ordenDetail.get(j).getFechainicioprestacion());
 						listaOrden.get(i).setFechaFinPrestacion(ordenDetail.get(j).getFechafinprestacion());
 						listaOrden.get(i).setPlazo(ordenDetail.get(j).getPlazoejecucion());
-						listaOrden.get(i).setArmadas(1); // DEBE SER ENTREGABLES
-															// .LENGHT
+						listaOrden.get(i).setArmadas(armadas); // DEBE SER
+																// ENTREGABLES
+																// // .LENGHT
 					}
 				}
 			}
-			//Genera entregables
-			//generateEntregable(2);
+
+			// Genera entregables
+			// generateEntregable(2);
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
 		} catch (SecurityRestrictedControlException e) {
@@ -304,6 +324,10 @@ public class ProgramacionController extends BaseController {
 		reset("frmCuadrocomparativofuenteRegistrar:panelC");
 	}
 
+	public void resetRegisterFormRequisito() {
+		reset("resetRegisterFormRequisito:panelC");
+	}
+	
 	public void validateSelectedRow() throws UnselectedRowException, CloneNotSupportedException {
 		if (this.selectedPao == null)
 			throw new UnselectedRowException(Messages.getString("no.record.selected"));
@@ -433,8 +457,11 @@ public class ProgramacionController extends BaseController {
 				listaOrden.get(i).setIdPacConsolidado(currentPao.getIdPacConsolid());
 				listaOrden.get(i).setMoneda(Constantes.moneda.SOLES);
 				listaOrden.get(i).setIdUnidadEjecutora(Constantes.unidadEjecutora.ID_UNIDAD_EJECUTORA_ABAS);
-				listaOrden.get(i).setEntegables(listaEntregable);
 			}
+			listaOrden.get(0).setEntegables(listaEntregable); // se asume hay un
+																// sólo orden
+																// por pac
+																// consolidado
 
 			TransactionRequest<List<OrdenDto>> request = new TransactionRequest<List<OrdenDto>>();
 			request.setUsuarioAuditoria("PRUEBA");
@@ -500,6 +527,34 @@ public class ProgramacionController extends BaseController {
 			addErrorMessageKey("msgsForm", e);
 		}
 	}
+	
+	public void irRegistrarControl() {
+		STATUS_INIT();
+		try {
+			securityControlValidate("btnNuevoControl");
+			resetRegisterFormRequisito();
+			this.tituloControlProducto = "Control de producto » " + REGISTRAR;
+			requisitosconformidad = new Requisitosconformidad();
+			requisitosconformidad.setIdrequisitoconformidad(0);
+			STATUS_SUCCESS();
+			REGISTER_INIT();
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			STATUS_ERROR();
+			addErrorMessageKey("msgsForm", e);
+		}
+	}	
 
 	public void irEditarFuente() {
 		STATUS_INIT();
@@ -687,6 +742,35 @@ public class ProgramacionController extends BaseController {
 		}
 	}
 
+	public void aceptarControl() {
+		REGISTER_INIT();
+		try {
+			if (this.requisitosconformidad.getIdrequisitoconformidad() == null
+					|| this.requisitosconformidad.getIdrequisitoconformidad() == 0) {
+				if (this.currentPao.getListaRequisitosConformidad() == null)
+					this.currentPao.setListaRequisitosConformidad(new ArrayList<Requisitosconformidad>());
+				this.currentPao.getListaRequisitosConformidad().add(this.requisitosconformidad);				
+			}
+
+			REGISTER_SUCCESS();
+			showGrowlMessageSuccessfullyCompletedAction();
+/*
+		} catch (ValidateException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsCuadrocomparativofuenteR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (BusinessException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsCuadrocomparativofuenteR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+			*/
+		} catch (DataIntegrityViolationException e) {
+			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),
+					Messages.getString("exception.dataintegrity.message.detail"), FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			REGISTER_ERROR();
+			addErrorMessageKey("msgsCuadrocomparativofuenteR", e);
+		}
+	}
+	
 	public void buscarValorReferencialFinal() {
 		try {
 
@@ -709,48 +793,48 @@ public class ProgramacionController extends BaseController {
 		}
 	}
 
-	private void generateEntregable(int armadas){		
+	private void generateEntregable(int armadas) {
 		int pago = 1;
-		if (listaEntregable == null) 
-			listaEntregable = new ArrayList<Entregable>();		
+		if (listaEntregable == null)
+			listaEntregable = new ArrayList<Entregable>();
 		int nroEntregables = this.listaEntregable.size();
-		
-		if (armadas > nroEntregables){
+
+		if (armadas > nroEntregables) {
 			for (int i = 1; i <= armadas - nroEntregables; i++) {
-				Entregable item = new Entregable();		
+				Entregable item = new Entregable();
 				item.setNroentregable("Pago " + (i + nroEntregables));
 				this.listaEntregable.add(item);
 				pago++;
-			}			
-		}else if(armadas < nroEntregables){
+			}
+		} else if (armadas < nroEntregables) {
 			this.listaEntregable.clear();
-			for (int i = 1; i <= nroEntregables - armadas; i++) {
-				Entregable item = new Entregable();			
+			// nroEntregables - armadas
+			for (int i = 1; i <= armadas; i++) {
+				Entregable item = new Entregable();
 				item.setNroentregable("Pago " + (i));
 				this.listaEntregable.add(item);
 				pago++;
-			}				
+			}
 		}
 	}
-	
+
 	// DATATABLE EDITABLE
 	public void onRowEdit(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Se editó correctamente",
 				"Orden: " + ((OrdenDto) event.getObject()).getNroOrden());
-		
-		//Cal final date
+
+		// Cal final date
 		Integer plazo = ((OrdenDto) event.getObject()).getPlazo();
 		Integer armadas = ((OrdenDto) event.getObject()).getArmadas();
-		if (plazo != null)
-		{
+		if (plazo != null) {
 			Date inicio = ((OrdenDto) event.getObject()).getFechaInicioPrestacion();
 			Calendar c = Calendar.getInstance();
 			c.setTime(inicio);
-			c.add(c.DATE,  plazo);			
+			c.add(c.DATE, plazo);
 			Date fin = c.getTime();
 			((OrdenDto) event.getObject()).setFechaFinPrestacion(fin);
 		}
-		
+
 		generateEntregable(armadas);
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
@@ -963,5 +1047,45 @@ public class ProgramacionController extends BaseController {
 
 	public void setListaEntregable(List<Entregable> listaEntregable) {
 		this.listaEntregable = listaEntregable;
+	}
+
+	public List<Gentabla> getListaGentablaIdcatalogoestadoentregable() {
+		return listaGentablaIdcatalogoestadoentregable;
+	}
+
+	public void setListaGentablaIdcatalogoestadoentregable(List<Gentabla> listaGentablaIdcatalogoestadoentregable) {
+		this.listaGentablaIdcatalogoestadoentregable = listaGentablaIdcatalogoestadoentregable;
+	}
+	
+	public List<Gentabla> getListaGentablaIdcatalogotipodocumento() {
+		return listaGentablaIdcatalogotipodocumento;
+	}
+
+	public void setListaGentablaIdcatalogotipodocumento(List<Gentabla> listaGentablaIdcatalogotipodocumento) {
+		this.listaGentablaIdcatalogotipodocumento = listaGentablaIdcatalogotipodocumento;
+	}	
+
+	public Requisitosconformidad getRequisitosconformidad() {
+		return requisitosconformidad;
+	}
+
+	public void setRequisitosconformidad(Requisitosconformidad requisitosconformidad) {
+		this.requisitosconformidad = requisitosconformidad;
+	}
+	
+	public String getTituloControlProducto() {
+		return tituloControlProducto;
+	}
+
+	public void setTituloControlProducto(String tituloControlProducto) {
+		this.tituloControlProducto = tituloControlProducto;
+	}
+	
+	public boolean isEsSeleccionadoRequisito() {
+		return esSeleccionadoRequisito;
+	}
+
+	public void setEsSeleccionadoRequisito(boolean esSeleccionadoRequisito) {
+		this.esSeleccionadoRequisito = esSeleccionadoRequisito;
 	}
 }

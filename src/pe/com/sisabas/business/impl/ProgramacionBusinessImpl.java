@@ -757,6 +757,23 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 				ordenMapper.insert(ordenNew);
 			}
 			
+			
+			//delete details
+			List<Entregable> entregablesDelete = entregableMapper.getEntegablesByOrden(ordenDto.getIdOrden());
+			for (Entregable item : ordenDto.getEntegables()) {
+				for (Entregable delete : entregablesDelete) {
+					if (item.getIdentregable() == delete.getIdentregable()){
+						delete.setEstadoauditoria("Keep");
+					}
+				}
+			}			
+			//Elimino aquelos no estas
+			for (Entregable entregable : entregablesDelete) {
+				if (!entregable.getEstadoauditoria().equals("Keep")){
+					entregableMapper.deleteByPrimaryKey(entregable.getIdentregable());
+				}
+			}
+			
 			//save details			
 			for (int j = 0; j < ordenDto.getEntegables().size(); j++) {
 				Entregable entregable = ordenDto.getEntegables().get(j);
@@ -764,6 +781,14 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 					//Update
 					Entregable entregableEdit = entregableMapper.selectByPrimaryKeyBasic(entregable.getIdentregable());
 					if (entregableEdit != null){
+						entregableEdit.setNroentregable(entregable.getNroentregable());
+						entregableEdit.setPlazoentregable(entregable.getPlazoentregable());
+						entregableEdit.setMontoentregable(entregable.getMontoentregable());
+						entregableEdit.setMontopenalidadentregable(entregable.getMontopenalidadentregable());
+						entregableEdit.setFechapresentacionentregable(entregable.getFechapresentacionentregable());
+						entregableEdit.setObservacionesentregable(entregable.getObservacionesentregable());
+						entregableEdit.setIdcatalogoestadoentregable(entregable.getIdcatalogoestadoentregable());
+												
 						//Audit
 						entregableEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
 						entregableEdit.setFechamodificacionauditoria(new Date());
@@ -773,13 +798,14 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 					//Insert					
 					entregable.setIdorden(idOrden);
 					entregable.setIdgrupodocumento(idgrupodocumento);
+					entregable.setAnio(ordenDto.getAnio());
 					
 					//Audit
 					entregable.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
 					entregable.setFechacreacionauditoria(new Date());
 					entregable.setEquipoauditoria(request.getEquipoAuditoria());
 					entregable.setProgramaauditoria(request.getProgramaAuditoria());
-					entregable.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+					entregable.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);					
 					entregable.setIdentregable((int) utilsBusiness
 						.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_ENTREGABLE).longValue());
 					entregableMapper.insert(entregable);
