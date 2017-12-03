@@ -39,6 +39,8 @@ public class CompraDirectaDatosGeneralesDto implements  Serializable,Cloneable {
 	private String idTipoNecesidad;
 	private int idUnidadEjecutora; 
 	private String tipoProceso;
+	private List<RequisitoConformidadDto> listaRequisitosConformidad;
+	
 
 	public Integer getIdPacConsolid() {
 		return idPacConsolid;
@@ -294,6 +296,14 @@ public class CompraDirectaDatosGeneralesDto implements  Serializable,Cloneable {
 
 	public void setTipoProceso(String tipoProceso) {
 		this.tipoProceso = tipoProceso;
+	}
+	
+	public List<RequisitoConformidadDto> getListaRequisitosConformidad() {
+		return listaRequisitosConformidad;
+	}
+
+	public void setListaRequisitosConformidad(List<RequisitoConformidadDto> listaRequisitosConformidad) {
+		this.listaRequisitosConformidad = listaRequisitosConformidad;
 	}
 	
 	@Override

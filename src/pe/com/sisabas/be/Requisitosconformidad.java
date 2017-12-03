@@ -23,7 +23,7 @@ public class Requisitosconformidad extends SysTabla implements  Serializable,Clo
 	private java.lang.Integer idpacconsolidado;
 	private Pacconsolidado pacconsolidadoIdpacconsolidado;
 	/**[IdCatalogoTipoDocumento]*/
-	private java.lang.Integer idcatalogotipodocumento;
+	private java.lang.String idcatalogotipodocumento;
 	/**[FechaDocumento]*/
 	private java.util.Date fechadocumento;
 	private java.util.Date fechadocumentoini;
@@ -152,11 +152,11 @@ public class Requisitosconformidad extends SysTabla implements  Serializable,Clo
 		this.pacconsolidadoIdpacconsolidado = pacconsolidadoIdpacconsolidado;
 	}
 
-	 public java.lang.Integer getIdcatalogotipodocumento() {
+	 public java.lang.String getIdcatalogotipodocumento() {
 		return idcatalogotipodocumento;
 	}
 
-	public void setIdcatalogotipodocumento(java.lang.Integer idcatalogotipodocumento) {
+	public void setIdcatalogotipodocumento(java.lang.String idcatalogotipodocumento) {
 		this.idcatalogotipodocumento = idcatalogotipodocumento;
 	}
 

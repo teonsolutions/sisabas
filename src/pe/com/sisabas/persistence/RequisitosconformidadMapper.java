@@ -3,6 +3,7 @@ package pe.com.sisabas.persistence;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import pe.com.sisabas.be.Requisitosconformidad;
+import pe.com.sisabas.dto.RequisitoConformidadDto;
 
 public interface RequisitosconformidadMapper{
 
@@ -30,5 +31,7 @@ public interface RequisitosconformidadMapper{
 
 	List<Requisitosconformidad> selectDynamicExtended(Requisitosconformidad record) throws Exception;
 
-
+	//CUSTOM
+	List<RequisitoConformidadDto> getGetRequisitosByConsolidado(@Param("idPacConsolidado") java.lang.Integer idPacConsolidado) throws Exception;
+	
 }

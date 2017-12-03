@@ -31,7 +31,7 @@ public class PaoResponse implements  Serializable,Cloneable {
 	private String idDocumentos;
 	private int rowTotal;
 	private CompraDirectaDatosGeneralesDto compraDirecta;
-	private List<Requisitosconformidad> listaRequisitosConformidad;
+	private List<RequisitoConformidadDto> listaRequisitosConformidad;
 
 	public CompraDirectaDatosGeneralesDto getCompraDirecta() {
 		return compraDirecta;
@@ -153,10 +153,10 @@ public class PaoResponse implements  Serializable,Cloneable {
 	public void setRowTotal(int rowTotal) {
 		this.rowTotal = rowTotal;
 	}
-	public List<Requisitosconformidad> getListaRequisitosConformidad() {
+	public List<RequisitoConformidadDto> getListaRequisitosConformidad() {
 		return listaRequisitosConformidad;
 	}
-	public void setListaRequisitosConformidad(List<Requisitosconformidad> listaRequisitosConformidad) {
+	public void setListaRequisitosConformidad(List<RequisitoConformidadDto> listaRequisitosConformidad) {
 		this.listaRequisitosConformidad = listaRequisitosConformidad;
 	}
 	

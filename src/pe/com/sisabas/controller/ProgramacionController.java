@@ -50,6 +50,7 @@ import pe.com.sisabas.business.CuadrocomparativofuenteBusiness;
 import pe.com.sisabas.business.DocumentotecnicoBusiness;
 import pe.com.sisabas.business.GentablaBusiness;
 import pe.com.sisabas.business.ProgramacionBusiness;
+import pe.com.sisabas.business.RequisitosconformidadBusiness;
 import pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto;
 import pe.com.sisabas.dto.CuadroComparativoItemsDto;
 import pe.com.sisabas.dto.CuadroComparativoRequest;
@@ -60,6 +61,7 @@ import pe.com.sisabas.dto.Lugar;
 import pe.com.sisabas.dto.OrdenDto;
 import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
+import pe.com.sisabas.dto.RequisitoConformidadDto;
 import pe.com.sisabas.dto.Resultado;
 import pe.com.sisabas.dto.SeguimientoPagosResponse;
 import pe.com.sisabas.dto.PaoRequest;
@@ -113,7 +115,7 @@ public class ProgramacionController extends BaseController {
 	private List<OrdenDto> listaOrden;
 	private List<SeguimientoPagosResponse> listaSeguimientoPagosSiaf;
 	private List<Entregable> listaEntregable;	
-	private Requisitosconformidad requisitosconformidad;
+	private RequisitoConformidadDto requisitosconformidad;
 
 	private boolean esSeleccionadoFuente;
 	private String tituloFuente;
@@ -132,7 +134,7 @@ public class ProgramacionController extends BaseController {
 
 	@Autowired
 	public CuadrocomparativofuenteBusiness cuadroComparativoFuenteBusiness;
-
+	
 	public ProgramacionController() {
 
 	}
@@ -325,7 +327,7 @@ public class ProgramacionController extends BaseController {
 	}
 
 	public void resetRegisterFormRequisito() {
-		reset("resetRegisterFormRequisito:panelC");
+		reset("frmControlProductoRegistrar:panelC");
 	}
 	
 	public void validateSelectedRow() throws UnselectedRowException, CloneNotSupportedException {
@@ -345,7 +347,9 @@ public class ProgramacionController extends BaseController {
 	public String ordenRegistrar() {
 		logger.debug("paoRegistrar....");
 		try {
-
+			
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
+				
 			validateSelectedRow();
 			if (this.esSeleccionado) {
 
@@ -361,11 +365,13 @@ public class ProgramacionController extends BaseController {
 
 			PaoRequest record = new PaoRequest();
 			record.setIdUnidadEjecutora(1);
-			record.setAnio(2017);
+			record.setAnio(usuario != null? usuario.getPeriodo().getAnio(): 0);
 			record.setNroConsolid(this.currentPao.getNroConsolid());
 			record.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.PRONIED_SIAF);
+			record.setIdPacConsolidado(currentPao.getIdPacConsolid());
 			CompraDirectaDatosGeneralesDto cd = programacionBusiness.getCompraDirectaDatosGenerales(record);
 			this.currentPao.setCompraDirecta(cd);
+			this.currentPao.setListaRequisitosConformidad(cd.getListaRequisitosConformidad());
 
 			/*
 			 * } catch (RemoteException e) { STATUS_ERROR();
@@ -411,10 +417,10 @@ public class ProgramacionController extends BaseController {
 				cDirecta.setCodigoCentroCosto(usuario.getPeriodo().getCodigoCentroCosto());
 				cDirecta.setIdTipoContratacion(Constantes.tipoContratacion.NO_PAC);
 				cDirecta.setTipoProceso(Constantes.maestroProcesoSiga.ADJUDIACION_SIN_PROCESO);
-
+				
 				// VALIDAR SI ESTÁ EN GIRO DE ORDEN O ESTUDIO DEL MERCADO
 				cDirecta.setEstadoRequerimiento(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN);
-
+				cDirecta.setListaRequisitosConformidad(currentPao.getListaRequisitosConformidad());
 				TransactionRequest<CompraDirectaDatosGeneralesDto> transactionRequest = new TransactionRequest<CompraDirectaDatosGeneralesDto>();
 				transactionRequest.setUsuarioAuditoria("PRUEBA");
 				transactionRequest.setEquipoAuditoria("MI PC");
@@ -534,7 +540,7 @@ public class ProgramacionController extends BaseController {
 			securityControlValidate("btnNuevoControl");
 			resetRegisterFormRequisito();
 			this.tituloControlProducto = "Control de producto » " + REGISTRAR;
-			requisitosconformidad = new Requisitosconformidad();
+			requisitosconformidad = new RequisitoConformidadDto();
 			requisitosconformidad.setIdrequisitoconformidad(0);
 			STATUS_SUCCESS();
 			REGISTER_INIT();
@@ -748,8 +754,11 @@ public class ProgramacionController extends BaseController {
 			if (this.requisitosconformidad.getIdrequisitoconformidad() == null
 					|| this.requisitosconformidad.getIdrequisitoconformidad() == 0) {
 				if (this.currentPao.getListaRequisitosConformidad() == null)
-					this.currentPao.setListaRequisitosConformidad(new ArrayList<Requisitosconformidad>());
-				this.currentPao.getListaRequisitosConformidad().add(this.requisitosconformidad);				
+					this.currentPao.setListaRequisitosConformidad(new ArrayList<RequisitoConformidadDto>());
+				Gentabla conformidad = gentablaBusiness.selectByPrimaryKeyBasic(requisitosconformidad.getIdcatalogotipodocumento());
+				if (conformidad != null)
+					requisitosconformidad.setTipodocumentodesc(conformidad.getVchregdescri());
+				this.currentPao.getListaRequisitosConformidad().add(requisitosconformidad);				
 			}
 
 			REGISTER_SUCCESS();
@@ -845,6 +854,24 @@ public class ProgramacionController extends BaseController {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
+	public void onRowEdit2(RowEditEvent event) throws Exception {
+		FacesMessage msg = new FacesMessage("Se editó correctamente",
+				"Requisito: " + ((RequisitoConformidadDto) event.getObject()).getIdrequisitoconformidad());
+		
+		String codigo = ((RequisitoConformidadDto) event.getObject()).getIdcatalogotipodocumento();
+		Gentabla requisito = gentablaBusiness.selectByPrimaryKeyBasic(codigo);
+		if (requisito != null)
+			((RequisitoConformidadDto) event.getObject()).setTipodocumentodesc(requisito.getVchregdescri());
+
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void onRowCancel2(RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("Se canceló la edición",
+				"Requisito: " + ((RequisitoConformidadDto) event.getObject()).getIdrequisitoconformidad());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+	
 	public void onCellEdit(CellEditEvent event) {
 		Object oldValue = event.getOldValue();
 		Object newValue = event.getNewValue();
@@ -1065,11 +1092,11 @@ public class ProgramacionController extends BaseController {
 		this.listaGentablaIdcatalogotipodocumento = listaGentablaIdcatalogotipodocumento;
 	}	
 
-	public Requisitosconformidad getRequisitosconformidad() {
+	public RequisitoConformidadDto getRequisitosconformidad() {
 		return requisitosconformidad;
 	}
 
-	public void setRequisitosconformidad(Requisitosconformidad requisitosconformidad) {
+	public void setRequisitosconformidad(RequisitoConformidadDto requisitosconformidad) {
 		this.requisitosconformidad = requisitosconformidad;
 	}
 	

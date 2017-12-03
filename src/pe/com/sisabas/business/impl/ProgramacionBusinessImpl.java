@@ -22,7 +22,9 @@ import pe.com.sisabas.be.Pacconsolidado;
 import pe.com.sisabas.be.Pacprogramado;
 import pe.com.sisabas.be.Pedido;
 import pe.com.sisabas.be.Pedidosporpacconsolidado;
+import pe.com.sisabas.be.Requisitosconformidad;
 import pe.com.sisabas.business.ProgramacionBusiness;
+import pe.com.sisabas.business.RequisitosconformidadBusiness;
 import pe.com.sisabas.controller.PedidoController;
 import pe.com.sisabas.dto.CertificacionItemsDto;
 import pe.com.sisabas.dto.CertificacionRequest;
@@ -35,6 +37,7 @@ import pe.com.sisabas.dto.OrdenDto;
 import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
 import pe.com.sisabas.dto.RecepcionDTResponse;
+import pe.com.sisabas.dto.RequisitoConformidadDto;
 import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
 import pe.com.sisabas.dto.Resultado;
@@ -54,6 +57,7 @@ import pe.com.sisabas.persistence.PacconsolidadoMapper;
 import pe.com.sisabas.persistence.PacprogramadoMapper;
 import pe.com.sisabas.persistence.PedidoMapper;
 import pe.com.sisabas.persistence.PedidosporpacconsolidadoMapper;
+import pe.com.sisabas.persistence.RequisitosconformidadMapper;
 import pe.com.sisabas.resources.Constantes;
 import pe.com.sisabas.resources.Sequence;
 import pe.com.sisabas.resources.business.UtilsBusiness;
@@ -99,6 +103,9 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 	
 	@Autowired
 	public EntregableMapper entregableMapper;
+	
+	@Autowired
+	public RequisitosconformidadMapper requisitosconformidadMapper;
 	
 	@Autowired
 	public UtilsBusiness utilsBusiness;
@@ -317,6 +324,10 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 				// MONTO TOTAL DE CERTIFICACION PRESUPUESTAL
 				cd.setMontoCP(montoCP);
 			}
+			
+			//REQUISITOS
+			List<RequisitoConformidadDto> requisitos = requisitosconformidadMapper.getGetRequisitosByConsolidado(record.getIdPacConsolidado());
+			cd.setListaRequisitosConformidad(requisitos);
 		}
 		return cd;
 	}
@@ -450,7 +461,37 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 		}
 
 		// REQUISITOS CONFORMIDAD
-
+		List<RequisitoConformidadDto> listaRequisitos = compraDirecta.getListaRequisitosConformidad();
+		for (RequisitoConformidadDto requisitoConformidadDto : listaRequisitos) {
+			if (requisitoConformidadDto.getIdrequisitoconformidad() != null && requisitoConformidadDto.getIdrequisitoconformidad() != 0){
+				Requisitosconformidad requisitoEdit = requisitosconformidadMapper.selectByPrimaryKeyBasic(requisitoConformidadDto.getIdrequisitoconformidad());
+				if (requisitoEdit != null){
+					requisitoEdit.setIdcatalogotipodocumento(requisitoConformidadDto.getIdcatalogotipodocumento());
+					
+					//AUDIT
+					requisitoEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
+					requisitoEdit.setFechamodificacionauditoria(new Date());
+					requisitoEdit.setEquipoauditoria(request.getEquipoAuditoria());
+					requisitoEdit.setProgramaauditoria(request.getProgramaAuditoria());		
+					requisitosconformidadMapper.updateByPrimaryKey(requisitoEdit);
+				}				
+			}else{
+				Requisitosconformidad requisitoNew = new Requisitosconformidad();
+				requisitoNew.setIdcatalogotipodocumento(requisitoConformidadDto.getIdcatalogotipodocumento());
+				requisitoNew.setIdpacconsolidado(compraDirecta.getIdPacConsolid());
+				
+				//AUDIT
+				requisitoNew.setFechacreacionauditoria(new Date());
+				requisitoNew.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+				requisitoNew.setProgramaauditoria(request.getProgramaAuditoria());
+				requisitoNew.setEquipoauditoria(request.getEquipoAuditoria());
+				requisitoNew.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+				requisitoNew.setIdrequisitoconformidad(
+						(int) utilsBusiness.getNextSeq(Sequence.SEQ_REQUISITOSCONFORMIDAD).longValue());
+				requisitosconformidadMapper.insert(requisitoNew);
+			}
+		}
+		
 		// ESTADOS
 		int idTipoDocumento = Constantes.tipoDocumento.PAO;
 		if (pc.getEstadorequerimiento().equals(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN)) {

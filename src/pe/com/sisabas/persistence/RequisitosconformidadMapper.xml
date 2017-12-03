@@ -5,7 +5,7 @@
 	<resultMap id="BasicResultMap" type="pe.com.sisabas.be.Requisitosconformidad">
 	<result column="A1_IDREQUISITOCONFORMIDAD" property="idrequisitoconformidad" jdbcType="INTEGER" />
 	<result column="A1_IDPACCONSOLIDADO" property="idpacconsolidado" jdbcType="INTEGER" />
-	<result column="A1_IDCATALOGOTIPODOCUMENTO" property="idcatalogotipodocumento" jdbcType="INTEGER" />
+	<result column="A1_IDCATALOGOTIPODOCUMENTO" property="idcatalogotipodocumento" jdbcType="VARCHAR" />
 	<result column="A1_FECHADOCUMENTO" property="fechadocumento" jdbcType="TIMESTAMP" />
 	<result column="A1_RUTAARCHIVO" property="rutaarchivo" jdbcType="VARCHAR" />
 	<result column="A1_FECHACREACIONAUDITORIA" property="fechacreacionauditoria" jdbcType="TIMESTAMP" />
@@ -22,7 +22,7 @@
 	<resultMap id="FullResultMap" type="pe.com.sisabas.be.Requisitosconformidad">
 	<result column="A1_IDREQUISITOCONFORMIDAD" property="idrequisitoconformidad" jdbcType="INTEGER" />
 	<result column="A1_IDPACCONSOLIDADO" property="idpacconsolidado" jdbcType="INTEGER" />
-	<result column="A1_IDCATALOGOTIPODOCUMENTO" property="idcatalogotipodocumento" jdbcType="INTEGER" />
+	<result column="A1_IDCATALOGOTIPODOCUMENTO" property="idcatalogotipodocumento" jdbcType="VARCHAR" />
 	<result column="A1_FECHADOCUMENTO" property="fechadocumento" jdbcType="TIMESTAMP" />
 	<result column="A1_RUTAARCHIVO" property="rutaarchivo" jdbcType="VARCHAR" />
 	<result column="A1_FECHACREACIONAUDITORIA" property="fechacreacionauditoria" jdbcType="TIMESTAMP" />
@@ -109,7 +109,12 @@
 
 	</resultMap>
 
-
+	<resultMap type="pe.com.sisabas.dto.RequisitoConformidadDto" id="requisitoConformidadItems">
+		<result column="IdRequisitoConformidad" property="idrequisitoconformidad" jdbcType="INTEGER"/>
+		<result column="IdCatalogoTipoDocumento" property="idcatalogotipodocumento" jdbcType="VARCHAR"/>
+		<result column="vchregdescri" property="tipodocumentodesc" jdbcType="VARCHAR"/>
+	</resultMap>
+	
 	<sql id="Basic_Column_List">
 	A1.IDREQUISITOCONFORMIDAD as A1_IDREQUISITOCONFORMIDAD, A1.IDPACCONSOLIDADO as A1_IDPACCONSOLIDADO, A1.IDCATALOGOTIPODOCUMENTO as A1_IDCATALOGOTIPODOCUMENTO, A1.FECHADOCUMENTO as A1_FECHADOCUMENTO, 
 	A1.RUTAARCHIVO as A1_RUTAARCHIVO, A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, 
@@ -206,7 +211,7 @@
 	USUARIOMODIFICACIONAUDITORIA, EQUIPOAUDITORIA, PROGRAMAAUDITORIA, ESTADOAUDITORIA 
 	) 
 	VALUES (
-	#{idrequisitoconformidad,jdbcType=INTEGER}, #{idpacconsolidado,jdbcType=INTEGER}, #{idcatalogotipodocumento,jdbcType=INTEGER}, #{fechadocumento,jdbcType=TIMESTAMP}, 
+	#{idrequisitoconformidad,jdbcType=INTEGER}, #{idpacconsolidado,jdbcType=INTEGER}, #{idcatalogotipodocumento,jdbcType=VARCHAR}, #{fechadocumento,jdbcType=TIMESTAMP}, 
 	#{rutaarchivo,jdbcType=VARCHAR}, #{fechacreacionauditoria,jdbcType=TIMESTAMP}, #{usuariocreacionauditoria,jdbcType=VARCHAR}, #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
 	#{usuariomodificacionauditoria,jdbcType=VARCHAR}, #{equipoauditoria,jdbcType=VARCHAR}, #{programaauditoria,jdbcType=VARCHAR}, #{estadoauditoria,jdbcType=VARCHAR} 
 	) 
@@ -262,7 +267,7 @@
 		#{idpacconsolidado,jdbcType=INTEGER}, 
 	</if>
 	<if test="idcatalogotipodocumento != null" >
-		#{idcatalogotipodocumento,jdbcType=INTEGER}, 
+		#{idcatalogotipodocumento,jdbcType=VARCHAR}, 
 	</if>
 	<if test="fechadocumento != null" >
 		#{fechadocumento,jdbcType=TIMESTAMP}, 
@@ -300,7 +305,7 @@
 	update abas.RequisitosConformidad 
 	set 
 	IDREQUISITOCONFORMIDAD = #{idrequisitoconformidad,jdbcType=INTEGER}, IDPACCONSOLIDADO = #{idpacconsolidado,jdbcType=INTEGER}, 
-	IDCATALOGOTIPODOCUMENTO = #{idcatalogotipodocumento,jdbcType=INTEGER}, FECHADOCUMENTO = #{fechadocumento,jdbcType=TIMESTAMP}, 
+	IDCATALOGOTIPODOCUMENTO = #{idcatalogotipodocumento,jdbcType=VARCHAR}, FECHADOCUMENTO = #{fechadocumento,jdbcType=TIMESTAMP}, 
 	RUTAARCHIVO = #{rutaarchivo,jdbcType=VARCHAR}, FECHACREACIONAUDITORIA = #{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
 	USUARIOCREACIONAUDITORIA = #{usuariocreacionauditoria,jdbcType=VARCHAR}, FECHAMODIFICACIONAUDITORIA = #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
 	USUARIOMODIFICACIONAUDITORIA = #{usuariomodificacionauditoria,jdbcType=VARCHAR}, EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, 
@@ -321,7 +326,7 @@
 		IDPACCONSOLIDADO = #{idpacconsolidado,jdbcType=INTEGER}, 
 	</if>
 	<if test="idcatalogotipodocumento != null" >
-		IDCATALOGOTIPODOCUMENTO = #{idcatalogotipodocumento,jdbcType=INTEGER}, 
+		IDCATALOGOTIPODOCUMENTO = #{idcatalogotipodocumento,jdbcType=VARCHAR}, 
 	</if>
 	<if test="fechadocumento != null" >
 		FECHADOCUMENTO = #{fechadocumento,jdbcType=TIMESTAMP}, 
@@ -368,7 +373,7 @@
 			 AND A1.IDPACCONSOLIDADO = #{idpacconsolidado,jdbcType=INTEGER} 
 		</if>
 		<if test="idcatalogotipodocumento != null" >
-			 AND A1.IDCATALOGOTIPODOCUMENTO = #{idcatalogotipodocumento,jdbcType=INTEGER} 
+			 AND A1.IDCATALOGOTIPODOCUMENTO = #{idcatalogotipodocumento,jdbcType=VARCHAR} 
 		</if>
 		<if test="fechadocumentoini != null" >
 			 AND  (A1.FECHADOCUMENTO)  <![CDATA[ >= ]]>  #{fechadocumentoini,jdbcType=TIMESTAMP} 
@@ -446,7 +451,7 @@
 			 AND A1.IDPACCONSOLIDADO = #{idpacconsolidado,jdbcType=INTEGER} 
 		</if>
 		<if test="idcatalogotipodocumento != null" >
-			 AND A1.IDCATALOGOTIPODOCUMENTO = #{idcatalogotipodocumento,jdbcType=INTEGER} 
+			 AND A1.IDCATALOGOTIPODOCUMENTO = #{idcatalogotipodocumento,jdbcType=VARCHAR} 
 		</if>
 		<if test="fechadocumentoini != null" >
 			 AND  (A1.FECHADOCUMENTO)  <![CDATA[ >= ]]>  #{fechadocumentoini,jdbcType=TIMESTAMP} 
@@ -509,4 +514,13 @@
 
 	</if>
 	</select>
+	
+	<select id="getGetRequisitosByConsolidado" resultMap="requisitoConformidadItems" parameterType="java.lang.Integer">
+		select t1.IdRequisitoConformidad, 
+			t1.IdCatalogoTipoDocumento,
+			t2.vchregdescri
+		from abas.RequisitosConformidad t1
+		inner join abas.gentabla t2 on t2.vchregCodigo = t1.IdCatalogoTipoDocumento and t2.vchtipCodigo = 'DPRO'
+		WHERE t1.IdPacConsolidado = (#{idPacConsolidado})
+	</select>	
 </mapper>

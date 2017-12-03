@@ -136,12 +136,17 @@
 										listener="#{programacion.seleccionItemRequisito}"
 										update=":form:tabViewPao:accDatosGenerales:pnlBotonesControl"
 										immediate="true" />
+										
+									<p:ajax event="rowEdit" listener="#{programacion.onRowEdit2}"
+										update=":form:msgs,form:tabViewPao:accDatosGenerales:tblListaControl" />
+									<p:ajax event="rowEditCancel"
+										listener="#{programacion.onRowCancel2}" update=":form:msgs" />
 
-									<p:column headerText="Tipo de documento">
+									<p:column headerText="Tipo de documento" style="width: 90%">
 										<p:cellEditor>
 											<f:facet name="header">
 												<f:facet name="output">
-													<h:outputText value="#{var.idcatalogotipodocumento}" />
+													<h:outputText value="#{var.tipodocumentodesc}" />
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
