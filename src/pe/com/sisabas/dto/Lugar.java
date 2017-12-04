@@ -2,6 +2,13 @@ package pe.com.sisabas.dto;
 
 public class Lugar {
 	
+	private Integer idDependenciaDocumentoTecnico;
+	public Integer getIdDependenciaDocumentoTecnico() {
+		return idDependenciaDocumentoTecnico;
+	}
+	public void setIdDependenciaDocumentoTecnico(Integer idDependenciaDocumentoTecnico) {
+		this.idDependenciaDocumentoTecnico = idDependenciaDocumentoTecnico;
+	}
 	private String dependencia;
 	private String direccion;
 	

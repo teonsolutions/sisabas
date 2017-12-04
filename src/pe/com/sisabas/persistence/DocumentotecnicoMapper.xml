@@ -1043,5 +1043,19 @@
 	<select id="getPedidosEvaluacion" resultMap="EvaluacionDocumentoResultMap" statementType="CALLABLE" parameterType="pe.com.sisabas.dto.EvaluacionDocumentoRequest">
 		{call abas.paProgrmacionListarDocumentoTecnico(#{idUnidadEjecutora},#{anio},#{nroDocumento},#{idcatalogotiponecesidad},#{idcatalogotipobien},#{numeroSinad},#{estadoPedido},#{descripcionSiga},#{descripcionOficinas},#{pageNumber},#{pageSize})}		
 	</select>
+	
+	
+	
+	<resultMap type="pe.com.sisabas.dto.Lugar" id="lugar">
+	     <result column="Direccion" property="direccion" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	
+	
+	
+     <select id="getLugaresPrestacion" resultMap="lugar" parameterType="java.lang.Integer">
+        select t1.Direccion from abas.Documentotecnico t1 where t1.IdDocumentoTecnico = #{direccion,jdbcType=INTEGER}
+     
+     </select>	
 		
 </mapper>

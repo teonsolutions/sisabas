@@ -223,6 +223,13 @@ public class DependenciadocumentotecnicoBusinessImpl implements Dependenciadocum
 		//Here Bussines Validations.
 	}
 
+	@Override
+	public List<Dependenciadocumentotecnico> getDependenciasByDocumentoTecnico(Integer idDocumentoTecnico)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return dependenciadocumentotecnicoMapper.getDependenciasByDocumentoTecnico(idDocumentoTecnico);
+	}
+
 
 }
 

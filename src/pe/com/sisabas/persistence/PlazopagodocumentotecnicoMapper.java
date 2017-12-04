@@ -29,6 +29,8 @@ public interface PlazopagodocumentotecnicoMapper{
 	List<Plazopagodocumentotecnico> selectDynamicFull(Plazopagodocumentotecnico record) throws Exception;
 
 	List<Plazopagodocumentotecnico> selectDynamicExtended(Plazopagodocumentotecnico record) throws Exception;
-
-
+     
+	public List<Plazopagodocumentotecnico> getPlazosByDocumentoTecnico(@Param("idDocumentoTecnico") Integer idDocumentoTecnico) throws Exception;
+	
+	
 }

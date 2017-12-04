@@ -227,6 +227,12 @@ public class PlazopagodocumentotecnicoBusinessImpl implements Plazopagodocumento
 		//Here Bussines Validations.
 	}
 
+	@Override
+	public List<Plazopagodocumentotecnico> getPlazosByDocumentoTecnico(Integer idDocumentoTecnico) throws Exception {
+		// TODO Auto-generated method stub
+		return plazopagodocumentotecnicoMapper.getPlazosByDocumentoTecnico(idDocumentoTecnico);
+	}
+
 
 }
 

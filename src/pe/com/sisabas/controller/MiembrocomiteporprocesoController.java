@@ -534,6 +534,9 @@ public class MiembrocomiteporprocesoController extends BaseController {
 			addErrorMessageKey("msgsForm", e);
 		}
 	}
+	
+	
+	
 	public void resetRegIdpersona() {
 		try {
 			miembrocomiteporproceso.setIdpersona(null);

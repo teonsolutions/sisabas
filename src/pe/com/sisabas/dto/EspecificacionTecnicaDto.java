@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import pe.com.sisabas.be.Miembrocomiteporproceso;
+
 public class EspecificacionTecnicaDto implements  Serializable,Cloneable{
 
 	
@@ -21,11 +23,20 @@ public class EspecificacionTecnicaDto implements  Serializable,Cloneable{
 	private String antecedentes;
 	private String tipoEsp;
 	private Integer nroPac;
+	private String nroAnexo;
 	
 	
 	private List<Lugar> prestaciones;
+	private List<Lugar> prestacionesEliminar;
 	private List<Pago> pagos; 
-
+	private List<Pago> pagosEliminar; 
+	
+	private List<Miembrocomiteporproceso> comites;
+	private List<Miembrocomiteporproceso> comitesEliminar;
+	
+	
+	private List<ComiteDto> comitesDto;
+	private List<ComiteDto> comitesDtoEliminar;
 
 	public Integer getNroPac() {
 		return nroPac;
@@ -123,11 +134,68 @@ public class EspecificacionTecnicaDto implements  Serializable,Cloneable{
 	public void setFechacreacionauditoria(Date fechacreacionauditoria) {
 		this.fechacreacionauditoria = fechacreacionauditoria;
 	}
+	
+	public String getNroAnexo() {
+		return nroAnexo;
+	}
+
+	public void setNroAnexo(String nroAnexo) {
+		this.nroAnexo = nroAnexo;
+	}
+	
+	public List<Lugar> getPrestacionesEliminar() {
+		return prestacionesEliminar;
+	}
+
+	public void setPrestacionesEliminar(List<Lugar> prestacionesEliminar) {
+		this.prestacionesEliminar = prestacionesEliminar;
+	}
+	
+	public List<Pago> getPagosEliminar() {
+		return pagosEliminar;
+	}
+
+	public void setPagosEliminar(List<Pago> pagosEliminar) {
+		this.pagosEliminar = pagosEliminar;
+	}
 
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
-	 }	
+	 }
+
+	public List<Miembrocomiteporproceso> getComites() {
+		return comites;
+	}
+
+	public void setComites(List<Miembrocomiteporproceso> comites) {
+		this.comites = comites;
+	}
+
+	public List<Miembrocomiteporproceso> getComitesEliminar() {
+		return comitesEliminar;
+	}
+
+	public void setComitesEliminar(List<Miembrocomiteporproceso> comitesEliminar) {
+		this.comitesEliminar = comitesEliminar;
+	}
+
+	public List<ComiteDto> getComitesDto() {
+		return comitesDto;
+	}
+
+	public void setComitesDto(List<ComiteDto> comitesDto) {
+		this.comitesDto = comitesDto;
+	}
+
+	public List<ComiteDto> getComitesDtoEliminar() {
+		return comitesDtoEliminar;
+	}
+
+	public void setComitesDtoEliminar(List<ComiteDto> comitesDtoEliminar) {
+		this.comitesDtoEliminar = comitesDtoEliminar;
+	}
+
 	
 	
 	

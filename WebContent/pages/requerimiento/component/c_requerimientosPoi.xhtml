@@ -19,7 +19,7 @@
                  
                  <p:outputLabel value="Descripción del Pedido:" style=""/>
                 
-                 <p:inputTextarea value="#{requerimiento.requerimientoResponse.motivoPedido}" disabled="true" style="width:400px"/>
+                 <p:inputTextarea value="#{requerimiento.requerimientoResponse.motivoPedido}" disabled="true" style="width:500px"/>
 
                 <p:column><p:outputLabel value="Número del pedido" /></p:column>
                 <p:column><p:inputText  value="#{requerimiento.requerimientoResponse.nroPedido}" disabled="true"/></p:column>
@@ -33,12 +33,12 @@
                </p:panelGrid>
               </div>
                  
-                  <p:dataTable var="var" value="#{requerimiento.listaItemRequerimientos}" style="white-space:nowrap!important; width:800px; font-size:5px;" reflow="true" scrollable="true" scrollHeight="#{requerimiento.tam}">
+                  <p:dataTable var="var" value="#{requerimiento.listaItemRequerimientos}" style="white-space:nowrap!important; width:100%; font-size:5px;" reflow="true" scrollable="true" scrollHeight="#{requerimiento.tam}">
 		            <p:column width="8%"  headerText="NÚMERO DEL ITEM">
 		                <h:outputText value="#{var.itemBien}" />
 		            </p:column>
 		         
-		            <p:column headerText="DESCRIPCIÓN">
+		            <p:column headerText="DESCRIPCIÓN" width="28%">
 		                <h:outputText value="#{var.nombreItem}" />
 		            </p:column>
 		         
@@ -46,7 +46,7 @@
 		                <h:outputText value="#{var.nombreTarea}" />
 		            </p:column>
 		         
-		            <p:column headerText="SEC_FUNC" width="8%" >
+		            <p:column headerText="SEC_FUNC" width="9%" >
 		                <h:outputText value="#{var.secFun}" />
 		            </p:column>
 		            

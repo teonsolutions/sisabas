@@ -67,7 +67,9 @@ public class Miembrocomiteporproceso extends SysTabla implements  Serializable,C
 	/**[*][EstadoAuditoria]*/
 	private java.lang.String estadoauditoria;
 
-	public Miembrocomiteporproceso() {}
+	public Miembrocomiteporproceso() {
+		
+	}
 
 	public Miembrocomiteporproceso(java.lang.Integer idmiembrocomiteproceso) {
 		this.idmiembrocomiteproceso=idmiembrocomiteproceso;

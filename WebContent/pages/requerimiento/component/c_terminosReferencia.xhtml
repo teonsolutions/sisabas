@@ -98,7 +98,7 @@
 					<p:column>
 						<p:selectOneMenu id="txtReq" value="#{requerimiento.documentotecnico.idcatalogotipotdr}" style="width:200px;">
 							<f:selectItems
-										value="#{pedido.listaGentablaIdcatalogotipoet}"
+										value="#{pedido.listaGentablaIdcatalogotipotdr}"
 										var="var" itemLabel="#{var.vchregdescri}"
 										itemValue="#{var.vchregcodigo}" />
 						</p:selectOneMenu>
@@ -156,47 +156,71 @@
 
 			</p:panelGrid>
 		</p:tab>
-
-		<p:tab title="Items">
-           
-			<p:dataTable var="var"
-				value="#{requerimiento.listaItemRequerimientos}"
-				style="white-space:nowrap!important; width:800px; font-size:5px;"
-				reflow="true" scrollable="true" scrollHeight="">
-				<p:column width="8%" headerText="NÚMERO">
-					<h:outputText value="#{var.numeracion}" />
-				</p:column>
-
-				<p:column width="18%" headerText="NÚMERO DE ITEM">
-					<h:outputText value="#{var.itemBien}" />
-				</p:column>
-
-				<p:column headerText="DESCRIPCIÓN DEL ITEM">
-					<h:outputText value="#{var.nombreItem}" />
-				</p:column>
-
-				<p:column headerText="CANTIDAD" width="15%">
-					<h:outputText value="#{var.cantSolicitada}" />
-				</p:column>
-
-				<f:facet name="footer">
-			             TOTAL DE ITEMS #{fn:length(requerimiento.listaItemRequerimientos)}.
-			    </f:facet>
-			</p:dataTable>
-		</p:tab>
-
-
-
-
-
-		<p:tab title="Lugar de prestación">
+		
+				<p:tab title="Producto" id="formPago">
 			<div align="right">
 				<p:commandButton
-					oncomplete="showDialogPF('frmPrestacion:diPrestacion')" onclick="myFunction();"
+					oncomplete="showDialogPF('frmPago2:diPago2')" onclick="myFunction();"
 					value="Agregar" icon="ui-icon-circle-check" />
 			</div>
 			<p:spacer height="5" />
-			<p:dataTable id="tableLugares" var="var" emptyMessage="Lugares de prestacion vacía."
+				<p:dataTable id="tablePagos" var="var"  emptyMessage="Formas de pago vacía." value="#{requerimiento.pagos}" style="white-space:nowrap!important; width:800px; font-size:5px;" reflow="true" scrollable="true" editable="true">
+					
+					<p:ajax event="rowEdit" listener="#{requerimiento.onRowEdit2}" update=":form:growl" />
+					<p:ajax event="rowEditCancel" listener="#{requerimiento.onRowCancel2}" update=":form:growl" />
+					
+					<p:column headerText="CRONOGRAMA DE PAGO">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{var.cronograma}" /></f:facet>
+		               <f:facet name="input"><p:inputText id="modelInput" value="#{var.cronograma}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+				   </p:column>
+				   <p:column headerText="PLAZO DE EJECUCUIÓN">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{var.plazo}" /></f:facet>
+		               <f:facet name="input"><p:inputNumber value="#{var.plazo}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+				   </p:column>
+				   <p:column headerText="NIVEL DE AVANCE">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{var.nivel}" /></f:facet>
+		               <f:facet name="input"><p:inputText value="#{var.nivel}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+				   </p:column>
+				   <p:column headerText="PORCENTAJE DE AVANCE">
+				    <p:cellEditor> 
+				       <f:facet name="output"><h:outputText value="#{var.porcentaje}" /></f:facet>
+                       <f:facet name="input"><p:inputNumber value="#{var.porcentaje}" style="width:100%" /></f:facet>
+					</p:cellEditor>  
+				    </p:column>
+  
+					<p:column headerText="EDITAR" styleClass="c_center" style="width: 9%;">
+				         <p:rowEditor editTitle="Editar" />
+				    </p:column>
+				
+				    <p:column headerText="ELIMINAR" styleClass="c_center" style="width: 9%;">
+						<p:commandButton 
+							update=":formTdr:diTdr,:form:growl" icon="fa fa-remove" title="Eliminar"
+							actionListener="#{requerimiento.eliminarPago(var)}"
+							>
+						</p:commandButton>
+				   </p:column>
+				      
+				   <f:facet name="footer">				    
+				        <p:outputLabel value="TOTAL % #{requerimiento.totalPorcentaje}." id="footerTotal"></p:outputLabel>			               
+			       </f:facet>
+			  	
+				</p:dataTable>
+		</p:tab>
+
+		<p:tab title="Lugar de Prestación">
+			<div align="right">
+				<p:commandButton
+					oncomplete="showDialogPF('frmPrestacion2:diPrestacion2')" onclick="myFunction();"
+					value="Agregar" icon="ui-icon-circle-check" />
+			</div>
+			<p:spacer height="5" />
+			<p:dataTable id="tableLugares" var="var" emptyMessage="Productos vacía."
 				value="#{requerimiento.lugares}"
 				style="white-space:nowrap!important; width:800px; font-size:5px;"
 				reflow="true" scrollable="true" editable="true">
@@ -223,7 +247,7 @@
 				
 				<p:column headerText="ELIMINAR" styleClass="c_center" style="width: 9%;">
 						<p:commandButton 
-							update=":formEsp:diEsp,:form:growl" icon="fa fa-remove" title="Eliminar"
+							update=":formTdr:diTdr,:form:growl" icon="fa fa-remove" title="Eliminar"
 							actionListener="#{requerimiento.eliminarLugar(var)}"
 							>
 						</p:commandButton>
@@ -231,50 +255,7 @@
 			</p:dataTable>
 		</p:tab>
 
-		<p:tab title="Forma de pago" id="formPago">
-			<div align="right">
-				<p:commandButton
-					oncomplete="showDialogPF('frmPago:diPago')" onclick="myFunction();"
-					value="Agregar" icon="ui-icon-circle-check" />
-			</div>
-			<p:spacer height="5" />
-				<p:dataTable id="tablePagos" var="var"  emptyMessage="Formas de pago vacía." value="#{requerimiento.pagos}" style="white-space:nowrap!important; width:800px; font-size:5px;" reflow="true" scrollable="true" editable="true">
-					
-					<p:ajax event="rowEdit" listener="#{requerimiento.onRowEdit2}" update=":form:growl,:formEsp:accordion:tablePagos" />
-					<p:ajax event="rowEditCancel" listener="#{requerimiento.onRowCancel2}" update=":form:growl" />
-					
-					<p:column headerText="NÚMERO ARMADA">
-					<p:cellEditor>
-		               <f:facet name="output"><h:outputText value="#{var.numero}" /></f:facet>
-		               <f:facet name="input"><p:inputText id="modelInput" value="#{var.numero}" style="width:100%"/></f:facet>
-                    </p:cellEditor>
-				   </p:column>
-				   <p:column headerText="PORCENTAJE DE ARMADA">
-				    <p:cellEditor> 
-				       <f:facet name="output"><h:outputText value="#{var.porcentaje}" /></f:facet>
-                       <f:facet name="input"><p:inputText value="#{var.porcentaje}" style="width:100%" /></f:facet>
-					</p:cellEditor>  
-				    </p:column>
-  
-					<p:column headerText="EDITAR" styleClass="c_center" style="width: 9%;">
-				         <p:rowEditor editTitle="Editar" />
-				    </p:column>
-				
-				    <p:column headerText="ELIMINAR" styleClass="c_center" style="width: 9%;">
-						<p:commandButton 
-							update=":formEsp:diEsp,:form:growl" icon="fa fa-remove" title="Eliminar"
-							actionListener="#{requerimiento.eliminarPago(var)}"
-							>
-						</p:commandButton>
-				   </p:column>
-				      
-				      <p:column  rowspan="#{fn:length(requerimiento.pagos)}" style="width: 15%;">			    
-				        <p:outputLabel value="TOTAL % #{requerimiento.totalPorcentaje}." id="footerTotal"></p:outputLabel>		
-				      </p:column>	  	               
-			       
-			  	
-				</p:dataTable>
-		</p:tab>
+
 
 		<p:tab title="Anexos">
           <h:form>
@@ -284,6 +265,90 @@
              <p:growl id="messages" showDetail="true" />
           </h:form>
 		</p:tab>
+		
+		<p:tab title="Comité Especial">
+		   <div align="right">
+				<p:commandButton value="Agregar" icon="ui-icon-circle-check" oncomplete="showDialogPF('frmComite:diComite')"/>
+			</div>
+			<p:spacer height="5" />
+				<p:dataTable id="tableComite" var="var"  emptyMessage="Comité vacía." value="#{requerimiento.comites2}" style="white-space:nowrap!important; width:800px; font-size:5px;" reflow="true" scrollable="true" editable="true">
+					
+					<p:ajax event="rowEdit" listener="#{requerimiento.onRowEdit3}" update=":form:growl" />
+					<p:ajax event="rowEditCancel" listener="#{requerimiento.onRowCancel3}" update=":form:growl" />
+					
+				   <p:column headerText="NUMERO DE DOCUMENTO">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{var.nroDocumento}" /></f:facet>
+		               <f:facet name="input"><p:inputNumber value="#{var.nroDocumento}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+				   </p:column>
+				   <p:column headerText="APELLIDO PATERNO">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{var.apPaterno}" /></f:facet>
+		               <f:facet name="input"><p:inputText value="#{var.apPaterno}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+				   </p:column>
+				   <p:column headerText="APELLIDO MATERNO">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{var.apMaterno}" /></f:facet>
+		               <f:facet name="input"><p:inputText value="#{var.apMaterno}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+				   </p:column>
+				    <p:column headerText="NOMBRES">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{var.nombres}"/></f:facet>
+		               <f:facet name="input"><p:inputText value="#{var.nombres}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+				   </p:column>
+				   <p:column headerText="TIPO DE MIEMBROz">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{var.descMiembro}" /></f:facet>
+		               <f:facet name="input"><p:inputText value="#{var.descMiembro}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+				   </p:column>
+				   <p:column headerText="TELÉFONO">
+				    <p:cellEditor> 
+				       <f:facet name="output"><h:outputText value="#{var.telefono}"  /></f:facet>
+                       <f:facet name="input"><p:inputText value="#{var.telefono}"  style="width:100%" /></f:facet>
+					</p:cellEditor>  
+				    </p:column>
+				    <p:column headerText="ANEXO">
+				    <p:cellEditor> 
+				       <f:facet name="output"><h:outputText value="#{var.anexo}" /></f:facet>
+                       <f:facet name="input"><p:inputText value="#{var.anexo}" style="width:100%" /></f:facet>
+					</p:cellEditor>  
+				    </p:column>
+				    <p:column headerText="CELULAR">
+				    <p:cellEditor> 
+				       <f:facet name="output"><h:outputText value="#{var.celular}"  /></f:facet>
+                       <f:facet name="input"><p:inputText value="#{var.celular}"  style="width:100%" /></f:facet>
+					</p:cellEditor>  
+				    </p:column>
+				    <p:column headerText="CORREO">
+				    <p:cellEditor> 
+				       <f:facet name="output"><h:outputText value="#{var.correo}"   /></f:facet>
+                       <f:facet name="input"><p:inputText value="#{var.correo}"   style="width:100%" /></f:facet>
+					</p:cellEditor>  
+				    </p:column>
+  
+					<p:column headerText="EDITAR" styleClass="c_center" style="width: 9%;">
+				         <p:rowEditor editTitle="Editar" />
+				    </p:column>
+				
+				    <p:column headerText="ELIMINAR" styleClass="c_center" style="width: 9%;">
+						<p:commandButton 
+							update=":formTdr:diTdr,:form:growl" icon="fa fa-remove" title="Eliminar"
+							actionListener="#{requerimiento.eliminarComite(var)}"
+							>
+						</p:commandButton>
+				   </p:column>
+				     
+			  	
+				</p:dataTable>
+		</p:tab>
+		
+		
+		
 		<p:tab title="Responsable de las coordinaciones">
 			<h:panelGrid columns="6" cellpadding="10">
 				<p:column>

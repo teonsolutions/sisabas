@@ -166,7 +166,7 @@
 	<p:menuitem value="Eliminar" action="#{certificadopresupuestal.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{certificadopresupuestal.renderButton('btnEliminar')}" />
 </p:contextMenu>
 <p:dataTable id="tblListaCertificadopresupuestal" value="#{certificadopresupuestal.listaCertificadopresupuestal}" var="var" emptyMessage="No se encontraron registros" 
-	widgetVar="tblListaCertificadopresupuestal" selection="#{certificadopresupuestal.selectedCertificadopresupuestal}"
+	widgetVar="tblListaCertificadopresupuestal" selection="#{certificadopresupuestal.selectedCertificadopresupuestal}" 
 	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
 	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(certificadopresupuestal.listaCertificadopresupuestal)}"
 	selectionMode="single" rowKey="#{var.idcertificadopresupuestal}" styleClass="gandalfTableClass">

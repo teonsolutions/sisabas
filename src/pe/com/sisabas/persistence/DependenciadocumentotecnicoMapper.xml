@@ -379,4 +379,11 @@
 
 	</if>
 	</select>
+	
+	
+	
+	<select id="getDependenciasByDocumentoTecnico" resultMap="BasicResultMap" parameterType="java.lang.Integer">
+		select * from abas.DependenciaDocumentoTecnico where IdDocumentoTecnico = (#{idDocumentoTecnico})
+	</select>	
+		
 </mapper>

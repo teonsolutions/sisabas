@@ -42,5 +42,6 @@ public interface PlazopagodocumentotecnicoBusiness{
 
 	public void updateByPrimaryKeyFull(Plazopagodocumentotecnico record) throws Exception;
 
+	public List<Plazopagodocumentotecnico> getPlazosByDocumentoTecnico(Integer idDocumentoTecnico) throws Exception;
 
 }

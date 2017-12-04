@@ -59,6 +59,7 @@ public class PedidoController extends BaseController {
 	public List<Periodo> listaPeriodoIdperiodo;
 	public List<Gentabla> listaGentablaIdcatalogotiponecesidad;
 	public List<Gentabla> listaGentablaIdcatalogotipoet;
+	public List<Gentabla> listaGentablaIdcatalogotipotdr;
 
 	private String accion;
 	private String titulo;
@@ -114,6 +115,7 @@ public class PedidoController extends BaseController {
 			listaPeriodoIdperiodo = periodoBusiness.selectDynamicBasic(new Periodo());
 			listaGentablaIdcatalogotiponecesidad = gentablaBusiness.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TINE));
 			listaGentablaIdcatalogotipoet = gentablaBusiness.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TIET));
+			listaGentablaIdcatalogotipotdr = gentablaBusiness.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TITD));
 			
 
 		} catch (SecuritySessionExpiredException e) {
@@ -979,6 +981,16 @@ public class PedidoController extends BaseController {
 
 	public void setListaGentablaIdcatalogotipoet(List<Gentabla> listaGentablaIdcatalogotipoet) {
 		this.listaGentablaIdcatalogotipoet = listaGentablaIdcatalogotipoet;
+	}
+
+
+	public List<Gentabla> getListaGentablaIdcatalogotipotdr() {
+		return listaGentablaIdcatalogotipotdr;
+	}
+
+
+	public void setListaGentablaIdcatalogotipotdr(List<Gentabla> listaGentablaIdcatalogotipotdr) {
+		this.listaGentablaIdcatalogotipotdr = listaGentablaIdcatalogotipotdr;
 	}
 
 	

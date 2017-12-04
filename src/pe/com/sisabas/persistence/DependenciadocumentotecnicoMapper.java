@@ -30,5 +30,7 @@ public interface DependenciadocumentotecnicoMapper{
 
 	List<Dependenciadocumentotecnico> selectDynamicExtended(Dependenciadocumentotecnico record) throws Exception;
 
+	List<Dependenciadocumentotecnico> getDependenciasByDocumentoTecnico(@Param("idDocumentoTecnico") Integer idDocumentoTecnico) throws Exception;
+	
 
 }
