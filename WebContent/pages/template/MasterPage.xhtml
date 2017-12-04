@@ -753,10 +753,12 @@ function hideDialogPF(dialog){
 <ui:insert name="menu">
 <h:form id="formMain">
 
+
+
 <p:menubar model="#{menuBean.model}"  rendered="#{loginBean.isSicuSecurityEnable() and !loginBean.mobile}" id="idMenuBar" widgetVar="idMenuBar">
 	<f:facet name="options">
 		<p:panelGrid columns="2" columnClasses="ui-grid-col-8,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank" style="width:95%;text-align:left;align:left;">			
-			<p:menuButton icon="fa fa-fw fa-gear" >
+			<p:menuButton icon="fa fa-fw fa-gear" >				
 		        <p:menuitem value="Cambiar clave" icon="fa fa-fw fa-key" outcome="/cambioClave.xhtml"/>		        
 		        <p:menuitem value="Salir" icon="fa fa-fw fa-sign-out" onclick="PF('cdSalirSistema').show();" title="Salir del sistema"/>
 		        <p:separator />

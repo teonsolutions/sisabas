@@ -6,11 +6,11 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:func="http://resources/functions"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui">	
 <p:menubar>
-	<f:facet name="options">
+	<f:facet name="options">	
 		<p:panelGrid columns="2" columnClasses="ui-grid-col-8,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank" style="width:95%;text-align:left;align:left;">
-			<p:menuButton icon="fa fa-fw fa-gear" >
+			<p:menuButton icon="fa fa-fw fa-gear" >				
 				<p:menuitem value="Cambiar clave" icon="fa fa-fw fa-key" outcome="/cambioClave.xhtml"/>
 				<p:menuitem value="Salir" icon="fa fa-fw fa-sign-out" onclick="PF('cdSalirSistema').show();" title="Salir del sistema"/>
 				<p:separator />
@@ -95,5 +95,18 @@
 		<p:menuitem value="visSigaPaacConsolidado" outcome="/pages/vissigapaacconsolidado/vissigapaacconsolidadoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
 	</p:submenu>
 </p:menubar>
-
+	<!-- 
+	<f:facet name="centroCosto">
+		<p:panelGrid>			
+			<p:selectOneMenu id="mddlCentroCosto">
+				<f:selectItem itemLabel="TODOS" itemValue="-1" />
+				<f:selectItem itemLabel="PENDIENTE" itemValue="0" />
+				<f:selectItem itemLabel="VB JEFE" itemValue="1" />
+				<f:selectItem itemLabel="APROBADO" itemValue="2" />
+				<f:selectItem itemLabel="REMITIDO A PROGRAMACIÓN" itemValue="3" />
+				<f:selectItem itemLabel="ATENDIDO" itemValue="8" />
+			</p:selectOneMenu>
+		</p:panelGrid>	
+	</f:facet>
+	 -->	
 </html>

@@ -148,6 +148,10 @@ public class ProgramacionController extends BaseController {
 		esSeleccionadoRequisito = true;
 	}
 
+	public String load() {
+		return"/pages/pao/paoBuscar.xhtml?faces-redirect=true";
+	}
+	
 	@PostConstruct
 	public void init() {
 		try {
