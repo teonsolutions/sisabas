@@ -656,6 +656,33 @@ public class ProgramacionController extends BaseController {
 			addErrorMessageKey("msgsForm", e);
 		}
 	}
+	
+	public void irImprimir() {
+		STATUS_INIT();
+		try {
+			securityControlValidate("btnImprimir");
+			//resetRegisterForm();
+			//accion = IMPRIMIR;
+			tituloBase = "PAO » " + IMPRIMIR;
+
+			STATUS_SUCCESS();
+			REGISTER_INIT();
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("no.access"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm",e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			STATUS_ERROR();
+			addErrorMessageKey("msgsForm", e);
+		}
+	}	
 
 	public void updateCharToBoolean(Cuadrocomparativofuente record) throws Exception {
 		if (cuadrocomparativofuente.getProveedordedicacontratacion() != null

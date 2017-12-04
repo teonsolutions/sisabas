@@ -102,11 +102,11 @@
 									rendered="#{evaluacionDocumento.renderButton('btnAprobar')}" />				
 
 								<p:commandButton value="Imprimir"
-									action="#{documentotecnico.irImprimir}"
+									action="#{evaluacionDocumento.irImprimir}"
 									update="hidStatus,:frmDocumentotecnicoImprimir:diDocumentotecnicoImprimir"
 									oncomplete="showDialog('form:hidStatus','frmDocumentotecnicoImprimir:diDocumentotecnicoImprimir');"
 									icon="ui-icon-print"
-									rendered="#{documentotecnico.renderButton('btnImprimir')}" />
+									rendered="#{evaluacionDocumento.renderButton('btnImprimir')}" />
 									
 							</p:panel></td>
 						<td valign="top">
@@ -252,7 +252,7 @@
 
 		<h:form id="frmDocumentotecnicoImprimir">
 			<p:dialog id="diDocumentotecnicoImprimir"
-				header="#{documentotecnico.titulo}"
+				header="#{evaluacionDocumento.tituloBase}"
 				widgetVar="diDocumentotecnicoImprimir" resizable="false"
 				modal="true" dynamic="true">
 				<h:panelGrid columns="1" style="text-align:center;">
@@ -261,7 +261,7 @@
 						value="Exportar Lista Excel" ajax="false" style="width:100px;">
 						<p:dataExporter type="xls" target=":form:tblListaDocumentotecnico"
 							fileName="datosDocumentotecnico"
-							postProcessor="#{documentotecnico.postProcessXLS}" />
+							postProcessor="#{evaluacionDocumento.postProcessXLS}" />
 					</p:commandButton>
 
 					<ui:remove>
@@ -269,7 +269,7 @@
 							ajax="false" style="width:100px;">
 							<p:dataExporter type="pdf"
 								target=":form:tblListaDocumentotecnico" fileName="datos"
-								preProcessor="#{documentotecnico.preProcessPDF}" />
+								preProcessor="#{evaluacionDocumento.preProcessPDF}" />
 						</p:commandButton>
 					</ui:remove>
 

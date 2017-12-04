@@ -423,6 +423,33 @@ public class EvaluacionDocumentoController extends BaseController {
 		}
 	}	
 	
+	public void irImprimir() {
+		STATUS_INIT();
+		try {
+			securityControlValidate("btnImprimir");
+			//resetRegisterForm();
+			//accion = IMPRIMIR;
+			tituloBase = "Evaluación de documento » " + IMPRIMIR;
+
+			STATUS_SUCCESS();
+			REGISTER_INIT();
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("no.access"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm",e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			STATUS_ERROR();
+			addErrorMessageKey("msgsForm", e);
+		}
+	}		
+	
 	public void aceptar(){
 		REGISTER_INIT();
 		try{

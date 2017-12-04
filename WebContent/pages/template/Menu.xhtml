@@ -23,7 +23,9 @@
 
 	<p:menuitem rendered="#{!loginBean.mobile}">
 		<h:link style="background-color:#FFF" onclick="PF('dlgMenu').show();return false;">
-			<h:graphicImage url="/resources/img/logo.png" width="30" height="30"/>
+			 
+			<h:graphicImage url="/resources/img/logo.png" width="250" height="30"/>
+			 
 		</h:link>
 	</p:menuitem>
 	<p:menuitem rendered="#{loginBean.mobile}">
@@ -32,6 +34,18 @@
 		</h:link>
 	</p:menuitem>
 
+	<p:submenu style="margin-left:5px;" label="Administración" rendered="#{!loginBean.mobile}">
+	</p:submenu>
+	<p:submenu style="margin-left:5px;" label="Requerimientos" rendered="#{!loginBean.mobile}">
+	</p:submenu>
+	<p:submenu style="margin-left:5px;" label="Programación" rendered="#{!loginBean.mobile}">
+		<p:menuitem value="Evaluación de documento" outcome="/pages/evaluaciondocumento/evaluaciondocumentoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="PAO" outcome="/pages/pao/paoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+	</p:submenu>
+	<p:submenu style="margin-left:5px;" label="Procesos" rendered="#{!loginBean.mobile}">
+	</p:submenu>
+	<p:submenu style="margin-left:5px;" label="Ejecución" rendered="#{!loginBean.mobile}">	
+	</p:submenu>			
 	<p:submenu style="margin-left:5px;" label="abas" rendered="#{!loginBean.mobile}">
 		<p:menuitem value="CertificadoPresupuestal" outcome="/pages/certificadopresupuestal/certificadopresupuestalBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
 		<p:menuitem value="Comite Proceso" outcome="/pages/comiteproceso/comiteprocesoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
@@ -81,4 +95,5 @@
 		<p:menuitem value="visSigaPaacConsolidado" outcome="/pages/vissigapaacconsolidado/vissigapaacconsolidadoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
 	</p:submenu>
 </p:menubar>
+
 </html>

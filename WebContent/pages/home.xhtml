@@ -12,25 +12,31 @@
 <ui:define name="center">
 <h:form id="form">
 
+
 <p:panel id="panel" style="width:400px;font-weight:bold;margin-top:200px;" rendered="true">
 <p:focus  for="panel"/>
 
 <p:messages for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
 
+
 <p:panel style="width:100%">
+
 <table style="width:100%;" cellpadding="0" cellspacing="0" align="center">
 	<tr>
-		<td align="center">
+		<td align="center"> 
 			<p:graphicImage value="/resources/img/logo.png" width="100"/><br/>
-			<p:separator></p:separator>
+			   <p:separator></p:separator>
 			<p:outputLabel value="#{PFConstants.SYSTEM_SIGLA}: #{PFConstants.SYSTEM_NAME}" style="font-weight:bold;"/><br/>
 			<p:outputLabel value="V. #{PFConstants.SYSTEM_VERSION}" style="font-weight:bold;"/><br/>
-			<p:outputLabel value="R. #{PFConstants.SYSTEM_REVISION}" style="font-weight:bold;"/>									
+			<p:outputLabel value="R. #{PFConstants.SYSTEM_REVISION}" style="font-weight:bold;"/>
+												
 		</td>
 	</tr>	
 </table>
 </p:panel>
+
 </p:panel>
+
 </h:form>
 </ui:define>
 </ui:composition>
