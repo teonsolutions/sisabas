@@ -34,6 +34,7 @@ import pe.com.sisabas.dto.CuadroComparativoRequest;
 import pe.com.sisabas.dto.CuadroComparativoVrDto;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
 import pe.com.sisabas.dto.OrdenDto;
+import pe.com.sisabas.dto.PacConsolidadoDto;
 import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
 import pe.com.sisabas.dto.RecepcionDTResponse;
@@ -860,6 +861,12 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 	public List<Orden> getOrdenByPacConsolid(Integer idPacConsolidado) throws Exception {
 		// TODO Auto-generated method stub
 		return ordenMapper.getOrdenByPacConsolid(idPacConsolidado);
+	}
+
+	@Override
+	public PacConsolidadoDto getPacConsolidado(PaoRequest request) throws Exception {
+		// TODO Auto-generated method stub
+		return pacconsolidadoMapper.getPacConsolidado(request);
 	}
 
 }

@@ -15,6 +15,7 @@ import pe.com.sisabas.dto.CuadroComparativoRequest;
 import pe.com.sisabas.dto.CuadroComparativoVrDto;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
 import pe.com.sisabas.dto.OrdenDto;
+import pe.com.sisabas.dto.PacConsolidadoDto;
 import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
 import pe.com.sisabas.dto.RecepcionDTResponse;
@@ -45,4 +46,5 @@ public interface ProgramacionBusiness {
 	public List<Entregable> getEntegablesByOrden(java.lang.Integer idOrden) throws Exception;
 	public Resultado grabarOrden(TransactionRequest<List<OrdenDto>> request) throws Exception;
 	public List<Orden> getOrdenByPacConsolid(java.lang.Integer idPacConsolidado) throws Exception;
+	public PacConsolidadoDto getPacConsolidado(PaoRequest request) throws Exception;
 }

@@ -59,6 +59,7 @@ import pe.com.sisabas.dto.EvaluacionDocumentoRequest;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
 import pe.com.sisabas.dto.Lugar;
 import pe.com.sisabas.dto.OrdenDto;
+import pe.com.sisabas.dto.PacConsolidadoDto;
 import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
 import pe.com.sisabas.dto.RequisitoConformidadDto;
@@ -106,6 +107,7 @@ public class ProgramacionController extends BaseController {
 
 	// Direct
 	public static String SUCCESS_ORDEN = "/pages/pao/ordenRegistrar.xhtml?faces-redirect=true;";
+	public static String SUCCESS_PAC = "/pages/pao/pacRegistrar.xhtml?faces-redirect=true;";
 
 	// Estudio del mercado
 	private List<Cuadrocomparativofuente> listaCuadrocomparativofuente;
@@ -116,6 +118,8 @@ public class ProgramacionController extends BaseController {
 	private List<SeguimientoPagosResponse> listaSeguimientoPagosSiaf;
 	private List<Entregable> listaEntregable;	
 	private RequisitoConformidadDto requisitosconformidad;
+	
+	//Paac	
 
 	private boolean esSeleccionadoFuente;
 	private String tituloFuente;
@@ -346,6 +350,33 @@ public class ProgramacionController extends BaseController {
 			throw new UnselectedRowException(Messages.getString("no.record.selected"));
 		else
 			this.setCuadrocomparativofuente((Cuadrocomparativofuente) this.selectedCuadrocomparativofuente.clone());
+	}
+	
+	public void paoRegistrar(){
+		logger.debug("paoRegistrar....");
+		try {
+			
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
+				
+			validateSelectedRow();
+			if (this.esSeleccionado) {
+
+			}
+			if (this.currentPao == null) {
+				this.currentPao = new PaoResponse();
+			}
+			
+			//EVALUATE IF THE PAO HAS MORE S/. 31600
+			if (currentPao.getValorMoneda() >= Constantes.paramentro.PAC_VALOR){
+				pacRegistrar();
+			}else{
+				ordenRegistrar();
+			}			
+			
+		} catch (Exception e) {
+			addErrorMessage(e);
+			//return "/login.xhtml";
+		}		
 	}
 
 	public String ordenRegistrar() {
@@ -913,6 +944,48 @@ public class ProgramacionController extends BaseController {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
+	
+	//***************************************************SECCION PAC******************************************************************
+	public String pacRegistrar() {
+		logger.debug("pacRegistrar....");
+		try {
+			
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
+				
+			validateSelectedRow();
+			if (this.esSeleccionado) {
+
+			}
+			if (this.currentPao == null) {
+				this.currentPao = new PaoResponse();
+			}
+
+			this.setDisabledTabEstudioMercado(
+					this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
+			this.setDisabledTabOrden(
+					this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
+
+			PaoRequest record = new PaoRequest();
+			record.setIdUnidadEjecutora(1);
+			record.setAnio(usuario != null? usuario.getPeriodo().getAnio(): 0);
+			record.setNroConsolid(this.currentPao.getNroConsolid());
+			record.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.PRONIED_SIAF);
+			record.setIdPacConsolidado(currentPao.getIdPacConsolid());
+			PacConsolidadoDto pac = programacionBusiness.getPacConsolidado(record);
+			this.currentPao.setPacConsolidado(pac);			
+
+			// Estudio del Mercado
+			buscarFuente();
+			buscarValorReferencialFinal();
+			//buscarOrden();
+
+		} catch (Exception e) {
+			addErrorMessage(e);
+			return "/login.xhtml";
+		}
+
+		return SUCCESS_PAC;
+	}	
 
 	// PROPERTIES
 	public List<PaoResponse> getListaPao() {

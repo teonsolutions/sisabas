@@ -1,0 +1,736 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+	<ui:define name="center">
+		<style>
+.ui-panelgrid td, .ui-panelgrid tr {
+	border-style: none !important
+}
+
+.fa-remove {
+	color: red;
+}
+
+.ui-tabs-outline {
+	color: #000;
+}
+
+.ui-accordion .ui-accordion-header {
+	cursor: pointer;
+	position: relative;
+	margin-top: 1px;
+	min-height: 0;
+	padding: .5em .5em .5em 2.2em;
+	background: #0d6ab9;
+	color: #ffffff;
+}
+
+.ui-accordion .ui-accordion-header.ui-state-active {
+	background: #fff;
+	border-left: 0 none;
+	border-right: 0 none;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	background: #0d6ab9;
+}
+</style>
+		<h:form id="form">
+			<p:growl id="msgs" showDetail="true"></p:growl>
+			<p:growl id="growl" showDetail="true" for="growl" />
+			<p:panel id="panel" header="Programación y costos > pao > Paac"
+				style="width: 75%">
+				<p:focus for="panel" />
+				<p:tabView id="tabViewPao">
+					<p:tab title="Datos generales">
+						<p:accordionPanel id="accDatosGenerales" multiple="true"
+							activeIndex="0,1,2,3,4">
+							<p:tab title="Detalle del PAO">
+								<table style="width: 100%;" cellpadding="0" cellspacing="5"
+									border="0">
+									<tr>
+										<td><p:outputLabel value="Número PAO" for="txtNumeroPAO"
+												id="lblNumeroPAO" /></td>
+										<td><p:outputLabel value="Fecha PAO" for="txtFechaPAO"
+												id="lblFechaPAO" /></td>
+
+										<td><p:outputLabel value="Monto del PAO"
+												for="txtMontoPAO" id="lblMontoPAO" /></td>
+									</tr>
+									<tr>
+										<td><p:inputText id="txtNumeroPAO" required="true"
+												maxlength="10" style="width:150px;" label="Número PAO"
+												disabled="true"
+												value="#{programacion.currentPao.nroConsolid}" /></td>
+										<td><p:inputText id="txtFechaPAO" required="true"
+												maxlength="10" style="width:150px;" label="Fecha PAO"
+												disabled="true"
+												value="#{programacion.currentPao.compraDirecta.fechaPao}">
+												<f:convertDateTime pattern="dd/MM/yyyy" />
+											</p:inputText></td>
+										<td><p:inputNumber id="txtMontoPAO" required="true"
+												maxlength="10" style="width:150px;" label="Monto del PAO"
+												disabled="true"
+												value="#{programacion.currentPao.valorMoneda}" /></td>
+
+									</tr>
+									<tr>
+										<td><p:outputLabel value="Fecha de recepción TDR/ET"
+												for="txtFechaRecepcion" id="lblFechaRecepcion" /></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td><p:inputText id="txtFechaRecepcion" required="true"
+												value="#{programacion.currentPao.compraDirecta.fechaDocumentoTecnico}"
+												maxlength="10" style="width:150px;"
+												label="Fecha de recepción" disabled="true">
+												<f:convertDateTime pattern="dd/MM/yyyy" />
+											</p:inputText></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td colspan="3"><p:outputLabel
+												value="Descripción del PAO" for="txtDescripcionPAO"
+												id="lblDescripcionPAO" /></td>
+									</tr>
+									<tr>
+										<td colspan="3"><p:inputTextarea id="txtDescripcionPAO"
+												rows="5" cols="50" queryDelay="750" minQueryLength="4"
+												disabled="true"
+												value="#{programacion.currentPao.compraDirecta.especificacionTecnica}"
+												style="width: 100%" /></td>
+									</tr>
+									<tr>
+										<td colspan="3"><p:outputLabel value="Items del PAO"
+												id="lblItems" /></td>
+									</tr>
+									<tr>
+										<td colspan="3"><p:dataTable id="tblListaItems"
+												value="#{programacion.currentPao.compraDirecta.items}"
+												var="var" emptyMessage="No se encontraron registros"
+												selectionMode="single" rowKey="#{var.item}"
+												styleClass="gandalfTableClass">
+												<p:column styleClass="c_string" headerText="Item">
+													<f:facet name="header">
+														<h:outputText value="Item" />
+													</f:facet>
+													<h:outputText value="#{var.item}" />
+												</p:column>
+												<p:column headerText="Descripción">
+													<f:facet name="header">
+														<h:outputText value="Descripción" />
+													</f:facet>
+													<h:outputText value="#{var.nombreItem}" />
+												</p:column>
+												<p:column headerText="Cantidad">
+													<f:facet name="header">
+														<h:outputText value="Cantidad" />
+													</f:facet>
+													<h:outputText value="#{var.cantidad}" />
+												</p:column>
+												<p:column headerText="Monto">
+													<f:facet name="header">
+														<h:outputText value="Monto" />
+													</f:facet>
+													<h:outputText value="#{var.monto}" />
+												</p:column>
+											</p:dataTable></td>
+									</tr>
+									<tr>
+										<td colspan="3"><p:outputLabel value="Pedidos del PAO"
+												id="lblPedidosPAO" /></td>
+									</tr>
+									<tr>
+										<td colspan="3"><p:dataTable id="tblListaPedidos"
+												value="#{programacion.currentPao.compraDirecta.pedidos}"
+												var="var" widgetVar="tblListaPedidos"
+												emptyMessage="No se encontraron registros"
+												selectionMode="single" rowKey="#{var.nroPedido}"
+												styleClass="gandalfTableClass">
+												<!--  
+								<p:ajax event="rowSelect" update=":form:pnlBotones" immediate="true"/>
+								-->
+												<p:column styleClass="c_string" headerText="N° Pedido">
+													<f:facet name="header">
+														<h:outputText value="N° Pedido" />
+													</f:facet>
+													<h:outputText value="#{var.nroPedido}" />
+												</p:column>
+												<p:column headerText="Oficina Usuaria">
+													<f:facet name="header">
+														<h:outputText value="Oficina Usuaria" />
+													</f:facet>
+													<h:outputText value="#{var.centroCostoDesc}" />
+												</p:column>
+												<p:column headerText="Descripción">
+													<f:facet name="header">
+														<h:outputText value="Descripción" />
+													</f:facet>
+													<h:outputText value="#{var.motivoPedido}" />
+												</p:column>
+												<p:column headerText="Estado">
+													<f:facet name="header">
+														<h:outputText value="Estado" />
+													</f:facet>
+													<h:outputText value="#{var.descripcionEstadoPorEtapa}" />
+												</p:column>
+												<p:column headerText="Sinad">
+													<f:facet name="header">
+														<h:outputText value="Sinad" />
+													</f:facet>
+													<h:outputText value="#{var.numeroExpedienteSinad}" />
+												</p:column>
+												<p:column headerText="Principal">
+													<f:facet name="header">
+														<h:outputText value="Principal" />
+													</f:facet>
+													<h:outputText value="#{var.esPrincipal}" />
+												</p:column>
+											</p:dataTable></td>
+									</tr>
+								</table>
+
+							</p:tab>
+							<p:tab title="Identificación del PAC">
+								<table style="width: 100%;" cellpadding="0" cellspacing="5">
+									<tr>
+										<td><p:outputLabel value="Antecedentes"
+												for="txtAntecedentes" id="lblAntecedentes" /></td>
+										<td><p:outputLabel value="Número referencial PAC"
+												for="txtNumeroReferencia" id="lblNumeroReferencia" /></td>
+										<td><p:outputLabel value="Tipo de necesidad"
+												for="ddlTipoNecesidad" id="lblTipoNecesidad" /></td>
+									</tr>
+									<tr>
+										<td><p:inputText id="txtAntecedentes" required="true"
+												maxlength="10" style="width:150px;" label="Número de CPP"
+												disabled="true"
+												value="#{programacion.currentPao.compraDirecta.nroCP}">
+											</p:inputText></td>
+										<td><p:inputText id="txtNumeroReferencia" required="true"
+												maxlength="10" style="width:150px;"
+												label="Número referencial PAC" disabled="true"
+												value="#{programacion.currentPao.compraDirecta.nroCP}">
+											</p:inputText></td>
+										<td><p:selectOneMenu
+												value="#{var.idcatalogoestadoentregable}"
+												id="ddlTipoNecesidad" required="false"
+												label="Tipo de necesidad">
+												<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+												<f:selectItems
+													value="#{programacion.listaGentablaIdcatalogoestadoentregable}"
+													var="var" itemLabel="#{var.vchregdescri}"
+													itemValue="#{var.vchregcodigo}" />
+											</p:selectOneMenu></td>
+									</tr>
+									<tr>
+										<td><p:outputLabel value="Tipo de contratación"
+												for="txtTipoContratacion" id="lblTipoContratacion" /></td>
+										<td><p:outputLabel value="Estado de requerimiento"
+												for="txtEstadoRequerimiento" id="lblEstadoRequerimiento" /></td>
+										<td><p:outputLabel value="Monto de requerimiento"
+												for="txtMontoRequerimiento" id="lblMontoRequerimiento" /></td>
+									</tr>
+									<tr>
+										<td><p:inputText id="txtTipoContratacion" required="true"
+												maxlength="10" style="width:150px;"
+												label="Tipo de contratación" disabled="true"
+												value="#{programacion.currentPao.compraDirecta.nroCP}">
+											</p:inputText></td>
+										<td><p:inputText id="txtEstadoRequerimiento"
+												required="true" maxlength="10" style="width:150px;"
+												label="Estado de requerimiento" disabled="true"
+												value="#{programacion.currentPao.compraDirecta.nroCP}">
+											</p:inputText></td>
+										<td><p:inputText id="txtMontoRequerimiento"
+												required="true" maxlength="10" style="width:150px;"
+												label="Monto de requerimiento" disabled="true"
+												value="#{programacion.currentPao.compraDirecta.nroCP}">
+											</p:inputText></td>
+									</tr>
+									<tr>
+										<td><p:outputLabel value="Estado de proceso inicial"
+												for="txtEstadoProcesoInicial" id="lblEstadoProcesoInicial" /></td>
+										<td><p:outputLabel value="Estado de PAC"
+												for="ddlEstadoPac" id="lblEstadoPac" /></td>
+										<td><p:outputLabel value="Unidad de medida"
+												for="txtUnidadMedida" id="lblUnidadMedida" /></td>
+									</tr>
+									<tr>
+										<td><p:inputText id="txtEstadoProcesoInicial"
+												required="true" maxlength="10" style="width:150px;"
+												label="Estado de proceso inicial" disabled="true"
+												value="#{programacion.currentPao.compraDirecta.nroCP}">
+											</p:inputText></td>
+										<td><p:selectOneMenu
+												value="#{var.idcatalogoestadoentregable}" id="ddlEstadoPac"
+												required="false" label="Estado de PAC">
+												<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+												<f:selectItems
+													value="#{programacion.listaGentablaIdcatalogoestadoentregable}"
+													var="var" itemLabel="#{var.vchregdescri}"
+													itemValue="#{var.vchregcodigo}" />
+											</p:selectOneMenu></td>
+										<td><p:inputText id="txtUnidadMedida" required="true"
+												maxlength="10" style="width:150px;" label="Unidad de medida"
+												disabled="true"
+												value="#{programacion.currentPao.compraDirecta.nroCP}">
+											</p:inputText></td>
+									</tr>
+									<tr>
+										<td colspan="3"><p:outputLabel value="Denominación"
+												for="txtDenominacion" id="lblDenominacion" /></td>
+									</tr>
+									<tr>
+										<td colspan="3"><p:inputTextarea id="txtDenominacion"
+												required="true" rows="5" cols="50" queryDelay="750"
+												minQueryLength="4" disabled="true"
+												value="#{programacion.currentPao.compraDirecta.especificacionTecnica}"
+												style="width: 100%" /></td>
+									</tr>
+									<tr>
+										<td><p:outputLabel value="Cantidad" for="txtCantidad"
+												id="lblCantidad" /></td>
+										<td><p:outputLabel value="Mes previsto de convocatoria"
+												for="ddlMesPrevisto" id="lblMesPrevisto" /></td>
+										<td><p:outputLabel value="Tipo de bien" for="txtTipoBien"
+												id="lblTipoBien" /></td>
+									</tr>
+									<tr>
+										<td><p:inputText id="txtCantidad" required="true"
+												maxlength="10" style="width:150px;" label="Cantidad"
+												disabled="true"
+												value="#{programacion.currentPao.compraDirecta.nroCP}">
+											</p:inputText></td>
+										<td><p:selectOneMenu
+												value="#{var.idcatalogoestadoentregable}"
+												id="ddlMesPrevisto" required="false"
+												label="Mes previsto de convocatoria">
+												<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+												<f:selectItems
+													value="#{programacion.listaGentablaIdcatalogoestadoentregable}"
+													var="var" itemLabel="#{var.vchregdescri}"
+													itemValue="#{var.vchregcodigo}" />
+											</p:selectOneMenu></td>
+										<td><p:inputText id="txtTipoBien" required="true"
+												maxlength="10" style="width:150px;" label="Tipo de bien"
+												disabled="true"
+												value="#{programacion.currentPao.compraDirecta.nroCP}">
+											</p:inputText></td>
+									</tr>
+								</table>
+							</p:tab>
+							<p:tab title="Certificación">
+								<table style="width: 100%;" cellpadding="0" cellspacing="5"
+									border="0">
+									<tr>
+										<td><p:outputLabel value="Número de CPP"
+												for="txtNumeroCPP" id="lblNumeroCPP" /></td>
+										<td><p:outputLabel value="Fecha aprobación"
+												for="txtFechaAprobacionCPP" id="lblFechaAprobacionCPP" /></td>
+
+										<td><p:outputLabel value="Monto certificado"
+												for="txtMontoCertificado" id="lblMontoCertificado" /></td>
+									</tr>
+									<tr>
+										<td><p:inputText id="txtNumeroCPP" required="true"
+												maxlength="10" style="width:150px;" label="Número de CPP"
+												disabled="true"
+												value="#{programacion.currentPao.compraDirecta.nroCP}" /></td>
+										<td><p:inputText id="txtFechaAprobacionCPP"
+												required="true" maxlength="10" style="width:150px;"
+												label="Fecha aprobación" disabled="true"
+												value="#{programacion.currentPao.compraDirecta.fechaCP}">
+												<f:convertDateTime pattern="dd/MM/yyyy" />
+											</p:inputText></td>
+										<td><p:inputNumber id="txtMontoCertificado"
+												required="true" maxlength="10" style="width:150px;"
+												label="Monto certificado" disabled="true"
+												value="#{programacion.currentPao.compraDirecta.montoCP}" /></td>
+									</tr>
+									<tr>
+										<td colspan="3"><p:dataTable id="tblListaCertificacion"
+												value="#{programacion.currentPao.compraDirecta.certificacionItems}"
+												var="var" emptyMessage="No se encontraron registros"
+												selectionMode="single" rowKey="#{var.nroCP}"
+												styleClass="gandalfTableClass">
+												<p:column headerText="Código">
+													<f:facet name="header">
+														<h:outputText value="Código" />
+													</f:facet>
+													<h:outputText value="#{var.nroCP}" />
+												</p:column>
+												<p:column headerText="Fuente de financiamiento">
+													<f:facet name="header">
+														<h:outputText value="Fuente de financiamiento" />
+													</f:facet>
+													<h:outputText value="#{var.fuenteFinanciamiento}" />
+												</p:column>
+												<p:column headerText="Código de cadena">
+													<f:facet name="header">
+														<h:outputText value="Código de cadena" />
+													</f:facet>
+													<h:outputText value="#{var.secuenciaFunc}" />
+												</p:column>
+												<p:column headerText="Clasificador">
+													<f:facet name="header">
+														<h:outputText value="Clasificador" />
+													</f:facet>
+													<h:outputText value="#{var.clasificador}" />
+												</p:column>
+												<p:column headerText="Monto">
+													<f:facet name="header">
+														<h:outputText value="Monto" />
+													</f:facet>
+													<h:outputText value="#{var.valor}" />
+												</p:column>
+											</p:dataTable></td>
+									</tr>
+								</table>
+							</p:tab>
+						</p:accordionPanel>
+						<p:commandButton value="Guardar" icon="fa fa-pencil"
+							title="Guardar datos generales"
+							disabled="#{!programacion.esSeleccionado}"
+							action="#{programacion.guardarDatosGenerales}"
+							rendered="#{programacion.renderButton('btnGuadarDatosGenerales')}"
+							update="form:msgs" />
+						<p:commandButton value="Cancelar" action="#{programacion.load}"
+							ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Cancelar" />
+					</p:tab>
+					<p:tab title="Estudio del mercado"
+						disabled="#{programacion.disabledTabEstudioMercado}">
+						<p:fieldset>
+							<div align="left">
+								<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+									<p:commandButton value="Nuevo"
+										action="#{programacion.irRegistrarFuente}"
+										update="hidStatus,:frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar"
+										oncomplete="showDialog('form:tabViewPao:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');"
+										icon="ui-icon-document"
+										rendered="#{programacion.renderButton('btnNuevoEM')}" />
+									<p:commandButton value="Editar"
+										action="#{programacion.irEditarFuente}"
+										update="hidStatus,:frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar"
+										oncomplete="showDialog('form:tabViewPao:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');"
+										icon="ui-icon-pencil"
+										disabled="#{!programacion.esSeleccionadoFuente}"
+										rendered="#{programacion.renderButton('btnEditarEM')}" />
+									<p:commandButton value="Eliminar"
+										action="#{programacion.irEliminarFuente}" update="hidStatus"
+										oncomplete="showDialog('form:tabViewPao:hidStatus','form:cdEliminarFuente');"
+										icon="ui-icon-circle-close" title="Eliminar"
+										disabled="#{!programacion.esSeleccionadoFuente}"
+										rendered="#{programacion.renderButton('btnEliminarEM')}" />
+									<h:inputHidden id="hidStatus" value="true" />
+								</p:panel>
+							</div>
+
+							<p:dataTable id="tblListaCuadrocomparativofuente"
+								value="#{programacion.listaCuadrocomparativofuente}" var="var"
+								emptyMessage="No se encontraron registros"
+								widgetVar="tblListaCuadrocomparativofuente"
+								selection="#{programacion.selectedCuadrocomparativofuente}"
+								paginator="true" rows="#{sisabascontrol.registros_mant}"
+								paginatorPosition="bottom"
+								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(programacion.listaCuadrocomparativofuente)}"
+								selectionMode="single" rowKey="#{var.idcuadrocomparativofuente}"
+								styleClass="gandalfTableClass">
+								<p:ajax event="rowSelect"
+									listener="#{programacion.seleccionItemFuente}"
+									update=":form:tabViewPao:pnlBotones" immediate="true" />
+								<p:column headerText="Fuente">
+									<f:facet name="header">
+										<h:outputText value="Fuente"></h:outputText>
+									</f:facet>
+									<h:outputText
+										value="#{var.gentablaIdcatalogotipofuente.vchregdescri}" />
+								</p:column>
+								<p:column headerText="Proveedor / Postor / Entidad">
+									<f:facet name="header">
+										<h:outputText value="Proveedor / Postor / Entidad"></h:outputText>
+									</f:facet>
+									<h:outputText value="#{var.nombreproveedor}" />
+								</p:column>
+							</p:dataTable>
+
+							<p:outputLabel value="Items" id="lblItems" />
+							<h:panelGrid columns="2">
+								<p:dataTable id="tblListaCuadrocomparativoVrFinal"
+									value="#{programacion.listaCuadroComparativoVrFinal}" var="var"
+									emptyMessage="No se encontraron registros"
+									widgetVar="tblListaCuadrocomparativoVrFinal" paginator="false"
+									rows="#{sisabascontrol.registros_mant}"
+									paginatorPosition="bottom"
+									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(programacion.listaCuadroComparativoVrFinal)}"
+									selectionMode="single" rowKey="#{var.idCuadroComparativoVR}"
+									styleClass="gandalfTableClass">
+									<p:column headerText="Descripción / denominación">
+										<f:facet name="header">
+											<h:outputText value="Descripción / denominación"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.nombreItem}" />
+									</p:column>
+									<p:column headerText="Unidad">
+										<f:facet name="header">
+											<h:outputText value="Unidad"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.unidadMedida}" />
+									</p:column>
+									<p:column headerText="Cantidad">
+										<f:facet name="header">
+											<h:outputText value="Cantidad"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.cantidadSolicitadaSiga}" />
+									</p:column>
+									<p:column
+										headerText="Precio Total (Consignar moneda del valor referencial)">
+										<f:facet name="header">
+											<h:outputText
+												value="Precio Total (Consignar moneda del valor referencial)"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.valorReferencialTotal}" />
+									</p:column>
+									<p:column
+										headerText="Procedimiento y/o metodología utilizadopara determinar el V.R.">
+										<f:facet name="header">
+											<h:outputText
+												value="Procedimiento y/o metodología utilizadopara determinar el V.R."></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.procedimientoVrDesc}" />
+									</p:column>
+									<p:column headerText="Valor Referencial del Item">
+										<f:facet name="header">
+											<h:outputText value="Valor Referencial del Item"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.valorReferencialItem}" />
+									</p:column>
+								</p:dataTable>
+							</h:panelGrid>
+						</p:fieldset>
+					</p:tab>
+					<p:tab title="Aprobación de expediente"
+						disabled="#{programacion.disabledTabOrden}">
+						<p:accordionPanel id="accOrden" multiple="true"
+							activeIndex="0,1,2,3">
+							<p:tab title="Información de proceso">
+
+							</p:tab>
+						</p:accordionPanel>
+						<p:accordionPanel id="accEntregable" multiple="true"
+							activeIndex="0,1,2,3,4">
+							<p:tab title="Miembros de comité">
+								<p:dataTable id="tblListaEntregable"
+									value="#{programacion.listaEntregable}" var="var"
+									emptyMessage="No se encontraron registros"
+									widgetVar="tblListaEntregable" paginator="false"
+									rows="#{sisabascontrol.registros_mant}"
+									paginatorPosition="bottom" selectionMode="single"
+									rowKey="#{var.nroentregable}" styleClass="gandalfTableClass"
+									editable="true">
+
+									<!-- 
+									<p:ajax event="rowEdit" listener="{programacion.onRowEdit}"
+										update=":form:growl" />
+									<p:ajax event="rowEditCancel"
+										listener="{programacion.onRowCancel}" update=":form:growl" />
+										 -->
+									<!-- 
+									<p:column headerText="proveido">
+										<h:outputText value="UGME" />
+									</p:column>
+									 -->
+									<p:column headerText="Fecha">
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.fechapresentacionentregable}">
+														<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+													</h:outputText>
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:calendar value="#{var.fechapresentacionentregable}"
+													required="false" pattern="dd/MM/yyyy" label="Fecha"
+													navigator="true" locale="es" styleClass="dateTimeField" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+									<p:column headerText="Descripción">
+										<f:facet name="header">
+											<h:outputText value="Descripción"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.nroentregable}" />
+									</p:column>
+									<p:column headerText="Plazos (días)">
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.plazoentregable}" />
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:inputNumber value="#{var.plazoentregable}"
+													style="width:100%" label="Year" maxlength="2" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+									<p:column headerText="Importe">
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.montoentregable}" />
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:inputNumber value="#{var.montoentregable}"
+													style="width:100%" label="Year" maxlength="2" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+									<p:column headerText="Monto de penalidad">
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.montopenalidadentregable}" />
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:inputNumber value="#{var.montopenalidadentregable}"
+													style="width:100%" label="Year" maxlength="20"
+													decimalPlaces="2" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+									<p:column headerText="Observaciones">
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.observacionesentregable}" />
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:inputText value="#{var.observacionesentregable}"
+													style="width:100%" label="Year" maxlength="500" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+									<p:column headerText="Estado">
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.idcatalogoestadoentregable}" />
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:selectOneMenu value="#{var.idcatalogoestadoentregable}"
+													id="dllIdcatalogoestadoentregable" required="false"
+													label="Estado">
+													<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+													<f:selectItems
+														value="#{programacion.listaGentablaIdcatalogoestadoentregable}"
+														var="var" itemLabel="#{var.vchregdescri}"
+														itemValue="#{var.vchregcodigo}" />
+												</p:selectOneMenu>
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+									<p:column headerText="Acciones">
+										<p:rowEditor editTitle="Editar" />
+									</p:column>
+								</p:dataTable>
+							</p:tab>
+						</p:accordionPanel>
+						<p:commandButton value="Guardar" icon="fa fa-pencil"
+							title="Guardar datos generales"
+							disabled="#{!programacion.esSeleccionado}"
+							action="#{programacion.guardarOrden}"
+							rendered="#{programacion.renderButton('btnGuadarDatosGenerales')}"
+							update="form:msgs" />
+						<p:commandButton value="Cancelar" action="#{programacion.load}"
+							ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Cancelar" />
+					</p:tab>
+				</p:tabView>
+
+				<!-- DIALOGS -->
+				<p:confirmDialog id="cdEliminarFuente"
+					message="Esta seguro de eliminar este registro?"
+					header="Confirmación" severity="alert" widgetVar="cdEliminarFuente">
+					<p:commandButton value="Si" action="#{programacion.eliminarFuente}"
+						update=":form:tabViewPao:tblListaCuadrocomparativofuente,:form:growl"
+						oncomplete="hideDialogPF('cdEliminarFuente');" />
+					<p:commandButton value="No"
+						onclick="hideDialogPF('cdEliminarFuente');" type="button" />
+				</p:confirmDialog>
+			</p:panel>
+		</h:form>
+		<h:form id="frmCuadrocomparativofuenteRegistrar">
+			<p:dialog id="diCuadrocomparativofuenteRegistrar"
+				header="Cuadro comparativo"
+				widgetVar="diCuadrocomparativofuenteRegistrar" resizable="false"
+				modal="true" dynamic="true">
+				<p:scrollPanel mode="native" style="width:100%;height:100%;">
+					<p:messages for="msgsCuadrocomparativofuenteR" autoUpdate="true"
+						closable="true" />
+					<ui:include
+						src="/pages/pao/component/c_cuadrocomparativofuenteRegistrar.xhtml" />
+				</p:scrollPanel>
+				<table style="width: 100%;">
+					<tr>
+						<td><h:inputHidden id="hidStatus" value="true" /> <p:commandButton
+								value="Aceptar" action="#{programacion.aceptarFuente}"
+								update="hidStatus,:form:tabViewPao:tblListaCuadrocomparativofuente,:form:tabViewPao:tblListaCuadrocomparativoVrFinal,:form:growl,:form:tabViewPao:pnlBotones,panelC"
+								oncomplete="hideDialog('frmCuadrocomparativofuenteRegistrar:hidStatus','frmCuadrocomparativofuenteRegistrar:tabViewPao:diCuadrocomparativofuenteRegistrar')"
+								icon="ui-icon-circle-check" title="Aceptar" /></td>
+						<td>
+							<div align="right">
+								<p:commandButton value="Salir"
+									icon="ui-icon-arrowreturnthick-1-w" title="Salir"
+									onclick="hideDialogPF('frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');return false;" />
+							</div>
+						</td>
+					</tr>
+				</table>
+			</p:dialog>
+		</h:form>
+
+		<h:form id="frmControlProductoRegistrar">
+			<p:dialog id="diControlProductoRegistrar"
+				header="Control de producto" widgetVar="diControlProductoRegistrar"
+				resizable="false" modal="true" dynamic="true">
+				<p:scrollPanel mode="native" style="width:100%;height:100%;">
+					<p:messages for="msgsControlProducto" autoUpdate="true"
+						closable="true" />
+					<ui:include
+						src="/pages/pao/component/c_requisitosconformidadRegistrar.xhtml" />
+				</p:scrollPanel>
+				<table style="width: 100%;">
+					<tr>
+						<td><h:inputHidden id="hidStatus" value="true" /> <p:commandButton
+								value="Aceptar" action="#{programacion.aceptarControl}"
+								update="hidStatus,:form:tabViewPao:accDatosGenerales:tblListaControl,:form:growl,:form:tabViewPao:accDatosGenerales:pnlBotonesControl,panelC"
+								oncomplete="hideDialog('frmControlProductoRegistrar:hidStatus','frmControlProductoRegistrar:tabViewPao:diControlProductoRegistrar')"
+								icon="ui-icon-circle-check" title="Aceptar" /></td>
+						<td>
+							<div align="right">
+								<p:commandButton value="Salir"
+									icon="ui-icon-arrowreturnthick-1-w" title="Salir"
+									onclick="hideDialogPF('frmControlProductoRegistrar:diControlProductoRegistrar');return false;" />
+							</div>
+						</td>
+					</tr>
+				</table>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

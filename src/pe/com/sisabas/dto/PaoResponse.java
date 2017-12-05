@@ -30,9 +30,11 @@ public class PaoResponse implements  Serializable,Cloneable {
 	private String estadoRequerimientoDesc;
 	private String idDocumentos;
 	private int rowTotal;
-	private CompraDirectaDatosGeneralesDto compraDirecta;
-	private List<RequisitoConformidadDto> listaRequisitosConformidad;
-
+	private CompraDirectaDatosGeneralesDto compraDirecta; //ORDEN DE COMPRA DIRECTA
+	private List<RequisitoConformidadDto> listaRequisitosConformidad; //REQUISITOS DE CONFORMIDAD PARA ORDEN DE COMPRA DIRECTA
+	private PacConsolidadoDto pacConsolidado; //PAC CONSOLIDADO
+	
+	
 	public CompraDirectaDatosGeneralesDto getCompraDirecta() {
 		return compraDirecta;
 	}
@@ -158,8 +160,14 @@ public class PaoResponse implements  Serializable,Cloneable {
 	}
 	public void setListaRequisitosConformidad(List<RequisitoConformidadDto> listaRequisitosConformidad) {
 		this.listaRequisitosConformidad = listaRequisitosConformidad;
-	}
+	}	
 	
+	public PacConsolidadoDto getPacConsolidado() {
+		return pacConsolidado;
+	}
+	public void setPacConsolidado(PacConsolidadoDto pacConsolidado) {
+		this.pacConsolidado = pacConsolidado;
+	}
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();

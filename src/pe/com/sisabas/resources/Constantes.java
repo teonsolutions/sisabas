@@ -209,5 +209,8 @@ public class Constantes {
 		public static final String DOLARES = "US$";		
 	}	
 
+	public class paramentro{
+		public static final double PAC_VALOR = 31600;
+	}
 	//Constantes personalizados
 }
