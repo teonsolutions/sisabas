@@ -219,7 +219,7 @@
 										<td><p:inputText id="txtNumeroReferencia" required="true"
 												maxlength="10" style="width:150px;"
 												label="Número referencial PAC" disabled="true"
-												value="#{programacion.currentPao.compraDirecta.nroCP}">
+												value="#{programacion.currentPao.pacConsolidado.nroPac}">
 											</p:inputText></td>
 										<td><p:selectOneMenu
 												value="#{var.idcatalogoestadoentregable}"
@@ -249,12 +249,12 @@
 										<td><p:inputText id="txtEstadoRequerimiento"
 												required="true" maxlength="10" style="width:150px;"
 												label="Estado de requerimiento" disabled="true"
-												value="#{programacion.currentPao.compraDirecta.nroCP}">
+												value="#{programacion.currentPao.pacConsolidado.nroPac}">
 											</p:inputText></td>
 										<td><p:inputText id="txtMontoRequerimiento"
 												required="true" maxlength="10" style="width:150px;"
 												label="Monto de requerimiento" disabled="true"
-												value="#{programacion.currentPao.compraDirecta.nroCP}">
+												value="#{programacion.currentPao.pacConsolidado.valorEstimadoContratacion}">
 											</p:inputText></td>
 									</tr>
 									<tr>
@@ -283,7 +283,7 @@
 										<td><p:inputText id="txtUnidadMedida" required="true"
 												maxlength="10" style="width:150px;" label="Unidad de medida"
 												disabled="true"
-												value="#{programacion.currentPao.compraDirecta.nroCP}">
+												value="#{programacion.currentPao.pacConsolidado.unidadMedida}">
 											</p:inputText></td>
 									</tr>
 									<tr>
@@ -294,7 +294,7 @@
 										<td colspan="3"><p:inputTextarea id="txtDenominacion"
 												required="true" rows="5" cols="50" queryDelay="750"
 												minQueryLength="4" disabled="true"
-												value="#{programacion.currentPao.compraDirecta.especificacionTecnica}"
+												value="#{programacion.currentPao.pacConsolidado.descripcionPac}"
 												style="width: 100%" /></td>
 									</tr>
 									<tr>
@@ -309,7 +309,7 @@
 										<td><p:inputText id="txtCantidad" required="true"
 												maxlength="10" style="width:150px;" label="Cantidad"
 												disabled="true"
-												value="#{programacion.currentPao.compraDirecta.nroCP}">
+												value="#{programacion.currentPao.pacConsolidado.cantidad}">
 											</p:inputText></td>
 										<td><p:selectOneMenu
 												value="#{var.idcatalogoestadoentregable}"
@@ -324,7 +324,7 @@
 										<td><p:inputText id="txtTipoBien" required="true"
 												maxlength="10" style="width:150px;" label="Tipo de bien"
 												disabled="true"
-												value="#{programacion.currentPao.compraDirecta.nroCP}">
+												value="#{programacion.currentPao.pacConsolidado.tipoBienDesc}">
 											</p:inputText></td>
 									</tr>
 								</table>
