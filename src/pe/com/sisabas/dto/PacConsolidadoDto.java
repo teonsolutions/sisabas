@@ -2,6 +2,7 @@ package pe.com.sisabas.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class PacConsolidadoDto implements Serializable,Cloneable{
 
@@ -12,6 +13,7 @@ public class PacConsolidadoDto implements Serializable,Cloneable{
 	private static final long serialVersionUID = 1L;
 	private Integer idPacConsolidado;
 	private Integer nroConsolid;
+	private Date fechaPao;
 	private String nroPac;
 	private String idCatalogoTipoNecesidad;
 	private String idCatalogoTipoContratacion;
@@ -37,9 +39,19 @@ public class PacConsolidadoDto implements Serializable,Cloneable{
 	private String nombreEspecialistaVR;
 	private String resolucionPac;
 	private String documentoNoProgramado;
-	
-	
+	private List<CertificacionItemsDto> certificacionItems;
+	private Date fechaCP;
+	private Integer nroCP;
+	private Double montoCP;
+	private List<PedidosPaoResponse> pedidos;
+	private List<PacItemsDto> items;
 		
+	private Integer anio;
+	private String codigoCentroCosto;
+	private String tipoNecesidad;
+	private String idTipoContratacion;
+	private String idTipoNecesidad;
+	private int idUnidadEjecutora; 
 
 	public Integer getIdPacConsolidado() {
 		return idPacConsolidado;
@@ -64,6 +76,20 @@ public class PacConsolidadoDto implements Serializable,Cloneable{
 
 	public void setNroConsolid(Integer nroConsolid) {
 		this.nroConsolid = nroConsolid;
+	}
+
+
+
+
+	public Date getFechaPao() {
+		return fechaPao;
+	}
+
+
+
+
+	public void setFechaPao(Date fechaPao) {
+		this.fechaPao = fechaPao;
 	}
 
 
@@ -414,6 +440,174 @@ public class PacConsolidadoDto implements Serializable,Cloneable{
 
 	public void setDocumentoNoProgramado(String documentoNoProgramado) {
 		this.documentoNoProgramado = documentoNoProgramado;
+	}
+
+
+
+
+	public List<CertificacionItemsDto> getCertificacionItems() {
+		return certificacionItems;
+	}
+
+
+
+
+	public void setCertificacionItems(List<CertificacionItemsDto> certificacionItems) {
+		this.certificacionItems = certificacionItems;
+	}
+
+
+
+
+	public Date getFechaCP() {
+		return fechaCP;
+	}
+
+
+
+
+	public void setFechaCP(Date fechaCP) {
+		this.fechaCP = fechaCP;
+	}
+
+
+
+
+	public Integer getNroCP() {
+		return nroCP;
+	}
+
+
+
+
+	public void setNroCP(Integer nroCP) {
+		this.nroCP = nroCP;
+	}
+
+
+
+
+	public Double getMontoCP() {
+		return montoCP;
+	}
+
+
+
+
+	public void setMontoCP(Double montoCP) {
+		this.montoCP = montoCP;
+	}
+
+
+
+
+	public List<PedidosPaoResponse> getPedidos() {
+		return pedidos;
+	}
+
+
+
+
+	public void setPedidos(List<PedidosPaoResponse> pedidos) {
+		this.pedidos = pedidos;
+	}
+
+
+
+
+	public List<PacItemsDto> getItems() {
+		return items;
+	}
+
+
+
+
+	public void setItems(List<PacItemsDto> items) {
+		this.items = items;
+	}
+
+
+
+
+	public Integer getAnio() {
+		return anio;
+	}
+
+
+
+
+	public void setAnio(Integer anio) {
+		this.anio = anio;
+	}
+
+
+
+
+	public String getCodigoCentroCosto() {
+		return codigoCentroCosto;
+	}
+
+
+
+
+	public void setCodigoCentroCosto(String codigoCentroCosto) {
+		this.codigoCentroCosto = codigoCentroCosto;
+	}
+
+
+
+
+	public String getTipoNecesidad() {
+		return tipoNecesidad;
+	}
+
+
+
+
+	public void setTipoNecesidad(String tipoNecesidad) {
+		this.tipoNecesidad = tipoNecesidad;
+	}
+
+
+
+
+	public String getIdTipoContratacion() {
+		return idTipoContratacion;
+	}
+
+
+
+
+	public void setIdTipoContratacion(String idTipoContratacion) {
+		this.idTipoContratacion = idTipoContratacion;
+	}
+
+
+
+
+	public String getIdTipoNecesidad() {
+		return idTipoNecesidad;
+	}
+
+
+
+
+	public void setIdTipoNecesidad(String idTipoNecesidad) {
+		this.idTipoNecesidad = idTipoNecesidad;
+	}
+
+
+
+
+	public int getIdUnidadEjecutora() {
+		return idUnidadEjecutora;
+	}
+
+
+
+
+	public void setIdUnidadEjecutora(int idUnidadEjecutora) {
+		this.idUnidadEjecutora = idUnidadEjecutora;
 	}
 
 

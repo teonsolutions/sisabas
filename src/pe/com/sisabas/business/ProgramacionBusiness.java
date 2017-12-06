@@ -47,4 +47,5 @@ public interface ProgramacionBusiness {
 	public Resultado grabarOrden(TransactionRequest<List<OrdenDto>> request) throws Exception;
 	public List<Orden> getOrdenByPacConsolid(java.lang.Integer idPacConsolidado) throws Exception;
 	public PacConsolidadoDto getPacConsolidado(PaoRequest request) throws Exception;
+	public Resultado grabarPacConsolidado(TransactionRequest<PacConsolidadoDto> request) throws Exception;
 }

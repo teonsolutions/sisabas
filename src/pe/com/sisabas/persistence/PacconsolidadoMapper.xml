@@ -204,6 +204,7 @@
 	<resultMap type="pe.com.sisabas.dto.PacConsolidadoDto" id="pacConsolidadoDetail">
 		<result column="IdPacConsolidado" property="idPacConsolidado" jdbcType="INTEGER"/>
 		<result column="NRO_CONSOLID" property="nroConsolid" jdbcType="INTEGER"/>
+		<result column="FECHA_PAO" property="fechaPao" jdbcType="DATE"/>
 		<result column="NRO_PAC" property="nroPac" jdbcType="VARCHAR"/>
 		<result column="ID_TIPO_NECESIDAD" property="idCatalogoTipoNecesidad" jdbcType="VARCHAR"/>
 		<result column="IdCatalogoTipoContratacion" property="idCatalogoTipoContratacion" jdbcType="VARCHAR"/>
@@ -229,6 +230,8 @@
 		<result column="NombreEspecialistaVR" property="nombreEspecialistaVR" jdbcType="VARCHAR"/>
 		<result column="ResolucionPac" property="resolucionPac" jdbcType="VARCHAR"/>
 		<result column="DocumentoNoProgramado" property="documentoNoProgramado" jdbcType="VARCHAR"/>
+		<result column="FECHA_CERTIFICACION_PRESUPUESTAL" property="fechaCP" jdbcType="DATE"/>
+		<result column="NRO_CERTIFICACION_PRESUPUESTAL" property="nroCP" jdbcType="INTEGER"/>
 	</resultMap>	
 
 	<resultMap id="FullResultMap" type="pe.com.sisabas.be.Pacconsolidado">
@@ -2253,7 +2256,7 @@
 	</select>
 
 	<select id="getPacConsolidado" resultMap="pacConsolidadoDetail" parameterType="pe.com.sisabas.dto.PaoRequest">
-		{call abas.paContratosListarPagoOrdenes(#{idUnidadEjecutoraSiaf},#{anio},#{nroExpedienteSiaf})}
+		{call abas.paProgramacionObtenerPacConsolidado(#{anio},#{nroConsolid})}
 	</select>
 				
 </mapper>

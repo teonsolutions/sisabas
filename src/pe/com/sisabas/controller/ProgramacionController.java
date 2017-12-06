@@ -104,6 +104,7 @@ public class ProgramacionController extends BaseController {
 	public List<Gentabla> listaGentablaIdcatalogomonedafuente;
 	public List<Gentabla> listaGentablaIdcatalogoestadoentregable;
 	public List<Gentabla> listaGentablaIdcatalogotipodocumento;
+	public List<Gentabla> listaGentablaIdcatalogomeses;
 
 	// Direct
 	public static String SUCCESS_ORDEN = "/pages/pao/ordenRegistrar.xhtml?faces-redirect=true;";
@@ -116,10 +117,10 @@ public class ProgramacionController extends BaseController {
 	private List<CuadroComparativoVrDto> listaCuadroComparativoVrFinal;
 	private List<OrdenDto> listaOrden;
 	private List<SeguimientoPagosResponse> listaSeguimientoPagosSiaf;
-	private List<Entregable> listaEntregable;	
+	private List<Entregable> listaEntregable;
 	private RequisitoConformidadDto requisitosconformidad;
-	
-	//Paac	
+
+	// Paac
 
 	private boolean esSeleccionadoFuente;
 	private String tituloFuente;
@@ -138,7 +139,7 @@ public class ProgramacionController extends BaseController {
 
 	@Autowired
 	public CuadrocomparativofuenteBusiness cuadroComparativoFuenteBusiness;
-	
+
 	public ProgramacionController() {
 
 	}
@@ -147,15 +148,15 @@ public class ProgramacionController extends BaseController {
 	public void seleccionItemFuente(SelectEvent e) {
 		esSeleccionadoFuente = true;
 	}
-	
-	public void seleccionItemRequisito(SelectEvent e){
+
+	public void seleccionItemRequisito(SelectEvent e) {
 		esSeleccionadoRequisito = true;
 	}
 
 	public String load() {
-		return"/pages/pao/paoBuscar.xhtml?faces-redirect=true";
+		return "/pages/pao/paoBuscar.xhtml?faces-redirect=true";
 	}
-	
+
 	@PostConstruct
 	public void init() {
 		try {
@@ -188,7 +189,7 @@ public class ProgramacionController extends BaseController {
 			listaGentablaIdcatalogotipocontratacion = gentablaBusiness
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TCON));
 			listaGentablaIdcatalogotipodocumento = gentablaBusiness
-					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.DPRO));			
+					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.DPRO));
 
 			// Estudio del mercado
 			listaGentablaIdcatalogotipofuente = gentablaBusiness
@@ -198,7 +199,11 @@ public class ProgramacionController extends BaseController {
 
 			// Orden
 			listaGentablaIdcatalogoestadoentregable = gentablaBusiness
-					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EENT));			
+					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EENT));
+
+			// Pac consolidado
+			listaGentablaIdcatalogomeses = gentablaBusiness
+					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.MESS));
 
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
@@ -337,7 +342,7 @@ public class ProgramacionController extends BaseController {
 	public void resetRegisterFormRequisito() {
 		reset("frmControlProductoRegistrar:panelC");
 	}
-	
+
 	public void validateSelectedRow() throws UnselectedRowException, CloneNotSupportedException {
 		if (this.selectedPao == null)
 			throw new UnselectedRowException(Messages.getString("no.record.selected"));
@@ -351,13 +356,14 @@ public class ProgramacionController extends BaseController {
 		else
 			this.setCuadrocomparativofuente((Cuadrocomparativofuente) this.selectedCuadrocomparativofuente.clone());
 	}
-	
-	public void paoRegistrar(){
+
+	public String paoRegistrar() {
 		logger.debug("paoRegistrar....");
+		String redirect = "";
 		try {
-			
+
 			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
-				
+
 			validateSelectedRow();
 			if (this.esSeleccionado) {
 
@@ -365,26 +371,27 @@ public class ProgramacionController extends BaseController {
 			if (this.currentPao == null) {
 				this.currentPao = new PaoResponse();
 			}
-			
-			//EVALUATE IF THE PAO HAS MORE S/. 31600
-			if (currentPao.getValorMoneda() >= Constantes.paramentro.PAC_VALOR){
-				pacRegistrar();
-			}else{
-				ordenRegistrar();
-			}			
-			
+
+			// EVALUATE IF THE PAO HAS MORE S/. 31600
+			if (currentPao.getValorMoneda() >= Constantes.paramentro.PAC_VALOR) {
+				redirect = pacRegistrar();
+			} else {
+				redirect = ordenRegistrar();
+			}
+
 		} catch (Exception e) {
 			addErrorMessage(e);
-			//return "/login.xhtml";
-		}		
+			// return "/login.xhtml";
+		}
+		return redirect;
 	}
 
 	public String ordenRegistrar() {
 		logger.debug("paoRegistrar....");
 		try {
-			
+
 			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
-				
+
 			validateSelectedRow();
 			if (this.esSeleccionado) {
 
@@ -400,7 +407,7 @@ public class ProgramacionController extends BaseController {
 
 			PaoRequest record = new PaoRequest();
 			record.setIdUnidadEjecutora(1);
-			record.setAnio(usuario != null? usuario.getPeriodo().getAnio(): 0);
+			record.setAnio(usuario != null ? usuario.getPeriodo().getAnio() : 0);
 			record.setNroConsolid(this.currentPao.getNroConsolid());
 			record.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.PRONIED_SIAF);
 			record.setIdPacConsolidado(currentPao.getIdPacConsolid());
@@ -452,13 +459,13 @@ public class ProgramacionController extends BaseController {
 				cDirecta.setCodigoCentroCosto(usuario.getPeriodo().getCodigoCentroCosto());
 				cDirecta.setIdTipoContratacion(Constantes.tipoContratacion.NO_PAC);
 				cDirecta.setTipoProceso(Constantes.maestroProcesoSiga.ADJUDIACION_SIN_PROCESO);
-				
+
 				// VALIDAR SI ESTÁ EN GIRO DE ORDEN O ESTUDIO DEL MERCADO
 				cDirecta.setEstadoRequerimiento(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN);
 				cDirecta.setListaRequisitosConformidad(currentPao.getListaRequisitosConformidad());
 				TransactionRequest<CompraDirectaDatosGeneralesDto> transactionRequest = new TransactionRequest<CompraDirectaDatosGeneralesDto>();
-				transactionRequest.setUsuarioAuditoria("PRUEBA");
-				transactionRequest.setEquipoAuditoria("MI PC");
+				transactionRequest.setUsuarioAuditoria(getUserLogin());
+				transactionRequest.setEquipoAuditoria(getRemoteAddr());
 				transactionRequest.setEntityTransaction(cDirecta);
 				Resultado result = programacionBusiness.grabarCompraDirecta(transactionRequest);
 
@@ -481,6 +488,56 @@ public class ProgramacionController extends BaseController {
 		}
 	}
 
+	public void guardarPacConsolidado() {
+		REGISTER_INIT();
+		try {
+
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
+			if (usuario == null) {
+				REGISTER_ERROR();
+				addMessageKey("msgsDocumentotecnicoR", "Teminó la sesión", FacesMessage.SEVERITY_ERROR);
+				return;
+			}
+
+			PacConsolidadoDto pc = this.currentPao.getPacConsolidado();
+			if (!pc.getEstadoRequerimiento().equals(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN)) {
+				securityControlValidate("btnGuadarDatosGenerales");
+
+				PacConsolidadoDto pacConsolid = (PacConsolidadoDto) pc.clone();
+				pacConsolid.setIdTipoNecesidad(this.currentPao.getIdTipoNecesidad());
+				pacConsolid.setIdUnidadEjecutora(Constantes.unidadEjecutora.ID_UNIDAD_EJECUTORA_ABAS);
+				pacConsolid.setAnio(usuario.getPeriodo().getAnio());
+				pacConsolid.setCodigoCentroCosto(usuario.getPeriodo().getCodigoCentroCosto());
+				pacConsolid.setIdTipoContratacion(Constantes.tipoContratacion.NO_PAC);
+				//pacConsolid.setTipoProceso(Constantes.maestroProcesoSiga.ADJUDIACION_SIN_PROCESO);
+			
+				// VALIDAR SI ESTÁ EN GIRO DE ORDEN O ESTUDIO DEL MERCADO
+				pacConsolid.setEstadoRequerimiento(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN);
+				TransactionRequest<PacConsolidadoDto> transactionRequest = new TransactionRequest<PacConsolidadoDto>();
+				transactionRequest.setUsuarioAuditoria(getUserLogin());
+				transactionRequest.setEquipoAuditoria(getRemoteAddr());
+				transactionRequest.setEntityTransaction(pacConsolid);
+				Resultado result = programacionBusiness.grabarPacConsolidado(transactionRequest);
+
+				REGISTER_SUCCESS();
+				buscarPao();
+			}
+			showGrowlMessageSuccessfullyCompletedAction();
+		} catch (ValidateException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsDocumentotecnicoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (BusinessException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsDocumentotecnicoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (DataIntegrityViolationException e) {
+			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),
+					Messages.getString("exception.dataintegrity.message.detail"), FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			REGISTER_ERROR();
+			addErrorMessageKey("msgsDocumentotecnicoR", e);
+		}
+	}
+	
 	public void guardarOrden() {
 		REGISTER_INIT();
 		try {
@@ -568,7 +625,7 @@ public class ProgramacionController extends BaseController {
 			addErrorMessageKey("msgsForm", e);
 		}
 	}
-	
+
 	public void irRegistrarControl() {
 		STATUS_INIT();
 		try {
@@ -595,7 +652,7 @@ public class ProgramacionController extends BaseController {
 			STATUS_ERROR();
 			addErrorMessageKey("msgsForm", e);
 		}
-	}	
+	}
 
 	public void irEditarFuente() {
 		STATUS_INIT();
@@ -691,13 +748,13 @@ public class ProgramacionController extends BaseController {
 			addErrorMessageKey("msgsForm", e);
 		}
 	}
-	
+
 	public void irImprimir() {
 		STATUS_INIT();
 		try {
 			securityControlValidate("btnImprimir");
-			//resetRegisterForm();
-			//accion = IMPRIMIR;
+			// resetRegisterForm();
+			// accion = IMPRIMIR;
 			tituloBase = "PAO » " + IMPRIMIR;
 
 			STATUS_SUCCESS();
@@ -706,18 +763,19 @@ public class ProgramacionController extends BaseController {
 			redirectSessionExpiredPage();
 		} catch (SecurityRestrictedControlException e) {
 			STATUS_ERROR();
-			addMessageKey("msgsForm", Messages.getString("no.access"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
 		} catch (SecurityValidateException e) {
 			STATUS_ERROR();
-			addMessageKey("msgsForm",e.getMessage(), FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
 		} catch (RemoteException e) {
 			STATUS_ERROR();
-			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
 		} catch (Exception e) {
 			STATUS_ERROR();
 			addErrorMessageKey("msgsForm", e);
 		}
-	}	
+	}
 
 	public void updateCharToBoolean(Cuadrocomparativofuente record) throws Exception {
 		if (cuadrocomparativofuente.getProveedordedicacontratacion() != null
@@ -817,22 +875,22 @@ public class ProgramacionController extends BaseController {
 					|| this.requisitosconformidad.getIdrequisitoconformidad() == 0) {
 				if (this.currentPao.getListaRequisitosConformidad() == null)
 					this.currentPao.setListaRequisitosConformidad(new ArrayList<RequisitoConformidadDto>());
-				Gentabla conformidad = gentablaBusiness.selectByPrimaryKeyBasic(requisitosconformidad.getIdcatalogotipodocumento());
+				Gentabla conformidad = gentablaBusiness
+						.selectByPrimaryKeyBasic(requisitosconformidad.getIdcatalogotipodocumento());
 				if (conformidad != null)
 					requisitosconformidad.setTipodocumentodesc(conformidad.getVchregdescri());
-				this.currentPao.getListaRequisitosConformidad().add(requisitosconformidad);				
+				this.currentPao.getListaRequisitosConformidad().add(requisitosconformidad);
 			}
 
 			REGISTER_SUCCESS();
 			showGrowlMessageSuccessfullyCompletedAction();
-/*
-		} catch (ValidateException e) {
-			REGISTER_ERROR();
-			addMessageKey("msgsCuadrocomparativofuenteR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
-		} catch (BusinessException e) {
-			REGISTER_ERROR();
-			addMessageKey("msgsCuadrocomparativofuenteR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
-			*/
+			/*
+			 * } catch (ValidateException e) { REGISTER_ERROR();
+			 * addMessageKey("msgsCuadrocomparativofuenteR", e.getMessage(),
+			 * FacesMessage.SEVERITY_ERROR); } catch (BusinessException e) {
+			 * REGISTER_ERROR(); addMessageKey("msgsCuadrocomparativofuenteR",
+			 * e.getMessage(), FacesMessage.SEVERITY_ERROR);
+			 */
 		} catch (DataIntegrityViolationException e) {
 			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),
 					Messages.getString("exception.dataintegrity.message.detail"), FacesMessage.SEVERITY_ERROR);
@@ -841,7 +899,7 @@ public class ProgramacionController extends BaseController {
 			addErrorMessageKey("msgsCuadrocomparativofuenteR", e);
 		}
 	}
-	
+
 	public void buscarValorReferencialFinal() {
 		try {
 
@@ -919,7 +977,7 @@ public class ProgramacionController extends BaseController {
 	public void onRowEdit2(RowEditEvent event) throws Exception {
 		FacesMessage msg = new FacesMessage("Se editó correctamente",
 				"Requisito: " + ((RequisitoConformidadDto) event.getObject()).getIdrequisitoconformidad());
-		
+
 		String codigo = ((RequisitoConformidadDto) event.getObject()).getIdcatalogotipodocumento();
 		Gentabla requisito = gentablaBusiness.selectByPrimaryKeyBasic(codigo);
 		if (requisito != null)
@@ -933,7 +991,7 @@ public class ProgramacionController extends BaseController {
 				"Requisito: " + ((RequisitoConformidadDto) event.getObject()).getIdrequisitoconformidad());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
-	
+
 	public void onCellEdit(CellEditEvent event) {
 		Object oldValue = event.getOldValue();
 		Object newValue = event.getNewValue();
@@ -944,14 +1002,15 @@ public class ProgramacionController extends BaseController {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
-	
-	//***************************************************SECCION PAC******************************************************************
+
+	// ***************************************************SECCION
+	// PAC******************************************************************
 	public String pacRegistrar() {
 		logger.debug("pacRegistrar....");
 		try {
-			
+
 			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
-				
+
 			validateSelectedRow();
 			if (this.esSeleccionado) {
 
@@ -967,17 +1026,19 @@ public class ProgramacionController extends BaseController {
 
 			PaoRequest record = new PaoRequest();
 			record.setIdUnidadEjecutora(1);
-			record.setAnio(usuario != null? usuario.getPeriodo().getAnio(): 0);
+			record.setAnio(usuario != null ? usuario.getPeriodo().getAnio() : 0);
 			record.setNroConsolid(this.currentPao.getNroConsolid());
 			record.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.PRONIED_SIAF);
 			record.setIdPacConsolidado(currentPao.getIdPacConsolid());
 			PacConsolidadoDto pac = programacionBusiness.getPacConsolidado(record);
-			this.currentPao.setPacConsolidado(pac);			
+			if (pac == null)
+				pac = new PacConsolidadoDto();
+			this.currentPao.setPacConsolidado(pac);
 
 			// Estudio del Mercado
 			buscarFuente();
 			buscarValorReferencialFinal();
-			//buscarOrden();
+			// buscarOrden();
 
 		} catch (Exception e) {
 			addErrorMessage(e);
@@ -985,7 +1046,7 @@ public class ProgramacionController extends BaseController {
 		}
 
 		return SUCCESS_PAC;
-	}	
+	}
 
 	// PROPERTIES
 	public List<PaoResponse> getListaPao() {
@@ -1187,14 +1248,14 @@ public class ProgramacionController extends BaseController {
 	public void setListaGentablaIdcatalogoestadoentregable(List<Gentabla> listaGentablaIdcatalogoestadoentregable) {
 		this.listaGentablaIdcatalogoestadoentregable = listaGentablaIdcatalogoestadoentregable;
 	}
-	
+
 	public List<Gentabla> getListaGentablaIdcatalogotipodocumento() {
 		return listaGentablaIdcatalogotipodocumento;
 	}
 
 	public void setListaGentablaIdcatalogotipodocumento(List<Gentabla> listaGentablaIdcatalogotipodocumento) {
 		this.listaGentablaIdcatalogotipodocumento = listaGentablaIdcatalogotipodocumento;
-	}	
+	}
 
 	public RequisitoConformidadDto getRequisitosconformidad() {
 		return requisitosconformidad;
@@ -1203,7 +1264,7 @@ public class ProgramacionController extends BaseController {
 	public void setRequisitosconformidad(RequisitoConformidadDto requisitosconformidad) {
 		this.requisitosconformidad = requisitosconformidad;
 	}
-	
+
 	public String getTituloControlProducto() {
 		return tituloControlProducto;
 	}
@@ -1211,7 +1272,7 @@ public class ProgramacionController extends BaseController {
 	public void setTituloControlProducto(String tituloControlProducto) {
 		this.tituloControlProducto = tituloControlProducto;
 	}
-	
+
 	public boolean isEsSeleccionadoRequisito() {
 		return esSeleccionadoRequisito;
 	}
@@ -1219,4 +1280,13 @@ public class ProgramacionController extends BaseController {
 	public void setEsSeleccionadoRequisito(boolean esSeleccionadoRequisito) {
 		this.esSeleccionadoRequisito = esSeleccionadoRequisito;
 	}
+
+	public List<Gentabla> getListaGentablaIdcatalogomeses() {
+		return listaGentablaIdcatalogomeses;
+	}
+
+	public void setListaGentablaIdcatalogomeses(List<Gentabla> listaGentablaIdcatalogomeses) {
+		this.listaGentablaIdcatalogomeses = listaGentablaIdcatalogomeses;
+	}
+
 }

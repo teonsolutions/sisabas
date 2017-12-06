@@ -46,7 +46,7 @@
 			<p:growl id="msgs" showDetail="true"></p:growl>
 			<p:growl id="growl" showDetail="true" for="growl" />
 			<p:panel id="panel" header="Programación y costos > pao > Paac"
-				style="width: 75%">
+				style="width: 98%">
 				<p:focus for="panel" />
 				<p:tabView id="tabViewPao">
 					<p:tab title="Datos generales">
@@ -72,7 +72,7 @@
 										<td><p:inputText id="txtFechaPAO" required="true"
 												maxlength="10" style="width:150px;" label="Fecha PAO"
 												disabled="true"
-												value="#{programacion.currentPao.compraDirecta.fechaPao}">
+												value="#{programacion.currentPao.pacConsolidado.fechaPao}">
 												<f:convertDateTime pattern="dd/MM/yyyy" />
 											</p:inputText></td>
 										<td><p:inputNumber id="txtMontoPAO" required="true"
@@ -89,7 +89,7 @@
 									</tr>
 									<tr>
 										<td><p:inputText id="txtFechaRecepcion" required="true"
-												value="#{programacion.currentPao.compraDirecta.fechaDocumentoTecnico}"
+												value="#{programacion.currentPao.pacConsolidado.fechaRecepcionDocumentoTecnico}"
 												maxlength="10" style="width:150px;"
 												label="Fecha de recepción" disabled="true">
 												<f:convertDateTime pattern="dd/MM/yyyy" />
@@ -106,7 +106,7 @@
 										<td colspan="3"><p:inputTextarea id="txtDescripcionPAO"
 												rows="5" cols="50" queryDelay="750" minQueryLength="4"
 												disabled="true"
-												value="#{programacion.currentPao.compraDirecta.especificacionTecnica}"
+												value="#{programacion.currentPao.pacConsolidado.descripcionPac}"
 												style="width: 100%" /></td>
 									</tr>
 									<tr>
@@ -115,7 +115,7 @@
 									</tr>
 									<tr>
 										<td colspan="3"><p:dataTable id="tblListaItems"
-												value="#{programacion.currentPao.compraDirecta.items}"
+												value="#{programacion.currentPao.pacConsolidado.items}"
 												var="var" emptyMessage="No se encontraron registros"
 												selectionMode="single" rowKey="#{var.item}"
 												styleClass="gandalfTableClass">
@@ -151,11 +151,14 @@
 									</tr>
 									<tr>
 										<td colspan="3"><p:dataTable id="tblListaPedidos"
-												value="#{programacion.currentPao.compraDirecta.pedidos}"
+												value="#{programacion.currentPao.pacConsolidado.pedidos}"
 												var="var" widgetVar="tblListaPedidos"
 												emptyMessage="No se encontraron registros"
 												selectionMode="single" rowKey="#{var.nroPedido}"
-												styleClass="gandalfTableClass">
+												styleClass="gandalfTableClass" paginator="true"
+												rows="2"
+												paginatorPosition="bottom"
+												paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(programacion.listaCuadrocomparativofuente)}">
 												<!--  
 								<p:ajax event="rowSelect" update=":form:pnlBotones" immediate="true"/>
 								-->
@@ -222,12 +225,12 @@
 												value="#{programacion.currentPao.pacConsolidado.nroPac}">
 											</p:inputText></td>
 										<td><p:selectOneMenu
-												value="#{var.idcatalogoestadoentregable}"
+												value="#{programacion.currentPao.pacConsolidado.idCatalogoTipoNecesidad}"
 												id="ddlTipoNecesidad" required="false"
 												label="Tipo de necesidad">
 												<f:selectItem itemLabel="--Seleccione--" itemValue="" />
 												<f:selectItems
-													value="#{programacion.listaGentablaIdcatalogoestadoentregable}"
+													value="#{programacion.listaGentablaIdcatalogotiponecesidad}"
 													var="var" itemLabel="#{var.vchregdescri}"
 													itemValue="#{var.vchregcodigo}" />
 											</p:selectOneMenu></td>
@@ -244,12 +247,12 @@
 										<td><p:inputText id="txtTipoContratacion" required="true"
 												maxlength="10" style="width:150px;"
 												label="Tipo de contratación" disabled="true"
-												value="#{programacion.currentPao.compraDirecta.nroCP}">
+												value="#{programacion.currentPao.pacConsolidado.idCatalogoTipoContratacion}">
 											</p:inputText></td>
 										<td><p:inputText id="txtEstadoRequerimiento"
 												required="true" maxlength="10" style="width:150px;"
 												label="Estado de requerimiento" disabled="true"
-												value="#{programacion.currentPao.pacConsolidado.nroPac}">
+												value="#{programacion.currentPao.pacConsolidado.estadoRequerimientoDesc}">
 											</p:inputText></td>
 										<td><p:inputText id="txtMontoRequerimiento"
 												required="true" maxlength="10" style="width:150px;"
@@ -259,31 +262,31 @@
 									</tr>
 									<tr>
 										<td><p:outputLabel value="Estado de proceso inicial"
-												for="txtEstadoProcesoInicial" id="lblEstadoProcesoInicial" /></td>
+												for="txtTipoProcesoInicial" id="lblEstadoProcesoInicial" /></td>
 										<td><p:outputLabel value="Estado de PAC"
 												for="ddlEstadoPac" id="lblEstadoPac" /></td>
 										<td><p:outputLabel value="Unidad de medida"
 												for="txtUnidadMedida" id="lblUnidadMedida" /></td>
 									</tr>
 									<tr>
-										<td><p:inputText id="txtEstadoProcesoInicial"
+										<td><p:inputText id="txtTipoProcesoInicial"
 												required="true" maxlength="10" style="width:150px;"
 												label="Estado de proceso inicial" disabled="true"
-												value="#{programacion.currentPao.compraDirecta.nroCP}">
+												value="#{programacion.currentPao.pacConsolidado.tipoProcesoInicialDesc}">
 											</p:inputText></td>
 										<td><p:selectOneMenu
-												value="#{var.idcatalogoestadoentregable}" id="ddlEstadoPac"
+												value="#{programacion.currentPao.pacConsolidado.idCatalogoEstadoPac}" id="ddlEstadoPac"
 												required="false" label="Estado de PAC">
 												<f:selectItem itemLabel="--Seleccione--" itemValue="" />
 												<f:selectItems
-													value="#{programacion.listaGentablaIdcatalogoestadoentregable}"
+													value="#{programacion.listaGentablaIdcatalogoestadopac}"
 													var="var" itemLabel="#{var.vchregdescri}"
 													itemValue="#{var.vchregcodigo}" />
 											</p:selectOneMenu></td>
 										<td><p:inputText id="txtUnidadMedida" required="true"
 												maxlength="10" style="width:150px;" label="Unidad de medida"
 												disabled="true"
-												value="#{programacion.currentPao.pacConsolidado.unidadMedida}">
+												value="#{programacion.currentPao.pacConsolidado.unidadMedidaDesc}">
 											</p:inputText></td>
 									</tr>
 									<tr>
@@ -312,12 +315,12 @@
 												value="#{programacion.currentPao.pacConsolidado.cantidad}">
 											</p:inputText></td>
 										<td><p:selectOneMenu
-												value="#{var.idcatalogoestadoentregable}"
+												value="#{programacion.currentPao.pacConsolidado.mesPrevistoConvocatoria}"
 												id="ddlMesPrevisto" required="false"
 												label="Mes previsto de convocatoria">
 												<f:selectItem itemLabel="--Seleccione--" itemValue="" />
 												<f:selectItems
-													value="#{programacion.listaGentablaIdcatalogoestadoentregable}"
+													value="#{programacion.listaGentablaIdcatalogomeses}"
 													var="var" itemLabel="#{var.vchregdescri}"
 													itemValue="#{var.vchregcodigo}" />
 											</p:selectOneMenu></td>
@@ -345,21 +348,21 @@
 										<td><p:inputText id="txtNumeroCPP" required="true"
 												maxlength="10" style="width:150px;" label="Número de CPP"
 												disabled="true"
-												value="#{programacion.currentPao.compraDirecta.nroCP}" /></td>
+												value="#{programacion.currentPao.pacConsolidado.nroCP}" /></td>
 										<td><p:inputText id="txtFechaAprobacionCPP"
 												required="true" maxlength="10" style="width:150px;"
 												label="Fecha aprobación" disabled="true"
-												value="#{programacion.currentPao.compraDirecta.fechaCP}">
+												value="#{programacion.currentPao.pacConsolidado.fechaCP}">
 												<f:convertDateTime pattern="dd/MM/yyyy" />
 											</p:inputText></td>
 										<td><p:inputNumber id="txtMontoCertificado"
 												required="true" maxlength="10" style="width:150px;"
 												label="Monto certificado" disabled="true"
-												value="#{programacion.currentPao.compraDirecta.montoCP}" /></td>
+												value="#{programacion.currentPao.pacConsolidado.montoCP}" /></td>
 									</tr>
 									<tr>
 										<td colspan="3"><p:dataTable id="tblListaCertificacion"
-												value="#{programacion.currentPao.compraDirecta.certificacionItems}"
+												value="#{programacion.currentPao.pacConsolidado.certificacionItems}"
 												var="var" emptyMessage="No se encontraron registros"
 												selectionMode="single" rowKey="#{var.nroCP}"
 												styleClass="gandalfTableClass">
@@ -401,15 +404,15 @@
 						<p:commandButton value="Guardar" icon="fa fa-pencil"
 							title="Guardar datos generales"
 							disabled="#{!programacion.esSeleccionado}"
-							action="#{programacion.guardarDatosGenerales}"
-							rendered="#{programacion.renderButton('btnGuadarDatosGenerales')}"
+							action="#{programacion.guardarPacConsolidado}"
+							rendered="#{programacion.renderButton('btnGuadarPacConsolidado')}"
 							update="form:msgs" />
 						<p:commandButton value="Cancelar" action="#{programacion.load}"
 							ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Cancelar" />
 					</p:tab>
 					<p:tab title="Estudio del mercado"
 						disabled="#{programacion.disabledTabEstudioMercado}">
-						<p:fieldset>
+						<p:fieldset>entregabl
 							<div align="left">
 								<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
 									<p:commandButton value="Nuevo"
@@ -529,125 +532,7 @@
 						<p:accordionPanel id="accEntregable" multiple="true"
 							activeIndex="0,1,2,3,4">
 							<p:tab title="Miembros de comité">
-								<p:dataTable id="tblListaEntregable"
-									value="#{programacion.listaEntregable}" var="var"
-									emptyMessage="No se encontraron registros"
-									widgetVar="tblListaEntregable" paginator="false"
-									rows="#{sisabascontrol.registros_mant}"
-									paginatorPosition="bottom" selectionMode="single"
-									rowKey="#{var.nroentregable}" styleClass="gandalfTableClass"
-									editable="true">
-
-									<!-- 
-									<p:ajax event="rowEdit" listener="{programacion.onRowEdit}"
-										update=":form:growl" />
-									<p:ajax event="rowEditCancel"
-										listener="{programacion.onRowCancel}" update=":form:growl" />
-										 -->
-									<!-- 
-									<p:column headerText="proveido">
-										<h:outputText value="UGME" />
-									</p:column>
-									 -->
-									<p:column headerText="Fecha">
-										<p:cellEditor>
-											<f:facet name="header">
-												<f:facet name="output">
-													<h:outputText value="#{var.fechapresentacionentregable}">
-														<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
-													</h:outputText>
-												</f:facet>
-											</f:facet>
-											<f:facet name="input">
-												<p:calendar value="#{var.fechapresentacionentregable}"
-													required="false" pattern="dd/MM/yyyy" label="Fecha"
-													navigator="true" locale="es" styleClass="dateTimeField" />
-											</f:facet>
-										</p:cellEditor>
-									</p:column>
-									<p:column headerText="Descripción">
-										<f:facet name="header">
-											<h:outputText value="Descripción"></h:outputText>
-										</f:facet>
-										<h:outputText value="#{var.nroentregable}" />
-									</p:column>
-									<p:column headerText="Plazos (días)">
-										<p:cellEditor>
-											<f:facet name="header">
-												<f:facet name="output">
-													<h:outputText value="#{var.plazoentregable}" />
-												</f:facet>
-											</f:facet>
-											<f:facet name="input">
-												<p:inputNumber value="#{var.plazoentregable}"
-													style="width:100%" label="Year" maxlength="2" />
-											</f:facet>
-										</p:cellEditor>
-									</p:column>
-									<p:column headerText="Importe">
-										<p:cellEditor>
-											<f:facet name="header">
-												<f:facet name="output">
-													<h:outputText value="#{var.montoentregable}" />
-												</f:facet>
-											</f:facet>
-											<f:facet name="input">
-												<p:inputNumber value="#{var.montoentregable}"
-													style="width:100%" label="Year" maxlength="2" />
-											</f:facet>
-										</p:cellEditor>
-									</p:column>
-									<p:column headerText="Monto de penalidad">
-										<p:cellEditor>
-											<f:facet name="header">
-												<f:facet name="output">
-													<h:outputText value="#{var.montopenalidadentregable}" />
-												</f:facet>
-											</f:facet>
-											<f:facet name="input">
-												<p:inputNumber value="#{var.montopenalidadentregable}"
-													style="width:100%" label="Year" maxlength="20"
-													decimalPlaces="2" />
-											</f:facet>
-										</p:cellEditor>
-									</p:column>
-									<p:column headerText="Observaciones">
-										<p:cellEditor>
-											<f:facet name="header">
-												<f:facet name="output">
-													<h:outputText value="#{var.observacionesentregable}" />
-												</f:facet>
-											</f:facet>
-											<f:facet name="input">
-												<p:inputText value="#{var.observacionesentregable}"
-													style="width:100%" label="Year" maxlength="500" />
-											</f:facet>
-										</p:cellEditor>
-									</p:column>
-									<p:column headerText="Estado">
-										<p:cellEditor>
-											<f:facet name="header">
-												<f:facet name="output">
-													<h:outputText value="#{var.idcatalogoestadoentregable}" />
-												</f:facet>
-											</f:facet>
-											<f:facet name="input">
-												<p:selectOneMenu value="#{var.idcatalogoestadoentregable}"
-													id="dllIdcatalogoestadoentregable" required="false"
-													label="Estado">
-													<f:selectItem itemLabel="--Seleccione--" itemValue="" />
-													<f:selectItems
-														value="#{programacion.listaGentablaIdcatalogoestadoentregable}"
-														var="var" itemLabel="#{var.vchregdescri}"
-														itemValue="#{var.vchregcodigo}" />
-												</p:selectOneMenu>
-											</f:facet>
-										</p:cellEditor>
-									</p:column>
-									<p:column headerText="Acciones">
-										<p:rowEditor editTitle="Editar" />
-									</p:column>
-								</p:dataTable>
+	
 							</p:tab>
 						</p:accordionPanel>
 						<p:commandButton value="Guardar" icon="fa fa-pencil"
