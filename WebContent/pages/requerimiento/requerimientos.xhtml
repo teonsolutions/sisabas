@@ -18,14 +18,40 @@ function myFunction() {
     document.getElementById("frmPrestacion").reset();
 }
 
+function myFunctionPago() {
+	
+    document.getElementById("frmPago").reset();
+}
+
+
 function myFunction2() {
 	
     document.getElementById("frmComite").reset();
 }
 
+function myFunction3() {
+	
+    document.getElementById("form").reset(); 
+}
+
 </script>
 
-		<style>
+<style>
+
+.panelMarco {
+    border: 1px solid #d5d5d5;
+    background: #cdeef3;
+    color: #222;
+    border-style: none !important;
+}
+
+.panelMarco2 {
+    border: 1px solid #d5d5d5;
+    background: #fff;
+    color: #222;
+    border-style: none !important;
+}
+
 .ui-panelgrid td, .ui-panelgrid tr {
 	border-style: none !important
 }
@@ -58,8 +84,6 @@ function myFunction2() {
 	background: #0d6ab9;
 }
 </style>
-
-
 
 
 		<p:panel id="panel"
@@ -148,10 +172,10 @@ function myFunction2() {
 									title="Buscar"
 									rendered="#{requerimiento.renderButton('btnBuscar')}" />
 								<p:spacer width="10" />
-								<p:commandLink id="ajax" update="entrada" value="Limpiar"
-									process="@this"
+								<p:commandLink id="ajax" update=":form:entrada" value="Limpiar" onclick="myFunction3();"
+									process="@this" actionListener="#{requerimiento.LimpiarInicio}"
 									style="margin-right:20px;text-decoration: underline;">
-									<p:resetInput target="entrada" />
+									<p:resetInput target=":form:entrada" />
 								</p:commandLink>
 							</p:panel></td>
 						<td valign="top">
@@ -351,7 +375,7 @@ function myFunction2() {
 									<div align="left">
 										<p:commandButton value="GRABAR"
 											icon="ui-icon-circle-check" title="Aceptar"
-											update=":form:growl" oncomplete="PF('reqDialog2').hide();" >
+											update=":form:growl,:form:tblListaRequerimiento" oncomplete="PF('reqDialog2').hide();" >
 											<f:actionListener binding="#{requerimiento.aceptarRequerimiento()}"/>
 											<f:actionListener binding="#{requerimiento.limpiar()}"/>
 										</p:commandButton>	
@@ -406,7 +430,7 @@ function myFunction2() {
 									<div align="left">
 										<p:commandButton value="GRABAR"
 											icon="ui-icon-circle-check" title="Aceptar"
-											update=":form:growl" oncomplete="PF('reqDialogT').hide();" >
+											update=":form:growl,:form:tblListaRequerimiento" oncomplete="PF('reqDialogT').hide();" >
 											<f:actionListener binding="#{requerimiento.aceptarRequerimiento()}"/>
 											<f:actionListener binding="#{requerimiento.limpiar()}"/>
 										</p:commandButton>	
@@ -554,7 +578,7 @@ function myFunction2() {
         </h:form>
 		
 		<h:form id="frmComite">
-				<p:dialog header="Agregar Comité Especivggal" 
+				<p:dialog header="Agregar Comité Especial" 
 				widgetVar="diComite" resizable="false" modal="true"
 				dynamic="true">
 				<div class="ui-scrollpanel ui-scrollpanel-native ui-widget ui-widget-content ui-corner-all">
@@ -685,7 +709,7 @@ function myFunction2() {
 									<p:outputLabel value="PORCENTAJE DE ARMADA" for="txtPorcentaje" />
 								</p:column>
 								<p:column>
-									<p:inputText id="txtPorcentaje"
+									<p:inputNumber id="txtPorcentaje" symbol="%"  
 										value="#{requerimiento.pago.porcentaje}" style="width:300px;"
 										label="Armada" />
 								</p:column>
@@ -698,7 +722,7 @@ function myFunction2() {
 								<p:column>
 									<div align="right">
 										<p:commandButton value="CANCELAR"
-											icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="PF('diPago').hide();"/>
+											icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="PF('diPago').hide(); myFunctionPago();" />
 									</div>
 								</p:column>
 							</p:panelGrid>
