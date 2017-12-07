@@ -577,7 +577,7 @@
 												for="txtFechasolicitudAprobacion"
 												id="lblFechasolicitudAprobacion" /></td>
 										<td><p:calendar id="txtFechasolicitudAprobacion"
-												value="#{programacion.cuadrocomparativofuente.fechasolicitud}"
+												value="#{programacion.currentPao.pacConsolidado.cantidad}"
 												required="false" pattern="dd/MM/yyyy"
 												label="Fecha de solicitud" navigator="true" locale="es"
 												styleClass="dateTimeField" /></td>
@@ -585,7 +585,7 @@
 												value="Fecha de aprobación de expediente"
 												for="txtFechaAprobacion" id="lblFechaAprobacion" /></td>
 										<td><p:calendar id="txtFechaAprobacion"
-												value="#{programacion.cuadrocomparativofuente.fechasolicitud}"
+												value="#{programacion.currentPao.pacConsolidado.cantidad}"
 												required="false" pattern="dd/MM/yyyy"
 												label="Fecha de aprobación de expediente" navigator="true"
 												locale="es" styleClass="dateTimeField" /></td>
@@ -600,8 +600,8 @@
 									<p:panel id="pnlBotonesMiembroComite" styleClass="gandalfPnlBotonesClass">
 										<p:commandButton value="Nuevo"
 											action="#{programacion.irRegistrarMiembroComite}"
-											update="form:tabViewPao:hidStatus,:frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar"
-											oncomplete="showDialog('form:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar');"
+											update="form:tabViewPao:accAprobacion:hidStatus,:frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar"
+											oncomplete="showDialog('form:tabViewPao:accAprobacion:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar');"
 											icon="ui-icon-document"
 											rendered="#{programacion.renderButton('btnNuevoMiembroComite')}" />
 										<p:commandButton value="Editar"
