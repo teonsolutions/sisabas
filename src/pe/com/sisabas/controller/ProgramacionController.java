@@ -43,6 +43,7 @@ import java.rmi.RemoteException;
 import pe.com.sisabas.exception.SecurityRestrictedControlException;
 import pe.com.sisabas.exception.SecuritySessionExpiredException;
 import pe.com.sisabas.exception.SecurityValidateException;
+import pe.com.sisabas.be.Comiteproceso;
 import pe.com.sisabas.be.Cuadrocomparativofuente;
 import pe.com.sisabas.be.Documentotecnico;
 import pe.com.sisabas.be.Entregable;
@@ -51,6 +52,7 @@ import pe.com.sisabas.business.DocumentotecnicoBusiness;
 import pe.com.sisabas.business.GentablaBusiness;
 import pe.com.sisabas.business.ProgramacionBusiness;
 import pe.com.sisabas.business.RequisitosconformidadBusiness;
+import pe.com.sisabas.dto.ComiteDto;
 import pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto;
 import pe.com.sisabas.dto.CuadroComparativoItemsDto;
 import pe.com.sisabas.dto.CuadroComparativoRequest;
@@ -69,8 +71,10 @@ import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
 import pe.com.sisabas.dto.TransactionRequest;
 import pe.com.sisabas.be.Gentabla;
+import pe.com.sisabas.be.Miembrocomiteporproceso;
 import pe.com.sisabas.be.Orden;
 import pe.com.sisabas.be.Pacconsolidado;
+import pe.com.sisabas.be.Persona;
 import pe.com.sisabas.be.Requisitosconformidad;
 import pe.com.sisabas.business.GentablaBusiness;
 import pe.com.sisabas.be.Gentabla;
@@ -121,13 +125,20 @@ public class ProgramacionController extends BaseController {
 	private RequisitoConformidadDto requisitosconformidad;
 
 	// Paac
+	private Miembrocomiteporproceso miembrocomiteporproceso;
+	private Miembrocomiteporproceso selectedMiembrocomiteporproceso;
+	private List<Miembrocomiteporproceso> listaMiembrocomiteporproceso;
+	public List<Gentabla> listaGentablaIdcatalogotipomiembro;
+	public List<Gentabla> listaGentablaIdcatalogoestadomiembrocomite;
 
 	private boolean esSeleccionadoFuente;
 	private String tituloFuente;
 	private String tituloControlProducto;
 	private boolean esSeleccionadoRequisito;
-	
-	//TAB INDEX PAC
+	private boolean esSeleccionadoMiembroComite;
+	private String tituloMiembroComite;
+
+	// TAB INDEX PAC
 	private Integer pacTabIndex;
 
 	// BUSINESS SECTION
@@ -154,6 +165,10 @@ public class ProgramacionController extends BaseController {
 
 	public void seleccionItemRequisito(SelectEvent e) {
 		esSeleccionadoRequisito = true;
+	}
+
+	public void seleccionItemMiembroComite(SelectEvent e) {
+		esSeleccionadoMiembroComite = true;
 	}
 
 	public String load() {
@@ -207,6 +222,10 @@ public class ProgramacionController extends BaseController {
 			// Pac consolidado
 			listaGentablaIdcatalogomeses = gentablaBusiness
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.MESS));
+			listaGentablaIdcatalogotipomiembro = gentablaBusiness
+					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.CAMI));
+			listaGentablaIdcatalogoestadomiembrocomite = gentablaBusiness
+					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EMCO));
 
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
@@ -503,29 +522,31 @@ public class ProgramacionController extends BaseController {
 			}
 
 			PacConsolidadoDto pc = this.currentPao.getPacConsolidado();
-			//if (!pc.getEstadoRequerimiento().equals(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN)) {
-				securityControlValidate("btnGuadarDatosGenerales");
+			// if
+			// (!pc.getEstadoRequerimiento().equals(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN))
+			// {
+			securityControlValidate("btnGuadarDatosGenerales");
 
-				PacConsolidadoDto pacConsolid = (PacConsolidadoDto) pc.clone();
-				pacConsolid.setIdTipoNecesidad(this.currentPao.getIdTipoNecesidad());
-				pacConsolid.setIdUnidadEjecutora(Constantes.unidadEjecutora.ID_UNIDAD_EJECUTORA_ABAS);
-				pacConsolid.setAnio(usuario.getPeriodo().getAnio());
-				pacConsolid.setCodigoCentroCosto(usuario.getPeriodo().getCodigoCentroCosto());
-				pacConsolid.setIdTipoContratacion(Constantes.tipoContratacion.NO_PAC);
-				//pacConsolid.setTipoProceso(Constantes.maestroProcesoSiga.ADJUDIACION_SIN_PROCESO);
-			
-				// VALIDAR SI ESTÁ EN GIRO DE ORDEN O ESTUDIO DEL MERCADO
-				pacConsolid.setEstadoRequerimiento(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN);
-				TransactionRequest<PacConsolidadoDto> transactionRequest = new TransactionRequest<PacConsolidadoDto>();
-				transactionRequest.setUsuarioAuditoria(getUserLogin());
-				transactionRequest.setEquipoAuditoria(getRemoteAddr());
-				transactionRequest.setEntityTransaction(pacConsolid);
-				Resultado result = programacionBusiness.grabarPacConsolidado(transactionRequest);
+			PacConsolidadoDto pacConsolid = (PacConsolidadoDto) pc.clone();
+			pacConsolid.setIdTipoNecesidad(this.currentPao.getIdTipoNecesidad());
+			pacConsolid.setIdUnidadEjecutora(Constantes.unidadEjecutora.ID_UNIDAD_EJECUTORA_ABAS);
+			pacConsolid.setAnio(usuario.getPeriodo().getAnio());
+			pacConsolid.setCodigoCentroCosto(usuario.getPeriodo().getCodigoCentroCosto());
+			pacConsolid.setIdTipoContratacion(Constantes.tipoContratacion.NO_PAC);
+			// pacConsolid.setTipoProceso(Constantes.maestroProcesoSiga.ADJUDIACION_SIN_PROCESO);
 
-				REGISTER_SUCCESS();
-				//buscarPao();
-				setPacTabIndex(1); //TabIndex Estudio del mercado
-			//}
+			// VALIDAR SI ESTÁ EN GIRO DE ORDEN O ESTUDIO DEL MERCADO
+			pacConsolid.setEstadoRequerimiento(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN);
+			TransactionRequest<PacConsolidadoDto> transactionRequest = new TransactionRequest<PacConsolidadoDto>();
+			transactionRequest.setUsuarioAuditoria(getUserLogin());
+			transactionRequest.setEquipoAuditoria(getRemoteAddr());
+			transactionRequest.setEntityTransaction(pacConsolid);
+			Resultado result = programacionBusiness.grabarPacConsolidado(transactionRequest);
+
+			REGISTER_SUCCESS();
+			// buscarPao();
+			setPacTabIndex(1); // TabIndex Estudio del mercado
+			// }
 			showGrowlMessageSuccessfullyCompletedAction();
 		} catch (ValidateException e) {
 			REGISTER_ERROR();
@@ -541,7 +562,7 @@ public class ProgramacionController extends BaseController {
 			addErrorMessageKey("msgsDocumentotecnicoR", e);
 		}
 	}
-	
+
 	public void guardarOrden() {
 		REGISTER_INIT();
 		try {
@@ -566,8 +587,55 @@ public class ProgramacionController extends BaseController {
 																// consolidado
 
 			TransactionRequest<List<OrdenDto>> request = new TransactionRequest<List<OrdenDto>>();
-			request.setUsuarioAuditoria("PRUEBA");
-			request.setEquipoAuditoria("MI PC");
+			request.setUsuarioAuditoria(getUserLogin());
+			request.setEquipoAuditoria(getRemoteAddr());
+			request.setEntityTransaction(listaOrden);
+			programacionBusiness.grabarOrden(request);
+			REGISTER_SUCCESS();
+			showGrowlMessageSuccessfullyCompletedAction();
+
+		} catch (ValidateException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsDocumentotecnicoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (BusinessException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsDocumentotecnicoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+
+		} catch (DataIntegrityViolationException e) {
+			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),
+					Messages.getString("exception.dataintegrity.message.detail"), FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			REGISTER_ERROR();
+			addErrorMessageKey("msgsDocumentotecnicoR", e);
+		}
+	}
+
+	public void guardarAprobacion() {
+		REGISTER_INIT();
+		try {
+
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
+			if (usuario == null) {
+				REGISTER_ERROR();
+				addMessageKey("msgsDocumentotecnicoR", "Teminó la sesión", FacesMessage.SEVERITY_ERROR);
+				return;
+			}
+
+			for (int i = 0; i < listaOrden.size(); i++) {
+				listaOrden.get(i).setAnio(usuario.getPeriodo().getAnio());
+				listaOrden.get(i).setCodigoCentroCosto(usuario.getPeriodo().getCodigoCentroCosto());
+				listaOrden.get(i).setIdPacConsolidado(currentPao.getIdPacConsolid());
+				listaOrden.get(i).setMoneda(Constantes.moneda.SOLES);
+				listaOrden.get(i).setIdUnidadEjecutora(Constantes.unidadEjecutora.ID_UNIDAD_EJECUTORA_ABAS);
+			}
+			listaOrden.get(0).setEntegables(listaEntregable); // se asume hay un
+																// sólo orden
+																// por pac
+																// consolidado
+
+			TransactionRequest<List<OrdenDto>> request = new TransactionRequest<List<OrdenDto>>();
+			request.setUsuarioAuditoria(getUserLogin());
+			request.setEquipoAuditoria(getRemoteAddr());
 			request.setEntityTransaction(listaOrden);
 			programacionBusiness.grabarOrden(request);
 			REGISTER_SUCCESS();
@@ -781,6 +849,104 @@ public class ProgramacionController extends BaseController {
 		}
 	}
 
+	public void irRegistrarMiembroComite() {
+		STATUS_INIT();
+		try {
+			securityControlValidate("btnNuevoMiembroComite");
+			resetRegisterForm();
+			// accion = REGISTRAR;
+			tituloBase = "Miembro Comite » " + REGISTRAR;
+			miembrocomiteporproceso = new Miembrocomiteporproceso();
+
+			miembrocomiteporproceso.setBooleanesnotificado(false);
+
+			miembrocomiteporproceso.setIdmiembrocomiteproceso(new java.lang.Integer(0));
+			// miembrocomiteporproceso.setIdmiembrocomiteproceso((int)utilsBusiness.getNextSeqTemporal(pe.com.sisabas.resources.Sequence.SEQ_MIEMBROCOMITEPORPROCESO).longValue());
+			miembrocomiteporproceso.setComiteprocesoIdcomiteproceso(new Comiteproceso());
+			miembrocomiteporproceso.setPersonaIdpersona(new Persona());
+
+			STATUS_SUCCESS();
+			REGISTER_INIT();
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			STATUS_ERROR();
+			addErrorMessageKey("msgsForm", e);
+		}
+	}
+
+	public void irEditarMiembroComite() {
+		STATUS_INIT();
+		try {
+			securityControlValidate("btnEditar");
+			resetRegisterForm();
+			validateSelectedRow();
+			// updateCharToBoolean(miembrocomiteporproceso);
+			miembrocomiteporproceso.roundBigDecimals();
+			// accion = EDITAR;
+			tituloBase = "Miembro Comite » " + EDITAR;
+
+			STATUS_SUCCESS();
+			REGISTER_INIT();
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
+		} catch (UnselectedRowException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			STATUS_ERROR();
+			addErrorMessageKey("msgsForm", e);
+		}
+	}
+
+	public void irEliminarMiembroComite() {
+		STATUS_INIT();
+		try {
+			securityControlValidate("btnEliminarMiembroComite");
+			validateSelectedRow();
+
+			STATUS_SUCCESS();
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
+		} catch (UnselectedRowException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			STATUS_ERROR();
+			addErrorMessageKey("msgsForm", e);
+		}
+	}
+
 	public void updateCharToBoolean(Cuadrocomparativofuente record) throws Exception {
 		if (cuadrocomparativofuente.getProveedordedicacontratacion() != null
 				&& cuadrocomparativofuente.getProveedordedicacontratacion().equalsIgnoreCase("1")) {
@@ -901,6 +1067,68 @@ public class ProgramacionController extends BaseController {
 		} catch (Exception e) {
 			REGISTER_ERROR();
 			addErrorMessageKey("msgsCuadrocomparativofuenteR", e);
+		}
+	}
+
+	public void aceptarMiembroComite() {
+		REGISTER_INIT();
+		try {
+
+			/*
+			 * if (accion.equals(REGISTRAR)) {
+			 * miembrocomiteporproceso.setUsuariocreacionauditoria(getUserLogin(
+			 * )); miembrocomiteporproceso.setEquipoauditoria(getRemoteAddr());
+			 * miembrocomiteporproceso
+			 * .setProgramaauditoria(pe.com.sisabas.resources.Utils.
+			 * obtenerPrograma(this.getClass()));
+			 * business.insertBasic(miembrocomiteporproceso); } else {
+			 * miembrocomiteporproceso.setUsuariomodificacionauditoria(
+			 * getUserLogin());
+			 * miembrocomiteporproceso.setEquipoauditoria(getRemoteAddr());
+			 * miembrocomiteporproceso
+			 * .setProgramaauditoria(pe.com.sisabas.resources.Utils.
+			 * obtenerPrograma(this.getClass()));
+			 * business.updateByPrimaryKeyBasic(miembrocomiteporproceso); }
+			 */
+
+			showGrowlMessageSuccessfullyCompletedAction();
+			// buscar();
+
+			REGISTER_SUCCESS();
+			/*
+			 * } catch (ValidateException e) { REGISTER_ERROR();
+			 * addMessageKey("msgsMiembrocomiteporprocesoR", e.getMessage(),
+			 * FacesMessage.SEVERITY_ERROR); } catch (BusinessException e) {
+			 * REGISTER_ERROR(); addMessageKey("msgsMiembrocomiteporprocesoR",
+			 * e.getMessage(), FacesMessage.SEVERITY_ERROR);
+			 */
+		} catch (DataIntegrityViolationException e) {
+			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),
+					Messages.getString("exception.dataintegrity.message.detail"), FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			REGISTER_ERROR();
+			addErrorMessageKey("msgsMiembrocomiteporprocesoR", e);
+		}
+	}
+
+	public void eliminarMiembroComite() {
+		try {
+			validateSelectedRow();
+			miembrocomiteporproceso.setUsuariomodificacionauditoria(getUserLogin());
+			// business.deleteByPrimaryKeyBasic(miembrocomiteporproceso);
+			showGrowlMessageSuccessfullyCompletedAction();
+			// buscar();
+			/*
+			 * } catch (ValidateException e) { addMessageKey("msgsForm",
+			 * e.getMessage(), FacesMessage.SEVERITY_ERROR); } catch
+			 * (UnselectedRowException e) { addMessageKey("msgsForm",
+			 * e.getMessage(), FacesMessage.SEVERITY_ERROR);
+			 */
+		} catch (DataIntegrityViolationException e) {
+			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),
+					Messages.getString("exception.dataintegrity.message.detail"), FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			addErrorMessageKey("msgsForm", e);
 		}
 	}
 
@@ -1042,7 +1270,7 @@ public class ProgramacionController extends BaseController {
 			// Estudio del Mercado
 			buscarFuente();
 			buscarValorReferencialFinal();
-			setPacTabIndex(0); //TabIndex default			
+			setPacTabIndex(0); // TabIndex default
 		} catch (Exception e) {
 			addErrorMessage(e);
 			return "/login.xhtml";
@@ -1291,13 +1519,70 @@ public class ProgramacionController extends BaseController {
 	public void setListaGentablaIdcatalogomeses(List<Gentabla> listaGentablaIdcatalogomeses) {
 		this.listaGentablaIdcatalogomeses = listaGentablaIdcatalogomeses;
 	}
-	
+
 	public Integer getPacTabIndex() {
 		return pacTabIndex;
 	}
 
 	public void setPacTabIndex(Integer pacTabIndex) {
 		this.pacTabIndex = pacTabIndex;
+	}
+
+	public void setEsSeleccionadoMiembroComite(boolean esSeleccionadoMiembroComite) {
+		this.esSeleccionadoMiembroComite = esSeleccionadoMiembroComite;
+	}
+
+	public boolean isEsSeleccionadoMiembroComite() {
+		return esSeleccionadoMiembroComite;
+	}
+
+	public String getTituloMiembroComite() {
+		return tituloMiembroComite;
+	}
+
+	public void setTituloMiembroComite(String tituloMiembroComite) {
+		this.tituloMiembroComite = tituloMiembroComite;
+	}
+
+	public Miembrocomiteporproceso getMiembrocomiteporproceso() {
+		return miembrocomiteporproceso;
+	}
+
+	public void setMiembrocomiteporproceso(Miembrocomiteporproceso miembrocomiteporproceso) {
+		this.miembrocomiteporproceso = miembrocomiteporproceso;
+	}
+
+	public Miembrocomiteporproceso getSelectedMiembrocomiteporproceso() {
+		return selectedMiembrocomiteporproceso;
+	}
+
+	public void setSelectedMiembrocomiteporproceso(Miembrocomiteporproceso selectedMiembrocomiteporproceso) {
+		this.selectedMiembrocomiteporproceso = selectedMiembrocomiteporproceso;
+	}
+
+	public List<Miembrocomiteporproceso> getListaMiembrocomiteporproceso() {
+		return listaMiembrocomiteporproceso;
+	}
+
+	public void setListaMiembrocomiteporproceso(List<Miembrocomiteporproceso> listaMiembrocomiteporproceso) {
+		this.listaMiembrocomiteporproceso = listaMiembrocomiteporproceso;
+	}
+
+	public List<Gentabla> getListaGentablaIdcatalogotipomiembro() {
+		return listaGentablaIdcatalogotipomiembro;
+	}
+
+	public void setListaGentablaIdcatalogotipomiembro(List<Gentabla> listaGentablaIdcatalogotipomiembro) {
+		this.listaGentablaIdcatalogotipomiembro = listaGentablaIdcatalogotipomiembro;
+	}
+
+	public List<Gentabla> getListaGentablaIdcatalogoestadomiembrocomite() {
+		return listaGentablaIdcatalogoestadomiembrocomite;
+	}
+
+	public void setListaGentablaIdcatalogoestadomiembrocomite(
+			List<Gentabla> listaGentablaIdcatalogoestadomiembrocomite) {
+		this.listaGentablaIdcatalogoestadomiembrocomite = listaGentablaIdcatalogoestadomiembrocomite;
 	}
 
 }

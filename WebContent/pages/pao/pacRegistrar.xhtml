@@ -419,7 +419,7 @@
 					</p:tab>
 					<p:tab title="Estudio del mercado"
 						disabled="#{programacion.disabledTabEstudioMercado}">
-						<p:fieldset>entregabl
+						<p:fieldset>
 							<div align="left">
 								<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
 									<p:commandButton value="Nuevo"
@@ -587,23 +587,165 @@
 										<td><p:calendar id="txtFechaAprobacion"
 												value="#{programacion.cuadrocomparativofuente.fechasolicitud}"
 												required="false" pattern="dd/MM/yyyy"
-												label="Fecha de aprobación de expediente" navigator="true" locale="es"
-												styleClass="dateTimeField" /></td>
+												label="Fecha de aprobación de expediente" navigator="true"
+												locale="es" styleClass="dateTimeField" /></td>
 									</tr>
 								</table>
 							</p:tab>
 						</p:accordionPanel>
-						<p:accordionPanel id="accEntregable" multiple="true"
+						<p:accordionPanel id="accAprobacion" multiple="true"
 							activeIndex="0,1,2,3,4">
 							<p:tab title="Miembros de comité">
-
+								<div align="left">
+									<p:panel id="pnlBotonesMiembroComite" styleClass="gandalfPnlBotonesClass">
+										<p:commandButton value="Nuevo"
+											action="#{programacion.irRegistrarMiembroComite}"
+											update="form:tabViewPao:hidStatus,:frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar"
+											oncomplete="showDialog('form:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar');"
+											icon="ui-icon-document"
+											rendered="#{programacion.renderButton('btnNuevoMiembroComite')}" />
+										<p:commandButton value="Editar"
+											action="#{programacion.irEditarMiembroComite}"
+											update="hidStatus,:frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar"
+											oncomplete="showDialog('form:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar');"
+											icon="ui-icon-pencil"
+											disabled="#{!programacion.esSeleccionadoMiembroComite}"
+											rendered="#{miembrocomiteporproceso.renderButton('btnEditarMiembroComite')}" />
+										<p:commandButton value="Eliminar"
+											action="#{programacion.irEliminarMiembroComite}"
+											update="hidStatus"
+											oncomplete="showDialog('form:hidStatus','form:cdEliminarMiembroComite');"
+											icon="ui-icon-circle-close" title="Eliminar"
+											disabled="#{!programacion.esSeleccionadoMiembroComite}"
+											rendered="#{programacion.renderButton('btnEliminarMiembroComite')}" />
+											<h:inputHidden id="hidStatus" value="true" />
+									</p:panel>
+								</div>
+								<p:dataTable id="tblListaMiembrocomiteporproceso"
+									value="#{programacion.listaMiembrocomiteporproceso}"
+									var="var" emptyMessage="No se encontraron registros"
+									widgetVar="tblListaMiembrocomiteporproceso"
+									selection="#{programacion.selectedMiembrocomiteporproceso}"
+									paginator="true" rows="#{sisabascontrol.registros_mant}"
+									paginatorPosition="bottom"
+									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(programacion.listaMiembrocomiteporproceso)}"
+									selectionMode="single" rowKey="#{var.idmiembrocomiteproceso}"
+									styleClass="gandalfTableClass">
+									<p:ajax event="rowSelect"
+										listener="#{programacion.seleccionItemMiembroComite}"
+										update=":form:tabViewPao:accAprobacion:pnlBotonesMiembroComite" immediate="true" />
+									<p:column styleClass="c_numeric"
+										sortBy="#{var.idmiembrocomiteproceso}">
+										<f:facet name="header">
+											<h:outputText value="ID" styleClass="c_numeric" />
+										</f:facet>
+										<h:outputText value="#{var.idmiembrocomiteproceso}" />
+									</p:column>
+									<p:column styleClass="c_numeric"
+										sortBy="#{var.comiteprocesoIdcomiteproceso.idcomiteproceso}">
+										<f:facet name="header">
+											<h:outputText value="ComitéProceso" styleClass="c_numeric" />
+										</f:facet>
+										<h:outputText
+											value="#{var.comiteprocesoIdcomiteproceso.idcomiteproceso}" />
+									</p:column>
+									<p:column styleClass="c_numeric"
+										sortBy="#{var.personaIdpersona.nombres}">
+										<f:facet name="header">
+											<h:outputText value="Persona" styleClass="c_numeric" />
+										</f:facet>
+										<h:outputText value="#{var.personaIdpersona.nombres}" />
+									</p:column>
+									<p:column styleClass="c_center"
+										sortBy="#{var.gentablaIdcatalogotipomiembro.vchregdescri}">
+										<f:facet name="header">
+											<h:outputText value="TipoMiembro" styleClass="c_center" />
+										</f:facet>
+										<h:outputText
+											value="#{var.gentablaIdcatalogotipomiembro.vchregdescri}" />
+									</p:column>
+									<p:column styleClass="c_string" sortBy="#{var.correo}">
+										<f:facet name="header">
+											<h:outputText value="Correo" styleClass="c_string" />
+										</f:facet>
+										<h:outputText value="#{var.correo}" />
+									</p:column>
+									<p:column styleClass="c_center" sortBy="#{var.telefono}">
+										<f:facet name="header">
+											<h:outputText value="Teléfono" styleClass="c_center" />
+										</f:facet>
+										<h:outputText value="#{var.telefono}" />
+									</p:column>
+									<p:column styleClass="c_center" sortBy="#{var.anexo}">
+										<f:facet name="header">
+											<h:outputText value="Anexo" styleClass="c_center" />
+										</f:facet>
+										<h:outputText value="#{var.anexo}" />
+									</p:column>
+									<p:column styleClass="c_center" sortBy="#{var.celular}">
+										<f:facet name="header">
+											<h:outputText value="Celular" styleClass="c_center" />
+										</f:facet>
+										<h:outputText value="#{var.celular}" />
+									</p:column>
+									<p:column styleClass="c_center" sortBy="#{var.esnotificado}">
+										<f:facet name="header">
+											<h:outputText value="Notificado" styleClass="c_center" />
+										</f:facet>
+										<h:graphicImage url="/resources/img/check.png" width="10"
+											height="10" rendered="#{var.esnotificado=='1'}" />
+									</p:column>
+									<p:column styleClass="c_string"
+										sortBy="#{var.codigooficinausuaria}">
+										<f:facet name="header">
+											<h:outputText value="Código Oficina Usuaria"
+												styleClass="c_string" />
+										</f:facet>
+										<h:outputText value="#{var.codigooficinausuaria}" />
+									</p:column>
+									<p:column styleClass="c_string"
+										sortBy="#{var.nombreoficinausuaria}">
+										<f:facet name="header">
+											<h:outputText value="Nombre Oficina Usuaria"
+												styleClass="c_string" />
+										</f:facet>
+										<h:outputText value="#{var.nombreoficinausuaria}" />
+									</p:column>
+									<p:column styleClass="c_center"
+										sortBy="#{var.gentablaIdcatalogoestadomiembrocomite.vchregdescri}">
+										<f:facet name="header">
+											<h:outputText value="Estado Miembro Comite"
+												styleClass="c_center" />
+										</f:facet>
+										<h:outputText
+											value="#{var.gentablaIdcatalogoestadomiembrocomite.vchregdescri}" />
+									</p:column>
+									<p:column styleClass="c_center"
+										sortBy="#{var.esespecialistaasignado}">
+										<f:facet name="header">
+											<h:outputText value="Especialista Asignado"
+												styleClass="c_center" />
+										</f:facet>
+										<h:outputText value="#{var.esespecialistaasignado}" />
+									</p:column>
+								</p:dataTable>
+								<p:confirmDialog id="cdEliminarMiembroComite"
+									message="Esta seguro de eliminar este registro?"
+									header="Confirmación" severity="alert" widgetVar="cdEliminarMiembroComite">
+									<p:commandButton value="Si"
+										action="#{programacion.eliminarMiembroComite}"
+										update=":form:tabViewPao:accAprobacion:tblListaMiembrocomiteporproceso,:form:growl"
+										oncomplete="hideDialogPF('cdEliminarMiembroComite');" />
+									<p:commandButton value="No"
+										onclick="hideDialogPF('cdEliminarMiembroComite');" type="button" />
+								</p:confirmDialog>
 							</p:tab>
 						</p:accordionPanel>
 						<p:commandButton value="Guardar" icon="fa fa-pencil"
 							title="Guardar datos generales"
 							disabled="#{!programacion.esSeleccionado}"
-							action="#{programacion.guardarOrden}"
-							rendered="#{programacion.renderButton('btnGuadarDatosGenerales')}"
+							action="#{programacion.guardarAprobacion}"
+							rendered="#{programacion.renderButton('btnGuadarAprobacion')}"
 							update="form:msgs" />
 						<p:commandButton value="Cancelar" action="#{programacion.load}"
 							ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Cancelar" />
@@ -680,6 +822,38 @@
 				</table>
 			</p:dialog>
 		</h:form>
+
+		<h:form id="frmMiembrocomiteporprocesoRegistrar">
+			<p:dialog id="diMiembrocomiteporprocesoRegistrar"
+				header="#{programacion.tituloMiembroComite}"
+				widgetVar="diMiembrocomiteporprocesoRegistrar" resizable="false"
+				modal="true" dynamic="true">
+				<p:scrollPanel mode="native" style="width:100%;height:100%;">
+					<p:messages for="msgsMiembrocomiteporprocesoR" autoUpdate="true"
+						closable="true" />
+					<ui:include
+						src="/pages/pao/component/c_miembrocomiteporprocesoRegistrar.xhtml" />
+				</p:scrollPanel>
+				<table style="width: 100%;">
+					<tr>
+						<td><h:inputHidden id="hidStatus"
+								value="#{programacion.statusRegister}" /> <p:commandButton
+								value="Aceptar" action="#{programacion.aceptarMiembroComite}"
+								update="hidStatus,:form:tabViewPao:accAprobacion:tblListaMiembrocomiteporproceso,:form:growl,:form:tabViewPao:accAprobacion:pnlBotones,panelC"
+								oncomplete="hideDialog('frmMiembrocomiteporprocesoRegistrar:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar')"
+								icon="ui-icon-circle-check" title="Aceptar" /></td>
+						<td>
+							<div align="right">
+								<p:commandButton value="Salir"
+									icon="ui-icon-arrowreturnthick-1-w" title="Salir"
+									onclick="hideDialogPF('frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar');return false;" />
+							</div>
+						</td>
+					</tr>
+				</table>
+			</p:dialog>
+		</h:form>
+
 	</ui:define>
 
 </ui:composition>
