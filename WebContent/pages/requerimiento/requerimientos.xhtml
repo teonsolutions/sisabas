@@ -390,9 +390,9 @@ function myFunction3() {
 								</td>
 								<td>
 									<div align="right">
-										<p:commandButton value="DERIVAR A SINAD"
-											icon="ui-icon-circle-check" title="Aceptar"
-											update=":form:growl" oncomplete="" />
+										<p:commandButton actionListener="#{dialogView.destroyWorld}" value="DERIVAR" icon="ui-icon-circle-check" title="Aceptar" update=":form:growl" oncomplete="" >
+										   <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+										</p:commandButton>
 									</div>
 								</td>
 
@@ -402,6 +402,10 @@ function myFunction3() {
 					</p:panel>
 
 				</p:dialog>
+				          <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                           <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                           <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                          </p:confirmDialog>
 
 			</h:form>
 			
@@ -445,7 +449,7 @@ function myFunction3() {
 								</td>
 								<td>
 									<div align="right">
-										<p:commandButton value="DERIVAR A SINAD"
+										<p:commandButton value="DERIVAR"
 											icon="ui-icon-circle-check" title="Aceptar"
 											update=":form:growl" oncomplete="" />
 									</div>

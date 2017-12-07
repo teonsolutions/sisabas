@@ -157,10 +157,10 @@
 						       <p:outputLabel value="Itinerario:" rendered="#{requerimiento.documentotecnico.idcatalogotipotdr eq 'TITD3'}"/>
 						       <p:selectOneMenu rendered="#{requerimiento.documentotecnico.idcatalogotipotdr eq 'TITD3'}"  id="txtReqz" value="---" style="width:200px;" >
 						            <f:selectItem itemLabel="Seleccionar Itinerario"/>
-						        	<f:selectItems 
+						        	<!-- <f:selectItems 
 										value="#{pedido.listaGentablaIdcatalogotipotdr}"
 										var="var" itemLabel="#{var.vchregdescri}"
-							  			itemValue="#{var.vchregcodigo}" />
+							  			itemValue="#{var.vchregcodigo}" /> -->
 						            <p:ajax update=":formTdr:accordion:idMensaje"/>				
 					        	</p:selectOneMenu>
 					        	<p:commandButton value="Agregar" rendered="#{requerimiento.documentotecnico.idcatalogotipotdr eq 'TITD3'}"/>

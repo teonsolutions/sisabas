@@ -13,6 +13,7 @@ public class RequerimientoInsertRequest extends SysTabla  implements  Serializab
 	private Integer anoEje;
 	private String tipoBien;
 	private Integer idPeriodo;
+	private String usuarioCreacion;
 	
 	public String getNroPedido() {
 		return nroPedido;
@@ -44,6 +45,13 @@ public class RequerimientoInsertRequest extends SysTabla  implements  Serializab
 	public void setIdPeriodo(Integer idPeriodo) {
 		this.idPeriodo = idPeriodo;
 	}
+	public String getUsuarioCreacion() {
+		return usuarioCreacion;
+	}
+	public void setUsuarioCreacion(String usuarioCreacion) {
+		this.usuarioCreacion = usuarioCreacion;
+	}
+	
 	
 
 }

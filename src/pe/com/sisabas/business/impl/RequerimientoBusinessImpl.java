@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pe.com.sisabas.be.Comiteproceso;
 import pe.com.sisabas.be.Dependenciadocumentotecnico;
 import pe.com.sisabas.be.Documentotecnico;
 import pe.com.sisabas.be.Gentabla;
@@ -29,6 +30,7 @@ import pe.com.sisabas.dto.Lugar;
 import pe.com.sisabas.dto.Pago;
 import pe.com.sisabas.dto.Resultado;
 import pe.com.sisabas.dto.TransactionRequest;
+import pe.com.sisabas.persistence.ComiteprocesoMapper;
 import pe.com.sisabas.persistence.DependenciadocumentotecnicoMapper;
 import pe.com.sisabas.persistence.DocumentotecnicoMapper;
 import pe.com.sisabas.persistence.GentipoMapper;
@@ -48,6 +50,11 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 	private static final long serialVersionUID = 1L;
 
 	private static Logger logger=Logger.getLogger(RequerimientoBusinessImpl.class);
+	
+	private Integer idGenerado;
+	
+	@Autowired
+	public ComiteprocesoMapper comiteprocesoMapper;
 	
 	@Autowired
 	public PedidoMapper pedidoMapper;
@@ -123,7 +130,6 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 		//DocumentoTecnicoDto documentotecnicoDto = new DocumentotecnicoDto();
 		Integer iddocumentoTecnico;
 		
-		System.err.println("ooooooooooooooogetiddocumentooooooooooooooooooo = "+especificacionTecnica.getIddocumentotecnico());
 		
 		if (especificacionTecnica.getIddocumentotecnico() == null){
 			System.out.println("sapppppppppppp 1");
@@ -134,7 +140,7 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 
 					
 			Integer idDocumentoTecnicoSeq = ((int)utilsBusiness.getNextSeq(Sequence.SEQ_DOCUMENTOTECNICO).longValue());
-			
+			System.out.println("Valor de idDocumento es: "+idDocumentoTecnicoSeq);
 			documentoTecnico.setIddocumentotecnico(idDocumentoTecnicoSeq);
 			documentoTecnico.setFechacreacionauditoria(new Date());
 		    documentoTecnico.setIdpedido(especificacionTecnica.getIdPedido());
@@ -156,14 +162,36 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 		    gentabla.setVchregcodigo(especificacionTecnica.getTipoEsp()); 
 		    
 		    documentoTecnico.setGentablaIdcatalogotipotdr(gentabla);
+
+		    
+
+		     //Se creara ComiteProceso si check habilitada
+			if(documentoTecnico.getIdcomiteproceso()==null&&especificacionTecnica.isBooleano()){
+				Comiteproceso comiteproceso = new Comiteproceso();
+				idGenerado = ((int)utilsBusiness.getNextSeq(Sequence.SEQ_COMITEPROCESO).longValue());
+				comiteproceso.setIdcomiteproceso(idGenerado);
+				comiteproceso.setFechacreacionauditoria(new Date());
+				comiteproceso.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+				comiteproceso.setProgramaauditoria(request.getProgramaAuditoria());
+				System.out.println("*****************************El valor de idGenerado es :" +idGenerado + "****************************************************");
+				comiteprocesoMapper.insert(comiteproceso);
+				
+				// se inserta idcomiteproceso a documento tecnico
+				documentoTecnico.setIdcomiteproceso(idGenerado);
+				
+			}
 			
-			documentotecnicoMapper.insert(documentoTecnico);
+		    
+		 
+		    documentotecnicoMapper.insert(documentoTecnico);
+			
 			
 
 			if (especificacionTecnica.getPrestaciones()!= null){				
 				for (int i = 0; i < especificacionTecnica.getPrestaciones().size(); i++) {
 					Dependenciadocumentotecnico nuevo = new Dependenciadocumentotecnico();
 					nuevo.setIddependenciadocumentotecnico(((int)utilsBusiness.getNextSeq(Sequence.SEQ_DEPENDENCIADOCUMENTOTECNICO).longValue()));
+					System.out.println("*******************El valor de setIddependenciadocumentotecnico es:"+nuevo.getIddependenciadocumentotecnico());
 					nuevo.setIddocumentotecnico(documentoTecnico.getIddocumentotecnico());
 					nuevo.setDireccion(especificacionTecnica.getPrestaciones().get(i).getDireccion());
 					nuevo.setFechacreacionauditoria(new Date());
@@ -191,6 +219,12 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 					plazoPagoMapper.insert(nuevo);
 				}
 			}	
+
+			
+			
+			
+			
+			
 			
 			if (especificacionTecnica.getComitesDto()!=null){
 				
@@ -205,15 +239,13 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 					nuevo.setTelefono(especificacionTecnica.getComitesDto().get(i).getTelefono());
 					nuevo.setAnexo(especificacionTecnica.getComitesDto().get(i).getAnexo());
 					nuevo.setCorreo(especificacionTecnica.getComitesDto().get(i).getCorreo());
+					System.out.println("El valor de Idmiembrocomiteproceso es :"+ nuevo.getIdmiembrocomiteproceso());
+					//se enlaza al idComiteProceso
+					if(especificacionTecnica.isBooleano())
+					   nuevo.setIdcomiteproceso(idGenerado);
 					miembrocomiteporprocesoMapper.insert(nuevo);
-					
 				}
-				
-				
-				
-				
-				
-				
+		
 			}
 			
 			
@@ -223,6 +255,13 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 			Pedido pedido2 = pedidoMapper.selectByPrimaryKeyBasic(documentoTecnico.getIdpedido());
 			pedido2.setEstadopedido(Constantes.estadosPorEtapa.CON_DOCUMENTO_TECNICO);
 			pedidoMapper.updateByPrimaryKey(pedido2);
+			
+			
+			
+			
+			
+			//finalemnte se hace la insercicon de documento tecnico
+		//	documentotecnicoMapper.insert(documentoTecnico);
 			
 			
 			
@@ -388,7 +427,16 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 		
 		return documentotecnicoMapper.getLugaresPrestacion(idDocumentoTecnico);
 	}
-	
+
+	public Integer getIdGenerado() {
+		return idGenerado;
+	}
+
+	public void setIdGenerado(Integer idGenerado) {
+		this.idGenerado = idGenerado;
+	}
+
+
 	
 	
 	

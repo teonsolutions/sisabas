@@ -12,6 +12,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.RowEditEvent;
@@ -91,6 +92,9 @@ public class RequerimientoController extends BaseController{
 	
 	private Pago pago;
 	private static double totalPorcentaje=0;
+	private boolean check;
+	
+	
 	
 	
 	private static List<Lugar> lugares=new ArrayList<>();
@@ -217,7 +221,7 @@ public class RequerimientoController extends BaseController{
 	public void buscarRequerimientos() {
 	//	System.out.println("***************FerRRRRRRRRRRR**************"+lugares.size());
 		try {
-			System.out.println("Fer3");
+			System.out.println("Metodo buscarRequerimientos");
 			//Todos		
 			requerimientoRequest.setCodigoUnidadEjecutora("108");
 			//requerimientoRequest.setPedido("08761");
@@ -250,7 +254,7 @@ public class RequerimientoController extends BaseController{
 	public void buscarItemRequerimientos() {
 		try {
 
-			System.out.println("***************Fer4**************"+requerimientoResponse.getEstadoSiga());
+			System.out.println("******************************GetEstadoSiga****************************"+requerimientoResponse.getEstadoSiga());
 			//Todos		
 			//getPedidosEvaluacion
 			requerimientoItemRequest.setCodUnidadEjecutora("108");
@@ -302,7 +306,7 @@ public class RequerimientoController extends BaseController{
 
 			listaItemRequerimientos = requerimientoBusiness.selectDynamicBasic(requerimientoItemRequest);
 			
-			System.out.println("***********el tamanioB es *********"+listaItemRequerimientos.size());
+			System.out.println("***********el tamanio de ListaItemRequerimientos es *********"+listaItemRequerimientos.size());
 			System.out.println("***********el valor de nropedido es *********"+requerimientoResponse.getNroPedido());
 			
 			if(listaItemRequerimientos.size()==1)
@@ -413,8 +417,8 @@ public class RequerimientoController extends BaseController{
 		try {
 			System.out.println("***************Fer5**************"+requerimientoResponse.getNroPedido());
 			
-			System.out.println("valor 1 es: "+requerimientoInsertRequest.getNroPedido());
-			System.out.println("valor 3 es: "+requerimientoResponse.getNumeroSinad());
+			System.out.println("[RequerimientoController - insertarRequerimientos] valor getNroPedido es: "+requerimientoInsertRequest.getNroPedido());
+			System.out.println("[RequerimientoController - insertarRequerimientos] valor getNumeroSinad es: "+requerimientoResponse.getNumeroSinad());
 			
 	
 			requerimientoInsertRequest.setNroPedido(requerimientoResponse.getNroPedido());
@@ -424,7 +428,15 @@ public class RequerimientoController extends BaseController{
 			requerimientoInsertRequest.setIdPeriodo(1);
 			
 
+			System.out.println("Los parametros de entradas son: ");
+			System.out.println("Nro Pedido :" + requerimientoInsertRequest.getNroPedido());
+			System.out.println("Cod Unidad Ejecutora :" + requerimientoInsertRequest.getCodUnidadEjecutora());
+			System.out.println("Ano Eje :" + requerimientoInsertRequest.getAnoEje());
+			System.out.println("Tipo Bien :" + requerimientoInsertRequest.getTipoBien());
+			System.out.println("Id Periodo : " + requerimientoInsertRequest.getIdPeriodo());
+			
 			requerimientoBusiness.insertBasic(requerimientoInsertRequest); 
+			buscarRequerimientos();
 		
 			System.out.println("***********el valor de nropedidoZ es *********"+requerimientoResponse.getNroPedido());
 			
@@ -432,14 +444,12 @@ public class RequerimientoController extends BaseController{
 			 context.addMessage(null, new FacesMessage("Mensaje", "Se Agrego al POI correctamente"));
 			 
 			 
-			 System.out.println("***********llego o no *********"+requerimientoResponse.getNroPedido());
+			 System.out.println("************************* Despues geT nroPedido***********************"+requerimientoResponse.getNroPedido());
 		
 			if (listaItemRequerimientos.size() == 0)
 				addMessageKey("msgsForm",
 					Messages.getString("no.records.found"),
 					FacesMessage.SEVERITY_INFO);	
-			
-			
 		  	
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
@@ -591,7 +601,8 @@ public class RequerimientoController extends BaseController{
 	    	
 	    	System.err.println("---------------------------------------------getiddocumento----------------------------------------- = "+dto.getIddocumentotecnico());
 	    	
-	    	  
+	    	dto.setBooleano(this.check);  
+	    	
             dto.setPrestaciones(lugares);
             dto.setPagos(pagos);
             dto.setComitesDto(comites2);
@@ -611,6 +622,7 @@ public class RequerimientoController extends BaseController{
 	    	showGrowlMessageSuccessfullyCompletedAction();
 	    	
 	    	requerimientoBusiness.guardarEspecificacionTecnica(transaccionRequest);
+	    	buscarRequerimientos();
 	    	
 
 	    	REGISTER_SUCCESS();
@@ -706,6 +718,7 @@ public class RequerimientoController extends BaseController{
 		this.documentotecnico.setObjetocontratacion(null);
 		this.documentotecnico.setNropac(null);
 		this.documentotecnico.setIddocumentotecnico(null);
+		this.check = false;
 	}
 	 
 	
@@ -989,28 +1002,42 @@ public class RequerimientoController extends BaseController{
 	public void setComite(ComiteDto comite) {
 		this.comite = comite;
 	}
+	
+	
+	public void LimpiarInicio(){
+		this.requerimientoRequest.setPedido(null);
+		this.requerimientoRequest.setNroExpediente(null);
+		this.requerimientoRequest.setTipoNecesidad("No Programado");
+		this.requerimientoRequest.setTipoBien("TODOS");
+		this.requerimientoRequest.setEstado("TODOS");
+		
+	}
 
-/*
-	public List<Miembrocomiteporproceso> getComites() {
-		return comites;
+	public boolean isCheck() {
+		return check;
 	}
 
 
-	public void setComites(List<Miembrocomiteporproceso> comites) {
-		RequerimientoController.comites = comites;
-	}
-
-
-	public List<Miembrocomiteporproceso> getComitesEliminar() {
-		return comitesEliminar;
-	}
-
-
-	public void setComitesEliminar(List<Miembrocomiteporproceso> comitesEliminar) {
-		RequerimientoController.comitesEliminar = comitesEliminar;
+	public void setCheck(boolean check) {
+		this.check = check;
 	}
 	
-	*/
+	
+	public void mensajeCheck() {
+		String summary = check ? "Comité Especial: Checked" : "Comité Especial: UnChecked";
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(summary));
+    }
+	
+	
+
+	public void destroyWorld() {
+        addMessage("System Error", "Please try again later.");
+    }
+     
+    public void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
 	
 	
 }

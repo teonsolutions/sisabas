@@ -80,7 +80,8 @@
             #{codUnidadEjecutora},
             #{anoEje},
             #{tipoBien},
-            #{idPeriodo}
+            #{idPeriodo},
+            #{usuarioCreacion}
       )}
    </select> 
    

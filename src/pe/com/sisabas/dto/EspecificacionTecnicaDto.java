@@ -25,6 +25,8 @@ public class EspecificacionTecnicaDto implements  Serializable,Cloneable{
 	private Integer nroPac;
 	private String nroAnexo;
 	
+	private  boolean booleano;
+	
 	
 	private List<Lugar> prestaciones;
 	private List<Lugar> prestacionesEliminar;
@@ -194,6 +196,14 @@ public class EspecificacionTecnicaDto implements  Serializable,Cloneable{
 
 	public void setComitesDtoEliminar(List<ComiteDto> comitesDtoEliminar) {
 		this.comitesDtoEliminar = comitesDtoEliminar;
+	}
+
+	public boolean isBooleano() {
+		return booleano;
+	}
+
+	public void setBooleano(boolean booleano) {
+		this.booleano = booleano;
 	}
 
 	
