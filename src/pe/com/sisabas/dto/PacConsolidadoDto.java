@@ -29,7 +29,7 @@ public class PacConsolidadoDto implements Serializable,Cloneable{
 	private String unidadMedidaDesc;
 	private String descripcionPac;
 	private Integer cantidad;
-	private Integer mesPrevistoConvocatoria;
+	private String mesPrevistoConvocatoria;
 	private String idTipoBien;
 	private String tipoBienDesc;
 	private Integer nroVersionPac;
@@ -305,14 +305,14 @@ public class PacConsolidadoDto implements Serializable,Cloneable{
 
 
 
-	public Integer getMesPrevistoConvocatoria() {
+	public String getMesPrevistoConvocatoria() {
 		return mesPrevistoConvocatoria;
 	}
 
 
 
 
-	public void setMesPrevistoConvocatoria(Integer mesPrevistoConvocatoria) {
+	public void setMesPrevistoConvocatoria(String mesPrevistoConvocatoria) {
 		this.mesPrevistoConvocatoria = mesPrevistoConvocatoria;
 	}
 

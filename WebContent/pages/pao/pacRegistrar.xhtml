@@ -48,7 +48,8 @@
 			<p:panel id="panel" header="Programación y costos > pao > Paac"
 				style="width: 98%">
 				<p:focus for="panel" />
-				<p:tabView id="tabViewPao">
+				<p:tabView id="tabViewPao" dynamic="true"
+					activeIndex="#{programacion.pacTabIndex}">
 					<p:tab title="Datos generales">
 						<p:accordionPanel id="accDatosGenerales" multiple="true"
 							activeIndex="0,1,2,3,4">
@@ -97,6 +98,7 @@
 										<td></td>
 										<td></td>
 									</tr>
+									<!-- 
 									<tr>
 										<td colspan="3"><p:outputLabel
 												value="Descripción del PAO" for="txtDescripcionPAO"
@@ -106,9 +108,10 @@
 										<td colspan="3"><p:inputTextarea id="txtDescripcionPAO"
 												rows="5" cols="50" queryDelay="750" minQueryLength="4"
 												disabled="true"
-												value="#{programacion.currentPao.pacConsolidado.descripcionPac}"
+												value="{programacion.currentPao.pacConsolidado.descripcionPac}"
 												style="width: 100%" /></td>
 									</tr>
+									 -->
 									<tr>
 										<td colspan="3"><p:outputLabel value="Items del PAO"
 												id="lblItems" /></td>
@@ -155,14 +158,14 @@
 												var="var" widgetVar="tblListaPedidos"
 												emptyMessage="No se encontraron registros"
 												selectionMode="single" rowKey="#{var.nroPedido}"
-												styleClass="gandalfTableClass" paginator="true"
-												rows="2"
+												styleClass="gandalfTableClass" paginator="true" rows="2"
 												paginatorPosition="bottom"
 												paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(programacion.listaCuadrocomparativofuente)}">
 												<!--  
 								<p:ajax event="rowSelect" update=":form:pnlBotones" immediate="true"/>
 								-->
-												<p:column styleClass="c_string" headerText="N° Pedido">
+												<p:column styleClass="c_string" headerText="N° Pedido"
+													style="width: 70">
 													<f:facet name="header">
 														<h:outputText value="N° Pedido" />
 													</f:facet>
@@ -186,18 +189,22 @@
 													</f:facet>
 													<h:outputText value="#{var.descripcionEstadoPorEtapa}" />
 												</p:column>
+
+												<!-- 
 												<p:column headerText="Sinad">
 													<f:facet name="header">
 														<h:outputText value="Sinad" />
 													</f:facet>
-													<h:outputText value="#{var.numeroExpedienteSinad}" />
+													<h:outputText value="{var.numeroExpedienteSinad}" />
 												</p:column>
 												<p:column headerText="Principal">
 													<f:facet name="header">
 														<h:outputText value="Principal" />
 													</f:facet>
-													<h:outputText value="#{var.esPrincipal}" />
+													<h:outputText value="{var.esPrincipal}" />
 												</p:column>
+												 -->
+
 											</p:dataTable></td>
 									</tr>
 								</table>
@@ -221,7 +228,7 @@
 											</p:inputText></td>
 										<td><p:inputText id="txtNumeroReferencia" required="true"
 												maxlength="10" style="width:150px;"
-												label="Número referencial PAC" disabled="true"
+												label="Número referencial PAC" disabled="false"
 												value="#{programacion.currentPao.pacConsolidado.nroPac}">
 											</p:inputText></td>
 										<td><p:selectOneMenu
@@ -275,8 +282,8 @@
 												value="#{programacion.currentPao.pacConsolidado.tipoProcesoInicialDesc}">
 											</p:inputText></td>
 										<td><p:selectOneMenu
-												value="#{programacion.currentPao.pacConsolidado.idCatalogoEstadoPac}" id="ddlEstadoPac"
-												required="false" label="Estado de PAC">
+												value="#{programacion.currentPao.pacConsolidado.idCatalogoEstadoPac}"
+												id="ddlEstadoPac" required="false" label="Estado de PAC">
 												<f:selectItem itemLabel="--Seleccione--" itemValue="" />
 												<f:selectItems
 													value="#{programacion.listaGentablaIdcatalogoestadopac}"
@@ -526,13 +533,70 @@
 						<p:accordionPanel id="accOrden" multiple="true"
 							activeIndex="0,1,2,3">
 							<p:tab title="Información de proceso">
-
+								<table>
+									<tr>
+										<td><p:outputLabel value="Tipo de proceso"
+												for="ddlTipoProceso" id="lblTipoProceso" /></td>
+										<td><p:selectOneMenu
+												value="#{programacion.currentPao.pacConsolidado.idCatalogoEstadoPac}"
+												id="ddlTipoProceso" required="false" label="Estado de PAC">
+												<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+												<f:selectItems
+													value="#{programacion.listaGentablaIdcatalogoestadopac}"
+													var="var" itemLabel="#{var.vchregdescri}"
+													itemValue="#{var.vchregcodigo}" />
+											</p:selectOneMenu></td>
+										<td><p:outputLabel value="Número de proceso"
+												for="txtNroProceso" id="lblNroProceso" /></td>
+										<td><p:inputText id="txtNroProceso" required="true"
+												maxlength="10" style="width:150px;"
+												label="Número de proceso" disabled="false"
+												value="#{programacion.currentPao.pacConsolidado.nroPac}">
+											</p:inputText></td>
+									</tr>
+									<tr>
+										<td><p:outputLabel value="Número de convocatoria"
+												for="txtNroConvocatoria" id="lblNroConvocatoria" /></td>
+										<td><p:inputText id="txtNroConvocatoria" required="true"
+												maxlength="10" style="width:150px;"
+												label="Número de convocatoria" disabled="true"
+												value="#{programacion.currentPao.pacConsolidado.cantidad}">
+											</p:inputText></td>
+										<td><p:outputLabel
+												value="Tiempo de servicio (total en días)"
+												for="txtTiempoServicio" id="lblTiempoServicio" /></td>
+										<td><p:inputText id="txtTiempoServicio" required="true"
+												maxlength="10" style="width:150px;"
+												label="Tiempo de servicio (total en días)" disabled="true"
+												value="#{programacion.currentPao.pacConsolidado.cantidad}">
+											</p:inputText></td>
+									</tr>
+									<tr>
+										<td><p:outputLabel
+												value="Fecha de solicitud de aprobación de expediente"
+												for="txtFechasolicitudAprobacion"
+												id="lblFechasolicitudAprobacion" /></td>
+										<td><p:calendar id="txtFechasolicitudAprobacion"
+												value="#{programacion.cuadrocomparativofuente.fechasolicitud}"
+												required="false" pattern="dd/MM/yyyy"
+												label="Fecha de solicitud" navigator="true" locale="es"
+												styleClass="dateTimeField" /></td>
+										<td><p:outputLabel
+												value="Fecha de aprobación de expediente"
+												for="txtFechaAprobacion" id="lblFechaAprobacion" /></td>
+										<td><p:calendar id="txtFechaAprobacion"
+												value="#{programacion.cuadrocomparativofuente.fechasolicitud}"
+												required="false" pattern="dd/MM/yyyy"
+												label="Fecha de aprobación de expediente" navigator="true" locale="es"
+												styleClass="dateTimeField" /></td>
+									</tr>
+								</table>
 							</p:tab>
 						</p:accordionPanel>
 						<p:accordionPanel id="accEntregable" multiple="true"
 							activeIndex="0,1,2,3,4">
 							<p:tab title="Miembros de comité">
-	
+
 							</p:tab>
 						</p:accordionPanel>
 						<p:commandButton value="Guardar" icon="fa fa-pencil"

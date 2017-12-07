@@ -62,7 +62,7 @@ public class Pacconsolidado extends SysTabla implements  Serializable,Cloneable{
 	private java.math.BigDecimal valorestimadocontracionini;
 	private java.math.BigDecimal valorestimadocontracionfin;
 	/**[Mes Previsto Convocatoria]*/
-	private java.lang.Integer mesprevistoconvocatoria;
+	private java.lang.String mesprevistoconvocatoria;
 	/**[Nombre Especialista VR]*/
 	private java.lang.String nombreespecialistavr;
 	/**[Fecha Recepción Documento Técnico]*/
@@ -819,11 +819,11 @@ public class Pacconsolidado extends SysTabla implements  Serializable,Cloneable{
 		this.valorestimadocontracionfin = valorestimadocontracionfin;
 	}
 
-	 public java.lang.Integer getMesprevistoconvocatoria() {
+	 public java.lang.String getMesprevistoconvocatoria() {
 		return mesprevistoconvocatoria;
 	}
 
-	public void setMesprevistoconvocatoria(java.lang.Integer mesprevistoconvocatoria) {
+	public void setMesprevistoconvocatoria(java.lang.String mesprevistoconvocatoria) {
 		this.mesprevistoconvocatoria = mesprevistoconvocatoria;
 	}
 

@@ -21,7 +21,7 @@
 	<result column="A1_UNIDADMEDIDA" property="unidadmedida" jdbcType="INTEGER" />
 	<result column="A1_CANTIDAD" property="cantidad" jdbcType="INTEGER" />
 	<result column="A1_VALORESTIMADOCONTRACION" property="valorestimadocontracion" jdbcType="DECIMAL" />
-	<result column="A1_MESPREVISTOCONVOCATORIA" property="mesprevistoconvocatoria" jdbcType="SMALLINT" />
+	<result column="A1_MESPREVISTOCONVOCATORIA" property="mesprevistoconvocatoria" jdbcType="VARCHAR" />
 	<result column="A1_NOMBREESPECIALISTAVR" property="nombreespecialistavr" jdbcType="VARCHAR" />
 	<result column="A1_FECHARECEPCIONDOCUMENTOTECNICO" property="fecharecepciondocumentotecnico" jdbcType="TIMESTAMP" />
 	<result column="A1_FECHAASIGNACIONESPECIALISTA" property="fechaasignacionespecialista" jdbcType="TIMESTAMP" />
@@ -220,7 +220,7 @@
 		<result column="UNIDAD_MEDIDA_DSC" property="unidadMedidaDesc" jdbcType="VARCHAR"/>
 		<result column="DSC_PAC" property="descripcionPac" jdbcType="VARCHAR"/>
 		<result column="CANTIDAD" property="cantidad" jdbcType="INTEGER"/>
-		<result column="MES_PREVISTO_CONVOCATORIA" property="mesPrevistoConvocatoria" jdbcType="INTEGER"/>
+		<result column="MES_PREVISTO_CONVOCATORIA" property="mesPrevistoConvocatoria" jdbcType="VARCHAR"/>
 		<result column="COD_TIPO_BIEN" property="idTipoBien" jdbcType="VARCHAR"/>
 		<result column="COD_TIPO_BIEN_DSC" property="tipoBienDesc" jdbcType="VARCHAR"/>
 		<result column="NroVersionPac" property="nroVersionPac" jdbcType="INTEGER"/>
@@ -253,7 +253,7 @@
 	<result column="A1_UNIDADMEDIDA" property="unidadmedida" jdbcType="INTEGER" />
 	<result column="A1_CANTIDAD" property="cantidad" jdbcType="INTEGER" />
 	<result column="A1_VALORESTIMADOCONTRACION" property="valorestimadocontracion" jdbcType="DECIMAL" />
-	<result column="A1_MESPREVISTOCONVOCATORIA" property="mesprevistoconvocatoria" jdbcType="SMALLINT" />
+	<result column="A1_MESPREVISTOCONVOCATORIA" property="mesprevistoconvocatoria" jdbcType="VARCHAR" />
 	<result column="A1_NOMBREESPECIALISTAVR" property="nombreespecialistavr" jdbcType="VARCHAR" />
 	<result column="A1_FECHARECEPCIONDOCUMENTOTECNICO" property="fecharecepciondocumentotecnico" jdbcType="TIMESTAMP" />
 	<result column="A1_FECHAASIGNACIONESPECIALISTA" property="fechaasignacionespecialista" jdbcType="TIMESTAMP" />
@@ -663,7 +663,7 @@
 	#{esitemunico,jdbcType=SMALLINT}, #{antecedenteidpacconsolidin,jdbcType=INTEGER}, #{antecedenteprocesopacdsc,jdbcType=VARCHAR}, #{nropac,jdbcType=VARCHAR}, 
 	#{idcatalogoestadopac,jdbcType=VARCHAR}, #{codigotipoprocesoinicial,jdbcType=VARCHAR}, #{idcatalogotipobien,jdbcType=VARCHAR}, #{idcatalogotiponecesidad,jdbcType=VARCHAR}, 
 	#{idcatalogotipocontratacion,jdbcType=VARCHAR}, #{nroitems,jdbcType=SMALLINT}, #{descpac,jdbcType=VARCHAR}, #{unidadmedida,jdbcType=INTEGER}, 
-	#{cantidad,jdbcType=INTEGER}, #{valorestimadocontracion,jdbcType=DECIMAL}, #{mesprevistoconvocatoria,jdbcType=SMALLINT}, #{nombreespecialistavr,jdbcType=VARCHAR}, 
+	#{cantidad,jdbcType=INTEGER}, #{valorestimadocontracion,jdbcType=DECIMAL}, #{mesprevistoconvocatoria,jdbcType=VARCHAR}, #{nombreespecialistavr,jdbcType=VARCHAR}, 
 	#{fecharecepciondocumentotecnico,jdbcType=TIMESTAMP}, #{fechaasignacionespecialista,jdbcType=TIMESTAMP}, #{fechaenvioareausuariaobservacion,jdbcType=TIMESTAMP}, #{fechaabsconsultasobservaciones,jdbcType=TIMESTAMP}, 
 	#{fechaelaboracionepom,jdbcType=TIMESTAMP}, #{fechanotificacionepom,jdbcType=TIMESTAMP}, #{tiempodemoraepom,jdbcType=INTEGER}, #{tiempoelaboracionepom,jdbcType=INTEGER}, 
 	#{fechasolicitudcp,jdbcType=TIMESTAMP}, #{fechacp,jdbcType=TIMESTAMP}, #{nrocp,jdbcType=INTEGER}, #{montocp,jdbcType=DECIMAL}, 
@@ -961,7 +961,7 @@
 		#{valorestimadocontracion,jdbcType=DECIMAL}, 
 	</if>
 	<if test="mesprevistoconvocatoria != null" >
-		#{mesprevistoconvocatoria,jdbcType=SMALLINT}, 
+		#{mesprevistoconvocatoria,jdbcType=VARCHAR}, 
 	</if>
 	<if test="nombreespecialistavr != null" >
 		#{nombreespecialistavr,jdbcType=VARCHAR}, 
@@ -1142,7 +1142,7 @@
 	IDCATALOGOTIPOCONTRATACION = #{idcatalogotipocontratacion,jdbcType=VARCHAR}, NROITEMS = #{nroitems,jdbcType=SMALLINT}, 
 	DESCPAC = #{descpac,jdbcType=VARCHAR}, UNIDADMEDIDA = #{unidadmedida,jdbcType=INTEGER}, 
 	CANTIDAD = #{cantidad,jdbcType=INTEGER}, VALORESTIMADOCONTRACION = #{valorestimadocontracion,jdbcType=DECIMAL}, 
-	MESPREVISTOCONVOCATORIA = #{mesprevistoconvocatoria,jdbcType=SMALLINT}, NOMBREESPECIALISTAVR = #{nombreespecialistavr,jdbcType=VARCHAR}, 
+	MESPREVISTOCONVOCATORIA = #{mesprevistoconvocatoria,jdbcType=VARCHAR}, NOMBREESPECIALISTAVR = #{nombreespecialistavr,jdbcType=VARCHAR}, 
 	FECHARECEPCIONDOCUMENTOTECNICO = #{fecharecepciondocumentotecnico,jdbcType=TIMESTAMP}, FECHAASIGNACIONESPECIALISTA = #{fechaasignacionespecialista,jdbcType=TIMESTAMP}, 
 	FECHAENVIOAREAUSUARIAOBSERVACION = #{fechaenvioareausuariaobservacion,jdbcType=TIMESTAMP}, FECHAABSCONSULTASOBSERVACIONES = #{fechaabsconsultasobservaciones,jdbcType=TIMESTAMP}, 
 	FECHAELABORACIONEPOM = #{fechaelaboracionepom,jdbcType=TIMESTAMP}, FECHANOTIFICACIONEPOM = #{fechanotificacionepom,jdbcType=TIMESTAMP}, 
@@ -1233,7 +1233,7 @@
 		VALORESTIMADOCONTRACION = #{valorestimadocontracion,jdbcType=DECIMAL}, 
 	</if>
 	<if test="mesprevistoconvocatoria != null" >
-		MESPREVISTOCONVOCATORIA = #{mesprevistoconvocatoria,jdbcType=SMALLINT}, 
+		MESPREVISTOCONVOCATORIA = #{mesprevistoconvocatoria,jdbcType=VARCHAR}, 
 	</if>
 	<if test="nombreespecialistavr != null" >
 		NOMBREESPECIALISTAVR = #{nombreespecialistavr,jdbcType=VARCHAR}, 
@@ -1468,7 +1468,7 @@
 
 		</if>
 		<if test="mesprevistoconvocatoria != null" >
-			 AND A1.MESPREVISTOCONVOCATORIA = #{mesprevistoconvocatoria,jdbcType=SMALLINT} 
+			 AND A1.MESPREVISTOCONVOCATORIA = #{mesprevistoconvocatoria,jdbcType=VARCHAR} 
 		</if>
 		<if test="nombreespecialistavr != null" >
 			 AND A1.NOMBREESPECIALISTAVR LIKE ('%' + #{nombreespecialistavr,jdbcType=VARCHAR} + '%')
@@ -1862,7 +1862,7 @@
 
 		</if>
 		<if test="mesprevistoconvocatoria != null" >
-			 AND A1.MESPREVISTOCONVOCATORIA = #{mesprevistoconvocatoria,jdbcType=SMALLINT} 
+			 AND A1.MESPREVISTOCONVOCATORIA = #{mesprevistoconvocatoria,jdbcType=VARCHAR} 
 		</if>
 		<if test="nombreespecialistavr != null" >
 			 AND A1.NOMBREESPECIALISTAVR LIKE ('%' + #{nombreespecialistavr,jdbcType=VARCHAR} + '%')

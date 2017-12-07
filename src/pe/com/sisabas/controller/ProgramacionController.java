@@ -126,6 +126,9 @@ public class ProgramacionController extends BaseController {
 	private String tituloFuente;
 	private String tituloControlProducto;
 	private boolean esSeleccionadoRequisito;
+	
+	//TAB INDEX PAC
+	private Integer pacTabIndex;
 
 	// BUSINESS SECTION
 	@Autowired
@@ -500,7 +503,7 @@ public class ProgramacionController extends BaseController {
 			}
 
 			PacConsolidadoDto pc = this.currentPao.getPacConsolidado();
-			if (!pc.getEstadoRequerimiento().equals(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN)) {
+			//if (!pc.getEstadoRequerimiento().equals(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN)) {
 				securityControlValidate("btnGuadarDatosGenerales");
 
 				PacConsolidadoDto pacConsolid = (PacConsolidadoDto) pc.clone();
@@ -520,8 +523,9 @@ public class ProgramacionController extends BaseController {
 				Resultado result = programacionBusiness.grabarPacConsolidado(transactionRequest);
 
 				REGISTER_SUCCESS();
-				buscarPao();
-			}
+				//buscarPao();
+				setPacTabIndex(1); //TabIndex Estudio del mercado
+			//}
 			showGrowlMessageSuccessfullyCompletedAction();
 		} catch (ValidateException e) {
 			REGISTER_ERROR();
@@ -1038,8 +1042,7 @@ public class ProgramacionController extends BaseController {
 			// Estudio del Mercado
 			buscarFuente();
 			buscarValorReferencialFinal();
-			// buscarOrden();
-
+			setPacTabIndex(0); //TabIndex default			
 		} catch (Exception e) {
 			addErrorMessage(e);
 			return "/login.xhtml";
@@ -1287,6 +1290,14 @@ public class ProgramacionController extends BaseController {
 
 	public void setListaGentablaIdcatalogomeses(List<Gentabla> listaGentablaIdcatalogomeses) {
 		this.listaGentablaIdcatalogomeses = listaGentablaIdcatalogomeses;
+	}
+	
+	public Integer getPacTabIndex() {
+		return pacTabIndex;
+	}
+
+	public void setPacTabIndex(Integer pacTabIndex) {
+		this.pacTabIndex = pacTabIndex;
 	}
 
 }
