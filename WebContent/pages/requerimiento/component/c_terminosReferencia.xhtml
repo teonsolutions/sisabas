@@ -10,9 +10,6 @@
 
 <p:outputPanel style="text-align:center;">
 
-
-
-
 	<p:accordionPanel multiple="true" id="accordion">
 		<p:tab title="Información del Pedido">
 
@@ -93,14 +90,15 @@
 
 				<p:row>
 					<p:column>
-						<p:outputLabel value="Tipo de especificación técnica" for="txtReq" />
+						<p:outputLabel value="Tipo de Términos de Referencia" for="txtReq" />
 					</p:column>
 					<p:column>
-						<p:selectOneMenu id="txtReq" value="#{requerimiento.documentotecnico.idcatalogotipotdr}" style="width:200px;">
-							<f:selectItems
+						<p:selectOneMenu id="txtReq" value="#{requerimiento.documentotecnico.idcatalogotipotdr}" style="width:200px;" >
+							<f:selectItems 
 										value="#{pedido.listaGentablaIdcatalogotipotdr}"
 										var="var" itemLabel="#{var.vchregdescri}"
 										itemValue="#{var.vchregcodigo}" />
+						    <p:ajax update=":formTdr:accordion:idMensaje"/>				
 						</p:selectOneMenu>
 					</p:column>
 
@@ -123,7 +121,6 @@
 							style="width:300px;" />
 					</p:column>
 				</p:row>
-
 				<p:row>
 					<p:column>
 						<p:outputLabel value="Finalidad pública" />
@@ -153,11 +150,33 @@
 							style="width:300px;" />
 					</p:column>
 				</p:row>
+				<p:row>
+				<p:column colspan="5">
+		             <p:panel styleClass="#{requerimiento.documentotecnico.idcatalogotipotdr eq 'TITD3' ? 'panelMarco' : 'panelMarco2'}" id="idMensaje">
+		                 <h:panelGrid columns="3" >
+						       <p:outputLabel value="Itinerario:" rendered="#{requerimiento.documentotecnico.idcatalogotipotdr eq 'TITD3'}"/>
+						       <p:selectOneMenu rendered="#{requerimiento.documentotecnico.idcatalogotipotdr eq 'TITD3'}"  id="txtReqz" value="---" style="width:200px;" >
+						            <f:selectItem itemLabel="Seleccionar Itinerario"/>
+						        	<f:selectItems 
+										value="#{pedido.listaGentablaIdcatalogotipotdr}"
+										var="var" itemLabel="#{var.vchregdescri}"
+							  			itemValue="#{var.vchregcodigo}" />
+						            <p:ajax update=":formTdr:accordion:idMensaje"/>				
+					        	</p:selectOneMenu>
+					        	<p:commandButton value="Agregar" rendered="#{requerimiento.documentotecnico.idcatalogotipotdr eq 'TITD3'}"/>
+					            <p:spacer height="2"/> 	
+					     </h:panelGrid>
+					           <h:outputLabel  style="font-size:11px;" value="LISTA DE COMISIONADOS PARA LA EMISIÓN DE BOLETOS ELECTRÓNICOS PARA TRANSPORTE AÉREO NACIONAL, BAJO LA MODALIDAD DE CONVENIO MARCO"
+					           rendered="#{requerimiento.documentotecnico.idcatalogotipotdr eq 'TITD3'}"/> 
 
+                      </p:panel>
+			    </p:column>  
+			    </p:row> 
 			</p:panelGrid>
 		</p:tab>
 		
-				<p:tab title="Producto" id="formPago">
+		
+			<p:tab title="Producto" id="formPago">
 			<div align="right">
 				<p:commandButton
 					oncomplete="showDialogPF('frmPago2:diPago2')" onclick="myFunction();"
@@ -255,8 +274,6 @@
 			</p:dataTable>
 		</p:tab>
 
-
-
 		<p:tab title="Anexos">
           <h:form>
              <p:outputLabel value="Archivo formato PDF hasta 10 MB"/>
@@ -267,8 +284,14 @@
 		</p:tab>
 		
 		<p:tab title="Comité Especial">
+		   <div align="left">
+		      <p:outputLabel value="Comité Especial " />
+		      <p:selectBooleanCheckbox value="#{requerimiento.check}">
+		         <p:ajax update=":form:growl, :formTdr:accordion:botonAgregaComite" listener="#{requerimiento.mensajeCheck}" />
+		      </p:selectBooleanCheckbox>		         
+		   </div>		
 		   <div align="right">
-				<p:commandButton value="Agregar" icon="ui-icon-circle-check" oncomplete="showDialogPF('frmComite:diComite')"/>
+				<p:commandButton id="botonAgregaComite" value="Agregar" icon="ui-icon-circle-check" oncomplete="showDialogPF('frmComite:diComite')" disabled="#{not requerimiento.check}"/>
 			</div>
 			<p:spacer height="5" />
 				<p:dataTable id="tableComite" var="var"  emptyMessage="Comité vacía." value="#{requerimiento.comites2}" style="white-space:nowrap!important; width:800px; font-size:5px;" reflow="true" scrollable="true" editable="true">
@@ -300,7 +323,7 @@
 		               <f:facet name="input"><p:inputText value="#{var.nombres}" style="width:100%"/></f:facet>
                     </p:cellEditor>
 				   </p:column>
-				   <p:column headerText="TIPO DE MIEMBROz">
+				   <p:column headerText="TIPO DE MIEMBRO">
 					<p:cellEditor>
 		               <f:facet name="output"><h:outputText value="#{var.descMiembro}" /></f:facet>
 		               <f:facet name="input"><p:inputText value="#{var.descMiembro}" style="width:100%"/></f:facet>
