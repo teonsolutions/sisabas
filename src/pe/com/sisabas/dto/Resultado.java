@@ -14,9 +14,8 @@ public class Resultado {
 		this.mensaje = mensaje;
 	}
 	private boolean estado;
-	private String mensaje;	
-	
-	
+	private String mensaje;
+
 	public Resultado(){
 		
 	}

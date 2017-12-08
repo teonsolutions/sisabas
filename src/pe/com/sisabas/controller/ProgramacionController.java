@@ -30,7 +30,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import pe.com.sisabas.exception.BusinessException;
 import pe.com.sisabas.exception.UnselectedRowException;
 import pe.com.sisabas.exception.ValidateException;
-
+import pe.com.sisabas.persistence.MiembrocomiteporprocesoMapper;
 import pe.com.sisabas.resources.controller.BaseController;
 import pe.com.sisabas.resources.Messages;
 import pe.com.sisabas.resources.Constantes;
@@ -50,6 +50,7 @@ import pe.com.sisabas.be.Entregable;
 import pe.com.sisabas.business.CuadrocomparativofuenteBusiness;
 import pe.com.sisabas.business.DocumentotecnicoBusiness;
 import pe.com.sisabas.business.GentablaBusiness;
+import pe.com.sisabas.business.MiembrocomiteporprocesoBusiness;
 import pe.com.sisabas.business.ProgramacionBusiness;
 import pe.com.sisabas.business.RequisitosconformidadBusiness;
 import pe.com.sisabas.dto.ComiteDto;
@@ -70,6 +71,7 @@ import pe.com.sisabas.dto.SeguimientoPagosResponse;
 import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
 import pe.com.sisabas.dto.TransactionRequest;
+import pe.com.sisabas.dto.TransactionResponse;
 import pe.com.sisabas.be.Gentabla;
 import pe.com.sisabas.be.Miembrocomiteporproceso;
 import pe.com.sisabas.be.Orden;
@@ -137,6 +139,7 @@ public class ProgramacionController extends BaseController {
 	private boolean esSeleccionadoRequisito;
 	private boolean esSeleccionadoMiembroComite;
 	private String tituloMiembroComite;
+	private String accion;
 
 	// TAB INDEX PAC
 	private Integer pacTabIndex;
@@ -153,6 +156,9 @@ public class ProgramacionController extends BaseController {
 
 	@Autowired
 	public CuadrocomparativofuenteBusiness cuadroComparativoFuenteBusiness;
+
+	@Autowired
+	public MiembrocomiteporprocesoBusiness miembrocomiteporprocesoBusiness;
 
 	public ProgramacionController() {
 
@@ -364,6 +370,10 @@ public class ProgramacionController extends BaseController {
 	public void resetRegisterFormRequisito() {
 		reset("frmControlProductoRegistrar:panelC");
 	}
+	
+	public void resetRegisterFormMiembroComite() {
+		reset("frmMiembrocomiteporprocesoRegistrar:panelC");
+	}
 
 	public void validateSelectedRow() throws UnselectedRowException, CloneNotSupportedException {
 		if (this.selectedPao == null)
@@ -379,6 +389,13 @@ public class ProgramacionController extends BaseController {
 			this.setCuadrocomparativofuente((Cuadrocomparativofuente) this.selectedCuadrocomparativofuente.clone());
 	}
 
+	public void validateSelectedRowMiembro() throws UnselectedRowException, CloneNotSupportedException {
+		if (this.selectedMiembrocomiteporproceso == null)
+			throw new UnselectedRowException(Messages.getString("no.record.selected"));
+		else
+			this.setMiembrocomiteporproceso((Miembrocomiteporproceso) this.selectedMiembrocomiteporproceso.clone());
+	}
+	
 	public String paoRegistrar() {
 		logger.debug("paoRegistrar....");
 		String redirect = "";
@@ -849,12 +866,40 @@ public class ProgramacionController extends BaseController {
 		}
 	}
 
+	public void loadRegIdcomiteproceso(org.primefaces.event.SelectEvent event) {
+		try {
+			logger.debug("loadRegComiteproceso.event...");
+			pe.com.sisabas.be.Comiteproceso item= (pe.com.sisabas.be.Comiteproceso) event.getObject();
+			logger.debug("loadmiembrocomiteporproceso.event...:"+item.getIdcomiteproceso());
+			miembrocomiteporproceso.setIdcomiteproceso(item.getIdcomiteproceso());
+			miembrocomiteporproceso.setComiteprocesoIdcomiteproceso(item);
+			logger.debug("loadComiteproceso.event...ok");
+			resetRegisterForm();
+		} catch (Exception e) {
+			addErrorMessageKey("msgsForm", e);
+		}
+	}
+	
+	public void loadRegIdpersona(org.primefaces.event.SelectEvent event) {
+		try {
+			logger.debug("loadRegPersona.event...");
+			pe.com.sisabas.be.Persona item= (pe.com.sisabas.be.Persona) event.getObject();
+			logger.debug("loadmiembrocomiteporproceso.event...:"+item.getIdpersona());
+			miembrocomiteporproceso.setIdpersona(item.getIdpersona());
+			miembrocomiteporproceso.setPersonaIdpersona(item);
+			logger.debug("loadPersona.event...ok");
+			resetRegisterForm();
+		} catch (Exception e) {
+			addErrorMessageKey("msgsForm", e);
+		}
+	}
+	
 	public void irRegistrarMiembroComite() {
 		STATUS_INIT();
 		try {
 			securityControlValidate("btnNuevoMiembroComite");
 			resetRegisterForm();
-			// accion = REGISTRAR;
+			accion = REGISTRAR;
 			tituloBase = "Miembro Comite » " + REGISTRAR;
 			miembrocomiteporproceso = new Miembrocomiteporproceso();
 
@@ -888,12 +933,12 @@ public class ProgramacionController extends BaseController {
 	public void irEditarMiembroComite() {
 		STATUS_INIT();
 		try {
-			securityControlValidate("btnEditar");
-			resetRegisterForm();
-			validateSelectedRow();
+			securityControlValidate("btnEditarMiembroComite");
+			resetRegisterFormMiembroComite();
+			validateSelectedRowMiembro();
 			// updateCharToBoolean(miembrocomiteporproceso);
 			miembrocomiteporproceso.roundBigDecimals();
-			// accion = EDITAR;
+			accion = EDITAR;
 			tituloBase = "Miembro Comite » " + EDITAR;
 
 			STATUS_SUCCESS();
@@ -923,7 +968,7 @@ public class ProgramacionController extends BaseController {
 		STATUS_INIT();
 		try {
 			securityControlValidate("btnEliminarMiembroComite");
-			validateSelectedRow();
+			validateSelectedRowMiembro();
 
 			STATUS_SUCCESS();
 		} catch (SecuritySessionExpiredException e) {
@@ -1070,38 +1115,90 @@ public class ProgramacionController extends BaseController {
 		}
 	}
 
+	public void buscarMiembroComite() {
+		try {
+			List<String> ordenListaCampos = new ArrayList<String>();
+			ordenListaCampos.add("A1.IDMIEMBROCOMITEPROCESO");
+			Miembrocomiteporproceso miembrocomiteporproceso = new Miembrocomiteporproceso();
+			miembrocomiteporproceso.setOrdenListaCampos(ordenListaCampos);
+			miembrocomiteporproceso.setOrdenTipo("DESC");
+
+			// Add conditions IN clause
+			miembrocomiteporproceso.addConditionInIdcatalogotipomiembro(null);
+			miembrocomiteporproceso.addConditionInIdcatalogoestadomiembrocomite(null);
+			// miembrocomiteporproceso.setIdcomiteproceso(currentPao.getIdTipoBien());
+			miembrocomiteporproceso.setIdcomiteproceso(this.currentPao.getPacConsolidado().getIdComiteProceso());
+
+			//pe.com.sisabas.resources.Utils.convertPropertiesStringToUppercase(miembrocomiteporproceso); // pasa
+																										// a
+																										// mayusculas
+																										// los
+																										// datos
+																										// para
+																										// la
+																										// busqueda
+			listaMiembrocomiteporproceso = miembrocomiteporprocesoBusiness.selectDynamicFull(miembrocomiteporproceso);
+			setEsSeleccionadoMiembroComite(false);
+			setSelectedMiembrocomiteporproceso(null);
+			if (listaMiembrocomiteporproceso.size() == 0)
+				addMessageKey("msgsForm", Messages.getString("no.records.found"), FacesMessage.SEVERITY_INFO);
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			addErrorMessageKey("msgsForm", e);
+		}
+	}
+
 	public void aceptarMiembroComite() {
 		REGISTER_INIT();
 		try {
 
 			/*
-			 * if (accion.equals(REGISTRAR)) {
-			 * miembrocomiteporproceso.setUsuariocreacionauditoria(getUserLogin(
-			 * )); miembrocomiteporproceso.setEquipoauditoria(getRemoteAddr());
-			 * miembrocomiteporproceso
-			 * .setProgramaauditoria(pe.com.sisabas.resources.Utils.
-			 * obtenerPrograma(this.getClass()));
-			 * business.insertBasic(miembrocomiteporproceso); } else {
-			 * miembrocomiteporproceso.setUsuariomodificacionauditoria(
-			 * getUserLogin());
-			 * miembrocomiteporproceso.setEquipoauditoria(getRemoteAddr());
-			 * miembrocomiteporproceso
-			 * .setProgramaauditoria(pe.com.sisabas.resources.Utils.
-			 * obtenerPrograma(this.getClass()));
-			 * business.updateByPrimaryKeyBasic(miembrocomiteporproceso); }
-			 */
+			if (accion.equals(REGISTRAR)) {
+				miembrocomiteporproceso.setUsuariocreacionauditoria(getUserLogin());
+				miembrocomiteporproceso.setEquipoauditoria(getRemoteAddr());
+				miembrocomiteporproceso
+						.setProgramaauditoria(pe.com.sisabas.resources.Utils.obtenerPrograma(this.getClass()));
+				miembrocomiteporprocesoBusiness.insertBasic(miembrocomiteporproceso);
+			} else {
+				miembrocomiteporproceso.setUsuariomodificacionauditoria(getUserLogin());
+				miembrocomiteporproceso.setEquipoauditoria(getRemoteAddr());
+				miembrocomiteporproceso
+						.setProgramaauditoria(pe.com.sisabas.resources.Utils.obtenerPrograma(this.getClass()));
+				miembrocomiteporprocesoBusiness.updateByPrimaryKeyBasic(miembrocomiteporproceso);
+			}
+			*/
+			TransactionRequest<PacConsolidadoDto> request = new TransactionRequest<PacConsolidadoDto>();
+			request.setEntityTransaction(this.currentPao.getPacConsolidado());
+			request.setUsuarioAuditoria(getUserLogin());
+			request.setEquipoAuditoria(getRemoteAddr());
+			request.setProgramaAuditoria(pe.com.sisabas.resources.Utils.obtenerPrograma(this.getClass()));
+			TransactionResponse<Miembrocomiteporproceso> result = programacionBusiness.grabarMiembrosComite(request, miembrocomiteporproceso);
+			
+			if (accion.equals(REGISTRAR)){
+				if (this.currentPao.getPacConsolidado().getIdComiteProceso() == null) {
+					this.currentPao.getPacConsolidado()
+							.setIdComiteProceso(result.getEntityTransaction().getIdcomiteproceso()); // IdComiteProceso					
+				}
+			}
 
 			showGrowlMessageSuccessfullyCompletedAction();
-			// buscar();
-
+			buscarMiembroComite();
 			REGISTER_SUCCESS();
-			/*
-			 * } catch (ValidateException e) { REGISTER_ERROR();
-			 * addMessageKey("msgsMiembrocomiteporprocesoR", e.getMessage(),
-			 * FacesMessage.SEVERITY_ERROR); } catch (BusinessException e) {
-			 * REGISTER_ERROR(); addMessageKey("msgsMiembrocomiteporprocesoR",
-			 * e.getMessage(), FacesMessage.SEVERITY_ERROR);
-			 */
+
+		} catch (ValidateException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsMiembrocomiteporprocesoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (BusinessException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsMiembrocomiteporprocesoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
 		} catch (DataIntegrityViolationException e) {
 			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),
 					Messages.getString("exception.dataintegrity.message.detail"), FacesMessage.SEVERITY_ERROR);
@@ -1113,11 +1210,11 @@ public class ProgramacionController extends BaseController {
 
 	public void eliminarMiembroComite() {
 		try {
-			validateSelectedRow();
+			validateSelectedRowMiembro();
 			miembrocomiteporproceso.setUsuariomodificacionauditoria(getUserLogin());
-			// business.deleteByPrimaryKeyBasic(miembrocomiteporproceso);
+			miembrocomiteporprocesoBusiness.deleteByPrimaryKeyBasic(miembrocomiteporproceso);
 			showGrowlMessageSuccessfullyCompletedAction();
-			// buscar();
+			buscarMiembroComite();
 			/*
 			 * } catch (ValidateException e) { addMessageKey("msgsForm",
 			 * e.getMessage(), FacesMessage.SEVERITY_ERROR); } catch
@@ -1271,6 +1368,7 @@ public class ProgramacionController extends BaseController {
 			buscarFuente();
 			buscarValorReferencialFinal();
 			setPacTabIndex(0); // TabIndex default
+			buscarMiembroComite();
 		} catch (Exception e) {
 			addErrorMessage(e);
 			return "/login.xhtml";
@@ -1583,6 +1681,14 @@ public class ProgramacionController extends BaseController {
 	public void setListaGentablaIdcatalogoestadomiembrocomite(
 			List<Gentabla> listaGentablaIdcatalogoestadomiembrocomite) {
 		this.listaGentablaIdcatalogoestadomiembrocomite = listaGentablaIdcatalogoestadomiembrocomite;
+	}
+
+	public String getAccion() {
+		return accion;
+	}
+
+	public void setAccion(String accion) {
+		this.accion = accion;
 	}
 
 }

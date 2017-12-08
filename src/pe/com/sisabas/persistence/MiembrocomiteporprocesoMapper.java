@@ -30,5 +30,6 @@ public interface MiembrocomiteporprocesoMapper{
 
 	List<Miembrocomiteporproceso> selectDynamicExtended(Miembrocomiteporproceso record) throws Exception;
 
-
+	//CUSTOM
+	//List<Miembrocomiteporproceso> selectByComiteProceso(Integer idComiteProceso) throws Exception;
 }

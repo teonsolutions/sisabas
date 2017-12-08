@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pe.com.sisabas.be.Comiteproceso;
 import pe.com.sisabas.be.Cuadrocomparativofuente;
 import pe.com.sisabas.be.Cuadrocomparativoitem;
 import pe.com.sisabas.be.Cuadrocomparativovr;
@@ -17,6 +18,7 @@ import pe.com.sisabas.be.Entregable;
 import pe.com.sisabas.be.Estadosporetapapordocumento;
 import pe.com.sisabas.be.Estadosportipodocumento;
 import pe.com.sisabas.be.Grupodocumento;
+import pe.com.sisabas.be.Miembrocomiteporproceso;
 import pe.com.sisabas.be.Orden;
 import pe.com.sisabas.be.Pacconsolidado;
 import pe.com.sisabas.be.Pacprogramado;
@@ -45,6 +47,7 @@ import pe.com.sisabas.dto.Resultado;
 import pe.com.sisabas.dto.SeguimientoPagosResponse;
 import pe.com.sisabas.dto.TransactionRequest;
 import pe.com.sisabas.dto.TransactionResponse;
+import pe.com.sisabas.persistence.ComiteprocesoMapper;
 import pe.com.sisabas.persistence.CuadrocomparativofuenteMapper;
 import pe.com.sisabas.persistence.CuadrocomparativoitemMapper;
 import pe.com.sisabas.persistence.CuadrocomparativovrMapper;
@@ -53,6 +56,7 @@ import pe.com.sisabas.persistence.EntregableMapper;
 import pe.com.sisabas.persistence.EstadosporetapapordocumentoMapper;
 import pe.com.sisabas.persistence.EstadosportipodocumentoMapper;
 import pe.com.sisabas.persistence.GrupodocumentoMapper;
+import pe.com.sisabas.persistence.MiembrocomiteporprocesoMapper;
 import pe.com.sisabas.persistence.OrdenMapper;
 import pe.com.sisabas.persistence.PacconsolidadoMapper;
 import pe.com.sisabas.persistence.PacprogramadoMapper;
@@ -107,6 +111,12 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 
 	@Autowired
 	public RequisitosconformidadMapper requisitosconformidadMapper;
+
+	@Autowired
+	public ComiteprocesoMapper comiteprocesoMapper;
+
+	@Autowired
+	public MiembrocomiteporprocesoMapper miembrocomiteporprocesoMapper;
 
 	@Autowired
 	public UtilsBusiness utilsBusiness;
@@ -929,7 +939,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 				BigDecimal valorEstimado = new BigDecimal(valorMoneda);
 				pc.setValorestimadocontracion(valorEstimado);
 
-				//PAC
+				// PAC
 				pc.setNroitems(pac.getNroItems());
 				pc.setEsitemunico(pac.getEsItemUnico());
 				pc.setCantidad(pac.getCantidad());
@@ -978,7 +988,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			pc.setAnio(pac.getAnio());
 			pc.setIdunidadejecutora(pac.getIdUnidadEjecutora());
 			pc.setIdgrupodocumento(idgrupodocumento);
-			//pc.setCodigotipoproceso(pac.getTipoProceso());
+			// pc.setCodigotipoproceso(pac.getTipoProceso());
 			pc.setFlagcd("0");
 			double valorMoneda = pac.getValorEstimadoContratacion();
 			BigDecimal valorEstimado = new BigDecimal(valorMoneda);
@@ -989,7 +999,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			pc.setIdcatalogotiponecesidad(pac.getIdTipoNecesidad());
 			pc.setEstadorequerimiento(pac.getEstadoRequerimiento());
 
-			//PAC
+			// PAC
 			pc.setNroitems(pac.getNroItems());
 			pc.setEsitemunico(pac.getEsItemUnico());
 			pc.setCantidad(pac.getCantidad());
@@ -1007,7 +1017,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			pc.setCantidad(pac.getCantidad());
 			pc.setMesprevistoconvocatoria(pac.getMesPrevistoConvocatoria());
 			pc.setIdcatalogotipobien(pac.getIdTipoBien());
-			
+
 			pc.setFechaasignacionespecialista(pac.getFechaRecepcionDocumentoTecnico());
 			idPacConsolidado = (int) utilsBusiness.getNextSeq(Sequence.SEQ_PACCONSOLIDADO).longValue();
 			pc.setIdpacconsolidado(idPacConsolidado);
@@ -1080,6 +1090,58 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			}
 		}
 
+		return result;
+	}
+
+	@Override
+	public TransactionResponse<Miembrocomiteporproceso> grabarMiembrosComite(TransactionRequest<PacConsolidadoDto> request,
+			Miembrocomiteporproceso miembrocomiteporproceso) throws Exception {
+		// TODO Auto-generated method stub
+		TransactionResponse<Miembrocomiteporproceso> result = new TransactionResponse<Miembrocomiteporproceso>();
+		result.setEstado(true);
+		result.setMensaje(Constantes.mensajeGenerico.REGISTRO_CORRECTO);
+		
+		PacConsolidadoDto pac = request.getEntityTransaction();
+		if (miembrocomiteporproceso.getIdmiembrocomiteproceso() == null
+				|| miembrocomiteporproceso.getIdmiembrocomiteproceso() == 0) {
+			// INSERT
+			Integer idComiteProceso;
+			Pacconsolidado pacUpdate = pacconsolidadoMapper.selectByPrimaryKeyBasic(pac.getIdPacConsolidado());
+			if (pacUpdate != null) {
+				if (pacUpdate.getIdcomiteproceso() == null) {
+					Comiteproceso comiteMiembro = new Comiteproceso();
+					comiteMiembro.setFechacreacionauditoria(new Date());
+					comiteMiembro.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+					comiteMiembro.setEquipoauditoria(request.getEquipoAuditoria());
+					comiteMiembro.setProgramaauditoria(request.getProgramaAuditoria());
+					comiteMiembro.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+					idComiteProceso = (int) utilsBusiness.getNextSeq(Sequence.SEQ_COMITEPROCESO).longValue();
+					comiteMiembro.setIdcomiteproceso(idComiteProceso);
+					comiteprocesoMapper.insert(comiteMiembro);
+				}else
+				{
+					idComiteProceso = pacUpdate.getIdcomiteproceso();
+				}
+				// Insert miembros de comite proceso
+				miembrocomiteporproceso.setIdcomiteproceso(idComiteProceso);
+				miembrocomiteporproceso.setFechacreacionauditoria(new Date());
+				miembrocomiteporproceso.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+				miembrocomiteporproceso.setEquipoauditoria(request.getEquipoAuditoria());
+				miembrocomiteporproceso.setProgramaauditoria(request.getProgramaAuditoria());
+				miembrocomiteporproceso.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+				miembrocomiteporproceso.setIdmiembrocomiteproceso(
+						(int) utilsBusiness.getNextSeq(Sequence.SEQ_MIEMBROCOMITEPORPROCESO).longValue());
+				miembrocomiteporprocesoMapper.insert(miembrocomiteporproceso);
+				pacUpdate.setIdcomiteproceso(idComiteProceso);
+				pacconsolidadoMapper.updateByPrimaryKey(pacUpdate);				
+			}
+		} else {
+			// UPDATE
+			miembrocomiteporproceso.setFechamodificacionauditoria(new Date());
+			miembrocomiteporproceso.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
+			miembrocomiteporprocesoMapper.updateByPrimaryKey(miembrocomiteporproceso);			
+		}
+		result.setEntityTransaction(miembrocomiteporproceso);
 		return result;
 	}
 

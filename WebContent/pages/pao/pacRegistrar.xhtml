@@ -530,74 +530,12 @@
 					</p:tab>
 					<p:tab title="Aprobación de expediente"
 						disabled="#{programacion.disabledTabOrden}">
-						<p:accordionPanel id="accOrden" multiple="true"
-							activeIndex="0,1,2,3">
-							<p:tab title="Información de proceso">
-								<table>
-									<tr>
-										<td><p:outputLabel value="Tipo de proceso"
-												for="ddlTipoProceso" id="lblTipoProceso" /></td>
-										<td><p:selectOneMenu
-												value="#{programacion.currentPao.pacConsolidado.idCatalogoEstadoPac}"
-												id="ddlTipoProceso" required="false" label="Estado de PAC">
-												<f:selectItem itemLabel="--Seleccione--" itemValue="" />
-												<f:selectItems
-													value="#{programacion.listaGentablaIdcatalogoestadopac}"
-													var="var" itemLabel="#{var.vchregdescri}"
-													itemValue="#{var.vchregcodigo}" />
-											</p:selectOneMenu></td>
-										<td><p:outputLabel value="Número de proceso"
-												for="txtNroProceso" id="lblNroProceso" /></td>
-										<td><p:inputText id="txtNroProceso" required="true"
-												maxlength="10" style="width:150px;"
-												label="Número de proceso" disabled="false"
-												value="#{programacion.currentPao.pacConsolidado.nroPac}">
-											</p:inputText></td>
-									</tr>
-									<tr>
-										<td><p:outputLabel value="Número de convocatoria"
-												for="txtNroConvocatoria" id="lblNroConvocatoria" /></td>
-										<td><p:inputText id="txtNroConvocatoria" required="true"
-												maxlength="10" style="width:150px;"
-												label="Número de convocatoria" disabled="true"
-												value="#{programacion.currentPao.pacConsolidado.cantidad}">
-											</p:inputText></td>
-										<td><p:outputLabel
-												value="Tiempo de servicio (total en días)"
-												for="txtTiempoServicio" id="lblTiempoServicio" /></td>
-										<td><p:inputText id="txtTiempoServicio" required="true"
-												maxlength="10" style="width:150px;"
-												label="Tiempo de servicio (total en días)" disabled="true"
-												value="#{programacion.currentPao.pacConsolidado.cantidad}">
-											</p:inputText></td>
-									</tr>
-									<tr>
-										<td><p:outputLabel
-												value="Fecha de solicitud de aprobación de expediente"
-												for="txtFechasolicitudAprobacion"
-												id="lblFechasolicitudAprobacion" /></td>
-										<td><p:calendar id="txtFechasolicitudAprobacion"
-												value="#{programacion.currentPao.pacConsolidado.cantidad}"
-												required="false" pattern="dd/MM/yyyy"
-												label="Fecha de solicitud" navigator="true" locale="es"
-												styleClass="dateTimeField" /></td>
-										<td><p:outputLabel
-												value="Fecha de aprobación de expediente"
-												for="txtFechaAprobacion" id="lblFechaAprobacion" /></td>
-										<td><p:calendar id="txtFechaAprobacion"
-												value="#{programacion.currentPao.pacConsolidado.cantidad}"
-												required="false" pattern="dd/MM/yyyy"
-												label="Fecha de aprobación de expediente" navigator="true"
-												locale="es" styleClass="dateTimeField" /></td>
-									</tr>
-								</table>
-							</p:tab>
-						</p:accordionPanel>
 						<p:accordionPanel id="accAprobacion" multiple="true"
 							activeIndex="0,1,2,3,4">
 							<p:tab title="Miembros de comité">
-								<div align="left">
-									<p:panel id="pnlBotonesMiembroComite" styleClass="gandalfPnlBotonesClass">
+								<div align="right">
+									<p:panel id="pnlBotonesMiembroComite"
+										styleClass="gandalfPnlBotonesClass">
 										<p:commandButton value="Nuevo"
 											action="#{programacion.irRegistrarMiembroComite}"
 											update="form:tabViewPao:accAprobacion:hidStatus,:frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar"
@@ -607,23 +545,23 @@
 										<p:commandButton value="Editar"
 											action="#{programacion.irEditarMiembroComite}"
 											update="hidStatus,:frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar"
-											oncomplete="showDialog('form:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar');"
+											oncomplete="showDialog('form:tabViewPao:accAprobacion:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar');"
 											icon="ui-icon-pencil"
 											disabled="#{!programacion.esSeleccionadoMiembroComite}"
 											rendered="#{miembrocomiteporproceso.renderButton('btnEditarMiembroComite')}" />
 										<p:commandButton value="Eliminar"
 											action="#{programacion.irEliminarMiembroComite}"
 											update="hidStatus"
-											oncomplete="showDialog('form:hidStatus','form:cdEliminarMiembroComite');"
+											oncomplete="showDialog('form:tabViewPao:accAprobacion:hidStatus','form:cdEliminarMiembroComite');"
 											icon="ui-icon-circle-close" title="Eliminar"
 											disabled="#{!programacion.esSeleccionadoMiembroComite}"
 											rendered="#{programacion.renderButton('btnEliminarMiembroComite')}" />
-											<h:inputHidden id="hidStatus" value="true" />
+										<h:inputHidden id="hidStatus" value="true" />
 									</p:panel>
 								</div>
 								<p:dataTable id="tblListaMiembrocomiteporproceso"
-									value="#{programacion.listaMiembrocomiteporproceso}"
-									var="var" emptyMessage="No se encontraron registros"
+									value="#{programacion.listaMiembrocomiteporproceso}" var="var"
+									emptyMessage="No se encontraron registros"
 									widgetVar="tblListaMiembrocomiteporproceso"
 									selection="#{programacion.selectedMiembrocomiteporproceso}"
 									paginator="true" rows="#{sisabascontrol.registros_mant}"
@@ -633,7 +571,8 @@
 									styleClass="gandalfTableClass">
 									<p:ajax event="rowSelect"
 										listener="#{programacion.seleccionItemMiembroComite}"
-										update=":form:tabViewPao:accAprobacion:pnlBotonesMiembroComite" immediate="true" />
+										update=":form:tabViewPao:accAprobacion:pnlBotonesMiembroComite"
+										immediate="true" />
 									<p:column styleClass="c_numeric"
 										sortBy="#{var.idmiembrocomiteproceso}">
 										<f:facet name="header">
@@ -731,16 +670,82 @@
 								</p:dataTable>
 								<p:confirmDialog id="cdEliminarMiembroComite"
 									message="Esta seguro de eliminar este registro?"
-									header="Confirmación" severity="alert" widgetVar="cdEliminarMiembroComite">
+									header="Confirmación" severity="alert"
+									widgetVar="cdEliminarMiembroComite">
 									<p:commandButton value="Si"
 										action="#{programacion.eliminarMiembroComite}"
 										update=":form:tabViewPao:accAprobacion:tblListaMiembrocomiteporproceso,:form:growl"
 										oncomplete="hideDialogPF('cdEliminarMiembroComite');" />
 									<p:commandButton value="No"
-										onclick="hideDialogPF('cdEliminarMiembroComite');" type="button" />
+										onclick="hideDialogPF('cdEliminarMiembroComite');"
+										type="button" />
 								</p:confirmDialog>
 							</p:tab>
 						</p:accordionPanel>
+						<p:accordionPanel id="accOrden" multiple="true"
+							activeIndex="0,1,2,3">
+							<p:tab title="Información de proceso">
+								<table>
+									<tr>
+										<td><p:outputLabel value="Tipo de proceso"
+												for="ddlTipoProceso" id="lblTipoProceso" /></td>
+										<td><p:selectOneMenu
+												value="#{programacion.currentPao.pacConsolidado.idCatalogoEstadoPac}"
+												id="ddlTipoProceso" required="false" label="Estado de PAC">
+												<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+												<f:selectItems
+													value="#{programacion.listaGentablaIdcatalogoestadopac}"
+													var="var" itemLabel="#{var.vchregdescri}"
+													itemValue="#{var.vchregcodigo}" />
+											</p:selectOneMenu></td>
+										<td><p:outputLabel value="Número de proceso"
+												for="txtNroProceso" id="lblNroProceso" /></td>
+										<td><p:inputText id="txtNroProceso" required="true"
+												maxlength="10" style="width:150px;"
+												label="Número de proceso" disabled="false"
+												value="#{programacion.currentPao.pacConsolidado.cantidad}">
+											</p:inputText></td>
+									</tr>
+									<tr>
+										<td><p:outputLabel value="Número de convocatoria"
+												for="txtNroConvocatoria" id="lblNroConvocatoria" /></td>
+										<td><p:inputText id="txtNroConvocatoria" required="true"
+												maxlength="10" style="width:150px;"
+												label="Número de convocatoria" disabled="true"
+												value="#{programacion.currentPao.pacConsolidado.cantidad}">
+											</p:inputText></td>
+										<td><p:outputLabel
+												value="Tiempo de servicio (total en días)"
+												for="txtTiempoServicio" id="lblTiempoServicio" /></td>
+										<td><p:inputText id="txtTiempoServicio" required="true"
+												maxlength="10" style="width:150px;"
+												label="Tiempo de servicio (total en días)" disabled="true"
+												value="#{programacion.currentPao.pacConsolidado.cantidad}">
+											</p:inputText></td>
+									</tr>
+									<tr>
+										<td><p:outputLabel
+												value="Fecha de solicitud de aprobación de expediente"
+												for="txtFechasolicitudAprobacion"
+												id="lblFechasolicitudAprobacion" /></td>
+										<td><p:calendar id="txtFechasolicitudAprobacion"
+												value="#{programacion.currentPao.pacConsolidado.cantidad}"
+												required="false" pattern="dd/MM/yyyy"
+												label="Fecha de solicitud" navigator="true" locale="es"
+												styleClass="dateTimeField" /></td>
+										<td><p:outputLabel
+												value="Fecha de aprobación de expediente"
+												for="txtFechaAprobacion" id="lblFechaAprobacion" /></td>
+										<td><p:calendar id="txtFechaAprobacion"
+												value="#{programacion.currentPao.pacConsolidado.cantidad}"
+												required="false" pattern="dd/MM/yyyy"
+												label="Fecha de aprobación de expediente" navigator="true"
+												locale="es" styleClass="dateTimeField" /></td>
+									</tr>
+								</table>
+							</p:tab>
+						</p:accordionPanel>
+
 						<p:commandButton value="Guardar" icon="fa fa-pencil"
 							title="Guardar datos generales"
 							disabled="#{!programacion.esSeleccionado}"
@@ -762,6 +767,7 @@
 					<p:commandButton value="No"
 						onclick="hideDialogPF('cdEliminarFuente');" type="button" />
 				</p:confirmDialog>
+
 			</p:panel>
 		</h:form>
 		<h:form id="frmCuadrocomparativofuenteRegistrar">
@@ -839,7 +845,7 @@
 						<td><h:inputHidden id="hidStatus"
 								value="#{programacion.statusRegister}" /> <p:commandButton
 								value="Aceptar" action="#{programacion.aceptarMiembroComite}"
-								update="hidStatus,:form:tabViewPao:accAprobacion:tblListaMiembrocomiteporproceso,:form:growl,:form:tabViewPao:accAprobacion:pnlBotones,panelC"
+								update="hidStatus,:form:tabViewPao:accAprobacion:tblListaMiembrocomiteporproceso,:form:growl,:form:tabViewPao:accAprobacion:pnlBotonesMiembroComite,panelC"
 								oncomplete="hideDialog('frmMiembrocomiteporprocesoRegistrar:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar')"
 								icon="ui-icon-circle-check" title="Aceptar" /></td>
 						<td>
@@ -853,6 +859,32 @@
 				</table>
 			</p:dialog>
 		</h:form>
+
+		<h:form id="frmRegIdcomiteprocesoBuscar">
+			<p:dialog id="diComiteprocesoBuscar" header="Comite Proceso » Buscar"
+				widgetVar="diComiteprocesoBuscar" resizable="false" modal="true"
+				dynamic="true">
+				<p:messages for="msgsCC_Comiteproceso" autoUpdate="true"
+					closable="true" />
+				<cc:cc_comiteprocesoBuscar
+					ajaxEventListener="#{programacion.loadRegIdcomiteproceso}"
+					actionOncomplete="hideDialogPF('frmRegIdcomiteprocesoBuscar:diComiteprocesoBuscar');"
+					actionUpdate=":frmMiembrocomiteporprocesoRegistrar:txtIdcomiteproceso" />
+			</p:dialog>
+		</h:form>
+
+		<h:form id="frmRegIdpersonaBuscar">
+			<p:dialog id="diPersonaBuscar" header="Persona » Buscar"
+				widgetVar="diPersonaBuscar" resizable="false" modal="true"
+				dynamic="true">
+				<p:messages for="msgsCC_Persona" autoUpdate="true" closable="true" />
+				<cc:cc_personaBuscar
+					ajaxEventListener="#{programacion.loadRegIdpersona}"
+					actionOncomplete="hideDialogPF('frmRegIdpersonaBuscar:diPersonaBuscar');"
+					actionUpdate=":frmMiembrocomiteporprocesoRegistrar:txtIdpersona" />
+			</p:dialog>
+		</h:form>
+
 
 	</ui:define>
 

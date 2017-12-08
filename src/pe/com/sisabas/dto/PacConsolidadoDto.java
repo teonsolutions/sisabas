@@ -43,6 +43,8 @@ public class PacConsolidadoDto implements Serializable,Cloneable{
 	private Date fechaCP;
 	private Integer nroCP;
 	private Double montoCP;
+	private Integer idComiteProceso;
+
 	private List<PedidosPaoResponse> pedidos;
 	private List<PacItemsDto> items;
 		
@@ -51,7 +53,18 @@ public class PacConsolidadoDto implements Serializable,Cloneable{
 	private String tipoNecesidad;
 	private String idTipoContratacion;
 	private String idTipoNecesidad;
-	private int idUnidadEjecutora; 
+	private int idUnidadEjecutora;
+	
+	/*
+	CodigoTipoProceso
+	NroProceso
+	NroConvocatoria
+	TiempoServicio
+	FechaSolicitudAprobacionExpediente
+	FechaAprobacionExpediente	 
+	 */
+	
+	
 
 	public Integer getIdPacConsolidado() {
 		return idPacConsolidado;
@@ -499,7 +512,16 @@ public class PacConsolidadoDto implements Serializable,Cloneable{
 	}
 
 
+	public Integer getIdComiteProceso() {
+		return idComiteProceso;
+	}
 
+
+
+
+	public void setIdComiteProceso(Integer idComiteProceso) {
+		this.idComiteProceso = idComiteProceso;
+	}
 
 	public List<PedidosPaoResponse> getPedidos() {
 		return pedidos;

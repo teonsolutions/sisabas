@@ -34,13 +34,13 @@
 			<p:outputLabel  value="ID" for="txtIdmiembrocomiteproceso" id="lblIdmiembrocomiteproceso"/>
 		</td>
 		<td>
-			<p:inputText  id="txtIdmiembrocomiteproceso" value="#{miembrocomiteporproceso.miembrocomiteporproceso.idmiembrocomiteproceso}" required="true" maxlength="10" style="width:150px;" label="ID"/>
+			<p:inputText  id="txtIdmiembrocomiteproceso" value="#{programacion.miembrocomiteporproceso.idmiembrocomiteproceso}" required="true" maxlength="10" style="width:150px;" label="ID"/>
 		</td>
 		<td>
 			<p:outputLabel  value="ComitéProceso" for="txtIdcomiteproceso" id="lblIdcomiteproceso"/>
 		</td>
 		<td>
-			<p:inputText  id="txtIdcomiteproceso" value="#{miembrocomiteporproceso.miembrocomiteporproceso.comiteprocesoIdcomiteproceso.idcomiteproceso}" disabled="true" required="false" maxlength="10" style="width:150px;" label="ComitéProceso"/>
+			<p:inputText  id="txtIdcomiteproceso" value="#{programacion.miembrocomiteporproceso.comiteprocesoIdcomiteproceso.idcomiteproceso}" disabled="true" required="false" maxlength="10" style="width:150px;" label="ComitéProceso"/>
 			<p:commandButton icon="ui-icon-search" action="#{cc_comiteproceso.init}" immediate="true" oncomplete="showDialogPF('frmRegIdcomiteprocesoBuscar:diComiteprocesoBuscar');" update=":frmRegIdcomiteprocesoBuscar:diComiteprocesoBuscar" style="width:20px;height:20px;"/>
 		</td>
 	</tr>
@@ -49,16 +49,16 @@
 			<p:outputLabel  value="Persona" for="txtIdpersona" id="lblIdpersona"/>
 		</td>
 		<td>
-			<p:inputText  id="txtIdpersona" value="#{miembrocomiteporproceso.miembrocomiteporproceso.personaIdpersona.nombres}" disabled="true" required="false" maxlength="10" style="width:150px;" label="Persona"/>
+			<p:inputText  id="txtIdpersona" value="#{programacion.miembrocomiteporproceso.personaIdpersona.nombres}" disabled="true" required="false" maxlength="10" style="width:150px;" label="Persona"/>
 			<p:commandButton icon="ui-icon-search" action="#{cc_persona.init}" immediate="true" oncomplete="showDialogPF('frmRegIdpersonaBuscar:diPersonaBuscar');" update=":frmRegIdpersonaBuscar:diPersonaBuscar" style="width:20px;height:20px;"/>
 		</td>
 		<td>
 			<p:outputLabel  value="TipoMiembro" for="txtIdcatalogotipomiembro" id="lblIdcatalogotipomiembro"/>
 		</td>
 		<td>
-			<p:selectOneMenu  value="#{miembrocomiteporproceso.miembrocomiteporproceso.idcatalogotipomiembro}" id="txtIdcatalogotipomiembro" required="false" label="TipoMiembro">
+			<p:selectOneMenu  value="#{programacion.miembrocomiteporproceso.idcatalogotipomiembro}" id="txtIdcatalogotipomiembro" required="false" label="TipoMiembro">
 				<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
-				<f:selectItems value="#{miembrocomiteporproceso.listaGentablaIdcatalogotipomiembro}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
+				<f:selectItems value="#{programacion.listaGentablaIdcatalogotipomiembro}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
 			</p:selectOneMenu>
 		</td>
 	</tr>
@@ -67,13 +67,13 @@
 			<p:outputLabel  value="Correo" for="txtCorreo" id="lblCorreo"/>
 		</td>
 		<td>
-			<p:inputText  id="txtCorreo" value="#{miembrocomiteporproceso.miembrocomiteporproceso.correo}" required="false" maxlength="50" style="width:150px;" label="Correo"/>
+			<p:inputText  id="txtCorreo" value="#{programacion.miembrocomiteporproceso.correo}" required="false" maxlength="50" style="width:150px;" label="Correo"/>
 		</td>
 		<td>
 			<p:outputLabel  value="Teléfono" for="txtTelefono" id="lblTelefono"/>
 		</td>
 		<td>
-			<p:inputText  id="txtTelefono" value="#{miembrocomiteporproceso.miembrocomiteporproceso.telefono}" required="false" maxlength="10" style="width:150px;" label="Teléfono"/>
+			<p:inputText  id="txtTelefono" value="#{programacion.miembrocomiteporproceso.telefono}" required="false" maxlength="10" style="width:150px;" label="Teléfono"/>
 		</td>
 	</tr>
 	<tr>
@@ -81,13 +81,13 @@
 			<p:outputLabel  value="Anexo" for="txtAnexo" id="lblAnexo"/>
 		</td>
 		<td>
-			<p:inputText  id="txtAnexo" value="#{miembrocomiteporproceso.miembrocomiteporproceso.anexo}" required="false" maxlength="6" style="width:150px;" label="Anexo"/>
+			<p:inputText  id="txtAnexo" value="#{programacion.miembrocomiteporproceso.anexo}" required="false" maxlength="6" style="width:150px;" label="Anexo"/>
 		</td>
 		<td>
 			<p:outputLabel  value="Celular" for="txtCelular" id="lblCelular"/>
 		</td>
 		<td>
-			<p:inputText  id="txtCelular" value="#{miembrocomiteporproceso.miembrocomiteporproceso.celular}" required="false" maxlength="9" style="width:150px;" label="Celular"/>
+			<p:inputText  id="txtCelular" value="#{programacion.miembrocomiteporproceso.celular}" required="false" maxlength="9" style="width:150px;" label="Celular"/>
 		</td>
 	</tr>
 	<tr>
@@ -95,13 +95,13 @@
 			<p:outputLabel  value="Notificado" for="txtEsnotificado" id="lblEsnotificado"/>
 		</td>
 		<td>
-			<p:selectBooleanCheckbox id="txtEsnotificado" value ="#{miembrocomiteporproceso.miembrocomiteporproceso.booleanesnotificado}" required="false" label="Notificado"/>
+			<p:selectBooleanCheckbox id="txtEsnotificado" value ="#{programacion.miembrocomiteporproceso.booleanesnotificado}" required="false" label="Notificado"/>
 		</td>
 		<td>
 			<p:outputLabel  value="Código Oficina Usuaria" for="txtCodigooficinausuaria" id="lblCodigooficinausuaria"/>
 		</td>
 		<td>
-			<p:inputText  id="txtCodigooficinausuaria" value="#{miembrocomiteporproceso.miembrocomiteporproceso.codigooficinausuaria}" required="false" maxlength="15" style="width:150px;" label="Código Oficina Usuaria"/>
+			<p:inputText  id="txtCodigooficinausuaria" value="#{programacion.miembrocomiteporproceso.codigooficinausuaria}" required="false" maxlength="15" style="width:150px;" label="Código Oficina Usuaria"/>
 		</td>
 	</tr>
 	<tr>
@@ -109,15 +109,15 @@
 			<p:outputLabel  value="Nombre Oficina Usuaria" for="txtNombreoficinausuaria" id="lblNombreoficinausuaria"/>
 		</td>
 		<td>
-			<p:inputText  id="txtNombreoficinausuaria" value="#{miembrocomiteporproceso.miembrocomiteporproceso.nombreoficinausuaria}" required="false" maxlength="150" style="width:150px;" label="Nombre Oficina Usuaria"/>
+			<p:inputText  id="txtNombreoficinausuaria" value="#{programacion.miembrocomiteporproceso.nombreoficinausuaria}" required="false" maxlength="150" style="width:150px;" label="Nombre Oficina Usuaria"/>
 		</td>
 		<td>
 			<p:outputLabel  value="Estado Miembro Comite" for="txtIdcatalogoestadomiembrocomite" id="lblIdcatalogoestadomiembrocomite"/>
 		</td>
 		<td>
-			<p:selectOneMenu  value="#{miembrocomiteporproceso.miembrocomiteporproceso.idcatalogoestadomiembrocomite}" id="txtIdcatalogoestadomiembrocomite" required="false" label="Estado Miembro Comite">
+			<p:selectOneMenu  value="#{programacion.miembrocomiteporproceso.idcatalogoestadomiembrocomite}" id="txtIdcatalogoestadomiembrocomite" required="false" label="Estado Miembro Comite">
 				<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
-				<f:selectItems value="#{miembrocomiteporproceso.listaGentablaIdcatalogoestadomiembrocomite}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
+				<f:selectItems value="#{programacion.listaGentablaIdcatalogoestadomiembrocomite}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
 			</p:selectOneMenu>
 		</td>
 	</tr>
@@ -126,7 +126,7 @@
 			<p:outputLabel  value="Especialista Asignado" for="txtEsespecialistaasignado" id="lblEsespecialistaasignado"/>
 		</td>
 		<td>
-			<p:inputText  id="txtEsespecialistaasignado" value="#{miembrocomiteporproceso.miembrocomiteporproceso.esespecialistaasignado}" required="false" maxlength="1" style="width:150px;" label="Especialista Asignado"/>
+			<p:inputText  id="txtEsespecialistaasignado" value="#{programacion.miembrocomiteporproceso.esespecialistaasignado}" required="false" maxlength="1" style="width:150px;" label="Especialista Asignado"/>
 		</td>
 	</tr>
 

@@ -232,6 +232,7 @@
 		<result column="DocumentoNoProgramado" property="documentoNoProgramado" jdbcType="VARCHAR"/>
 		<result column="FECHA_CERTIFICACION_PRESUPUESTAL" property="fechaCP" jdbcType="DATE"/>
 		<result column="NRO_CERTIFICACION_PRESUPUESTAL" property="nroCP" jdbcType="INTEGER"/>
+		<result column="IdComiteProceso" property="idComiteProceso" jdbcType="INTEGER"/>
 	</resultMap>	
 
 	<resultMap id="FullResultMap" type="pe.com.sisabas.be.Pacconsolidado">

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import pe.com.sisabas.be.Cuadrocomparativofuente;
 import pe.com.sisabas.be.Entregable;
+import pe.com.sisabas.be.Miembrocomiteporproceso;
 import pe.com.sisabas.be.Orden;
 import pe.com.sisabas.dto.CertificacionItemsDto;
 import pe.com.sisabas.dto.CertificacionRequest;
@@ -24,6 +25,7 @@ import pe.com.sisabas.dto.PaoResponse;
 import pe.com.sisabas.dto.Resultado;
 import pe.com.sisabas.dto.SeguimientoPagosResponse;
 import pe.com.sisabas.dto.TransactionRequest;
+import pe.com.sisabas.dto.TransactionResponse;
 
 public interface ProgramacionBusiness {
 	public Resultado recibirDocumentoTecnico(EvaluacionDocumentoResponse item, TransactionRequest request) throws Exception;
@@ -48,4 +50,5 @@ public interface ProgramacionBusiness {
 	public List<Orden> getOrdenByPacConsolid(java.lang.Integer idPacConsolidado) throws Exception;
 	public PacConsolidadoDto getPacConsolidado(PaoRequest request) throws Exception;
 	public Resultado grabarPacConsolidado(TransactionRequest<PacConsolidadoDto> request) throws Exception;
+	public TransactionResponse<Miembrocomiteporproceso> grabarMiembrosComite(TransactionRequest<PacConsolidadoDto> request, Miembrocomiteporproceso miembrocomiteporproceso) throws Exception;
 }
