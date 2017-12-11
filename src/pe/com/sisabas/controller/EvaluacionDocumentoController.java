@@ -30,6 +30,8 @@ import pe.com.sisabas.resources.Messages;
 import pe.com.sisabas.resources.Constantes;
 import pe.com.sisabas.resources.Utils;
 import pe.com.sisabas.service.SicuCallService;
+import pe.com.sisabas.service.Sicuusuario;
+
 import java.rmi.RemoteException;
 import pe.com.sisabas.exception.SecurityRestrictedControlException;
 import pe.com.sisabas.exception.SecuritySessionExpiredException;
@@ -38,6 +40,7 @@ import pe.com.sisabas.be.Documentotecnico;
 import pe.com.sisabas.business.DocumentotecnicoBusiness;
 import pe.com.sisabas.business.GentablaBusiness;
 import pe.com.sisabas.business.ProgramacionBusiness;
+import pe.com.sisabas.dto.EstadoRequerimientoResponse;
 import pe.com.sisabas.dto.EvaluacionDocumentoRequest;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
 import pe.com.sisabas.dto.TransactionRequest;
@@ -57,7 +60,8 @@ public class EvaluacionDocumentoController extends BaseController {
 	private boolean esSeleccionadoPorRecibir = false;
 	private boolean esSeleccionadoPorAprobar = false;
 	private int selectAprobacion = 1;
-			
+	public List<EstadoRequerimientoResponse> listaEstadoRequerimiento;
+	
 	public int getSelectAprobacion() {
 		return selectAprobacion;
 	}
@@ -141,6 +145,8 @@ public class EvaluacionDocumentoController extends BaseController {
 	@Autowired
 	public ProgramacionBusiness businessProgramacion;
 	
+	@Autowired
+	public GentablaBusiness gentablaBusiness;	
 	
 	public EvaluacionDocumentoController() {
 		listaDocumentotecnico = new ArrayList<Documentotecnico>();
@@ -158,6 +164,8 @@ public class EvaluacionDocumentoController extends BaseController {
 				sicuopcion = SicuCallService.obtenercontroles(idOpcion);
 			}
 
+			listaEstadoRequerimiento = gentablaBusiness.getEstadoRequerimiento(Constantes.etapaAdministrativa.PROGRAMACION_Y_COSTOS);
+			
 			/*
 			 * listaIdcatalogotipodocumentotecnicoKeys= new ArrayList<String>();
 			 * listaIdcatalogotipotdrKeys= new ArrayList<String>();
@@ -241,6 +249,14 @@ public class EvaluacionDocumentoController extends BaseController {
 	public Documentotecnico getDocumentotecnicoB() {
 		return documentotecnicoB;
 	}
+	
+	public List<EstadoRequerimientoResponse> getListaEstadoRequerimiento() {
+		return listaEstadoRequerimiento;
+	}
+
+	public void setListaEstadoRequerimiento(List<EstadoRequerimientoResponse> listaEstadoRequerimiento) {
+		this.listaEstadoRequerimiento = listaEstadoRequerimiento;
+	}
 
 	// METHOD PROGRMACION & COSTOS
 	// ***********************************************************
@@ -250,14 +266,12 @@ public class EvaluacionDocumentoController extends BaseController {
 		setSelectedDocumentotecnico(null);
 		
 		try {
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
 			
 			//Todos		
 			//getPedidosEvaluacion
-			searchParam.setIdUnidadEjecutora(1);
-			searchParam.setAnio(2017);
-			searchParam.setNroDocumento(null);
-			//searchParam.setEstadoPedido(null);
-			
+			searchParam.setIdUnidadEjecutora(Constantes.unidadEjecutora.ID_UNIDAD_EJECUTORA_ABAS);
+			searchParam.setAnio(usuario.getPeriodo().getAnio());			
 			searchParam.setPageNumber(1);
 			searchParam.setPageSize(10);
 			

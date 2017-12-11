@@ -5,7 +5,7 @@ import org.primefaces.push.Status.STATUS;
 public class EvaluacionDocumentoRequest {
 	private String idcatalogotiponecesidad;
 	private String idcatalogotipobien;
-	private int estadoPedido;
+	private Integer estadoPedido;
 	private String nroDocumento;
 	private String numeroSinad;
 	private int idUnidadEjecutora;
@@ -66,10 +66,10 @@ public class EvaluacionDocumentoRequest {
 	public void setIdcatalogotipobien(String idcatalogotipobien) {
 		this.idcatalogotipobien = idcatalogotipobien;
 	}
-	public int getEstadoPedido() {
+	public Integer getEstadoPedido() {
 		return estadoPedido;
 	}
-	public void setEstadoPedido(int estadoPedido) {
+	public void setEstadoPedido(Integer estadoPedido) {
 		this.estadoPedido = estadoPedido;
 	}
 	public String getNroDocumento() {

@@ -42,17 +42,16 @@
 										itemValue="#{var.vchregcodigo}" />
 								</p:selectOneMenu></td>
 
-							<td><p:outputLabel value="Estado de pedido"
+							<td><p:outputLabel value="Estado de requerimiento"
 									for="ddlEstadoPedido" /></td>
 							<td><p:selectOneMenu id="ddlEstadoPedido"
 									value="#{evaluacionDocumento.searchParam.estadoPedido}">
-									<f:selectItem itemLabel="TODOS" itemValue="-1" />
-									<f:selectItem itemLabel="PENDIENTE" itemValue="0" />
-									<f:selectItem itemLabel="VB JEFE" itemValue="1" />
-									<f:selectItem itemLabel="APROBADO" itemValue="2" />
-									<f:selectItem itemLabel="REMITIDO A PROGRAMACIÓN" itemValue="3" />
-									<f:selectItem itemLabel="ATENDIDO" itemValue="8" />
+									<f:selectItem itemLabel="TODOS" itemValue="" />
+									<f:selectItems
+										value="#{evaluacionDocumento.listaEstadoRequerimiento}"
+										var="var" itemLabel="#{var.descripcion}" itemValue="#{var.id}" />
 								</p:selectOneMenu></td>
+
 
 							<td><p:outputLabel value="Número Pedido" for="txtNroPedido" /></td>
 							<td><p:inputText id="txtNroPedido"
@@ -91,15 +90,15 @@
 									oncomplete="showDialog('form:hidStatus','form:cdRecibir');"
 									icon="fa fa-download" title="Recibir"
 									disabled="#{!evaluacionDocumento.esSeleccionadoPorRecibir}"
-									rendered="#{evaluacionDocumento.renderButton('btnRecibir')}" />							 
-																		
+									rendered="#{evaluacionDocumento.renderButton('btnRecibir')}" />
+
 								<p:commandButton value="Aprobación"
 									action="#{evaluacionDocumento.irAprobar}"
 									update="hidStatus,:frmDocumentotecnicoRegistrar:diDocumentotecnicoRegistrar"
 									oncomplete="showDialog('form:hidStatus','frmDocumentotecnicoRegistrar:diDocumentotecnicoRegistrar');"
 									icon="fa fa-arrow-circle-o-right"
 									disabled="#{!evaluacionDocumento.esSeleccionadoPorAprobar}"
-									rendered="#{evaluacionDocumento.renderButton('btnAprobar')}" />				
+									rendered="#{evaluacionDocumento.renderButton('btnAprobar')}" />
 
 								<p:commandButton value="Imprimir"
 									action="#{evaluacionDocumento.irImprimir}"
@@ -107,7 +106,7 @@
 									oncomplete="showDialog('form:hidStatus','frmDocumentotecnicoImprimir:diDocumentotecnicoImprimir');"
 									icon="ui-icon-print"
 									rendered="#{evaluacionDocumento.renderButton('btnImprimir')}" />
-									
+
 							</p:panel></td>
 						<td valign="top">
 							<div align="right" style="margin-top: 12px">
@@ -140,17 +139,16 @@
 						oncomplete="showDialog('form:hidStatus','frmDocumentotecnicoAnular:diDocumentotecnicoAnular');"
 						icon="ui-icon-circle-minus"
 						rendered="#{documentotecnico.renderButton('btnAnularActivar')}" />
-						
-					
+
+
 				</p:contextMenu>
 
 				<p:dataTable id="tblListaDocumentotecnico"
 					value="#{evaluacionDocumento.listaPedidos}" var="var"
 					emptyMessage="No se encontraron registros"
 					widgetVar="tblListaDocumentotecnico"
-					selection="#{evaluacionDocumento.selectedPedido}"
-					paginator="true" rows="#{sisabascontrol.registros_mant}"
-					paginatorPosition="bottom"
+					selection="#{evaluacionDocumento.selectedPedido}" paginator="true"
+					rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
 					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(evaluacionDocumento.listaPedidos)}"
 					selectionMode="single" rowKey="#{var.iddocumentotecnico}"
 					styleClass="gandalfTableClass">
@@ -182,7 +180,7 @@
 						
 					</p:column>
 					  -->
-								
+
 					<!-- 								
 				   <p:column styleClass="c_center">
 						<f:facet name="header">
@@ -195,7 +193,7 @@
 												                 
 					</p:column> 					
  					-->
- 
+
 					<p:column styleClass="c_string" sortBy="#{var.nroDocumento}"
 						style="width: 100px">
 						<f:facet name="header">
@@ -246,7 +244,7 @@
 					<p:commandButton value="No" onclick="hideDialogPF('cdRecibir');"
 						type="button" />
 				</p:confirmDialog>
-								 
+
 			</p:panel>
 		</h:form>
 
@@ -296,7 +294,8 @@
 								value="Aceptar" action="#{evaluacionDocumento.aprobar}"
 								update="hidStatus,:form:tblListaDocumentotecnico,:form:growl,:form:pnlBotones,panelC"
 								oncomplete="hideDialog('frmDocumentotecnicoRegistrar:hidStatus','frmDocumentotecnicoRegistrar:diDocumentotecnicoRegistrar')"
-								icon="ui-icon-circle-check" title="Aprobar / Observar" onclick="diDocumentotecnicoRegistrar.hide();" /></td>
+								icon="ui-icon-circle-check" title="Aprobar / Observar"
+								onclick="diDocumentotecnicoRegistrar.hide();" /></td>
 						<td>
 							<div align="right">
 								<p:commandButton value="Salir"

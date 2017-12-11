@@ -63,7 +63,7 @@
 	</resultMap>
 
 	<resultMap type="pe.com.sisabas.dto.EstadoRequerimientoResponse" id="estadoRequerimientoItems">
-		<result column="IdEstadosPorTipoDocumento" property="id" jdbcType="INTEGER"/>
+		<result column="IdEstadosPorEtapa" property="id" jdbcType="INTEGER"/>
 		<result column="DescripcionEstadoPorEtapa" property="descripcion" jdbcType="VARCHAR"/>
 	</resultMap>
 	
@@ -531,10 +531,10 @@
 	</select>	
 	
 	<select id="getEstadoRequerimiento" resultMap="estadoRequerimientoItems" parameterType="java.lang.Integer">
-		select t2.IdEstadosPorTipoDocumento, t1.DescripcionEstadoPorEtapa 
+		select t2.IdEstadosPorEtapa, t1.DescripcionEstadoPorEtapa 
 		from abas.EstadosPorEtapa t1
 		inner join abas.EstadosPorTipoDocumento t2 on t2.IdEstadosPorEtapa = t1.IdEstadoPorEtapa
 		and t1.IdEtapaAdministrativa = #{idEtapaAdministrativa}
-		order by t2.IdEstadosPorTipoDocumento asc			
+		order by t2.IdEstadosPorTipoDocumento asc						
 	</select>		
 </mapper>
