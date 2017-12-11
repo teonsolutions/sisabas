@@ -24,6 +24,7 @@ public class EspecificacionTecnicaDto implements  Serializable,Cloneable{
 	private String tipoEsp;
 	private Integer nroPac;
 	private String nroAnexo;
+	private String rutaAnexo;
 	
 	private  boolean booleano;
 	
@@ -204,6 +205,14 @@ public class EspecificacionTecnicaDto implements  Serializable,Cloneable{
 
 	public void setBooleano(boolean booleano) {
 		this.booleano = booleano;
+	}
+
+	public String getRutaAnexo() {
+		return rutaAnexo;
+	}
+
+	public void setRutaAnexo(String rutaAnexo) {
+		this.rutaAnexo = rutaAnexo;
 	}
 
 	
