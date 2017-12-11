@@ -93,7 +93,7 @@
 						<p:outputLabel value="Tipo de Términos de Referencia" for="txtReq" />
 					</p:column>
 					<p:column>
-						<p:selectOneMenu id="txtReq" value="#{requerimiento.documentotecnico.idcatalogotipotdr}" style="width:200px;" >
+						<p:selectOneMenu id="txtReq" value="#{requerimiento.documentotecnico.idcatalogotipotdr}" style="width:200px;" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}">
 							<f:selectItems 
 										value="#{pedido.listaGentablaIdcatalogotipotdr}"
 										var="var" itemLabel="#{var.vchregdescri}"
@@ -108,7 +108,7 @@
 						</p:column>
 					</div>
 					<p:column>
-						<p:inputNumber value="#{requerimiento.documentotecnico.nropac}"  disabled="false" />
+						<p:inputNumber value="#{requerimiento.documentotecnico.nropac}"  disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}" />
 					</p:column>
 				</p:row>
 				<p:row>
@@ -117,7 +117,7 @@
 						<p:outputLabel value="Denominación de la contratación:" />
 					</p:column>
 					<p:column>
-						<p:inputTextarea value="#{requerimiento.documentotecnico.denominacioncontratacion}" disabled="false"
+						<p:inputTextarea value="#{requerimiento.documentotecnico.denominacioncontratacion}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
 							style="width:300px;" />
 					</p:column>
 				</p:row>
@@ -126,7 +126,7 @@
 						<p:outputLabel value="Finalidad pública" />
 					</p:column>
 					<p:column>
-						<p:inputTextarea value="#{requerimiento.documentotecnico.finalidadpublica}" disabled="false"
+						<p:inputTextarea value="#{requerimiento.documentotecnico.finalidadpublica}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
 							style="width:300px;" />
 					</p:column>
 				</p:row>
@@ -136,7 +136,7 @@
 						<p:outputLabel value="Objetivos de la contratación:" />
 					</p:column>
 					<p:column>
-						<p:inputTextarea value="#{requerimiento.documentotecnico.objetocontratacion}" disabled="false"
+						<p:inputTextarea value="#{requerimiento.documentotecnico.objetocontratacion}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
 							style="width:300px;" />
 					</p:column>
 				</p:row>
@@ -146,7 +146,7 @@
 						<p:outputLabel value="Antecedentes:" />
 					</p:column>
 					<p:column>
-						<p:inputTextarea value="#{requerimiento.documentotecnico.antecedentes}" disabled="false"
+						<p:inputTextarea value="#{requerimiento.documentotecnico.antecedentes}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
 							style="width:300px;" />
 					</p:column>
 				</p:row>
@@ -180,7 +180,7 @@
 			<div align="right">
 				<p:commandButton
 					oncomplete="showDialogPF('frmPago2:diPago2')" onclick="myFunction();"
-					value="Agregar" icon="ui-icon-circle-check" />
+					value="Agregar" icon="ui-icon-circle-check" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"/>
 			</div>
 			<p:spacer height="5" />
 				<p:dataTable id="tablePagos" var="var"  emptyMessage="Formas de pago vacía." value="#{requerimiento.pagos}" style="white-space:nowrap!important; width:800px; font-size:5px;" reflow="true" scrollable="true" editable="true">
@@ -235,7 +235,7 @@
 		<p:tab title="Lugar de Prestación">
 			<div align="right">
 				<p:commandButton
-					oncomplete="showDialogPF('frmPrestacion2:diPrestacion2')" onclick="myFunction();"
+					oncomplete="showDialogPF('frmPrestacion2:diPrestacion2')" onclick="myFunction();" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
 					value="Agregar" icon="ui-icon-circle-check" />
 			</div>
 			<p:spacer height="5" />
@@ -246,13 +246,16 @@
 				
 				<p:ajax event="rowEdit" listener="#{requerimiento.onRowEdit}" update=":form:growl" />
                 <p:ajax event="rowEditCancel" listener="#{requerimiento.onRowCancel}" update=":form:growl" />
-
+   
+                <!--  
 				<p:column headerText="DEPENDENCIA">
 					<p:cellEditor>
 		               <f:facet name="output"><h:outputText value="#{var.dependencia}" /></f:facet>
 		               <f:facet name="input"><p:inputText id="modelInput" value="#{var.dependencia}" style="width:100%"/></f:facet>
                     </p:cellEditor>
 				</p:column>
+				-->
+				
 				<p:column headerText="DIRECCION">
 				    <p:cellEditor> 
 				       <f:facet name="output"><h:outputText value="#{var.direccion}" /></f:facet>
@@ -277,9 +280,9 @@
 		<p:tab title="Anexos">
           <h:form>
              <p:outputLabel value="Archivo formato PDF hasta 10 MB"/>
-             <p:fileUpload fileUploadListener="#{requerimiento.handleFileUpload}" mode="advanced" dragDropSupport="false" update="messages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(pdf)$/"  
-             label="Seleccione archivo" cancelLabel="Cancelar" uploadLabel="Subir"/>
-             <p:growl id="messages" showDetail="true" />
+             <p:fileUpload fileUploadListener="#{requerimiento.handleFileUpload}" mode="advanced" dragDropSupport="false" update=":form:growl" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(pdf)$/"  
+             label="Seleccione archivo" cancelLabel="Cancelar" uploadLabel="Subir" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"/>
+            
           </h:form>
 		</p:tab>
 		
@@ -395,7 +398,7 @@
 				</p:column>
 				<p:column >
 					<p:inputText 
-						value="#{requerimiento.documentotecnico.nroanexoresponsable}"
+						value="#{requerimiento.documentotecnico.nroanexoresponsable}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
 						 />
 				</p:column>
 			</h:panelGrid>

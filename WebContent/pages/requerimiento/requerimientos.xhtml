@@ -258,6 +258,39 @@ function myFunction3() {
 							   target="#{requerimiento.requerimientoResponse}" />
 						</p:commandButton>
 						
+
+						
+						
+						<p:commandButton rendered="#{var.estadoPedidoIn eq 3 and var.idTipoBien eq 'B'}" 
+						    update=":formEsp:diEsp" icon="fa fa-eye" 
+						    title="Visualizar ET" 
+						    action="#{requerimiento.cargarItemRequerimientos}" 
+						    oncomplete="PF('reqDialog2').show()">
+						    
+							<f:setPropertyActionListener value="#{var}" 
+							   target="#{requerimiento.requerimientoResponse}" />
+							   
+						</p:commandButton>
+						
+						
+						<p:commandButton rendered="#{var.estadoPedidoIn eq 3 and var.idTipoBien eq 'S'}" 
+						    update=":formTdr:diTdr" icon="fa fa-eye" 
+						    title="Visualizar TDR" 
+						    action="#{requerimiento.cargarItemRequerimientos}" 
+						    oncomplete="PF('reqDialogT').show()">
+							<f:setPropertyActionListener value="#{var}" 
+							   target="#{requerimiento.requerimientoResponse}" />
+						</p:commandButton>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
 					</p:column>
 					<p:column styleClass="c_center" sortBy="#{var.nropedido}">
 						<f:facet name="header">
@@ -294,7 +327,7 @@ function myFunction3() {
 						<h:outputText value="#{var.estadoRequerimiento}" />
 					</p:column>
 
-					<p:column styleClass="c_string" sortBy="#{var.estadoPedidoIn}">
+					<p:column styleClass="c_string" sortBy="#{var.desEstadoIn}">
 						<f:facet name="header">
 							<h:outputText value="Estado del pedido(SisAbas)"
 								styleClass="c_center" />
@@ -350,30 +383,32 @@ function myFunction3() {
 			</h:form>
 
 
+
+
+
 			<h:form id="formEsp">
 
 
 				<p:dialog header="Especificaciones Técnicas" widgetVar="reqDialog2"
 					modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-					<p:panel style="width:98%;">
+					<p:panel style="width:98%;" id="diEsp">
 						<p:focus for="panel" />
-						<p:scrollPanel mode="native" style="width:100%;height:600px" id="diEsp">
+						<p:scrollPanel mode="native" style="width:100%;height:600px" >
 							<p:messages for="msgsGentablaR" autoUpdate="true" closable="true" />
 							<ui:include
 								src="/pages/requerimiento/component/c_especificacionTecnica.xhtml" />
 						</p:scrollPanel>
 
 						<div style="text-align: left;">
-							<p:outputLabel
-								value="Las tareas corresponden al Plan Operativo Institucional registrado en el PLANIN." />
+							<p:outputLabel value="Las tareas corresponden al Plan Operativo Institucional registrado en el PLANIN." />
 							<br />
-							<br />
+							<br /> 
 						</div>
 						<table style="width: 70%;">
 							<tr>
 								<td>
 									<div align="left">
-										<p:commandButton value="GRABAR"
+										<p:commandButton value="GRABAR" rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
 											icon="ui-icon-circle-check" title="Aceptar"
 											update=":form:growl,:form:tblListaRequerimiento" oncomplete="PF('reqDialog2').hide();" >
 											<f:actionListener binding="#{requerimiento.aceptarRequerimiento()}"/>
@@ -383,40 +418,53 @@ function myFunction3() {
 								</td>
 								<td>
 									<div align="center">
-										<p:commandButton value="CANCELAR" actionListener="#{requerimiento.limpiar}"
+										<p:commandButton value="CANCELAR" actionListener="#{requerimiento.limpiar}" rendered="#{requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
 											icon="ui-icon-arrowreturnthick-1-w" title="Salir"
 											onclick="hideDialogPF('frmGentipoRegistrar:diGentipoRegistrar');return false;" />
+											
+										<p:commandButton value="ACEPTAR" rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
+											icon="ui-icon-circle-check" title="Aceptar"
+											update=":form:growl" oncomplete="PF('reqDialog2').hide();" >
+											<f:actionListener binding="#{requerimiento.limpiar()}"/>
+										</p:commandButton>		
 									</div>
+									
+									
 								</td>
 								<td>
-									<div align="right">
-										<p:commandButton actionListener="#{dialogView.destroyWorld}" value="DERIVAR" icon="ui-icon-circle-check" title="Aceptar" update=":form:growl" oncomplete="" >
-										   <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+									<div align="right" >
+										<p:commandButton id="btnRemitir" rendered="#{requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"  disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 40}" actionListener="#{requerimiento.destroyWorld}" value="DERIVAR" icon="ui-icon-circle-check" title="Aceptar" update=":form:growl" oncomplete="PF('reqDialog2').hide();" >
+										   <p:confirm header="Confirmación" message="¿Esta seguro de remitir a programación?" icon="ui-icon-alert" />
 										</p:commandButton>
 									</div>
 								</td>
-
-
 							</tr>
 						</table>
 					</p:panel>
 
 				</p:dialog>
 				          <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                           <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                           <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				           <div style="background-color:#cdeef3 ;">
+                              <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                              <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                           </div>
                           </p:confirmDialog>
 
 			</h:form>
+			
+			
+
+			
+			
 			
 			<h:form id="formTdr">
 
 
 				<p:dialog header="Términos de Referencia para la Contratación de Servicios" widgetVar="reqDialogT"
 					modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-					<p:panel style="width:98%;">
+					<p:panel style="width:98%;" id="diTdr">
 						<p:focus for="panel" />
-						<p:scrollPanel mode="native" style="width:100%;height:600px" id="diTdr">
+						<p:scrollPanel mode="native" style="width:100%;height:600px" >
 							<p:messages for="msgsGentablaR" autoUpdate="true" closable="true" />
 							<ui:include
 								src="/pages/requerimiento/component/c_terminosReferencia.xhtml" />
@@ -449,9 +497,9 @@ function myFunction3() {
 								</td>
 								<td>
 									<div align="right">
-										<p:commandButton value="DERIVAR"
-											icon="ui-icon-circle-check" title="Aceptar"
-											update=":form:growl" oncomplete="" />
+										<p:commandButton id="btnRemitir2" actionListener="#{requerimiento.destroyWorld}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 40}" value="DERIVAR" icon="ui-icon-circle-check" title="Aceptar" update=":form:growl" oncomplete="PF('reqDialogT').hide()" >
+										   <p:confirm header="Confirmación" message="¿Esta seguro de remitir a programación?" icon="ui-icon-alert" />
+										</p:commandButton>
 									</div>
 								</td>
 
@@ -498,9 +546,11 @@ function myFunction3() {
 				<div class="ui-scrollpanel ui-scrollpanel-native ui-widget ui-widget-content ui-corner-all">
 					<p:panelGrid id="panelPrestacion" columns="2"  
 						styleClass="gandalfPanelClassSectionFormHeader">
+						<!-- 
 						<p:column>
 							<p:outputLabel value="DEPENDENCIA" for="txtDependencia" />
 						</p:column>
+						 -->
 						<p:column>
 							<p:inputText id="txtDependencia"
 								value="#{requerimiento.lugar.dependencia}"
@@ -538,6 +588,7 @@ function myFunction3() {
 				<div class="ui-scrollpanel ui-scrollpanel-native ui-widget ui-widget-content ui-corner-all">
 					<p:panelGrid id="panelPrestacion" columns="2"  
 						styleClass="gandalfPanelClassSectionFormHeader">
+						<!-- 
 						<p:column>
 							<p:outputLabel value="DEPENDENCIA" for="txtDependencia" />
 						</p:column>
@@ -546,6 +597,7 @@ function myFunction3() {
 								value="#{requerimiento.lugar.dependencia}"
 								style="width:300px;" label="Dependencia" />
 						</p:column>
+						 -->
 						<p:column>
 							<p:outputLabel value="DIRECCION" for="txtDireccion" />
 						</p:column>
