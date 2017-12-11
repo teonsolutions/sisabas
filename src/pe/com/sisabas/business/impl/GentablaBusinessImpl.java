@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pe.com.sisabas.be.Gentabla;
 import pe.com.sisabas.persistence.GentablaMapper;
 import pe.com.sisabas.business.GentablaBusiness;
+import pe.com.sisabas.dto.EstadoRequerimientoResponse;
 import pe.com.sisabas.dto.TipoProcesoResponse;
 import pe.com.sisabas.exception.BusinessException;
 import pe.com.sisabas.exception.ValidateException;
@@ -335,6 +336,12 @@ public class GentablaBusinessImpl implements GentablaBusiness, Serializable{
 	public List<TipoProcesoResponse> getTipoProceso(Integer anio) throws Exception {
 		// TODO Auto-generated method stub
 		return gentablaMapper.getTipoProceso(anio);
+	}
+
+	@Override
+	public List<EstadoRequerimientoResponse> getEstadoRequerimiento(Integer idEtapaAdministrativa) throws Exception {
+		// TODO Auto-generated method stub
+		return gentablaMapper.getEstadoRequerimiento(idEtapaAdministrativa);
 	}
 
 

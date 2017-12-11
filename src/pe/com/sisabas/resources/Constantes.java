@@ -215,5 +215,12 @@ public class Constantes {
 	public class paramentro{
 		public static final double PAC_VALOR = 31600;
 	}
+	
+	public class etapaAdministrativa{
+		public static final int REQUERIMIENTOS = 1;
+		public static final int PROGRAMACION_Y_COSTOS = 2;
+		public static final int PROCESOS_DE_SELECCION = 3;
+		public static final int EJECUCION_CONTRACTUAL = 4;
+	}
 	//Constantes personalizados
 }

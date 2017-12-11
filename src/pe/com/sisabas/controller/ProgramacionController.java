@@ -58,6 +58,7 @@ import pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto;
 import pe.com.sisabas.dto.CuadroComparativoItemsDto;
 import pe.com.sisabas.dto.CuadroComparativoRequest;
 import pe.com.sisabas.dto.CuadroComparativoVrDto;
+import pe.com.sisabas.dto.EstadoRequerimientoResponse;
 import pe.com.sisabas.dto.EvaluacionDocumentoRequest;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
 import pe.com.sisabas.dto.Lugar;
@@ -134,7 +135,8 @@ public class ProgramacionController extends BaseController {
 	public List<Gentabla> listaGentablaIdcatalogotipomiembro;
 	public List<Gentabla> listaGentablaIdcatalogoestadomiembrocomite;
 	public List<TipoProcesoResponse> listaTipoProceso;
-
+	public List<EstadoRequerimientoResponse> listaEstadoRequerimiento;
+	
 	private boolean esSeleccionadoFuente;
 	private String tituloFuente;
 	private String tituloControlProducto;
@@ -193,6 +195,7 @@ public class ProgramacionController extends BaseController {
 				sicuopcion = SicuCallService.obtenercontroles(idOpcion);
 			}
 
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
 			// ´Fill combo filters
 
 			/*
@@ -217,6 +220,10 @@ public class ProgramacionController extends BaseController {
 			listaGentablaIdcatalogotipodocumento = gentablaBusiness
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.DPRO));
 
+			//tablas maestras
+			listaTipoProceso = gentablaBusiness.getTipoProceso(usuario.getPeriodo().getAnio());
+			listaEstadoRequerimiento = gentablaBusiness.getEstadoRequerimiento(Constantes.etapaAdministrativa.PROGRAMACION_Y_COSTOS);
+
 			// Estudio del mercado
 			listaGentablaIdcatalogotipofuente = gentablaBusiness
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TIFU));
@@ -233,7 +240,8 @@ public class ProgramacionController extends BaseController {
 			listaGentablaIdcatalogotipomiembro = gentablaBusiness
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.CAMI));
 			listaGentablaIdcatalogoestadomiembrocomite = gentablaBusiness
-					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EMCO));
+					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EMCO));	
+
 
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
@@ -1372,10 +1380,7 @@ public class ProgramacionController extends BaseController {
 			PacConsolidadoDto pac = programacionBusiness.getPacConsolidado(record);
 			if (pac == null)
 				pac = new PacConsolidadoDto();
-			this.currentPao.setPacConsolidado(pac);
-			
-			//tablas maestras
-			listaTipoProceso = gentablaBusiness.getTipoProceso(usuario.getPeriodo().getAnio());
+			this.currentPao.setPacConsolidado(pac);	
 
 			// Estudio del Mercado
 			buscarFuente();
@@ -1710,6 +1715,14 @@ public class ProgramacionController extends BaseController {
 
 	public void setListaTipoProceso(List<TipoProcesoResponse> listaTipoProceso) {
 		this.listaTipoProceso = listaTipoProceso;
+	}
+
+	public List<EstadoRequerimientoResponse> getListaEstadoRequerimiento() {
+		return listaEstadoRequerimiento;
+	}
+
+	public void setListaEstadoRequerimiento(List<EstadoRequerimientoResponse> listaEstadoRequerimiento) {
+		this.listaEstadoRequerimiento = listaEstadoRequerimiento;
 	}
 
 	

@@ -62,6 +62,11 @@
 		<result column="DESCRIPCION" property="descripcion" jdbcType="VARCHAR"/>
 	</resultMap>
 
+	<resultMap type="pe.com.sisabas.dto.EstadoRequerimientoResponse" id="estadoRequerimientoItems">
+		<result column="IdEstadosPorTipoDocumento" property="id" jdbcType="INTEGER"/>
+		<result column="DescripcionEstadoPorEtapa" property="descripcion" jdbcType="VARCHAR"/>
+	</resultMap>
+	
 	<sql id="Basic_Column_List">
 	A1.VCHREGCODIGO as A1_VCHREGCODIGO, A1.VCHREGDESCRI as A1_VCHREGDESCRI, A1.VCHREGABREVIADO as A1_VCHREGABREVIADO, A1.VCHTIPCODIGO as A1_VCHTIPCODIGO, 
 	A1.INTREGORDEN as A1_INTREGORDEN, A1.VCHTABOTRO1 as A1_VCHTABOTRO1, A1.VCHTABOTRO2 as A1_VCHTABOTRO2, A1.VCHTABOTRO3 as A1_VCHTABOTRO3, 
@@ -524,4 +529,12 @@
 		and mp.CODIGO = 'TIPO_PROCESO'
 		order by mp.CODIGO_DET asc				
 	</select>	
+	
+	<select id="getEstadoRequerimiento" resultMap="estadoRequerimientoItems" parameterType="java.lang.Integer">
+		select t2.IdEstadosPorTipoDocumento, t1.DescripcionEstadoPorEtapa 
+		from abas.EstadosPorEtapa t1
+		inner join abas.EstadosPorTipoDocumento t2 on t2.IdEstadosPorEtapa = t1.IdEstadoPorEtapa
+		and t1.IdEtapaAdministrativa = #{idEtapaAdministrativa}
+		order by t2.IdEstadosPorTipoDocumento asc			
+	</select>		
 </mapper>
