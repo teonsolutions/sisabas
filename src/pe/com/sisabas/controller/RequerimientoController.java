@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -39,6 +41,8 @@ import pe.com.sisabas.be.RequerimientoResponse;
 import pe.com.sisabas.business.DependenciadocumentotecnicoBusiness;
 import pe.com.sisabas.business.DocumentotecnicoBusiness;
 import pe.com.sisabas.business.GentablaBusiness;
+import pe.com.sisabas.business.PedidoBusiness;
+import pe.com.sisabas.business.PedidosporpacconsolidadoBusiness;
 import pe.com.sisabas.business.PersonaBusiness;
 import pe.com.sisabas.business.PlazopagodocumentotecnicoBusiness;
 import pe.com.sisabas.business.RequerimientoBusiness;
@@ -50,6 +54,7 @@ import pe.com.sisabas.dto.TransactionRequest;
 import pe.com.sisabas.exception.SecurityRestrictedControlException;
 import pe.com.sisabas.exception.SecuritySessionExpiredException;
 import pe.com.sisabas.exception.SecurityValidateException;
+import pe.com.sisabas.persistence.PedidoMapper;
 import pe.com.sisabas.resources.Constantes;
 import pe.com.sisabas.resources.Messages;
 import pe.com.sisabas.resources.controller.BaseController;
@@ -58,6 +63,10 @@ import pe.com.sisabas.service.SicuCallService;
 @Component(value ="requerimiento")
 @Scope(value = "session")
 public class RequerimientoController extends BaseController{
+	
+	
+	private String pdfURL ="/resources/pdfs/fer,pdf";
+	private String pdf="fer.pdf";
 
 	private static final long serialVersionUID = 1L;
 	
@@ -65,6 +74,11 @@ public class RequerimientoController extends BaseController{
 	private List<String> listaIdcatalogotipomiembroKeys;
 	public List<Gentabla> listaGentablaIdcatalogotipomiembro;
 	
+	@Autowired
+	public PedidoMapper pedidoMapper;
+	
+	@Autowired
+	public PedidoBusiness pedidoBusiness;
 	
 	@Autowired
 	public GentablaBusiness gentablaBusiness;
@@ -93,7 +107,7 @@ public class RequerimientoController extends BaseController{
 	private Pago pago;
 	private static double totalPorcentaje=0;
 	private boolean check;
-	
+
 	
 	
 	
@@ -212,9 +226,33 @@ public class RequerimientoController extends BaseController{
 	}
 	
 	public void handleFileUpload(FileUploadEvent event) {
+
+		try{
+		UploadedFile file = event.getFile();
+		System.err.println("-------file-----: "+file.getFileName());
+		String destination;
+		HashMap<String, String> map = getMapPathFotosClinica();
+		 destination = map.get("path");
+		System.err.println("-------destination-----: "+destination);
+         if (destination == null) {
+             addErrorMessage("warning.noseobtuvopath");
+         } else {
+             pdfURL = map.get("url") + file.getFileName();
+             pdf = file.getFileName();
+             System.err.println("-------pdfURL-----: "+pdfURL);
+             System.err.println("-------pdf-----: "+pdf);
+             if (copyFile(file.getFileName(), file.getInputstream(), destination)) {                  
+             }  
+		}
+		
         FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        //this.documentotecnico.setRutaanexo("D:\\svn\\trunk\\WebContent\\upload\\"+ event.getFile().getFileName());
+        this.documentotecnico.setRutaanexo(destination+pdf);
         FacesContext.getCurrentInstance().addMessage(null, message);
+    }catch (Exception e) {
+        addErrorMessage("handleFileUpload()" + e.getLocalizedMessage());
     }
+   }
 
 	
 	
@@ -413,6 +451,26 @@ public class RequerimientoController extends BaseController{
 		}
 		
 	}
+	
+    public void remitir(){
+    	
+	
+    	Pedido pedido=new Pedido();
+    	try {
+    	    System.out.println("El idPedido seleccionado es "+requerimientoResponse.getIdPedido()); 
+			pedido = pedidoBusiness.selectByPrimaryKeyBasic(requerimientoResponse.getIdPedido());
+			pedido.setEstadopedido(Constantes.estadosPorEtapa.REMITIDO_A_PROGRAMACION);
+			pedidoMapper.updateByPrimaryKey(pedido);
+	
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//this.requerimientoResponse.setEstadoPedidoIn(Constantes.estadosPorEtapa.REMITIDO_A_PROGRAMACION);
+	}
+
+
 	public void insertarRequerimientos() {
 		try {
 			System.out.println("***************Fer5**************"+requerimientoResponse.getNroPedido());
@@ -594,11 +652,13 @@ public class RequerimientoController extends BaseController{
             dto.setTipoEsp(this.documentotecnico.getIdcatalogotipotdr());              	    	
 	    	dto.setNroPac(this.documentotecnico.getNropac());
 	    	dto.setNroAnexo(this.documentotecnico.getNroanexoresponsable());
-
+            dto.setRutaAnexo(this.documentotecnico.getRutaanexo()); 
 	    	
+            
 	    	dto.setIddocumentotecnico(this.documentotecnico.getIddocumentotecnico());
 	    	
 	    	
+	    	System.err.println("---------------------------------------------rutaAnexo----------------------------------------- = "+dto.getRutaAnexo());
 	    	System.err.println("---------------------------------------------getiddocumento----------------------------------------- = "+dto.getIddocumentotecnico());
 	    	
 	    	dto.setBooleano(this.check);  
@@ -1031,13 +1091,17 @@ public class RequerimientoController extends BaseController{
 	
 
 	public void destroyWorld() {
+		remitir();
         addMessage("System Error", "Please try again later.");
     }
+	
+	
      
     public void addMessage(String summary, String detail) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
-	
-	
+    
+    
+
 }
