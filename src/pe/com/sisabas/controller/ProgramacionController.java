@@ -1185,21 +1185,6 @@ public class ProgramacionController extends BaseController {
 		REGISTER_INIT();
 		try {
 
-			/*
-			if (accion.equals(REGISTRAR)) {
-				miembrocomiteporproceso.setUsuariocreacionauditoria(getUserLogin());
-				miembrocomiteporproceso.setEquipoauditoria(getRemoteAddr());
-				miembrocomiteporproceso
-						.setProgramaauditoria(pe.com.sisabas.resources.Utils.obtenerPrograma(this.getClass()));
-				miembrocomiteporprocesoBusiness.insertBasic(miembrocomiteporproceso);
-			} else {
-				miembrocomiteporproceso.setUsuariomodificacionauditoria(getUserLogin());
-				miembrocomiteporproceso.setEquipoauditoria(getRemoteAddr());
-				miembrocomiteporproceso
-						.setProgramaauditoria(pe.com.sisabas.resources.Utils.obtenerPrograma(this.getClass()));
-				miembrocomiteporprocesoBusiness.updateByPrimaryKeyBasic(miembrocomiteporproceso);
-			}
-			*/
 			TransactionRequest<PacConsolidadoDto> request = new TransactionRequest<PacConsolidadoDto>();
 			request.setEntityTransaction(this.currentPao.getPacConsolidado());
 			request.setUsuarioAuditoria(getUserLogin());

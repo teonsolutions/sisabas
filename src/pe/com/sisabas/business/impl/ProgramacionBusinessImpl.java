@@ -1038,6 +1038,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			// PEDIDOS POR PAC CONSOLIDADO
 			List<PedidosPaoResponse> pedidos = pac.getPedidos();
 			for (int i = 0; i < pedidos.size(); i++) {
+				//pedidos.get(i).getEstadoPedido()
 				Pedidosporpacconsolidado pedidoItem = new Pedidosporpacconsolidado();
 				pedidoItem.setIdpedidoporpacconsolidado(
 						(int) utilsBusiness.getNextSeq(Sequence.SEQ_PEDIDOSPORPACCONSOLIDADO).longValue());
@@ -1054,11 +1055,11 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			// SINAD POR PAC CONSOLIDADO
 		}
 
-		// ESTADOS
+		// ESTADO: EN ESTUDIO DEL MERCADO
 		int idTipoDocumento = Constantes.tipoDocumento.PAO;
-		if (pc.getEstadorequerimiento().equals(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN)) {
+		if (pc.getEstadorequerimiento().equals(Constantes.estadosPorEtapa.EN_ESTUDIO_DE_MERCADO)) {
 			saveEstado = true;
-			idTipoDocumento = Constantes.tipoDocumento.ORDEN;
+			idTipoDocumento = Constantes.tipoDocumento.PAO;
 		}
 
 		if (saveEstado) {
@@ -1066,9 +1067,6 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			Estadosportipodocumento param = new Estadosportipodocumento();
 			param.setIdtipodocumento(idTipoDocumento);
 			param.setIdestadosporetapa(pc.getEstadorequerimiento());
-			// Estadosportipodocumento estados =
-			// estadosportipodocumentoMapper.selectByEtapaTipoDocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO,
-			// Constantes.estadosPorEtapa.EN_REVISION_DE_DOCUMENTO_TECNICO);
 			Estadosportipodocumento estado = estadosportipodocumentoMapper.selectByEtapaTipoDocumento(param);
 			if (estado != null) {
 				java.util.Date date = new java.util.Date();
@@ -1095,13 +1093,14 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 	}
 
 	@Override
-	public TransactionResponse<Miembrocomiteporproceso> grabarMiembrosComite(TransactionRequest<PacConsolidadoDto> request,
-			Miembrocomiteporproceso miembrocomiteporproceso) throws Exception {
+	public TransactionResponse<Miembrocomiteporproceso> grabarMiembrosComite(
+			TransactionRequest<PacConsolidadoDto> request, Miembrocomiteporproceso miembrocomiteporproceso)
+			throws Exception {
 		// TODO Auto-generated method stub
 		TransactionResponse<Miembrocomiteporproceso> result = new TransactionResponse<Miembrocomiteporproceso>();
 		result.setEstado(true);
 		result.setMensaje(Constantes.mensajeGenerico.REGISTRO_CORRECTO);
-		
+
 		PacConsolidadoDto pac = request.getEntityTransaction();
 		if (miembrocomiteporproceso.getIdmiembrocomiteproceso() == null
 				|| miembrocomiteporproceso.getIdmiembrocomiteproceso() == 0) {
@@ -1119,8 +1118,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 					idComiteProceso = (int) utilsBusiness.getNextSeq(Sequence.SEQ_COMITEPROCESO).longValue();
 					comiteMiembro.setIdcomiteproceso(idComiteProceso);
 					comiteprocesoMapper.insert(comiteMiembro);
-				}else
-				{
+				} else {
 					idComiteProceso = pacUpdate.getIdcomiteproceso();
 				}
 				// Insert miembros de comite proceso
@@ -1134,13 +1132,13 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 						(int) utilsBusiness.getNextSeq(Sequence.SEQ_MIEMBROCOMITEPORPROCESO).longValue());
 				miembrocomiteporprocesoMapper.insert(miembrocomiteporproceso);
 				pacUpdate.setIdcomiteproceso(idComiteProceso);
-				pacconsolidadoMapper.updateByPrimaryKey(pacUpdate);				
+				pacconsolidadoMapper.updateByPrimaryKey(pacUpdate);
 			}
 		} else {
 			// UPDATE
 			miembrocomiteporproceso.setFechamodificacionauditoria(new Date());
 			miembrocomiteporproceso.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
-			miembrocomiteporprocesoMapper.updateByPrimaryKey(miembrocomiteporproceso);			
+			miembrocomiteporprocesoMapper.updateByPrimaryKey(miembrocomiteporproceso);
 		}
 		result.setEntityTransaction(miembrocomiteporproceso);
 		return result;
@@ -1152,16 +1150,16 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
 		PacConsolidadoDto pac = request.getEntityTransaction();
 		Pacconsolidado pacEdit = pacconsolidadoMapper.selectByPrimaryKeyBasic(pac.getIdPacConsolidado());
-		if(pacEdit != null){
+		if (pacEdit != null) {
 			pacEdit.setCodigotipoproceso(pac.getCodigoTipoProceso());
-			BigDecimal nroproceso = new BigDecimal(pac.getNroProceso());			
+			BigDecimal nroproceso = new BigDecimal(pac.getNroProceso());
 			pacEdit.setNroproceso(nroproceso);
 			pacEdit.setNroconvocatoria(pac.getNroConvocatoria());
 			pacEdit.setTiemposervicio(pac.getTiempoServicio());
-			pacEdit.setFechasolicitudaprobacionexpediente(pac.getFechaSolicitudAprobacionExpediente());			
-			if (pac.isAprobado() && pacEdit.getFechaaprobacionexpediente() == null){
+			pacEdit.setFechasolicitudaprobacionexpediente(pac.getFechaSolicitudAprobacionExpediente());
+			if (pac.isAprobado() && pacEdit.getFechaaprobacionexpediente() == null) {
 				pacEdit.setFechaaprobacionexpediente(new Date());
-			}			
+			}
 			pacconsolidadoMapper.updateByPrimaryKey(pacEdit);
 		}
 
@@ -1174,13 +1172,34 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
 		PacConsolidadoDto pac = request.getEntityTransaction();
 		Pacconsolidado pacEdit = pacconsolidadoMapper.selectByPrimaryKeyBasic(pac.getIdPacConsolidado());
-		if(pacEdit != null){
+		if (pacEdit != null) {
 			pacEdit.setFechaaprobacionexpediente(new Date());
 			pacconsolidadoMapper.updateByPrimaryKey(pacEdit);
+
+			//STATUS: REMITIDO_A_PROCESOS
+			Estadosportipodocumento param = new Estadosportipodocumento();
+			param.setIdtipodocumento(Constantes.tipoDocumento.PROCESO);
+			param.setIdestadosporetapa(Constantes.estadosPorEtapa.REMITIDO_A_PROCESOS);
+			
+			Estadosportipodocumento estado = estadosportipodocumentoMapper.selectByEtapaTipoDocumento(param);
+			if (estado != null) {
+				java.util.Date date = new java.util.Date();
+				Estadosporetapapordocumento record = new Estadosporetapapordocumento();
+				record.setNrodocumento(pac.getIdPacConsolidado());
+				record.setIdestadosportipodocumento(estado.getIdestadosportipodocumento());
+				record.setFechaingreso(date);
+				record.setFechacreacionauditoria(date);
+				record.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+				record.setEquipoauditoria(request.getEquipoAuditoria());
+				record.setIdestadosporetapapordocumento(
+						(int) utilsBusiness.getNextSeq(Sequence.SEQ_ESTADOSPORETAPAPORDOCUMENTO).longValue());
+
+				record.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+				estadosporetapapordocumentoMapper.insert(record);
+			}
 		}
 
 		return result;
 	}
-
 
 }

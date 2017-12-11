@@ -164,8 +164,11 @@ public class Constantes {
 		public static final int EN_REVISION_DE_DOCUMENTO_TECNICO = 4;
 		public static final int OBSERVADO_POR_DOCUMENTO_TECNICO = 5;
 		public static final int DOCUMENTO_TECNICO_APROBADO = 6;
-		public static final int EN_ESTUDIO_DE_MERCADO = 7;	
-				
+		
+		//PAO
+		public static final int EN_ESTUDIO_DE_MERCADO = 7;
+		public static final int REMITIDO_A_PROCESOS = 12;	
+		
 		public static final int EN_GIRO_DE_ORDEN = 33;
 	}	
 	
