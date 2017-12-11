@@ -24,6 +24,7 @@ import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
 import pe.com.sisabas.dto.Resultado;
 import pe.com.sisabas.dto.SeguimientoPagosResponse;
+import pe.com.sisabas.dto.TipoProcesoResponse;
 import pe.com.sisabas.dto.TransactionRequest;
 import pe.com.sisabas.dto.TransactionResponse;
 
@@ -51,4 +52,6 @@ public interface ProgramacionBusiness {
 	public PacConsolidadoDto getPacConsolidado(PaoRequest request) throws Exception;
 	public Resultado grabarPacConsolidado(TransactionRequest<PacConsolidadoDto> request) throws Exception;
 	public TransactionResponse<Miembrocomiteporproceso> grabarMiembrosComite(TransactionRequest<PacConsolidadoDto> request, Miembrocomiteporproceso miembrocomiteporproceso) throws Exception;
+	public Resultado grabarAprobacionPacConsolidado(TransactionRequest<PacConsolidadoDto> request) throws Exception;	
+	public Resultado derivarExpediente(TransactionRequest<PacConsolidadoDto> request) throws Exception;
 }

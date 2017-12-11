@@ -57,6 +57,10 @@
 
 	</resultMap>
 
+	<resultMap type="pe.com.sisabas.dto.TipoProcesoResponse" id="tipoProcesoItems">
+		<result column="CODIGO_DET" property="codigo" jdbcType="VARCHAR"/>
+		<result column="DESCRIPCION" property="descripcion" jdbcType="VARCHAR"/>
+	</resultMap>
 
 	<sql id="Basic_Column_List">
 	A1.VCHREGCODIGO as A1_VCHREGCODIGO, A1.VCHREGDESCRI as A1_VCHREGDESCRI, A1.VCHREGABREVIADO as A1_VCHREGABREVIADO, A1.VCHTIPCODIGO as A1_VCHTIPCODIGO, 
@@ -512,4 +516,12 @@
 
 	</if>
 	</select>
+	
+	<select id="getTipoProceso" resultMap="tipoProcesoItems" parameterType="java.lang.Integer">
+		select mp.CODIGO_DET, mp.DESCRIPCION
+		from abas.visSigaMaestroProceso mp
+		where mp.ANO_EJE = ${anio}
+		and mp.CODIGO = 'TIPO_PROCESO'
+		order by mp.CODIGO_DET asc				
+	</select>	
 </mapper>

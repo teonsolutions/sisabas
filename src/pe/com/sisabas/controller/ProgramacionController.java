@@ -68,6 +68,7 @@ import pe.com.sisabas.dto.PedidosPaoResponse;
 import pe.com.sisabas.dto.RequisitoConformidadDto;
 import pe.com.sisabas.dto.Resultado;
 import pe.com.sisabas.dto.SeguimientoPagosResponse;
+import pe.com.sisabas.dto.TipoProcesoResponse;
 import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
 import pe.com.sisabas.dto.TransactionRequest;
@@ -132,6 +133,7 @@ public class ProgramacionController extends BaseController {
 	private List<Miembrocomiteporproceso> listaMiembrocomiteporproceso;
 	public List<Gentabla> listaGentablaIdcatalogotipomiembro;
 	public List<Gentabla> listaGentablaIdcatalogoestadomiembrocomite;
+	public List<TipoProcesoResponse> listaTipoProceso;
 
 	private boolean esSeleccionadoFuente;
 	private String tituloFuente;
@@ -637,24 +639,12 @@ public class ProgramacionController extends BaseController {
 				addMessageKey("msgsDocumentotecnicoR", "Teminó la sesión", FacesMessage.SEVERITY_ERROR);
 				return;
 			}
-
-			for (int i = 0; i < listaOrden.size(); i++) {
-				listaOrden.get(i).setAnio(usuario.getPeriodo().getAnio());
-				listaOrden.get(i).setCodigoCentroCosto(usuario.getPeriodo().getCodigoCentroCosto());
-				listaOrden.get(i).setIdPacConsolidado(currentPao.getIdPacConsolid());
-				listaOrden.get(i).setMoneda(Constantes.moneda.SOLES);
-				listaOrden.get(i).setIdUnidadEjecutora(Constantes.unidadEjecutora.ID_UNIDAD_EJECUTORA_ABAS);
-			}
-			listaOrden.get(0).setEntegables(listaEntregable); // se asume hay un
-																// sólo orden
-																// por pac
-																// consolidado
-
-			TransactionRequest<List<OrdenDto>> request = new TransactionRequest<List<OrdenDto>>();
+			
+			TransactionRequest<PacConsolidadoDto> request = new TransactionRequest<PacConsolidadoDto>();
 			request.setUsuarioAuditoria(getUserLogin());
 			request.setEquipoAuditoria(getRemoteAddr());
-			request.setEntityTransaction(listaOrden);
-			programacionBusiness.grabarOrden(request);
+			request.setEntityTransaction(currentPao.getPacConsolidado());
+			programacionBusiness.grabarAprobacionPacConsolidado(request);
 			REGISTER_SUCCESS();
 			showGrowlMessageSuccessfullyCompletedAction();
 
@@ -674,6 +664,41 @@ public class ProgramacionController extends BaseController {
 		}
 	}
 
+	public void derivarExpediente() {
+		REGISTER_INIT();
+		try {
+
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
+			if (usuario == null) {
+				REGISTER_ERROR();
+				addMessageKey("msgsDocumentotecnicoR", "Teminó la sesión", FacesMessage.SEVERITY_ERROR);
+				return;
+			}
+			
+			TransactionRequest<PacConsolidadoDto> request = new TransactionRequest<PacConsolidadoDto>();
+			request.setUsuarioAuditoria(getUserLogin());
+			request.setEquipoAuditoria(getRemoteAddr());
+			request.setEntityTransaction(currentPao.getPacConsolidado());
+			programacionBusiness.derivarExpediente(request);
+			REGISTER_SUCCESS();
+			showGrowlMessageSuccessfullyCompletedAction();
+
+		} catch (ValidateException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsDocumentotecnicoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (BusinessException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsDocumentotecnicoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+
+		} catch (DataIntegrityViolationException e) {
+			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),
+					Messages.getString("exception.dataintegrity.message.detail"), FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			REGISTER_ERROR();
+			addErrorMessageKey("msgsDocumentotecnicoR", e);
+		}
+	}
+	
 	public void irRegistrarFuente() {
 		STATUS_INIT();
 		try {
@@ -1363,6 +1388,9 @@ public class ProgramacionController extends BaseController {
 			if (pac == null)
 				pac = new PacConsolidadoDto();
 			this.currentPao.setPacConsolidado(pac);
+			
+			//tablas maestras
+			listaTipoProceso = gentablaBusiness.getTipoProceso(usuario.getPeriodo().getAnio());
 
 			// Estudio del Mercado
 			buscarFuente();
@@ -1691,4 +1719,14 @@ public class ProgramacionController extends BaseController {
 		this.accion = accion;
 	}
 
+	public List<TipoProcesoResponse> getListaTipoProceso() {
+		return listaTipoProceso;
+	}
+
+	public void setListaTipoProceso(List<TipoProcesoResponse> listaTipoProceso) {
+		this.listaTipoProceso = listaTipoProceso;
+	}
+
+	
+	
 }

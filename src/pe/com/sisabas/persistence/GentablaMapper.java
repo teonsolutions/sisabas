@@ -3,6 +3,7 @@ package pe.com.sisabas.persistence;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import pe.com.sisabas.be.Gentabla;
+import pe.com.sisabas.dto.TipoProcesoResponse;
 
 public interface GentablaMapper{
 
@@ -30,5 +31,7 @@ public interface GentablaMapper{
 
 	List<Gentabla> selectDynamicExtended(Gentabla record) throws Exception;
 
+	//CUSTOM	
+	List<TipoProcesoResponse> getTipoProceso(@Param("anio") Integer anio) throws Exception;
 
 }

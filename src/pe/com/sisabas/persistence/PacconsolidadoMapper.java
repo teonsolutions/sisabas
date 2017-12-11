@@ -14,6 +14,7 @@ import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.PedidosPaoResponse;
 import pe.com.sisabas.dto.RecepcionDTResponse;
 import pe.com.sisabas.dto.SeguimientoPagosResponse;
+import pe.com.sisabas.dto.TipoProcesoResponse;
 import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
 
@@ -68,5 +69,6 @@ public interface PacconsolidadoMapper{
 	List<SeguimientoPagosResponse> getSeguimientoPagosSiaf(PaoRequest request) throws Exception;
 	
 	PacConsolidadoDto getPacConsolidado(PaoRequest request) throws Exception;
+	
 	
 }

@@ -54,6 +54,15 @@ public class PacConsolidadoDto implements Serializable,Cloneable{
 	private String idTipoContratacion;
 	private String idTipoNecesidad;
 	private int idUnidadEjecutora;
+		
+	//APROBACION
+	private String codigoTipoProceso;
+	private Integer nroProceso;
+	private Integer nroConvocatoria;
+	private String tiempoServicio;
+	private Date fechaSolicitudAprobacionExpediente;
+	private Date fechaAprobacionExpediente;	
+	private boolean aprobado;
 	
 	/*
 	CodigoTipoProceso
@@ -630,6 +639,102 @@ public class PacConsolidadoDto implements Serializable,Cloneable{
 
 	public void setIdUnidadEjecutora(int idUnidadEjecutora) {
 		this.idUnidadEjecutora = idUnidadEjecutora;
+	}
+
+
+
+
+	public String getCodigoTipoProceso() {
+		return codigoTipoProceso;
+	}
+
+
+
+
+	public void setCodigoTipoProceso(String codigoTipoProceso) {
+		this.codigoTipoProceso = codigoTipoProceso;
+	}
+
+
+
+
+	public Integer getNroProceso() {
+		return nroProceso;
+	}
+
+
+
+
+	public void setNroProceso(Integer nroProceso) {
+		this.nroProceso = nroProceso;
+	}
+
+
+
+
+	public Integer getNroConvocatoria() {
+		return nroConvocatoria;
+	}
+
+
+
+
+	public void setNroConvocatoria(Integer nroConvocatoria) {
+		this.nroConvocatoria = nroConvocatoria;
+	}
+
+
+
+
+	public String getTiempoServicio() {
+		return tiempoServicio;
+	}
+
+
+
+
+	public void setTiempoServicio(String tiempoServicio) {
+		this.tiempoServicio = tiempoServicio;
+	}
+
+
+
+
+	public Date getFechaSolicitudAprobacionExpediente() {
+		return fechaSolicitudAprobacionExpediente;
+	}
+
+
+
+
+	public void setFechaSolicitudAprobacionExpediente(Date fechaSolicitudAprobacionExpediente) {
+		this.fechaSolicitudAprobacionExpediente = fechaSolicitudAprobacionExpediente;
+	}
+
+
+
+
+	public Date getFechaAprobacionExpediente() {
+		return fechaAprobacionExpediente;
+	}
+
+
+
+
+	public void setFechaAprobacionExpediente(Date fechaAprobacionExpediente) {
+		this.fechaAprobacionExpediente = fechaAprobacionExpediente;
+	}
+
+
+	public boolean isAprobado() {
+		return aprobado;
+	}
+
+
+
+
+	public void setAprobado(boolean aprobado) {
+		this.aprobado = aprobado;
 	}
 
 

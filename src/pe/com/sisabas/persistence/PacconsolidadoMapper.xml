@@ -233,6 +233,13 @@
 		<result column="FECHA_CERTIFICACION_PRESUPUESTAL" property="fechaCP" jdbcType="DATE"/>
 		<result column="NRO_CERTIFICACION_PRESUPUESTAL" property="nroCP" jdbcType="INTEGER"/>
 		<result column="IdComiteProceso" property="idComiteProceso" jdbcType="INTEGER"/>
+		<result column="CodigoTipoProceso" property="codigoTipoProceso" jdbcType="VARCHAR"/>
+		<result column="NroProceso" property="nroProceso" jdbcType="INTEGER"/>
+		<result column="NroConvocatoria" property="nroConvocatoria" jdbcType="INTEGER"/>
+		<result column="TiempoServicio" property="tiempoServicio" jdbcType="VARCHAR"/>
+		<result column="FechaSolicitudAprobacionExpediente" property="fechaSolicitudAprobacionExpediente" jdbcType="DATE"/>
+		<result column="FechaAprobacionExpediente" property="fechaAprobacionExpediente" jdbcType="DATE"/>
+		
 	</resultMap>	
 
 	<resultMap id="FullResultMap" type="pe.com.sisabas.be.Pacconsolidado">
@@ -2259,5 +2266,5 @@
 	<select id="getPacConsolidado" resultMap="pacConsolidadoDetail" parameterType="pe.com.sisabas.dto.PaoRequest">
 		{call abas.paProgramacionObtenerPacConsolidado(#{anio},#{nroConsolid})}
 	</select>
-				
+
 </mapper>

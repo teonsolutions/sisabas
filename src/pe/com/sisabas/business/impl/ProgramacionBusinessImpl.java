@@ -45,6 +45,7 @@ import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
 import pe.com.sisabas.dto.Resultado;
 import pe.com.sisabas.dto.SeguimientoPagosResponse;
+import pe.com.sisabas.dto.TipoProcesoResponse;
 import pe.com.sisabas.dto.TransactionRequest;
 import pe.com.sisabas.dto.TransactionResponse;
 import pe.com.sisabas.persistence.ComiteprocesoMapper;
@@ -1144,5 +1145,42 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 		result.setEntityTransaction(miembrocomiteporproceso);
 		return result;
 	}
+
+	@Override
+	public Resultado grabarAprobacionPacConsolidado(TransactionRequest<PacConsolidadoDto> request) throws Exception {
+		// TODO Auto-generated method stub
+		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
+		PacConsolidadoDto pac = request.getEntityTransaction();
+		Pacconsolidado pacEdit = pacconsolidadoMapper.selectByPrimaryKeyBasic(pac.getIdPacConsolidado());
+		if(pacEdit != null){
+			pacEdit.setCodigotipoproceso(pac.getCodigoTipoProceso());
+			BigDecimal nroproceso = new BigDecimal(pac.getNroProceso());			
+			pacEdit.setNroproceso(nroproceso);
+			pacEdit.setNroconvocatoria(pac.getNroConvocatoria());
+			pacEdit.setTiemposervicio(pac.getTiempoServicio());
+			pacEdit.setFechasolicitudaprobacionexpediente(pac.getFechaSolicitudAprobacionExpediente());			
+			if (pac.isAprobado() && pacEdit.getFechaaprobacionexpediente() == null){
+				pacEdit.setFechaaprobacionexpediente(new Date());
+			}			
+			pacconsolidadoMapper.updateByPrimaryKey(pacEdit);
+		}
+
+		return result;
+	}
+
+	@Override
+	public Resultado derivarExpediente(TransactionRequest<PacConsolidadoDto> request) throws Exception {
+		// TODO Auto-generated method stub
+		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
+		PacConsolidadoDto pac = request.getEntityTransaction();
+		Pacconsolidado pacEdit = pacconsolidadoMapper.selectByPrimaryKeyBasic(pac.getIdPacConsolidado());
+		if(pacEdit != null){
+			pacEdit.setFechaaprobacionexpediente(new Date());
+			pacconsolidadoMapper.updateByPrimaryKey(pacEdit);
+		}
+
+		return result;
+	}
+
 
 }

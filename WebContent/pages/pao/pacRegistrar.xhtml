@@ -574,21 +574,6 @@
 										update=":form:tabViewPao:accAprobacion:pnlBotonesMiembroComite"
 										immediate="true" />
 									<p:column styleClass="c_numeric"
-										sortBy="#{var.idmiembrocomiteproceso}">
-										<f:facet name="header">
-											<h:outputText value="ID" styleClass="c_numeric" />
-										</f:facet>
-										<h:outputText value="#{var.idmiembrocomiteproceso}" />
-									</p:column>
-									<p:column styleClass="c_numeric"
-										sortBy="#{var.comiteprocesoIdcomiteproceso.idcomiteproceso}">
-										<f:facet name="header">
-											<h:outputText value="ComitéProceso" styleClass="c_numeric" />
-										</f:facet>
-										<h:outputText
-											value="#{var.comiteprocesoIdcomiteproceso.idcomiteproceso}" />
-									</p:column>
-									<p:column styleClass="c_numeric"
 										sortBy="#{var.personaIdpersona.nombres}">
 										<f:facet name="header">
 											<h:outputText value="Persona" styleClass="c_numeric" />
@@ -627,46 +612,6 @@
 										</f:facet>
 										<h:outputText value="#{var.celular}" />
 									</p:column>
-									<p:column styleClass="c_center" sortBy="#{var.esnotificado}">
-										<f:facet name="header">
-											<h:outputText value="Notificado" styleClass="c_center" />
-										</f:facet>
-										<h:graphicImage url="/resources/img/check.png" width="10"
-											height="10" rendered="#{var.esnotificado=='1'}" />
-									</p:column>
-									<p:column styleClass="c_string"
-										sortBy="#{var.codigooficinausuaria}">
-										<f:facet name="header">
-											<h:outputText value="Código Oficina Usuaria"
-												styleClass="c_string" />
-										</f:facet>
-										<h:outputText value="#{var.codigooficinausuaria}" />
-									</p:column>
-									<p:column styleClass="c_string"
-										sortBy="#{var.nombreoficinausuaria}">
-										<f:facet name="header">
-											<h:outputText value="Nombre Oficina Usuaria"
-												styleClass="c_string" />
-										</f:facet>
-										<h:outputText value="#{var.nombreoficinausuaria}" />
-									</p:column>
-									<p:column styleClass="c_center"
-										sortBy="#{var.gentablaIdcatalogoestadomiembrocomite.vchregdescri}">
-										<f:facet name="header">
-											<h:outputText value="Estado Miembro Comite"
-												styleClass="c_center" />
-										</f:facet>
-										<h:outputText
-											value="#{var.gentablaIdcatalogoestadomiembrocomite.vchregdescri}" />
-									</p:column>
-									<p:column styleClass="c_center"
-										sortBy="#{var.esespecialistaasignado}">
-										<f:facet name="header">
-											<h:outputText value="Especialista Asignado"
-												styleClass="c_center" />
-										</f:facet>
-										<h:outputText value="#{var.esespecialistaasignado}" />
-									</p:column>
 								</p:dataTable>
 								<p:confirmDialog id="cdEliminarMiembroComite"
 									message="Esta seguro de eliminar este registro?"
@@ -690,20 +635,19 @@
 										<td><p:outputLabel value="Tipo de proceso"
 												for="ddlTipoProceso" id="lblTipoProceso" /></td>
 										<td><p:selectOneMenu
-												value="#{programacion.currentPao.pacConsolidado.idCatalogoEstadoPac}"
+												value="#{programacion.currentPao.pacConsolidado.codigoTipoProceso}"
 												id="ddlTipoProceso" required="false" label="Estado de PAC">
 												<f:selectItem itemLabel="--Seleccione--" itemValue="" />
-												<f:selectItems
-													value="#{programacion.listaGentablaIdcatalogoestadopac}"
-													var="var" itemLabel="#{var.vchregdescri}"
-													itemValue="#{var.vchregcodigo}" />
+												<f:selectItems value="#{programacion.listaTipoProceso}"
+													var="var" itemLabel="#{var.descripcion}"
+													itemValue="#{var.codigo}" />
 											</p:selectOneMenu></td>
 										<td><p:outputLabel value="Número de proceso"
 												for="txtNroProceso" id="lblNroProceso" /></td>
 										<td><p:inputText id="txtNroProceso" required="true"
 												maxlength="10" style="width:150px;"
 												label="Número de proceso" disabled="false"
-												value="#{programacion.currentPao.pacConsolidado.cantidad}">
+												value="#{programacion.currentPao.pacConsolidado.nroProceso}">
 											</p:inputText></td>
 									</tr>
 									<tr>
@@ -711,16 +655,16 @@
 												for="txtNroConvocatoria" id="lblNroConvocatoria" /></td>
 										<td><p:inputText id="txtNroConvocatoria" required="true"
 												maxlength="10" style="width:150px;"
-												label="Número de convocatoria" disabled="true"
-												value="#{programacion.currentPao.pacConsolidado.cantidad}">
+												label="Número de convocatoria" disabled="false"
+												value="#{programacion.currentPao.pacConsolidado.nroConvocatoria}">
 											</p:inputText></td>
 										<td><p:outputLabel
 												value="Tiempo de servicio (total en días)"
 												for="txtTiempoServicio" id="lblTiempoServicio" /></td>
 										<td><p:inputText id="txtTiempoServicio" required="true"
 												maxlength="10" style="width:150px;"
-												label="Tiempo de servicio (total en días)" disabled="true"
-												value="#{programacion.currentPao.pacConsolidado.cantidad}">
+												label="Tiempo de servicio (total en días)" disabled="false"
+												value="#{programacion.currentPao.pacConsolidado.tiempoServicio}">
 											</p:inputText></td>
 									</tr>
 									<tr>
@@ -729,7 +673,7 @@
 												for="txtFechasolicitudAprobacion"
 												id="lblFechasolicitudAprobacion" /></td>
 										<td><p:calendar id="txtFechasolicitudAprobacion"
-												value="#{programacion.currentPao.pacConsolidado.cantidad}"
+												value="#{programacion.currentPao.pacConsolidado.fechaSolicitudAprobacionExpediente}"
 												required="false" pattern="dd/MM/yyyy"
 												label="Fecha de solicitud" navigator="true" locale="es"
 												styleClass="dateTimeField" /></td>
@@ -737,15 +681,14 @@
 												value="Fecha de aprobación de expediente"
 												for="txtFechaAprobacion" id="lblFechaAprobacion" /></td>
 										<td><p:calendar id="txtFechaAprobacion"
-												value="#{programacion.currentPao.pacConsolidado.cantidad}"
+												value="#{programacion.currentPao.pacConsolidado.fechaAprobacionExpediente}"
 												required="false" pattern="dd/MM/yyyy"
 												label="Fecha de aprobación de expediente" navigator="true"
-												locale="es" styleClass="dateTimeField" /></td>
+												disabled="true" locale="es" styleClass="dateTimeField" /></td>
 									</tr>
 								</table>
 							</p:tab>
 						</p:accordionPanel>
-
 						<p:commandButton value="Guardar" icon="fa fa-pencil"
 							title="Guardar datos generales"
 							disabled="#{!programacion.esSeleccionado}"
@@ -754,6 +697,12 @@
 							update="form:msgs" />
 						<p:commandButton value="Cancelar" action="#{programacion.load}"
 							ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Cancelar" />
+						<p:commandButton value="Derivar" icon="fa fa-send"
+							title="Derivar a proceso de selección"
+							disabled="#{!programacion.esSeleccionado}"
+							action="#{programacion.derivarExpediente}"
+							rendered="#{programacion.renderButton('btnDerivar')}"
+							update="form:msgs" />
 					</p:tab>
 				</p:tabView>
 
