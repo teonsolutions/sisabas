@@ -99,6 +99,10 @@
     <filter-class>
              org.primefaces.webapp.filter.FileUploadFilter
   </filter-class>
+   <init-param>
+          <param-name>uploadDirectory</param-name>
+          <param-value>D:\svn\trunk\WebContent\upload\</param-value>
+    </init-param>
   </filter>
   <filter-mapping>
     <filter-name>PrimeFaces FileUpload Filter</filter-name>
