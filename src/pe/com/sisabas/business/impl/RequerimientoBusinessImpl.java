@@ -156,7 +156,9 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 		    documentoTecnico.setIdcatalogotipotdr(especificacionTecnica.getTipoEsp());
 		    documentoTecnico.setNropac(especificacionTecnica.getNroPac());
 		    documentoTecnico.setNroanexoresponsable(especificacionTecnica.getNroAnexo());
+		    documentoTecnico.setRutaanexo(especificacionTecnica.getRutaAnexo());
 		    
+		    System.err.println("-----------------------------------------[Business]rutaAnexo es:----------------------------------- = "+documentoTecnico.getRutaanexo());
 		    
 		    Gentabla gentabla = new Gentabla();
 		    gentabla.setVchregcodigo(especificacionTecnica.getTipoEsp()); 
@@ -286,6 +288,7 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 		    documentoTecnico.setIdcatalogotipotdr(especificacionTecnica.getTipoEsp());
 		    documentoTecnico.setNropac(especificacionTecnica.getNroPac());
 		    documentoTecnico.setNroanexoresponsable(especificacionTecnica.getNroAnexo());
+		    documentoTecnico.setRutaanexo(especificacionTecnica.getRutaAnexo());
 		     
 		    Gentabla gentabla = new Gentabla();
 		    gentabla.setVchregcodigo(especificacionTecnica.getTipoEsp()); 
