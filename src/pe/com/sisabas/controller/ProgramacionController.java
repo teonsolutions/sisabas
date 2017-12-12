@@ -102,6 +102,7 @@ public class ProgramacionController extends BaseController {
 	// To functionality
 	private boolean disabledTabEstudioMercado;
 	private boolean disabledTabOrden;
+	private boolean disabledTabAprobacion;
 
 	private String idOpcionText = "OPC_PAO";
 	public List<Gentabla> listaGentablaIdcatalogoestadopac;
@@ -236,10 +237,9 @@ public class ProgramacionController extends BaseController {
 			listaGentablaIdcatalogoestadoentregable = gentablaBusiness
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EENT));
 
-			// Pac consolidado			
-			listaGentablaIdcatalogomeses = gentablaBusiness
-					.getItems(Constantes.tabla.MESS);
-			
+			// Pac consolidado
+			listaGentablaIdcatalogomeses = gentablaBusiness.getItems(Constantes.tabla.MESS);
+
 			listaGentablaIdcatalogotipomiembro = gentablaBusiness
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.CAMI));
 			listaGentablaIdcatalogoestadomiembrocomite = gentablaBusiness
@@ -293,14 +293,19 @@ public class ProgramacionController extends BaseController {
 	// METHODS
 	public void buscarFuente() {
 		try {
-			Cuadrocomparativofuente param = new Cuadrocomparativofuente();
-			param.setIdpacconsolidado(this.currentPao.getIdPacConsolid());
-			listaCuadrocomparativofuente = cuadroComparativoFuenteBusiness.selectDynamicFull(param);
-			setEsSeleccionadoFuente(false);
-			setSelectedCuadrocomparativofuente(null);
-			if (listaCuadrocomparativofuente.size() == 0)
-				addMessageKey("msgsForm", Messages.getString("no.records.found"), FacesMessage.SEVERITY_INFO);
 
+			if (this.currentPao.getIdPacConsolid() != null){
+				Cuadrocomparativofuente param = new Cuadrocomparativofuente();
+				param.setIdpacconsolidado(this.currentPao.getIdPacConsolid());
+				listaCuadrocomparativofuente = cuadroComparativoFuenteBusiness.selectDynamicFull(param);
+				setEsSeleccionadoFuente(false);
+				setSelectedCuadrocomparativofuente(null);
+				if (listaCuadrocomparativofuente.size() == 0)
+					addMessageKey("msgsForm", Messages.getString("no.records.found"), FacesMessage.SEVERITY_INFO);
+
+			}else{
+				listaCuadrocomparativofuente = new ArrayList<Cuadrocomparativofuente>();
+			}
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
 		} catch (SecurityRestrictedControlException e) {
@@ -450,12 +455,7 @@ public class ProgramacionController extends BaseController {
 			if (this.currentPao == null) {
 				this.currentPao = new PaoResponse();
 			}
-
-			this.setDisabledTabEstudioMercado(
-					this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
-			this.setDisabledTabOrden(
-					this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
-
+			activeTabs();
 			PaoRequest record = new PaoRequest();
 			record.setIdUnidadEjecutora(1);
 			record.setAnio(usuario != null ? usuario.getPeriodo().getAnio() : 0);
@@ -476,7 +476,9 @@ public class ProgramacionController extends BaseController {
 			 */
 
 			// Estudio del Mercado
-			buscarFuente();
+			if (this.currentPao.getIdPacConsolid() != null)
+				buscarFuente();
+
 			buscarValorReferencialFinal();
 			buscarOrden();
 
@@ -519,7 +521,7 @@ public class ProgramacionController extends BaseController {
 				transactionRequest.setEquipoAuditoria(getRemoteAddr());
 				transactionRequest.setEntityTransaction(cDirecta);
 				Resultado result = programacionBusiness.grabarCompraDirecta(transactionRequest);
-
+				activeTabs();
 				REGISTER_SUCCESS();
 				buscarPao();
 			}
@@ -575,9 +577,13 @@ public class ProgramacionController extends BaseController {
 			transactionRequest.setEquipoAuditoria(getRemoteAddr());
 			transactionRequest.setEntityTransaction(pacConsolid);
 			Resultado result = programacionBusiness.grabarPacConsolidado(transactionRequest);
-
+			if (this.currentPao.getIdPacConsolid() == null) {
+				this.currentPao.setIdPacConsolid(result.getResultInt());
+				this.currentPao.getPacConsolidado().setIdPacConsolidado(result.getResultInt());
+			}
+			activeTabs();
 			REGISTER_SUCCESS();
-			// buscarPao();
+			buscarPao();
 			setPacTabIndex(1); // TabIndex Estudio del mercado
 			// }
 			showGrowlMessageSuccessfullyCompletedAction();
@@ -937,7 +943,7 @@ public class ProgramacionController extends BaseController {
 		STATUS_INIT();
 		try {
 			securityControlValidate("btnNuevoMiembroComite");
-			resetRegisterForm();
+			resetRegisterFormMiembroComite();
 			accion = REGISTRAR;
 			tituloBase = "Miembro Comite » " + REGISTRAR;
 			miembrocomiteporproceso = new Miembrocomiteporproceso();
@@ -1156,32 +1162,39 @@ public class ProgramacionController extends BaseController {
 
 	public void buscarMiembroComite() {
 		try {
-			List<String> ordenListaCampos = new ArrayList<String>();
-			ordenListaCampos.add("A1.IDMIEMBROCOMITEPROCESO");
-			Miembrocomiteporproceso miembrocomiteporproceso = new Miembrocomiteporproceso();
-			miembrocomiteporproceso.setOrdenListaCampos(ordenListaCampos);
-			miembrocomiteporproceso.setOrdenTipo("DESC");
+			if (this.currentPao.getPacConsolidado().getIdComiteProceso() != null) {
 
-			// Add conditions IN clause
-			miembrocomiteporproceso.addConditionInIdcatalogotipomiembro(null);
-			miembrocomiteporproceso.addConditionInIdcatalogoestadomiembrocomite(null);
-			// miembrocomiteporproceso.setIdcomiteproceso(currentPao.getIdTipoBien());
-			miembrocomiteporproceso.setIdcomiteproceso(this.currentPao.getPacConsolidado().getIdComiteProceso());
+				List<String> ordenListaCampos = new ArrayList<String>();
+				ordenListaCampos.add("A1.IDMIEMBROCOMITEPROCESO");
+				Miembrocomiteporproceso miembrocomiteporproceso = new Miembrocomiteporproceso();
+				miembrocomiteporproceso.setOrdenListaCampos(ordenListaCampos);
+				miembrocomiteporproceso.setOrdenTipo("DESC");
 
-			// pe.com.sisabas.resources.Utils.convertPropertiesStringToUppercase(miembrocomiteporproceso);
-			// // pasa
-			// a
-			// mayusculas
-			// los
-			// datos
-			// para
-			// la
-			// busqueda
-			listaMiembrocomiteporproceso = miembrocomiteporprocesoBusiness.selectDynamicFull(miembrocomiteporproceso);
-			setEsSeleccionadoMiembroComite(false);
-			setSelectedMiembrocomiteporproceso(null);
-			if (listaMiembrocomiteporproceso.size() == 0)
-				addMessageKey("msgsForm", Messages.getString("no.records.found"), FacesMessage.SEVERITY_INFO);
+				// Add conditions IN clause
+				miembrocomiteporproceso.addConditionInIdcatalogotipomiembro(null);
+				miembrocomiteporproceso.addConditionInIdcatalogoestadomiembrocomite(null);
+				// miembrocomiteporproceso.setIdcomiteproceso(currentPao.getIdTipoBien());
+				miembrocomiteporproceso.setIdcomiteproceso(this.currentPao.getPacConsolidado().getIdComiteProceso());
+
+				// pe.com.sisabas.resources.Utils.convertPropertiesStringToUppercase(miembrocomiteporproceso);
+				// // pasa
+				// a
+				// mayusculas
+				// los
+				// datos
+				// para
+				// la
+				// busqueda
+				listaMiembrocomiteporproceso = miembrocomiteporprocesoBusiness
+						.selectDynamicFull(miembrocomiteporproceso);
+				setEsSeleccionadoMiembroComite(false);
+				setSelectedMiembrocomiteporproceso(null);
+				if (listaMiembrocomiteporproceso.size() == 0)
+					addMessageKey("msgsForm", Messages.getString("no.records.found"), FacesMessage.SEVERITY_INFO);
+
+			}else{
+				listaMiembrocomiteporproceso = new ArrayList<Miembrocomiteporproceso>();
+			}
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
 		} catch (SecurityRestrictedControlException e) {
@@ -1360,6 +1373,16 @@ public class ProgramacionController extends BaseController {
 
 	// ***************************************************SECCION
 	// PAC******************************************************************
+
+	private void activeTabs() {
+		this.setDisabledTabEstudioMercado(
+				this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
+		this.setDisabledTabOrden(this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
+
+		this.setDisabledTabAprobacion(
+				this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
+	}
+
 	public String pacRegistrar() {
 		logger.debug("pacRegistrar....");
 		try {
@@ -1373,12 +1396,7 @@ public class ProgramacionController extends BaseController {
 			if (this.currentPao == null) {
 				this.currentPao = new PaoResponse();
 			}
-
-			this.setDisabledTabEstudioMercado(
-					this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
-			this.setDisabledTabOrden(
-					this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
-
+			activeTabs();
 			PaoRequest record = new PaoRequest();
 			record.setIdUnidadEjecutora(1);
 			record.setAnio(usuario != null ? usuario.getPeriodo().getAnio() : 0);
@@ -1390,10 +1408,10 @@ public class ProgramacionController extends BaseController {
 				pac = new PacConsolidadoDto();
 			this.currentPao.setPacConsolidado(pac);
 
-			// Estudio del Mercado
+			// Estudio del Mercado			
 			buscarFuente();
 			buscarValorReferencialFinal();
-			setPacTabIndex(0); // TabIndex default
+			//setPacTabIndex(0); // TabIndex default
 			buscarMiembroComite();
 		} catch (Exception e) {
 			addErrorMessage(e);
@@ -1731,6 +1749,14 @@ public class ProgramacionController extends BaseController {
 
 	public void setListaEstadoRequerimiento(List<EstadoRequerimientoResponse> listaEstadoRequerimiento) {
 		this.listaEstadoRequerimiento = listaEstadoRequerimiento;
+	}
+
+	public boolean isDisabledTabAprobacion() {
+		return disabledTabAprobacion;
+	}
+
+	public void setDisabledTabAprobacion(boolean disabledTabAprobacion) {
+		this.disabledTabAprobacion = disabledTabAprobacion;
 	}
 
 }

@@ -413,7 +413,7 @@
 							disabled="#{!programacion.esSeleccionado}"
 							action="#{programacion.guardarPacConsolidado}"
 							rendered="#{programacion.renderButton('btnGuadarPacConsolidado')}"
-							update="form:msgs" />
+							update="form:msgs,form:panel" />
 						<p:commandButton value="Cancelar" action="#{programacion.load}"
 							ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Cancelar" />
 					</p:tab>
@@ -529,7 +529,7 @@
 						</p:fieldset>
 					</p:tab>
 					<p:tab title="Aprobación de expediente"
-						disabled="#{programacion.disabledTabOrden}">
+						disabled="#{programacion.disabledTabAprobacion}">
 						<p:accordionPanel id="accAprobacion" multiple="true"
 							activeIndex="0,1,2,3,4">
 							<p:tab title="Miembros de comité">
@@ -544,11 +544,11 @@
 											rendered="#{programacion.renderButton('btnNuevoMiembroComite')}" />
 										<p:commandButton value="Editar"
 											action="#{programacion.irEditarMiembroComite}"
-											update="hidStatus,:frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar"
+											update="form:tabViewPao:accAprobacion:hidStatus,:frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar"
 											oncomplete="showDialog('form:tabViewPao:accAprobacion:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar');"
 											icon="ui-icon-pencil"
 											disabled="#{!programacion.esSeleccionadoMiembroComite}"
-											rendered="#{miembrocomiteporproceso.renderButton('btnEditarMiembroComite')}" />
+											rendered="#{programacion.renderButton('btnEditarMiembroComite')}" />
 										<p:commandButton value="Eliminar"
 											action="#{programacion.irEliminarMiembroComite}"
 											update="hidStatus"

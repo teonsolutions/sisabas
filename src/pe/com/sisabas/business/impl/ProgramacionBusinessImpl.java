@@ -967,7 +967,8 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 				// END AUDITORIA
 
 				pacconsolidadoMapper.updateByPrimaryKey(pc);
-				idPacConsolidado = pc.getIdpacconsolidado();
+				idPacConsolidado = pc.getIdpacconsolidado();		
+				result.setResultInt(idPacConsolidado);
 			}
 		} else {
 			saveEstado = true;
@@ -1032,27 +1033,30 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			// END AUDITORIA
 
 			pacconsolidadoMapper.insert(pc);
-		}
+			
+			//SOLO CUANDO ES NUEVO INSERTA PEDIDOS				
+			if (pac.getIdTipoNecesidad().equals(Constantes.tipoNecesidad.TIPO_NECESIDAD_NO_PROGRAMADO)) {
+				// PEDIDOS POR PAC CONSOLIDADO
+				List<PedidosPaoResponse> pedidos = pac.getPedidos();
+				for (int i = 0; i < pedidos.size(); i++) {
+					//pedidos.get(i).getEstadoPedido()
+					Pedidosporpacconsolidado pedidoItem = new Pedidosporpacconsolidado();
+					pedidoItem.setIdpedidoporpacconsolidado(
+							(int) utilsBusiness.getNextSeq(Sequence.SEQ_PEDIDOSPORPACCONSOLIDADO).longValue());
+					pedidoItem.setIdpacconsolidado(idPacConsolidado);
+					pedidoItem.setIdpedido(pedidos.get(i).getIdPedido());
+					pedidoItem.setFechacreacionauditoria(new Date());
+					pedidoItem.setEquipoauditoria(request.getEquipoAuditoria());
+					pedidoItem.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+					pedidoItem.setProgramaauditoria(request.getProgramaAuditoria());
+					pedidoItem.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+					pedidosporpacconsolidadoMapper.insert(pedidoItem);
+				}
 
-		if (pac.getIdTipoNecesidad().equals(Constantes.tipoNecesidad.TIPO_NECESIDAD_NO_PROGRAMADO)) {
-			// PEDIDOS POR PAC CONSOLIDADO
-			List<PedidosPaoResponse> pedidos = pac.getPedidos();
-			for (int i = 0; i < pedidos.size(); i++) {
-				//pedidos.get(i).getEstadoPedido()
-				Pedidosporpacconsolidado pedidoItem = new Pedidosporpacconsolidado();
-				pedidoItem.setIdpedidoporpacconsolidado(
-						(int) utilsBusiness.getNextSeq(Sequence.SEQ_PEDIDOSPORPACCONSOLIDADO).longValue());
-				pedidoItem.setIdpacconsolidado(idPacConsolidado);
-				pedidoItem.setIdpedido(pedidos.get(i).getIdPedido());
-				pedidoItem.setFechacreacionauditoria(new Date());
-				pedidoItem.setEquipoauditoria(request.getEquipoAuditoria());
-				pedidoItem.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
-				pedidoItem.setProgramaauditoria(request.getProgramaAuditoria());
-				pedidoItem.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
-				pedidosporpacconsolidadoMapper.insert(pedidoItem);
-			}
-
-			// SINAD POR PAC CONSOLIDADO
+				// SINAD POR PAC CONSOLIDADO
+			}	
+			
+			result.setResultInt(idPacConsolidado);
 		}
 
 		// ESTADO: EN ESTUDIO DEL MERCADO
