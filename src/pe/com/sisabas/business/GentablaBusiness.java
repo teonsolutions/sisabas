@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import pe.com.sisabas.be.Gentabla;
 import pe.com.sisabas.dto.EstadoRequerimientoResponse;
+import pe.com.sisabas.dto.GentablaItemResponse;
 import pe.com.sisabas.dto.TipoProcesoResponse;
 
 public interface GentablaBusiness{
@@ -48,7 +49,9 @@ public interface GentablaBusiness{
 	public void updateByPrimaryKeyFull(Gentabla record) throws Exception;
 
 	//CUSTOM
-	List<TipoProcesoResponse> getTipoProceso(@Param("anio") Integer anio) throws Exception;
+	public List<TipoProcesoResponse> getTipoProceso(@Param("anio") Integer anio) throws Exception;
 	
-	List<EstadoRequerimientoResponse> getEstadoRequerimiento(@Param("idEtapaAdministrativa") Integer idEtapaAdministrativa) throws Exception;
+	public List<EstadoRequerimientoResponse> getEstadoRequerimiento(@Param("idEtapaAdministrativa") Integer idEtapaAdministrativa) throws Exception;
+	
+	public List<GentablaItemResponse> getItems(String tipo) throws Exception;	
 }

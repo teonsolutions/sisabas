@@ -208,6 +208,7 @@
 		<result column="NRO_PAC" property="nroPac" jdbcType="VARCHAR"/>
 		<result column="ID_TIPO_NECESIDAD" property="idCatalogoTipoNecesidad" jdbcType="VARCHAR"/>
 		<result column="IdCatalogoTipoContratacion" property="idCatalogoTipoContratacion" jdbcType="VARCHAR"/>
+		<result column="TIPO_CONTRATACION_DESC" property="tipoContratacionDesc" jdbcType="VARCHAR"/>		
 		<result column="ESTADO_REQUERIMIENTO" property="estadoRequerimiento" jdbcType="INTEGER"/>
 		<result column="ESTADO_REQUERIMIENTO_DSC" property="estadoRequerimientoDesc" jdbcType="VARCHAR"/>
 		<result column="VALOR_ESTIMADO_CONTRATACION" property="valorEstimadoContratacion" jdbcType="DOUBLE"/>

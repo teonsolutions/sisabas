@@ -61,6 +61,7 @@ import pe.com.sisabas.dto.CuadroComparativoVrDto;
 import pe.com.sisabas.dto.EstadoRequerimientoResponse;
 import pe.com.sisabas.dto.EvaluacionDocumentoRequest;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
+import pe.com.sisabas.dto.GentablaItemResponse;
 import pe.com.sisabas.dto.Lugar;
 import pe.com.sisabas.dto.OrdenDto;
 import pe.com.sisabas.dto.PacConsolidadoDto;
@@ -112,7 +113,7 @@ public class ProgramacionController extends BaseController {
 	public List<Gentabla> listaGentablaIdcatalogomonedafuente;
 	public List<Gentabla> listaGentablaIdcatalogoestadoentregable;
 	public List<Gentabla> listaGentablaIdcatalogotipodocumento;
-	public List<Gentabla> listaGentablaIdcatalogomeses;
+	public List<GentablaItemResponse> listaGentablaIdcatalogomeses;
 
 	// Direct
 	public static String SUCCESS_ORDEN = "/pages/pao/ordenRegistrar.xhtml?faces-redirect=true;";
@@ -136,7 +137,7 @@ public class ProgramacionController extends BaseController {
 	public List<Gentabla> listaGentablaIdcatalogoestadomiembrocomite;
 	public List<TipoProcesoResponse> listaTipoProceso;
 	public List<EstadoRequerimientoResponse> listaEstadoRequerimiento;
-	
+
 	private boolean esSeleccionadoFuente;
 	private String tituloFuente;
 	private String tituloControlProducto;
@@ -220,9 +221,10 @@ public class ProgramacionController extends BaseController {
 			listaGentablaIdcatalogotipodocumento = gentablaBusiness
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.DPRO));
 
-			//tablas maestras
+			// tablas maestras
 			listaTipoProceso = gentablaBusiness.getTipoProceso(usuario.getPeriodo().getAnio());
-			listaEstadoRequerimiento = gentablaBusiness.getEstadoRequerimiento(Constantes.etapaAdministrativa.PROGRAMACION_Y_COSTOS);
+			listaEstadoRequerimiento = gentablaBusiness
+					.getEstadoRequerimiento(Constantes.etapaAdministrativa.PROGRAMACION_Y_COSTOS);
 
 			// Estudio del mercado
 			listaGentablaIdcatalogotipofuente = gentablaBusiness
@@ -234,14 +236,14 @@ public class ProgramacionController extends BaseController {
 			listaGentablaIdcatalogoestadoentregable = gentablaBusiness
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EENT));
 
-			// Pac consolidado
+			// Pac consolidado			
 			listaGentablaIdcatalogomeses = gentablaBusiness
-					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.MESS));
+					.getItems(Constantes.tabla.MESS);
+			
 			listaGentablaIdcatalogotipomiembro = gentablaBusiness
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.CAMI));
 			listaGentablaIdcatalogoestadomiembrocomite = gentablaBusiness
-					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EMCO));	
-
+					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EMCO));
 
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
@@ -380,7 +382,7 @@ public class ProgramacionController extends BaseController {
 	public void resetRegisterFormRequisito() {
 		reset("frmControlProductoRegistrar:panelC");
 	}
-	
+
 	public void resetRegisterFormMiembroComite() {
 		reset("frmMiembrocomiteporprocesoRegistrar:panelC");
 	}
@@ -405,7 +407,7 @@ public class ProgramacionController extends BaseController {
 		else
 			this.setMiembrocomiteporproceso((Miembrocomiteporproceso) this.selectedMiembrocomiteporproceso.clone());
 	}
-	
+
 	public String paoRegistrar() {
 		logger.debug("paoRegistrar....");
 		String redirect = "";
@@ -422,7 +424,7 @@ public class ProgramacionController extends BaseController {
 			}
 
 			// EVALUATE IF THE PAO HAS MORE S/. 31600
-			if (currentPao.getValorMoneda() >= Constantes.paramentro.PAC_VALOR) {
+			if (currentPao.getValorMoneda() > Constantes.paramentro.PAC_VALOR) {
 				redirect = pacRegistrar();
 			} else {
 				redirect = ordenRegistrar();
@@ -559,7 +561,11 @@ public class ProgramacionController extends BaseController {
 			pacConsolid.setIdUnidadEjecutora(Constantes.unidadEjecutora.ID_UNIDAD_EJECUTORA_ABAS);
 			pacConsolid.setAnio(usuario.getPeriodo().getAnio());
 			pacConsolid.setCodigoCentroCosto(usuario.getPeriodo().getCodigoCentroCosto());
-			pacConsolid.setIdTipoContratacion(Constantes.tipoContratacion.NO_PAC);
+
+			if (pacConsolid.getIdCatalogoTipoNecesidad().equals(Constantes.tipoNecesidad.TIPO_NECESIDAD_PROGRAMADO))
+				pacConsolid.setIdTipoContratacion(Constantes.tipoContratacion.PAC);
+			else
+				pacConsolid.setIdTipoContratacion(Constantes.tipoContratacion.NO_PAC);
 			// pacConsolid.setTipoProceso(Constantes.maestroProcesoSiga.ADJUDIACION_SIN_PROCESO);
 
 			// VALIDAR SI ESTÁ EN GIRO DE ORDEN O ESTUDIO DEL MERCADO
@@ -647,7 +653,7 @@ public class ProgramacionController extends BaseController {
 				addMessageKey("msgsDocumentotecnicoR", "Teminó la sesión", FacesMessage.SEVERITY_ERROR);
 				return;
 			}
-			
+
 			TransactionRequest<PacConsolidadoDto> request = new TransactionRequest<PacConsolidadoDto>();
 			request.setUsuarioAuditoria(getUserLogin());
 			request.setEquipoAuditoria(getRemoteAddr());
@@ -682,7 +688,7 @@ public class ProgramacionController extends BaseController {
 				addMessageKey("msgsDocumentotecnicoR", "Teminó la sesión", FacesMessage.SEVERITY_ERROR);
 				return;
 			}
-			
+
 			TransactionRequest<PacConsolidadoDto> request = new TransactionRequest<PacConsolidadoDto>();
 			request.setUsuarioAuditoria(getUserLogin());
 			request.setEquipoAuditoria(getRemoteAddr());
@@ -706,7 +712,7 @@ public class ProgramacionController extends BaseController {
 			addErrorMessageKey("msgsDocumentotecnicoR", e);
 		}
 	}
-	
+
 	public void irRegistrarFuente() {
 		STATUS_INIT();
 		try {
@@ -902,8 +908,8 @@ public class ProgramacionController extends BaseController {
 	public void loadRegIdcomiteproceso(org.primefaces.event.SelectEvent event) {
 		try {
 			logger.debug("loadRegComiteproceso.event...");
-			pe.com.sisabas.be.Comiteproceso item= (pe.com.sisabas.be.Comiteproceso) event.getObject();
-			logger.debug("loadmiembrocomiteporproceso.event...:"+item.getIdcomiteproceso());
+			pe.com.sisabas.be.Comiteproceso item = (pe.com.sisabas.be.Comiteproceso) event.getObject();
+			logger.debug("loadmiembrocomiteporproceso.event...:" + item.getIdcomiteproceso());
 			miembrocomiteporproceso.setIdcomiteproceso(item.getIdcomiteproceso());
 			miembrocomiteporproceso.setComiteprocesoIdcomiteproceso(item);
 			logger.debug("loadComiteproceso.event...ok");
@@ -912,12 +918,12 @@ public class ProgramacionController extends BaseController {
 			addErrorMessageKey("msgsForm", e);
 		}
 	}
-	
+
 	public void loadRegIdpersona(org.primefaces.event.SelectEvent event) {
 		try {
 			logger.debug("loadRegPersona.event...");
-			pe.com.sisabas.be.Persona item= (pe.com.sisabas.be.Persona) event.getObject();
-			logger.debug("loadmiembrocomiteporproceso.event...:"+item.getIdpersona());
+			pe.com.sisabas.be.Persona item = (pe.com.sisabas.be.Persona) event.getObject();
+			logger.debug("loadmiembrocomiteporproceso.event...:" + item.getIdpersona());
 			miembrocomiteporproceso.setIdpersona(item.getIdpersona());
 			miembrocomiteporproceso.setPersonaIdpersona(item);
 			logger.debug("loadPersona.event...ok");
@@ -926,7 +932,7 @@ public class ProgramacionController extends BaseController {
 			addErrorMessageKey("msgsForm", e);
 		}
 	}
-	
+
 	public void irRegistrarMiembroComite() {
 		STATUS_INIT();
 		try {
@@ -1162,14 +1168,15 @@ public class ProgramacionController extends BaseController {
 			// miembrocomiteporproceso.setIdcomiteproceso(currentPao.getIdTipoBien());
 			miembrocomiteporproceso.setIdcomiteproceso(this.currentPao.getPacConsolidado().getIdComiteProceso());
 
-			//pe.com.sisabas.resources.Utils.convertPropertiesStringToUppercase(miembrocomiteporproceso); // pasa
-																										// a
-																										// mayusculas
-																										// los
-																										// datos
-																										// para
-																										// la
-																										// busqueda
+			// pe.com.sisabas.resources.Utils.convertPropertiesStringToUppercase(miembrocomiteporproceso);
+			// // pasa
+			// a
+			// mayusculas
+			// los
+			// datos
+			// para
+			// la
+			// busqueda
 			listaMiembrocomiteporproceso = miembrocomiteporprocesoBusiness.selectDynamicFull(miembrocomiteporproceso);
 			setEsSeleccionadoMiembroComite(false);
 			setSelectedMiembrocomiteporproceso(null);
@@ -1198,12 +1205,13 @@ public class ProgramacionController extends BaseController {
 			request.setUsuarioAuditoria(getUserLogin());
 			request.setEquipoAuditoria(getRemoteAddr());
 			request.setProgramaAuditoria(pe.com.sisabas.resources.Utils.obtenerPrograma(this.getClass()));
-			TransactionResponse<Miembrocomiteporproceso> result = programacionBusiness.grabarMiembrosComite(request, miembrocomiteporproceso);
-			
-			if (accion.equals(REGISTRAR)){
+			TransactionResponse<Miembrocomiteporproceso> result = programacionBusiness.grabarMiembrosComite(request,
+					miembrocomiteporproceso);
+
+			if (accion.equals(REGISTRAR)) {
 				if (this.currentPao.getPacConsolidado().getIdComiteProceso() == null) {
 					this.currentPao.getPacConsolidado()
-							.setIdComiteProceso(result.getEntityTransaction().getIdcomiteproceso()); // IdComiteProceso					
+							.setIdComiteProceso(result.getEntityTransaction().getIdcomiteproceso()); // IdComiteProceso
 				}
 			}
 
@@ -1380,7 +1388,7 @@ public class ProgramacionController extends BaseController {
 			PacConsolidadoDto pac = programacionBusiness.getPacConsolidado(record);
 			if (pac == null)
 				pac = new PacConsolidadoDto();
-			this.currentPao.setPacConsolidado(pac);	
+			this.currentPao.setPacConsolidado(pac);
 
 			// Estudio del Mercado
 			buscarFuente();
@@ -1628,11 +1636,11 @@ public class ProgramacionController extends BaseController {
 		this.esSeleccionadoRequisito = esSeleccionadoRequisito;
 	}
 
-	public List<Gentabla> getListaGentablaIdcatalogomeses() {
+	public List<GentablaItemResponse> getListaGentablaIdcatalogomeses() {
 		return listaGentablaIdcatalogomeses;
 	}
 
-	public void setListaGentablaIdcatalogomeses(List<Gentabla> listaGentablaIdcatalogomeses) {
+	public void setListaGentablaIdcatalogomeses(List<GentablaItemResponse> listaGentablaIdcatalogomeses) {
 		this.listaGentablaIdcatalogomeses = listaGentablaIdcatalogomeses;
 	}
 
@@ -1725,6 +1733,4 @@ public class ProgramacionController extends BaseController {
 		this.listaEstadoRequerimiento = listaEstadoRequerimiento;
 	}
 
-	
-	
 }

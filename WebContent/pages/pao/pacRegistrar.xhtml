@@ -62,21 +62,21 @@
 										<td><p:outputLabel value="Fecha PAO" for="txtFechaPAO"
 												id="lblFechaPAO" /></td>
 
-										<td><p:outputLabel value="Monto del PAO"
+										<td><p:outputLabel value="Monto del PAO S/."
 												for="txtMontoPAO" id="lblMontoPAO" /></td>
 									</tr>
 									<tr>
-										<td><p:inputText id="txtNumeroPAO" required="true"
+										<td><p:inputText id="txtNumeroPAO" required="false"
 												maxlength="10" style="width:150px;" label="Número PAO"
 												disabled="true"
 												value="#{programacion.currentPao.nroConsolid}" /></td>
-										<td><p:inputText id="txtFechaPAO" required="true"
+										<td><p:inputText id="txtFechaPAO" required="false"
 												maxlength="10" style="width:150px;" label="Fecha PAO"
 												disabled="true"
 												value="#{programacion.currentPao.pacConsolidado.fechaPao}">
 												<f:convertDateTime pattern="dd/MM/yyyy" />
 											</p:inputText></td>
-										<td><p:inputNumber id="txtMontoPAO" required="true"
+										<td><p:inputNumber id="txtMontoPAO" required="false"
 												maxlength="10" style="width:150px;" label="Monto del PAO"
 												disabled="true"
 												value="#{programacion.currentPao.valorMoneda}" /></td>
@@ -89,7 +89,7 @@
 										<td></td>
 									</tr>
 									<tr>
-										<td><p:inputText id="txtFechaRecepcion" required="true"
+										<td><p:inputText id="txtFechaRecepcion" required="false"
 												value="#{programacion.currentPao.pacConsolidado.fechaRecepcionDocumentoTecnico}"
 												maxlength="10" style="width:150px;"
 												label="Fecha de recepción" disabled="true">
@@ -140,9 +140,9 @@
 													</f:facet>
 													<h:outputText value="#{var.cantidad}" />
 												</p:column>
-												<p:column headerText="Monto">
+												<p:column headerText="Monto S/.">
 													<f:facet name="header">
-														<h:outputText value="Monto" />
+														<h:outputText value="Monto S/." />
 													</f:facet>
 													<h:outputText value="#{var.monto}" />
 												</p:column>
@@ -221,19 +221,19 @@
 												for="ddlTipoNecesidad" id="lblTipoNecesidad" /></td>
 									</tr>
 									<tr>
-										<td><p:inputText id="txtAntecedentes" required="true"
-												maxlength="10" style="width:150px;" label="Número de CPP"
+										<td><p:inputText id="txtAntecedentes" required="false"
+												maxlength="10" style="width:150px;" label="Antecedentes"
 												disabled="true"
 												value="#{programacion.currentPao.compraDirecta.nroCP}">
 											</p:inputText></td>
-										<td><p:inputText id="txtNumeroReferencia" required="true"
+										<td><p:inputText id="txtNumeroReferencia" required="false"
 												maxlength="10" style="width:150px;"
 												label="Número referencial PAC" disabled="false"
 												value="#{programacion.currentPao.pacConsolidado.nroPac}">
 											</p:inputText></td>
 										<td><p:selectOneMenu
 												value="#{programacion.currentPao.pacConsolidado.idCatalogoTipoNecesidad}"
-												id="ddlTipoNecesidad" required="false"
+												id="ddlTipoNecesidad" required="true"
 												label="Tipo de necesidad">
 												<f:selectItem itemLabel="--Seleccione--" itemValue="" />
 												<f:selectItems
@@ -251,18 +251,18 @@
 												for="txtMontoRequerimiento" id="lblMontoRequerimiento" /></td>
 									</tr>
 									<tr>
-										<td><p:inputText id="txtTipoContratacion" required="true"
+										<td><p:inputText id="txtTipoContratacion" required="false"
 												maxlength="10" style="width:150px;"
 												label="Tipo de contratación" disabled="true"
-												value="#{programacion.currentPao.pacConsolidado.idCatalogoTipoContratacion}">
+												value="#{programacion.currentPao.pacConsolidado.tipoContratacionDesc}">
 											</p:inputText></td>
 										<td><p:inputText id="txtEstadoRequerimiento"
-												required="true" maxlength="10" style="width:150px;"
+												required="false" maxlength="10" style="width:250px;"
 												label="Estado de requerimiento" disabled="true"
 												value="#{programacion.currentPao.pacConsolidado.estadoRequerimientoDesc}">
 											</p:inputText></td>
 										<td><p:inputText id="txtMontoRequerimiento"
-												required="true" maxlength="10" style="width:150px;"
+												required="false" maxlength="10" style="width:150px;"
 												label="Monto de requerimiento" disabled="true"
 												value="#{programacion.currentPao.pacConsolidado.valorEstimadoContratacion}">
 											</p:inputText></td>
@@ -277,20 +277,20 @@
 									</tr>
 									<tr>
 										<td><p:inputText id="txtTipoProcesoInicial"
-												required="true" maxlength="10" style="width:150px;"
+												required="false" maxlength="10" style="width:250px;"
 												label="Estado de proceso inicial" disabled="true"
 												value="#{programacion.currentPao.pacConsolidado.tipoProcesoInicialDesc}">
 											</p:inputText></td>
 										<td><p:selectOneMenu
 												value="#{programacion.currentPao.pacConsolidado.idCatalogoEstadoPac}"
-												id="ddlEstadoPac" required="false" label="Estado de PAC">
+												id="ddlEstadoPac" required="true" label="Estado de PAC">
 												<f:selectItem itemLabel="--Seleccione--" itemValue="" />
 												<f:selectItems
 													value="#{programacion.listaGentablaIdcatalogoestadopac}"
 													var="var" itemLabel="#{var.vchregdescri}"
 													itemValue="#{var.vchregcodigo}" />
 											</p:selectOneMenu></td>
-										<td><p:inputText id="txtUnidadMedida" required="true"
+										<td><p:inputText id="txtUnidadMedida" required="false"
 												maxlength="10" style="width:150px;" label="Unidad de medida"
 												disabled="true"
 												value="#{programacion.currentPao.pacConsolidado.unidadMedidaDesc}">
@@ -302,7 +302,7 @@
 									</tr>
 									<tr>
 										<td colspan="3"><p:inputTextarea id="txtDenominacion"
-												required="true" rows="5" cols="50" queryDelay="750"
+												required="false" rows="3" cols="50" queryDelay="750"
 												minQueryLength="4" disabled="true"
 												value="#{programacion.currentPao.pacConsolidado.descripcionPac}"
 												style="width: 100%" /></td>
@@ -316,22 +316,22 @@
 												id="lblTipoBien" /></td>
 									</tr>
 									<tr>
-										<td><p:inputText id="txtCantidad" required="true"
+										<td><p:inputText id="txtCantidad" required="false"
 												maxlength="10" style="width:150px;" label="Cantidad"
 												disabled="true"
 												value="#{programacion.currentPao.pacConsolidado.cantidad}">
 											</p:inputText></td>
 										<td><p:selectOneMenu
 												value="#{programacion.currentPao.pacConsolidado.mesPrevistoConvocatoria}"
-												id="ddlMesPrevisto" required="false"
+												id="ddlMesPrevisto" required="true"
 												label="Mes previsto de convocatoria">
 												<f:selectItem itemLabel="--Seleccione--" itemValue="" />
 												<f:selectItems
 													value="#{programacion.listaGentablaIdcatalogomeses}"
-													var="var" itemLabel="#{var.vchregdescri}"
-													itemValue="#{var.vchregcodigo}" />
+													var="var" itemLabel="#{var.text}"
+													itemValue="#{var.value}" />
 											</p:selectOneMenu></td>
-										<td><p:inputText id="txtTipoBien" required="true"
+										<td><p:inputText id="txtTipoBien" required="false"
 												maxlength="10" style="width:150px;" label="Tipo de bien"
 												disabled="true"
 												value="#{programacion.currentPao.pacConsolidado.tipoBienDesc}">
@@ -348,23 +348,23 @@
 										<td><p:outputLabel value="Fecha aprobación"
 												for="txtFechaAprobacionCPP" id="lblFechaAprobacionCPP" /></td>
 
-										<td><p:outputLabel value="Monto certificado"
+										<td><p:outputLabel value="Monto certificado S/."
 												for="txtMontoCertificado" id="lblMontoCertificado" /></td>
 									</tr>
 									<tr>
-										<td><p:inputText id="txtNumeroCPP" required="true"
+										<td><p:inputText id="txtNumeroCPP" required="false"
 												maxlength="10" style="width:150px;" label="Número de CPP"
 												disabled="true"
 												value="#{programacion.currentPao.pacConsolidado.nroCP}" /></td>
 										<td><p:inputText id="txtFechaAprobacionCPP"
-												required="true" maxlength="10" style="width:150px;"
+												required="false" maxlength="10" style="width:150px;"
 												label="Fecha aprobación" disabled="true"
 												value="#{programacion.currentPao.pacConsolidado.fechaCP}">
 												<f:convertDateTime pattern="dd/MM/yyyy" />
 											</p:inputText></td>
 										<td><p:inputNumber id="txtMontoCertificado"
-												required="true" maxlength="10" style="width:150px;"
-												label="Monto certificado" disabled="true"
+												required="false" maxlength="10" style="width:150px;"
+												label="Monto certificado S/." disabled="true"
 												value="#{programacion.currentPao.pacConsolidado.montoCP}" /></td>
 									</tr>
 									<tr>
@@ -397,9 +397,9 @@
 													</f:facet>
 													<h:outputText value="#{var.clasificador}" />
 												</p:column>
-												<p:column headerText="Monto">
+												<p:column headerText="Monto S/.">
 													<f:facet name="header">
-														<h:outputText value="Monto" />
+														<h:outputText value="Monto S/." />
 													</f:facet>
 													<h:outputText value="#{var.valor}" />
 												</p:column>

@@ -13,6 +13,7 @@ import pe.com.sisabas.be.Gentabla;
 import pe.com.sisabas.persistence.GentablaMapper;
 import pe.com.sisabas.business.GentablaBusiness;
 import pe.com.sisabas.dto.EstadoRequerimientoResponse;
+import pe.com.sisabas.dto.GentablaItemResponse;
 import pe.com.sisabas.dto.TipoProcesoResponse;
 import pe.com.sisabas.exception.BusinessException;
 import pe.com.sisabas.exception.ValidateException;
@@ -342,6 +343,12 @@ public class GentablaBusinessImpl implements GentablaBusiness, Serializable{
 	public List<EstadoRequerimientoResponse> getEstadoRequerimiento(Integer idEtapaAdministrativa) throws Exception {
 		// TODO Auto-generated method stub
 		return gentablaMapper.getEstadoRequerimiento(idEtapaAdministrativa);
+	}
+
+	@Override
+	public List<GentablaItemResponse> getItems(String tipo) throws Exception {
+		// TODO Auto-generated method stub
+		return gentablaMapper.getItems(tipo);
 	}
 
 

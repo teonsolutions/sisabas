@@ -17,6 +17,7 @@ public class PacConsolidadoDto implements Serializable,Cloneable{
 	private String nroPac;
 	private String idCatalogoTipoNecesidad;
 	private String idCatalogoTipoContratacion;
+	private String tipoContratacionDesc;
 	private Integer estadoRequerimiento;
 	private String estadoRequerimientoDesc;
 	private Double valorEstimadoContratacion;
@@ -154,6 +155,20 @@ public class PacConsolidadoDto implements Serializable,Cloneable{
 
 	public void setIdCatalogoTipoContratacion(String idCatalogoTipoContratacion) {
 		this.idCatalogoTipoContratacion = idCatalogoTipoContratacion;
+	}
+
+
+	
+
+	public String getTipoContratacionDesc() {
+		return tipoContratacionDesc;
+	}
+
+
+
+
+	public void setTipoContratacionDesc(String tipoContratacionDesc) {
+		this.tipoContratacionDesc = tipoContratacionDesc;
 	}
 
 
