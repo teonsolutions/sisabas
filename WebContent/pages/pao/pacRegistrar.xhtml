@@ -226,8 +226,8 @@
 												disabled="true"
 												value="#{programacion.currentPao.compraDirecta.nroCP}">
 											</p:inputText></td>
-										<td><p:inputText id="txtNumeroReferencia" required="false"
-												maxlength="10" style="width:150px;"
+										<td><p:inputText id="txtNumeroReferencia"
+												required="false" maxlength="10" style="width:150px;"
 												label="Número referencial PAC" disabled="false"
 												value="#{programacion.currentPao.pacConsolidado.nroPac}">
 											</p:inputText></td>
@@ -251,8 +251,8 @@
 												for="txtMontoRequerimiento" id="lblMontoRequerimiento" /></td>
 									</tr>
 									<tr>
-										<td><p:inputText id="txtTipoContratacion" required="false"
-												maxlength="10" style="width:150px;"
+										<td><p:inputText id="txtTipoContratacion"
+												required="false" maxlength="10" style="width:150px;"
 												label="Tipo de contratación" disabled="true"
 												value="#{programacion.currentPao.pacConsolidado.tipoContratacionDesc}">
 											</p:inputText></td>
@@ -328,8 +328,7 @@
 												<f:selectItem itemLabel="--Seleccione--" itemValue="" />
 												<f:selectItems
 													value="#{programacion.listaGentablaIdcatalogomeses}"
-													var="var" itemLabel="#{var.text}"
-													itemValue="#{var.value}" />
+													var="var" itemLabel="#{var.text}" itemValue="#{var.value}" />
 											</p:selectOneMenu></td>
 										<td><p:inputText id="txtTipoBien" required="false"
 												maxlength="10" style="width:150px;" label="Tipo de bien"
@@ -531,14 +530,14 @@
 					<p:tab title="Aprobación de expediente"
 						disabled="#{programacion.disabledTabAprobacion}">
 						<p:accordionPanel id="accAprobacion" multiple="true"
-							activeIndex="0,1,2,3,4">
+							activeIndex="0,1">
 							<p:tab title="Miembros de comité">
 								<div align="right">
 									<p:panel id="pnlBotonesMiembroComite"
 										styleClass="gandalfPnlBotonesClass">
 										<p:commandButton value="Nuevo"
 											action="#{programacion.irRegistrarMiembroComite}"
-											update="form:tabViewPao:accAprobacion:hidStatus,:frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar"
+											update="hidStatus,:frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar"
 											oncomplete="showDialog('form:tabViewPao:accAprobacion:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar');"
 											icon="ui-icon-document"
 											rendered="#{programacion.renderButton('btnNuevoMiembroComite')}" />
@@ -627,8 +626,8 @@
 								</p:confirmDialog>
 							</p:tab>
 						</p:accordionPanel>
-						<p:accordionPanel id="accOrden" multiple="true"
-							activeIndex="0,1,2,3">
+						<p:accordionPanel id="accProceso" multiple="true"
+							activeIndex="0,1">
 							<p:tab title="Información de proceso">
 								<table>
 									<tr>

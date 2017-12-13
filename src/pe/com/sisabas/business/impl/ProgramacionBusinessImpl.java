@@ -534,6 +534,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 				estadoDoc.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
 				estadoDoc.setEquipoauditoria(request.getEquipoAuditoria());
 				estadoDoc.setProgramaauditoria(request.getProgramaAuditoria());
+				estadoDoc.setIdtipodocumento(Constantes.tipoDocumento.PAO);
 
 				// record.setIdestadosporetapapordocumento((int)utilsBusiness.getNextSeqTemporal(pe.com.sisabas.resources.Sequence.SEQ_ESTADOSPORETAPAPORDOCUMENTO).longValue());
 				estadoDoc.setIdestadosporetapapordocumento(
@@ -1078,6 +1079,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 				estadoDoc.setNrodocumento(pc.getIdpacconsolidado());
 				estadoDoc.setIdestadosportipodocumento(estado.getIdestadosportipodocumento());
 				estadoDoc.setFechaingreso(date);
+				estadoDoc.setIdtipodocumento(Constantes.tipoDocumento.PAO);
 
 				estadoDoc.setFechacreacionauditoria(date);
 				estadoDoc.setUsuariocreacionauditoria(request.getUsuarioAuditoria());

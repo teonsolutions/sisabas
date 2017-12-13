@@ -294,18 +294,14 @@ public class ProgramacionController extends BaseController {
 	public void buscarFuente() {
 		try {
 
-			if (this.currentPao.getIdPacConsolid() != null){
-				Cuadrocomparativofuente param = new Cuadrocomparativofuente();
-				param.setIdpacconsolidado(this.currentPao.getIdPacConsolid());
-				listaCuadrocomparativofuente = cuadroComparativoFuenteBusiness.selectDynamicFull(param);
-				setEsSeleccionadoFuente(false);
-				setSelectedCuadrocomparativofuente(null);
-				if (listaCuadrocomparativofuente.size() == 0)
-					addMessageKey("msgsForm", Messages.getString("no.records.found"), FacesMessage.SEVERITY_INFO);
+			Cuadrocomparativofuente param = new Cuadrocomparativofuente();
+			param.setIdpacconsolidado(this.currentPao.getIdPacConsolid() != null? this.currentPao.getIdPacConsolid(): 0);
+			listaCuadrocomparativofuente = cuadroComparativoFuenteBusiness.selectDynamicFull(param);
+			setEsSeleccionadoFuente(false);
+			setSelectedCuadrocomparativofuente(null);
+			if (listaCuadrocomparativofuente.size() == 0)
+				addMessageKey("msgsForm", Messages.getString("no.records.found"), FacesMessage.SEVERITY_INFO);
 
-			}else{
-				listaCuadrocomparativofuente = new ArrayList<Cuadrocomparativofuente>();
-			}
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
 		} catch (SecurityRestrictedControlException e) {
@@ -429,7 +425,7 @@ public class ProgramacionController extends BaseController {
 			}
 
 			// EVALUATE IF THE PAO HAS MORE S/. 31600
-			if (currentPao.getValorMoneda() > Constantes.paramentro.PAC_VALOR) {
+			if (currentPao.getValorMoneda() >= Constantes.paramentro.PAC_VALOR) {
 				redirect = pacRegistrar();
 			} else {
 				redirect = ordenRegistrar();
@@ -457,7 +453,7 @@ public class ProgramacionController extends BaseController {
 			}
 			activeTabs();
 			PaoRequest record = new PaoRequest();
-			record.setIdUnidadEjecutora(1);
+			record.setIdUnidadEjecutora(Constantes.unidadEjecutora.ID_UNIDAD_EJECUTORA_ABAS);
 			record.setAnio(usuario != null ? usuario.getPeriodo().getAnio() : 0);
 			record.setNroConsolid(this.currentPao.getNroConsolid());
 			record.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.PRONIED_SIAF);
@@ -476,12 +472,9 @@ public class ProgramacionController extends BaseController {
 			 */
 
 			// Estudio del Mercado
-			if (this.currentPao.getIdPacConsolid() != null)
-				buscarFuente();
-
+			buscarFuente();
 			buscarValorReferencialFinal();
 			buscarOrden();
-
 		} catch (Exception e) {
 			addErrorMessage(e);
 			return "/login.xhtml";
@@ -1162,39 +1155,34 @@ public class ProgramacionController extends BaseController {
 
 	public void buscarMiembroComite() {
 		try {
-			if (this.currentPao.getPacConsolidado().getIdComiteProceso() != null) {
+			List<String> ordenListaCampos = new ArrayList<String>();
+			ordenListaCampos.add("A1.IDMIEMBROCOMITEPROCESO");
+			Miembrocomiteporproceso miembrocomiteporproceso = new Miembrocomiteporproceso();
+			miembrocomiteporproceso.setOrdenListaCampos(ordenListaCampos);
+			miembrocomiteporproceso.setOrdenTipo("DESC");
 
-				List<String> ordenListaCampos = new ArrayList<String>();
-				ordenListaCampos.add("A1.IDMIEMBROCOMITEPROCESO");
-				Miembrocomiteporproceso miembrocomiteporproceso = new Miembrocomiteporproceso();
-				miembrocomiteporproceso.setOrdenListaCampos(ordenListaCampos);
-				miembrocomiteporproceso.setOrdenTipo("DESC");
+			// Add conditions IN clause
+			miembrocomiteporproceso.addConditionInIdcatalogotipomiembro(null);
+			miembrocomiteporproceso.addConditionInIdcatalogoestadomiembrocomite(null);
+			// miembrocomiteporproceso.setIdcomiteproceso(currentPao.getIdTipoBien());
+			miembrocomiteporproceso.setIdcomiteproceso(this.currentPao.getPacConsolidado().getIdComiteProceso() != null
+					? this.currentPao.getPacConsolidado().getIdComiteProceso() : 0);
 
-				// Add conditions IN clause
-				miembrocomiteporproceso.addConditionInIdcatalogotipomiembro(null);
-				miembrocomiteporproceso.addConditionInIdcatalogoestadomiembrocomite(null);
-				// miembrocomiteporproceso.setIdcomiteproceso(currentPao.getIdTipoBien());
-				miembrocomiteporproceso.setIdcomiteproceso(this.currentPao.getPacConsolidado().getIdComiteProceso());
+			// pe.com.sisabas.resources.Utils.convertPropertiesStringToUppercase(miembrocomiteporproceso);
+			// // pasa
+			// a
+			// mayusculas
+			// los
+			// datos
+			// para
+			// la
+			// busqueda
+			listaMiembrocomiteporproceso = miembrocomiteporprocesoBusiness.selectDynamicFull(miembrocomiteporproceso);
+			setEsSeleccionadoMiembroComite(false);
+			setSelectedMiembrocomiteporproceso(null);
+			if (listaMiembrocomiteporproceso.size() == 0)
+				addMessageKey("msgsForm", Messages.getString("no.records.found"), FacesMessage.SEVERITY_INFO);
 
-				// pe.com.sisabas.resources.Utils.convertPropertiesStringToUppercase(miembrocomiteporproceso);
-				// // pasa
-				// a
-				// mayusculas
-				// los
-				// datos
-				// para
-				// la
-				// busqueda
-				listaMiembrocomiteporproceso = miembrocomiteporprocesoBusiness
-						.selectDynamicFull(miembrocomiteporproceso);
-				setEsSeleccionadoMiembroComite(false);
-				setSelectedMiembrocomiteporproceso(null);
-				if (listaMiembrocomiteporproceso.size() == 0)
-					addMessageKey("msgsForm", Messages.getString("no.records.found"), FacesMessage.SEVERITY_INFO);
-
-			}else{
-				listaMiembrocomiteporproceso = new ArrayList<Miembrocomiteporproceso>();
-			}
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
 		} catch (SecurityRestrictedControlException e) {
@@ -1398,7 +1386,7 @@ public class ProgramacionController extends BaseController {
 			}
 			activeTabs();
 			PaoRequest record = new PaoRequest();
-			record.setIdUnidadEjecutora(1);
+			record.setIdUnidadEjecutora(Constantes.unidadEjecutora.ID_UNIDAD_EJECUTORA_ABAS);
 			record.setAnio(usuario != null ? usuario.getPeriodo().getAnio() : 0);
 			record.setNroConsolid(this.currentPao.getNroConsolid());
 			record.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.PRONIED_SIAF);
@@ -1408,10 +1396,10 @@ public class ProgramacionController extends BaseController {
 				pac = new PacConsolidadoDto();
 			this.currentPao.setPacConsolidado(pac);
 
-			// Estudio del Mercado			
+			// Estudio del Mercado
 			buscarFuente();
 			buscarValorReferencialFinal();
-			//setPacTabIndex(0); // TabIndex default
+			// setPacTabIndex(0); // TabIndex default
 			buscarMiembroComite();
 		} catch (Exception e) {
 			addErrorMessage(e);
