@@ -222,14 +222,15 @@ public class BaseController implements Serializable{
 	    HSSFCellStyle cellStyle = wb.createCellStyle();    
 	    cellStyle.setFillForegroundColor(HSSFColor.YELLOW.index);  
 	    cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);  
-	      
-	    for(int i=0; i < header.getPhysicalNumberOfCells();i++) {  
+	    
+	    for(int i=1; i < header.getPhysicalNumberOfCells();i++) {  
 	        HSSFCell cell = header.getCell(i);  
-	          
+	      
 	        cell.setCellStyle(cellStyle);  
 	    }  
 	}  
 	  
+    
 	public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException {  
 	    Document pdf = (Document) document;  
 	    pdf.open();  

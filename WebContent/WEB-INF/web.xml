@@ -81,7 +81,7 @@
   
   <context-param>
 	<param-name>primefaces.THEME</param-name>
-	<param-value>omega</param-value>
+	<param-value>cupertino</param-value>
   </context-param>
  
   <error-page> 

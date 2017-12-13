@@ -64,6 +64,14 @@ import pe.com.sisabas.service.SicuCallService;
 @Scope(value = "session")
 public class RequerimientoController extends BaseController{
 	
+	private boolean value1;  
+    private boolean value2;
+    private boolean value3;  
+    private boolean value4;
+    private boolean value5;  
+    private boolean value6;
+    private boolean value7;  
+    
 	
 	private String pdfURL ="/resources/pdfs/fer,pdf";
 	private String pdf="fer.pdf";
@@ -780,7 +788,9 @@ public class RequerimientoController extends BaseController{
 		this.documentotecnico.setIddocumentotecnico(null);
 		this.check = false;
 	}
-	 
+	
+	
+
 	
 	public void agregarLugar(){ //adding new nationality and set its index
 		System.out.println("*************************** El tamanio de listaLugar1 es: "+lugares.size()+" ***************************");
@@ -1092,15 +1102,93 @@ public class RequerimientoController extends BaseController{
 
 	public void destroyWorld() {
 		remitir();
-        addMessage("System Error", "Please try again later.");
+        addMessage("Mensaje", "Remitido a Programación.");
+        buscarRequerimientos();
+        
     }
 	
+	
+	public void imprimir(){
+		
+		System.out.println("Entro al metodo imprimir");
+		
+	}
 	
      
     public void addMessage(String summary, String detail) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
+
+
+	public boolean isValue1() {
+		return value1;
+	}
+
+
+	public void setValue1(boolean value1) {
+		this.value1 = value1;
+	}
+
+
+	public boolean isValue2() {
+		return value2;
+	}
+
+
+	public void setValue2(boolean value2) {
+		this.value2 = value2;
+	}
+
+
+	public boolean isValue3() {
+		return value3;
+	}
+
+
+	public void setValue3(boolean value3) {
+		this.value3 = value3;
+	}
+
+
+	public boolean isValue4() {
+		return value4;
+	}
+
+
+	public void setValue4(boolean value4) {
+		this.value4 = value4;
+	}
+
+
+	public boolean isValue5() {
+		return value5;
+	}
+
+
+	public void setValue5(boolean value5) {
+		this.value5 = value5;
+	}
+
+
+	public boolean isValue6() {
+		return value6;
+	}
+
+
+	public void setValue6(boolean value6) {
+		this.value6 = value6;
+	}
+
+
+	public boolean isValue7() {
+		return value7;
+	}
+
+
+	public void setValue7(boolean value7) {
+		this.value7 = value7;
+	}
     
     
 

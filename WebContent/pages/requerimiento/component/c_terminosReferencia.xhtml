@@ -180,7 +180,7 @@
 			<div align="right">
 				<p:commandButton
 					oncomplete="showDialogPF('frmPago2:diPago2')" onclick="myFunction();"
-					value="Agregar" icon="ui-icon-circle-check" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"/>
+					value="Agregar" icon="fa fa-plus"  disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"/>
 			</div>
 			<p:spacer height="5" />
 				<p:dataTable id="tablePagos" var="var"  emptyMessage="Formas de pago vacía." value="#{requerimiento.pagos}" style="white-space:nowrap!important; width:800px; font-size:5px;" reflow="true" scrollable="true" editable="true">
@@ -236,7 +236,7 @@
 			<div align="right">
 				<p:commandButton
 					oncomplete="showDialogPF('frmPrestacion2:diPrestacion2')" onclick="myFunction();" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
-					value="Agregar" icon="ui-icon-circle-check" />
+					value="Agregar" icon="fa fa-plus"  />
 			</div>
 			<p:spacer height="5" />
 			<p:dataTable id="tableLugares" var="var" emptyMessage="Productos vacía."
@@ -289,12 +289,12 @@
 		<p:tab title="Comité Especial">
 		   <div align="left">
 		      <p:outputLabel value="Comité Especial " />
-		      <p:selectBooleanCheckbox value="#{requerimiento.check}">
+		      <p:selectBooleanCheckbox value="#{requerimiento.check}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"> 
 		         <p:ajax update=":form:growl, :formTdr:accordion:botonAgregaComite" listener="#{requerimiento.mensajeCheck}" />
 		      </p:selectBooleanCheckbox>		         
 		   </div>		
 		   <div align="right">
-				<p:commandButton id="botonAgregaComite" value="Agregar" icon="ui-icon-circle-check" oncomplete="showDialogPF('frmComite:diComite')" disabled="#{not requerimiento.check}"/>
+				<p:commandButton id="botonAgregaComite" value="Agregar" icon="fa fa-plus" oncomplete="showDialogPF('frmComite:diComite')" disabled="#{not requerimiento.check}"/>
 			</div>
 			<p:spacer height="5" />
 				<p:dataTable id="tableComite" var="var"  emptyMessage="Comité vacía." value="#{requerimiento.comites2}" style="white-space:nowrap!important; width:800px; font-size:5px;" reflow="true" scrollable="true" editable="true">

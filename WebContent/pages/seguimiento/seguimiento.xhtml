@@ -87,7 +87,7 @@ function myFunction3() {
 
 
 		<p:panel id="panel"
-			header="#{requerimiento.tituloParam} #{requerimiento.tituloBase} Opciones de Búsqueda"
+			header="Consulta de Requerimientos"
 			style="width:98%;">
 			<h:form id="form">
 
@@ -102,16 +102,24 @@ function myFunction3() {
 					<table style="width: 100%;" cellpadding="0" cellspacing="5">
 						<tr>
 
-							<td><p:outputLabel for="txtIdcatalogotiponecesidad"
-									value="Tipo de Necesidad" /></td>
-							<td><p:selectOneMenu id="txtIdcatalogotiponecesidad"
-									value="#{requerimiento.requerimientoRequest.tipoNecesidad}"
+							<td><p:outputLabel for="txtTipoDocumento"
+									value="Tipo de Documento" /></td>
+							<td><p:selectOneMenu id="txtTipoDocumento"
+									value="#{seguimiento.seguimientoRequest.tipoDocumento}"
 									style="width:150px;">
-									<f:selectItems
-										value="#{pedido.listaGentablaIdcatalogotiponecesidad}"
-										var="var" itemLabel="#{var.vchregdescri}"
-										itemValue="#{var.vchregcodigo}" />
-								</p:selectOneMenu></td>
+									<f:selectItem itemLabel="TODOS" itemValue="" />
+									<f:selectItem itemLabel="PEDIDO" itemValue="0" />
+									<f:selectItem itemLabel="ORDEN" itemValue="1" />
+									<f:selectItem itemLabel="PAO" itemValue="2" />
+								</p:selectOneMenu></td>				
+								
+							<td><p:outputLabel value="Número Documento"
+									for="txtNumeroDocumento" /></td>
+							<td><p:inputText id="txtNumeroDocumento"
+									value="#{seguimiento.seguimientoRequest.numeroDocumento}"
+									disabled="false" maxlength="2000" style="width:150px;"
+									label="Descripción" /></td>
+									
 							<td><p:outputLabel for="txtIdcatalogotipobien"
 									value="Tipo de bien(SIGA)" /></td>
 							<td><p:selectOneMenu id="txtIdcatalogotipobien"
@@ -122,40 +130,6 @@ function myFunction3() {
 										value="#{pedido.listaGentablaIdcatalogotipobien}" var="var"
 										itemLabel="#{var.vchregdescri}" itemValue="#{var.orden}" />
 								</p:selectOneMenu></td>
-
-							<td><p:outputLabel for="txtIdEstadoPedido"
-									value="Estado del pedido (SIGA)" /></td>
-							<td><p:selectOneMenu id="txtIdEstadoPedido"
-									value="#{requerimiento.requerimientoRequest.estado}"
-									style="width:125px">
-									<f:selectItem itemLabel="TODOS" itemValue="" />
-									<f:selectItem itemLabel="PENDIENTE" itemValue="0" />
-									<f:selectItem itemLabel="VB JEFE" itemValue="1" />
-									<f:selectItem itemLabel="APROBADO" itemValue="2" />
-									<f:selectItem itemLabel="DENEGADO" itemValue="3" />
-									<f:selectItem itemLabel="PECOSA PARCIAL POR FIRMA"
-										itemValue="4" />
-									<f:selectItem itemLabel="PECOSA PARCIAL" itemValue="5" />
-									<f:selectItem itemLabel="PECOSA POR FIRMAR" itemValue="6" />
-									<f:selectItem itemLabel="PECOSA" itemValue="7" />
-									<f:selectItem itemLabel="ATENDIDO" itemValue="8" />
-								</p:selectOneMenu></td>
-						</tr>
-						<tr>
-							<td><p:outputLabel value="Nro de Pedido"
-									for="txtDescripcionpedidosiga" /></td>
-							<td><p:inputText id="txtDescripcionpedidosiga"
-									value="#{requerimiento.requerimientoRequest.pedido}"
-									disabled="false" maxlength="2000" style="width:150px;"
-									label="Descripción" /></td>
-
-							<td><p:outputLabel value="Nro. Expediente SINAD"
-									for="txtNumerosinad" /></td>
-							<td><p:inputText id="txtNumerosinad"
-									value="#{requerimiento.requerimientoRequest.nroExpediente}"
-									disabled="false" maxlength="10" style="width:150px;"
-									label="Número Sindad" /></td>
-
 						</tr>
 					</table>
 				</p:panel>
@@ -206,7 +180,7 @@ function myFunction3() {
 					<p:ajax event="rowSelect" listener="#{pedido.seleccionItem}"
 						update=":form:pnlBotones" immediate="true" />
 
-					<p:column styleClass="c_center" exportable="false">
+					<p:column styleClass="c_center">
 						<f:facet name="header">
 							<h:outputText value="Acciones" styleClass="c_center" />
 						</f:facet>
@@ -218,151 +192,113 @@ function myFunction3() {
 							<f:setPropertyActionListener value="#{var}"
 								target="#{requerimiento.requerimientoResponse}" />
 						</p:commandButton>
-						
-						<p:commandButton rendered="#{var.estadoPedidoIn eq 40 and var.idTipoBien eq 'B'}" 
-						    update=":formEsp:diEsp" icon="fa fa-edit" 
-						    title="Registrar ET" 
-						    action="#{requerimiento.buscarItemRequerimientos2}" 
-						    oncomplete="PF('reqDialog2').show()">
-							<f:setPropertyActionListener value="#{var}" 
-							   target="#{requerimiento.requerimientoResponse}" />
-						</p:commandButton>
-						
-						<p:commandButton rendered="#{var.estadoPedidoIn eq 2 and var.idTipoBien eq 'B'}" 
-						    update=":formEsp:diEsp" icon="fa fa-edit" 
-						    title="Editar ET" style="color: orange;"
-						    action="#{requerimiento.cargarItemRequerimientos}" 
-						    oncomplete="PF('reqDialog2').show()">
-						    
-							<f:setPropertyActionListener value="#{var}" 
-							   target="#{requerimiento.requerimientoResponse}" />
-							   
-						</p:commandButton>
-						
-						
-						<p:commandButton rendered="#{var.estadoPedidoIn eq 40 and var.idTipoBien eq 'S'}" 
-						    update=":formTdr:diTdr" icon="fa fa-edit" 
-						    title="Registrar TDR" 
-						    action="#{requerimiento.buscarItemRequerimientos2}" 
-						    oncomplete="PF('reqDialogT').show()">
-							<f:setPropertyActionListener value="#{var}" 
-							   target="#{requerimiento.requerimientoResponse}" />
-						</p:commandButton>
-						
-						<p:commandButton rendered="#{var.estadoPedidoIn eq 2 and var.idTipoBien eq 'S'}" 
-						    update=":formTdr:diTdr" icon="fa fa-edit" 
-						    title="Editar TDR" style="color: orange;"
-						    action="#{requerimiento.cargarItemRequerimientos}" 
-						    oncomplete="PF('reqDialogT').show()">
-							<f:setPropertyActionListener value="#{var}" 
-							   target="#{requerimiento.requerimientoResponse}" />
-						</p:commandButton>
-						
-
-						
-						
-						<p:commandButton rendered="#{var.estadoPedidoIn eq 3 and var.idTipoBien eq 'B'}" 
-						    update=":formEsp:diEsp" icon="fa fa-eye" 
-						    title="Visualizar ET" 
-						    action="#{requerimiento.cargarItemRequerimientos}" 
-						    oncomplete="PF('reqDialog2').show()">
-						    
-							<f:setPropertyActionListener value="#{var}" 
-							   target="#{requerimiento.requerimientoResponse}" />
-							   
-						</p:commandButton>
-						
-						
-						<p:commandButton rendered="#{var.estadoPedidoIn eq 3 and var.idTipoBien eq 'S'}" 
-						    update=":formTdr:diTdr" icon="fa fa-eye" 
-						    title="Visualizar TDR" 
-						    action="#{requerimiento.cargarItemRequerimientos}" 
-						    oncomplete="PF('reqDialogT').show()">
-							<f:setPropertyActionListener value="#{var}" 
-							   target="#{requerimiento.requerimientoResponse}" />
-						</p:commandButton>
-						
-					
-						
 					</p:column>
-					<p:column styleClass="c_center" sortBy="#{var.nropedido}" exportable="#{requerimiento.value1}">
+					
+					<p:column styleClass="c_center" sortBy="#{var.nropedido}">
 						<f:facet name="header">
-							<h:outputText value="Nro pedido" styleClass="c_center" />
+							<h:outputText value="Tipo de documento" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.nroPedido}" />
 					</p:column>
 
-					<p:column styleClass="c_string" sortBy="#{var.motivoPedido}" exportable="#{requerimiento.value2}">
+					<p:column styleClass="c_string" sortBy="#{var.motivoPedido}">
 						<f:facet name="header">
-							<h:outputText value="Descripción" styleClass="c_center" />
+							<h:outputText value="Nro Documento" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.motivoPedido}" />
 					</p:column>
 
-					<p:column styleClass="c_center" sortBy="#{var.tipobien}" exportable="#{requerimiento.value3}">
+					<p:column styleClass="c_center" sortBy="#{var.tipobien}">
 						<f:facet name="header">
-							<h:outputText value="Tipo de bien(SIGA)" styleClass="c_center" />
+							<h:outputText value="Descripción" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.tipobien}" />
 					</p:column>
 
-					<p:column styleClass="c_numeric" sortBy="#{var.montoPedido}" exportable="#{requerimiento.value4}">
+					<p:column styleClass="c_numeric" sortBy="#{var.montoPedido}">
 						<f:facet name="header">
-							<h:outputText value="Monto del Pedido" styleClass="c_center" />
+							<h:outputText value="Tipo de necesidad" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.montoPedido}" styleClass="c_center" />
 					</p:column>
-					<p:column styleClass="c_string" sortBy="#{var.estadoSiga}" exportable="#{requerimiento.value5}">
+					<p:column styleClass="c_string" sortBy="#{var.estadoSiga}">
 						<f:facet name="header">
-							<h:outputText value="Estado del pedido (SIGA)"
+							<h:outputText value="Tipo de contratación"
 								styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.estadoRequerimiento}" />
 					</p:column>
 
-					<p:column styleClass="c_string" sortBy="#{var.desEstadoIn}" exportable="#{requerimiento.value6}">
+					<p:column styleClass="c_string" sortBy="#{var.desEstadoIn}">
 						<f:facet name="header">
-							<h:outputText value="Estado del pedido(SisAbas)"
+							<h:outputText value="Tipo de bien"
 								styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.desEstadoIn}" />
 					</p:column>
-					<p:column styleClass="c_string" exportable="#{requerimiento.value7}"
+					<p:column styleClass="c_string"
 						sortBy="#{var.numeroExpedienteSinad}">
 						<f:facet name="header">
-							<h:outputText value="Número de expediente (SINAD)"
+							<h:outputText value="Tipo de proceso"
 								styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.numeroExpedienteSinad}" />
 					</p:column>
+					
+					
+					<p:column styleClass="c_string"
+						sortBy="#{var.numeroExpedienteSinad}">
+						<f:facet name="header">
+							<h:outputText value="Monto programado"
+								styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.numeroExpedienteSinad}" />
+					</p:column>
+					
+					<p:column styleClass="c_string"
+						sortBy="#{var.numeroExpedienteSinad}">
+						<f:facet name="header">
+							<h:outputText value="Monto de VR"
+								styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.numeroExpedienteSinad}" />
+					</p:column>
+					
+					<p:column styleClass="c_string"
+						sortBy="#{var.numeroExpedienteSinad}">
+						<f:facet name="header">
+							<h:outputText value="Fecha Inicial"
+								styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.numeroExpedienteSinad}" />
+					</p:column>
+					
+					<p:column styleClass="c_string"
+						sortBy="#{var.numeroExpedienteSinad}">
+						<f:facet name="header">
+							<h:outputText value="Estado"
+								styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.numeroExpedienteSinad}" />
+					</p:column>
+					
 
 				</p:dataTable>
 				
 				<p:dialog id="diPedidoImprimir" header="Exportar Requerimientos"
 					widgetVar="diPedidoImprimir" resizable="false" modal="true"
 					dynamic="true">
-					 <h:panelGrid columns="2" style="text-align:center;">
-					 
-					 <p:outputLabel value="Nro Pedido"/>
-					 <p:selectBooleanCheckbox value="#{requerimiento.value1}" />
-					 <p:outputLabel value="Descripción"/>
-					 <p:selectBooleanCheckbox value="#{requerimiento.value2}" />
-					 <p:outputLabel value="Tipo de bien(SIGA)"/>
-					 <p:selectBooleanCheckbox value="#{requerimiento.value3}" />
-					 <p:outputLabel value="Monto del pedido"/>
-					 <p:selectBooleanCheckbox value="#{requerimiento.value4}" />
-					 <p:outputLabel value="Estado del pedido (SIGA)"/>
-					 <p:selectBooleanCheckbox value="#{requerimiento.value5}" />
-					 <p:outputLabel value="Estado del pedido(SisAbas)"/>
-					 <p:selectBooleanCheckbox value="#{requerimiento.value6}" />
-					 <p:outputLabel value="Número de expediente (SINAD)"/>
-					 <p:selectBooleanCheckbox value="#{requerimiento.value7}" />
-
+					 <h:panelGrid columns="1" style="text-align:center;">
 						<p:commandButton icon="ui-icon-circle-arrow-s"
 							value="Exportar" ajax="false" style="width:100px;">
 							<p:dataExporter type="xls" target=":form:tblListaRequerimiento"
 								fileName="datosPedido" postProcessor="#{requerimiento.postProcessXLS}" />
 						</p:commandButton>
+
+
+
+
+
 
 
 					 </h:panelGrid>
