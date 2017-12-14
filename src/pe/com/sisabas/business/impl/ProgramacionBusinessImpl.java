@@ -1180,6 +1180,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 		Pacconsolidado pacEdit = pacconsolidadoMapper.selectByPrimaryKeyBasic(pac.getIdPacConsolidado());
 		if (pacEdit != null) {
 			pacEdit.setFechaaprobacionexpediente(new Date());
+			pacEdit.setEstadorequerimiento(Constantes.estadosPorEtapa.REMITIDO_A_PROCESOS);
 			pacconsolidadoMapper.updateByPrimaryKey(pacEdit);
 
 			//STATUS: REMITIDO_A_PROCESOS
