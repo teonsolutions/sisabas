@@ -24,19 +24,24 @@
 		<td>
 			<p:outputLabel value="Nro pedido" for="txtNropedido"/>
 		</td>
+		
+		
 		<td>
 			<p:inputText  id="txtNropedido" value="#{pedido.pedidoB.nropedido}" disabled="false" maxlength="5" style="width:150px;" label="Nro pedido"/>
 		</td>
 		<td>
-			<p:selectCheckboxMenu id="txtIdcatalogotipobien" value="#{pedido.listaIdcatalogotipobienKeys}" filter="true" disabled="false" filterText="Filter" filterMatchMode="startsWith" label="Tipo de bien(SIGA)">
+			<p:selectCheckboxMenu id="txtIdcatalogotipobien" value="#{pedido.listaIdcatalogotipobienKeys}" multiple="false" disabled="true" filterText="Filter" filterMatchMode="startsWith" label="Tipo de bien(SIGA)"> 
 				 <f:selectItems  value="#{pedido.listaGentablaIdcatalogotipobien}" var="var" itemLabel ="#{var.vchregdescri}" itemValue ="#{var.vchregcodigo}"/>
 				 <p:ajax  event="change" listener="#{pedido.getValuesListenerIdcatalogotipobien}" update="txtKeyValuesIdcatalogotipobien" process="@this"/>
 				 <p:ajax  event="toggleSelect" listener="#{pedido.handleChangeIdcatalogotipobien}" update="txtKeyValuesIdcatalogotipobien,txtIdcatalogotipobien" process="@this"/>
 			</p:selectCheckboxMenu>
 		</td>
 		<td>
-			<p:inputText  id="txtKeyValuesIdcatalogotipobien" value="#{pedido.valuesIdcatalogotipobien}" disabled="true" style="width:150px;"/>
+			<p:inputText  id="txtKeyValuesIdcatalogotipobien" value="OBRA" disabled="true" style="width:150px;"/>
 		</td>
+
+		
+		
 		<td>
 			<p:selectCheckboxMenu id="txtIdperiodo" value="#{pedido.listaIdperiodoKeys}" filter="true" disabled="false" filterText="Filter" filterMatchMode="startsWith" label="Periódo">
 				 <f:selectItems  value="#{pedido.listaPeriodoIdperiodo}" var="var" itemLabel ="#{var.nombreperiodo}" itemValue ="#{var.idperiodo}"/>
@@ -165,7 +170,7 @@
 </table>
 </p:panel>
 
-<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+<table  cellpadding="0" cellspacing="0" border="0" style="width:100%;">
 	<tr>
 		<td valign="top">
 			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
@@ -174,13 +179,10 @@
 				<p:spacer width="20"/>
 				<p:commandButton value="Nuevo" action="#{pedido.irRegistrar}"  update="hidStatus,:frmPedidoRegistrar:diPedidoRegistrar" oncomplete="showDialog('form:hidStatus','frmPedidoRegistrar:diPedidoRegistrar');" icon="ui-icon-document"  rendered="#{pedido.renderButton('btnNuevo')}"   />
 				<p:commandButton value="Editar" action="#{pedido.irEditar}"  update="hidStatus,:frmPedidoRegistrar:diPedidoRegistrar" oncomplete="showDialog('form:hidStatus','frmPedidoRegistrar:diPedidoRegistrar');" icon="ui-icon-pencil" disabled="#{!pedido.esSeleccionado}"  rendered="#{pedido.renderButton('btnEditar')}"  />
-				<p:commandButton value="Detalle" action="#{pedido.irDetalle}"  update="hidStatus,:frmPedidoDetalle:diPedidoDetalle" oncomplete="showDialog('form:hidStatus','frmPedidoDetalle:diPedidoDetalle');" icon="ui-icon-zoomin" disabled="#{!pedido.esSeleccionado}"   rendered="#{pedido.renderButton('btnDetalle')}"  />
+				
 				<p:commandButton value="Anular/Activar" action="#{pedido.irAnular}"  update="hidStatus,:frmPedidoAnular:diPedidoAnular" oncomplete="showDialog('form:hidStatus','frmPedidoAnular:diPedidoAnular');" icon="ui-icon-circle-minus" disabled="#{!pedido.esSeleccionado}"   rendered="#{pedido.renderButton('btnAnularActivar')}"  />
 				<p:commandButton value="Eliminar" action="#{pedido.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!pedido.esSeleccionado}"   rendered="#{pedido.renderButton('btnEliminar')}"  />
 				<p:commandButton value="Imprimir" action="#{pedido.irImprimir}"  update="hidStatus,:frmPedidoImprimir:diPedidoImprimir" oncomplete="showDialog('form:hidStatus','frmPedidoImprimir:diPedidoImprimir');" icon="ui-icon-print"   rendered="#{pedido.renderButton('btnImprimir')}"  />
-				<p:spacer width="20"/>
-				<p:commandButton value="Detalle pedido In" action="#{pedido.irDetallepedido}" title="Detalle pedido In" ajax="false" disabled="#{!pedido.esSeleccionado}"  rendered="#{pedido.renderButton('btnDetallepedido')}"  />
-				<p:commandButton value="Documento tecnico" action="#{pedido.irDocumentotecnico}" title="Documento tecnico" ajax="false" disabled="#{!pedido.esSeleccionado}"  rendered="#{pedido.renderButton('btnDocumentotecnico')}"  />
 			</p:panel>
 		</td>
 		<td valign="top">

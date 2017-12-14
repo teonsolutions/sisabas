@@ -116,30 +116,30 @@
 				<p:row>
 
 					<p:column>
-						<p:outputLabel value="Denominación de la contratación:" />
+						<p:outputLabel value="Denominación de la contratación:" for="denominacion"/>
 					</p:column>
 					<p:column>
-						<p:inputTextarea value="#{requerimiento.documentotecnico.denominacioncontratacion}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
+						<p:inputTextarea id="denominacion" value="#{requerimiento.documentotecnico.denominacioncontratacion}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}" required="true"
 							style="width:300px;" />
 					</p:column>
 				</p:row>
 
 				<p:row>
 					<p:column>
-						<p:outputLabel value="Finalidad pública" />
+						<p:outputLabel value="Finalidad pública" for="finalidad"/>
 					</p:column>
 					<p:column>
-						<p:inputTextarea value="#{requerimiento.documentotecnico.finalidadpublica}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
+						<p:inputTextarea id="finalidad" value="#{requerimiento.documentotecnico.finalidadpublica}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}" required="true"
 							style="width:300px;" />
 					</p:column>
 				</p:row>
 
 				<p:row>
 					<p:column>
-						<p:outputLabel value="Objetivos de la contratación:" />
+						<p:outputLabel value="Objetivos de la contratación:" for="objetivos"/>
 					</p:column>
 					<p:column>
-						<p:inputTextarea value="#{requerimiento.documentotecnico.objetocontratacion}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
+						<p:inputTextarea id="objetivos" value="#{requerimiento.documentotecnico.objetocontratacion}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}" required="true"
 							style="width:300px;" />
 					</p:column>
 				</p:row>

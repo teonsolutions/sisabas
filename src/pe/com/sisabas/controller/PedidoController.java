@@ -108,6 +108,10 @@ public class PedidoController extends BaseController {
 			pedidoB.setVispedidoIdvpedido(new Vispedido());
 
 			listaIdcatalogotipobienKeys= new ArrayList<String>();
+			
+			listaIdcatalogotipobienKeys.add(String.valueOf("TIBI3"));  //DEFECTO OBRAS
+			
+			
 			listaIdperiodoKeys= new ArrayList<String>();
 			listaIdcatalogotiponecesidadKeys= new ArrayList<String>();
 

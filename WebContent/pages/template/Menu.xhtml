@@ -37,6 +37,8 @@
 	<p:submenu style="margin-left:5px;" label="Administración" rendered="#{!loginBean.mobile}">
 	</p:submenu>
 	<p:submenu style="margin-left:5px;" label="Requerimientos" rendered="#{!loginBean.mobile}">
+	    <p:menuitem value="Pedidos SIGA" outcome="/pages/requerimiento/requerimientos.xhtml" icon="ui-icon-triangle-1-e"/>
+		<p:menuitem value="Pedidos de Obras" outcome="/pages/pedido/pedidoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
 	</p:submenu>
 	<p:submenu style="margin-left:5px;" label="Programación" rendered="#{!loginBean.mobile}">
 		<p:menuitem value="Evaluación de documento" outcome="/pages/evaluaciondocumento/evaluaciondocumentoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>

@@ -118,9 +118,8 @@ function myFunction3() {
 									value="#{requerimiento.requerimientoRequest.tipoBien}"
 									style="width:150px;">
 									<f:selectItem itemLabel="TODOS" itemValue="" />
-									<f:selectItems
-										value="#{pedido.listaGentablaIdcatalogotipobien}" var="var"
-										itemLabel="#{var.vchregdescri}" itemValue="#{var.orden}" />
+									<f:selectItem itemLabel="SERVICIO" itemValue="S" />
+									<f:selectItem itemLabel="BIEN" itemValue="B" />
 								</p:selectOneMenu></td>
 
 							<td><p:outputLabel for="txtIdEstadoPedido"
@@ -238,8 +237,7 @@ function myFunction3() {
 							   target="#{requerimiento.requerimientoResponse}" />
 							   
 						</p:commandButton>
-						
-						
+												
 						<p:commandButton rendered="#{var.estadoPedidoIn eq 40 and var.idTipoBien eq 'S'}" 
 						    update=":formTdr:diTdr" icon="fa fa-edit" 
 						    title="Registrar TDR" 
@@ -434,7 +432,7 @@ function myFunction3() {
 								<td>
 									<div align="left">
 										<p:commandButton value="GRABAR" rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
-											icon="ui-icon-circle-check" title="Aceptar"
+											icon="fa fa-save" title="Aceptar"
 											update=":form:growl,:form:tblListaRequerimiento" oncomplete="PF('reqDialog2').hide();" >
 											<f:actionListener binding="#{requerimiento.aceptarRequerimiento()}"/>
 											<f:actionListener binding="#{requerimiento.limpiar()}"/>
@@ -444,7 +442,7 @@ function myFunction3() {
 								<td>
 									<div align="center">
 										<p:commandButton value="CANCELAR" actionListener="#{requerimiento.limpiar}" rendered="#{requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
-											icon="ui-icon-arrowreturnthick-1-w" title="Salir"
+											icon="fa fa-rotate-left" title="Salir" process="@this" immediate="true"
 											onclick="hideDialogPF('frmGentipoRegistrar:diGentipoRegistrar');return false;" />
 											
 										<p:commandButton value="ACEPTAR" rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
@@ -504,7 +502,7 @@ function myFunction3() {
 								<td>
 									<div align="left">
 										<p:commandButton value="GRABAR" rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
-											icon="ui-icon-circle-check" title="Aceptar"
+											icon="fa fa-save" title="Aceptar"
 											update=":form:growl,:form:tblListaRequerimiento" oncomplete="PF('reqDialogT').hide();" >
 											<f:actionListener binding="#{requerimiento.aceptarRequerimiento()}"/>
 											<f:actionListener binding="#{requerimiento.limpiar()}"/>
@@ -514,7 +512,7 @@ function myFunction3() {
 								<td>
 									<div align="center">
 										<p:commandButton value="CANCELAR" actionListener="#{requerimiento.limpiar}" rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
-											icon="ui-icon-arrowreturnthick-1-w" title="Salir"
+											icon="fa fa-rotate-left" title="Salir" process="@this" immediate="true"
 											onclick="hideDialogPF('frmGentipoRegistrar:diGentipoRegistrar');return false;" />
 											
 										<p:commandButton value="ACEPTAR" rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"

@@ -710,8 +710,6 @@ public class RequerimientoController extends BaseController{
 	    	
 		}
 
-	
-
 
 	public Lugar getLugar() {
 		return lugar;

@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import pe.com.sisabas.be.Comiteproceso;
 import pe.com.sisabas.be.Dependenciadocumentotecnico;
 import pe.com.sisabas.be.Documentotecnico;
+import pe.com.sisabas.be.Estadosporetapapordocumento;
+import pe.com.sisabas.be.Estadosportipodocumento;
 import pe.com.sisabas.be.Gentabla;
 import pe.com.sisabas.be.Gentipo;
 import pe.com.sisabas.be.Miembrocomiteporproceso;
@@ -420,6 +422,41 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 		
 		
 	   }
+		
+		/*
+		
+		     // ESTADOS
+		     int idTipoDocumento = Constantes.tipoDocumento.DOCUMENTO_TECNICO;
+		  			// Insertamos históricos de estados
+					Estadosportipodocumento param = new Estadosportipodocumento();
+					param.setIdtipodocumento(idTipoDocumento);
+					param.setIdestadosporetapa(pc.getEstadorequerimiento());
+					// Estadosportipodocumento estados =
+					// estadosportipodocumentoMapper.selectByEtapaTipoDocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO,
+					// Constantes.estadosPorEtapa.EN_REVISION_DE_DOCUMENTO_TECNICO);
+					Estadosportipodocumento estado = estadosportipodocumentoMapper.selectByEtapaTipoDocumento(param);
+					if (estado != null) {
+						java.util.Date date = new java.util.Date();
+						Estadosporetapapordocumento estadoDoc = new Estadosporetapapordocumento();
+						estadoDoc.setNrodocumento(pc.getIdpacconsolidado());
+						estadoDoc.setIdestadosportipodocumento(estado.getIdestadosportipodocumento());
+						estadoDoc.setFechaingreso(date);
+
+						estadoDoc.setFechacreacionauditoria(date);
+						estadoDoc.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+						estadoDoc.setEquipoauditoria(request.getEquipoAuditoria());
+						estadoDoc.setProgramaauditoria(request.getProgramaAuditoria());
+
+						// record.setIdestadosporetapapordocumento((int)utilsBusiness.getNextSeqTemporal(pe.com.sisabas.resources.Sequence.SEQ_ESTADOSPORETAPAPORDOCUMENTO).longValue());
+						estadoDoc.setIdestadosporetapapordocumento(
+								(int) utilsBusiness.getNextSeq(Sequence.SEQ_ESTADOSPORETAPAPORDOCUMENTO).longValue());
+
+						estadoDoc.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+						estadosporetapapordocumentoMapper.insert(estadoDoc);
+					}
+				
+		*/
+		
 		
 		return null;
 	}

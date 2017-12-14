@@ -151,7 +151,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 		param.setIdtipodocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO);
 		param.setIdestadosporetapa(Constantes.estadosPorEtapa.EN_REVISION_DE_DOCUMENTO_TECNICO);
 		// Estadosportipodocumento estados =
-		// estadosportipodocumentoMapper.selectByEtapaTipoDocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO,
+		// @.selectByEtapaTipoDocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO,
 		// Constantes.estadosPorEtapa.EN_REVISION_DE_DOCUMENTO_TECNICO);
 		Estadosportipodocumento estado = estadosportipodocumentoMapper.selectByEtapaTipoDocumento(param);
 		if (estado != null) {
