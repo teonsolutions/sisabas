@@ -25,6 +25,10 @@ import pe.com.sisabas.be.RequerimientoItemRequest;
 import pe.com.sisabas.be.RequerimientoItemResponse;
 import pe.com.sisabas.be.RequerimientoRequest;
 import pe.com.sisabas.be.RequerimientoResponse;
+import pe.com.sisabas.be.SegEstadoReqRequest;
+import pe.com.sisabas.be.SegEstadoReqResponse;
+import pe.com.sisabas.be.SeguimientoRequest;
+import pe.com.sisabas.be.SeguimientoResponse;
 import pe.com.sisabas.business.GentipoBusiness;
 import pe.com.sisabas.business.RequerimientoBusiness;
 import pe.com.sisabas.dto.EspecificacionTecnicaDto;
@@ -474,6 +478,20 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 
 	public void setIdGenerado(Integer idGenerado) {
 		this.idGenerado = idGenerado;
+	}
+
+	@Override
+	public List<SeguimientoResponse> callpaSeguimientoRequerimiento(SeguimientoRequest seguimientoRequest) throws Exception {
+		
+		return requerimientoMapper.callpaSeguimientoRequerimiento(seguimientoRequest);
+	}
+
+	@Override
+	public List<SegEstadoReqResponse> callpaSeguimientoEstadoRequerimiento(SegEstadoReqRequest segEstadoReqRequest) {
+
+		System.out.println("jasaro ppk==="+requerimientoMapper.callpaSeguimientoEstadoRequerimiento(segEstadoReqRequest).size());
+		
+		return requerimientoMapper.callpaSeguimientoEstadoRequerimiento(segEstadoReqRequest);
 	}
 
 
