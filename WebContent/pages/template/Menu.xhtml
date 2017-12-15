@@ -23,9 +23,7 @@
 
 	<p:menuitem rendered="#{!loginBean.mobile}">
 		<h:link style="background-color:#FFF" onclick="PF('dlgMenu').show();return false;">
-			 
 			<h:graphicImage url="/resources/img/logo.png" width="250" height="30"/>
-			 
 		</h:link>
 	</p:menuitem>
 	<p:menuitem rendered="#{loginBean.mobile}">
@@ -36,6 +34,11 @@
 
 	<p:submenu style="margin-left:5px;" label="Administración" rendered="#{!loginBean.mobile}">
 	</p:submenu>
+	
+	<p:submenu style="margin-left:5px;" label="Seguimiento" rendered="#{!loginBean.mobile}">
+		<p:menuitem value="Requerimientos" outcome="/pages/seguimiento/seguimiento.xhtml" icon="ui-icon-triangle-1-e"/>
+	</p:submenu>
+	
 	<p:submenu style="margin-left:5px;" label="Requerimientos" rendered="#{!loginBean.mobile}">
 	    <p:menuitem value="Pedidos SIGA" outcome="/pages/requerimiento/requerimientos.xhtml" icon="ui-icon-triangle-1-e"/>
 		<p:menuitem value="Pedidos de Obras" outcome="/pages/pedido/pedidoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
