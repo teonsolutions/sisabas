@@ -340,6 +340,13 @@
 		<if test="estadoauditoria != null" >
 			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
 		</if>
+		
+		<if test="listaTipodocumentoKeys != null" >
+			AND A1.IDTIPODOCUMENTO IN
+			<foreach collection="listaTipodocumentoKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+		
+		
 	</where>
 
 	<if test="ordenListaCampos != null" >

@@ -87,7 +87,7 @@ function myFunction3() {
 
 
 		<p:panel id="panel"
-			header="Consulta de Requerimientos"
+			header="Seguimiento"
 			style="width:98%;">
 			<h:form id="form">
 
@@ -100,37 +100,81 @@ function myFunction3() {
 
 				<p:panel id="entrada">
 					<table style="width: 100%;" cellpadding="0" cellspacing="5">
+					
 						<tr>
-
+							<!-- TIPO DE NECESIDAD -->
+							<td><p:outputLabel for="txtIdcatalogotiponecesidad"
+									value="Tipo de Necesidad" /></td>
+							<td><p:selectOneMenu id="txtIdcatalogotiponecesidad" required="true" requiredMessage="Tipo de Necesidad: Se nececita un valor."
+									value="#{requerimiento.seguimientoRequest.tipoNecesidad}" valueChangeListener="#{requerimiento.changeTipoDocumento}"
+									style="width:150px;">
+									
+									
+									<f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true"/>
+									<f:selectItems
+										value="#{pedido.listaGentablaIdcatalogotiponecesidad}"
+										var="var" itemLabel="#{var.vchregdescri}"
+										itemValue="#{var.vchregcodigo}" />
+										
+										
+										<p:ajax event="valueChange" process="@this" update="txtTipoDocumento" />
+										
+										
+								</p:selectOneMenu></td>
+						</tr>
+						
+						<tr>
+							<!-- TIPO DE DOCUMENTO -->
 							<td><p:outputLabel for="txtTipoDocumento"
 									value="Tipo de Documento" /></td>
-							<td><p:selectOneMenu id="txtTipoDocumento"
-									value="#{seguimiento.seguimientoRequest.tipoDocumento}"
+							<td><p:selectOneMenu id="txtTipoDocumento" required="true" requiredMessage="Tipo de Documento: Se nececita un valor."
+									value="#{requerimiento.seguimientoRequest.tipoDocumento}"
 									style="width:150px;">
-									<f:selectItem itemLabel="TODOS" itemValue="" />
-									<f:selectItem itemLabel="PEDIDO" itemValue="0" />
-									<f:selectItem itemLabel="ORDEN" itemValue="1" />
-									<f:selectItem itemLabel="PAO" itemValue="2" />
-								</p:selectOneMenu></td>				
+									
+									<f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true"/>
+									<f:selectItems value="#{requerimiento.listaTipodocumento}" var="var" itemLabel="#{var.descripciontipodocumento}"
+										itemValue="#{var.idtipodocumento}" />
+										
+									<p:ajax event="valueChange"  process="@this" update="olTipoDocumento" />
+									
+								</p:selectOneMenu></td>	
 								
-							<td><p:outputLabel value="Número Documento"
+				
+
+							
+							<!-- NUMERO DOCUMENTO -->	
+							<td><p:outputLabel id="olTipoDocumento" value="Nro. #{requerimiento.seguimientoRequest.tipoDocumento==1?'Pedido': requerimiento.seguimientoRequest.tipoDocumento==3?'PAO':''}"
 									for="txtNumeroDocumento" /></td>
 							<td><p:inputText id="txtNumeroDocumento"
-									value="#{seguimiento.seguimientoRequest.numeroDocumento}"
+									value="#{requerimiento.seguimientoRequest.numeroDocumento}"
 									disabled="false" maxlength="2000" style="width:150px;"
 									label="Descripción" /></td>
-									
+								
+								
+								
+							<!-- TIPO BIEN -->		
 							<td><p:outputLabel for="txtIdcatalogotipobien"
 									value="Tipo de bien(SIGA)" /></td>
 							<td><p:selectOneMenu id="txtIdcatalogotipobien"
-									value="#{requerimiento.requerimientoRequest.tipoBien}"
+									value="#{requerimiento.seguimientoRequest.tipoBien}"
 									style="width:150px;">
-									<f:selectItem itemLabel="TODOS" itemValue="" />
+									<f:selectItem itemLabel="Todos" itemValue="#{null}" />
 									<f:selectItems
 										value="#{pedido.listaGentablaIdcatalogotipobien}" var="var"
-										itemLabel="#{var.vchregdescri}" itemValue="#{var.orden}" />
+										itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
 								</p:selectOneMenu></td>
+								
+								                                                     
+								
+								
 						</tr>
+						
+					<tr>
+						<td colspan="2">
+							<p:message id="msgIdcatalogotiponecesidad" for="txtIdcatalogotiponecesidad"  showSummary="true" showDetail="false"/>	
+							<p:message id="msgTipoDocumento" for="txtTipoDocumento"  showSummary="true" showDetail="false"/>	
+						</td>
+					</tr>
 					</table>
 				</p:panel>
 
@@ -140,17 +184,20 @@ function myFunction3() {
 						<td valign="top"><p:panel id="pnlBotones"
 								styleClass="gandalfPnlBotonesClass">
 								<h:inputHidden id="hidStatus" value="#{requerimiento.status}" />
+								
+								
+								
 								<p:commandButton widgetVar="btnBuscar" id="btnBuscar"
-									value="Buscar" action="#{requerimiento.buscarRequerimientos}"
-									update="tblListaRequerimiento,pnlBotones" icon="ui-icon-search"
-									title="Buscar"
+									value="Buscar" action="#{requerimiento.buscarSegRequerimientos}"
+									update="tblListaRequerimiento,pnlBotones,msgTipoDocumento,msgIdcatalogotiponecesidad" icon="ui-icon-search"
+									title="Buscar" 
 									rendered="#{requerimiento.renderButton('btnBuscar')}" />
 								<p:spacer width="10" />
-								<p:commandLink id="ajax" update=":form:entrada" value="Limpiar" onclick="myFunction3();"
-									process="@this" actionListener="#{requerimiento.LimpiarInicio}"
-									style="margin-right:20px;text-decoration: underline;">
-									<p:resetInput target=":form:entrada" />
-								</p:commandLink>
+								
+								<p:commandButton id="resetFiltroSeg" action="#{requerimiento.resetFiltroSeg}" value="Limpiar"
+								update="txtIdcatalogotiponecesidad,txtTipoDocumento,txtNumeroDocumento,txtIdcatalogotipobien"/>
+								
+								
 							</p:panel></td>
 						<td valign="top">
 							<div align="right" style="margin-top: 12px;">
@@ -165,121 +212,158 @@ function myFunction3() {
 							</div>
 						</td>
 					</tr>
+					
+					
 				</table>
 
                 
 
 				<p:dataTable id="tblListaRequerimiento"  
-					value="#{requerimiento.listaRequerimientos}" var="var"
-					emptyMessage="No se encontraron registros"
+					value="#{requerimiento.listaSeguimientos}" var="var"
+					emptyMessage="No se encontraron registros" tableStyle="width: auto;"
 					widgetVar="tblListaRequerimiento"
-					selection="#{pedido.selectedPedido}" paginator="true"
+					 paginator="true"
 					rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
-					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(requerimiento.listaRequerimientos)}"
-					rowKey="#{var.nroPedido}" styleClass="gandalfTableClass">
-					<p:ajax event="rowSelect" listener="#{pedido.seleccionItem}"
-						update=":form:pnlBotones" immediate="true" />
-
-					<p:column styleClass="c_center">
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(requerimiento.listaSeguimientos)}"
+					styleClass="gandalfTableClass">
+					
+						<p:column styleClass="c_center">
+						
 						<f:facet name="header">
-							<h:outputText value="Acciones" styleClass="c_center" />
+							<h:outputText value="Estados" styleClass="c_center" />
 						</f:facet>
-						<p:commandButton rendered="#{var.estadoPedidoIn eq null}"
-							update=":form:requerimientoDetalle" icon="fa fa-child"
-							title="Asociar al POI"
-							action="#{requerimiento.buscarItemRequerimientos}"
-							oncomplete="PF('reqDialog').show()">
-							<f:setPropertyActionListener value="#{var}"
-								target="#{requerimiento.requerimientoResponse}" />
+						
+					
+						<p:commandButton icon="ui-icon-disk" action="#{requerimiento.listarSegEstados}" style="background: none;"
+						 oncomplete="PF('wvSegEstado').show()" update=":formSegEstado:dlgSegEstado">
+						
+								<f:setPropertyActionListener value="#{var}" target="#{requerimiento.selectedSeguimiento}" />
+						
 						</p:commandButton>
+				
 					</p:column>
 					
-					<p:column styleClass="c_center" sortBy="#{var.nropedido}">
+				
+				
+					<p:column styleClass="c_center" sortBy="#{var.anio}">
 						<f:facet name="header">
-							<h:outputText value="Tipo de documento" styleClass="c_center" />
+							<h:outputText value="Año" styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.anio}" />
+					</p:column>
+					
+					<p:column styleClass="c_center" sortBy="#{var.id}">
+						<f:facet name="header">
+							<h:outputText value="Id" styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.id}" />
+					</p:column>
+
+					<p:column styleClass="c_string" sortBy="#{var.nroSinad}">
+						<f:facet name="header">
+							<h:outputText value="Nro. Sinad" styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.nroSinad}" />
+					</p:column>
+
+					<p:column styleClass="c_center" sortBy="#{var.nroPedido}">
+						<f:facet name="header">
+							<h:outputText value="Nro." styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.nroPedido}" />
 					</p:column>
 
-					<p:column styleClass="c_string" sortBy="#{var.motivoPedido}">
+					<p:column styleClass="c_numeric" sortBy="#{var.tipoBien}">
 						<f:facet name="header">
-							<h:outputText value="Nro Documento" styleClass="c_center" />
+							<h:outputText value="Tipo de Bien" styleClass="c_center" />
 						</f:facet>
-						<h:outputText value="#{var.motivoPedido}" />
+						<h:outputText value="#{var.tipoBien}" styleClass="c_center" />
+					</p:column>
+				
+				
+				
+					<p:column styleClass="c_string" sortBy="#{var.nroConsolidado}">
+						<f:facet name="header">
+							<h:outputText value="Nro. Consolidado"
+								styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.nroConsolidado}" />
 					</p:column>
 
-					<p:column styleClass="c_center" sortBy="#{var.tipobien}">
+				
+				
+					<p:column styleClass="c_string" sortBy="#{var.descripcion}">
 						<f:facet name="header">
-							<h:outputText value="Descripción" styleClass="c_center" />
-						</f:facet>
-						<h:outputText value="#{var.tipobien}" />
-					</p:column>
-
-					<p:column styleClass="c_numeric" sortBy="#{var.montoPedido}">
-						<f:facet name="header">
-							<h:outputText value="Tipo de necesidad" styleClass="c_center" />
-						</f:facet>
-						<h:outputText value="#{var.montoPedido}" styleClass="c_center" />
-					</p:column>
-					<p:column styleClass="c_string" sortBy="#{var.estadoSiga}">
-						<f:facet name="header">
-							<h:outputText value="Tipo de contratación"
+							<h:outputText value="Descripción"
 								styleClass="c_center" />
 						</f:facet>
-						<h:outputText value="#{var.estadoRequerimiento}" />
+						<h:outputText value="#{var.descripcion}" />
 					</p:column>
-
-					<p:column styleClass="c_string" sortBy="#{var.desEstadoIn}">
-						<f:facet name="header">
-							<h:outputText value="Tipo de bien"
-								styleClass="c_center" />
-						</f:facet>
-						<h:outputText value="#{var.desEstadoIn}" />
-					</p:column>
+				
+				
+				
 					<p:column styleClass="c_string"
-						sortBy="#{var.numeroExpedienteSinad}">
+						sortBy="#{var.valorContratacion}">
 						<f:facet name="header">
-							<h:outputText value="Tipo de proceso"
+							<h:outputText value="Valor de Contratación"
 								styleClass="c_center" />
 						</f:facet>
-						<h:outputText value="#{var.numeroExpedienteSinad}" />
+						<h:outputText value="#{var.valorContratacion}" />
 					</p:column>
 					
 					
 					<p:column styleClass="c_string"
-						sortBy="#{var.numeroExpedienteSinad}">
+						sortBy="#{var.codTipoProceso}">
 						<f:facet name="header">
-							<h:outputText value="Monto programado"
+							<h:outputText value="Código de Tipo de Proceso"
 								styleClass="c_center" />
 						</f:facet>
-						<h:outputText value="#{var.numeroExpedienteSinad}" />
+						<h:outputText value="#{var.codTipoProceso}" />
 					</p:column>
 					
 					<p:column styleClass="c_string"
-						sortBy="#{var.numeroExpedienteSinad}">
+						sortBy="#{var.nroProceso}">
 						<f:facet name="header">
-							<h:outputText value="Monto de VR"
+							<h:outputText value="Nro. Proceso"
 								styleClass="c_center" />
 						</f:facet>
-						<h:outputText value="#{var.numeroExpedienteSinad}" />
+						<h:outputText value="#{var.nroProceso}" />
 					</p:column>
 					
 					<p:column styleClass="c_string"
-						sortBy="#{var.numeroExpedienteSinad}">
+						sortBy="#{var.nroContrato}">
 						<f:facet name="header">
-							<h:outputText value="Fecha Inicial"
+							<h:outputText value="Nro. Contrato"
 								styleClass="c_center" />
 						</f:facet>
-						<h:outputText value="#{var.numeroExpedienteSinad}" />
+						<h:outputText value="#{var.nroContrato}" />
 					</p:column>
 					
 					<p:column styleClass="c_string"
-						sortBy="#{var.numeroExpedienteSinad}">
+						sortBy="#{var.nroOrden}">
+						<f:facet name="header">
+							<h:outputText value="Nro. Orden"
+								styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.nroOrden}" />
+					</p:column>
+					
+					<p:column styleClass="c_string"
+						sortBy="#{var.etapa}">
+						<f:facet name="header">
+							<h:outputText value="Etapa"
+								styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.etapa}" />
+					</p:column>
+					
+					<p:column styleClass="c_string"
+						sortBy="#{var.estado}">
 						<f:facet name="header">
 							<h:outputText value="Estado"
 								styleClass="c_center" />
 						</f:facet>
-						<h:outputText value="#{var.numeroExpedienteSinad}" />
+						<h:outputText value="#{var.estado}" />
 					</p:column>
 					
 
@@ -338,10 +422,31 @@ function myFunction3() {
 					</p:panel>
 				</p:dialog>
 				
+				
+				
+			
+				
+			
 				 
 
 			</h:form>
 
+
+
+			<h:form id="formSegEstado">
+					
+					<p:dialog id="dlgSegEstado" header="Seguimiento de Estados" widgetVar="wvSegEstado" modal="false"
+					showEffect="fade" hideEffect="fade" resizable="false" height="50%" width="50%" >
+					
+							<ui:include
+								src="/pages/seguimiento/component/c_seguimiento_estado.xhtml" />
+					
+			
+				</p:dialog>
+				
+				
+			
+			</h:form>
 
             
 				

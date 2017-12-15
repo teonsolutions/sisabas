@@ -41,6 +41,11 @@ public class Tipodocumento extends SysTabla implements  Serializable,Cloneable{
 	private java.lang.String programaauditoria;
 	/**[*][EstadoAuditoria]*/
 	private java.lang.String estadoauditoria;
+	
+	private List<Integer> listaTipodocumentoKeys;
+	
+	
+	
 
 	public Tipodocumento() {}
 
@@ -205,5 +210,36 @@ public class Tipodocumento extends SysTabla implements  Serializable,Cloneable{
 	public void setEstadoauditoria(java.lang.String estadoauditoria) {
 		this.estadoauditoria = estadoauditoria;
 	}
+	
+	
+	
+	public void addConditionInTipodocumento(List<Integer> list){
+	
+		if(list==null || list.size()==0){
+			idtipodocumento=null;
+			idtipodocumento=null;
+			listaTipodocumentoKeys=null;
+			return;
+		}
+		
+		if(list.size()==1){
+			idtipodocumento=list.get(0);
+			listaTipodocumentoKeys=null;
+		}else{
+			idtipodocumento=null;
+			listaTipodocumentoKeys=list;
+		}
+	}
 
+	public List<Integer> getListaTipodocumentoKeys() {
+		return listaTipodocumentoKeys;
+	}
+
+	public void setListaTipodocumentoKeys(List<Integer> listaTipodocumentoKeys) {
+		this.listaTipodocumentoKeys = listaTipodocumentoKeys;
+	}
+
+	
+	
+	
 }

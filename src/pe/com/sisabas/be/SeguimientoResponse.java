@@ -1,55 +1,54 @@
 package pe.com.sisabas.be;
 
-public class SeguimientoResponse {
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
+
+public class SeguimientoResponse extends SysTabla  implements  Serializable,Cloneable{
 	
+	private static final long serialVersionUID = 1L;
 	
-	private String acciones;
-	private String tipoDocumento;
-	private String nroDocumento;
-	private String descripcion;
-	private String tipoNecesidad;
-	private String tipoContratacion;
+	private String anio;
+	private String id;
+	private String nroSinad;
+	private String nroPedido;
 	private String tipoBien;
-	private String tipoProceso;
-	private String montoProgramado;
-	private String montoVR;
-	private String fechaIni;
+	private String nroConsolidado;
+	private String descripcion;
+	private String valorContratacion;
+	private String codTipoProceso;
+	private String nroProceso;
+	private String nroContrato;
+	private String nroOrden;
+	private String etapa;
 	private String estado;
-	public String getAcciones() {
-		return acciones;
+	
+	
+	
+	
+	public String getAnio() {
+		return anio;
 	}
-	public void setAcciones(String acciones) {
-		this.acciones = acciones;
+	public void setAnio(String anio) {
+		this.anio = anio;
 	}
-	public String getTipoDocumento() {
-		return tipoDocumento;
+	public String getId() {
+		return id;
 	}
-	public void setTipoDocumento(String tipoDocumento) {
-		this.tipoDocumento = tipoDocumento;
+	public void setId(String id) {
+		this.id = id;
 	}
-	public String getNroDocumento() {
-		return nroDocumento;
+	public String getNroSinad() {
+		return nroSinad;
 	}
-	public void setNroDocumento(String nroDocumento) {
-		this.nroDocumento = nroDocumento;
+	public void setNroSinad(String nroSinad) {
+		this.nroSinad = nroSinad;
 	}
-	public String getDescripcion() {
-		return descripcion;
+	public String getNroPedido() {
+		return nroPedido;
 	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-	public String getTipoNecesidad() {
-		return tipoNecesidad;
-	}
-	public void setTipoNecesidad(String tipoNecesidad) {
-		this.tipoNecesidad = tipoNecesidad;
-	}
-	public String getTipoContratacion() {
-		return tipoContratacion;
-	}
-	public void setTipoContratacion(String tipoContratacion) {
-		this.tipoContratacion = tipoContratacion;
+	public void setNroPedido(String nroPedido) {
+		this.nroPedido = nroPedido;
 	}
 	public String getTipoBien() {
 		return tipoBien;
@@ -57,29 +56,53 @@ public class SeguimientoResponse {
 	public void setTipoBien(String tipoBien) {
 		this.tipoBien = tipoBien;
 	}
-	public String getTipoProceso() {
-		return tipoProceso;
+	public String getNroConsolidado() {
+		return nroConsolidado;
 	}
-	public void setTipoProceso(String tipoProceso) {
-		this.tipoProceso = tipoProceso;
+	public void setNroConsolidado(String nroConsolidado) {
+		this.nroConsolidado = nroConsolidado;
 	}
-	public String getMontoProgramado() {
-		return montoProgramado;
+	public String getDescripcion() {
+		return descripcion;
 	}
-	public void setMontoProgramado(String montoProgramado) {
-		this.montoProgramado = montoProgramado;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
-	public String getMontoVR() {
-		return montoVR;
+	public String getValorContratacion() {
+		return valorContratacion;
 	}
-	public void setMontoVR(String montoVR) {
-		this.montoVR = montoVR;
+	public void setValorContratacion(String valorContratacion) {
+		this.valorContratacion = valorContratacion;
 	}
-	public String getFechaIni() {
-		return fechaIni;
+	public String getCodTipoProceso() {
+		return codTipoProceso;
 	}
-	public void setFechaIni(String fechaIni) {
-		this.fechaIni = fechaIni;
+	public void setCodTipoProceso(String codTipoProceso) {
+		this.codTipoProceso = codTipoProceso;
+	}
+	public String getNroProceso() {
+		return nroProceso;
+	}
+	public void setNroProceso(String nroProceso) {
+		this.nroProceso = nroProceso;
+	}
+	public String getNroContrato() {
+		return nroContrato;
+	}
+	public void setNroContrato(String nroContrato) {
+		this.nroContrato = nroContrato;
+	}
+	public String getNroOrden() {
+		return nroOrden;
+	}
+	public void setNroOrden(String nroOrden) {
+		this.nroOrden = nroOrden;
+	}
+	public String getEtapa() {
+		return etapa;
+	}
+	public void setEtapa(String etapa) {
+		this.etapa = etapa;
 	}
 	public String getEstado() {
 		return estado;
@@ -87,6 +110,8 @@ public class SeguimientoResponse {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
+
 	
 	
 	

@@ -78,6 +78,9 @@ public class Constantes {
 		
 		
 		public static final String TIBI3="TIBI3";
+		
+	
+		
 	}
 	public class accion {
 		public static final String INSERT  = "INSERT";

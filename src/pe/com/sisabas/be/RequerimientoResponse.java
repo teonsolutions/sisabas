@@ -38,8 +38,6 @@ public class RequerimientoResponse extends SysTabla  implements  Serializable,Cl
 	
 	
 	
-	
-	
 	public String getFormatoFecha() {
 		return formatoFecha;
 	}

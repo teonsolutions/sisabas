@@ -7,6 +7,10 @@ import pe.com.sisabas.be.RequerimientoItemRequest;
 import pe.com.sisabas.be.RequerimientoItemResponse;
 import pe.com.sisabas.be.RequerimientoRequest;
 import pe.com.sisabas.be.RequerimientoResponse;
+import pe.com.sisabas.be.SegEstadoReqRequest;
+import pe.com.sisabas.be.SegEstadoReqResponse;
+import pe.com.sisabas.be.SeguimientoRequest;
+import pe.com.sisabas.be.SeguimientoResponse;
 
 public interface RequerimientoMapper {
 	
@@ -15,5 +19,9 @@ public interface RequerimientoMapper {
 	List<RequerimientoItemResponse> selectDynamicBasic(RequerimientoItemRequest record) throws Exception;
 	
 	void insertBasic(RequerimientoInsertRequest record) throws Exception;
+
+	List<SeguimientoResponse> callpaSeguimientoRequerimiento(SeguimientoRequest seguimientoRequest);
+
+	List<SegEstadoReqResponse> callpaSeguimientoEstadoRequerimiento(SegEstadoReqRequest segEstadoReqRequest);
 	
 }

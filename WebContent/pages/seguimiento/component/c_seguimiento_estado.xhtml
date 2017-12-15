@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+
+	
+		<p:panel id="pnlAtencion">
+			<p:panelGrid style="width: 100%;">
+			
+			
+				<h:form>
+					    <p:dataTable var="var" value="#{requerimiento.listaSegEstados}" sortBy="#{var.oficina}" expandableRowGroups="true" tableStyle="width: 100%;"
+					    style="width: 100%;">
+				      
+				        <p:headerRow>
+				            <p:column>
+				                <h:outputText value="#{var.oficina}" />
+				            </p:column>
+				        </p:headerRow>
+				      
+				        
+				        <p:column headerText="Estado">
+				        	    <h:outputText value="#{var.descripcionEstado}" />
+				        </p:column>
+				     
+				        <p:column headerText="Especialista">
+				            <h:outputText value="#{var.especialista}" />
+				        </p:column>
+				       
+				        <p:column headerText="Fecha">
+				            <h:outputText value="#{var.fechaCreacion}" >
+				            	<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-5"/>
+				            </h:outputText>
+				        </p:column>
+				     
+				        
+				    </p:dataTable>
+					
+				</h:form>
+			
+			
+			</p:panelGrid>
+		</p:panel>
+          
+          
+          
+</html>

@@ -6,6 +6,19 @@ public class SeguimientoRequest extends SysTabla  implements  Serializable,Clone
 
 	private static final long serialVersionUID = 1L;
 	
+	/*
+	 ALTER PROCEDURE [abas].[paSeguimientoRequerimiento]
+			 @EJERCICIO INT
+			,@ID_TIPO_NECESIDAD VARCHAR(10) 
+			,@ID_TIPO_DOCUMENTO INT 
+			,@NRO_DOCUMENTO VARCHAR(20) =NULL
+			,@TIPO_BIEN VARCHAR(10)=NULL  
+			  
+	 */
+	
+	private int ejercicio;
+	
+	private String tipoNecesidad;
 	
 	private String tipoDocumento;
 	
@@ -13,6 +26,21 @@ public class SeguimientoRequest extends SysTabla  implements  Serializable,Clone
 	
 	private String tipoBien;
 	
+	
+	
+
+	public int getEjercicio() {
+		return ejercicio;
+	}
+	public void setEjercicio(int ejercicio) {
+		this.ejercicio = ejercicio;
+	}
+	public String getTipoNecesidad() {
+		return tipoNecesidad;
+	}
+	public void setTipoNecesidad(String tipoNecesidad) {
+		this.tipoNecesidad = tipoNecesidad;
+	}
 	public String getTipoDocumento() {
 		return tipoDocumento;
 	}
