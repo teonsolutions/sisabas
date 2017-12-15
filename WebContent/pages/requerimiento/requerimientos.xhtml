@@ -112,16 +112,22 @@ function myFunction3() {
 										var="var" itemLabel="#{var.vchregdescri}"
 										itemValue="#{var.vchregcodigo}" />
 								</p:selectOneMenu></td>
+							
+							
+							
 							<td><p:outputLabel for="txtIdcatalogotipobien"
 									value="Tipo de bien(SIGA)" /></td>
 							<td><p:selectOneMenu id="txtIdcatalogotipobien"
 									value="#{requerimiento.requerimientoRequest.tipoBien}"
 									style="width:150px;">
 									<f:selectItem itemLabel="TODOS" itemValue="" />
-									<f:selectItem itemLabel="SERVICIO" itemValue="S" />
-									<f:selectItem itemLabel="BIEN" itemValue="B" />
+									<f:selectItems
+										value="#{pedido.listaGentablaIdcatalogotipobien}" var="var"
+										itemLabel="#{var.vchregdescri}" itemValue="#{var.orden}" />
 								</p:selectOneMenu></td>
 
+						
+						
 							<td><p:outputLabel for="txtIdEstadoPedido"
 									value="Estado del pedido (SIGA)" /></td>
 							<td><p:selectOneMenu id="txtIdEstadoPedido"
@@ -140,6 +146,9 @@ function myFunction3() {
 									<f:selectItem itemLabel="ATENDIDO" itemValue="8" />
 								</p:selectOneMenu></td>
 						</tr>
+					
+					
+					
 						<tr>
 							<td><p:outputLabel value="Nro de Pedido"
 									for="txtDescripcionpedidosiga" /></td>
