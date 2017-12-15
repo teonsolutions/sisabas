@@ -40,8 +40,7 @@ public class Pacprogramado extends SysTabla implements  Serializable,Cloneable{
 	/**[Nombre de dependencia]*/
 	private java.lang.String nombredependencia;
 	/**[Estado]*/
-	private java.lang.String idcatalogoestado;
-	private Gentabla gentablaIdcatalogoestado;
+	private java.lang.Integer estado;	
 	/**[Tipo documento Sinad]*/
 	private java.lang.String tipodocumentosinad;
 	/**[Número documento Sinad]*/
@@ -96,7 +95,6 @@ public class Pacprogramado extends SysTabla implements  Serializable,Cloneable{
 			(this.montopao!=null)?("montopao:\t" + this.montopao+"\n"):"" ).concat(
 			(this.codigocentrocosto!=null)?("codigocentrocosto:\t" + this.codigocentrocosto+"\n"):"" ).concat(
 			(this.nombredependencia!=null)?("nombredependencia:\t" + this.nombredependencia+"\n"):"" ).concat(
-			(this.idcatalogoestado!=null)?("idcatalogoestado:\t" + this.idcatalogoestado+"\n"):"" ).concat(
 			(this.tipodocumentosinad!=null)?("tipodocumentosinad:\t" + this.tipodocumentosinad+"\n"):"" ).concat(
 			(this.numerodocumentosinad!=null)?("numerodocumentosinad:\t" + this.numerodocumentosinad+"\n"):"" ).concat(
 			(this.numerosinad!=null)?("numerosinad:\t" + this.numerosinad+"\n"):"" ).concat(
@@ -123,8 +121,6 @@ public class Pacprogramado extends SysTabla implements  Serializable,Cloneable{
 			(this.montopao!=null)?("montopao:\t" + this.montopao+"\n"):"" ).concat(
 			(this.codigocentrocosto!=null)?("codigocentrocosto:\t" + this.codigocentrocosto+"\n"):"" ).concat(
 			(this.nombredependencia!=null)?("nombredependencia:\t" + this.nombredependencia+"\n"):"" ).concat(
-			(this.idcatalogoestado!=null)?("idcatalogoestado:\t" + this.idcatalogoestado+"\n"):"" ).concat(
-			(this.gentablaIdcatalogoestado!=null)?("gentablaIdcatalogoestado:\t" + this.gentablaIdcatalogoestado.toString()+"\n"):"" ).concat(
 			(this.tipodocumentosinad!=null)?("tipodocumentosinad:\t" + this.tipodocumentosinad+"\n"):"" ).concat(
 			(this.numerodocumentosinad!=null)?("numerodocumentosinad:\t" + this.numerodocumentosinad+"\n"):"" ).concat(
 			(this.numerosinad!=null)?("numerosinad:\t" + this.numerosinad+"\n"):"" ).concat(
@@ -192,27 +188,6 @@ public class Pacprogramado extends SysTabla implements  Serializable,Cloneable{
 	 public List<java.lang.String> getListaIdcatalogotipobienInKeys() {
 		return listaIdcatalogotipobienInKeys;
 	}
-
-	private List<java.lang.String> listaIdcatalogoestadoInKeys;
-	public void addConditionInIdcatalogoestado(List<String> list){
-		if(list==null || list.size()==0){
-			idcatalogoestado=null;
-			idcatalogoestado=null;
-			listaIdcatalogoestadoInKeys=null;
-			return;
-		}
-		if(list.size()==1){
-			idcatalogoestado=list.get(0);
-			listaIdcatalogoestadoInKeys=null;
-		}else{
-			idcatalogoestado=null;
-			listaIdcatalogoestadoInKeys=list;
-		}
-	}
-	 public List<java.lang.String> getListaIdcatalogoestadoInKeys() {
-		return listaIdcatalogoestadoInKeys;
-	}
-
 
 	 public java.lang.Integer getIdpacprogramado() {
 		return idpacprogramado;
@@ -318,20 +293,12 @@ public class Pacprogramado extends SysTabla implements  Serializable,Cloneable{
 		this.nombredependencia = nombredependencia;
 	}
 
-	 public java.lang.String getIdcatalogoestado() {
-		return idcatalogoestado;
+	 public java.lang.Integer getEstado() {
+		return estado;
 	}
 
-	public void setIdcatalogoestado(java.lang.String idcatalogoestado) {
-		this.idcatalogoestado = idcatalogoestado;
-	}
-
-	 public Gentabla getGentablaIdcatalogoestado() {
-		return gentablaIdcatalogoestado;
-	}
-
-	public void setGentablaIdcatalogoestado(Gentabla gentablaIdcatalogoestado) {
-		this.gentablaIdcatalogoestado = gentablaIdcatalogoestado;
+	public void setEstado(java.lang.Integer estado) {
+		this.estado = estado;
 	}
 
 	 public java.lang.String getTipodocumentosinad() {

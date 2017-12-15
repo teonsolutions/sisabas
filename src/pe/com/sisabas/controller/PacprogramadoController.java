@@ -123,7 +123,6 @@ public class PacprogramadoController extends BaseController {
 
 			//Add conditions IN clause
 			pacprogramadoB.addConditionInIdcatalogotipobien(listaIdcatalogotipobienKeys);
-			pacprogramadoB.addConditionInIdcatalogoestado(listaIdcatalogoestadoKeys);
 
 			pe.com.sisabas.resources.Utils.convertPropertiesStringToUppercase(pacprogramadoB); //pasa a mayusculas los datos para la busqueda
 			listaPacprogramado = business.selectDynamicFull(pacprogramadoB);
@@ -372,7 +371,6 @@ public class PacprogramadoController extends BaseController {
 
 	public void setTemporalVars() throws Exception{
 			pacprogramado.setGentablaIdcatalogotipobien(gentablaBusiness.selectByPrimaryKeyBasicFromList(pacprogramado.getIdcatalogotipobien(),listaGentablaIdcatalogotipobien));
-			pacprogramado.setGentablaIdcatalogoestado(gentablaBusiness.selectByPrimaryKeyBasicFromList(pacprogramado.getIdcatalogoestado(),listaGentablaIdcatalogoestado));
 
 	}
 	public void aceptar() {

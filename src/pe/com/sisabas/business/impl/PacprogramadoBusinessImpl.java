@@ -190,8 +190,6 @@ public class PacprogramadoBusinessImpl implements PacprogramadoBusiness, Seriali
 			throw new ValidateException(Messages.getString("pacprogramado.codigocentrocosto.length.error",record.getCodigocentrocosto().length()));
 		if(record.getNombredependencia()!=null &&  record.getNombredependencia().length() > 100)
 			throw new ValidateException(Messages.getString("pacprogramado.nombredependencia.length.error",record.getNombredependencia().length()));
-		if(record.getIdcatalogoestado()!=null &&  record.getIdcatalogoestado().length() > 10)
-			throw new ValidateException(Messages.getString("pacprogramado.idcatalogoestado.length.error",record.getIdcatalogoestado().length()));
 		if(record.getTipodocumentosinad()!=null &&  record.getTipodocumentosinad().length() > 50)
 			throw new ValidateException(Messages.getString("pacprogramado.tipodocumentosinad.length.error",record.getTipodocumentosinad().length()));
 		if(record.getNumerodocumentosinad()!=null &&  record.getNumerodocumentosinad().length() > 100)
@@ -226,8 +224,6 @@ public class PacprogramadoBusinessImpl implements PacprogramadoBusiness, Seriali
 			throw new ValidateException(Messages.getString("pacprogramado.codigocentrocosto.length.error",record.getCodigocentrocosto().length()));
 		if(record.getNombredependencia()!=null &&  record.getNombredependencia().length() > 100)
 			throw new ValidateException(Messages.getString("pacprogramado.nombredependencia.length.error",record.getNombredependencia().length()));
-		if(record.getIdcatalogoestado()!=null &&  record.getIdcatalogoestado().length() > 10)
-			throw new ValidateException(Messages.getString("pacprogramado.idcatalogoestado.length.error",record.getIdcatalogoestado().length()));
 		if(record.getTipodocumentosinad()!=null &&  record.getTipodocumentosinad().length() > 50)
 			throw new ValidateException(Messages.getString("pacprogramado.tipodocumentosinad.length.error",record.getTipodocumentosinad().length()));
 		if(record.getNumerodocumentosinad()!=null &&  record.getNumerodocumentosinad().length() > 100)
