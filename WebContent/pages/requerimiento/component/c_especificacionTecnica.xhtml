@@ -96,11 +96,13 @@
 						<p:outputLabel value="Tipo de especificación técnica" for="txtReq" />
 					</p:column>
 					<p:column>
-						<p:selectOneMenu id="txtReq" value="#{requerimiento.documentotecnico.idcatalogotipotdr}" style="width:200px;" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}">
-							<f:selectItems
+						<p:selectOneMenu id="txtReq" value="#{requerimiento.documentotecnico.idcatalogotipotdr}" style="width:200px;" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}">						
+						  <f:selectItem itemLabel="REQUERIMIENTOS GENERALES" itemValue="TIET1"/>
+						  <!--   <f:selectItems
 										value="#{pedido.listaGentablaIdcatalogotipoet}"
 										var="var" itemLabel="#{var.vchregdescri}"
-										itemValue="#{var.vchregcodigo}" />
+										itemValue="#{var.vchregcodigo}" />	
+						  --> 					
 						</p:selectOneMenu>
 					</p:column>
 
@@ -119,7 +121,7 @@
 						<p:outputLabel value="Denominación de la contratación:" for="denominacion"/>
 					</p:column>
 					<p:column>
-						<p:inputTextarea id="denominacion" value="#{requerimiento.documentotecnico.denominacioncontratacion}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}" required="true"
+						<p:inputTextarea id="denominacion" value="#{requerimiento.documentotecnico.denominacioncontratacion}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}" required="false"
 							style="width:300px;" />
 					</p:column>
 				</p:row>
@@ -129,7 +131,7 @@
 						<p:outputLabel value="Finalidad pública" for="finalidad"/>
 					</p:column>
 					<p:column>
-						<p:inputTextarea id="finalidad" value="#{requerimiento.documentotecnico.finalidadpublica}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}" required="true"
+						<p:inputTextarea id="finalidad" value="#{requerimiento.documentotecnico.finalidadpublica}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}" 
 							style="width:300px;" />
 					</p:column>
 				</p:row>
@@ -139,7 +141,7 @@
 						<p:outputLabel value="Objetivos de la contratación:" for="objetivos"/>
 					</p:column>
 					<p:column>
-						<p:inputTextarea id="objetivos" value="#{requerimiento.documentotecnico.objetocontratacion}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}" required="true"
+						<p:inputTextarea id="objetivos" value="#{requerimiento.documentotecnico.objetocontratacion}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}" 
 							style="width:300px;" />
 					</p:column>
 				</p:row>
@@ -157,7 +159,7 @@
 			</p:panelGrid>
 		</p:tab>
 
-		<p:tab title="Items">
+		<p:tab title="Items" rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE2'}" >
            
 			<p:dataTable var="var"
 				value="#{requerimiento.listaItemRequerimientos}"

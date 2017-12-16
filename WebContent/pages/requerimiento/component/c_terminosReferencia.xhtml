@@ -94,10 +94,17 @@
 					</p:column>
 					<p:column>
 						<p:selectOneMenu id="txtReq" value="#{requerimiento.documentotecnico.idcatalogotipotdr}" style="width:200px;" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}">
-							<f:selectItems 
+							
+							<f:selectItem itemLabel="Consultoria" itemValue="TITD5"/>
+							<f:selectItem itemLabel="Terceros" itemValue="TITD4"/>
+							<f:selectItem itemLabel="Servicios Basicos" itemValue="TITD2"/>
+							<f:selectItem itemLabel="Servicios Generales" itemValue="TITD1"/>
+							
+							<!--  <f:selectItems 
 										value="#{pedido.listaGentablaIdcatalogotipotdr}"
 										var="var" itemLabel="#{var.vchregdescri}"
-										itemValue="#{var.vchregcodigo}" />
+										itemValue="#{var.vchregcodigo}" />-->
+		
 						    <p:ajax update=":formTdr:accordion:idMensaje"/>				
 						</p:selectOneMenu>
 					</p:column>
@@ -118,7 +125,7 @@
 					</p:column>
 					<p:column>
 						<p:inputTextarea id="denominacion" value="#{requerimiento.documentotecnico.denominacioncontratacion}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
-							style="width:300px;" required="true"/>
+							style="width:300px;" required="false"/>
 					</p:column>
 				</p:row>
 				<p:row>
@@ -127,7 +134,7 @@
 					</p:column>
 					<p:column>
 						<p:inputTextarea id="finalidad" value="#{requerimiento.documentotecnico.finalidadpublica}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
-							style="width:300px;" required="true"/>
+							style="width:300px;" />
 					</p:column>
 				</p:row>
 
@@ -137,7 +144,7 @@
 					</p:column>
 					<p:column>
 						<p:inputTextarea id="objetivos" value="#{requerimiento.documentotecnico.objetocontratacion}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
-							style="width:300px;" required="true"/>
+							style="width:300px;" />
 					</p:column>
 				</p:row>
 
