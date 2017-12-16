@@ -1372,7 +1372,7 @@ public class ProgramacionController extends BaseController {
 		
 		boolean disabledAprobacion = false;
 		if (this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0){
-			disabledAprobacion = true;
+			disabledAprobacion = false;
 		}else{
 			//Verifica si ya tiene ingresado estudio del mercado
 			if (listaCuadrocomparativofuente == null || listaCuadrocomparativofuente.size() == 0){
@@ -1383,7 +1383,7 @@ public class ProgramacionController extends BaseController {
 		
 		boolean renderedBtns = false;
 		if (this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0){
-			renderedBtns = true; 
+			renderedBtns = false; 
 		}else{
 			if (this.currentPao.getEstadoRequerimiento() == Constantes.estadosPorEtapa.REMITIDO_A_PROCESOS){
 				renderedBtns = true;
