@@ -31,7 +31,5 @@ public interface RequerimientoBusiness {
 
 	public List<Lugar> getLugaresPrestacion(Integer idDocumentoTecnico) throws Exception;
 
-	public List<SeguimientoResponse> callpaSeguimientoRequerimiento(SeguimientoRequest seguimientoRequest) throws Exception;
-
-	public List<SegEstadoReqResponse> callpaSeguimientoEstadoRequerimiento(SegEstadoReqRequest segEstadoRequest);
+	
 }

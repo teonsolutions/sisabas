@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pe.com.sisabas.persistence.SeguimientoMapper" >
+  
+    <resultMap id = "result3" type = "pe.com.sisabas.be.SeguimientoResponse">
+      <result property = "anio" column="ANIO" jdbcType="VARCHAR"/>
+      <result property = "id" column="ID" jdbcType="VARCHAR"/>
+      <result property = "nroSinad" column="NRO_SINAD" jdbcType="VARCHAR"/>
+      <result property = "nroPedido" column="NRO_PEDIDO" jdbcType="VARCHAR"/>
+      <result property = "tipoBien" column="TIPO_BIEN" jdbcType="VARCHAR"/>
+      <result property = "nroConsolidado" column="NRO_CONSOLIDADO" jdbcType="VARCHAR"/>
+      <result property = "descripcion" column="DESCRIPCION" jdbcType="VARCHAR"/>
+      <result property = "valorContratacion" column="VALOR_CONTRATACION" jdbcType="VARCHAR"/>
+      <result property = "codTipoProceso" column="COD_TIPO_PROCESO" jdbcType="VARCHAR"/>
+      <result property = "nroProceso" column="NRO_PROCESO" jdbcType="VARCHAR"/>
+      <result property = "nroContrato" column="NRO_CONTRATO" jdbcType="VARCHAR"/>
+      <result property = "nroOrden" column="NRO_ORDEN" jdbcType="VARCHAR"/>
+      <result property = "etapa" column="ETAPA" jdbcType="VARCHAR"/>
+      <result property = "estado" column="ESTADO" jdbcType="VARCHAR"/>
+   </resultMap> 
+     
+  <resultMap id = "result4" type = "pe.com.sisabas.be.SegEstadoReqResponse">
+      <result property = "orden" column="ORDEN" jdbcType="VARCHAR"/>
+      <result property = "estado" column="ESTADO" jdbcType="VARCHAR"/>
+      <result property = "descripcionEstado" column="DESC_ESTADO" jdbcType="VARCHAR"/>
+      <result property = "fechaCreacion" column="FECHA_CREACION" jdbcType="VARCHAR"/>
+      <result property = "oficina" column="OFICINA" jdbcType="VARCHAR"/>
+      <result property = "idDocumento" column="ID_DOCUMENTO" jdbcType="VARCHAR"/>
+      <result property = "fechaDma" column="FECHA_DMA" jdbcType="TIMESTAMP"/>
+      <result property = "especialista" column="ESPECIALISTA" jdbcType="VARCHAR"/>
+   </resultMap> 
+    
+  <!-- 	private Integer ejercicio;
+			private String tipoNecesidad;
+			private String tipoDocumento;
+			private String numeroDocumento;
+			private String tipoBien; -->
+	
+	
+     <select id = "callpaSeguimientoRequerimiento"  resultMap="result3" parameterType = "pe.com.sisabas.be.SeguimientoRequest" statementType = "CALLABLE">
+	      {call abas.paSeguimientoRequerimiento(
+	            #{ejercicio},
+	            #{tipoNecesidad},
+	            #{tipoDocumento},
+	            #{numeroDocumento},
+	            #{tipoBien}
+	      )}
+   </select> 
+   
+     
+     
+      <select id = "callpaSeguimientoEstadoRequerimiento"  resultMap="result4" parameterType = "pe.com.sisabas.be.SegEstadoReqRequest" statementType = "CALLABLE">
+	      {call abas.paSeguiemientoEstadoRequerimiento(
+	            #{idTipoDocumento},
+	            #{idDocumento},
+	            #{nroConsolidado}
+	      )}
+	      
+	      
+   </select> 
+   
+     
+     
+   
+   
+
+   
+   
+   
+   
+   </mapper>
+   
+ 

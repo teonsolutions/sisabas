@@ -480,23 +480,6 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 		this.idGenerado = idGenerado;
 	}
 
-	@Override
-	public List<SeguimientoResponse> callpaSeguimientoRequerimiento(SeguimientoRequest seguimientoRequest) throws Exception {
-		
-		return requerimientoMapper.callpaSeguimientoRequerimiento(seguimientoRequest);
-	}
 
-	@Override
-	public List<SegEstadoReqResponse> callpaSeguimientoEstadoRequerimiento(SegEstadoReqRequest segEstadoReqRequest) {
-
-		System.out.println("jasaro ppk==="+requerimientoMapper.callpaSeguimientoEstadoRequerimiento(segEstadoReqRequest).size());
-		
-		return requerimientoMapper.callpaSeguimientoEstadoRequerimiento(segEstadoReqRequest);
-	}
-
-
-	
-	
-	
 
 }
