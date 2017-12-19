@@ -130,6 +130,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 		Date dateUpdate = new Date();
 
 		Integer idDocumento;
+		/*
 		if (item.getIdcatalogotiponecesidad().equals(Constantes.tipoNecesidad.TIPO_NECESIDAD_PROGRAMADO)) {
 			Pacprogramado programado = pacprogramadoMapper.selectByPrimaryKeyBasic(item.getIdPacProgramado());
 			programado.setEstado(Constantes.estadosPorEtapa.EN_REVISION_DE_DOCUMENTO_TECNICO);
@@ -149,7 +150,18 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			idDocumento = pedido.getIdpedido();
 			pedidoMapper.updateByPrimaryKey(pedido);
 		}
-
+		*/
+		
+		//PARA PROGRAMADOS Y NO PROGRAMADOS, se utiliza la misma tabla de pedidos
+		Pedido pedido = pedidoMapper.selectByPrimaryKeyBasic(item.getIdpedido());
+		pedido.setEstadopedido(Constantes.estadosPorEtapa.EN_REVISION_DE_DOCUMENTO_TECNICO);
+		pedido.setFechamodificacionauditoria(dateUpdate);
+		pedido.setEquipoauditoria(request.getEquipoAuditoria());
+		pedido.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
+		
+		idDocumento = pedido.getIdpedido();
+		pedidoMapper.updateByPrimaryKey(pedido);
+		
 		// Insertamos históricos de estados
 		Estadosportipodocumento param = new Estadosportipodocumento();
 		param.setIdtipodocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO);
@@ -187,6 +199,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
 		Date dateUpdate = new Date();
 		Integer idDocumento;
+		/*
 		if (item.getIdcatalogotiponecesidad().equals(Constantes.tipoNecesidad.TIPO_NECESIDAD_PROGRAMADO)) {
 			Pacprogramado programado = pacprogramadoMapper.selectByPrimaryKeyBasic(item.getIdPacProgramado());
 			programado.setEstado(Constantes.estadosPorEtapa.DOCUMENTO_TECNICO_APROBADO);
@@ -206,6 +219,17 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			idDocumento = pedido.getIdpedido();
 			pedidoMapper.updateByPrimaryKey(pedido);
 		}
+		*/
+		//SE UTILIZA LA MISMA TABLA PARA PROGRAMADOS Y NO PROGRAMDOS, tabla de pedido
+		Pedido pedido = pedidoMapper.selectByPrimaryKeyBasic(item.getIdpedido());
+		pedido.setEstadopedido(Constantes.estadosPorEtapa.DOCUMENTO_TECNICO_APROBADO);
+		pedido.setFechamodificacionauditoria(dateUpdate);
+		pedido.setEquipoauditoria(request.getEquipoAuditoria());
+		pedido.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
+		
+		idDocumento = pedido.getIdpedido();
+		pedidoMapper.updateByPrimaryKey(pedido);
+			
 
 		// Insertamos históricos de estados
 		Estadosportipodocumento param = new Estadosportipodocumento();

@@ -735,6 +735,7 @@ public class ProgramacionController extends BaseController {
 			CuadroComparativoRequest request = new CuadroComparativoRequest();
 			request.setIdPacConsolidado(this.currentPao.getIdPacConsolid());
 			request.setIdCuadroComparativoFuente(this.cuadrocomparativofuente.getIdcuadrocomparativofuente());
+			request.setNroConsolid(this.currentPao.getNroConsolid());
 			this.listaCuadroComparativoItems = this.programacionBusiness.getCuadroComparativoItemsByConsolid(request);
 
 			STATUS_SUCCESS();
@@ -799,6 +800,7 @@ public class ProgramacionController extends BaseController {
 			CuadroComparativoRequest request = new CuadroComparativoRequest();
 			request.setIdPacConsolidado(this.currentPao.getIdPacConsolid());
 			request.setIdCuadroComparativoFuente(this.cuadrocomparativofuente.getIdcuadrocomparativofuente());
+			request.setNroConsolid(this.currentPao.getNroConsolid());
 			this.listaCuadroComparativoItems = this.programacionBusiness.getCuadroComparativoItems(request);
 
 			STATUS_SUCCESS();
