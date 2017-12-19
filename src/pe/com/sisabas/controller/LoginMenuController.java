@@ -244,12 +244,31 @@ public class LoginMenuController extends BaseController{
 			
 			if(listaPeriodo!=null && !listaPeriodo.isEmpty()){
 			
-				setSelectedPeriodo(listaPeriodo.get(0).getAnio().toString());
-				
 				VisSigaCentroCosto record=new VisSigaCentroCosto();
 				record.setAnio(listaPeriodo.get(0).getAnio().toString());
 				
 				listaVisSigaCentroCosto=business.selectDynamicFullVis(record);
+				
+				
+				
+				//Actualiza Sesion	
+				Sicuusuario sicuusuario  = (Sicuusuario)Utils.getHttpSession().getAttribute("sicuusuarioSESSION");	
+			
+				sicuusuario.getPeriodo().setIdPeriodo(listaPeriodo.get(0).getIdperiodo());
+				sicuusuario.getPeriodo().setAnio(listaPeriodo.get(0).getAnio());
+				sicuusuario.getPeriodo().setCodigoCentroCosto(listaVisSigaCentroCosto.get(0).getCodigocentrocosto());
+				sicuusuario.getPeriodo().setNombreCentroCosto(listaVisSigaCentroCosto.get(0).getNombredependencia());
+				
+				getHttpSession().setAttribute("sicuusuarioSESSION", (Sicuusuario) sicuusuario);
+				
+				
+				System.out.println("**********jasaro   sicuusuarioSESSION ");
+				Sicuusuario sicuusuariox  = (Sicuusuario)Utils.getHttpSession().getAttribute("sicuusuarioSESSION");	
+				System.out.println(sicuusuariox.getPeriodo().getIdPeriodo());
+				System.out.println(sicuusuariox.getPeriodo().getAnio());
+				System.out.println(sicuusuariox.getPeriodo().getCodigoCentroCosto());
+				System.out.println(sicuusuariox.getPeriodo().getNombreCentroCosto());
+				
 			}
 		
 		} catch (Exception e) {

@@ -806,10 +806,9 @@ function hideDialogPF(dialog){
 				<td>
 						<p:selectOneMenu id="somPeriodo" value="#{menuBean.selectedPeriodo}" valueChangeListener="#{menuBean.changePeriodo}" 
 						style="width:75px;" >
-					
 							
-							
-							<f:selectItems value="#{menuBean.listaPeriodo}" var="var" itemLabel="#{var.anio}" itemValue="#{var.idperiodo}-#{var.anio}" />
+							<f:selectItems value="#{menuBean.listaPeriodo}" var="var" itemLabel="#{var.anio}" 
+							itemValue="#{var.idperiodo}-#{var.anio}" />
 													
 							<p:ajax event="valueChange" process="@this" update="somCentroCosto" />
 													
@@ -835,7 +834,8 @@ function hideDialogPF(dialog){
 						<p:selectOneMenu id="somCentroCosto" value="#{menuBean.selectedCentroCosto}" valueChangeListener="#{menuBean.changeCentroCosto}" 
 							style="width:400px;">
 								
-								<f:selectItems value="#{menuBean.listaVisSigaCentroCosto}" var="var" itemLabel="#{var.nombredependencia}" itemValue="#{var.codigocentrocosto}-#{var.nombredependencia}" />
+								<f:selectItems value="#{menuBean.listaVisSigaCentroCosto}" var="var" itemLabel="#{var.nombredependencia}" 
+								itemValue="#{var.codigocentrocosto}-#{var.nombredependencia}" />
 								<p:ajax event="valueChange" process="@this" />
 								
 						</p:selectOneMenu>
