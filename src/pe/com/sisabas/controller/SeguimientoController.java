@@ -18,6 +18,7 @@ import pe.com.sisabas.be.Dependenciadocumentotecnico;
 import pe.com.sisabas.be.Documentotecnico;
 import pe.com.sisabas.be.Gentabla;
 import pe.com.sisabas.be.Miembrocomiteporproceso;
+import pe.com.sisabas.be.Periodo;
 import pe.com.sisabas.be.Persona;
 import pe.com.sisabas.be.RequerimientoInsertRequest;
 import pe.com.sisabas.be.RequerimientoItemRequest;
@@ -29,9 +30,12 @@ import pe.com.sisabas.be.SegEstadoReqResponse;
 import pe.com.sisabas.be.SeguimientoRequest;
 import pe.com.sisabas.be.SeguimientoResponse;
 import pe.com.sisabas.be.Tipodocumento;
+import pe.com.sisabas.be.Vcentrocosto;
+import pe.com.sisabas.be.VisSigaCentroCosto;
 import pe.com.sisabas.business.RequerimientoBusiness;
 import pe.com.sisabas.business.SeguimientoBusiness;
 import pe.com.sisabas.business.TipodocumentoBusiness;
+import pe.com.sisabas.business.VcentrocostoBusiness;
 import pe.com.sisabas.dto.ComiteDto;
 import pe.com.sisabas.dto.Lugar;
 import pe.com.sisabas.dto.Pago;
@@ -42,6 +46,7 @@ import pe.com.sisabas.resources.Constantes;
 import pe.com.sisabas.resources.Messages;
 import pe.com.sisabas.resources.controller.BaseController;
 import pe.com.sisabas.service.SicuCallService;
+import pe.com.sisabas.service.Sicuperiodo;
 import pe.com.sisabas.service.Sicuusuario;
 
 
@@ -59,7 +64,6 @@ public class SeguimientoController extends BaseController{
 
 	
 	//jasaro1312201711AM
-		
 		@Autowired
 		public SeguimientoBusiness seguimientoBusiness;
 		@Autowired
@@ -68,11 +72,19 @@ public class SeguimientoController extends BaseController{
 		private SeguimientoRequest seguimientoRequest;
 		private List<Tipodocumento> listaTipodocumento;
 		List<Integer> listTipoDocumentoKyes;
-		
+	
 		
 		
 	
-	
+		
+		
+
+		
+		
+		
+		@Autowired
+		public VcentrocostoBusiness vcentrocostoBusiness;
+		
 		@PostConstruct
 		public void init(){
 			try {
@@ -80,7 +92,9 @@ public class SeguimientoController extends BaseController{
 				listaTipodocumento=new ArrayList<>();
 				listTipoDocumentoKyes=new ArrayList<>();
 				selectedSeguimiento=new SeguimientoResponse();
-			
+				
+	
+				
 			} catch (Exception e) {
 				addErrorMessageKey("msgsForm", e);
 			}
@@ -163,6 +177,8 @@ public class SeguimientoController extends BaseController{
 		}
 		
 		
+	
+		
 		public void cargarTipoDocumentos(List<Integer> listTipoDocumentoKyes){
 			
 			Tipodocumento record=new Tipodocumento();
@@ -191,6 +207,8 @@ public class SeguimientoController extends BaseController{
 				e.printStackTrace();
 			}
 		}
+		
+
 
 	
 	public SeguimientoRequest getSeguimientoRequest() {
@@ -238,6 +256,8 @@ public class SeguimientoController extends BaseController{
 	public void setListaTipodocumento(List<Tipodocumento> listaTipodocumento) {
 		this.listaTipodocumento = listaTipodocumento;
 	}
+
+
 	
 	
 

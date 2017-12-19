@@ -3,6 +3,7 @@ package pe.com.sisabas.persistence;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import pe.com.sisabas.be.Vcentrocosto;
+import pe.com.sisabas.be.VisSigaCentroCosto;
 
 public interface VcentrocostoMapper{
 
@@ -29,6 +30,8 @@ public interface VcentrocostoMapper{
 	List<Vcentrocosto> selectDynamicFull(Vcentrocosto record) throws Exception;
 
 	List<Vcentrocosto> selectDynamicExtended(Vcentrocosto record) throws Exception;
+
+	List<VisSigaCentroCosto> selectDynamicFullVis(VisSigaCentroCosto record);
 
 
 }

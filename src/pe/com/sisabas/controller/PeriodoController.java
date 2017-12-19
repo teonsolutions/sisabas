@@ -429,9 +429,6 @@ public class PeriodoController extends BaseController {
 		}
 	}
 
-
-
-
 	public String loadPage(){
 		buscar();
 		return "/pages/periodo/periodoBuscar.xhtml?faces-redirect=true";

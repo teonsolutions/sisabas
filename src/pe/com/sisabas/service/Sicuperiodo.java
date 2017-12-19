@@ -6,6 +6,15 @@ package pe.com.sisabas.service;
  *
  */
 public class Sicuperiodo implements java.io.Serializable{
+	
+	
+	private Integer idPeriodo;
+	private Integer anio;	
+	private String codigoCentroCosto;
+	private String nombreCentroCosto;
+	
+	
+	
 	public String getCodigoCentroCosto() {
 		return codigoCentroCosto;
 	}
@@ -30,8 +39,5 @@ public class Sicuperiodo implements java.io.Serializable{
 	public void setAnio(Integer anio) {
 		this.anio = anio;
 	}
-	private String codigoCentroCosto;
-	private String nombreCentroCosto;
-	private Integer idPeriodo;
-	private Integer anio;	
+
 }

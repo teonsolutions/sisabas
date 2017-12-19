@@ -1,6 +1,7 @@
 package pe.com.sisabas.business;
 import java.util.List;
 import pe.com.sisabas.be.Vcentrocosto;
+import pe.com.sisabas.be.VisSigaCentroCosto;
 
 public interface VcentrocostoBusiness{
 
@@ -41,6 +42,8 @@ public interface VcentrocostoBusiness{
 	public void updateByPrimaryKeyBasic(Vcentrocosto record) throws Exception;
 
 	public void updateByPrimaryKeyFull(Vcentrocosto record) throws Exception;
+
+	public List<VisSigaCentroCosto> selectDynamicFullVis(VisSigaCentroCosto record);
 
 
 }

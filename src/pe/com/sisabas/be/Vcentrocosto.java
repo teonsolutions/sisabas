@@ -17,6 +17,8 @@ public class Vcentrocosto extends SysTabla implements  Serializable,Cloneable{
 
 	private static final long serialVersionUID = 1L;
 
+	
+
 	/**[id]*/
 	private java.lang.String codigocentrocosto;
 	/**[NombreDependencia]*/
@@ -89,8 +91,11 @@ public class Vcentrocosto extends SysTabla implements  Serializable,Cloneable{
 		return super.clone();
 	 }
 
+	
 
-	 public java.lang.String getCodigocentrocosto() {
+
+	
+	public java.lang.String getCodigocentrocosto() {
 		return codigocentrocosto;
 	}
 

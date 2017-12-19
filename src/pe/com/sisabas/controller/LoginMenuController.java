@@ -1,12 +1,14 @@
 package pe.com.sisabas.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,13 +16,19 @@ import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import pe.com.sisabas.be.Periodo;
+import pe.com.sisabas.be.VisSigaCentroCosto;
+import pe.com.sisabas.business.PeriodoBusiness;
+import pe.com.sisabas.business.VcentrocostoBusiness;
 import pe.com.sisabas.exception.ValidateException;
 import pe.com.sisabas.resources.Utils;
 import pe.com.sisabas.resources.controller.BaseController;
 import pe.com.sisabas.service.Sicuopcion;
+import pe.com.sisabas.service.Sicuperiodo;
 import pe.com.sisabas.service.Sicuusuario;
 
 @Component(value ="menuBean")
@@ -35,6 +43,11 @@ public class LoginMenuController extends BaseController{
 	ELContext elCtx;
 	ExpressionFactory expFact;
 	
+	private List<Periodo> listaPeriodo;
+	
+
+
+	
 	
 	@PostConstruct
 	public void generateMenu(){
@@ -47,7 +60,9 @@ public class LoginMenuController extends BaseController{
 	    
 	    HttpServletRequest request= (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 	    HttpSession session = ((HttpServletRequest)request).getSession(false);
-	    LoginController login = (LoginController) session.getAttribute("loginBean");	 
+	    LoginController login = (LoginController) session.getAttribute("loginBean");
+	    
+	    buscarPeriodo();
 	    
 		try {
 			
@@ -96,13 +111,17 @@ public class LoginMenuController extends BaseController{
 				}		        
 			        
 		       model.addElement(submenu);
-			}				
+			}
+			
+			
 				
 
 		} catch (Exception e) {
 			addErrorMessage(e);		
 		}
 	}	
+
+	
 
 	public MenuModel getModel() {
 		return model;
@@ -142,4 +161,118 @@ public class LoginMenuController extends BaseController{
 	}
 	
 	
+	
+	
+	
+	
+	//jasaro19122017
+	private String selectedPeriodo;
+	private String selectedCentroCosto;
+	private List<VisSigaCentroCosto> listaVisSigaCentroCosto;
+	@Autowired
+	public PeriodoBusiness periodoBusiness;
+	
+	@Autowired
+	public VcentrocostoBusiness business;
+	
+	private Periodo periodoB=new Periodo();
+	
+	
+	public void changePeriodo(ValueChangeEvent event){
+		
+		String valor=(String) event.getNewValue();
+		
+	
+		
+		if(valor!=null && !valor.isEmpty()){
+			Sicuusuario sicuusuario  = (Sicuusuario)Utils.getHttpSession().getAttribute("sicuusuarioSESSION");	
+			sicuusuario.getPeriodo().setIdPeriodo(Integer.parseInt(valor.split("-")[0].toString()));
+			sicuusuario.getPeriodo().setAnio(Integer.parseInt(valor.split("-")[1].toString()));
+			getHttpSession().setAttribute("sicuusuarioSESSION", (Sicuusuario)sicuusuario);
+			
+			VisSigaCentroCosto record=new VisSigaCentroCosto();
+			record.setAnio(valor.split("-")[1].toString());
+			
+			listaVisSigaCentroCosto=business.selectDynamicFullVis(record);
+			
+			
+		}
+		
+		FacesContext.getCurrentInstance().renderResponse();
+	}
+	
+	
+	public void changeCentroCosto(ValueChangeEvent event){
+		
+		String valor=(String) event.getNewValue();
+		
+		if(valor!=null && !valor.isEmpty()){
+			Sicuusuario sicuusuario  = (Sicuusuario)Utils.getHttpSession().getAttribute("sicuusuarioSESSION");		
+			sicuusuario.getPeriodo().setCodigoCentroCosto(valor.split("-")[0].toString());
+			sicuusuario.getPeriodo().setNombreCentroCosto(valor.split("-")[1].toString());
+			getHttpSession().setAttribute("sicuusuarioSESSION", (Sicuusuario) sicuusuario);
+		
+			System.out.println("**********jasaro   sicuusuarioSESSION ");
+			Sicuusuario sicuusuariox  = (Sicuusuario)Utils.getHttpSession().getAttribute("sicuusuarioSESSION");	
+			System.out.println(sicuusuariox.getPeriodo().getIdPeriodo());
+			System.out.println(sicuusuariox.getPeriodo().getAnio());
+			System.out.println(sicuusuariox.getPeriodo().getCodigoCentroCosto());
+			System.out.println(sicuusuariox.getPeriodo().getNombreCentroCosto());
+			
+		}
+	
+	}
+	
+	private void buscarPeriodo() {
+		List<String> ordenListaCampos = Arrays.asList("A1.nombreperiodo");
+		periodoB.setOrdenListaCampos(ordenListaCampos);
+		periodoB.setOrdenTipo("DESC");
+
+		
+		pe.com.sisabas.resources.Utils.convertPropertiesStringToUppercase(periodoB);
+		
+		try {
+			listaPeriodo = periodoBusiness.selectDynamicFull(periodoB);
+			
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	public List<VisSigaCentroCosto> getListaVisSigaCentroCosto() {
+		return listaVisSigaCentroCosto;
+	}
+
+	public String getSelectedPeriodo() {
+		return selectedPeriodo;
+	}
+
+	public void setSelectedPeriodo(String selectedPeriodo) {
+		this.selectedPeriodo = selectedPeriodo;
+	}
+
+	public String getSelectedCentroCosto() {
+		return selectedCentroCosto;
+	}
+
+	public void setSelectedCentroCosto(String selectedCentroCosto) {
+		this.selectedCentroCosto = selectedCentroCosto;
+	}
+
+
+
+	public List<Periodo> getListaPeriodo() {
+		return listaPeriodo;
+	}
+
+
+
+	public void setListaPeriodo(List<Periodo> listaPeriodo) {
+		this.listaPeriodo = listaPeriodo;
+	}
+
+
 }

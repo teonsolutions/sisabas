@@ -28,6 +28,28 @@
 	<result column="A1_FECHAMODIFICACIONAUDITORIA" property="fechamodificacionauditoria" jdbcType="TIMESTAMP" />
 
 	</resultMap>
+	
+	
+	
+	
+	<resultMap id="FullResultMapVis" type="pe.com.sisabas.be.VisSigaCentroCosto">
+		
+		<result column="A1_CODIGOUNIDADEJECUTORA" property="codigoUnidadEjecutora" jdbcType="VARCHAR" />
+		<result column="A1_ANIO" property="anio" jdbcType="VARCHAR" />
+		<result column="A1_SECEJEC" property="secEjec" jdbcType="VARCHAR" />
+		<result column="A1_CODIGOCENTROCOSTO" property="codigocentrocosto" jdbcType="VARCHAR" />
+		<result column="A1_NOMBREDEPENDENCIA" property="nombredependencia" jdbcType="VARCHAR" />
+		<result column="A1_AREVIADODEPENDENCIA" property="abreviadoDependencia" jdbcType="VARCHAR" />
+		<result column="A1_SEDE" property="sede" jdbcType="VARCHAR" />
+		<result column="A1_PLIEGO" property="pliego" jdbcType="VARCHAR" />
+		<result column="A1_TIPODEPENDENCIA" property="tipoDependencia" jdbcType="VARCHAR" />
+		<result column="A1_ESTADO" property="estado" jdbcType="VARCHAR" />
+		<result column="A1_ORDEN" property="orden" jdbcType="VARCHAR" />
+		<result column="A1_CENTROSBN" property="centroSbn" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
 
 
 	<sql id="Basic_Column_List">
@@ -281,59 +303,105 @@
 
 
 	<select id="selectDynamicFull" resultMap="FullResultMap"  parameterType="pe.com.sisabas.be.Vcentrocosto" >
-	select 'false' as QUERYID,
-	<include refid="Full_Column_List"/>
-	from abas.VCentroCosto A1
-	<where>
-		<if test="codigocentrocosto != null" >
-			 AND A1.CODIGOCENTROCOSTO LIKE ('%' + #{codigocentrocosto,jdbcType=VARCHAR} + '%')
+		
+	    select 'false' as QUERYID,
+		<include refid="Full_Column_List"/>
+		from abas.VCentroCosto A1
+		<where>
+			<if test="codigocentrocosto != null" >
+				 AND A1.CODIGOCENTROCOSTO LIKE ('%' + #{codigocentrocosto,jdbcType=VARCHAR} + '%')
+			</if>
+			<if test="nombredependencia != null" >
+				 AND A1.NOMBREDEPENDENCIA LIKE ('%' + #{nombredependencia,jdbcType=VARCHAR} + '%')
+			</if>
+			<if test="fechacreacionauditoriaini != null" >
+				 AND  (A1.FECHACREACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechacreacionauditoriaini,jdbcType=TIMESTAMP} 
+			</if>
+	
+			<if test="fechacreacionauditoriafin != null" >
+				 AND (A1.FECHACREACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechacreacionauditoriafin,jdbcType=TIMESTAMP} 
+	
+			</if>
+			<if test="usuariocreacionauditoria != null" >
+				 AND A1.USUARIOCREACIONAUDITORIA LIKE ('%' + #{usuariocreacionauditoria,jdbcType=VARCHAR} + '%')
+			</if>
+			<if test="usuariomodificacionauditoria != null" >
+				 AND A1.USUARIOMODIFICACIONAUDITORIA LIKE ('%' + #{usuariomodificacionauditoria,jdbcType=VARCHAR} + '%')
+			</if>
+			<if test="equipoauditoria != null" >
+				 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+			</if>
+			<if test="programaauditoria != null" >
+				 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+			</if>
+			<if test="estadoauditoria != null" >
+				 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+			</if>
+			<if test="fechamodificacionauditoriaini != null" >
+				 AND  (A1.FECHAMODIFICACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechamodificacionauditoriaini,jdbcType=TIMESTAMP} 
+			</if>
+	
+			<if test="fechamodificacionauditoriafin != null" >
+				 AND (A1.FECHAMODIFICACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechamodificacionauditoriafin,jdbcType=TIMESTAMP} 
+	
+			</if>
+			
+			
+			
+			
+		</where>
+	
+		<if test="ordenListaCampos != null" >
+			 ORDER BY 
+			<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+			<if test="ordenTipo != null" >
+				 ${ordenTipo} 
+			</if>
 		</if>
-		<if test="nombredependencia != null" >
-			 AND A1.NOMBREDEPENDENCIA LIKE ('%' + #{nombredependencia,jdbcType=VARCHAR} + '%')
+	
+		<if test="cantidadRegistros != null" >
+	
 		</if>
-		<if test="fechacreacionauditoriaini != null" >
-			 AND  (A1.FECHACREACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechacreacionauditoriaini,jdbcType=TIMESTAMP} 
-		</if>
-
-		<if test="fechacreacionauditoriafin != null" >
-			 AND (A1.FECHACREACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechacreacionauditoriafin,jdbcType=TIMESTAMP} 
-
-		</if>
-		<if test="usuariocreacionauditoria != null" >
-			 AND A1.USUARIOCREACIONAUDITORIA LIKE ('%' + #{usuariocreacionauditoria,jdbcType=VARCHAR} + '%')
-		</if>
-		<if test="usuariomodificacionauditoria != null" >
-			 AND A1.USUARIOMODIFICACIONAUDITORIA LIKE ('%' + #{usuariomodificacionauditoria,jdbcType=VARCHAR} + '%')
-		</if>
-		<if test="equipoauditoria != null" >
-			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
-		</if>
-		<if test="programaauditoria != null" >
-			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
-		</if>
-		<if test="estadoauditoria != null" >
-			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
-		</if>
-		<if test="fechamodificacionauditoriaini != null" >
-			 AND  (A1.FECHAMODIFICACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechamodificacionauditoriaini,jdbcType=TIMESTAMP} 
-		</if>
-
-		<if test="fechamodificacionauditoriafin != null" >
-			 AND (A1.FECHAMODIFICACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechamodificacionauditoriafin,jdbcType=TIMESTAMP} 
-
-		</if>
-	</where>
-
-	<if test="ordenListaCampos != null" >
-		 ORDER BY 
-		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
-		<if test="ordenTipo != null" >
-			 ${ordenTipo} 
-		</if>
-	</if>
-
-	<if test="cantidadRegistros != null" >
-
-	</if>
 	</select>
+	
+	
+	
+	<sql id="Full_Column_List_Vis">
+			A1.CodigoUnidadEjecutora as A1_CODIGOUNIDADEJECUTORA, A1.Anio as A1_ANIO,  A1.SecEjec as A1_SECEJEC, 
+			A1.Codigocentrocosto as A1_CODIGOCENTROCOSTO, A1.Nombredependencia as A1_NOMBREDEPENDENCIA,  A1.AbreviadoDependencia as A1_AREVIADODEPENDENCIA, 
+			A1.SEDE as A1_SEDE, A1.PLIEGO as A1_PLIEGO, A1.TipoDependencia as A1_TIPODEPENDENCIA, A1.ESTADO as A1_ESTADO,
+			A1.ORDEN as A1_ORDEN, A1.CentroSbn as A1_CENTROSBN
+			
+			
+	</sql>
+
+
+	
+	
+	
+	<select id="selectDynamicFullVis" resultMap="FullResultMapVis"  parameterType="pe.com.sisabas.be.VisSigaCentroCosto" >
+		
+	    select 'false' as QUERYID,
+		<include refid="Full_Column_List_Vis"/>
+		from abas.visSigaCentroCosto A1
+	
+	
+		<where>
+			<if test="anio != null" >
+				 AND A1.Anio = #{anio, jdbcType=VARCHAR}
+			</if>
+		
+		</where>
+	
+		
+	</select>
+	
+	
+
+	
+	
+	
+	
+	
+	
 </mapper>

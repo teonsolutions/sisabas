@@ -32,6 +32,7 @@ import pe.com.sisabas.exception.SecurityRestrictedControlException;
 import pe.com.sisabas.exception.SecuritySessionExpiredException;
 import pe.com.sisabas.exception.SecurityValidateException;
 import pe.com.sisabas.be.Vcentrocosto;
+import pe.com.sisabas.be.VisSigaCentroCosto;
 import pe.com.sisabas.business.VcentrocostoBusiness;
 
 
@@ -54,6 +55,10 @@ public class VcentrocostoController extends BaseController {
 	private String tituloParam;//titulo que llega como parametro (derivada padre)
 	
 	private String esDerivada="0";
+	
+	
+	
+	
 	
 	@Autowired
 	public pe.com.sisabas.resources.business.UtilsBusiness utilsBusiness;
@@ -80,7 +85,8 @@ public class VcentrocostoController extends BaseController {
 				idOpcion   = SicuCallService.obtenerIdOpcion(idOpcionText).toString();
 				sicuopcion = SicuCallService.obtenercontroles(idOpcion);
 			}
-
+			
+		
 
 
 		} catch (SecuritySessionExpiredException e) {
@@ -525,6 +531,8 @@ public class VcentrocostoController extends BaseController {
 	public void setTituloParam(String tituloParam) {
 		this.tituloParam = tituloParam;
 	}
+
+
 
 
 

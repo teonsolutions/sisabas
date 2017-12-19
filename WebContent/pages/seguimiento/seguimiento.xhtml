@@ -105,7 +105,8 @@ function myFunction3() {
 							<!-- TIPO DE NECESIDAD -->
 							<td><p:outputLabel for="txtIdcatalogotiponecesidad"
 									value="Tipo de Necesidad" /></td>
-							<td><p:selectOneMenu id="txtIdcatalogotiponecesidad" required="true" requiredMessage="Tipo de Necesidad: Se nececita un valor."
+							<td>
+								<p:selectOneMenu id="txtIdcatalogotiponecesidad" required="true" requiredMessage="Tipo de Necesidad: Se nececita un valor."
 									value="#{seguimiento.seguimientoRequest.tipoNecesidad}" valueChangeListener="#{seguimiento.changeTipoDocumento}"
 									style="width:150px;">
 									
@@ -120,7 +121,8 @@ function myFunction3() {
 										<p:ajax event="valueChange" process="@this" update="txtTipoDocumento" />
 										
 										
-								</p:selectOneMenu></td>
+								</p:selectOneMenu>
+							</td>
 						</tr>
 						
 						<tr>
@@ -163,7 +165,7 @@ function myFunction3() {
 										value="#{pedido.listaGentablaIdcatalogotipobien}" var="var"
 										itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
 								</p:selectOneMenu></td>
-								</tr>
+					</tr>
 						
 					<tr>
 						<td colspan="2">

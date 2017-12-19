@@ -755,10 +755,17 @@ function hideDialogPF(dialog){
 
 
 
+
+
+
+
+
+
+
 <p:menubar model="#{menuBean.model}"  rendered="#{loginBean.isSicuSecurityEnable() and !loginBean.mobile}" id="idMenuBar" widgetVar="idMenuBar">
 	<f:facet name="options">
-		<p:panelGrid columns="2" columnClasses="ui-grid-col-8,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank" style="width:95%;text-align:left;align:left;">			
-			<p:menuButton icon="fa fa-fw fa-gear" >				
+		<p:panelGrid columns="2" columnClasses="ui-grid-col-8,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank" style="width:95%;text-align:left;align:left;">	
+		<p:menuButton icon="fa fa-fw fa-gear" >				
 		        <p:menuitem value="Cambiar clave" icon="fa fa-fw fa-key" outcome="/cambioClave.xhtml"/>		        
 		        <p:menuitem value="Salir" icon="fa fa-fw fa-sign-out" onclick="PF('cdSalirSistema').show();" title="Salir del sistema"/>
 		        <p:separator />
@@ -771,6 +778,50 @@ function hideDialogPF(dialog){
 </p:menubar>
 
 <ui:include src="/pages/template/Menu.xhtml" rendered="#{!loginBean.isSicuSecurityEnable()}"/>
+
+
+<ui:fragment>
+	<div align="right" style="background: #f2f5f7;">	
+	
+	
+	
+	    	<!-- <p:outputLabel value="Periodo " for="somPeriodo"/> -->
+		
+		
+			<p:selectOneMenu id="somPeriodo" value="#{menuBean.selectedPeriodo}" valueChangeListener="#{menuBean.changePeriodo}" style="width:150px;">
+		
+				<f:selectItem itemLabel="Periodo" itemValue="#{null}" noSelectionOption="true"/>
+				
+				<f:selectItems value="#{menuBean.listaPeriodo}" var="var" itemLabel="#{var.anio}" itemValue="#{var.idperiodo}-#{var.anio}" />
+										
+				<p:ajax event="valueChange" process="@this" update="somCentroCosto" />
+										
+			</p:selectOneMenu>
+		
+		
+	
+	
+			<!-- <p:outputLabel value="Centro de Costo " for="somCentroCosto"/> -->
+		
+		
+			<p:selectOneMenu id="somCentroCosto" value="#{menuBean.selectedCentroCosto}" valueChangeListener="#{menuBean.changeCentroCosto}" style="width:150px;">
+			
+				<f:selectItem itemLabel="Centro de Costo" itemValue="#{null}" noSelectionOption="true"/>
+				
+				<f:selectItems value="#{menuBean.listaVisSigaCentroCosto}" var="var" itemLabel="#{var.nombredependencia}" itemValue="#{var.codigocentrocosto}-#{var.nombredependencia}" />
+				
+				
+				<p:ajax event="valueChange" process="@this" />
+				
+			</p:selectOneMenu>
+			
+
+			
+			
+			
+	
+	</div>
+</ui:fragment>
 
 <ui:fragment rendered="#{loginBean.isSicuSecurityEnable()}">
 <div style="position: absolute;top: 5;left:10;text-align: right;border: 0px solid silver;" align="left">	
@@ -793,6 +844,9 @@ function hideDialogPF(dialog){
 <p:sticky target="idMenuBar" rendered="#{loginBean.isSicuSecurityEnable() and !loginBean.mobile}"/>
 
 <ui:include src="/pages/template/MenuOverlayPanel.xhtml" rendered="#{!loginBean.isSicuSecurityEnable()}"/>
+
+	
+	
 
 </h:form>
 </ui:insert>

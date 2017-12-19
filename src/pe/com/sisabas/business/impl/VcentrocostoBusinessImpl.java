@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pe.com.sisabas.be.Vcentrocosto;
+import pe.com.sisabas.be.VisSigaCentroCosto;
 import pe.com.sisabas.persistence.VcentrocostoMapper;
 import pe.com.sisabas.business.VcentrocostoBusiness;
 import pe.com.sisabas.exception.BusinessException;
@@ -223,6 +224,12 @@ public class VcentrocostoBusinessImpl implements VcentrocostoBusiness, Serializa
 			throw new ValidateException(Messages.getString("vcentrocosto.codigocentrocosto.required"));
 
 		//Here Bussines Validations.
+	}
+
+	@Override
+	public List<VisSigaCentroCosto> selectDynamicFullVis(VisSigaCentroCosto record) {
+		// TODO Auto-generated method stub
+		return vcentrocostoMapper.selectDynamicFullVis(record);
 	}
 
 
