@@ -8,6 +8,9 @@
     <f:view contentType="text/html" encoding="ISO-8859-1">
  <h:head> 
  
+ 
+ 
+ 
  	<script language="Javascript" src="#{request.contextPath}/resources/js/jasaro-validator.js"></script>	
  	
  	
@@ -785,40 +788,27 @@ function hideDialogPF(dialog){
 	
 	
 	
-	    	<!-- <p:outputLabel value="Periodo " for="somPeriodo"/> -->
+			<p:selectOneMenu id="somPeriodo" value="#{menuBean.selectedPeriodo}" valueChangeListener="#{menuBean.changePeriodo}" 
+			style="width:150px;" >
 		
-		
-			<p:selectOneMenu id="somPeriodo" value="#{menuBean.selectedPeriodo}" valueChangeListener="#{menuBean.changePeriodo}" style="width:150px;">
-		
-				<f:selectItem itemLabel="Periodo" itemValue="#{null}" noSelectionOption="true"/>
+				
 				
 				<f:selectItems value="#{menuBean.listaPeriodo}" var="var" itemLabel="#{var.anio}" itemValue="#{var.idperiodo}-#{var.anio}" />
 										
 				<p:ajax event="valueChange" process="@this" update="somCentroCosto" />
 										
 			</p:selectOneMenu>
+
 		
 		
-	
-	
-			<!-- <p:outputLabel value="Centro de Costo " for="somCentroCosto"/> -->
-		
-		
-			<p:selectOneMenu id="somCentroCosto" value="#{menuBean.selectedCentroCosto}" valueChangeListener="#{menuBean.changeCentroCosto}" style="width:150px;">
-			
-				<f:selectItem itemLabel="Centro de Costo" itemValue="#{null}" noSelectionOption="true"/>
+			<p:selectOneMenu id="somCentroCosto" value="#{menuBean.selectedCentroCosto}" valueChangeListener="#{menuBean.changeCentroCosto}" 
+			style="width:150px;">
 				
 				<f:selectItems value="#{menuBean.listaVisSigaCentroCosto}" var="var" itemLabel="#{var.nombredependencia}" itemValue="#{var.codigocentrocosto}-#{var.nombredependencia}" />
-				
-				
 				<p:ajax event="valueChange" process="@this" />
 				
 			</p:selectOneMenu>
-			
-
-			
-			
-			
+		
 	
 	</div>
 </ui:fragment>

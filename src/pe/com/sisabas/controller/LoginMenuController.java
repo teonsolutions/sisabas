@@ -45,6 +45,7 @@ public class LoginMenuController extends BaseController{
 	
 	private List<Periodo> listaPeriodo;
 	
+	private boolean booleanConfig;
 
 
 	
@@ -182,7 +183,7 @@ public class LoginMenuController extends BaseController{
 		
 		String valor=(String) event.getNewValue();
 		
-	
+
 		
 		if(valor!=null && !valor.isEmpty()){
 			Sicuusuario sicuusuario  = (Sicuusuario)Utils.getHttpSession().getAttribute("sicuusuarioSESSION");	
@@ -194,6 +195,8 @@ public class LoginMenuController extends BaseController{
 			record.setAnio(valor.split("-")[1].toString());
 			
 			listaVisSigaCentroCosto=business.selectDynamicFullVis(record);
+			
+			setSelectedPeriodo(valor.split("-")[1].toString());
 			
 			
 		}
@@ -212,6 +215,11 @@ public class LoginMenuController extends BaseController{
 			sicuusuario.getPeriodo().setNombreCentroCosto(valor.split("-")[1].toString());
 			getHttpSession().setAttribute("sicuusuarioSESSION", (Sicuusuario) sicuusuario);
 		
+			
+			
+			
+			
+			
 			System.out.println("**********jasaro   sicuusuarioSESSION ");
 			Sicuusuario sicuusuariox  = (Sicuusuario)Utils.getHttpSession().getAttribute("sicuusuarioSESSION");	
 			System.out.println(sicuusuariox.getPeriodo().getIdPeriodo());
@@ -234,14 +242,21 @@ public class LoginMenuController extends BaseController{
 		try {
 			listaPeriodo = periodoBusiness.selectDynamicFull(periodoB);
 			
+			if(listaPeriodo!=null && !listaPeriodo.isEmpty()){
+			
+				setSelectedPeriodo(listaPeriodo.get(0).getAnio().toString());
+				
+				VisSigaCentroCosto record=new VisSigaCentroCosto();
+				record.setAnio(listaPeriodo.get(0).getAnio().toString());
+				
+				listaVisSigaCentroCosto=business.selectDynamicFullVis(record);
+			}
 		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
-	
-	
+		
 	public List<VisSigaCentroCosto> getListaVisSigaCentroCosto() {
 		return listaVisSigaCentroCosto;
 	}
@@ -272,6 +287,17 @@ public class LoginMenuController extends BaseController{
 
 	public void setListaPeriodo(List<Periodo> listaPeriodo) {
 		this.listaPeriodo = listaPeriodo;
+	}
+
+
+
+	public boolean isBooleanConfig() {
+		return booleanConfig;
+	}
+
+
+	public void setBooleanConfig(boolean booleanConfig) {
+		this.booleanConfig = booleanConfig;
 	}
 
 
