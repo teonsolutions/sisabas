@@ -196,8 +196,9 @@ public class LoginMenuController extends BaseController{
 			
 			listaVisSigaCentroCosto=business.selectDynamicFullVis(record);
 			
-			setSelectedPeriodo(valor.split("-")[1].toString());
+			setSelectedPeriodo(valor.split("-")[0].toString()+"-"+valor.split("-")[1].toString());
 			
+		
 			
 		}
 		
@@ -258,6 +259,9 @@ public class LoginMenuController extends BaseController{
 				sicuusuario.getPeriodo().setAnio(listaPeriodo.get(0).getAnio());
 				sicuusuario.getPeriodo().setCodigoCentroCosto(listaVisSigaCentroCosto.get(0).getCodigocentrocosto());
 				sicuusuario.getPeriodo().setNombreCentroCosto(listaVisSigaCentroCosto.get(0).getNombredependencia());
+				
+				
+				setSelectedPeriodo(listaPeriodo.get(0).getIdperiodo()+"-"+listaPeriodo.get(0).getAnio());
 				
 				getHttpSession().setAttribute("sicuusuarioSESSION", (Sicuusuario) sicuusuario);
 				
