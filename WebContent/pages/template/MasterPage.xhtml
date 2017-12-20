@@ -286,6 +286,10 @@ li
 
 
 
+
+
+
+
 :has
 
 
@@ -307,7 +311,11 @@ li
 
 
 
+
+
  
+
+
 
 
 
@@ -370,6 +378,10 @@ a
 
 
 
+
+
+
+
 .active
 
 
@@ -391,7 +403,11 @@ a
 
 
 
+
+
  
+
+
 
 
 
@@ -1020,6 +1036,53 @@ figure {
 				</p:menubar>
 
 				<ui:fragment>
+					<div align="center" style="background: #fff;">
+						<table style="width: 100%">
+							<tr>
+								<td align="left" style="width: 30%"><br /> <p:spacer
+										height="5" width="50"></p:spacer> <h:graphicImage
+										url="/resources/img/logo.png" width="408" height="57" /></td>
+								<td>
+									<table>
+										<tr>
+
+											<td style="color: #077D9B; font-weight: bold;"><p:outputLabel
+													value="Ejercicio: " id="lblPeriodo" /></td>
+											<td><p:selectOneMenu id="somPeriodo"
+													value="#{menuBean.selectedPeriodo}"
+													valueChangeListener="#{menuBean.changePeriodo}">
+													<f:selectItems value="#{menuBean.listaPeriodo}" var="var"
+														itemLabel="#{var.anio}"
+														itemValue="#{var.idperiodo}-#{var.anio}" />
+
+													<p:ajax event="valueChange" process="@this"
+														update="somCentroCosto" />
+												</p:selectOneMenu></td>
+										</tr>
+										<tr>
+											<td><p:spacer height="5"></p:spacer></td>
+											<td></td>
+										</tr>
+										<tr>
+											<td style="color: #077D9B; font-weight: bold;"><p:outputLabel
+													value="Oficina: " id="lblCentroCosto" /></td>
+											<td><p:selectOneMenu id="somCentroCosto"
+													value="#{menuBean.selectedCentroCosto}"
+													valueChangeListener="#{menuBean.changeCentroCosto}"
+													style="width:400px;">
+
+													<f:selectItems value="#{menuBean.listaVisSigaCentroCosto}"
+														var="var" itemLabel="#{var.nombredependencia}"
+														itemValue="#{var.codigocentrocosto}-#{var.nombredependencia}" />
+													<p:ajax event="valueChange" process="@this" />
+												</p:selectOneMenu></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+
+					</div>
 				</ui:fragment>
 
 				<ui:include src="/pages/template/Menu.xhtml"
@@ -1061,67 +1124,7 @@ figure {
 			</h:form>
 		</ui:insert>
 
-		<table>
-			<tr>
-				<td style="vertical-align: top;">
-					<div></div>
-				</td>
-				<td style="vertical-align: top;"></td>
-			</tr>
-		</table>
-
-		<header>
-
-			<div align="center" style="background: #fff;">
-				<table style="width: 100%">
-					<tr>
-						<td align="left" style="width: 30%"><br /> <p:spacer
-								height="5" width="50"></p:spacer> <h:graphicImage
-								url="/resources/img/logo.png" width="408" height="57" /></td>
-						<td>
-							<table>
-								<tr>
-
-									<td style="color: #077D9B; font-weight: bold;"><p:outputLabel
-											value="Ejercicio: " id="lblPeriodo" /></td>
-									<td><p:selectOneMenu id="somPeriodo"
-											value="#{menuBean.selectedPeriodo}"
-											valueChangeListener="#{menuBean.changePeriodo}">
-											<f:selectItems value="#{menuBean.listaPeriodo}" var="var"
-												itemLabel="#{var.anio}"
-												itemValue="#{var.idperiodo}-#{var.anio}" />
-
-											<p:ajax event="valueChange" process="@this"
-												update="somCentroCosto" />
-										</p:selectOneMenu></td>
-								</tr>
-								<tr>
-									<td><p:spacer height="5"></p:spacer></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td style="color: #077D9B; font-weight: bold;"><p:outputLabel
-											value="Oficina: " id="lblCentroCosto" /></td>
-									<td><p:selectOneMenu id="somCentroCosto"
-											value="#{menuBean.selectedCentroCosto}"
-											valueChangeListener="#{menuBean.changeCentroCosto}"
-											style="width:400px;">
-
-											<f:selectItems value="#{menuBean.listaVisSigaCentroCosto}"
-												var="var" itemLabel="#{var.nombredependencia}"
-												itemValue="#{var.codigocentrocosto}-#{var.nombredependencia}" />
-											<p:ajax event="valueChange" process="@this" />
-										</p:selectOneMenu></td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-				</table>
-
-			</div>
-
-
-		</header>
+		<header> </header>
 
 		<aside>
 			<p:menu style="margin-left:0px; width: 100%">
