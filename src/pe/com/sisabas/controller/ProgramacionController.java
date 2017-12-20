@@ -103,7 +103,8 @@ public class ProgramacionController extends BaseController {
 	private boolean disabledTabEstudioMercado;
 	private boolean disabledTabOrden;
 	private boolean disabledTabAprobacion;
-	private boolean disabledButtons;
+	private boolean disabledButtons;	
+	private boolean disabledButtonsCD;
 
 	private String idOpcionText = "OPC_PAO";
 	public List<Gentabla> listaGentablaIdcatalogoestadopac;
@@ -452,8 +453,7 @@ public class ProgramacionController extends BaseController {
 			}
 			if (this.currentPao == null) {
 				this.currentPao = new PaoResponse();
-			}
-			activeTabs();
+			}			
 			PaoRequest record = new PaoRequest();
 			record.setIdUnidadEjecutora(Constantes.unidadEjecutora.ID_UNIDAD_EJECUTORA_ABAS);
 			record.setAnio(usuario != null ? usuario.getPeriodo().getAnio() : 0);
@@ -463,20 +463,11 @@ public class ProgramacionController extends BaseController {
 			CompraDirectaDatosGeneralesDto cd = programacionBusiness.getCompraDirectaDatosGenerales(record);
 			this.currentPao.setCompraDirecta(cd);
 			this.currentPao.setListaRequisitosConformidad(cd.getListaRequisitosConformidad());
-
-			/*
-			 * } catch (RemoteException e) { STATUS_ERROR();
-			 * addMessageKey("msgsForm",
-			 * Messages.getString("sicu.remote.exeption"),e.getMessage(),
-			 * FacesMessage.SEVERITY_ERROR); return "/login.xhtml"; } catch
-			 * (ValidateException e) { addMessage(e.getMessage(),
-			 * FacesMessage.SEVERITY_ERROR); return "/login.xhtml";
-			 */
-
 			// Estudio del Mercado
 			buscarFuente();
 			buscarValorReferencialFinal();
 			buscarOrden();
+			activeTabsCD();
 		} catch (Exception e) {
 			addErrorMessage(e);
 			return "/login.xhtml";
@@ -509,7 +500,12 @@ public class ProgramacionController extends BaseController {
 				cDirecta.setTipoProceso(Constantes.maestroProcesoSiga.ADJUDIACION_SIN_PROCESO);
 
 				// VALIDAR SI ESTÁ EN GIRO DE ORDEN O ESTUDIO DEL MERCADO
-				cDirecta.setEstadoRequerimiento(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN);
+				if (cDirecta.getFlagCD() == "1" && cDirecta.getNroProceso() != null){
+					cDirecta.setEstadoRequerimiento(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN);	
+				}else{
+					cDirecta.setEstadoRequerimiento(Constantes.estadosPorEtapa.EN_ESTUDIO_DE_MERCADO);
+				}
+								
 				cDirecta.setListaRequisitosConformidad(currentPao.getListaRequisitosConformidad());
 				TransactionRequest<CompraDirectaDatosGeneralesDto> transactionRequest = new TransactionRequest<CompraDirectaDatosGeneralesDto>();
 				transactionRequest.setUsuarioAuditoria(getUserLogin());
@@ -870,6 +866,7 @@ public class ProgramacionController extends BaseController {
 			buscarFuente();
 			buscarValorReferencialFinal();
 			activeTabs();
+			activeTabsCD();
 			showGrowlMessageSuccessfullyCompletedAction();
 
 		} catch (ValidateException e) {
@@ -1113,6 +1110,7 @@ public class ProgramacionController extends BaseController {
 
 			REGISTER_SUCCESS();
 			activeTabs();
+			activeTabsCD();
 			showGrowlMessageSuccessfullyCompletedAction();
 
 		} catch (ValidateException e) {
@@ -1375,7 +1373,7 @@ public class ProgramacionController extends BaseController {
 		this.setDisabledTabEstudioMercado(
 				this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
 
-		this.setDisabledTabOrden(this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
+		//this.setDisabledTabOrden(this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
 
 		boolean disabledAprobacion = false;
 		if (this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0) {
@@ -1399,6 +1397,33 @@ public class ProgramacionController extends BaseController {
 		this.setDisabledButtons(renderedBtns);
 	}
 
+	private void activeTabsCD() {
+		this.setDisabledTabEstudioMercado(
+				this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
+		//this.setDisabledTabOrden(this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
+
+		boolean disabledOrden = false;
+		if (this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0) {
+			disabledOrden = true;
+		} else {
+			// Verifica si ya tiene ingresado estudio del mercado
+			if (listaCuadrocomparativofuente == null || listaCuadrocomparativofuente.size() == 0) {
+				disabledOrden = true;
+			}
+		}
+		this.setDisabledTabOrden(disabledOrden);
+
+		boolean renderedBtns = false;
+		if (this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0) {
+			renderedBtns = false;
+		} else {
+			if (this.currentPao.getEstadoRequerimiento() == Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN) {
+				renderedBtns = true;
+			}
+		}
+		this.setDisabledButtonsCD(renderedBtns);
+	}
+	
 	public String pacRegistrar() {
 		logger.debug("pacRegistrar....");
 		try {
@@ -1782,5 +1807,15 @@ public class ProgramacionController extends BaseController {
 	public void setDisabledButtons(boolean disabledButtons) {
 		this.disabledButtons = disabledButtons;
 	}
+
+	public boolean isDisabledButtonsCD() {
+		return disabledButtonsCD;
+	}
+
+	public void setDisabledButtonsCD(boolean disabledButtonsCD) {
+		this.disabledButtonsCD = disabledButtonsCD;
+	}
+	
+	
 
 }

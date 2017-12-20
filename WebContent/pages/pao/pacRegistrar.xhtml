@@ -52,12 +52,12 @@
 			<p:panel id="panel" header="Programación y costos > PAO > PAC"
 				style="width: 98%">
 				<div align="right">
-					<p:commandButton value="Listado" icon="fa fa-th-list"
+					<p:commandButton value="Ir al listado" icon="fa fa-th-list"
 						title="Ir la listado" action="#{programacion.load}"
 						process="@this">
 					</p:commandButton>
 				</div>
-
+				<p:spacer height="1"></p:spacer>
 
 				<p:focus for="panel" />
 				<p:tabView id="tabViewPao" dynamic="true"
@@ -427,7 +427,7 @@
 								</table>
 							</p:tab>
 						</p:accordionPanel>
-						<p:commandButton value="Guardar" icon="fa fa-pencil"
+						<p:commandButton value="Guardar" icon="fa fa-save"
 							title="Guardar datos generales"
 							disabled="#{programacion.disabledButtons}"
 							action="#{programacion.guardarPacConsolidado}"
@@ -712,7 +712,7 @@
 								</table>
 
 								<p:spacer height="20"></p:spacer>
-								<p:commandButton value="Guardar" icon="fa fa-pencil"
+								<p:commandButton value="Guardar" icon="fa fa-save"
 									title="Guardar datos generales"
 									disabled="#{programacion.disabledButtons}"
 									action="#{programacion.guardarAprobacion}"
