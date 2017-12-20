@@ -23,7 +23,9 @@
 
 	<p:menuitem rendered="#{!loginBean.mobile}">
 		<h:link style="background-color:#FFF" onclick="PF('dlgMenu').show();return false;">
+		<!-- 
 			<h:graphicImage url="/resources/img/logo.png" width="250" height="30"/>
+			 -->
 		</h:link>
 	</p:menuitem>
 	<p:menuitem rendered="#{loginBean.mobile}">
@@ -50,7 +52,8 @@
 	<p:submenu style="margin-left:5px;" label="Procesos" rendered="#{!loginBean.mobile}">
 	</p:submenu>
 	<p:submenu style="margin-left:5px;" label="Ejecución" rendered="#{!loginBean.mobile}">	
-	</p:submenu>			
+	</p:submenu>		
+		
 	<p:submenu style="margin-left:5px;" label="abas" rendered="#{!loginBean.mobile}">
 		<p:menuitem value="CertificadoPresupuestal" outcome="/pages/certificadopresupuestal/certificadopresupuestalBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
 		<p:menuitem value="Comite Proceso" outcome="/pages/comiteproceso/comiteprocesoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
@@ -106,19 +109,5 @@
 	
 	
 
-</p:menubar>
-	
-	<f:facet name="centroCosto">
-		<p:panelGrid>			
-			<p:selectOneMenu id="mddlCentroCosto">
-				<f:selectItem itemLabel="TODOS" itemValue="-1" />
-				<f:selectItem itemLabel="PENDIENTE" itemValue="0" />
-				<f:selectItem itemLabel="VB JEFE" itemValue="1" />
-				<f:selectItem itemLabel="APROBADO" itemValue="2" />
-				<f:selectItem itemLabel="REMITIDO A PROGRAMACIÓN" itemValue="3" />
-				<f:selectItem itemLabel="ATENDIDO" itemValue="8" />
-			</p:selectOneMenu>
-		</p:panelGrid>	
-	</f:facet>
-		
+</p:menubar>		
 </html>

@@ -1,6 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	lang="es"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" lang="es"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -9,26 +8,27 @@
 	xmlns:func="http://resources/functions"
 	xmlns:cc="http://java.sun.com/jsf/composite/components"
 	template="/pages/template/MasterPage.xhtml">
-<ui:define name="center">
-<h:form id="form">
+	<ui:define name="center">
+		<h:form id="form">
 
+			<p:messages for="msgsForm" autoUpdate="true" closable="true"
+				showDetail="true" />
 
+			<!-- 
 <p:panel id="panel" style="width:400px;font-weight:bold;margin-top:200px;" rendered="true">
 <p:focus  for="panel"/>
-
-<p:messages for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
-
 
 <p:panel style="width:100%">
 
 <table style="width:100%;" cellpadding="0" cellspacing="0" align="center">
 	<tr>
+		
 		<td align="center"> 
 			<p:graphicImage value="/resources/img/logo.png" width="100"/><br/>
 			   <p:separator></p:separator>
-			<p:outputLabel value="#{PFConstants.SYSTEM_SIGLA}: #{PFConstants.SYSTEM_NAME}" style="font-weight:bold;"/><br/>
-			<p:outputLabel value="V. #{PFConstants.SYSTEM_VERSION}" style="font-weight:bold;"/><br/>
-			<p:outputLabel value="R. #{PFConstants.SYSTEM_REVISION}" style="font-weight:bold;"/>
+			<p:outputLabel value="{PFConstants.SYSTEM_SIGLA}: {PFConstants.SYSTEM_NAME}" style="font-weight:bold;"/><br/>
+			<p:outputLabel value="V. {PFConstants.SYSTEM_VERSION}" style="font-weight:bold;"/><br/>
+			<p:outputLabel value="R. {PFConstants.SYSTEM_REVISION}" style="font-weight:bold;"/>
 												
 		</td>
 	</tr>	
@@ -36,7 +36,8 @@
 </p:panel>
 
 </p:panel>
+ -->
 
-</h:form>
-</ui:define>
+		</h:form>
+	</ui:define>
 </ui:composition>

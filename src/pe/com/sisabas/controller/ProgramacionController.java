@@ -103,7 +103,7 @@ public class ProgramacionController extends BaseController {
 	private boolean disabledTabEstudioMercado;
 	private boolean disabledTabOrden;
 	private boolean disabledTabAprobacion;
-	private boolean disabledButtons;	
+	private boolean disabledButtons;
 
 	private String idOpcionText = "OPC_PAO";
 	public List<Gentabla> listaGentablaIdcatalogoestadopac;
@@ -565,8 +565,12 @@ public class ProgramacionController extends BaseController {
 				pacConsolid.setIdTipoContratacion(Constantes.tipoContratacion.NO_PAC);
 			// pacConsolid.setTipoProceso(Constantes.maestroProcesoSiga.ADJUDIACION_SIN_PROCESO);
 
-			// VALIDAR SI ESTÁ EN GIRO DE ORDEN O ESTUDIO DEL MERCADO
-			pacConsolid.setEstadoRequerimiento(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN);
+			// check status
+			if (pacConsolid.getEstadoRequerimiento().equals(Constantes.estadosPorEtapa.DOCUMENTO_TECNICO_APROBADO)) {
+				pacConsolid.setEstadoRequerimiento(Constantes.estadosPorEtapa.EN_ESTUDIO_DE_MERCADO);
+			} else {
+				pacConsolid.setEstadoRequerimiento(pacConsolid.getEstadoRequerimiento());
+			}
 			TransactionRequest<PacConsolidadoDto> transactionRequest = new TransactionRequest<PacConsolidadoDto>();
 			transactionRequest.setUsuarioAuditoria(getUserLogin());
 			transactionRequest.setEquipoAuditoria(getRemoteAddr());
@@ -575,6 +579,8 @@ public class ProgramacionController extends BaseController {
 			if (this.currentPao.getIdPacConsolid() == null) {
 				this.currentPao.setIdPacConsolid(result.getResultInt());
 				this.currentPao.getPacConsolidado().setIdPacConsolidado(result.getResultInt());
+				//this.currentPao.setEstadoRequerimiento(pacConsolid.getEstadoRequerimiento());
+				this.currentPao.getPacConsolidado().setEstadoRequerimiento(pacConsolid.getEstadoRequerimiento());
 			}
 			activeTabs();
 			REGISTER_SUCCESS();
@@ -695,7 +701,8 @@ public class ProgramacionController extends BaseController {
 			request.setEquipoAuditoria(getRemoteAddr());
 			request.setEntityTransaction(currentPao.getPacConsolidado());
 			Resultado result = programacionBusiness.derivarExpediente(request);
-			if (result.isEstado()) this.currentPao.setEstadoRequerimiento(Constantes.estadosPorEtapa.REMITIDO_A_PROCESOS);
+			if (result.isEstado())
+				this.currentPao.setEstadoRequerimiento(Constantes.estadosPorEtapa.REMITIDO_A_PROCESOS);
 			activeTabs();
 			REGISTER_SUCCESS();
 			showGrowlMessageSuccessfullyCompletedAction();
@@ -863,8 +870,8 @@ public class ProgramacionController extends BaseController {
 			buscarFuente();
 			buscarValorReferencialFinal();
 			activeTabs();
-			showGrowlMessageSuccessfullyCompletedAction();			
-			
+			showGrowlMessageSuccessfullyCompletedAction();
+
 		} catch (ValidateException e) {
 			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
 		} catch (UnselectedRowException e) {
@@ -1107,7 +1114,6 @@ public class ProgramacionController extends BaseController {
 			REGISTER_SUCCESS();
 			activeTabs();
 			showGrowlMessageSuccessfullyCompletedAction();
-			
 
 		} catch (ValidateException e) {
 			REGISTER_ERROR();
@@ -1368,26 +1374,25 @@ public class ProgramacionController extends BaseController {
 	private void activeTabs() {
 		this.setDisabledTabEstudioMercado(
 				this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
-		
+
 		this.setDisabledTabOrden(this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
 
-		
 		boolean disabledAprobacion = false;
-		if (this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0){
-			disabledAprobacion = false;
-		}else{
-			//Verifica si ya tiene ingresado estudio del mercado
-			if (listaCuadrocomparativofuente == null || listaCuadrocomparativofuente.size() == 0){
+		if (this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0) {
+			disabledAprobacion = true;
+		} else {
+			// Verifica si ya tiene ingresado estudio del mercado
+			if (listaCuadrocomparativofuente == null || listaCuadrocomparativofuente.size() == 0) {
 				disabledAprobacion = true;
 			}
-		}		
+		}
 		this.setDisabledTabAprobacion(disabledAprobacion);
-		
+
 		boolean renderedBtns = false;
-		if (this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0){
-			renderedBtns = false; 
-		}else{
-			if (this.currentPao.getEstadoRequerimiento() == Constantes.estadosPorEtapa.REMITIDO_A_PROCESOS){
+		if (this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0) {
+			renderedBtns = false;
+		} else {
+			if (this.currentPao.getEstadoRequerimiento() == Constantes.estadosPorEtapa.REMITIDO_A_PROCESOS) {
 				renderedBtns = true;
 			}
 		}
@@ -1406,7 +1411,7 @@ public class ProgramacionController extends BaseController {
 			}
 			if (this.currentPao == null) {
 				this.currentPao = new PaoResponse();
-			}			
+			}
 			PaoRequest record = new PaoRequest();
 			record.setIdUnidadEjecutora(Constantes.unidadEjecutora.ID_UNIDAD_EJECUTORA_ABAS);
 			record.setAnio(usuario != null ? usuario.getPeriodo().getAnio() : 0);
@@ -1778,9 +1783,4 @@ public class ProgramacionController extends BaseController {
 		this.disabledButtons = disabledButtons;
 	}
 
-
-
-
-	
-	
 }

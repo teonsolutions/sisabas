@@ -22,6 +22,7 @@
 	color: #000;
 }
 
+/*
 .ui-accordion .ui-accordion-header {
 	cursor: pointer;
 	position: relative;
@@ -41,6 +42,9 @@
 	border-radius: 0;
 	background: #0d6ab9;
 }
+
+*/
+
 </style>
 		<h:form id="form">
 			<p:growl id="msgs" showDetail="true"></p:growl>
@@ -48,7 +52,9 @@
 			<p:panel id="panel" header="Programación y costos > PAO > PAC"
 				style="width: 98%">
 				<div align="right">
-					<p:commandButton value="Listado" icon="fa fa-th-list" title="Ir la listado" action="#{programacion.load}" process="@this">						
+					<p:commandButton value="Listado" icon="fa fa-th-list"
+						title="Ir la listado" action="#{programacion.load}"
+						process="@this">
 					</p:commandButton>
 				</div>
 
@@ -156,7 +162,8 @@
 									</tr>
 									<tr>
 										<td colspan="3"><p:outputLabel value="Pedidos del PAO"
-												id="lblPedidosPAO" /></td>
+												id="lblPedidosPAO"
+												rendered="#{programacion.currentPao.pacConsolidado.idCatalogoTipoNecesidad eq 'TINE2'}" /></td>
 									</tr>
 									<tr>
 										<td colspan="3"><p:dataTable id="tblListaPedidos"
@@ -164,6 +171,7 @@
 												var="var" widgetVar="tblListaPedidos"
 												emptyMessage="No se encontraron registros"
 												selectionMode="single" rowKey="#{var.nroPedido}"
+												rendered="#{programacion.currentPao.pacConsolidado.idCatalogoTipoNecesidad eq 'TINE2'}"
 												styleClass="gandalfTableClass" paginator="true" rows="2"
 												paginatorPosition="bottom"
 												paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(programacion.listaCuadrocomparativofuente)}">
@@ -227,7 +235,7 @@
 												for="txtNumeroReferencia" id="lblNumeroReferencia" /></td>
 										<td><p:outputLabel value="Tipo de necesidad"
 												for="ddlTipoNecesidad" id="lblTipoNecesidad" /></td>
-												<td></td>
+										<td></td>
 									</tr>
 									<tr>
 										<!-- 
@@ -252,7 +260,7 @@
 													var="var" itemLabel="#{var.vchregdescri}"
 													itemValue="#{var.vchregcodigo}" />
 											</p:selectOneMenu></td>
-											<td></td>
+										<td></td>
 									</tr>
 									<tr>
 										<td><p:outputLabel value="Tipo de contratación"
@@ -421,7 +429,7 @@
 						</p:accordionPanel>
 						<p:commandButton value="Guardar" icon="fa fa-pencil"
 							title="Guardar datos generales"
-							disabled="#{programacion.disabledButtons}"														
+							disabled="#{programacion.disabledButtons}"
 							action="#{programacion.guardarPacConsolidado}"
 							rendered="#{programacion.renderButton('btnGuadarPacConsolidado')}"
 							update="form:msgs,form:panel" />
@@ -716,8 +724,8 @@
 									ajax="false" icon="ui-icon-arrowreturnthick-1-w"
 									title="Cancelar" />
 									 -->
-								<p:commandButton value="Remitir a proceso selección" icon="fa fa-send"
-									title="Remitir a proceso selección"
+								<p:commandButton value="Remitir a proceso selección"
+									icon="fa fa-send" title="Remitir a proceso selección"
 									disabled="#{programacion.disabledButtons}"
 									action="#{programacion.derivarExpediente}"
 									rendered="#{programacion.renderButton('btnDerivar')}"

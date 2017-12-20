@@ -1,84 +1,92 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-	lang="es"
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"	
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:func="http://resources/functions"		
+	xmlns:func="http://resources/functions"
 	xmlns:p="http://primefaces.org/ui">
-    <f:view contentType="text/html" encoding="ISO-8859-1">
- <h:head> 
- 
- 
- 
- 
- 	<script language="Javascript" src="#{request.contextPath}/resources/js/jasaro-validator.js"></script>	
- 	
- 	
-
- 	
- 
- 	<p:importConstants type="pe.com.sisabas.resources.ConstantesPF" var="PFConstants" />		
- 	<f:facet name="first">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>SISABAS :: SISTEMA DE ABASTECIMIENTO</title>                        
-     </f:facet> 
-      		<link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/default.css" />
-      		<link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/gandalf.css" />
-            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/syntaxhighlighter.css" />
-            <link rel="stylesheet" href="#{request.contextPath}/resources/font-awesome/css/font-awesome.min.css"/>
-            <link rel="stylesheet" href="#{request.contextPath}/resources/font-awesome/css/font-awesome-animation.css"/>
+<f:view contentType="text/html" encoding="ISO-8859-1">
+	<h:head>
 
 
 
 
-            <style type="text/css">
-            	
-            	.ui-panelmenu .ui-panelmenu-content{
-            	    padding: .2em 0;
-				    border-top: 0;
-				    margin-top: -2px;
-				    position: relative;
-				    top: 1px;
-				    overflow: auto;
-				    zoom: 1;
-				    outline: 0;
-				    background: #F2F8FA;
-   					border-color: #F2F8FA;
-            	}
-            	
-            	.ui-panelmenu .ui-panelmenu-header.ui-state-active, .ui-panelmenu .ui-panelmenu-header.ui-state-active a{
-	            	background: #186ba0;
-				    color: #fff;
-				    border-color: #186ba0;
-            	}
-            	
-            	footer {
-				  position: fixed;
-				  bottom: 0;
-				  left: 0;
-				  height: 25px;
-				  padding-top:8px;
-				  background-color: #F2F8FA;
-				  /*background: linear-gradient(229deg, #fd9a77, #fb827a);*/				  
-				  width: 100%;
-				  border:1px solid silver;				  
-				}
-				.container {				  
-				  position: relative;
-				  margin-bottom: 50px;
-				}
-            	            
-                .ui-layout-north {
-                    z-index:20 !important;
-                    overflow:visible !important;;
-                }
+		<script language="Javascript"
+			src="#{request.contextPath}/resources/js/jasaro-validator.js"></script>
 
-                .ui-layout-north .ui-layout-unit-content {
-                    overflow:visible !important;
-                }
-               				
-				.gandalfBody{								
-					/*
+
+
+
+
+		<p:importConstants type="pe.com.sisabas.resources.ConstantesPF"
+			var="PFConstants" />
+		<f:facet name="first">
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<title>SISABAS :: SISTEMA DE ABASTECIMIENTO</title>
+		</f:facet>
+		<link type="text/css" rel="stylesheet"
+			href="#{request.contextPath}/resources/css/default.css" />
+		<link type="text/css" rel="stylesheet"
+			href="#{request.contextPath}/resources/css/gandalf.css" />
+		<link type="text/css" rel="stylesheet"
+			href="#{request.contextPath}/resources/css/syntaxhighlighter.css" />
+		<link rel="stylesheet"
+			href="#{request.contextPath}/resources/font-awesome/css/font-awesome.min.css" />
+		<link rel="stylesheet"
+			href="#{request.contextPath}/resources/font-awesome/css/font-awesome-animation.css" />
+
+
+
+
+		<style type="text/css">
+.ui-panelmenu .ui-panelmenu-content {
+	padding: .2em 0;
+	border-top: 0;
+	margin-top: -2px;
+	position: relative;
+	top: 1px;
+	overflow: auto;
+	zoom: 1;
+	outline: 0;
+	background: #F2F8FA;
+	border-color: #F2F8FA;
+}
+
+.ui-panelmenu .ui-panelmenu-header.ui-state-active, .ui-panelmenu .ui-panelmenu-header.ui-state-active a
+	{
+	background: #186ba0;
+	color: #fff;
+	border-color: #186ba0;
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	height: 25px;
+	padding-top: 8px;
+	background-color: #F2F8FA;
+	/*background: linear-gradient(229deg, #fd9a77, #fb827a);*/
+	width: 100%;
+	border: 1px solid silver;
+}
+
+.container {
+	position: relative;
+	margin-bottom: 50px;
+}
+
+.ui-layout-north {
+	z-index: 20 !important;
+	overflow: visible !important;;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+	overflow: visible !important;
+}
+
+.gandalfBody {
+	/*
 					background-image:url('#{resource['img/background:background.jpg']}');
 					background-repeat:no-repeat;
 					-webkit-background-size:cover;
@@ -91,182 +99,349 @@
 					padding: 0;
 					font-family: geneva, arial, helvetica, sans-serif;
 					font-size:12px;
-					*/					
-					
-					/*
+					*/
+	/*
 					background: url('#{resource['img/background:background.jpg']}');
 					*/
-					/*background-color:#95CDE8;*/
-					background: linear-gradient(#4D4D4F, #9A999E, #FFFFFF);	
-					-webkit-background-size: cover;
-					-moz-background-size: cover;
-					-o-background-size: cover;
-					background-size: cover;    													
-					margin: 0;
-					padding: 0;
-					font-family: geneva, arial, helvetica, sans-serif;
-					font-size:12px;		
-				}
-				
-				.ui-menuitem-icon.ui-icon.secureIcon {
-					background: url('#{resource['img:lock.png']}') no-repeat;
-		            width:16px;
-		            height:16px;
-		            border-radius:0px;
-				}
-				
-				.ui-menuitem-icon.ui-icon.appleIcon {
-					background: url('#{resource['img:apple.png']}') no-repeat;
-		            width:16px;
-		            height:16px;
-		            border-radius:0px;
-				}				
-				
-				.ui-menu .ui-menu-parent .ui-menu-child {
-				width: 250px;
-				}				
-								
-				.ui-dialog .ui-terminal {
-		            border:0;
-		        }
-		
-		        .ui-dialog.terminalDialog .ui-dialog-content {
-		            padding:0;
-		      
-		        }
-				
-				/**THEME DELTA - INICIO*/				
-				body,td,th,tr {
-					font-family: "Century Gothic";
-					/*color: #077D9B;*//*COMENTAR ESTA LINEA PARA THEME DELTA*/	
-					font-size: 12px;
-				}
-				
-				/**Titulo de panel*/
-				.ui-panel .ui-panel-title {
-				    margin: 0.1em 16px 0.2em 0;
-				    
-				}
-								
-				/**Css para los Label. class="ui-outputlabel ui-widget"*/
-				.ui-widget .ui-outputlabel{
-					color: #077D9B;	
-				}
-				
-				/**Campos requeridos=true*/
-				.ui-outputlabel-rfi{
-					color: red;	
-					font-weight:bold;
-				}
-				/**THEME DELTA - FIN*/
-				
-				.c_numeric{
-					text-align:right;
-				}
-				
-				.c_numeric_resumen{
-					text-align:right;
-					font-size:30;
-					font-weight:bold;
-					background-color: yellow;
-				}
-				
-				.c_center{
-					text-align:center;
-				}
-				.c_center_estado{
-					text-align:center;
-					width:70px;
-				}
-				.c_center_id{
-					text-align:center;
-					width:70px;
-				}
-				
-				.c_string{
-					text-align:left;
-				}
-				.c_right{
-					text-align:right;
-				}
-				
-				.companyHeaderGrid tr, .companyHeaderGrid td {
-			    	border: none;
-				}
-				.old{		
-					/*background: #BED6E3;*/
-					/*background: yellow;*/
-					background:#FFFF99;
-				}
-				.dead{		
-					/*background: #BED6E3;*/
-					/*background: orange;*/
-					background:#FCA752;					
-				}
-				.ci{		
-					/*background: #BED6E3;*/
-					background: orange;					
-				}
-				
-				/*Colores*/
-				.gBlue{
-					background: lightblue;	
-				}
-				
-				.gBlueBold{
-					background: lightblue;
-					font-weight: bold;	
-				}
-				
-				.gGreen{
-					background: lightgreen;					
-				}  
-				
-				.gGreenBold{
-					background: lightgreen;
-					font-weight: bold;
-				}  
-				
-				.gOrangeBold{
-					background: orange;
-					font-weight: bold;
-				}  
-				
-				/*
+	/*background-color:#95CDE8;*/
+	background: linear-gradient(#4D4D4F, #9A999E, #FFFFFF);
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	margin: 0;
+	padding: 0;
+	font-family: geneva, arial, helvetica, sans-serif;
+	font-size: 12px;
+}
+
+.ui-menuitem-icon.ui-icon.secureIcon {
+	background: url('#{resource[' img : lock.png ']}') no-repeat;
+	width: 16px;
+	height: 16px;
+	border-radius: 0px;
+}
+
+.ui-menuitem-icon.ui-icon.appleIcon {
+	background: url('#{resource[' img : apple.png ']}') no-repeat;
+	width: 16px;
+	height: 16px;
+	border-radius: 0px;
+}
+
+.ui-menu .ui-menu-parent .ui-menu-child {
+	width: 250px;
+}
+
+.ui-dialog .ui-terminal {
+	border: 0;
+}
+
+.ui-dialog.terminalDialog .ui-dialog-content {
+	padding: 0;
+}
+
+/**THEME DELTA - INICIO*/
+body, td, th, tr {
+	font-family: "Century Gothic";
+	/*color: #077D9B;*/ /*COMENTAR ESTA LINEA PARA THEME DELTA*/
+	font-size: 12px;
+}
+
+/**Titulo de panel*/
+.ui-panel .ui-panel-title {
+	margin: 0.1em 16px 0.2em 0;
+}
+
+/**Css para los Label. class="ui-outputlabel ui-widget"*/
+.ui-widget .ui-outputlabel {
+	color: #077D9B;
+}
+
+/**Campos requeridos=true*/
+.ui-outputlabel-rfi {
+	color: red;
+	font-weight: bold;
+}
+/**THEME DELTA - FIN*/
+.c_numeric {
+	text-align: right;
+}
+
+.c_numeric_resumen {
+	text-align: right;
+	font-size: 30;
+	font-weight: bold;
+	background-color: yellow;
+}
+
+.c_center {
+	text-align: center;
+}
+
+.c_center_estado {
+	text-align: center;
+	width: 70px;
+}
+
+.c_center_id {
+	text-align: center;
+	width: 70px;
+}
+
+.c_string {
+	text-align: left;
+}
+
+.c_right {
+	text-align: right;
+}
+
+.companyHeaderGrid tr, .companyHeaderGrid td {
+	border: none;
+}
+
+.old {
+	/*background: #BED6E3;*/
+	/*background: yellow;*/
+	background: #FFFF99;
+}
+
+.dead {
+	/*background: #BED6E3;*/
+	/*background: orange;*/
+	background: #FCA752;
+}
+
+.ci {
+	/*background: #BED6E3;*/
+	background: orange;
+}
+
+/*Colores*/
+.gBlue {
+	background: lightblue;
+}
+
+.gBlueBold {
+	background: lightblue;
+	font-weight: bold;
+}
+
+.gGreen {
+	background: lightgreen;
+}
+
+.gGreenBold {
+	background: lightgreen;
+	font-weight: bold;
+}
+
+.gOrangeBold {
+	background: orange;
+	font-weight: bold;
+}
+
+/*
 				PENDIENTEW
 				http://stackoverflow.com/questions/1014861/is-there-a-css-parent-selector*/
-				li:has(> a.active) { /* styles to apply to the li tag */ 
-				}
-				
-				
-				
-				.input{		
-					 height:1.7em;
-				}
-				
-				.repo-sep-header{
-					background: #FFA500;
-					font-weight: bold;					
-				}     
-				
-				.repo-sep-footer{
-					background: #FFFF99;
-					font-weight: bold;
-				}     
-				
-				.libre{
-					background: #61C261;			
-				}
-				
-				.ocupado{
-					background: #EB605C;	
-				}    
-				
-				.dateTimeField input {
-				   width:150px;
-				}				 
-				
-				/*
+li
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:has
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(>
+a
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.active
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+)
+{ /* styles to apply to the li tag */
+}
+.input {
+	height: 1.7em;
+}
+
+.repo-sep-header {
+	background: #FFA500;
+	font-weight: bold;
+}
+
+.repo-sep-footer {
+	background: #FFFF99;
+	font-weight: bold;
+}
+
+.libre {
+	background: #61C261;
+}
+
+.ocupado {
+	background: #EB605C;
+}
+
+.dateTimeField input {
+	width: 150px;
+}
+
+/*
 				.gandalfTableClass table { 
 				   
 				}
@@ -275,127 +450,125 @@
 				    
 				}
 				*/
-				
-				/*Table td*/
-				.gandalfTableClass table tr td{ 
-				    /*border-collapse: separate; 
-				    border-spacing: 0px;*/ 
-				    /*border-collapse: expression('separate', cellSpacing = '0px');*/
-				    padding: 1px 1px 1px 1px;
-				    margin: 0px 0px 0px 0px;
-				}
-				
-				/*PanelC de la pagina de registro y detalle*/
-				.gandalfDialog{
-					
-				    
-				}
-				
-				/*PanelC de la pagina de registro y detalle*/
-				.gandalfPanelClassSectionFormHeader{  
-				 	padding: 0px 1px 0px 0px;
-				    margin: 0px 0px 0px 0px;
-				    background-color: #F2F8FA;
-				    width: 900px;
-				}
-								
-				.gandalfPanelClassSectionFormHeaderP{ 
-				 	padding: 0px 1px 0px 0px;
-				    margin: 0px 0px 0px 0px;
-				    border:0px;
-				    background-color: #F2F8FA;
-				}
-				
-				
-				.gandalfPanelClassSectionFormDetail{ 
-				 	padding: 0px 1px 0px 0px;
-				    margin: 0px 0px 0px 0px;
-				    /*background-color:#F0F0F0;
+
+/*Table td*/
+.gandalfTableClass table tr td {
+	/*border-collapse: separate; 
+				    border-spacing: 0px;*/
+	/*border-collapse: expression('separate', cellSpacing = '0px');*/
+	padding: 1px 1px 1px 1px;
+	margin: 0px 0px 0px 0px;
+}
+
+/*PanelC de la pagina de registro y detalle*/
+.gandalfDialog {
+	
+}
+
+/*PanelC de la pagina de registro y detalle*/
+.gandalfPanelClassSectionFormHeader {
+	padding: 0px 1px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	background-color: #F2F8FA;
+	width: 900px;
+}
+
+.gandalfPanelClassSectionFormHeaderP {
+	padding: 0px 1px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	border: 0px;
+	background-color: #F2F8FA;
+}
+
+.gandalfPanelClassSectionFormDetail {
+	padding: 0px 1px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	/*background-color:#F0F0F0;
 				    border-color:#888888;*/
-				    /*border: 1px solid #d5d5d5;*/
-				    background-color: #F2F8FA;
-				    color: #222;
-				}
-			
-				
-				.gandalfPanelClassSectionFormFooter{ 
-				 	padding: 0px 1px 0px 0px;
-				    margin: 0px 0px 0px 0px;
-				   background-color:lightblue;
-				   border-color:#888888;
-				}
-				
-				.gandalfPanelClassBusqueda{ 
-				 	padding: 0px 0px 0px 0px;
-				    margin: 0px 0px 0px 0px;				    
-				}
-				
-				/*Disabled inputs*/
-				.ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled {					
-				    opacity: .7;
-				    filter: Alpha(Opacity=7);
-				    background-image: none;
-				}
-				
-				/*Input text*/
-				.ui-widget-header .ui-inputfield, .ui-widget-content .ui-inputfield {
-				    font-weight: normal;
-				    /*padding: 2px 2px 2px 2px;*/
-				    /*margin: 0px 0px 0px 0px;*/
-				    color: #2d2e2f;
-				    /*font-family: monospace;*/
-				}
-								
-				/*Select checkbox menu*/
-				.ui-selectcheckboxmenu .ui-selectcheckboxmenu-label {
-				    display: block;
-				    /*padding: 3px 26px 3px 5px;*/
-				    padding: 1px 26px 1px 1px;/**/
-				    width: auto;
-				    border: none;
-				    cursor: pointer;
-				}
-				
-				.ui-radiobutton {
-				    margin: 0px 0px 0px 0px;/**/				   
-				    width: 16px;
-				    line-height: 15px;
-				    display: inline-block;
-				}
-				
-				.ui-button .ui-button-text {
-				    /*display: block;
+	/*border: 1px solid #d5d5d5;*/
+	background-color: #F2F8FA;
+	color: #222;
+}
+
+.gandalfPanelClassSectionFormFooter {
+	padding: 0px 1px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	background-color: lightblue;
+	border-color: #888888;
+}
+
+.gandalfPanelClassBusqueda {
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+}
+
+/*Disabled inputs*/
+.ui-state-disabled, .ui-widget-content .ui-state-disabled,
+	.ui-widget-header .ui-state-disabled {
+	opacity: .7;
+	filter: Alpha(Opacity = 7);
+	background-image: none;
+}
+
+/*Input text*/
+.ui-widget-header .ui-inputfield, .ui-widget-content .ui-inputfield {
+	font-weight: normal;
+	/*padding: 2px 2px 2px 2px;*/
+	/*margin: 0px 0px 0px 0px;*/
+	color: #2d2e2f;
+	/*font-family: monospace;*/
+}
+
+/*Select checkbox menu*/
+.ui-selectcheckboxmenu .ui-selectcheckboxmenu-label {
+	display: block;
+	/*padding: 3px 26px 3px 5px;*/
+	padding: 1px 26px 1px 1px; /**/
+	width: auto;
+	border: none;
+	cursor: pointer;
+}
+
+.ui-radiobutton {
+	margin: 0px 0px 0px 0px; /**/
+	width: 16px;
+	line-height: 15px;
+	display: inline-block;
+}
+
+.ui-button .ui-button-text {
+	/*display: block;
 				    line-height: normal;*/
-				    /*margin-top: -3px;*/				    
-				    /*padding: 5px 5px 1px 22px;/**/
-				    height:15px;
-				}
-				
-				/*solo si se usa facet header. para los titulos de las opciones.*/
-				.gandalfPanel-header {    
-				    color: #4f4f4f;
-				}  
-				
-				.gandalfPnlBotonesClass{
-					padding: 0px 1px 0px 0px;
-				 	border:0px;
-				}
-				
-				.toolTipPortal{
-					/*font-weight:bold;*/
-					color:white;;
-					border:1px solid #272727; 
-					border-radius: 3px;
-					background: #272727;
-				  	filter: alpha(opacity=90);
-				  	/* IE */
-				  	-moz-opacity: 0.9;
-				  	/* Mozilla */
-				 	opacity: 0.9;				 	
-				}
-								
-				<!--DELTA-->
-				/*				
+	/*margin-top: -3px;*/
+	/*padding: 5px 5px 1px 22px;/**/
+	height: 15px;
+}
+
+/*solo si se usa facet header. para los titulos de las opciones.*/
+.gandalfPanel-header {
+	color: #4f4f4f;
+}
+
+.gandalfPnlBotonesClass {
+	padding: 0px 1px 0px 0px;
+	border: 0px;
+}
+
+.toolTipPortal {
+	/*font-weight:bold;*/
+	color: white;;
+	border: 1px solid #272727;
+	border-radius: 3px;
+	background: #272727;
+	filter: alpha(opacity = 90);
+	/* IE */
+	-moz-opacity: 0.9;
+	/* Mozilla */
+	opacity: 0.9;
+}
+
+<!--
+DELTA--> /*				
 				.ui-datepicker-today a.ui-state-highlight{				 	
 				 	color:#FFF;
 				    background: #2182c5;
@@ -454,488 +627,597 @@
 				.ui-dialog{
 				 	background-color: #FFF;
 				}
-				*/
-				
-				<!--OMEGA DEFAULT-->
-				/*.ui-panel .ui-panel-title {
+				*/ <!--OMEGA DEFAULT--> /*.ui-panel .ui-panel-title {
 				    margin: .1em 16px .2em 0;
 				    font-family: sans-serif;				    
 				}	
 				.ui-button, .ui-button span, button.ui-button.ui-state-default span, .ui-button.ui-state-default span {
 				    font-weight: normal;
-				}*/	
-				
-				<!--OMEGA CUSTOM-->				
-				.ui-datepicker-today a.ui-state-highlight{				 	
-				 	color:#FFF;
-				    background: #2182c5;
-				}
-				body .ui-datepicker table td.ui-datepicker-today a {
-				   	color:#FFF;
-				    background: #2182c5;
-				}				
-				.ui-datepicker td a.ui-state-default.ui-state-hover{
-				 	color: #FFF;
-				    background: #595c5d;				    
-				} 
-				.ui-datepicker-today a.ui-state-highlight{
-					color: #FFF;
-				    background: #595c5d;
-				}				
-				.ui-menuitem-link ui-submenu-link ui-corner-all ui-state-hover{
-					color: #FFF;
-				    background: #3984b8;				    				    		
-				}								
-				.ui-widget-content a:hover {
-					/*-webkit-transition: all 0.2s ease-in-out;
+				}*/ <!--OMEGA CUSTOM-->.ui-datepicker-today a.ui-state-highlight {
+	color: #FFF;
+	background: #2182c5;
+}
+
+body .ui-datepicker table td.ui-datepicker-today a {
+	color: #FFF;
+	background: #2182c5;
+}
+
+.ui-datepicker td a.ui-state-default.ui-state-hover {
+	color: #FFF;
+	background: #595c5d;
+}
+
+.ui-datepicker-today a.ui-state-highlight {
+	color: #FFF;
+	background: #595c5d;
+}
+
+.ui-menuitem-link ui-submenu-link ui-corner-all ui-state-hover {
+	color: #FFF;
+	background: #3984b8;
+}
+
+.ui-widget-content a:hover {
+	/*-webkit-transition: all 0.2s ease-in-out;
 				    -o-transition: all 0.2s ease-in-out;
 				    transition: all 0.2s ease-in-out;
 				    margin-left: 10px;
-				    padding-left: 10px;*/				   
-				  	color: #FFF;
-				    background: #3984b8;		    
-				    				    
-				}				
-				.ui-button, button.ui-button.ui-state-default, .ui-button.ui-state-default {
-				    border: 1px solid transparent;
-				    background: #3984b8;
-				    color: #fff;
-				    font-size: 13px;			    
-				}				
-				.ui-button, button.ui-button.ui-state-hover, .ui-button.ui-state-hover {
-				    color: #fff;
-				    border: 1px solid #156090;
-				    background: #186ba0;
-				}				
-				.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
-				   color: #fff;
-				    border: 1px solid #156090;
-				    background: #186ba0;
-				}	
-				
-				.ui-panel .ui-panel-title {
-				    margin: .1em 16px .2em 0;
-				    font-family: sans-serif;
-				}	
-				.ui-button, .ui-button span, button.ui-button.ui-state-default span, .ui-button.ui-state-default span {
-				    font-weight: normal;
+				    padding-left: 10px;*/
+	color: #FFF;
+	background: #3984b8;
+}
+
+.ui-button, button.ui-button.ui-state-default, .ui-button.ui-state-default
+	{
+	border: 1px solid transparent;
+	background: #3984b8;
+	color: #fff;
+	font-size: 13px;
+}
+
+.ui-button, button.ui-button.ui-state-hover, .ui-button.ui-state-hover {
+	color: #fff;
+	border: 1px solid #156090;
+	background: #186ba0;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight,
+	.ui-widget-header .ui-state-highlight {
+	color: #fff;
+	border: 1px solid #156090;
+	background: #186ba0;
+}
+
+.ui-panel .ui-panel-title {
+	margin: .1em 16px .2em 0;
+	font-family: sans-serif;
+}
+
+.ui-button, .ui-button span, button.ui-button.ui-state-default span,
+	.ui-button.ui-state-default span {
+	font-weight: normal;
+}
+
+.ui-inputswitch .ui-inputswitch-on span {
+	font-weight: normal;
+}
+
+.ui-inputswitch .ui-inputswitch-off span {
+	font-weight: normal;
+}
+
+.ui-tabs:not (.ui-ribbon ) .ui-tabs-nav {
+	background: #F2F8FA;
+}
+
+.ui-dialog {
+	background-color: #FFF;
+}
+
+/*HTML 5*/
+html, body {
+	height: 100%;
+}
+
+header {
+	display: block;
+	background: #fff;
+	padding: 10px 0px;
+}
+
+section {
+	width: 79%;
+	background: #95CDE8;
+	float: right;
+	overflow: auto;
+	padding-bottom: 60px;
+	padding-top: 30px;
+}
+
+aside {
+	float: left;
+	border: 0px solid red;
+	width: 19%;
+	height: 100%;
+	background-color: #95CDE8;
+	/*Si quisieramos ocultar el contenido relacionado pondriamos visibility a hidden*/
+	/*visibility: hidden;*/
+}
+
+/*
+footer {
+	position: relative;
+	margin-top: -50px;
+	height: 40px;
+	padding: 5px 0px;
+	clear: both;
+	background: #286af0;
+	text-align: center;
+	color: #fff;
+}
+*/
+figure {
+	display: table;
+	margin: 0 auto;
+}
+</style>
+
+		<script>
+			
+		</script>
+
+		<script type="text/javascript">
+			PrimeFaces.locales['es'] = {
+				closeText : 'Cerrar',
+				prevText : 'Anterior',
+				nextText : 'Siguiente',
+				monthNames : [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo',
+						'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre',
+						'Noviembre', 'Diciembre' ],
+				monthNamesShort : [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+						'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
+				dayNames : [ 'Domingo', 'Lunes', 'Martes', 'Mi�rcoles',
+						'Jueves', 'Viernes', 'Sabado' ],
+				dayNamesShort : [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie',
+						'Sab' ],
+				dayNamesMin : [ 'Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa' ],
+				weekHeader : 'Semana',
+				firstDay : 1,
+				isRTL : false,
+				showMonthAfterYear : false,
+				yearSuffix : '',
+				timeOnlyTitle : 'Solo hora',
+				timeText : 'Tiempo',
+				hourText : 'Hora',
+				minuteText : 'Minuto',
+				secondText : 'Segundo',
+				currentText : 'Fecha actual',
+				ampm : false,
+				month : 'Mes',
+				week : 'Semana',
+				day : 'Dia',
+				allDayText : 'Todo el dia'
+			};
+
+			function enviarReporte() {
+				//if ("#{repoBean.swimprime}"=="SI"){
+				jsReportesisabas();
+				//}
+			}
+			function jsReportesisabas() {
+				var url = "/sisabas/reportesisabas.rep";
+				var vent = window.open(url, "DOCUMENTO",
+						"left=0,top=0,width=900px,height=900px,scrollbars=YES");
+			}
+		</script>
+
+		<ui:insert name="scripts">
+		</ui:insert>
+
+		<script type="text/javascript">
+			/*function showDialog(hidStatus,dialog){		
+				//document.getElementById('form:hidStatus').value;
+				var v=document.getElementById(hidStatus).value;			
+				if(v=='true')
+					eval(dialog).show();				
+			}
+			
+			function hideDialog(hidStatus,dialog){			
+				var v=document.getElementById(hidStatus).value;			
+				if(v=='true')
+					eval(dialog).hide();				
+			}*/
+
+			function showDialog(hidStatus, dialog) {
+				//document.getElementById('form:hidStatus').value;
+				try {
+					var v = document.getElementById(hidStatus).value;
+					if (v == 'true') {
+						var n = dialog.lastIndexOf(":");//
+						if (n != -1)
+							n = n + 1;
+						else
+							n = 0;
+						var str = dialog.substring(n, dialog.length);
+						PF(str).show();
+					}
+				} catch (e) {
+					alert("Error:" + e);
 				}
-				.ui-inputswitch .ui-inputswitch-on span {				 
-				    font-weight: normal;
+
+				//eval(dialog).show();                   
+			}
+
+			function hideDialog(hidStatus, dialog) {
+				try {
+					var v = document.getElementById(hidStatus).value;
+					if (v == 'true') {
+						var n = dialog.lastIndexOf(":");//
+						if (n != -1)
+							n = n + 1;
+						else
+							n = 0;
+						var str = dialog.substring(n, dialog.length);
+						PF(str).hide();
+						//eval(dialog).hide();
+					}
+				} catch (e) {
+					alert("Error:" + e);
 				}
-				.ui-inputswitch .ui-inputswitch-off span {				 
-				    font-weight: normal;
+			}
+
+			function showDialogPF(dialog) {
+				var n = dialog.lastIndexOf(":");
+				if (n != -1)
+					n = n + 1;
+				else
+					n = 0;
+
+				var str = dialog.substring(n, dialog.length);
+				PF(str).show();
+			}
+
+			function hideDialogPF(dialog) {
+				var n = dialog.lastIndexOf(":");
+				if (n != -1)
+					n = n + 1;
+				else
+					n = 0;
+				var str = dialog.substring(n, dialog.length);
+				PF(str).hide();
+			}
+
+			function jsSoloNumerosEnteros(e) {
+				key = e.keyCode || e.which;
+				//key = e.keyCode;
+				//alert(e.keyCode+"-"+e.which);
+				if ( //(key==46) || //suprimir
+				(key == 8) || //backspace
+				(key == 36) || //inicio
+				(key == 35) || //fin
+				(key == 37) || //flecha izquierda
+				(key == 39) || //flecha derecha
+				(key == 13) || //enter
+				(key == 9)) //tab
+					return true;
+				var t = String.fromCharCode(key).toLowerCase();
+				var numeros = "0123456789";
+				if (numeros.indexOf(t) != -1) {
+					return true;
+				} else {
+					return false;
 				}
-				.ui-tabs:not(.ui-ribbon) .ui-tabs-nav {				    
-				    background: #F2F8FA;
-				}				
-				.ui-dialog{
-				 	background-color: #FFF;
-				}				
-            </style>
-            
-             <script>
-</script>
+			}
 
-<script type="text/javascript">
- PrimeFaces.locales['es'] = {
-		    closeText: 'Cerrar',
-		    prevText: 'Anterior',
-		    nextText: 'Siguiente',
-		    monthNames: ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-		    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
-		    dayNames: ['Domingo','Lunes','Martes','Mi�rcoles','Jueves','Viernes','Sabado'],
-		    dayNamesShort: ['Dom','Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
-		    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
-		    weekHeader: 'Semana',
-		    firstDay: 1,
-		    isRTL: false,
-		    showMonthAfterYear: false,
-		    yearSuffix: '',
-		    timeOnlyTitle: 'Solo hora',
-		    timeText: 'Tiempo',
-		    hourText: 'Hora',
-		    minuteText: 'Minuto',
-		    secondText: 'Segundo',
-		    currentText: 'Fecha actual',
-		    ampm: false,
-		    month: 'Mes',
-		    week: 'Semana',
-		    day: 'Dia',
-		    allDayText : 'Todo el dia'
-		}; 
- 
- function enviarReporte(){
-		//if ("#{repoBean.swimprime}"=="SI"){
-			jsReportesisabas();
-		//}
-	}
-	function jsReportesisabas(){
-		 var url="/sisabas/reportesisabas.rep";
-		 var vent = window.open(url, "DOCUMENTO" , "left=0,top=0,width=900px,height=900px,scrollbars=YES");
-	}   
- 
-  
- </script>
+			function jsSoloNumeros(e, value) {
+				//key = e.keyCode || e.which;
+				key = e.keyCode || e.which;
+				//alert(e.keyCode+"-"+e.which);
+				//alert(value);
 
-<ui:insert name="scripts">		
-</ui:insert>
+				if (e.which == 46) { //si es . verifica que solo tenga uno
+					if (value == '' || isNaN(value))
+						return;
+					if (value.indexOf(".") != -1)
+						return false;
+				}
 
-<script type="text/javascript">
-		/*function showDialog(hidStatus,dialog){		
-			//document.getElementById('form:hidStatus').value;
-			var v=document.getElementById(hidStatus).value;			
-			if(v=='true')
-				eval(dialog).show();				
-		}
-		
-		function hideDialog(hidStatus,dialog){			
-			var v=document.getElementById(hidStatus).value;			
-			if(v=='true')
-				eval(dialog).hide();				
-		}*/
-		
-function showDialog(hidStatus,dialog){         
-    //document.getElementById('form:hidStatus').value;
-    try{    
-    var v=document.getElementById(hidStatus).value;
-    if(v=='true'){
-          var n = dialog.lastIndexOf(":");//
-          if(n!=-1)
-               n=n+1;
-          else
-               n=0;
-          var str = dialog.substring(n, dialog.length);                    
-          PF(str).show();                    
-    }
-    }catch(e){
-    	alert("Error:"+e);
-    }
-               
-          //eval(dialog).show();                   
-}
+				if ((key == 46) || //. o suprimir
+				(key == 8) || //backspace
+				(key == 36) || //inicio
+				(key == 35) || //fin
+				(key == 37) || //flecha izquierda
+				(key == 39) || //flecha derecha
+				(key == 9)) //tab
+					return;
 
-function hideDialog(hidStatus,dialog){               
-	 try{
-		var v=document.getElementById(hidStatus).value;                  
-	    if(v=='true'){
-	          var n = dialog.lastIndexOf(":");//
-	          if(n!=-1)
-	               n=n+1;
-	          else
-	               n=0;
-	          var str = dialog.substring(n, dialog.length);                    
-	          PF(str).hide();   
-	          //eval(dialog).hide();
-	    }
-	}catch(e){
-		alert("Error:"+e);
-	}
-}
+				tecla = String.fromCharCode(key).toLowerCase();
+				//alert(key+" "+tecla);
+				letras = "0123456789";
+				if (letras.indexOf(tecla) == -1)
+					return false;
+			}
 
-function showDialogPF(dialog){
-    var n = dialog.lastIndexOf(":");
-    if(n!=-1)
-          n=n+1;
-    else
-          n=0;
-    
-    var str = dialog.substring(n, dialog.length);                    
-    PF(str).show();
-}
+			function jsSoloFechas(e) {
+				key = e.keyCode || e.which;
+				//key = e.keyCode;
+				alert(e.keyCode + "-" + e.which);
+				if ((e.keyCode == 46) || //suprimir
+				(e.keyCode == 47) || //backslash	
+				(key == 8) || //backspace
+				(key == 36) || //inicio
+				(key == 35) || //fin
+				(key == 37) || //flecha izquierda
+				(key == 39) || //flecha derecha
+				(key == 9)) //tab
+					return;
+				tecla = String.fromCharCode(key).toLowerCase();
+				//alert(key+" "+tecla);
+				letras = "0123456789/";
+				if (letras.indexOf(tecla) == -1)
+					return false;
+			}
+		</script>
 
-function hideDialogPF(dialog){
-    var n = dialog.lastIndexOf(":");
-    if(n!=-1)
-          n=n+1;
-    else
-          n=0;              
-    var str = dialog.substring(n, dialog.length);                    
-    PF(str).hide();
-}
-
-		function jsSoloNumerosEnteros(e) {
-		    key = e.keyCode || e.which;
-		    //key = e.keyCode;
-		    //alert(e.keyCode+"-"+e.which);
-		    if ( //(key==46) || //suprimir
-		    	 (key==8)  ||  //backspace
-		         (key==36) ||  //inicio
-		         (key==35) ||  //fin
-		         (key==37) ||  //flecha izquierda
-		         (key==39) ||  //flecha derecha
-		         (key==13) ||  //enter
-		         (key==9) )    //tab
-		       return true;
-		    var t = String.fromCharCode(key).toLowerCase();		    
-		    var numeros = "0123456789";
-		    if(numeros.indexOf(t) != -1){
-		    	return true;
-		    }else{
-		    	return false;
-		    }
-		}
-
-		function jsSoloNumeros(e, value) {
-		    //key = e.keyCode || e.which;
-		    key = e.keyCode || e.which;
-		    //alert(e.keyCode+"-"+e.which);
-		    //alert(value);
-		    
-		    if (e.which==46){ //si es . verifica que solo tenga uno
-				if (value=='' || isNaN(value)) return;
-		    	if (value.indexOf(".")!=-1) return false;
-		    }   
-		    
-		    if ( (key==46) ||  //. o suprimir
-		         (key==8)  ||  //backspace
-		         (key==36) ||  //inicio
-		         (key==35) ||  //fin
-		         (key==37) ||  //flecha izquierda
-		         (key==39) ||  //flecha derecha
-		         (key==9) )    //tab
-		       return;
-		       
-		    tecla = String.fromCharCode(key).toLowerCase();
-		    //alert(key+" "+tecla);
-		    letras = "0123456789";
-		    if(letras.indexOf(tecla) == -1)
-		        return false;
-		}
-
-		
-		
-		function jsSoloFechas(e) {
-		    key = e.keyCode || e.which;
-		    //key = e.keyCode;
-		    alert(e.keyCode+"-"+e.which);
-		    if ( (e.keyCode==46) || //suprimir
-		    	 (e.keyCode==47) || //backslash	
-		    	 (key==8)  ||  //backspace
-		         (key==36) ||  //inicio
-		         (key==35) ||  //fin
-		         (key==37) ||  //flecha izquierda
-		         (key==39) ||  //flecha derecha
-		         (key==9) )    //tab
-		       return;
-		    tecla = String.fromCharCode(key).toLowerCase();
-		    //alert(key+" "+tecla);
-		    letras = "0123456789/";
-		    if(letras.indexOf(tecla) == -1)
-		        return false;
-		}		
-		
-		
-    </script>
-    
- </h:head>
- <body  bottommargin="0" topmargin="0" rightmargin="0" leftmargin="0" class="gandalfBody" onload="onLoadPage();">
- 
- 
-<ui:insert name="ajaxStatus">
-	<p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>             
-	<p:dialog modal="true" widgetVar="statusDialog" header="Estamos procesando su peticion"   
-        draggable="false" closable="false">  
-        <p:outputLabel value="Por favor espere..."/><br/>
-    	<p:graphicImage value="/resources/img/ajaxloadingbar.gif" />  
-	</p:dialog>	
-</ui:insert> 	  
- 
-
-<ui:insert name="idleMonitor">  
-	<p:idleMonitor timeout="600000"   
-	            onidle="PF('idleDialog').show();"/>             
-	<p:dialog header="Aviso! Debido a la inactividad, su sesion ha expirado." resizable="false"  
-	            widgetVar="idleDialog" modal="true" width="450">	    
-	    <h:outputText value="Si desea autentificarse nuevamente, click "/>  
-	    <h:link value="Aqui" outcome="/login.jsf" icon="ui-icon-close"/><br/>
-	    <h:outputText value=""/>
-	</p:dialog>  
-</ui:insert>
-
-<ui:insert name="menu">
-<h:form id="formMain">
+	</h:head>
+	<body bottommargin="0" topmargin="0" rightmargin="0" leftmargin="0"
+		class="gandalfBody" onload="onLoadPage();">
 
 
+		<ui:insert name="ajaxStatus">
+			<p:ajaxStatus onstart="PF('statusDialog').show();"
+				onsuccess="PF('statusDialog').hide();" />
+			<p:dialog modal="true" widgetVar="statusDialog"
+				header="Estamos procesando su peticion" draggable="false"
+				closable="false">
+				<p:outputLabel value="Por favor espere..." />
+				<br />
+				<p:graphicImage value="/resources/img/ajaxloadingbar.gif" />
+			</p:dialog>
+		</ui:insert>
 
 
+		<ui:insert name="idleMonitor">
+			<p:idleMonitor timeout="600000" onidle="PF('idleDialog').show();" />
+			<p:dialog
+				header="Aviso! Debido a la inactividad, su sesion ha expirado."
+				resizable="false" widgetVar="idleDialog" modal="true" width="450">
+				<h:outputText value="Si desea autentificarse nuevamente, click " />
+				<h:link value="Aqui" outcome="/login.jsf" icon="ui-icon-close" />
+				<br />
+				<h:outputText value="" />
+			</p:dialog>
+		</ui:insert>
+
+		<ui:insert name="menu">
+			<h:form id="formMain">
+				<p:menubar model="#{menuBean.model}"
+					rendered="#{loginBean.isSicuSecurityEnable() and !loginBean.mobile}"
+					id="idMenuBar" widgetVar="idMenuBar">
+					<f:facet name="options">
+						<p:panelGrid columns="2"
+							columnClasses="ui-grid-col-8,ui-grid-col-4" layout="grid"
+							styleClass="ui-panelgrid-blank"
+							style="width:95%;text-align:left;align:left;">
+							<p:menuButton icon="fa fa-fw fa-gear">
+								<p:menuitem value="Cambiar clave" icon="fa fa-fw fa-key"
+									outcome="/cambioClave.xhtml" />
+								<p:menuitem value="Salir" icon="fa fa-fw fa-sign-out"
+									onclick="PF('cdSalirSistema').show();"
+									title="Salir del sistema" />
+								<p:separator />
+								<p:menuitem value="#{loginBean.user}" icon="fa fa-fw fa-user"
+									style="text-align:center;" onclick="return false;"
+									disabled="true" />
+								<p:separator />
+								<p:menuitem value="#{loginBean.mobile?'MOVIL':'WEB'}"
+									icon="fa fa-fw fa-mobile-phone" style="text-align:center;"
+									onclick="return false;" disabled="true" />
+							</p:menuButton>
+						</p:panelGrid>
+					</f:facet>
+				</p:menubar>
+
+				<ui:fragment>
+				</ui:fragment>
+
+				<ui:include src="/pages/template/Menu.xhtml"
+					rendered="#{!loginBean.isSicuSecurityEnable()}" />
+
+				<ui:fragment rendered="#{loginBean.isSicuSecurityEnable()}">
+					<div
+						style="position: absolute; top: 5; left: 10; text-align: right; border: 0px solid silver;"
+						align="left">
+						<h:link outcome="/pages/home.xhtml?faces-redirect=true">
+							<h:graphicImage url="/resources/img/logo.png" width="30"
+								height="30" />
+						</h:link>
+					</div>
+				</ui:fragment>
+
+				<p:confirmDialog id="cdSalirSistema"
+					message="Esta seguro de salir del Sistema?" header="Confirmacion"
+					severity="alert" widgetVar="cdSalirSistema">
+					<table style="width: 100%">
+						<tr>
+							<td align="left"><p:commandButton value="Si"
+									action="/logout.xhtml?faces-redirect=true;" ajax="false"
+									icon="ui-icon-check" style="width:100px" /></td>
+							<td align="right"><p:commandButton value="No"
+									onclick="hideDialogPF('cdSalirSistema');" icon="ui-icon-close"
+									type="button" style="width:100px" /></td>
+						</tr>
+					</table>
+				</p:confirmDialog>
+
+				<p:sticky target="idMenuBar"
+					rendered="#{loginBean.isSicuSecurityEnable() and !loginBean.mobile}" />
+
+				<ui:include src="/pages/template/MenuOverlayPanel.xhtml"
+					rendered="#{!loginBean.isSicuSecurityEnable()}" />
 
 
+			</h:form>
+		</ui:insert>
 
-
-
-
-<p:menubar model="#{menuBean.model}"  rendered="#{loginBean.isSicuSecurityEnable() and !loginBean.mobile}" id="idMenuBar" widgetVar="idMenuBar">
-	<f:facet name="options">
-		<p:panelGrid columns="2" columnClasses="ui-grid-col-8,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank" style="width:95%;text-align:left;align:left;">	
-		<p:menuButton icon="fa fa-fw fa-gear" >				
-		        <p:menuitem value="Cambiar clave" icon="fa fa-fw fa-key" outcome="/cambioClave.xhtml"/>		        
-		        <p:menuitem value="Salir" icon="fa fa-fw fa-sign-out" onclick="PF('cdSalirSistema').show();" title="Salir del sistema"/>
-		        <p:separator />
-		        <p:menuitem value="#{loginBean.user}" icon="fa fa-fw fa-user" style="text-align:center;" onclick="return false;" disabled="true"/>
-		        <p:separator />
-		        <p:menuitem value="#{loginBean.mobile?'MOVIL':'WEB'}" icon="fa fa-fw fa-mobile-phone" style="text-align:center;" onclick="return false;" disabled="true"/>		        
-		    </p:menuButton>
-		</p:panelGrid>        
-    </f:facet>
-</p:menubar>
-
-<ui:include src="/pages/template/Menu.xhtml" rendered="#{!loginBean.isSicuSecurityEnable()}"/>
-
-
-<ui:fragment>
-
-
-
-	<div align="right" style="background: #f2f5f7;">	
-	
-	
-	
 		<table>
-		
 			<tr>
-			
-			
-			
-				<td>
-				     Periodo
-						
+				<td style="vertical-align: top;">
+					<div></div>
 				</td>
-			
-			
-				<td>
-						<p:selectOneMenu id="somPeriodo" value="#{menuBean.selectedPeriodo}" valueChangeListener="#{menuBean.changePeriodo}" 
-						style="width:75px;" >
-							
-							<f:selectItems value="#{menuBean.listaPeriodo}" var="var" itemLabel="#{var.anio}" 
-							itemValue="#{var.idperiodo}-#{var.anio}" />
-													
-							<p:ajax event="valueChange" process="@this" update="somCentroCosto" />
-													
-						</p:selectOneMenu>
-				
-				</td>
+				<td style="vertical-align: top;"></td>
 			</tr>
-			
-			
-			<tr>
-				
-				<td>
-				     Centro de Costo
-						
-				</td>
-			
-				
-				
-				<td>
-				
-						<p:selectOneMenu id="somCentroCosto" value="#{menuBean.selectedCentroCosto}" valueChangeListener="#{menuBean.changeCentroCosto}" 
-							style="width:400px;">
-								
-								<f:selectItems value="#{menuBean.listaVisSigaCentroCosto}" var="var" itemLabel="#{var.nombredependencia}" 
-								itemValue="#{var.codigocentrocosto}-#{var.nombredependencia}" />
-								<p:ajax event="valueChange" process="@this" />
-								
-						</p:selectOneMenu>
-		
-				
-				</td>
-		
-			
-			</tr>
-		
-		
 		</table>
-	
-		
 
-		
-		
-		
-	
-	</div>
-</ui:fragment>
+		<header>
 
-<ui:fragment rendered="#{loginBean.isSicuSecurityEnable()}">
-<div style="position: absolute;top: 5;left:10;text-align: right;border: 0px solid silver;" align="left">	
-	<h:link outcome="/pages/home.xhtml?faces-redirect=true"> 
-		<h:graphicImage url="/resources/img/logo.png" width="30" height="30"/>
-	</h:link>
-</div>
-</ui:fragment>
- 
-<p:confirmDialog id="cdSalirSistema" message="Esta seguro de salir del Sistema?"
-	header="Confirmacion" severity="alert" widgetVar="cdSalirSistema">
-	<table style="width:100%">
-		<tr>
-			<td align="left"><p:commandButton value="Si" action="/logout.xhtml?faces-redirect=true;" ajax="false" icon="ui-icon-check" style="width:100px"/></td>
-			<td align="right"><p:commandButton value="No" onclick="hideDialogPF('cdSalirSistema');" icon="ui-icon-close" type="button" style="width:100px"/></td>
-		</tr>
-	</table>
-</p:confirmDialog>
- 
-<p:sticky target="idMenuBar" rendered="#{loginBean.isSicuSecurityEnable() and !loginBean.mobile}"/>
+			<div align="center" style="background: #fff;">
+				<table style="width: 100%">
+					<tr>
+						<td align="left" style="width: 30%"><br /> <p:spacer
+								height="5" width="50"></p:spacer> <h:graphicImage
+								url="/resources/img/logo.png" width="408" height="57" /></td>
+						<td>
+							<table>
+								<tr>
 
-<ui:include src="/pages/template/MenuOverlayPanel.xhtml" rendered="#{!loginBean.isSicuSecurityEnable()}"/>
+									<td style="color: #077D9B; font-weight: bold;"><p:outputLabel
+											value="Ejercicio: " id="lblPeriodo" /></td>
+									<td><p:selectOneMenu id="somPeriodo"
+											value="#{menuBean.selectedPeriodo}"
+											valueChangeListener="#{menuBean.changePeriodo}">
+											<f:selectItems value="#{menuBean.listaPeriodo}" var="var"
+												itemLabel="#{var.anio}"
+												itemValue="#{var.idperiodo}-#{var.anio}" />
 
-	
-	
+											<p:ajax event="valueChange" process="@this"
+												update="somCentroCosto" />
+										</p:selectOneMenu></td>
+								</tr>
+								<tr>
+									<td><p:spacer height="5"></p:spacer></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td style="color: #077D9B; font-weight: bold;"><p:outputLabel
+											value="Oficina: " id="lblCentroCosto" /></td>
+									<td><p:selectOneMenu id="somCentroCosto"
+											value="#{menuBean.selectedCentroCosto}"
+											valueChangeListener="#{menuBean.changeCentroCosto}"
+											style="width:400px;">
 
-</h:form>
-</ui:insert>
+											<f:selectItems value="#{menuBean.listaVisSigaCentroCosto}"
+												var="var" itemLabel="#{var.nombredependencia}"
+												itemValue="#{var.codigocentrocosto}-#{var.nombredependencia}" />
+											<p:ajax event="valueChange" process="@this" />
+										</p:selectOneMenu></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
 
-<div align="center" class="container">
-<ui:insert name="center">
-	Center
-</ui:insert>
-</div>
+			</div>
 
-<footer>
-	<table style="width:100%">
-		<tr>
-			<td>
-				<span>			
-					<p:spacer width="10"/>
-					<p:commandLink onclick="PF('dlg3').show();return;">
-						<!-- 
+
+		</header>
+
+		<aside>
+			<p:menu style="margin-left:0px; width: 100%">
+				<p:submenu label="ADMINISTRACIÓN">
+					<p:menuitem value="New" url="#" icon="ui-icon-new" />
+					<p:menuitem value="Delete" url="#" icon="ui-icon-delete" />
+					<p:menuitem value="Refresh" url="#" icon="ui-icon-refresh" />
+					<p:menuitem value="Print" url="#" icon="ui-icon-print" />
+				</p:submenu>
+				<p:submenu label="SEGUIMIENTO">
+					<p:menuitem value="Home" url="http://www.primefaces.org"
+						icon="ui-icon-home" />
+					<p:menuitem value="Admin" url="#" icon="ui-icon-admin" />
+					<p:menuitem value="Contact Us" url="#" icon="ui-icon-contactus" />
+				</p:submenu>
+				<p:submenu label="REQUERIMIENTOS">
+					<p:menuitem value="Home" url="http://www.primefaces.org"
+						icon="ui-icon-home" />
+					<p:menuitem value="Admin" url="#" icon="ui-icon-admin" />
+					<p:menuitem value="Contact Us" url="#" icon="ui-icon-contactus" />
+				</p:submenu>
+				<p:submenu label="PROGRAMACIÓN">
+					<p:menuitem value="Home" url="http://www.primefaces.org"
+						icon="ui-icon-home" />
+					<p:menuitem value="Admin" url="#" icon="ui-icon-admin" />
+					<p:menuitem value="Contact Us" url="#" icon="ui-icon-contactus" />
+				</p:submenu>
+			</p:menu>
+		</aside>
+
+		<section>
+			<div align="center" class="container">
+				<ui:insert name="center">Center</ui:insert>
+			</div>
+		</section>
+
+
+		<footer>
+			<table style="width: 100%">
+				<tr>
+					<td><span> <p:spacer width="10" /> <p:commandLink
+								onclick="PF('dlg3').show();return;">
+								<!-- 
 						<h:graphicImage url="/resources/img/background/GandalfSoft.png" height="15" title="Contactenos"/>
 						 -->
-					</p:commandLink>
-				</span>
-			</td>
-			<td align="right">
-				<p:outputLabel value="#{PFConstants.SYSTEM_SIGLA}: #{PFConstants.SYSTEM_NAME}" style="font-weight:bold;"/>
-				<p:spacer width="10"/>
-				<p:outputLabel value="V. #{PFConstants.SYSTEM_VERSION}" style="font-weight:bold;"/>
-				<p:spacer width="10"/>
-				<p:outputLabel value="R. #{PFConstants.SYSTEM_REVISION}" style="font-weight:bold;"/>
-			</td>
-		</tr>
-	</table>	
-</footer>
+							</p:commandLink>
+					</span></td>
+					<td align="right"><p:outputLabel
+							value="#{PFConstants.SYSTEM_SIGLA}: #{PFConstants.SYSTEM_NAME}"
+							style="font-weight:bold;" /> <p:spacer width="10" /> <p:outputLabel
+							value="V. #{PFConstants.SYSTEM_VERSION}"
+							style="font-weight:bold;" /> <p:spacer width="10" /> <p:outputLabel
+							value="R. #{PFConstants.SYSTEM_REVISION}"
+							style="font-weight:bold;" /></td>
+				</tr>
+			</table>
+		</footer>
 
-<h:form>
-<p:dialog styleClass="gandalfPanelClassSectionFormHeader" header="GandalfSoft > Contactenos" widgetVar="dlg3" showEffect="slide" hideEffect="slide" height="300" width="350" modal="true" resizable="false">
-	<div class="ui-fluid">
-	<p:panel styleClass="gandalfPanelClassSectionFormHeaderP">
-	    <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank">
-	    	<p:outputLabel value="Correo de contacto"/>
-	    	<p:inputText value="consultasgandalfsoft@gmail.com" readonly="true"/>
-	    	<p:outputLabel value="Asunto"  for="txtAsunto"/>
-			<p:inputText id="txtAsunto" widgetVar="txtAsunto"  maxlength="150" required="true" label="Asunto" requiredMessage="Ingrese Asunto" disabled="true"/>
-			<p:outputLabel value="Mensaje"  for="txtMensaje"/>
-			<p:inputTextarea id="txtMensaje" widgetVar="txtMensaje" maxlength="300" required="true" label="Mensaje" requiredMessage="Ingrese Mensaje" disabled="true"/>
-			<p:commandButton value="Enviar" process="@this,txtAsunto,txtMensaje" update="@this,txtAsunto,txtMensaje" icon="fa fa-fw fa-paper-plane" disabled="true" title="Si desea contactarnos, escribenos al correo de contacto."/>
-			<p:outputLabel value="Si desea contactarnos, escribenos al correo de contacto."/>
-			<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="PF('dlg3').hide();return;" type="button"/>
-	    </p:panelGrid>
-	   </p:panel>
-    </div>	
-</p:dialog>
-<p:watermark for="txtAsunto" value="Asunto"/>
-<p:watermark for="txtMensaje" value="Ingrese mensaje a enviar"/>
-</h:form>
-  
-</body>           
+		<h:form>
+			<p:dialog styleClass="gandalfPanelClassSectionFormHeader"
+				header="GandalfSoft > Contactenos" widgetVar="dlg3"
+				showEffect="slide" hideEffect="slide" height="300" width="350"
+				modal="true" resizable="false">
+				<div class="ui-fluid">
+					<p:panel styleClass="gandalfPanelClassSectionFormHeaderP">
+						<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+							layout="grid" styleClass="ui-panelgrid-blank">
+							<p:outputLabel value="Correo de contacto" />
+							<p:inputText value="consultasgandalfsoft@gmail.com"
+								readonly="true" />
+							<p:outputLabel value="Asunto" for="txtAsunto" />
+							<p:inputText id="txtAsunto" widgetVar="txtAsunto" maxlength="150"
+								required="true" label="Asunto" requiredMessage="Ingrese Asunto"
+								disabled="true" />
+							<p:outputLabel value="Mensaje" for="txtMensaje" />
+							<p:inputTextarea id="txtMensaje" widgetVar="txtMensaje"
+								maxlength="300" required="true" label="Mensaje"
+								requiredMessage="Ingrese Mensaje" disabled="true" />
+							<p:commandButton value="Enviar"
+								process="@this,txtAsunto,txtMensaje"
+								update="@this,txtAsunto,txtMensaje"
+								icon="fa fa-fw fa-paper-plane" disabled="true"
+								title="Si desea contactarnos, escribenos al correo de contacto." />
+							<p:outputLabel
+								value="Si desea contactarnos, escribenos al correo de contacto." />
+							<p:commandButton value="Salir"
+								icon="ui-icon-arrowreturnthick-1-w" title="Salir"
+								onclick="PF('dlg3').hide();return;" type="button" />
+						</p:panelGrid>
+					</p:panel>
+				</div>
+			</p:dialog>
+			<p:watermark for="txtAsunto" value="Asunto" />
+			<p:watermark for="txtMensaje" value="Ingrese mensaje a enviar" />
+		</h:form>
+
+	</body>
 </f:view>
 </html>
