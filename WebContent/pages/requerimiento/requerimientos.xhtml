@@ -46,6 +46,7 @@ function myFunction4() {
 
 <style>
 
+
 .panelMarco {
     border: 1px solid #d5d5d5;
     background: #cdeef3;
@@ -181,7 +182,7 @@ function myFunction4() {
 								<h:inputHidden id="hidStatus" value="#{requerimiento.status}" />
 								<p:commandButton widgetVar="btnBuscar" id="btnBuscar"
 									value="Buscar" action="#{requerimiento.buscarRequerimientos}"
-									update="tblListaRequerimiento,pnlBotones" icon="fa fa-search"
+									update="tblListaRequerimiento,pnlBotones,imprimir1" icon="fa fa-search"
 									title="Buscar"
 									rendered="#{requerimiento.renderButton('btnBuscar')}" />
 								<p:spacer width="10" />
@@ -193,7 +194,7 @@ function myFunction4() {
 							</p:panel></td>
 						<td valign="top">
 							<div align="right" style="margin-top: 12px;">
-								<p:commandButton value="Imprimir" action="#{requerimiento.imprimir}"
+								<p:commandButton value="Imprimir" action="#{requerimiento.imprimir}"  id="imprimir1" disable="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE1'}"
 									update="hidStatus"
 									oncomplete="PF('diPedidoImprimir').show()"
 									icon="fa fa-print" />
@@ -341,7 +342,7 @@ function myFunction4() {
 
 					<p:column styleClass="c_numeric" sortBy="#{var.montoPedido}" exportable="#{requerimiento.value4}" width="10%">
 						<f:facet name="header">
-							<h:outputText value="$ Monto" styleClass="c_center" />
+							<h:outputText value="Monto S/." styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.montoPedido}" styleClass="c_center" />
 					</p:column>
@@ -388,7 +389,7 @@ function myFunction4() {
 					 <p:selectBooleanCheckbox value="#{requerimiento.value5}" />
 					 <p:outputLabel value="Estado del pedido(SisAbas)"/>
 					 <p:selectBooleanCheckbox value="#{requerimiento.value6}" />
-					 <p:outputLabel value="Número de expediente (SINAD)"/>
+					 <p:outputLabel value="Nombre Dependencia (SINAD)"/>
 					 <p:selectBooleanCheckbox value="#{requerimiento.value7}" />
 
 						<p:commandButton icon="ui-icon-circle-arrow-s"
@@ -419,14 +420,14 @@ function myFunction4() {
 						</div>
 						<table style="width: 70%;">
 							<tr>
-								<td><p:commandButton value="Grabar"
-										actionListener="#{requerimiento.insertarRequerimientos}"
+								<td><p:commandButton value="Grabar" 
+										actionListener="#{requerimiento.insertarRequerimientos}" style="left: 200px;"
 										icon="fa fa-save" title="Aceptar"
 										update=":form:growl,:form:tblListaRequerimiento" oncomplete="PF('reqDialog').hide();" /></td>
 								<td>
 									<div align="right">
-										<p:commandButton value="Cancelar"
-											icon="fa fa-rotate-left" title="Salir"
+										<p:commandButton value="Cancelar" 
+											icon="fa fa-rotate-left" title="Salir" style="left: 50px;"
 											onclick="hideDialogPF('frmGentipoRegistrar:diGentipoRegistrar');return false;" />
 									</div>
 								</td>
@@ -478,7 +479,7 @@ function myFunction4() {
 								<td>
 									<div align="left">
 										<p:commandButton value="Grabar" rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
-											icon="fa fa-save" title="Aceptar"
+											icon="fa fa-save" title="Aceptar" style="left:150px"
 											update=":form:growl,:form:tblListaRequerimiento" oncomplete="PF('reqDialog2').hide();" >
 											<f:actionListener binding="#{requerimiento.aceptarRequerimiento()}"/>
 											<f:actionListener binding="#{requerimiento.limpiar()}"/>
@@ -488,11 +489,11 @@ function myFunction4() {
 								<td>
 									<div align="center">
 										<p:commandButton value="Cancelar" actionListener="#{requerimiento.limpiar}" rendered="#{requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
-											icon="fa fa-rotate-left" title="Salir" process="@this" immediate="true"
+											icon="fa fa-rotate-left" title="Salir" process="@this" immediate="true" style="left:150px"
 											onclick="hideDialogPF('frmGentipoRegistrar:diGentipoRegistrar');return false;" />
 											
 										<p:commandButton value="Aceptar" rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
-											icon="ui-icon-circle-check" title="Aceptar"
+											icon="ui-icon-circle-check" title="Aceptar" style="left:150px"
 											update=":form:growl" oncomplete="PF('reqDialog2').hide();" >
 											<f:actionListener binding="#{requerimiento.limpiar()}"/>
 										</p:commandButton>		
@@ -500,7 +501,7 @@ function myFunction4() {
 								</td>
 								<td>
 									<div align="right" >
-										<p:commandButton id="btnRemitir" rendered="#{requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"  disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 40}" actionListener="#{requerimiento.destroyWorld}" value="Derivar" icon="fa fa-check" title="Derivar" update=":form:growl, :form:tblListaRequerimiento" oncomplete="PF('reqDialog2').hide();" >
+										<p:commandButton style="left:150px" id="btnRemitir" rendered="#{requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"  disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 40}" actionListener="#{requerimiento.destroyWorld}" value="Derivar" icon="fa fa-check" title="Derivar" update=":form:growl, :form:tblListaRequerimiento" oncomplete="PF('reqDialog2').hide();" >
 										   <p:confirm header="Confirmación" message="¿Esta seguro de remitir a programación?" icon="ui-icon-alert" />
 										</p:commandButton>
 									</div>
