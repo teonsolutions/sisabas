@@ -341,13 +341,13 @@ function myFunction4() {
 
 					<p:column styleClass="c_numeric" sortBy="#{var.montoPedido}" exportable="#{requerimiento.value4}" width="10%">
 						<f:facet name="header">
-							<h:outputText value="Monto del Pedido" styleClass="c_center" />
+							<h:outputText value="$ Monto" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.montoPedido}" styleClass="c_center" />
 					</p:column>
 					<p:column styleClass="c_string" sortBy="#{var.estadoSiga}" exportable="#{requerimiento.value5}" rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE2'}" width="12%">
 						<f:facet name="header">
-							<h:outputText value="Estado del pedido (SIGA)" 
+							<h:outputText value="Estado(SIGA)" 
 								styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.estadoRequerimiento}" />
@@ -355,7 +355,7 @@ function myFunction4() {
 
 					<p:column styleClass="c_string" sortBy="#{var.desEstadoIn}" exportable="#{requerimiento.value6}">
 						<f:facet name="header">
-							<h:outputText value="Estado del pedido(SisAbas)"
+							<h:outputText value="Estado(SisAbas)"
 								styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.desEstadoIn}" />
@@ -363,10 +363,10 @@ function myFunction4() {
 					<p:column styleClass="c_string" exportable="#{requerimiento.value7}"
 						sortBy="#{var.numeroExpedienteSinad}">
 						<f:facet name="header">
-							<h:outputText value="Número de expediente (SINAD)"
+							<h:outputText value="Nombre Dependencia"
 								styleClass="c_center" />
 						</f:facet>
-						<h:outputText value="#{var.numeroExpedienteSinad}" />
+						<h:outputText value="#{var.nombreDependencia}" />
 					</p:column>
 
 				</p:dataTable>
