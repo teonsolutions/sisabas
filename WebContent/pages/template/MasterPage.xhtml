@@ -97,10 +97,10 @@ a:-webkit-any-link {
 }
 
 #CONTENTSIDE {
-    width: auto;
+    width: 100%;
     overflow: hidden;
     z-index: 1;
-    margin-left: 0px;
+    
     background-color: #eff3f6;
 }
 
@@ -124,7 +124,8 @@ div {
 }
 
 .SubMenuLinkContainer {
-    width: auto;
+    width: 100%;
+    height: 100%;
     padding: 20px;
     overflow: hidden;
     background-color: #20282b;
@@ -132,8 +133,8 @@ div {
 }
 
 #MENUSIDEindent {
-    width: 80%;
-    height: auto;
+    width: 97%;
+    height: 100%;
 }
 
 
@@ -1065,39 +1066,34 @@ figure {
 		<header> </header>
 		 -->
 		
-        <div class="PC"> 
-		<div id="MENUSIDE" class="ps-container" style="height: 1054px;">
 		
-		
-		
-		   <div id="MENUSIDEindent">
-			<p:menu style="margin-left:0px; width: 100%" styleClass="SubMenuLinkContainer" toggleable="true">                   
-				<p:submenu label="ADMINISTRACIÓN" styleClass="SubMenuLink" style="height:22px">
-				</p:submenu>
-				
-				<p:submenu label="SEGUIMIENTO" styleClass="SubMenuLink" style="height:22px">
-					<p:menuitem value="Estados" outcome="/pages/seguimiento/seguimiento.xhtml" icon="ui-icon-triangle-1-e"/>	
-				</p:submenu>
-				<p:submenu label="REQUERIMIENTOS" styleClass="SubMenuLink" style="height:22px">
-					 <p:menuitem value="Pedidos SIGA" outcome="/pages/requerimiento/requerimientos.xhtml" icon="ui-icon-triangle-1-e"/>
-		             
-				</p:submenu>
-				<p:submenu label="PROGRAMACIÓN" styleClass="SubMenuLink" style="height:22px">
-					<p:menuitem value="Evaluación de documento" outcome="/pages/evaluaciondocumento/evaluaciondocumentoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
-		            <p:menuitem value="PAO" outcome="/pages/pao/paoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
-				</p:submenu>
-				
-			</p:menu>
-			</div>
-			
-		</div>
 
-		<div id="CONTENTSIDE">
-			
-			<ui:insert name="center">Center</ui:insert>
-			
-		</div>
-		</div>
+		
+		
+        <div class="PC"> 
+        
+        		<div id="MENUSIDE" class="ps-container" style="height: 1054px;">
+					   <div id="MENUSIDEindent"> 
+					   
+					   
+						   	<p:panelMenu model="#{loginBean.model}" style="margin-left:0px; width: 100%" stateful="true">
+						   	
+						   	
+						   	</p:panelMenu>
+							
+							 <!--   <p:menubar model="#{loginBean.model}" style="margin-left:0px; width: 100%" styleClass="SubMenuLinkContainer" toggleable="true"> 
+							   </p:menubar> -->
+					
+					
+						</div>
+				</div>
+		
+				<div id="CONTENTSIDE">
+					
+					<ui:insert name="center">Center</ui:insert>
+					
+				</div>
+		</div> 
 
 		<footer>
 			<table style="width: 100%">
