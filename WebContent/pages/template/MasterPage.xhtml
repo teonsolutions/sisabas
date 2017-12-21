@@ -999,6 +999,22 @@ figure {
 										</tr>
 									</table>
 								</td>
+								<td>
+								<p:menubar style="background: #313b3f; border: none; " >
+								  <f:facet name="options">	
+									<p:panelGrid columns="2" columnClasses="ui-grid-col-8,ui-grid-col-4" layout="grid" style="width:95%;text-align:left;align:left; background:red;">
+										<p:menuButton icon="fa fa-fw fa-gear" >				
+											<p:menuitem value="Cambiar clave" icon="fa fa-fw fa-key" outcome="/cambioClave.xhtml"/>
+											<p:menuitem value="Salir" icon="fa fa-fw fa-sign-out" onclick="PF('cdSalirSistema').show();" title="Salir del sistema"/>
+											<p:separator />
+											<p:menuitem value="#{loginBean.user}" icon="fa fa-fw fa-user" style="text-align:center;" onclick="return false;" disabled="true"/>
+											<p:separator />
+											<p:menuitem value="#{loginBean.mobile?'MOVIL':'WEB'}" icon="fa fa-fw fa-mobile-phone" style="text-align:center;" onclick="return false;" disabled="true"/>
+										</p:menuButton>
+									</p:panelGrid>
+					              </f:facet>
+					            </p:menubar>								
+								</td>
 							</tr>
 						</table>
 
