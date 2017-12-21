@@ -96,6 +96,8 @@
 								</p:selectOneMenu></td>
 
 
+						</tr>
+						<tr>
 							<td><p:outputLabel value="Tipo de bien" for="ddlTipoBien" /></td>
 							<td><p:selectOneMenu id="ddlTipoBien"
 									value="#{programacion.searchParam.idTipoBien}">
@@ -105,38 +107,33 @@
 										var="var" itemLabel="#{var.vchregdescri}"
 										itemValue="#{var.vchregcodigo}" />
 								</p:selectOneMenu></td>
-
-						</tr>
-						<tr>
 							<td><p:outputLabel value="Estado de requerimiento"
 									for="ddlEstadoPedido" /></td>
 							<td><p:selectOneMenu id="ddlEstadoPedido"
 									value="#{programacion.searchParam.estadoRequerimiento}">
 									<f:selectItem itemLabel="TODOS" itemValue="" />
-									<f:selectItems
-										value="#{programacion.listaEstadoRequerimiento}"
-										var="var" itemLabel="#{var.descripcion}" 
-										itemValue="#{var.id}" />
+									<f:selectItems value="#{programacion.listaEstadoRequerimiento}"
+										var="var" itemLabel="#{var.descripcion}" itemValue="#{var.id}" />
 								</p:selectOneMenu></td>
-
-							<td><p:outputLabel value="Número Sinad"
-									for="txtNumerosinad1" /></td>
-							<td><p:inputText id="txtNumerosinad1"
-									value="#{evaluacionDocumento.searchParam.numeroSinad}"
-									disabled="false" maxlength="10" style="width:150px;"
-									label="Numero Sinad" /></td>
-
 							<td><p:outputLabel value="Número PAO (SIGA)" for="txtNroPao" /></td>
 							<td><p:inputText id="txtNroPao"
 									value="#{programacion.searchParam.nroConsolid}"
 									disabled="false" maxlength="5" style="width:150px;"
 									label="Número PAO (SIGA)" /></td>
 
-							<td><p:outputLabel value="Número PAC" for="txtNroPac" /></td>
-							<td><p:inputText id="txtNroPac"
-									value="#{evaluacionDocumento.searchParam.nroDocumento}"
+							<td>
+								<!-- 
+							<p:outputLabel value="Número PAC" for="txtNroPac" />
+							 -->
+							</td>
+							<td>
+								<!-- 
+								<p:inputText id="txtNroPac"
+									value="{evaluacionDocumento.searchParam.nroDocumento}"
 									disabled="false" maxlength="5" style="width:150px;"
-									label="Número Paac" /></td>
+									label="Número Paac" />
+									 -->
+							</td>
 						</tr>
 					</table>
 				</p:panel>
@@ -225,48 +222,49 @@
 					<p:ajax event="rowSelect" listener="#{programacion.seleccionItem}"
 						update=":form:pnlBotones" immediate="true" />
 					<p:column styleClass="c_string" sortBy="#{var.nroConsolid}"
-						style="width: 100px">
+						style="width: 80px">
 						<f:facet name="header">
 							<h:outputText value="Número PAO (SIGA)"></h:outputText>
 						</f:facet>
 						<h:outputText value="#{var.nroConsolid}" />
 					</p:column>
 
-					<p:column styleClass="c_string" sortBy="#{var.numeroSinad}">
+					<!-- 
+					<p:column styleClass="c_string" sortBy="{var.numeroSinad}">
 						<f:facet name="header">
 							<h:outputText value="Número Sinad"></h:outputText>
 						</f:facet>
-						<h:outputText value="#{var.numeroSinad}" />
+						<h:outputText value="{var.numeroSinad}" />
 					</p:column>
-
-					<p:column styleClass="c_string" sortBy="#{var.tipoBienDesc}">
+ 					-->
+					<p:column styleClass="c_string"
+						sortBy="#{var.especificacionTecnica}" style="width: 25%">
+						<f:facet name="header">
+							<h:outputText value="Descripción"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.especificacionTecnica}" />
+					</p:column>
+					<p:column styleClass="c_string" sortBy="#{var.tipoBienDesc}" style="width: 100px">
 						<f:facet name="header">
 							<h:outputText value="Tipo de bien"></h:outputText>
 						</f:facet>
 						<h:outputText value="#{var.tipoBienDesc}" />
 					</p:column>
 
-					<p:column styleClass="c_string" sortBy="#{var.valorMoneda}">
+					<p:column styleClass="c_string" sortBy="#{var.valorMoneda}" style="width: 100px">
 						<f:facet name="header">
 							<h:outputText value="Monto S/."></h:outputText>
 						</f:facet>
 						<h:outputText value="#{var.valorMoneda}" />
-					</p:column>
+					</p:column>					
 					<p:column styleClass="c_string"
-						sortBy="#{var.especificacionTecnica}">
-						<f:facet name="header">
-							<h:outputText value="Descripción"></h:outputText>
-						</f:facet>
-						<h:outputText value="#{var.especificacionTecnica}" />
-					</p:column>
-					<p:column styleClass="c_string"
-						sortBy="#{var.tipoContratacionDesc}">
+						sortBy="#{var.tipoContratacionDesc}" style="width: 100px">
 						<f:facet name="header">
 							<h:outputText value="Tipo de contratación"></h:outputText>
 						</f:facet>
 						<h:outputText value="#{var.tipoContratacionDesc}" />
 					</p:column>
-					<p:column styleClass="c_string" sortBy="#{var.tipoNecesidadDesc}">
+					<p:column styleClass="c_string" sortBy="#{var.tipoNecesidadDesc}" style="width: 100px">
 						<f:facet name="header">
 							<h:outputText value="Tipo de necesidad"></h:outputText>
 						</f:facet>

@@ -22,6 +22,7 @@
 	color: #000;
 }
 
+/*
 .ui-accordion .ui-accordion-header {
 	cursor: pointer;
 	position: relative;
@@ -41,12 +42,23 @@
 	border-radius: 0;
 	background: #0d6ab9;
 }
+
+*/
+
 </style>
 		<h:form id="form">
 			<p:growl id="msgs" showDetail="true"></p:growl>
 			<p:growl id="growl" showDetail="true" for="growl" />
-			<p:panel id="panel" header="Programación y costos > pao > Paac"
+			<p:panel id="panel" header="Programación y costos > PAO > PAC"
 				style="width: 98%">
+				<div align="right">
+					<p:commandButton value="Ir al listado" icon="fa fa-th-list"
+						title="Ir al listado" action="#{programacion.load}"
+						process="@this">
+					</p:commandButton>
+				</div>
+				<p:spacer height="1"></p:spacer>
+
 				<p:focus for="panel" />
 				<p:tabView id="tabViewPao" dynamic="true"
 					activeIndex="#{programacion.pacTabIndex}">
@@ -150,7 +162,8 @@
 									</tr>
 									<tr>
 										<td colspan="3"><p:outputLabel value="Pedidos del PAO"
-												id="lblPedidosPAO" /></td>
+												id="lblPedidosPAO"
+												rendered="#{programacion.currentPao.pacConsolidado.idCatalogoTipoNecesidad eq 'TINE2'}" /></td>
 									</tr>
 									<tr>
 										<td colspan="3"><p:dataTable id="tblListaPedidos"
@@ -158,6 +171,7 @@
 												var="var" widgetVar="tblListaPedidos"
 												emptyMessage="No se encontraron registros"
 												selectionMode="single" rowKey="#{var.nroPedido}"
+												rendered="#{programacion.currentPao.pacConsolidado.idCatalogoTipoNecesidad eq 'TINE2'}"
 												styleClass="gandalfTableClass" paginator="true" rows="2"
 												paginatorPosition="bottom"
 												paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(programacion.listaCuadrocomparativofuente)}">
@@ -213,22 +227,27 @@
 							<p:tab title="Identificación del PAC">
 								<table style="width: 100%;" cellpadding="0" cellspacing="5">
 									<tr>
+										<!-- 
 										<td><p:outputLabel value="Antecedentes"
 												for="txtAntecedentes" id="lblAntecedentes" /></td>
+												 -->
 										<td><p:outputLabel value="Número referencial PAC"
 												for="txtNumeroReferencia" id="lblNumeroReferencia" /></td>
 										<td><p:outputLabel value="Tipo de necesidad"
 												for="ddlTipoNecesidad" id="lblTipoNecesidad" /></td>
+										<td></td>
 									</tr>
 									<tr>
+										<!-- 
 										<td><p:inputText id="txtAntecedentes" required="false"
 												maxlength="10" style="width:150px;" label="Antecedentes"
 												disabled="true"
-												value="#{programacion.currentPao.compraDirecta.nroCP}">
+												value="{programacion.currentPao.compraDirecta.nroCP}">
 											</p:inputText></td>
+											 -->
 										<td><p:inputText id="txtNumeroReferencia"
 												required="false" maxlength="10" style="width:150px;"
-												label="Número referencial PAC" disabled="false"
+												label="Número referencial PAC" disabled="true"
 												value="#{programacion.currentPao.pacConsolidado.nroPac}">
 											</p:inputText></td>
 										<td><p:selectOneMenu
@@ -241,6 +260,7 @@
 													var="var" itemLabel="#{var.vchregdescri}"
 													itemValue="#{var.vchregcodigo}" />
 											</p:selectOneMenu></td>
+										<td></td>
 									</tr>
 									<tr>
 										<td><p:outputLabel value="Tipo de contratación"
@@ -407,9 +427,9 @@
 								</table>
 							</p:tab>
 						</p:accordionPanel>
-						<p:commandButton value="Guardar" icon="fa fa-pencil"
+						<p:commandButton value="Guardar" icon="fa fa-save"
 							title="Guardar datos generales"
-							disabled="#{!programacion.esSeleccionado}"
+							disabled="#{programacion.disabledButtons}"
 							action="#{programacion.guardarPacConsolidado}"
 							rendered="#{programacion.renderButton('btnGuadarPacConsolidado')}"
 							update="form:msgs,form:panel" />
@@ -425,20 +445,21 @@
 										action="#{programacion.irRegistrarFuente}"
 										update="hidStatus,:frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar"
 										oncomplete="showDialog('form:tabViewPao:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');"
-										icon="ui-icon-document"
+										icon="ui-icon-document" process="@this"
+										disabled="#{programacion.disabledButtons}"
 										rendered="#{programacion.renderButton('btnNuevoEM')}" />
 									<p:commandButton value="Editar"
 										action="#{programacion.irEditarFuente}"
 										update="hidStatus,:frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar"
 										oncomplete="showDialog('form:tabViewPao:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');"
-										icon="ui-icon-pencil"
+										icon="ui-icon-pencil" process="@this"
 										disabled="#{!programacion.esSeleccionadoFuente}"
 										rendered="#{programacion.renderButton('btnEditarEM')}" />
 									<p:commandButton value="Eliminar"
 										action="#{programacion.irEliminarFuente}" update="hidStatus"
 										oncomplete="showDialog('form:tabViewPao:hidStatus','form:cdEliminarFuente');"
-										icon="ui-icon-circle-close" title="Eliminar"
-										disabled="#{!programacion.esSeleccionadoFuente}"
+										icon="ui-icon-circle-close" process="@this" title="Eliminar"
+										disabled="#{!programacion.esSeleccionadoFuente or programacion.disabledButtons}"
 										rendered="#{programacion.renderButton('btnEliminarEM')}" />
 									<h:inputHidden id="hidStatus" value="true" />
 								</p:panel>
@@ -531,6 +552,7 @@
 						disabled="#{programacion.disabledTabAprobacion}">
 						<p:accordionPanel id="accAprobacion" multiple="true"
 							activeIndex="0,1">
+
 							<p:tab title="Miembros de comité">
 								<div align="right">
 									<p:panel id="pnlBotonesMiembroComite"
@@ -539,21 +561,22 @@
 											action="#{programacion.irRegistrarMiembroComite}"
 											update="hidStatus,:frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar"
 											oncomplete="showDialog('form:tabViewPao:accAprobacion:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar');"
-											icon="ui-icon-document"
+											icon="ui-icon-document" process="@this"
+											disabled="#{programacion.disabledButtons}"
 											rendered="#{programacion.renderButton('btnNuevoMiembroComite')}" />
 										<p:commandButton value="Editar"
 											action="#{programacion.irEditarMiembroComite}"
 											update="form:tabViewPao:accAprobacion:hidStatus,:frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar"
 											oncomplete="showDialog('form:tabViewPao:accAprobacion:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar');"
-											icon="ui-icon-pencil"
+											icon="ui-icon-pencil" process="@this"
 											disabled="#{!programacion.esSeleccionadoMiembroComite}"
 											rendered="#{programacion.renderButton('btnEditarMiembroComite')}" />
 										<p:commandButton value="Eliminar"
 											action="#{programacion.irEliminarMiembroComite}"
 											update="hidStatus"
 											oncomplete="showDialog('form:tabViewPao:accAprobacion:hidStatus','form:cdEliminarMiembroComite');"
-											icon="ui-icon-circle-close" title="Eliminar"
-											disabled="#{!programacion.esSeleccionadoMiembroComite}"
+											icon="ui-icon-circle-close" process="@this" title="Eliminar"
+											disabled="#{!programacion.esSeleccionadoMiembroComite or programacion.disabledButtons}"
 											rendered="#{programacion.renderButton('btnEliminarMiembroComite')}" />
 										<h:inputHidden id="hidStatus" value="true" />
 									</p:panel>
@@ -619,6 +642,7 @@
 									<p:commandButton value="Si"
 										action="#{programacion.eliminarMiembroComite}"
 										update=":form:tabViewPao:accAprobacion:tblListaMiembrocomiteporproceso,:form:growl"
+										process="@this"
 										oncomplete="hideDialogPF('cdEliminarMiembroComite');" />
 									<p:commandButton value="No"
 										onclick="hideDialogPF('cdEliminarMiembroComite');"
@@ -635,7 +659,7 @@
 												for="ddlTipoProceso" id="lblTipoProceso" /></td>
 										<td><p:selectOneMenu
 												value="#{programacion.currentPao.pacConsolidado.codigoTipoProceso}"
-												id="ddlTipoProceso" required="false" label="Estado de PAC">
+												id="ddlTipoProceso" required="true" label="Estado de PAC">
 												<f:selectItem itemLabel="--Seleccione--" itemValue="" />
 												<f:selectItems value="#{programacion.listaTipoProceso}"
 													var="var" itemLabel="#{var.descripcion}"
@@ -686,22 +710,29 @@
 												disabled="true" locale="es" styleClass="dateTimeField" /></td>
 									</tr>
 								</table>
+
+								<p:spacer height="20"></p:spacer>
+								<p:commandButton value="Guardar" icon="fa fa-save"
+									title="Guardar datos generales"
+									disabled="#{programacion.disabledButtons}"
+									action="#{programacion.guardarAprobacion}"
+									rendered="#{programacion.renderButton('btnGuadarAprobacion')}"
+									update="form:msgs" />
+
+								<!-- 
+								<p:commandButton value="Cancelar" action="{programacion.load}"
+									ajax="false" icon="ui-icon-arrowreturnthick-1-w"
+									title="Cancelar" />
+									 -->
+								<p:commandButton value="Remitir a proceso selección"
+									icon="fa fa-send" title="Remitir a proceso selección"
+									disabled="#{programacion.disabledButtons}"
+									action="#{programacion.derivarExpediente}"
+									rendered="#{programacion.renderButton('btnDerivar')}"
+									update="form:msgs,form:panel" />
+
 							</p:tab>
 						</p:accordionPanel>
-						<p:commandButton value="Guardar" icon="fa fa-pencil"
-							title="Guardar datos generales"
-							disabled="#{!programacion.esSeleccionado}"
-							action="#{programacion.guardarAprobacion}"
-							rendered="#{programacion.renderButton('btnGuadarAprobacion')}"
-							update="form:msgs" />
-						<p:commandButton value="Cancelar" action="#{programacion.load}"
-							ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Cancelar" />
-						<p:commandButton value="Derivar" icon="fa fa-send"
-							title="Derivar a proceso de selección"
-							disabled="#{!programacion.esSeleccionado}"
-							action="#{programacion.derivarExpediente}"
-							rendered="#{programacion.renderButton('btnDerivar')}"
-							update="form:msgs" />
 					</p:tab>
 				</p:tabView>
 
@@ -710,8 +741,8 @@
 					message="Esta seguro de eliminar este registro?"
 					header="Confirmación" severity="alert" widgetVar="cdEliminarFuente">
 					<p:commandButton value="Si" action="#{programacion.eliminarFuente}"
-						update=":form:tabViewPao:tblListaCuadrocomparativofuente,:form:growl"
-						oncomplete="hideDialogPF('cdEliminarFuente');" />
+						update="form:panel,:form:tabViewPao:tblListaCuadrocomparativofuente,:form:growl"
+						oncomplete="hideDialogPF('cdEliminarFuente');" process="@this" />
 					<p:commandButton value="No"
 						onclick="hideDialogPF('cdEliminarFuente');" type="button" />
 				</p:confirmDialog>
@@ -733,8 +764,9 @@
 					<tr>
 						<td><h:inputHidden id="hidStatus" value="true" /> <p:commandButton
 								value="Aceptar" action="#{programacion.aceptarFuente}"
-								update="hidStatus,:form:tabViewPao:tblListaCuadrocomparativofuente,:form:tabViewPao:tblListaCuadrocomparativoVrFinal,:form:growl,:form:tabViewPao:pnlBotones,panelC"
+								update="hidStatus,form:panel,:form:tabViewPao:tblListaCuadrocomparativofuente,:form:tabViewPao:tblListaCuadrocomparativoVrFinal,:form:growl,:form:tabViewPao:pnlBotones,panelC"
 								oncomplete="hideDialog('frmCuadrocomparativofuenteRegistrar:hidStatus','frmCuadrocomparativofuenteRegistrar:tabViewPao:diCuadrocomparativofuenteRegistrar')"
+								disabled="#{programacion.disabledButtons}"
 								icon="ui-icon-circle-check" title="Aceptar" /></td>
 						<td>
 							<div align="right">
@@ -795,6 +827,7 @@
 								value="Aceptar" action="#{programacion.aceptarMiembroComite}"
 								update="hidStatus,:form:tabViewPao:accAprobacion:tblListaMiembrocomiteporproceso,:form:growl,:form:tabViewPao:accAprobacion:pnlBotonesMiembroComite,panelC"
 								oncomplete="hideDialog('frmMiembrocomiteporprocesoRegistrar:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar')"
+								disabled="#{programacion.disabledButtons}"
 								icon="ui-icon-circle-check" title="Aceptar" /></td>
 						<td>
 							<div align="right">

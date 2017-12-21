@@ -53,18 +53,26 @@
 								</p:selectOneMenu></td>
 
 
-							<td><p:outputLabel value="Número Pedido" for="txtNroPedido" /></td>
+							<td><p:outputLabel value="Número Documento" for="txtNroPedido" /></td>
 							<td><p:inputText id="txtNroPedido"
 									value="#{evaluacionDocumento.searchParam.nroDocumento}"
 									disabled="false" maxlength="5" style="width:150px;"
 									label="Número Pedido" /></td>
 
-							<td><p:outputLabel value="Número Sinad"
-									for="txtNumerosinad1" /></td>
-							<td><p:inputText id="txtNumerosinad1"
-									value="#{evaluacionDocumento.searchParam.numeroSinad}"
+							<td>
+							<!-- 
+							<p:outputLabel value="Número Sinad"
+									for="txtNumerosinad1" />
+									 -->
+									</td>
+							<td>
+							<!-- 
+							<p:inputText id="txtNumerosinad1"
+									value="{evaluacionDocumento.searchParam.numeroSinad}"
 									disabled="false" maxlength="10" style="width:150px;"
-									label="Numero Sinad" /></td>
+									label="Numero Sinad" />
+								 -->	
+									</td>
 						</tr>
 
 
@@ -197,13 +205,13 @@
 					<p:column styleClass="c_string" sortBy="#{var.nroDocumento}"
 						style="width: 100px">
 						<f:facet name="header">
-							<h:outputText value="Nro. Pedido"></h:outputText>
+							<h:outputText value="Nro. Documento"></h:outputText>
 						</f:facet>
 						<h:outputText value="#{var.nroDocumento}" />
 					</p:column>
 
 					<p:column styleClass="c_string" sortBy="#{var.descripcion}"
-						style="width:50%">
+						style="width:40%">
 						<f:facet name="header">
 							<h:outputText value="Descripción"></h:outputText>
 						</f:facet>
@@ -217,21 +225,28 @@
 						</f:facet>
 						<h:outputText value="#{var.tipoBienDesc}" />
 					</p:column>
+					
+					<p:column styleClass="c_string" sortBy="#{var.monto}">
+						<f:facet name="header">
+							<h:outputText value="Monto S/."></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.monto}" />
+					</p:column>					
 
 					<p:column styleClass="c_string" sortBy="#{var.estadoDesc}">
 						<f:facet name="header">
-							<h:outputText value="Estado del pedido"></h:outputText>
+							<h:outputText value="Estado"></h:outputText>
 						</f:facet>
 						<h:outputText value="#{var.estadoDesc}" />
 					</p:column>
 
 
 					<p:column styleClass="c_string"
-						sortBy="#{var.numeroExpedienteSinad}">
+						sortBy="#{var.tipoNecesidadDesc}">
 						<f:facet name="header">
-							<h:outputText value="Nro. Expediente SINAD"></h:outputText>
+							<h:outputText value="Tipo de Necesidad"></h:outputText>
 						</f:facet>
-						<h:outputText value="#{var.numeroExpedienteSinad}" />
+						<h:outputText value="#{var.tipoNecesidadDesc}" />
 					</p:column>
 				</p:dataTable>
 
