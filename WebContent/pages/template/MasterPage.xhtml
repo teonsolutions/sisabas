@@ -242,7 +242,7 @@ body {
 td, th, tr {
 	font-family: "Century Gothic";
 	/*color: #077D9B;*/ /*COMENTAR ESTA LINEA PARA THEME DELTA*/
-	font-size: 12px;
+	font-size: 11px;
 }
 
 /**Titulo de panel*/
@@ -1010,8 +1010,9 @@ figure {
 					</div>
 				</ui:fragment>
 
-				<ui:include src="/pages/template/Menu.xhtml"
-					rendered="#{!loginBean.isSicuSecurityEnable()}" />
+
+
+                 
 
 				<ui:fragment rendered="#{loginBean.isSicuSecurityEnable()}">
 					<div
@@ -1061,10 +1062,6 @@ figure {
 			<p:menu style="margin-left:0px; width: 100%" styleClass="SubMenuLinkContainer" toggleable="true">
 			    
 				<p:submenu label="ADMINISTRACIÓN" styleClass="SubMenuLink">
-					<p:menuitem value="New" url="#" icon="ui-icon-new" />
-					<p:menuitem value="Delete" url="#" icon="ui-icon-delete" />
-					<p:menuitem value="Refresh" url="#" icon="ui-icon-refresh" />
-					<p:menuitem value="Print" url="#" icon="ui-icon-print" />
 				</p:submenu>
 				
 				<p:submenu label="SEGUIMIENTO" styleClass="SubMenuLink">
@@ -1072,7 +1069,7 @@ figure {
 				</p:submenu>
 				<p:submenu label="REQUERIMIENTOS" styleClass="SubMenuLink">
 					 <p:menuitem value="Pedidos SIGA" outcome="/pages/requerimiento/requerimientos.xhtml" icon="ui-icon-triangle-1-e"/>
-		             <p:menuitem value="Pedidos de Obras" outcome="/pages/pedido/pedidoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		             
 				</p:submenu>
 				<p:submenu label="PROGRAMACIÓN" styleClass="SubMenuLink">
 					<p:menuitem value="Evaluación de documento" outcome="/pages/evaluaciondocumento/evaluaciondocumentoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>

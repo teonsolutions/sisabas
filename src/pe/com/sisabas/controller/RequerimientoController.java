@@ -252,13 +252,15 @@ public class RequerimientoController extends BaseController {
 	public void buscarRequerimientos() {
 		// System.out.println("***************FerRRRRRRRRRRR**************"+lugares.size());
 		try {
-			System.out.println("Metodo buscarRequerimientos");
+			
 			// Todos
-			requerimientoRequest.setCodigoUnidadEjecutora("108");
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
+			requerimientoRequest.setCodigoUnidadEjecutora(Constantes.unidadEjecutora.PRONIED);
 			// requerimientoRequest.setPedido("08761");
-			requerimientoRequest.setAnoEje(2017);
+			requerimientoRequest.setAnoEje(usuario.getPeriodo().getAnio());
 			requerimientoRequest.setPagenumber(1);
 			requerimientoRequest.setPageSize(10);
+			requerimientoRequest.setCentroCosto(usuario.getPeriodo().getCodigoCentroCosto());
 
 			System.err.println("tipo es: " + requerimientoRequest.getTipoNecesidad());
 

@@ -217,7 +217,7 @@ function myFunction4() {
 					<p:ajax event="rowSelect" listener="#{pedido.seleccionItem}"
 						update=":form:pnlBotones" immediate="true" />
 
-					<p:column styleClass="c_center" exportable="false">
+					<p:column styleClass="c_center" exportable="false" width="8%">
 						<f:facet name="header">
 							<h:outputText value="Acciones" styleClass="c_center" />
 						</f:facet>
@@ -299,8 +299,8 @@ function myFunction4() {
 						</p:commandButton>
 						
 					</p:column>
-					<p:column styleClass="c_center" sortBy="#{var.nropedido}" exportable="#{requerimiento.value1}" rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE2'}">
-						<f:facet name="header">
+					<p:column styleClass="c_center" sortBy="#{var.nropedido}" exportable="#{requerimiento.value1}" rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE2'}" width="7%">
+						<f:facet name="header" >
 							<h:outputText value="Nro pedido" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.nroPedido}" />
@@ -325,27 +325,27 @@ function myFunction4() {
 					
 		
 
-					<p:column styleClass="c_string" sortBy="#{var.motivoPedido}" exportable="#{requerimiento.value2}">
+					<p:column styleClass="c_string" sortBy="#{var.motivoPedido}" exportable="#{requerimiento.value2}" width="25%">
 						<f:facet name="header">
 							<h:outputText value="Descripción" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.motivoPedido}" />
 					</p:column>
 
-					<p:column styleClass="c_center" sortBy="#{var.tipobien}" exportable="#{requerimiento.value3}">
+					<p:column styleClass="c_center" sortBy="#{var.tipobien}" exportable="#{requerimiento.value3}" width="10%">
 						<f:facet name="header">
 							<h:outputText value="Tipo de bien(SIGA)" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.tipobien}" />
 					</p:column>
 
-					<p:column styleClass="c_numeric" sortBy="#{var.montoPedido}" exportable="#{requerimiento.value4}">
+					<p:column styleClass="c_numeric" sortBy="#{var.montoPedido}" exportable="#{requerimiento.value4}" width="10%">
 						<f:facet name="header">
 							<h:outputText value="Monto del Pedido" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.montoPedido}" styleClass="c_center" />
 					</p:column>
-					<p:column styleClass="c_string" sortBy="#{var.estadoSiga}" exportable="#{requerimiento.value5}" rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE2'}">
+					<p:column styleClass="c_string" sortBy="#{var.estadoSiga}" exportable="#{requerimiento.value5}" rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE2'}" width="12%">
 						<f:facet name="header">
 							<h:outputText value="Estado del pedido (SIGA)" 
 								styleClass="c_center" />
