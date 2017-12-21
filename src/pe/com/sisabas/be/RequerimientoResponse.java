@@ -37,6 +37,12 @@ public class RequerimientoResponse extends SysTabla  implements  Serializable,Cl
 	private String formatoFecha;
 	
 	
+	//atributos programado
+
+	private Integer idPacProgramado;
+	private Integer nroConsolid;
+	private Integer tienePao;
+	
 	
 	public String getFormatoFecha() {
 		return formatoFecha;
@@ -90,14 +96,12 @@ public class RequerimientoResponse extends SysTabla  implements  Serializable,Cl
 
 	 }
 	
-	
+
 	
 	public void formatoFecha(){
 		
 		this.formatoFecha=new SimpleDateFormat("dd-MM-yyyy").format(fechaPedido);
-		
-		
-		
+
 	}
 	
 	@Override
@@ -334,6 +338,36 @@ public class RequerimientoResponse extends SysTabla  implements  Serializable,Cl
 
 	public void setNumeroDocumentoSinad(String numeroDocumentoSinad) {
 		this.numeroDocumentoSinad = numeroDocumentoSinad;
+	}
+
+
+	public Integer getIdPacProgramado() {
+		return idPacProgramado;
+	}
+
+
+	public void setIdPacProgramado(Integer idPacProgramado) {
+		this.idPacProgramado = idPacProgramado;
+	}
+
+
+	public Integer getTienePao() {
+		return tienePao;
+	}
+
+
+	public void setTienePao(Integer tienePao) {
+		this.tienePao = tienePao;
+	}
+
+
+	public Integer getNroConsolid() {
+		return nroConsolid;
+	}
+
+
+	public void setNroConsolid(Integer nroConsolid) {
+		this.nroConsolid = nroConsolid;
 	}
 
 

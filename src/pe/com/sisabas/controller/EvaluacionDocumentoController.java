@@ -12,7 +12,6 @@ import javax.faces.application.FacesMessage;
 
 import org.apache.taglibs.standard.lang.jstl.Evaluator;
 import org.omg.CORBA.TRANSACTION_MODE;
-import org.postgresql.core.SetupQueryRunner;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.ToggleSelectEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -348,8 +347,7 @@ public class EvaluacionDocumentoController extends BaseController {
 			validateSelectedRow();
 			
 			TransactionRequest<Integer> request = new TransactionRequest<Integer>();
-			request.setUsuarioAuditoria(getUserLogin());
-			request.setEquipoAuditoria(getRemoteAddr());
+			request.setUsuarioAuditoria("PRUEBA");
 			businessProgramacion.recibirDocumentoTecnico(pedido, request);				
 			
 			showGrowlMessageSuccessfullyCompletedAction();

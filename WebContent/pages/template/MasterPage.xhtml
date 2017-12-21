@@ -38,7 +38,32 @@
 
 
 
-		<style type="text/css">
+<style type="text/css">
+
+a {
+    text-decoration: none;
+    outline: none;
+    color: #25AAE1;
+}
+
+a:-webkit-any-link {
+    color: -webkit-link;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.ui-menuitem-text {
+    width: 50%;
+    display: inline-block;
+    float: left;
+    padding: 6px 0px;
+    cursor: pointer;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    color: #659eb3;
+    font-size: 14px;
+}
+
 .ui-panelmenu .ui-panelmenu-content {
 	padding: .2em 0;
 	border-top: 0;
@@ -52,12 +77,70 @@
 	border-color: #F2F8FA;
 }
 
+.SubMenuLink {
+    width: 50%;
+    display: inline-block;
+    float: left;
+    padding: 6px 0px;
+    cursor: pointer;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    color: #659eb3;
+    font-size: 14px;
+}
+
 .ui-panelmenu .ui-panelmenu-header.ui-state-active, .ui-panelmenu .ui-panelmenu-header.ui-state-active a
 	{
 	background: #186ba0;
 	color: #fff;
 	border-color: #186ba0;
 }
+
+#CONTENTSIDE {
+    width: auto;
+    overflow: hidden;
+    z-index: 1;
+    margin-left: 0px;
+    background-color: #eff3f6;
+}
+
+div {
+    display: block;
+}
+
+#MENUSIDE {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    background-color: #313b3f;
+    border-right: solid 1px #151d21;
+    overflow: hidden;
+    width: 250px;
+    position: fixed;
+    -moz-transition: left 0.3s;
+    -o-transition: left 0.3s;
+    -webkit-transition: left 0.3s;
+    transition: left 0.3s;
+}
+
+.SubMenuLinkContainer {
+    width: auto;
+    padding: 20px;
+    overflow: hidden;
+    background-color: #20282b;
+    
+}
+
+#MENUSIDEindent {
+    width: 80%;
+    height: auto;
+}
+
+
+#j_idt196 {
+   margin-top:50px";
+    
+    }
 
 footer {
 	position: fixed;
@@ -70,6 +153,8 @@ footer {
 	width: 100%;
 	border: 1px solid silver;
 }
+
+
 
 .container {
 	position: relative;
@@ -104,16 +189,16 @@ footer {
 					background: url('#{resource['img/background:background.jpg']}');
 					*/
 	/*background-color:#95CDE8;*/
-	/*background: linear-gradient(#4D4D4F, #9A999E, #FFFFFF);*/
+	background: linear-gradient(#4D4D4F, #9A999E, #FFFFFF);
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
 	margin: 0;
+	margin-left: 250px;
 	padding: 0;
 	font-family: geneva, arial, helvetica, sans-serif;
 	font-size: 12px;
-	background: #fff;
 }
 
 .ui-menuitem-icon.ui-icon.secureIcon {
@@ -142,8 +227,19 @@ footer {
 	padding: 0;
 }
 
+body {
+    font-size: 14px;
+    margin: 0px;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #20272a;
+    font-family: 'latoregular', "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #5C666A;
+}
+
 /**THEME DELTA - INICIO*/
-body, td, th, tr {
+td, th, tr {
 	font-family: "Century Gothic";
 	/*color: #077D9B;*/ /*COMENTAR ESTA LINEA PARA THEME DELTA*/
 	font-size: 12px;
@@ -249,185 +345,12 @@ body, td, th, tr {
 li
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 :has
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 (>
 a
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .active
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 )
 { /* styles to apply to the li tag */
@@ -521,14 +444,14 @@ a
 
 /*Disabled inputs*/
 .ui-state-disabled, .ui-widget-content .ui-state-disabled,
-	.ui-widget-header .ui-state-disabled {
+	 .ui-state-disabled {
 	opacity: .7;
 	filter: Alpha(Opacity = 7);
 	background-image: none;
 }
 
 /*Input text*/
-.ui-widget-header .ui-inputfield, .ui-widget-content .ui-inputfield {
+    .ui-inputfield, .ui-widget-content .ui-inputfield {
 	font-weight: normal;
 	/*padding: 2px 2px 2px 2px;*/
 	/*margin: 0px 0px 0px 0px;*/
@@ -583,6 +506,7 @@ a
 	/* Mozilla */
 	opacity: 0.9;
 }
+
 
 <!--
 DELTA--> /*				
@@ -700,7 +624,7 @@ body .ui-datepicker table td.ui-datepicker-today a {
 }
 
 .ui-state-highlight, .ui-widget-content .ui-state-highlight,
-	.ui-widget-header .ui-state-highlight {
+	.ui-state-highlight {
 	color: #fff;
 	border: 1px solid #156090;
 	background: #186ba0;
@@ -745,7 +669,7 @@ header {
 
 section {
 	width: 79%;
-	background: #fff;
+	background: #95CDE8;
 	float: right;
 	overflow: auto;
 	padding-bottom: 60px;
@@ -1061,6 +985,10 @@ figure {
 												</p:selectOneMenu></td>
 										</tr>
 										<tr>
+											<td><p:spacer height="5"></p:spacer></td>
+											<td></td>
+										</tr>
+										<tr>
 											<td style="color: #077D9B; font-weight: bold;"><p:outputLabel
 													value="Oficina: " id="lblCentroCosto" /></td>
 											<td><p:selectOneMenu id="somCentroCosto"
@@ -1122,42 +1050,46 @@ figure {
 		</ui:insert>
 
 		<header> </header>
-
-		<aside>
-			<p:menu style="margin-left:0px; width: 100%">
-				<p:submenu label="ADMINISTRACIÓN">
+		
+		
+        <div class="PC"> 
+		<div id="MENUSIDE" class="ps-container" style="height: 1054px;">
+		
+		
+		
+		   <div id="MENUSIDEindent">
+			<p:menu style="margin-left:0px; width: 100%" styleClass="SubMenuLinkContainer" toggleable="true">
+			    
+				<p:submenu label="ADMINISTRACIÓN" styleClass="SubMenuLink">
 					<p:menuitem value="New" url="#" icon="ui-icon-new" />
 					<p:menuitem value="Delete" url="#" icon="ui-icon-delete" />
 					<p:menuitem value="Refresh" url="#" icon="ui-icon-refresh" />
 					<p:menuitem value="Print" url="#" icon="ui-icon-print" />
 				</p:submenu>
-				<p:submenu label="SEGUIMIENTO">
-					<p:menuitem value="Home" url="http://www.primefaces.org"
-						icon="ui-icon-home" />
-					<p:menuitem value="Admin" url="#" icon="ui-icon-admin" />
-					<p:menuitem value="Contact Us" url="#" icon="ui-icon-contactus" />
+				
+				<p:submenu label="SEGUIMIENTO" styleClass="SubMenuLink">
+					<p:menuitem value="Estados" outcome="/pages/seguimiento/seguimiento.xhtml" icon="ui-icon-triangle-1-e"/>	
 				</p:submenu>
-				<p:submenu label="REQUERIMIENTOS">
-					<p:menuitem value="Home" url="http://www.primefaces.org"
-						icon="ui-icon-home" />
-					<p:menuitem value="Admin" url="#" icon="ui-icon-admin" />
-					<p:menuitem value="Contact Us" url="#" icon="ui-icon-contactus" />
+				<p:submenu label="REQUERIMIENTOS" styleClass="SubMenuLink">
+					 <p:menuitem value="Pedidos SIGA" outcome="/pages/requerimiento/requerimientos.xhtml" icon="ui-icon-triangle-1-e"/>
+		             <p:menuitem value="Pedidos de Obras" outcome="/pages/pedido/pedidoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
 				</p:submenu>
-				<p:submenu label="PROGRAMACIÓN">
-					<p:menuitem value="Home" url="http://www.primefaces.org"
-						icon="ui-icon-home" />
-					<p:menuitem value="Admin" url="#" icon="ui-icon-admin" />
-					<p:menuitem value="Contact Us" url="#" icon="ui-icon-contactus" />
+				<p:submenu label="PROGRAMACIÓN" styleClass="SubMenuLink">
+					<p:menuitem value="Evaluación de documento" outcome="/pages/evaluaciondocumento/evaluaciondocumentoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		            <p:menuitem value="PAO" outcome="/pages/pao/paoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
 				</p:submenu>
+				
 			</p:menu>
-		</aside>
-
-		<section>
-			<div align="center" class="container">
-				<ui:insert name="center">Center</ui:insert>
 			</div>
-		</section>
+			
+		</div>
 
+		<div id="CONTENTSIDE">
+			
+			<ui:insert name="center">Center</ui:insert>
+			
+		</div>
+		</div>
 
 		<footer>
 			<table style="width: 100%">

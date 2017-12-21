@@ -39,6 +39,8 @@ import pe.com.sisabas.dto.TransactionRequest;
 import pe.com.sisabas.persistence.ComiteprocesoMapper;
 import pe.com.sisabas.persistence.DependenciadocumentotecnicoMapper;
 import pe.com.sisabas.persistence.DocumentotecnicoMapper;
+import pe.com.sisabas.persistence.EstadosporetapapordocumentoMapper;
+import pe.com.sisabas.persistence.EstadosportipodocumentoMapper;
 import pe.com.sisabas.persistence.GentipoMapper;
 import pe.com.sisabas.persistence.MiembrocomiteporprocesoMapper;
 import pe.com.sisabas.persistence.PedidoMapper;
@@ -58,6 +60,12 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 	private static Logger logger=Logger.getLogger(RequerimientoBusinessImpl.class);
 	
 	private Integer idGenerado;
+	
+	@Autowired
+	public EstadosporetapapordocumentoMapper estadosporetapapordocumentoMapper;
+
+	@Autowired
+	public EstadosportipodocumentoMapper estadosportipodocumentoMapper;
 	
 	@Autowired
 	public ComiteprocesoMapper comiteprocesoMapper;
@@ -99,9 +107,30 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 				row2.roundBigDecimals();
 			}
 
-			return lista;
+	    return lista;
+	}
+	
+	
+	@Override
+	public List<RequerimientoResponse> selectDynamicFullProgramado(RequerimientoRequest request) throws Exception {
+		
+		List<RequerimientoResponse> lista = requerimientoMapper.selectDynamicFullProgramado(request);
+		
+        for (RequerimientoResponse row : lista) {
+			
+			row.formatoFecha();
+		}
+		
+		if(RequerimientoResponse.HAVE_BIGDECIMALS)
+			for (RequerimientoResponse row2 : lista) {
+				
+				row2.roundBigDecimals();
+			}
+
+	    return lista;
 	}
 
+	
 	@Override
 	public List<RequerimientoItemResponse> selectDynamicBasic(RequerimientoItemRequest request) throws Exception {
 		List<RequerimientoItemResponse> lista = requerimientoMapper.selectDynamicBasic(request);
@@ -118,10 +147,17 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 
 	@Override
 	public void insertBasic(RequerimientoInsertRequest request) throws Exception {
-		requerimientoMapper.insertBasic(request);
+		System.out.println(request.getTipoNecesidad());
+		if (request.getTipoNecesidad().equals(Constantes.tipoNecesidad.TIPO_NECESIDAD_PROGRAMADO)){
+			requerimientoMapper.insertBasicProgramado(request);
+			
+		}else{
+			requerimientoMapper.insertBasic(request);	
+		}		
 		
 	}
 
+	
 	@Override
 	public Resultado guardarEspecificacionTecnica(TransactionRequest<EspecificacionTecnicaDto> request) throws Exception {
 		
@@ -140,10 +176,7 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 		if (especificacionTecnica.getIddocumentotecnico() == null){
 			System.out.println("sapppppppppppp 1");
 			
-			
-			Pedido pedido= new Pedido();
 			//Insertando...
-
 					
 			Integer idDocumentoTecnicoSeq = ((int)utilsBusiness.getNextSeq(Sequence.SEQ_DOCUMENTOTECNICO).longValue());
 			System.out.println("Valor de idDocumento es: "+idDocumentoTecnicoSeq);
@@ -427,14 +460,13 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 		
 	   }
 		
-		/*
+		
 		
 		     // ESTADOS
-		     int idTipoDocumento = Constantes.tipoDocumento.DOCUMENTO_TECNICO;
 		  			// Insertamos históricos de estados
 					Estadosportipodocumento param = new Estadosportipodocumento();
-					param.setIdtipodocumento(idTipoDocumento);
-					param.setIdestadosporetapa(pc.getEstadorequerimiento());
+					param.setIdtipodocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO);
+					param.setIdestadosporetapa(Constantes.estadosPorEtapa.CON_DOCUMENTO_TECNICO);
 					// Estadosportipodocumento estados =
 					// estadosportipodocumentoMapper.selectByEtapaTipoDocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO,
 					// Constantes.estadosPorEtapa.EN_REVISION_DE_DOCUMENTO_TECNICO);
@@ -442,7 +474,7 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 					if (estado != null) {
 						java.util.Date date = new java.util.Date();
 						Estadosporetapapordocumento estadoDoc = new Estadosporetapapordocumento();
-						estadoDoc.setNrodocumento(pc.getIdpacconsolidado());
+						//estadoDoc.setNrodocumento(pc.getIdpacconsolidado());
 						estadoDoc.setIdestadosportipodocumento(estado.getIdestadosportipodocumento());
 						estadoDoc.setFechaingreso(date);
 
@@ -458,9 +490,7 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 						estadoDoc.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
 						estadosporetapapordocumentoMapper.insert(estadoDoc);
 					}
-				
-		*/
-		
+
 		
 		return null;
 	}
@@ -481,5 +511,13 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 	}
 
 
+	
+
+
+
+	
+
+	
+	
 
 }

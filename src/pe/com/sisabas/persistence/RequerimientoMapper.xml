@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="pe.com.sisabas.persistence.RequerimientoMapper" >
-  
-  
   <resultMap id = "result" type = "pe.com.sisabas.be.RequerimientoResponse">
       <result property = "idPedido" column="IdPedido"/>
       <result property = "nroPedido" column="NroPedido"/>
@@ -27,9 +25,14 @@
       <result property = "rowtotal" column="ROWTOTAL"/>
       <result property = "tipoDocumentoSinad" column="TipoDocumentoSinad"/>
       <result property = "numeroDocumentoSinad" column="NumeroDocumentoSinad"/>
+      
+      <result property = "idPacProgramado" column="IdPacProgramado"/>
+      <result property = "nroConsolid" column="NroConsolid"/>
+      <result property = "tienePao" column="TienePao"/>
+      
+      
    </resultMap> 
    
-  
    
    <resultMap id = "result2" type = "pe.com.sisabas.be.RequerimientoItemResponse">
       <result property = "idPedido" column="IdPedido"/>
@@ -98,7 +101,7 @@
    
 
    <select id = "selectDynamicFull" resultMap = "result" parameterType = "pe.com.sisabas.be.RequerimientoRequest" statementType = "CALLABLE">
-      {call abas.paPedidosListarNoProgramado
+      {call abas.paPedidosListarNoProgramado(
             #{codigoUnidadEjecutora},
             #{anoEje},
             #{pedido},
@@ -108,7 +111,20 @@
             #{estado},
             #{centroCosto}   
       )}
+   </select>
+   
+   <select id = "selectDynamicFullProgramado" resultMap = "result" parameterType = "pe.com.sisabas.be.RequerimientoRequest" statementType = "CALLABLE">
+      {call abas.paPedidosListarProgramado(
+            #{anoEje},
+            #{pedido},
+            #{tipoBien},
+            #{tipoContratacion},
+            #{nroExpediente},
+            #{estado},
+            #{centroCosto}   
+      )}
    </select> 
+
 
    <select id = "selectDynamicBasic" resultMap = "result2" parameterType = "pe.com.sisabas.be.RequerimientoItemRequest" statementType = "CALLABLE">
       {call abas.paPedidosListarItemsNoProgramados(
@@ -130,42 +146,16 @@
       )}
    </select> 
    
-   
-      <!-- 	private Integer ejercicio;
-			private String tipoNecesidad;
-			private String tipoDocumento;
-			private String numeroDocumento;
-			private String tipoBien; -->
-	
-	
-     <select id = "callpaSeguimientoRequerimiento"  resultMap="result3" parameterType = "pe.com.sisabas.be.SeguimientoRequest" statementType = "CALLABLE">
-	      {call abas.paSeguimientoRequerimiento(
-	            #{ejercicio},
-	            #{tipoNecesidad},
-	            #{tipoDocumento},
-	            #{numeroDocumento},
-	            #{tipoBien}
-	      )}
+   <select id = "insertBasicProgramado" parameterType = "pe.com.sisabas.be.RequerimientoInsertRequest" statementType = "CALLABLE">
+      {call abas.paPedidosInsertarProgramado(
+            #{nroConsolid},
+            #{anoEje},
+            #{tipoBien},
+            #{idPeriodo},
+            #{idUnidadEjectura},
+            #{usuarioCreacion}
+      )}
    </select> 
-   
-     
-     
-      <select id = "callpaSeguimientoEstadoRequerimiento"  resultMap="result4" parameterType = "pe.com.sisabas.be.SegEstadoReqRequest" statementType = "CALLABLE">
-	      {call abas.paSeguiemientoEstadoRequerimiento(
-	            #{idTipoDocumento},
-	            #{idDocumento},
-	            #{nroConsolidado}
-	      )}
-	      
-	      
-   </select> 
-   
-     
-     
-   
-   
-
-   
    
    
    

@@ -2230,13 +2230,6 @@
 		left join abas.CuadroComparativoItem t3 on t3.IdDetallePedido = t2.IdDetallePedido
 		where t1.IdPacConsolidado = (#{idPacConsolidado})
 		and ((t3.IdCuadroComparativoFuente = #{idCuadroComparativoFuente}) or #{idCuadroComparativoFuente} is null or #{idCuadroComparativoFuente} = 0)
-		union
-		select t3.IdCuadroComparativoItem, t1.IdDetallePedido, t1.IdPedido, t1.NombreItem, t1.UnidadMedida, t1.CantidadAprobadaSiga, t3.PrecioReferencial, t1.CantidadSolicitadaSiga
-		from abas.DetallePedido t1
-		inner join abas.Pedido t2 on t2.IdPedido = t1.IdPedido
-		left join abas.CuadroComparativoItem t3 on t3.IdDetallePedido = t1.IdDetallePedido
-		where t2.NroConsolid = (#{nroConsolid})
-		and ((t3.IdCuadroComparativoFuente = #{idCuadroComparativoFuente}) or #{idCuadroComparativoFuente} is null or #{idCuadroComparativoFuente} = 0)		
 	</select>		
 
 	<select id="getCuadroComparativoItemsByConsolid" resultMap="CuadroComparativoItems" parameterType="pe.com.sisabas.dto.CuadroComparativoRequest">
@@ -2244,12 +2237,6 @@
 		from abas.PedidosPorPacConsolidado t1
 		inner join abas.DetallePedido t2 on t2.IdPedido = t1.IdPedido
 		where t1.IdPacConsolidado = (#{idPacConsolidado})
-		union
-		select t1.IdDetallePedido, t1.IdPedido, t1.NombreItem, t1.UnidadMedida, t1.CantidadAprobadaSiga, t1.CantidadSolicitadaSiga
-		from abas.DetallePedido t1
-		inner join abas.Pedido t2 on t2.IdPedido = t1.IdPedido
-		left join abas.CuadroComparativoItem t3 on t3.IdDetallePedido = t1.IdDetallePedido
-		where t2.NroConsolid = (#{nroConsolid})		
 	</select>		
 
 		

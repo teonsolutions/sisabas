@@ -34,6 +34,14 @@ function myFunction3() {
     document.getElementById("form").reset(); 
 }
 
+function myFunction4() {
+	
+    document.getElementById("frmPrestacion2").reset(); 
+}
+
+
+
+
 </script>
 
 <style>
@@ -126,8 +134,7 @@ function myFunction3() {
 										itemLabel="#{var.vchregdescri}" itemValue="#{var.orden}" />
 								</p:selectOneMenu></td>
 
-						
-						
+
 							<td><p:outputLabel for="txtIdEstadoPedido"
 									value="Estado del pedido (SIGA)" /></td>
 							<td><p:selectOneMenu id="txtIdEstadoPedido"
@@ -146,9 +153,7 @@ function myFunction3() {
 									<f:selectItem itemLabel="ATENDIDO" itemValue="8" />
 								</p:selectOneMenu></td>
 						</tr>
-					
-					
-					
+						
 						<tr>
 							<td><p:outputLabel value="Nro de Pedido"
 									for="txtDescripcionpedidosiga" /></td>
@@ -176,7 +181,7 @@ function myFunction3() {
 								<h:inputHidden id="hidStatus" value="#{requerimiento.status}" />
 								<p:commandButton widgetVar="btnBuscar" id="btnBuscar"
 									value="Buscar" action="#{requerimiento.buscarRequerimientos}"
-									update="tblListaRequerimiento,pnlBotones" icon="ui-icon-search"
+									update="tblListaRequerimiento,pnlBotones" icon="fa fa-search"
 									title="Buscar"
 									rendered="#{requerimiento.renderButton('btnBuscar')}" />
 								<p:spacer width="10" />
@@ -191,7 +196,7 @@ function myFunction3() {
 								<p:commandButton value="Imprimir" action="#{requerimiento.imprimir}"
 									update="hidStatus"
 									oncomplete="PF('diPedidoImprimir').show()"
-									icon="ui-icon-print" />
+									icon="fa fa-print" />
 								<p:spacer height="3" />
 								<p:commandButton value="Salir"
 									action="/pages/home.xhtml?faces-redirect=true" ajax="false"
@@ -201,11 +206,9 @@ function myFunction3() {
 					</tr>
 				</table>
 
-                
-
 				<p:dataTable id="tblListaRequerimiento"  
 					value="#{requerimiento.listaRequerimientos}" var="var"
-					emptyMessage="No se encontraron registros"
+					emptyMessage="No se encontraron registros" 
 					widgetVar="tblListaRequerimiento"
 					selection="#{pedido.selectedPedido}" paginator="true"
 					rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
@@ -218,16 +221,24 @@ function myFunction3() {
 						<f:facet name="header">
 							<h:outputText value="Acciones" styleClass="c_center" />
 						</f:facet>
-						<p:commandButton rendered="#{var.estadoPedidoIn eq null}"
+						<p:commandButton rendered="#{var.estadoPedidoIn eq null and requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE2'}"
 							update=":form:requerimientoDetalle" icon="fa fa-child"
-							title="Asociar al POI"
+							title="Asociar al POI" 
 							action="#{requerimiento.buscarItemRequerimientos}"
 							oncomplete="PF('reqDialog').show()">
 							<f:setPropertyActionListener value="#{var}"
 								target="#{requerimiento.requerimientoResponse}" />
 						</p:commandButton>
 						
-						<p:commandButton rendered="#{var.estadoPedidoIn eq 40 and var.idTipoBien eq 'B'}" 
+						<p:commandButton rendered="#{var.estadoPedidoIn eq null and requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE1'}"
+							update=":form:growl, :form:tblListaRequerimiento" icon="fa fa-child"
+							title="Gestionar Pac Programado" 
+							oncomplete="PF('cdConfirmar').show()">
+							<f:setPropertyActionListener value="#{var}"
+								target="#{requerimiento.requerimientoResponse}" />
+						</p:commandButton>					
+						
+						<p:commandButton rendered="#{(var.estadoPedidoIn eq 40 and var.idTipoBien eq 'B') or (var.estadoPedidoIn eq 1 and var.idTipoBien eq 'B') }" 
 						    update=":formEsp:diEsp" icon="fa fa-edit" 
 						    title="Registrar ET" 
 						    action="#{requerimiento.buscarItemRequerimientos2}" 
@@ -247,7 +258,7 @@ function myFunction3() {
 							   
 						</p:commandButton>
 												
-						<p:commandButton rendered="#{var.estadoPedidoIn eq 40 and var.idTipoBien eq 'S'}" 
+						<p:commandButton rendered="#{(var.estadoPedidoIn eq 40 and var.idTipoBien eq 'S') or (var.estadoPedidoIn eq 1 and var.idTipoBien eq 'S')}" 
 						    update=":formTdr:diTdr" icon="fa fa-edit" 
 						    title="Registrar TDR" 
 						    action="#{requerimiento.buscarItemRequerimientos2}" 
@@ -266,8 +277,6 @@ function myFunction3() {
 						</p:commandButton>
 						
 
-						
-						
 						<p:commandButton rendered="#{var.estadoPedidoIn eq 3 and var.idTipoBien eq 'B'}" 
 						    update=":formEsp:diEsp" icon="fa fa-eye" 
 						    title="Visualizar ET" 
@@ -289,15 +298,32 @@ function myFunction3() {
 							   target="#{requerimiento.requerimientoResponse}" />
 						</p:commandButton>
 						
-					
-						
 					</p:column>
-					<p:column styleClass="c_center" sortBy="#{var.nropedido}" exportable="#{requerimiento.value1}">
+					<p:column styleClass="c_center" sortBy="#{var.nropedido}" exportable="#{requerimiento.value1}" rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE2'}">
 						<f:facet name="header">
 							<h:outputText value="Nro pedido" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.nroPedido}" />
 					</p:column>
+					
+					
+					<p:column styleClass="c_center" sortBy="#{var.idPacProgramado}"  rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE1'}">
+						<f:facet name="header">
+							<h:outputText value="Pac Programado" styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.idPacProgramado}" />
+					</p:column>
+					
+					<p:column styleClass="c_center" sortBy="#{var.nroConsolid}"  rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE1'}">
+						<f:facet name="header">
+							<h:outputText value="Nro Consolidado" styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.nroConsolid}" />
+					</p:column>
+					
+						
+					
+		
 
 					<p:column styleClass="c_string" sortBy="#{var.motivoPedido}" exportable="#{requerimiento.value2}">
 						<f:facet name="header">
@@ -319,9 +345,9 @@ function myFunction3() {
 						</f:facet>
 						<h:outputText value="#{var.montoPedido}" styleClass="c_center" />
 					</p:column>
-					<p:column styleClass="c_string" sortBy="#{var.estadoSiga}" exportable="#{requerimiento.value5}">
+					<p:column styleClass="c_string" sortBy="#{var.estadoSiga}" exportable="#{requerimiento.value5}" rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE2'}">
 						<f:facet name="header">
-							<h:outputText value="Estado del pedido (SIGA)"
+							<h:outputText value="Estado del pedido (SIGA)" 
 								styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.estadoRequerimiento}" />
@@ -393,14 +419,14 @@ function myFunction3() {
 						</div>
 						<table style="width: 70%;">
 							<tr>
-								<td><p:commandButton value="GRABAR"
+								<td><p:commandButton value="Grabar"
 										actionListener="#{requerimiento.insertarRequerimientos}"
-										icon="ui-icon-circle-check" title="Aceptar"
+										icon="fa fa-save" title="Aceptar"
 										update=":form:growl,:form:tblListaRequerimiento" oncomplete="PF('reqDialog').hide();" /></td>
 								<td>
 									<div align="right">
-										<p:commandButton value="CANCELAR"
-											icon="ui-icon-arrowreturnthick-1-w" title="Salir"
+										<p:commandButton value="Cancelar"
+											icon="fa fa-rotate-left" title="Salir"
 											onclick="hideDialogPF('frmGentipoRegistrar:diGentipoRegistrar');return false;" />
 									</div>
 								</td>
@@ -409,13 +435,24 @@ function myFunction3() {
 					</p:panel>
 				</p:dialog>
 				
-				 
+				
+				<p:dialog widgetVar="cdConfirmar" modal="true" showEffect="fade" hideEffect="fade" resizable="false" header="Confirmación">
+					<p:panel >
+					<p:outputLabel value="Esta seguro de gestionar el Pac programado?"></p:outputLabel>
+					</p:panel>	
+					<p:spacer height="5"/>
+					<div style="border: 1">
+					<p:commandButton value="Si" actionListener="#{requerimiento.insertarRequerimientos}"
+						update=":form:tblListaRequerimiento,:form:growl"
+						oncomplete="hideDialogPF('cdConfirmar');" />
+				    <p:spacer width="10"/>
+					<p:commandButton value="No" onclick="hideDialogPF('cdConfirmar');"
+						type="button" />
+					</div>	
+				</p:dialog>
+                   
 
 			</h:form>
-
-
-            
-				
 
 
 			<h:form id="formEsp">
@@ -440,7 +477,7 @@ function myFunction3() {
 							<tr>
 								<td>
 									<div align="left">
-										<p:commandButton value="GRABAR" rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
+										<p:commandButton value="Grabar" rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
 											icon="fa fa-save" title="Aceptar"
 											update=":form:growl,:form:tblListaRequerimiento" oncomplete="PF('reqDialog2').hide();" >
 											<f:actionListener binding="#{requerimiento.aceptarRequerimiento()}"/>
@@ -450,11 +487,11 @@ function myFunction3() {
 								</td>
 								<td>
 									<div align="center">
-										<p:commandButton value="CANCELAR" actionListener="#{requerimiento.limpiar}" rendered="#{requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
+										<p:commandButton value="Cancelar" actionListener="#{requerimiento.limpiar}" rendered="#{requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
 											icon="fa fa-rotate-left" title="Salir" process="@this" immediate="true"
 											onclick="hideDialogPF('frmGentipoRegistrar:diGentipoRegistrar');return false;" />
 											
-										<p:commandButton value="ACEPTAR" rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
+										<p:commandButton value="Aceptar" rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
 											icon="ui-icon-circle-check" title="Aceptar"
 											update=":form:growl" oncomplete="PF('reqDialog2').hide();" >
 											<f:actionListener binding="#{requerimiento.limpiar()}"/>
@@ -463,7 +500,7 @@ function myFunction3() {
 								</td>
 								<td>
 									<div align="right" >
-										<p:commandButton id="btnRemitir" rendered="#{requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"  disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 40}" actionListener="#{requerimiento.destroyWorld}" value="DERIVAR" icon="ui-icon-circle-check" title="Derivar" update=":form:growl, :form:tblListaRequerimiento" oncomplete="PF('reqDialog2').hide();" >
+										<p:commandButton id="btnRemitir" rendered="#{requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"  disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 40}" actionListener="#{requerimiento.destroyWorld}" value="Derivar" icon="fa fa-check" title="Derivar" update=":form:growl, :form:tblListaRequerimiento" oncomplete="PF('reqDialog2').hide();" >
 										   <p:confirm header="Confirmación" message="¿Esta seguro de remitir a programación?" icon="ui-icon-alert" />
 										</p:commandButton>
 									</div>
@@ -510,7 +547,7 @@ function myFunction3() {
 							<tr>
 								<td>
 									<div align="left">
-										<p:commandButton value="GRABAR" rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
+										<p:commandButton value="Grabar" rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
 											icon="fa fa-save" title="Aceptar"
 											update=":form:growl,:form:tblListaRequerimiento" oncomplete="PF('reqDialogT').hide();" >
 											<f:actionListener binding="#{requerimiento.aceptarRequerimiento()}"/>
@@ -520,11 +557,11 @@ function myFunction3() {
 								</td>
 								<td>
 									<div align="center">
-										<p:commandButton value="CANCELAR" actionListener="#{requerimiento.limpiar}" rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
+										<p:commandButton value="Cancelar" actionListener="#{requerimiento.limpiar}" rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
 											icon="fa fa-rotate-left" title="Salir" process="@this" immediate="true"
 											onclick="hideDialogPF('frmGentipoRegistrar:diGentipoRegistrar');return false;" />
 											
-										<p:commandButton value="ACEPTAR" rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
+										<p:commandButton value="Aceptar" rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
 											icon="ui-icon-circle-check" title="Aceptar"
 											update=":form:growl" oncomplete="PF('reqDialogT').hide();" >
 											<f:actionListener binding="#{requerimiento.limpiar()}"/>
@@ -534,7 +571,7 @@ function myFunction3() {
 								</td>
 								<td>
 									<div align="right">
-										<p:commandButton rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}" id="btnRemitir2" actionListener="#{requerimiento.destroyWorld}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 40}" value="DERIVAR" icon="ui-icon-circle-check" title="Derivar" update=":form:growl, :form:tblListaRequerimiento" oncomplete="PF('reqDialogT').hide()" >
+										<p:commandButton rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}" id="btnRemitir2" actionListener="#{requerimiento.destroyWorld}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 40}" value="Derivar" icon="ui-icon-circle-check" title="fa fa-check" update=":form:growl, :form:tblListaRequerimiento" oncomplete="PF('reqDialogT').hide()" >
 										   <p:confirm header="Confirmación" message="¿Esta seguro de remitir a programación?" icon="ui-icon-alert" />
 										</p:commandButton>
 									</div>
@@ -555,22 +592,14 @@ function myFunction3() {
 
 
 	<h:form id="frmPrestacion">
-				<p:dialog header="Agregar lugar de prestación"
+				<p:dialog header="Agregar lugar de prestación" 
 				widgetVar="diPrestacion" resizable="false" modal="true"
 				dynamic="true">
 				<div class="ui-scrollpanel ui-scrollpanel-native ui-widget ui-widget-content ui-corner-all">
 					<p:panelGrid id="panelPrestacion" columns="2"  
 						styleClass="gandalfPanelClassSectionFormHeader">
-						<!-- 
-						<p:column>
-							<p:outputLabel value="DEPENDENCIA" for="txtDependencia" />
-						</p:column>
-						 -->
-						<p:column>
-							<p:inputText id="txtDependencia"
-								value="#{requerimiento.lugar.dependencia}"
-								style="width:300px;" label="Dependencia" />
-						</p:column>
+						
+						
 						<p:column>
 							<p:outputLabel value="DIRECCION" for="txtDireccion" />
 						</p:column>
@@ -581,14 +610,14 @@ function myFunction3() {
 						</p:column>
 						<p:column>
 					    	<div align="left">
-						   	<p:commandButton value="GRABAR" actionListener="#{requerimiento.agregarLugar}" update=":formEsp:diEsp,:form:growl"
-								icon="ui-icon-circle-check" title="Aceptar" oncomplete="PF('diPrestacion').hide();" />
+						   	<p:commandButton value="Grabar" actionListener="#{requerimiento.agregarLugar}" update=":formEsp:diEsp,:form:growl" 
+								icon="fa fa-save" title="Aceptar" oncomplete="PF('diPrestacion').hide();" />
 							</div>
 						</p:column>
 						<p:column>
 							<div align="right">
-								<p:commandButton value="CANCELAR"
-									icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="PF('diPrestacion').hide();"/>
+								<p:commandButton value="Cancelar"
+									icon="fa fa-rotate-left" title="Salir" onclick="PF('diPrestacion').hide();"/>
 							</div>
 						</p:column>
 					</p:panelGrid>
@@ -603,16 +632,7 @@ function myFunction3() {
 				<div class="ui-scrollpanel ui-scrollpanel-native ui-widget ui-widget-content ui-corner-all">
 					<p:panelGrid id="panelPrestacion" columns="2"  
 						styleClass="gandalfPanelClassSectionFormHeader">
-						<!-- 
-						<p:column>
-							<p:outputLabel value="DEPENDENCIA" for="txtDependencia" />
-						</p:column>
-						<p:column>
-							<p:inputText id="txtDependencia"
-								value="#{requerimiento.lugar.dependencia}"
-								style="width:300px;" label="Dependencia" />
-						</p:column>
-						 -->
+						
 						<p:column>
 							<p:outputLabel value="DIRECCION" for="txtDireccion" />
 						</p:column>
@@ -623,14 +643,14 @@ function myFunction3() {
 						</p:column>
 						<p:column>
 					    	<div align="left">
-						   	<p:commandButton value="GRABAR" actionListener="#{requerimiento.agregarLugar}" update=":formTdr:diTdr,:form:growl"
-								icon="ui-icon-circle-check" title="Aceptar" oncomplete="PF('diPrestacion2').hide();" />
+						   	<p:commandButton value="Grabar" actionListener="#{requerimiento.agregarLugar}" update=":formTdr:diTdr,:form:growl"
+								icon="fa fa-save" title="Aceptar" oncomplete="PF('diPrestacion2').hide();" />
 							</div>
 						</p:column>
 						<p:column>
 							<div align="right">
-								<p:commandButton value="CANCELAR"
-									icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="PF('diPrestacion2').hide();"/>
+								<p:commandButton value="Cancelar"
+									icon="fa fa-rotate-left" title="Salir" onclick="PF('diPrestacion2').hide();"/>
 							</div>
 						</p:column>
 					</p:panelGrid>
@@ -740,8 +760,8 @@ function myFunction3() {
 						</p:column>
 						<p:column>
 					    	<div align="left">
-						   	<p:commandButton value="GRABAR"  update=":formTdr:diTdr,:form:growl,txtDoc,txtAp,txtAp2,txtName"
-								icon="ui-icon-circle-check" title="Aceptar" oncomplete="PF('diComite').hide(); myFunction2();" >
+						   	<p:commandButton value="Grabar"  update=":formTdr:diTdr,:form:growl,txtDoc,txtAp,txtAp2,txtName"
+								icon="fa fa-save" title="Aceptar" oncomplete="PF('diComite').hide(); myFunction2();" >
 								<f:actionListener binding="#{requerimiento.agregarComite()}"/>
 								<f:actionListener binding="#{requerimiento.resetMainIdpersona()}"/>
 						    </p:commandButton>
@@ -751,8 +771,8 @@ function myFunction3() {
 						</p:column>
 						<p:column>
 							<div align="right">
-								<p:commandButton value="CANCELAR" actionListener="#{requerimiento.resetMainIdpersona}" update="txtDoc,txtAp,txtAp2,txtName"
-									icon="ui-icon-arrowreturnthick-1-w" title="Salir" oncomplete="PF('diComite').hide();"  onclick="myFunction2();"   />
+								<p:commandButton value="Cancelar" actionListener="#{requerimiento.resetMainIdpersona}" update="txtDoc,txtAp,txtAp2,txtName"
+									icon="fa fa-rotate-left" title="Salir" oncomplete="PF('diComite').hide();"  onclick="myFunction2();"   />
 							</div>
 						</p:column>
 					</p:panelGrid>
@@ -786,14 +806,14 @@ function myFunction3() {
 								</p:column>
 								<p:column>
 							    	<div align="left">
-								   	<p:commandButton value="GRABAR" actionListener="#{requerimiento.agregarPago}" update=":formEsp:diEsp,:form:growl"
-										icon="ui-icon-circle-check" title="Aceptar" oncomplete="PF('diPago').hide();" />
+								   	<p:commandButton value="Grabar" actionListener="#{requerimiento.agregarPago}" update=":formEsp:diEsp,:form:growl"
+										icon="fa fa-save" title="Aceptar" oncomplete="PF('diPago').hide();" />
 									</div>
 								</p:column>
 								<p:column>
 									<div align="right">
-										<p:commandButton value="CANCELAR"
-											icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="PF('diPago').hide(); myFunctionPago();" />
+										<p:commandButton value="Cancelar"
+											icon="fa fa-rotate-left" title="Salir" onclick="PF('diPago').hide(); myFunctionPago();" />
 									</div>
 								</p:column>
 							</p:panelGrid>
@@ -845,14 +865,14 @@ function myFunction3() {
 								</p:column>
 								<p:column>
 							    	<div align="left">
-								   	<p:commandButton value="GRABAR" actionListener="#{requerimiento.agregarPago}" update=":formTdr:diTdr,:form:growl"
-										icon="ui-icon-circle-check" title="Aceptar" oncomplete="PF('diPago2').hide();" />
+								   	<p:commandButton value="Grabar" actionListener="#{requerimiento.agregarPago}" update=":formTdr:diTdr,:form:growl"
+										icon="fa fa-save" title="Aceptar" oncomplete="PF('diPago2').hide();" />
 									</div>
 								</p:column>
 								<p:column>
 									<div align="right">
-										<p:commandButton value="CANCELAR"
-											icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="PF('diPago2').hide();"/>
+										<p:commandButton value="Cancelar"
+											icon="fa fa-rotate-left" title="Salir" onclick="PF('diPago2').hide();"/>
 									</div>
 								</p:column>
 							</p:panelGrid>

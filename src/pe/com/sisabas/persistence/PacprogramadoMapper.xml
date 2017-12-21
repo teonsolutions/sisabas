@@ -12,7 +12,7 @@
 	<result column="A1_MONTOPAO" property="montopao" jdbcType="DECIMAL" />
 	<result column="A1_CODIGOCENTROCOSTO" property="codigocentrocosto" jdbcType="VARCHAR" />
 	<result column="A1_NOMBREDEPENDENCIA" property="nombredependencia" jdbcType="VARCHAR" />
-	<result column="A1_ESTADO" property="estado" jdbcType="INTEGER" />
+	<result column="A1_IDCATALOGOESTADO" property="idcatalogoestado" jdbcType="VARCHAR" />
 	<result column="A1_TIPODOCUMENTOSINAD" property="tipodocumentosinad" jdbcType="VARCHAR" />
 	<result column="A1_NUMERODOCUMENTOSINAD" property="numerodocumentosinad" jdbcType="VARCHAR" />
 	<result column="A1_NUMEROSINAD" property="numerosinad" jdbcType="INTEGER" />
@@ -39,7 +39,7 @@
 	<result column="A1_MONTOPAO" property="montopao" jdbcType="DECIMAL" />
 	<result column="A1_CODIGOCENTROCOSTO" property="codigocentrocosto" jdbcType="VARCHAR" />
 	<result column="A1_NOMBREDEPENDENCIA" property="nombredependencia" jdbcType="VARCHAR" />
-	<result column="A1_ESTADO" property="estado" jdbcType="VARCHAR" />
+	<result column="A1_IDCATALOGOESTADO" property="idcatalogoestado" jdbcType="VARCHAR" />
 	<result column="A1_TIPODOCUMENTOSINAD" property="tipodocumentosinad" jdbcType="VARCHAR" />
 	<result column="A1_NUMERODOCUMENTOSINAD" property="numerodocumentosinad" jdbcType="VARCHAR" />
 	<result column="A1_NUMEROSINAD" property="numerosinad" jdbcType="INTEGER" />
@@ -71,6 +71,24 @@
 	<result column="A3_PROGRAMAAUDITORIA" property="gentablaIdcatalogotipobien.programaauditoria" jdbcType="VARCHAR" />
 	<result column="A3_INTGANEMPID" property="gentablaIdcatalogotipobien.intganempid" jdbcType="INTEGER" />
 
+	<result column="A5_VCHREGCODIGO" property="gentablaIdcatalogoestado.vchregcodigo" jdbcType="VARCHAR" />
+	<result column="A5_VCHREGDESCRI" property="gentablaIdcatalogoestado.vchregdescri" jdbcType="VARCHAR" />
+	<result column="A5_VCHREGABREVIADO" property="gentablaIdcatalogoestado.vchregabreviado" jdbcType="VARCHAR" />
+	<result column="A5_VCHTIPCODIGO" property="gentablaIdcatalogoestado.vchtipcodigo" jdbcType="VARCHAR" />
+	<result column="A5_INTREGORDEN" property="gentablaIdcatalogoestado.intregorden" jdbcType="INTEGER" />
+	<result column="A5_VCHTABOTRO1" property="gentablaIdcatalogoestado.vchtabotro1" jdbcType="VARCHAR" />
+	<result column="A5_VCHTABOTRO2" property="gentablaIdcatalogoestado.vchtabotro2" jdbcType="VARCHAR" />
+	<result column="A5_VCHTABOTRO3" property="gentablaIdcatalogoestado.vchtabotro3" jdbcType="VARCHAR" />
+	<result column="A5_VCHTABOTRO4" property="gentablaIdcatalogoestado.vchtabotro4" jdbcType="VARCHAR" />
+	<result column="A5_ESTADOAUDITORIA" property="gentablaIdcatalogoestado.estadoauditoria" jdbcType="VARCHAR" />
+	<result column="A5_USUARIOCREACIONAUDITORIA" property="gentablaIdcatalogoestado.usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A5_USUARIOMODIFICACIONAUDITORIA" property="gentablaIdcatalogoestado.usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A5_FECHACREACIONAUDITORIA" property="gentablaIdcatalogoestado.fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A5_FECHAMODIFICACIONAUDITORIA" property="gentablaIdcatalogoestado.fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A5_EQUIPOAUDITORIA" property="gentablaIdcatalogoestado.equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A5_PROGRAMAAUDITORIA" property="gentablaIdcatalogoestado.programaauditoria" jdbcType="VARCHAR" />
+	<result column="A5_INTGANEMPID" property="gentablaIdcatalogoestado.intganempid" jdbcType="INTEGER" />
+
 	<result column="A7_IDUNIDADEJECUTORA" property="unidadejecutoraIdunidadejecutora.idunidadejecutora" jdbcType="INTEGER" />
 	<result column="A7_CODIGOUNIDADEJECUTORA" property="unidadejecutoraIdunidadejecutora.codigounidadejecutora" jdbcType="VARCHAR" />
 	<result column="A7_NOMBREUNIDADEJECUTORA" property="unidadejecutoraIdunidadejecutora.nombreunidadejecutora" jdbcType="VARCHAR" />
@@ -90,7 +108,7 @@
 	<sql id="Basic_Column_List">
 	A1.IDPACPROGRAMADO as A1_IDPACPROGRAMADO, A1.ANIO as A1_ANIO, A1.IDUNIDADEJECUTORA as A1_IDUNIDADEJECUTORA, A1.NROCONSOLID as A1_NROCONSOLID, 
 	A1.ESPECIFICACIONTECNICA as A1_ESPECIFICACIONTECNICA, A1.IDCATALOGOTIPOBIEN as A1_IDCATALOGOTIPOBIEN, A1.MONTOPAO as A1_MONTOPAO, A1.CODIGOCENTROCOSTO as A1_CODIGOCENTROCOSTO, 
-	A1.NOMBREDEPENDENCIA as A1_NOMBREDEPENDENCIA, A1.ESTADO as A1_ESTADO, A1.TIPODOCUMENTOSINAD as A1_TIPODOCUMENTOSINAD, A1.NUMERODOCUMENTOSINAD as A1_NUMERODOCUMENTOSINAD, 
+	A1.NOMBREDEPENDENCIA as A1_NOMBREDEPENDENCIA, A1.IDCATALOGOESTADO as A1_IDCATALOGOESTADO, A1.TIPODOCUMENTOSINAD as A1_TIPODOCUMENTOSINAD, A1.NUMERODOCUMENTOSINAD as A1_NUMERODOCUMENTOSINAD, 
 	A1.NUMEROSINAD as A1_NUMEROSINAD, A1.ANIOSINAD as A1_ANIOSINAD, A1.NUMEROEXPEDIENTESINAD as A1_NUMEROEXPEDIENTESINAD, A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, 
 	A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, 
 	A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA 
@@ -100,7 +118,7 @@
 	<sql id="Full_Column_List">
 	A1.IDPACPROGRAMADO as A1_IDPACPROGRAMADO, A1.ANIO as A1_ANIO, A1.IDUNIDADEJECUTORA as A1_IDUNIDADEJECUTORA, A1.NROCONSOLID as A1_NROCONSOLID, 
 	A1.ESPECIFICACIONTECNICA as A1_ESPECIFICACIONTECNICA, A1.IDCATALOGOTIPOBIEN as A1_IDCATALOGOTIPOBIEN, A1.MONTOPAO as A1_MONTOPAO, A1.CODIGOCENTROCOSTO as A1_CODIGOCENTROCOSTO, 
-	A1.NOMBREDEPENDENCIA as A1_NOMBREDEPENDENCIA, A1.ESTADO as A1_ESTADO, A1.TIPODOCUMENTOSINAD as A1_TIPODOCUMENTOSINAD, A1.NUMERODOCUMENTOSINAD as A1_NUMERODOCUMENTOSINAD, 
+	A1.NOMBREDEPENDENCIA as A1_NOMBREDEPENDENCIA, A1.IDCATALOGOESTADO as A1_IDCATALOGOESTADO, A1.TIPODOCUMENTOSINAD as A1_TIPODOCUMENTOSINAD, A1.NUMERODOCUMENTOSINAD as A1_NUMERODOCUMENTOSINAD, 
 	A1.NUMEROSINAD as A1_NUMEROSINAD, A1.ANIOSINAD as A1_ANIOSINAD, A1.NUMEROEXPEDIENTESINAD as A1_NUMEROEXPEDIENTESINAD, A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, 
 	A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, 
 	A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA, 
@@ -149,6 +167,7 @@
 	from abas.PacProgramado A1
 	
 	LEFT JOIN abas.gentabla A3 ON A1.IdCatalogoTipoBien = A3.vchregCodigo
+	LEFT JOIN abas.gentabla A5 ON A1.IdCatalogoEstado = A5.vchregCodigo
 	LEFT JOIN abas.UnidadEjecutora A7 ON A1.IdUnidadEjecutora = A7.IdUnidadEjecutora
 	where A1.IdPacProgramado = #{idpacprogramado,jdbcType=INTEGER}
 </select>
@@ -161,6 +180,7 @@
 	from abas.PacProgramado A1
 	
 	LEFT JOIN abas.gentabla A3 ON A1.IdCatalogoTipoBien = A3.vchregCodigo
+	LEFT JOIN abas.gentabla A5 ON A1.IdCatalogoEstado = A5.vchregCodigo
 	LEFT JOIN abas.UnidadEjecutora A7 ON A1.IdUnidadEjecutora = A7.IdUnidadEjecutora
 	where A1.IdPacProgramado = #{idpacprogramado,jdbcType=INTEGER}
 	and A1.estadoauditoria='1'
@@ -181,14 +201,14 @@
 	insert into abas.PacProgramado (
 	IDPACPROGRAMADO, ANIO, IDUNIDADEJECUTORA, NROCONSOLID, 
 	ESPECIFICACIONTECNICA, IDCATALOGOTIPOBIEN, MONTOPAO, CODIGOCENTROCOSTO, 
-	NOMBREDEPENDENCIA, ESTADO, TIPODOCUMENTOSINAD, NUMERODOCUMENTOSINAD, 
+	NOMBREDEPENDENCIA, IDCATALOGOESTADO, TIPODOCUMENTOSINAD, NUMERODOCUMENTOSINAD, 
 	NUMEROSINAD, ANIOSINAD, NUMEROEXPEDIENTESINAD, FECHACREACIONAUDITORIA, 
 	USUARIOCREACIONAUDITORIA, FECHAMODIFICACIONAUDITORIA, USUARIOMODIFICACIONAUDITORIA, EQUIPOAUDITORIA, 
 	PROGRAMAAUDITORIA, ESTADOAUDITORIA ) 
 	VALUES (
 	#{idpacprogramado,jdbcType=INTEGER}, #{anio,jdbcType=INTEGER}, #{idunidadejecutora,jdbcType=INTEGER}, #{nroconsolid,jdbcType=VARCHAR}, 
 	#{especificaciontecnica,jdbcType=VARCHAR}, #{idcatalogotipobien,jdbcType=VARCHAR}, #{montopao,jdbcType=DECIMAL}, #{codigocentrocosto,jdbcType=VARCHAR}, 
-	#{nombredependencia,jdbcType=VARCHAR}, #{estado,jdbcType=INTEGER}, #{tipodocumentosinad,jdbcType=VARCHAR}, #{numerodocumentosinad,jdbcType=VARCHAR}, 
+	#{nombredependencia,jdbcType=VARCHAR}, #{idcatalogoestado,jdbcType=VARCHAR}, #{tipodocumentosinad,jdbcType=VARCHAR}, #{numerodocumentosinad,jdbcType=VARCHAR}, 
 	#{numerosinad,jdbcType=INTEGER}, #{aniosinad,jdbcType=INTEGER}, #{numeroexpedientesinad,jdbcType=VARCHAR}, #{fechacreacionauditoria,jdbcType=DATE}, 
 	#{usuariocreacionauditoria,jdbcType=VARCHAR}, #{fechamodificacionauditoria,jdbcType=DATE}, #{usuariomodificacionauditoria,jdbcType=VARCHAR}, #{equipoauditoria,jdbcType=VARCHAR}, 
 	#{programaauditoria,jdbcType=VARCHAR}, #{estadoauditoria,jdbcType=VARCHAR} ) 
@@ -226,8 +246,8 @@
 	<if test="nombredependencia != null" >
 		NombreDependencia,
 	</if>
-	<if test="estado != null" >
-		Estado,
+	<if test="idcatalogoestado != null" >
+		IdCatalogoEstado,
 	</if>
 	<if test="tipodocumentosinad != null" >
 		TipoDocumentoSinad,
@@ -294,8 +314,8 @@
 	<if test="nombredependencia != null" >
 		#{nombredependencia,jdbcType=VARCHAR}, 
 	</if>
-	<if test="estado != null" >
-		#{estado,jdbcType=INTEGER}, 
+	<if test="idcatalogoestado != null" >
+		#{idcatalogoestado,jdbcType=VARCHAR}, 
 	</if>
 	<if test="tipodocumentosinad != null" >
 		#{tipodocumentosinad,jdbcType=VARCHAR}, 
@@ -345,7 +365,7 @@
 	IDUNIDADEJECUTORA = #{idunidadejecutora,jdbcType=INTEGER}, NROCONSOLID = #{nroconsolid,jdbcType=VARCHAR}, 
 	ESPECIFICACIONTECNICA = #{especificaciontecnica,jdbcType=VARCHAR}, IDCATALOGOTIPOBIEN = #{idcatalogotipobien,jdbcType=VARCHAR}, 
 	MONTOPAO = #{montopao,jdbcType=DECIMAL}, CODIGOCENTROCOSTO = #{codigocentrocosto,jdbcType=VARCHAR}, 
-	NOMBREDEPENDENCIA = #{nombredependencia,jdbcType=VARCHAR}, ESTADO = #{estado,jdbcType=INTEGER}, 
+	NOMBREDEPENDENCIA = #{nombredependencia,jdbcType=VARCHAR}, IDCATALOGOESTADO = #{idcatalogoestado,jdbcType=VARCHAR}, 
 	TIPODOCUMENTOSINAD = #{tipodocumentosinad,jdbcType=VARCHAR}, NUMERODOCUMENTOSINAD = #{numerodocumentosinad,jdbcType=VARCHAR}, 
 	NUMEROSINAD = #{numerosinad,jdbcType=INTEGER}, ANIOSINAD = #{aniosinad,jdbcType=INTEGER}, 
 	NUMEROEXPEDIENTESINAD = #{numeroexpedientesinad,jdbcType=VARCHAR}, FECHACREACIONAUDITORIA = #{fechacreacionauditoria,jdbcType=DATE}, 
@@ -388,8 +408,8 @@
 	<if test="nombredependencia != null" >
 		NOMBREDEPENDENCIA = #{nombredependencia,jdbcType=VARCHAR}, 
 	</if>
-	<if test="estado != null" >
-		ESTADO = #{estado,jdbcType=INTEGER}, 
+	<if test="idcatalogoestado != null" >
+		IDCATALOGOESTADO = #{idcatalogoestado,jdbcType=VARCHAR}, 
 	</if>
 	<if test="tipodocumentosinad != null" >
 		TIPODOCUMENTOSINAD = #{tipodocumentosinad,jdbcType=VARCHAR}, 
@@ -470,8 +490,8 @@
 		<if test="nombredependencia != null" >
 			 AND A1.NOMBREDEPENDENCIA LIKE ('%' + #{nombredependencia,jdbcType=VARCHAR} + '%')
 		</if>
-		<if test="estado != null" >
-			 AND A1.ESTADO = #{estado,jdbcType=INTEGER} 
+		<if test="idcatalogoestado != null" >
+			 AND A1.IDCATALOGOESTADO = #{idcatalogoestado,jdbcType=VARCHAR} 
 		</if>
 		<if test="tipodocumentosinad != null" >
 			 AND A1.TIPODOCUMENTOSINAD LIKE ('%' + #{tipodocumentosinad,jdbcType=VARCHAR} + '%')
@@ -530,6 +550,10 @@
 			<foreach collection="listaIdcatalogotipobienInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=VARCHAR} </foreach>
 		</if>
 
+		<if test="listaIdcatalogoestadoInKeys != null" >
+			AND A1.IDCATALOGOESTADO IN
+			<foreach collection="listaIdcatalogoestadoInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=VARCHAR} </foreach>
+		</if>
 	</where>
 
 	<if test="ordenListaCampos != null" >
@@ -551,6 +575,7 @@
 	<include refid="Full_Column_List"/>
 	from abas.PacProgramado A1
 	LEFT JOIN abas.gentabla A3 ON A1.IdCatalogoTipoBien = A3.vchregCodigo
+	LEFT JOIN abas.gentabla A5 ON A1.IdCatalogoEstado = A5.vchregCodigo
 	LEFT JOIN abas.UnidadEjecutora A7 ON A1.IdUnidadEjecutora = A7.IdUnidadEjecutora
 	<where>
 		<if test="idpacprogramado != null" >
@@ -585,8 +610,8 @@
 		<if test="nombredependencia != null" >
 			 AND A1.NOMBREDEPENDENCIA LIKE ('%' + #{nombredependencia,jdbcType=VARCHAR} + '%')
 		</if>
-		<if test="estado != null" >
-			 AND A1.ESTADO = #{estado,jdbcType=INTEGER} 
+		<if test="idcatalogoestado != null" >
+			 AND A1.IDCATALOGOESTADO = #{idcatalogoestado,jdbcType=VARCHAR} 
 		</if>
 		<if test="tipodocumentosinad != null" >
 			 AND A1.TIPODOCUMENTOSINAD LIKE ('%' + #{tipodocumentosinad,jdbcType=VARCHAR} + '%')
@@ -645,6 +670,10 @@
 			<foreach collection="listaIdcatalogotipobienInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=VARCHAR} </foreach>
 		</if>
 
+		<if test="listaIdcatalogoestadoInKeys != null" >
+			AND A1.IDCATALOGOESTADO IN
+			<foreach collection="listaIdcatalogoestadoInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=VARCHAR} </foreach>
+		</if>
 	</where>
 
 	<if test="ordenListaCampos != null" >

@@ -16,6 +16,8 @@ public interface RequerimientoMapper {
 	
 	List<RequerimientoResponse> selectDynamicFull(RequerimientoRequest record) throws Exception;
 	
+	List<RequerimientoResponse> selectDynamicFullProgramado(RequerimientoRequest record) throws Exception;
+	
 	List<RequerimientoItemResponse> selectDynamicBasic(RequerimientoItemRequest record) throws Exception;
 	
 	void insertBasic(RequerimientoInsertRequest record) throws Exception;
@@ -24,4 +26,6 @@ public interface RequerimientoMapper {
 
 	List<SegEstadoReqResponse> callpaSeguimientoEstadoRequerimiento(SegEstadoReqRequest segEstadoReqRequest);
 	
+	void insertBasicProgramado(RequerimientoInsertRequest record) throws Exception;
+
 }

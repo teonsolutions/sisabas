@@ -21,7 +21,7 @@
 .ui-tabs-outline {
 	color: #000;
 }
-/*
+
 .ui-accordion .ui-accordion-header {
 	cursor: pointer;
 	position: relative;
@@ -41,20 +41,12 @@
 	border-radius: 0;
 	background: #0d6ab9;
 }
-*/
 </style>
 		<h:form id="form">
 			<p:growl id="msgs" showDetail="true"></p:growl>
 			<p:growl id="growl" showDetail="true" for="growl" />
 			<p:panel id="panel" header="Programación y costos > pao >Orden"
-				style="width: 85%">
-				<div align="right">
-					<p:commandButton value="Ir al listado" icon="fa fa-th-list"
-						title="Ir al listado" action="#{programacion.load}"
-						process="@this">
-					</p:commandButton>
-				</div>
-				<p:spacer height="1"></p:spacer>				
+				style="width: 75%">
 				<p:focus for="panel" />
 				<p:tabView id="tabViewPao">
 					<p:tab title="Datos generales">
@@ -144,7 +136,7 @@
 										listener="#{programacion.seleccionItemRequisito}"
 										update=":form:tabViewPao:accDatosGenerales:pnlBotonesControl"
 										immediate="true" />
-
+										
 									<p:ajax event="rowEdit" listener="#{programacion.onRowEdit2}"
 										update=":form:msgs,form:tabViewPao:accDatosGenerales:tblListaControl" />
 									<p:ajax event="rowEditCancel"
@@ -216,7 +208,7 @@
 												style="width: 100%" /></td>
 									</tr>
 									<tr>
-										<td colspan="3"><p:outputLabel value="Valor Referencial"
+										<td colspan="3"><p:outputLabel value="Items"
 												id="lblItems" /></td>
 									</tr>
 									<tr>
@@ -359,7 +351,7 @@
 
 												</h:panelGrid>
 											</p:outputPanel></td>
-										<td><p:inputNumber id="txtNumeroProceso"
+										<td><p:inputNumber id="txtNumeroProceso" required="true"
 												value="#{programacion.currentPao.compraDirecta.nroProceso}"
 												maxlength="10" style="width:150px;"
 												label="Número de proceso" decimalPlaces="0" /></td>
@@ -368,9 +360,9 @@
 								</table>
 							</p:tab>
 						</p:accordionPanel>
-						<p:commandButton value="Guardar" icon="fa fa-save"
+						<p:commandButton value="Guardar" icon="fa fa-pencil"
 							title="Guardar datos generales"
-							disabled="#{programacion.disabledButtonsCD}"
+							disabled="#{!programacion.esSeleccionado}"
 							action="#{programacion.guardarDatosGenerales}"
 							rendered="#{programacion.renderButton('btnGuadarDatosGenerales')}"
 							update="form:msgs" />
@@ -385,7 +377,6 @@
 									<p:commandButton value="Nuevo"
 										action="#{programacion.irRegistrarFuente}"
 										update="hidStatus,:frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar"
-										disabled="#{programacion.disabledButtonsCD}"
 										oncomplete="showDialog('form:tabViewPao:hidStatus','frmCuadrocomparativofuenteRegistrar:diCuadrocomparativofuenteRegistrar');"
 										icon="ui-icon-document"
 										rendered="#{programacion.renderButton('btnNuevoEM')}" />
@@ -400,7 +391,7 @@
 										action="#{programacion.irEliminarFuente}" update="hidStatus"
 										oncomplete="showDialog('form:tabViewPao:hidStatus','form:cdEliminarFuente');"
 										icon="ui-icon-circle-close" title="Eliminar"
-										disabled="#{!programacion.esSeleccionadoFuente or programacion.disabledButtonsCD}"
+										disabled="#{!programacion.esSeleccionadoFuente}"
 										rendered="#{programacion.renderButton('btnEliminarEM')}" />
 									<h:inputHidden id="hidStatus" value="true" />
 								</p:panel>
@@ -488,16 +479,6 @@
 								</p:dataTable>
 							</h:panelGrid>
 						</p:fieldset>
-						
-						<!--  
-						<p:spacer height="30"></p:spacer>
-						<p:commandButton value="Finalizar" icon="fa fa-check"
-							title="Finalizar registro de cuadro comparativo"
-							disabled="{!programacion.esSeleccionado}"
-							action="{programacion.guardarDatosGenerales}"
-							rendered="{programacion.renderButton('btnGuadarDatosGenerales')}"
-							update="form:msgs" />
-							-->
 					</p:tab>
 					<p:tab title="Orden" disabled="#{programacion.disabledTabOrden}">
 						<p:accordionPanel id="accOrden" multiple="true"
@@ -848,7 +829,7 @@
 						</p:accordionPanel>
 						<p:commandButton value="Guardar" icon="fa fa-pencil"
 							title="Guardar datos generales"
-							disabled="#{programacion.disabledButtons}"
+							disabled="#{!programacion.esSeleccionado}"
 							action="#{programacion.guardarOrden}"
 							rendered="#{programacion.renderButton('btnGuadarDatosGenerales')}"
 							update="form:msgs" />
@@ -884,7 +865,6 @@
 					<tr>
 						<td><h:inputHidden id="hidStatus" value="true" /> <p:commandButton
 								value="Aceptar" action="#{programacion.aceptarFuente}"
-								disabled="#{programacion.disabledButtonsCD}"
 								update="hidStatus,:form:tabViewPao:tblListaCuadrocomparativofuente,:form:tabViewPao:tblListaCuadrocomparativoVrFinal,:form:growl,:form:tabViewPao:pnlBotones,panelC"
 								oncomplete="hideDialog('frmCuadrocomparativofuenteRegistrar:hidStatus','frmCuadrocomparativofuenteRegistrar:tabViewPao:diCuadrocomparativofuenteRegistrar')"
 								icon="ui-icon-circle-check" title="Aceptar" /></td>

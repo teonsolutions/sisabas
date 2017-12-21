@@ -53,7 +53,7 @@
 								</p:selectOneMenu></td>
 
 
-							<td><p:outputLabel value="Número Documento" for="txtNroPedido" /></td>
+							<td><p:outputLabel value="Número Pedido" for="txtNroPedido" /></td>
 							<td><p:inputText id="txtNroPedido"
 									value="#{evaluacionDocumento.searchParam.nroDocumento}"
 									disabled="false" maxlength="5" style="width:150px;"
@@ -197,7 +197,7 @@
 					<p:column styleClass="c_string" sortBy="#{var.nroDocumento}"
 						style="width: 100px">
 						<f:facet name="header">
-							<h:outputText value="Nro. Documento"></h:outputText>
+							<h:outputText value="Nro. Pedido"></h:outputText>
 						</f:facet>
 						<h:outputText value="#{var.nroDocumento}" />
 					</p:column>
