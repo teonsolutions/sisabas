@@ -63,7 +63,7 @@ public class LoginMenuController extends BaseController{
 	    HttpSession session = ((HttpServletRequest)request).getSession(false);
 	    LoginController login = (LoginController) session.getAttribute("loginBean");
 	    
-	    buscarPeriodo();
+	   buscarPeriodo();
 	    
 		try {
 			
@@ -182,9 +182,7 @@ public class LoginMenuController extends BaseController{
 	public void changePeriodo(ValueChangeEvent event){
 		
 		String valor=(String) event.getNewValue();
-		
-
-		
+	
 		if(valor!=null && !valor.isEmpty()){
 			Sicuusuario sicuusuario  = (Sicuusuario)Utils.getHttpSession().getAttribute("sicuusuarioSESSION");	
 			sicuusuario.getPeriodo().setIdPeriodo(Integer.parseInt(valor.split("-")[0].toString()));

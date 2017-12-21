@@ -30,6 +30,7 @@ import pe.com.sisabas.resources.Utils;
 import pe.com.sisabas.resources.UtilsSecurity;
 import pe.com.sisabas.resources.controller.BaseController;
 import pe.com.sisabas.service.SicuCallService;
+import pe.com.sisabas.service.Sicuperiodo;
 import pe.com.sisabas.service.Sicurespuesta;
 import pe.com.sisabas.service.Sicuusuario;
 import webservices.perfil.TsProcedimiento;
@@ -40,9 +41,7 @@ import webservices.perfil.TsProcedimiento;
 @Scope(value = "session")
 public class LoginController extends BaseController{
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private String user;
 	private String password;
@@ -103,10 +102,11 @@ public class LoginController extends BaseController{
              
            
  		}
+       
         model=(new DefaultMenuModel());	
    
       
-	       for(int i=0;i<listaNivel01.size();i++){// cabecera
+	    for(int i=0;i<listaNivel01.size();i++){// cabecera
 	    	
 	    	   System.out.println(listaNivel01.get(i).getDescripcion());
 	    	   DefaultSubMenu firstSubmenu = new DefaultSubMenu(listaNivel01.get(i).getDescripcion());	    	
@@ -141,13 +141,19 @@ public class LoginController extends BaseController{
 			    	   }*/
 	    	   }
 	    	   //menuList.add(firstSubmenu);
-	    	  
+	    	 
 	    	   model.addElement(firstSubmenu);
 	       }
+	    
+	   
         
 		try {
 			
 			String ipuser = UtilsSecurity.getRemoteAddr();
+			
+			
+			
+			
 			if(SICU_SECURITY_ENABLE){
 				/*llamada a webservice*/
 	 			sicuusuario = SicuCallService.login(user, password, SICU_SECURITY_APLICATION_ID, ipuser); 
@@ -155,7 +161,11 @@ public class LoginController extends BaseController{
 				if (sicuusuario!=null && sicuusuario.getVchstatus().equalsIgnoreCase("OK")){
 					authorized=true;
 					setRole(ROLE_USER);				
-				    getHttpSession().setAttribute("sicuusuarioSESSION", sicuusuario);			
+				    getHttpSession().setAttribute("sicuusuarioSESSION", sicuusuario);		
+				    
+				   
+				    
+				    
 				}else{
 					String mensaje_return ="Datos Incorrectos";
 					if (sicuusuario!=null && sicuusuario.getVchstatus()!=null && !sicuusuario.getVchstatus().equalsIgnoreCase("OK")){
@@ -166,7 +176,16 @@ public class LoginController extends BaseController{
 			}else{
 				authorized=true;
 				setRole(ROLE_USER);				
+
+				if (sicuusuario == null) sicuusuario = new Sicuusuario();
+				Sicuperiodo periodo = new Sicuperiodo();
+				periodo.setCodigoCentroCosto("108.01.09.01");
+				periodo.setIdPeriodo(1);
+				periodo.setAnio(2017);				
+				sicuusuario.setPeriodo(periodo);
 			    getHttpSession().setAttribute("sicuusuarioSESSION", sicuusuario);		
+			    
+			    
 			}
 		} catch (RemoteException e) {
 			STATUS_ERROR();				
