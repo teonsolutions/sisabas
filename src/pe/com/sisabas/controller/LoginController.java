@@ -111,7 +111,7 @@ public class LoginController extends BaseController{
 	    	   System.out.println(listaNivel01.get(i).getDescripcion());
 	    	   DefaultSubMenu firstSubmenu = new DefaultSubMenu(listaNivel01.get(i).getDescripcion());	    	
 	    	   if(i==0){
-	    		   firstSubmenu.setStyle("margin-left:50px;"); 
+	    		  // firstSubmenu.setStyle("margin-left:50px;"); 
 	    		   setDni(listaNivel01.get(i).getPerDocumento());
 	    		   idUsuario=listaNivel01.get(i).getIdusuario();
 	    		   if(getDni()== null){
