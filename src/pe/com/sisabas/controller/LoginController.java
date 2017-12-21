@@ -2,7 +2,9 @@ package pe.com.sisabas.controller;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -11,8 +13,16 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.model.menu.DefaultMenuItem;
+import org.primefaces.model.menu.DefaultMenuModel;
+import org.primefaces.model.menu.DefaultSubMenu;
+import org.primefaces.model.menu.MenuModel;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import com.google.gson.Gson;
+
+import listaPermisos1.listaPermisos1;
 
 import pe.com.sisabas.exception.ValidateException;
 import pe.com.sisabas.resources.Messages;
@@ -20,9 +30,11 @@ import pe.com.sisabas.resources.Utils;
 import pe.com.sisabas.resources.UtilsSecurity;
 import pe.com.sisabas.resources.controller.BaseController;
 import pe.com.sisabas.service.SicuCallService;
-import pe.com.sisabas.service.Sicuperiodo;
 import pe.com.sisabas.service.Sicurespuesta;
 import pe.com.sisabas.service.Sicuusuario;
+import webservices.perfil.TsProcedimiento;
+
+
 
 @Component(value ="loginBean")
 @Scope(value = "session")
@@ -49,6 +61,11 @@ public class LoginController extends BaseController{
 	private Date   datFechaHoraUltimoAcceso;  //se utiliza en el filtro para los intervalos de 1'
 
 	private Sicuusuario sicuusuario;
+	private MenuModel model;
+	private String Dni;
+	private int idUsuario;
+	
+
 	
 	@PostConstruct
 	public void init(){
@@ -67,6 +84,67 @@ public class LoginController extends BaseController{
 	public String login(){			
 		message=null;
 		logger.debug("login....");	
+		
+		String sCadGen = "desarrollo$$pronied";
+	    int ideModulo = 31;
+        int idePadre = 0;
+        Gson gson1 = new Gson();
+        
+        List<TsProcedimiento> listaNivel01= new ArrayList<TsProcedimiento>();
+        listaPermisos1 listapermisos= new listaPermisos1();
+        
+        listaNivel01=listapermisos.ListarPerfilesItem2(user, password, ideModulo, idePadre, sCadGen);
+        
+        
+        if(listaNivel01.size()==0 ){
+         	FacesContext context = FacesContext.getCurrentInstance();
+             context.addMessage(null, new FacesMessage("Verifique El Usuario o Password",  "Your") );
+         	return "/login.xhtml";
+             
+           
+ 		}
+        model=(new DefaultMenuModel());	
+   
+      
+	       for(int i=0;i<listaNivel01.size();i++){// cabecera
+	    	
+	    	   System.out.println(listaNivel01.get(i).getDescripcion());
+	    	   DefaultSubMenu firstSubmenu = new DefaultSubMenu(listaNivel01.get(i).getDescripcion());	    	
+	    	   if(i==0){
+	    		   firstSubmenu.setStyle("margin-left:50px;"); 
+	    		   setDni(listaNivel01.get(i).getPerDocumento());
+	    		   idUsuario=listaNivel01.get(i).getIdusuario();
+	    		   if(getDni()== null){
+	    			   setDni(user);
+	    		   }
+	    	   }
+	    	   List<TsProcedimiento> listaNivel02= new ArrayList<TsProcedimiento>();
+	    	   listaNivel02=listapermisos.ListarPerfilesItem2(user, password, ideModulo, listaNivel01.get(i).getIdOpcion(), sCadGen);
+	    	   
+	    	   for(int j =0; j<listaNivel02.size();j++){
+	    		      DefaultMenuItem item = new DefaultMenuItem(listaNivel02.get(j).getDescripcion());
+		             item.setUrl(listaNivel02.get(j).getEnlace());
+		            // item.setIcon("ui-icon-triangle-1-e");
+		             firstSubmenu.addElement(item);
+		             
+		             /***/
+		      
+		         
+		           /*  if(i==0){
+			    		if(listaNivel02.size()==j+1){
+			    			   DefaultMenuItem item1 = new DefaultMenuItem("plandecontigencia");
+					             //item1.setUrl("/pages/ficha/registrarFicha.xhtml");
+			    			   item1.setUrl("/pages/plandecontigenciavf/plandecontigenciavfBuscar.xhtml");
+					            // item.setIcon("ui-icon-triangle-1-e");
+					             firstSubmenu.addElement(item1);
+			    		}
+			    	   }*/
+	    	   }
+	    	   //menuList.add(firstSubmenu);
+	    	  
+	    	   model.addElement(firstSubmenu);
+	       }
+        
 		try {
 			
 			String ipuser = UtilsSecurity.getRemoteAddr();
@@ -88,13 +166,6 @@ public class LoginController extends BaseController{
 			}else{
 				authorized=true;
 				setRole(ROLE_USER);				
-				
-				if (sicuusuario == null) sicuusuario = new Sicuusuario();
-				Sicuperiodo periodo = new Sicuperiodo();
-				periodo.setCodigoCentroCosto("108.01.09.01");
-				periodo.setIdPeriodo(1);
-				periodo.setAnio(2017);				
-				sicuusuario.setPeriodo(periodo);
 			    getHttpSession().setAttribute("sicuusuarioSESSION", sicuusuario);		
 			}
 		} catch (RemoteException e) {
@@ -116,6 +187,15 @@ public class LoginController extends BaseController{
 			
 		return SUCCESS;
 	}
+	
+	public String rutaenlace(String ruta){
+		System.out.println("##########################:   "+ruta);
+		
+		return ruta;
+	}
+	
+	
+	
 	
 	
 	private String message=null;
@@ -292,4 +372,31 @@ public class LoginController extends BaseController{
 	public void setMobile(boolean mobile) {
 		this.mobile = mobile;
 	}
+
+	public MenuModel getModel() {
+		return model;
+	}
+
+	public void setModel(MenuModel model) {
+		this.model = model;
+	}
+
+	public String getDni() {
+		return Dni;
+	}
+
+	public void setDni(String dni) {
+		Dni = dni;
+	}
+
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+
+
 }
