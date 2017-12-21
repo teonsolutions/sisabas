@@ -28,6 +28,18 @@ public interface GentablaMapper{
 	int insertSelective(Gentabla record) throws Exception;
 
 	List<Gentabla> selectDynamicBasic(Gentabla record) throws Exception;
+	
+	
+	
+	
+	List<Gentabla> listaFiltro(@Param("vchtipCodigo") java.lang.String vchtipCodigo, @Param("estadoAuditoria") java.lang.String estadoAuditoria) throws Exception;
+	
+	
+	
+	
+	
+	
+	
 
 	List<Gentabla> selectDynamicFull(Gentabla record) throws Exception;
 
@@ -39,5 +51,7 @@ public interface GentablaMapper{
 	List<EstadoRequerimientoResponse> getEstadoRequerimiento(@Param("idEtapaAdministrativa") Integer idEtapaAdministrativa) throws Exception;
 	
 	List<GentablaItemResponse> getItems(@Param("tipo") String tipo) throws Exception;
+	
+	
 
 }

@@ -118,10 +118,10 @@
 				<p:row>
 
 					<p:column>
-						<p:outputLabel value="Denominación de la contratación:" for="denominacion"/>
+						<p:outputLabel value="Denominación de la contratación:" for="denominacion" />
 					</p:column>
 					<p:column>
-						<p:inputTextarea id="denominacion" value="#{requerimiento.documentotecnico.denominacioncontratacion}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}" required="false"
+						<p:inputTextarea id="denominacion" value="#{requerimiento.documentotecnico.denominacioncontratacion}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}" required="true"
 							style="width:300px;" />
 					</p:column>
 				</p:row>
@@ -191,11 +191,11 @@
 
 
 
-		<p:tab title="Lugar de prestación">
+         <p:tab title="Lugar de prestación">
 			<div align="right">
 				<p:commandButton
 					oncomplete="showDialogPF('frmPrestacion:diPrestacion')" onclick="myFunction();" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
-					value="Agregar" icon="fa fa-plus" />
+					value="Agregar" icon="fa fa-plus"/>
 			</div>
 			<p:spacer height="5" />
 			<p:dataTable id="tableLugares" var="var" emptyMessage="Lugares de prestacion vacía."
@@ -204,20 +204,12 @@
 				reflow="true" scrollable="true" editable="true">
 				
 				<p:ajax event="rowEdit" listener="#{requerimiento.onRowEdit}" update=":form:growl" />
-                <p:ajax event="rowEditCancel" listener="#{requerimiento.onRowCancel}" update=":form:growl" />
-
-                <!--  
-				<p:column headerText="DEPENDENCIA">
-					<p:cellEditor>
-		               <f:facet name="output"><h:outputText value="#{var.dependencia}" /></f:facet>
-		               <f:facet name="input"><p:inputText id="modelInput" value="#{var.dependencia}" style="width:100%"/></f:facet>
-                    </p:cellEditor>
-				</p:column>--> 
+                <p:ajax event="rowEditCancel" listener="#{requerimiento.onRowCancel}" update=":form:growl" /> 
 				
 				<p:column headerText="DIRECCION">
 				    <p:cellEditor> 
 				       <f:facet name="output"><h:outputText value="#{var.direccion}" /></f:facet>
-                       <f:facet name="input"><p:inputText value="#{var.direccion}" style="width:100%" /></f:facet>
+                       <f:facet name="input"><p:inputText value="#{var.direccion}" style="width:82%" /></f:facet>
 					</p:cellEditor>  
 				</p:column>
 
@@ -225,11 +217,10 @@
 				  <p:rowEditor editTitle="Editar"/>
 				</p:column>
 				
-				
 				<p:column headerText="ELIMINAR" styleClass="c_center" style="width: 9%;">
 						<p:commandButton 
 							update=":formEsp:diEsp,:form:growl" icon="fa fa-remove" title="Eliminar"
-							actionListener="#{requerimiento.eliminarLugar(var)}"
+							actionListener="#{requerimiento.eliminarLugar(var)}" process="@this"
 							>
 						</p:commandButton>
 				</p:column>
@@ -268,7 +259,7 @@
 				    <p:column headerText="ELIMINAR" styleClass="c_center" style="width: 9%;">
 						<p:commandButton 
 							update=":formEsp:diEsp,:form:growl" icon="fa fa-remove" title="Eliminar"
-							actionListener="#{requerimiento.eliminarPago(var)}"
+							actionListener="#{requerimiento.eliminarPago(var)}" process="@this"
 							>
 						</p:commandButton>
 				   </p:column>
@@ -284,8 +275,8 @@
 		<p:tab title="Anexos">
           <h:form>
              <p:outputLabel value="Archivo formato PDF hasta 10 MB"/>
-             <p:fileUpload fileUploadListener="#{requerimiento.handleFileUpload}" mode="advanced" dragDropSupport="false" update=":form:growl" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(pdf)$/"  
-             label="Seleccione archivo" cancelLabel="Cancelar" uploadLabel="Subir" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"/>
+             <p:fileUpload fileUploadListener="#{requerimiento.handleFileUpload}" process="@this"  mode="advanced" dragDropSupport="false" update=":form:growl" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(pdf)$/"  
+             label="Seleccione archivo" cancelLabel="Cancelar" uploadLabel="Subir" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}" />
              
           </h:form>
 		</p:tab>

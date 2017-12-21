@@ -242,7 +242,7 @@
 		<p:tab title="Lugar de Prestación">
 			<div align="right">
 				<p:commandButton
-					oncomplete="showDialogPF('frmPrestacion2:diPrestacion2')" onclick="myFunction();" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
+					oncomplete="showDialogPF('frmPrestacion2:diPrestacion2')" onclick="myFunction4();" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
 					value="Agregar" icon="fa fa-plus"  />
 			</div>
 			<p:spacer height="5" />
@@ -254,15 +254,6 @@
 				<p:ajax event="rowEdit" listener="#{requerimiento.onRowEdit}" update=":form:growl" />
                 <p:ajax event="rowEditCancel" listener="#{requerimiento.onRowCancel}" update=":form:growl" />
    
-                <!--  
-				<p:column headerText="DEPENDENCIA">
-					<p:cellEditor>
-		               <f:facet name="output"><h:outputText value="#{var.dependencia}" /></f:facet>
-		               <f:facet name="input"><p:inputText id="modelInput" value="#{var.dependencia}" style="width:100%"/></f:facet>
-                    </p:cellEditor>
-				</p:column>
-				-->
-				
 				<p:column headerText="DIRECCION">
 				    <p:cellEditor> 
 				       <f:facet name="output"><h:outputText value="#{var.direccion}" /></f:facet>
@@ -288,7 +279,7 @@
           <h:form>
              <p:outputLabel value="Archivo formato PDF hasta 10 MB"/>
              <p:fileUpload fileUploadListener="#{requerimiento.handleFileUpload}" mode="advanced" dragDropSupport="false" update=":form:growl" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(pdf)$/"  
-             label="Seleccione archivo" cancelLabel="Cancelar" uploadLabel="Subir" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"/>
+             label="Seleccione archivo" cancelLabel="Cancelar" process="@this" uploadLabel="Subir" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"/>
             
           </h:form>
 		</p:tab>

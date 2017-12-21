@@ -17,13 +17,16 @@
 		<p:message id="msgDescripcionpedidosiga" for="txtDescripcionpedidosiga"  showSummary="true" showDetail="false"/>
 		<p:message id="msgMontopedido" for="txtMontopedido"  showSummary="true" showDetail="false"/>
 		<p:message id="msgEstadopedido" for="txtEstadopedido"  showSummary="true" showDetail="false"/>
-		<p:message id="msgNumerosinad" for="txtNumerosinad"  showSummary="true" showDetail="false"/>
-		<p:message id="msgAniosinad" for="txtAniosinad"  showSummary="true" showDetail="false"/>
-		<p:message id="msgNumeroexpedientesinad" for="txtNumeroexpedientesinad"  showSummary="true" showDetail="false"/>
+		
+		
+
 		<p:message id="msgFechapedido" for="txtFechapedido"  showSummary="true" showDetail="false"/>
+		
+		<!-- 
 		<p:message id="msgIdcatalogotiponecesidad" for="txtIdcatalogotiponecesidad"  showSummary="true" showDetail="false"/>
+		 -->
 		<p:message id="msgIdunidadejecutora" for="txtIdunidadejecutora"  showSummary="true" showDetail="false"/>
-		<p:message id="msgTiposinad" for="txtTiposinad"  showSummary="true" showDetail="false"/>
+		
 		<p:message id="msgIdvpedido" for="txtIdvpedido"  showSummary="true" showDetail="false"/>
 	</div>
 <table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
@@ -65,20 +68,21 @@
 		</td>
 	</tr>
 	
+	<!-- 
 	
 	<tr>
 		<td>
 			<p:outputLabel  value="Tipo de Necesidad" for="txtIdcatalogotiponecesidad" id="lblIdcatalogotiponecesidad"/>
 		</td>
 		<td>
-			<p:selectOneMenu  value="#{pedido.pedido.idcatalogotiponecesidad}" id="txtIdcatalogotiponecesidad" required="false" label="Tipo de Necesidad">
-				<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
-				<f:selectItems value="#{pedido.listaGentablaIdcatalogotiponecesidad}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
+			<p:selectOneMenu  value="{pedido.pedido.idcatalogotiponecesidad}" id="txtIdcatalogotiponecesidad" required="false" label="Tipo de Necesidad">
+				<f:selectItem itemLabel="Seleccione" itemValue=""/>
+				<f:selectItems value="{pedido.listaGentablaIdcatalogotiponecesidad}" var="var" itemLabel="{var.vchregdescri}" itemValue="{var.vchregcodigo}" />
 			</p:selectOneMenu>
 		</td>
 		
 	</tr>
-
+ -->
 	<tr style="display: none;">
 		<td>
 			<p:outputLabel  value="Periódo" for="txtIdperiodo" id="lblIdperiodo"/>
@@ -182,47 +186,7 @@
 	
 	
 	<tr><td><br/></td></tr>
-	
 
-	<tr>
-		<td colspan="4" style="text-decoration: underline;">Información SINAD</td>
-	</tr>
-	
-	<tr>
-		<td>
-			<p:outputLabel  value="Tipo de Sinad" for="txtTiposinad" id="lblTiposinad"/>
-		</td>
-		<td>
-			<p:selectBooleanCheckbox id="txtTiposinad" value ="#{pedido.pedido.booleantiposinad}" required="false" label="Tipo de Sinad" disabled="true"/>
-		</td>
-		
-		<td>
-			<p:outputLabel  value="Número de expediente (SINAD)" for="txtNumeroexpedientesinad" id="lblNumeroexpedientesinad"/>
-		</td>
-		<td>
-			<p:inputText  id="txtNumeroexpedientesinad" value="#{pedido.pedido.numeroexpedientesinad}" required="false" maxlength="30" style="width:150px;" 
-			label="Número de expediente (SINAD)" readonly="true"/>
-		</td>
-	</tr>
-	
-	
-	<tr>
-		<td>
-			<p:outputLabel  value="Número Sindad" for="txtNumerosinad" id="lblNumerosinad"/>
-		</td>
-		<td>
-			<p:inputText  id="txtNumerosinad" value="#{pedido.pedido.numerosinad}" required="false" maxlength="10" style="width:150px;" label="Número Sindad" readonly="true"/>
-		</td>
-		<td>
-			<p:outputLabel  value="Año Sinad" for="txtAniosinad" id="lblAniosinad"/>
-		</td>
-		<td>
-			<p:inputText  id="txtAniosinad" value="#{pedido.pedido.aniosinad}" required="false" maxlength="10" style="width:150px;" label="Año Sinad" readonly="true"/>
-		</td>
-	</tr>
-	
-	
-	
 	<tr><td><br/></td></tr>
 	
 	<tr style="display: none;">

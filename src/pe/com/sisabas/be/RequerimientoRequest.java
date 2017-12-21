@@ -1,6 +1,7 @@
 package pe.com.sisabas.be;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class RequerimientoRequest extends SysTabla  implements  Serializable,Cloneable{
 	
@@ -17,6 +18,9 @@ public class RequerimientoRequest extends SysTabla  implements  Serializable,Clo
 	public String centroCosto;
 	public Integer pagenumber;
 	public Integer pageSize;
+	
+
+	
 	public String getCodigoUnidadEjecutora() {
 		return codigoUnidadEjecutora;
 	}
@@ -83,8 +87,7 @@ public class RequerimientoRequest extends SysTabla  implements  Serializable,Clo
 	public void setTipoNecesidad(String tipoNecesidad) {
 		this.tipoNecesidad = tipoNecesidad;
 	}
-	
-	
+
 	
 
 }

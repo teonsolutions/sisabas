@@ -27,6 +27,8 @@ import pe.com.sisabas.resources.Messages;
 import pe.com.sisabas.resources.Constantes;
 import pe.com.sisabas.resources.Utils;
 import pe.com.sisabas.service.SicuCallService;
+import pe.com.sisabas.service.Sicuusuario;
+
 import java.rmi.RemoteException;
 import pe.com.sisabas.exception.SecurityRestrictedControlException;
 import pe.com.sisabas.exception.SecuritySessionExpiredException;
@@ -36,6 +38,8 @@ import pe.com.sisabas.business.PedidoBusiness;
 import pe.com.sisabas.business.GentablaBusiness;
 import pe.com.sisabas.be.Gentabla;
 import pe.com.sisabas.business.PeriodoBusiness;
+import pe.com.sisabas.dto.EspecificacionTecnicaDto;
+import pe.com.sisabas.dto.TransactionRequest;
 import pe.com.sisabas.be.Periodo;
 import pe.com.sisabas.be.Vcentrocosto;
 import pe.com.sisabas.business.GentablaBusiness;
@@ -103,6 +107,7 @@ public class PedidoController extends BaseController {
 				idOpcion   = SicuCallService.obtenerIdOpcion(idOpcionText).toString();
 				sicuopcion = SicuCallService.obtenercontroles(idOpcion);
 			}
+			
 			pedidoB.setVcentrocostoCodigocentrocosto(new Vcentrocosto());
 			pedidoB.setUnidadejecutoraIdunidadejecutora(new Unidadejecutora());
 			pedidoB.setVispedidoIdvpedido(new Vispedido());
@@ -293,8 +298,10 @@ public class PedidoController extends BaseController {
 			pedido.roundBigDecimals();
 			accion = EDITAR;
 			titulo = "PedidoIn » " + EDITAR;
-
-
+			
+			System.err.println("**e*****el id pedido es *******"+pedido.getIdpedido());
+			System.err.println("**e*****el nro pedido es *******"+pedido.getNropedido());
+			
 			STATUS_SUCCESS();
 			REGISTER_INIT();
 		} catch (SecuritySessionExpiredException e) {
@@ -413,12 +420,15 @@ public class PedidoController extends BaseController {
 		}
 	}
 
-	public void irAnular() {
+	
+	
+///////////////////////////////
+	public void irRemitir() {
 		STATUS_INIT();
 		try {
-			securityControlValidate("btnAnularActivar");
+			securityControlValidate("btnRemitir");
 			//resetRegisterForm();
-			resetAnulacionForm();
+			//resetAnulacionForm();
 			validateSelectedRow();
 			if(pedido.getEstadoauditoria().equals("1")){
 				accion = ANULAR;
@@ -426,6 +436,37 @@ public class PedidoController extends BaseController {
 				accion = ACTIVAR;
 			}
 			titulo = "PedidoIn » " + accion;
+			
+			EspecificacionTecnicaDto dto = new EspecificacionTecnicaDto();
+			/***********************Pedido**************************/
+			System.err.println("*******el id pedido es *******"+pedido.getIdpedido());
+			System.err.println("*******el nro pedido es *******"+pedido.getNropedido());
+	    	dto.setIdPedido(this.pedido.getIdpedido());
+	    	
+	    	/********************Documento Tecnico******************* *****/
+	    	dto.setDenominacioncontratacion(this.pedido.getDescripcionpedidosiga());
+	    	dto.setFinalidadpublica("");
+	    	dto.setObjetocontratacion("");
+	    	dto.setAntecedentes("");
+            dto.setTipoEsp("");              	    	
+	    	dto.setNroPac(null);
+	    	dto.setNroAnexo("");
+       
+	    	TransactionRequest<EspecificacionTecnicaDto> transaccionRequest = new TransactionRequest<EspecificacionTecnicaDto>();	    	
+	    	transaccionRequest.setEquipoAuditoria(getRemoteAddr());
+	    	transaccionRequest.setUsuarioAuditoria(getUserLogin());
+	    	transaccionRequest.setProgramaAuditoria(pe.com.sisabas.resources.Utils.obtenerPrograma(this.getClass()));
+	    	
+	    	transaccionRequest.setEntityTransaction(dto);
+	    	
+	    	showGrowlMessageSuccessfullyCompletedAction();
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	
+			
 
 			STATUS_SUCCESS();
 			REGISTER_INIT();
@@ -489,10 +530,20 @@ public class PedidoController extends BaseController {
 	public void aceptar() {
 			REGISTER_INIT();
 		try {
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
 			if (accion.equals(REGISTRAR)){
 				pedido.setUsuariocreacionauditoria(getUserLogin());
 				pedido.setEquipoauditoria(getRemoteAddr());
 				pedido.setProgramaauditoria(pe.com.sisabas.resources.Utils.obtenerPrograma(this.getClass()));
+				
+				//completar campos
+				pedido.setIdperiodo(usuario.getPeriodo().getIdPeriodo());
+				pedido.setCodigocentrocosto(usuario.getPeriodo().getCodigoCentroCosto());
+				pedido.setAnio(usuario.getPeriodo().getAnio());
+				pedido.setIdunidadejecutora(Constantes.unidadEjecutora.ID_UNIDAD_EJECUTORA_ABAS);
+				pedido.setEstadopedido(Constantes.estadosPorEtapa.AUTORIZADO);	
+				pedido.setIdcatalogotiponecesidad(Constantes.tipoNecesidad.TIPO_NECESIDAD_NO_PROGRAMADO);//por default
+				
 				business.insertBasic(pedido);
 			}else{
 				pedido.setUsuariomodificacionauditoria(getUserLogin());
@@ -1001,7 +1052,7 @@ public class PedidoController extends BaseController {
 	
 	
 ///////////////////////////////
-
+	
 
 
 }

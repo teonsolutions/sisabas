@@ -14,6 +14,9 @@ public class RequerimientoInsertRequest extends SysTabla  implements  Serializab
 	private String tipoBien;
 	private Integer idPeriodo;
 	private String usuarioCreacion;
+	private String tipoNecesidad;
+	private Integer idUnidadEjectura;
+	private Integer nroConsolid;
 	
 	public String getNroPedido() {
 		return nroPedido;
@@ -50,6 +53,24 @@ public class RequerimientoInsertRequest extends SysTabla  implements  Serializab
 	}
 	public void setUsuarioCreacion(String usuarioCreacion) {
 		this.usuarioCreacion = usuarioCreacion;
+	}
+	public String getTipoNecesidad() {
+		return tipoNecesidad;
+	}
+	public void setTipoNecesidad(String tipoNecesidad) {
+		this.tipoNecesidad = tipoNecesidad;
+	}
+	public Integer getIdUnidadEjectura() {
+		return idUnidadEjectura;
+	}
+	public void setIdUnidadEjectura(Integer idUnidadEjectura) {
+		this.idUnidadEjectura = idUnidadEjectura;
+	}
+	public Integer getNroConsolid() {
+		return nroConsolid;
+	}
+	public void setNroConsolid(Integer nroConsolid) {
+		this.nroConsolid = nroConsolid;
 	}
 	
 	

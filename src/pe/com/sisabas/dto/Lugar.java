@@ -9,17 +9,10 @@ public class Lugar {
 	public void setIdDependenciaDocumentoTecnico(Integer idDependenciaDocumentoTecnico) {
 		this.idDependenciaDocumentoTecnico = idDependenciaDocumentoTecnico;
 	}
-	private String dependencia;
 	private String direccion;
 	
 	private int index;
 	
-	public String getDependencia() {
-		return dependencia;
-	}
-	public void setDependencia(String dependencia) {
-		this.dependencia = dependencia;
-	}
 	public String getDireccion() {
 		return direccion;
 	}
