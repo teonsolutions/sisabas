@@ -262,7 +262,7 @@ public class RequerimientoController extends BaseController {
 			requerimientoRequest.setPageSize(10);
 			requerimientoRequest.setCentroCosto(usuario.getPeriodo().getCodigoCentroCosto());
 
-			System.err.println("tipo es: " + requerimientoRequest.getTipoNecesidad());
+			System.err.println("----------------- tipo es: " + requerimientoRequest.getTipoNecesidad());
 
 			if (requerimientoRequest.getTipoNecesidad().equals("TINE1")) {
 				listaRequerimientos = requerimientoBusiness.selectDynamicFullProgramado(requerimientoRequest);
@@ -274,8 +274,6 @@ public class RequerimientoController extends BaseController {
 			System.out.println("El tamanio es :" + listaRequerimientos.size());
 			for (int i = 0; i < listaRequerimientos.size(); i++) {
 				
-				System.out.println("pac programado "+listaRequerimientos.get(i).getIdPacProgramado());
-				System.out.println("nro consolid "+listaRequerimientos.get(i).getNroConsolid());
 			}
 
 			if (listaRequerimientos.size() == 0)
