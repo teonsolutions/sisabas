@@ -961,7 +961,7 @@ figure {
 				</p:menubar>
 
 				<ui:fragment>
-					<div align="center" style="background: #fff;">
+					<div align="center" style="background: #313b3f;">
 						<table style="width: 100%">
 							<tr>
 								<td align="left" style="width: 30%"><br /> <p:spacer
@@ -970,9 +970,12 @@ figure {
 								<td>
 									<table>
 										<tr>
-
-											<td style="color: #077D9B; font-weight: bold;"><p:outputLabel
+											<td style="color: #659eb3; font-weight: bold;"><p:outputLabel
 													value="Ejercicio: " id="lblPeriodo" /></td>
+											<td style="color: #659eb3; font-weight: bold;"><p:outputLabel
+													value="Oficina: " id="lblCentroCosto" /></td>
+										</tr>
+										<tr>
 											<td><p:selectOneMenu id="somPeriodo"
 													value="#{menuBean.selectedPeriodo}"
 													valueChangeListener="#{menuBean.changePeriodo}">
@@ -983,14 +986,6 @@ figure {
 													<p:ajax event="valueChange" process="@this"
 														update="somCentroCosto" />
 												</p:selectOneMenu></td>
-										</tr>
-										<tr>
-											<td><p:spacer height="5"></p:spacer></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td style="color: #077D9B; font-weight: bold;"><p:outputLabel
-													value="Oficina: " id="lblCentroCosto" /></td>
 											<td><p:selectOneMenu id="somCentroCosto"
 													value="#{menuBean.selectedCentroCosto}"
 													valueChangeListener="#{menuBean.changeCentroCosto}"
@@ -1011,17 +1006,16 @@ figure {
 				</ui:fragment>
 
 
-
-                 
-
 				<ui:fragment rendered="#{loginBean.isSicuSecurityEnable()}">
 					<div
 						style="position: absolute; top: 5; left: 10; text-align: right; border: 0px solid silver;"
 						align="left">
+						
+						
 						<h:link outcome="/pages/home.xhtml?faces-redirect=true">
 							<h:graphicImage url="/resources/img/logo.png" width="30"
 								height="30" />
-						</h:link>
+						</h:link>						
 					</div>
 				</ui:fragment>
 
@@ -1050,8 +1044,9 @@ figure {
 			</h:form>
 		</ui:insert>
 
+		<!-- 
 		<header> </header>
-		
+		 -->
 		
         <div class="PC"> 
 		<div id="MENUSIDE" class="ps-container" style="height: 1054px;">
