@@ -512,9 +512,16 @@ public class ProgramacionController extends BaseController {
 				transactionRequest.setEquipoAuditoria(getRemoteAddr());
 				transactionRequest.setEntityTransaction(cDirecta);
 				Resultado result = programacionBusiness.grabarCompraDirecta(transactionRequest);
-				activeTabs();
+				if (this.currentPao.getIdPacConsolid() == null) {
+					this.currentPao.setIdPacConsolid(result.getResultInt());
+					this.currentPao.getCompraDirecta().setIdPacConsolid(result.getResultInt());
+					//this.currentPao.setEstadoRequerimiento(pacConsolid.getEstadoRequerimiento());
+					this.currentPao.getCompraDirecta().setEstadoRequerimiento(cDirecta.getEstadoRequerimiento());
+				}				
+				activeTabsCD();
 				REGISTER_SUCCESS();
 				buscarPao();
+				setPacTabIndex(1); // TabIndex Estudio del mercado
 			}
 			showGrowlMessageSuccessfullyCompletedAction();
 		} catch (ValidateException e) {

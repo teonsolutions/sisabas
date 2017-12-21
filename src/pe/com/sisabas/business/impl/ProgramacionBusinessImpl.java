@@ -482,8 +482,8 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			// END AUDITORIA
 
 			pacconsolidadoMapper.insert(pc);
-		}
-
+		}	
+		result.setResultInt(idPacConsolidado);
 		if (compraDirecta.getIdTipoNecesidad().equals(Constantes.tipoNecesidad.TIPO_NECESIDAD_NO_PROGRAMADO)) {
 			// PEDIDOS POR PAC CONSOLIDADO
 			List<PedidosPaoResponse> pedidos = compraDirecta.getPedidos();

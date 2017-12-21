@@ -44,7 +44,6 @@
 }
 
 */
-
 </style>
 		<h:form id="form">
 			<p:growl id="msgs" showDetail="true"></p:growl>
@@ -76,6 +75,8 @@
 
 										<td><p:outputLabel value="Monto del PAO S/."
 												for="txtMontoPAO" id="lblMontoPAO" /></td>
+										<td><p:outputLabel value="Fecha de recepción TDR/ET"
+												for="txtFechaRecepcion" id="lblFechaRecepcion" /></td>
 									</tr>
 									<tr>
 										<td><p:inputText id="txtNumeroPAO" required="false"
@@ -92,23 +93,13 @@
 												maxlength="10" style="width:150px;" label="Monto del PAO"
 												disabled="true"
 												value="#{programacion.currentPao.valorMoneda}" /></td>
-
-									</tr>
-									<tr>
-										<td><p:outputLabel value="Fecha de recepción TDR/ET"
-												for="txtFechaRecepcion" id="lblFechaRecepcion" /></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
 										<td><p:inputText id="txtFechaRecepcion" required="false"
 												value="#{programacion.currentPao.pacConsolidado.fechaRecepcionDocumentoTecnico}"
 												maxlength="10" style="width:150px;"
 												label="Fecha de recepción" disabled="true">
 												<f:convertDateTime pattern="dd/MM/yyyy" />
 											</p:inputText></td>
-										<td></td>
-										<td></td>
+
 									</tr>
 									<!-- 
 									<tr>
@@ -125,11 +116,11 @@
 									</tr>
 									 -->
 									<tr>
-										<td colspan="3"><p:outputLabel value="Items del PAO"
+										<td colspan="4"><p:outputLabel value="Items del PAO"
 												id="lblItems" /></td>
 									</tr>
 									<tr>
-										<td colspan="3"><p:dataTable id="tblListaItems"
+										<td colspan="4"><p:dataTable id="tblListaItems"
 												value="#{programacion.currentPao.pacConsolidado.items}"
 												var="var" emptyMessage="No se encontraron registros"
 												selectionMode="single" rowKey="#{var.item}"
@@ -427,14 +418,17 @@
 								</table>
 							</p:tab>
 						</p:accordionPanel>
-						<p:commandButton value="Guardar" icon="fa fa-save"
-							title="Guardar datos generales"
-							disabled="#{programacion.disabledButtons}"
-							action="#{programacion.guardarPacConsolidado}"
-							rendered="#{programacion.renderButton('btnGuadarPacConsolidado')}"
-							update="form:msgs,form:panel" />
-						<p:commandButton value="Cancelar" action="#{programacion.load}"
-							ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Cancelar" />
+						<div align="center">
+							<p:commandButton value="Guardar" icon="fa fa-save"
+								title="Guardar datos generales"
+								disabled="#{programacion.disabledButtons}"
+								action="#{programacion.guardarPacConsolidado}"
+								rendered="#{programacion.renderButton('btnGuadarPacConsolidado')}"
+								update="form:msgs,form:panel" />
+							<p:commandButton value="Cancelar" action="#{programacion.load}"
+								ajax="false" icon="ui-icon-arrowreturnthick-1-w"
+								title="Cancelar" />
+						</div>
 					</p:tab>
 					<p:tab title="Estudio del mercado"
 						disabled="#{programacion.disabledTabEstudioMercado}">
@@ -712,25 +706,26 @@
 								</table>
 
 								<p:spacer height="20"></p:spacer>
-								<p:commandButton value="Guardar" icon="fa fa-save"
-									title="Guardar datos generales"
-									disabled="#{programacion.disabledButtons}"
-									action="#{programacion.guardarAprobacion}"
-									rendered="#{programacion.renderButton('btnGuadarAprobacion')}"
-									update="form:msgs" />
+								<div align="center">
+									<p:commandButton value="Guardar" icon="fa fa-save"
+										title="Guardar datos generales"
+										disabled="#{programacion.disabledButtons}"
+										action="#{programacion.guardarAprobacion}"
+										rendered="#{programacion.renderButton('btnGuadarAprobacion')}"
+										update="form:msgs" />
 
-								<!-- 
+									<!-- 
 								<p:commandButton value="Cancelar" action="{programacion.load}"
 									ajax="false" icon="ui-icon-arrowreturnthick-1-w"
 									title="Cancelar" />
 									 -->
-								<p:commandButton value="Remitir a proceso selección"
-									icon="fa fa-send" title="Remitir a proceso selección"
-									disabled="#{programacion.disabledButtons}"
-									action="#{programacion.derivarExpediente}"
-									rendered="#{programacion.renderButton('btnDerivar')}"
-									update="form:msgs,form:panel" />
-
+									<p:commandButton value="Remitir a proceso selección"
+										icon="fa fa-send" title="Remitir a proceso selección"
+										disabled="#{programacion.disabledButtons}"
+										action="#{programacion.derivarExpediente}"
+										rendered="#{programacion.renderButton('btnDerivar')}"
+										update="form:msgs,form:panel" />
+								</div>
 							</p:tab>
 						</p:accordionPanel>
 					</p:tab>

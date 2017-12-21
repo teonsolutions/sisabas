@@ -54,9 +54,10 @@
 						process="@this">
 					</p:commandButton>
 				</div>
-				<p:spacer height="1"></p:spacer>				
+				<p:spacer height="1"></p:spacer>
 				<p:focus for="panel" />
-				<p:tabView id="tabViewPao">
+				<p:tabView id="tabViewPao" dynamic="true"
+					activeIndex="#{programacion.pacTabIndex}">
 					<p:tab title="Datos generales">
 						<p:accordionPanel id="accDatosGenerales" multiple="true"
 							activeIndex="0,1,2,3,4">
@@ -210,7 +211,7 @@
 									</tr>
 									<tr>
 										<td colspan="3"><p:inputTextarea id="txtDescripcionPAO"
-												rows="5" cols="50" queryDelay="750" minQueryLength="4"
+												rows="3" cols="50" queryDelay="750" minQueryLength="4"
 												disabled="true"
 												value="#{programacion.currentPao.compraDirecta.especificacionTecnica}"
 												style="width: 100%" /></td>
@@ -368,14 +369,17 @@
 								</table>
 							</p:tab>
 						</p:accordionPanel>
-						<p:commandButton value="Guardar" icon="fa fa-save"
-							title="Guardar datos generales"
-							disabled="#{programacion.disabledButtonsCD}"
-							action="#{programacion.guardarDatosGenerales}"
-							rendered="#{programacion.renderButton('btnGuadarDatosGenerales')}"
-							update="form:msgs" />
-						<p:commandButton value="Cancelar" action="#{programacion.load}"
-							ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Cancelar" />
+						<div align="center">
+							<p:commandButton value="Guardar" icon="fa fa-save"
+								title="Guardar datos generales"
+								disabled="#{programacion.disabledButtonsCD}"
+								action="#{programacion.guardarDatosGenerales}"
+								rendered="#{programacion.renderButton('btnGuadarDatosGenerales')}"
+								update="form:msgs,form:panel" />
+							<p:commandButton value="Cancelar" action="#{programacion.load}"
+								ajax="false" icon="ui-icon-arrowreturnthick-1-w"
+								title="Cancelar" />
+						</div>
 					</p:tab>
 					<p:tab title="Estudio del mercado"
 						disabled="#{programacion.disabledTabEstudioMercado}">
@@ -488,7 +492,7 @@
 								</p:dataTable>
 							</h:panelGrid>
 						</p:fieldset>
-						
+
 						<!--  
 						<p:spacer height="30"></p:spacer>
 						<p:commandButton value="Finalizar" icon="fa fa-check"
