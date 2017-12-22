@@ -500,7 +500,7 @@ public class ProgramacionController extends BaseController {
 				cDirecta.setTipoProceso(Constantes.maestroProcesoSiga.ADJUDIACION_SIN_PROCESO);
 
 				// VALIDAR SI ESTÁ EN GIRO DE ORDEN O ESTUDIO DEL MERCADO
-				if (cDirecta.getFlagCD() == "1" && cDirecta.getNroProceso() != null){
+				if (cDirecta.getFlagCD().equals("1") && cDirecta.getNroProceso() != null){
 					cDirecta.setEstadoRequerimiento(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN);	
 				}else{
 					cDirecta.setEstadoRequerimiento(Constantes.estadosPorEtapa.EN_ESTUDIO_DE_MERCADO);

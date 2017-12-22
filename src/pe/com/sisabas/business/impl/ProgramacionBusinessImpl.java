@@ -175,6 +175,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			Estadosporetapapordocumento record = new Estadosporetapapordocumento();
 			record.setNrodocumento(idDocumento); //item.getIdpedido()
 			record.setIdestadosportipodocumento(estado.getIdestadosportipodocumento());
+			record.setIdtipodocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO);
 			record.setFechaingreso(date);
 			record.setFechacreacionauditoria(date);
 			record.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
@@ -244,6 +245,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			Estadosporetapapordocumento record = new Estadosporetapapordocumento();
 			record.setNrodocumento(idDocumento); //item.getIdpedido()
 			record.setIdestadosportipodocumento(estado.getIdestadosportipodocumento());
+			record.setIdtipodocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO);
 			record.setFechaingreso(date);
 			record.setFechacreacionauditoria(date);
 			record.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
@@ -1198,6 +1200,31 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 				pacEdit.setFechaaprobacionexpediente(new Date());
 			}
 			pacconsolidadoMapper.updateByPrimaryKey(pacEdit);
+			
+			Estadosportipodocumento param = new Estadosportipodocumento();
+			param.setIdtipodocumento(Constantes.tipoDocumento.PAO);
+			param.setIdestadosporetapa(Constantes.estadosPorEtapa.REMITIDO_A_PROCESOS);
+			Estadosportipodocumento estado = estadosportipodocumentoMapper.selectByEtapaTipoDocumento(param);
+			if (estado != null) {
+				java.util.Date date = new java.util.Date();
+				Estadosporetapapordocumento estadoDoc = new Estadosporetapapordocumento();
+				estadoDoc.setNrodocumento(pacEdit.getIdpacconsolidado());
+				estadoDoc.setIdestadosportipodocumento(estado.getIdestadosportipodocumento());
+				estadoDoc.setFechaingreso(date);
+				estadoDoc.setIdtipodocumento(Constantes.tipoDocumento.PAO);
+
+				estadoDoc.setFechacreacionauditoria(date);
+				estadoDoc.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+				estadoDoc.setEquipoauditoria(request.getEquipoAuditoria());
+				estadoDoc.setProgramaauditoria(request.getProgramaAuditoria());
+
+				// record.setIdestadosporetapapordocumento((int)utilsBusiness.getNextSeqTemporal(pe.com.sisabas.resources.Sequence.SEQ_ESTADOSPORETAPAPORDOCUMENTO).longValue());
+				estadoDoc.setIdestadosporetapapordocumento(
+						(int) utilsBusiness.getNextSeq(Sequence.SEQ_ESTADOSPORETAPAPORDOCUMENTO).longValue());
+
+				estadoDoc.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+				estadosporetapapordocumentoMapper.insert(estadoDoc);
+			}			
 		}
 
 		return result;

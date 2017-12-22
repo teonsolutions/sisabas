@@ -71,7 +71,7 @@
 									<!--  
 								<p:ajax event="rowSelect" update=":form:pnlBotones" immediate="true"/>
 								-->
-									<p:column styleClass="c_string" headerText="N° Pedido">
+									<p:column styleClass="c_string" headerText="N° Pedido" width="10%">
 										<f:facet name="header">
 											<h:outputText value="N° Pedido" />
 										</f:facet>
@@ -89,24 +89,26 @@
 										</f:facet>
 										<h:outputText value="#{var.motivoPedido}" />
 									</p:column>
-									<p:column headerText="Estado">
+									<p:column headerText="Estado" width="180">
 										<f:facet name="header">
 											<h:outputText value="Estado" />
 										</f:facet>
 										<h:outputText value="#{var.descripcionEstadoPorEtapa}" />
 									</p:column>
+									<!-- 
 									<p:column headerText="Sinad">
 										<f:facet name="header">
 											<h:outputText value="Sinad" />
 										</f:facet>
-										<h:outputText value="#{var.numeroExpedienteSinad}" />
+										<h:outputText value="{var.numeroExpedienteSinad}" />
 									</p:column>
 									<p:column headerText="Principal">
 										<f:facet name="header">
 											<h:outputText value="Principal" />
 										</f:facet>
-										<h:outputText value="#{var.esPrincipal}" />
+										<h:outputText value="{var.esPrincipal}" />
 									</p:column>
+									 -->
 								</p:dataTable>
 								<p:panel>
 									<p:outputLabel value="Fecha de recepción"
