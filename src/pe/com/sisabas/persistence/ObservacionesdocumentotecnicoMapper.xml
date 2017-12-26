@@ -427,4 +427,8 @@
 
 	</if>
 	</select>
+	<select id="selectByDocumentoTecnico" resultMap="BasicResultMap" parameterType="java.lang.Integer">		
+		select * from abas.ObservacionesDocumentoTecnico 
+		where IdDocumentoTecnico = #{idDocumentoTecnico} order by IdObservacionesDocumentoTecnico asc
+	</select>		
 </mapper>

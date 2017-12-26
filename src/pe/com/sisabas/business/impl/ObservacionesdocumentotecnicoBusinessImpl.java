@@ -221,6 +221,13 @@ public class ObservacionesdocumentotecnicoBusinessImpl implements Observacionesd
 		//Here Bussines Validations.
 	}
 
+	@Override
+	public List<Observacionesdocumentotecnico> selectByDocumentoTecnico(Integer idDocumentoTecnico) throws Exception {
+		// TODO Auto-generated method stub
+		return observacionesdocumentotecnicoMapper.selectByDocumentoTecnico(idDocumentoTecnico);
+	}
+
+	
 
 }
 

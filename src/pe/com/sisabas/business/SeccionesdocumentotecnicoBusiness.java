@@ -1,5 +1,8 @@
 package pe.com.sisabas.business;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import pe.com.sisabas.be.Seccionesdocumentotecnico;
 
 public interface SeccionesdocumentotecnicoBusiness{
@@ -42,5 +45,6 @@ public interface SeccionesdocumentotecnicoBusiness{
 
 	public void updateByPrimaryKeyFull(Seccionesdocumentotecnico record) throws Exception;
 
-
+	public List<Seccionesdocumentotecnico> selectByTipoDocumentoTecnico(@Param("idCatalogoTipoDocumentoTecnico") java.lang.String idCatalogoTipoDocumentoTecnico) throws Exception;
+	
 }

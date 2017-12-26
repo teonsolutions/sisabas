@@ -30,5 +30,5 @@ public interface SeccionesdocumentotecnicoMapper{
 
 	List<Seccionesdocumentotecnico> selectDynamicExtended(Seccionesdocumentotecnico record) throws Exception;
 
-
+	List<Seccionesdocumentotecnico> selectByTipoDocumentoTecnico(@Param("idCatalogoTipoDocumentoTecnico") java.lang.String idCatalogoTipoDocumentoTecnico) throws Exception;
 }

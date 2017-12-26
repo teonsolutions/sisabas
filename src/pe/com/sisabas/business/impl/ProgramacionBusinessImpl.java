@@ -271,6 +271,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 		Date dateUpdate = new Date();
 
 		// PAO - PROGRAMADO
+		/*
 		if (item.getIdpedido() == null && item.getIdPacProgramado() != null) {
 			Pacprogramado programado = pacprogramadoMapper.selectByPrimaryKeyBasic(item.getIddocumentotecnico());
 			// programado.setGentablaIdcatalogoestado(OBSERVADO_POR_DOCUMENTO_TECNICO);
@@ -289,7 +290,15 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			pedido.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
 			pedidoMapper.updateByPrimaryKey(pedido);
 		}
-
+		*/		
+		//SE UTILIZA LA MISMA TABLA PARA PROGRAMADOS Y NO PROGRAMDOS, tabla de pedido
+		Pedido pedido = pedidoMapper.selectByPrimaryKeyBasic(item.getIdpedido());
+		pedido.setEstadopedido(Constantes.estadosPorEtapa.OBSERVADO_POR_DOCUMENTO_TECNICO);
+		pedido.setFechamodificacionauditoria(dateUpdate);
+		pedido.setEquipoauditoria(request.getEquipoAuditoria());
+		pedido.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());		
+		pedidoMapper.updateByPrimaryKey(pedido);
+		
 		// Insertamos históricos de estados
 		Estadosportipodocumento param = new Estadosportipodocumento();
 		param.setIdtipodocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO);
@@ -303,6 +312,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			Estadosporetapapordocumento record = new Estadosporetapapordocumento();
 			record.setNrodocumento(item.getIdpedido());
 			record.setIdestadosportipodocumento(estado.getIdestadosportipodocumento());
+			record.setIdtipodocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO);
 			record.setFechaingreso(date);
 			record.setFechacreacionauditoria(date);
 			record.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
@@ -484,27 +494,28 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			// END AUDITORIA
 
 			pacconsolidadoMapper.insert(pc);
+			
+			if (compraDirecta.getIdTipoNecesidad().equals(Constantes.tipoNecesidad.TIPO_NECESIDAD_NO_PROGRAMADO)) {
+				// PEDIDOS POR PAC CONSOLIDADO
+				List<PedidosPaoResponse> pedidos = compraDirecta.getPedidos();
+				for (int i = 0; i < pedidos.size(); i++) {
+					Pedidosporpacconsolidado pedidoItem = new Pedidosporpacconsolidado();
+					pedidoItem.setIdpedidoporpacconsolidado(
+							(int) utilsBusiness.getNextSeq(Sequence.SEQ_PEDIDOSPORPACCONSOLIDADO).longValue());
+					pedidoItem.setIdpacconsolidado(idPacConsolidado);
+					pedidoItem.setIdpedido(pedidos.get(i).getIdPedido());
+					pedidoItem.setFechacreacionauditoria(new Date());
+					pedidoItem.setEquipoauditoria(request.getEquipoAuditoria());
+					pedidoItem.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+					pedidoItem.setProgramaauditoria(request.getProgramaAuditoria());
+					pedidoItem.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+					pedidosporpacconsolidadoMapper.insert(pedidoItem);
+				}
+				// SINAD POR PAC CONSOLIDADO
+			}			
+			
 		}	
 		result.setResultInt(idPacConsolidado);
-		if (compraDirecta.getIdTipoNecesidad().equals(Constantes.tipoNecesidad.TIPO_NECESIDAD_NO_PROGRAMADO)) {
-			// PEDIDOS POR PAC CONSOLIDADO
-			List<PedidosPaoResponse> pedidos = compraDirecta.getPedidos();
-			for (int i = 0; i < pedidos.size(); i++) {
-				Pedidosporpacconsolidado pedidoItem = new Pedidosporpacconsolidado();
-				pedidoItem.setIdpedidoporpacconsolidado(
-						(int) utilsBusiness.getNextSeq(Sequence.SEQ_PEDIDOSPORPACCONSOLIDADO).longValue());
-				pedidoItem.setIdpacconsolidado(idPacConsolidado);
-				pedidoItem.setIdpedido(pedidos.get(i).getIdPedido());
-				pedidoItem.setFechacreacionauditoria(new Date());
-				pedidoItem.setEquipoauditoria(request.getEquipoAuditoria());
-				pedidoItem.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
-				pedidoItem.setProgramaauditoria(request.getProgramaAuditoria());
-				pedidoItem.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
-				pedidosporpacconsolidadoMapper.insert(pedidoItem);
-			}
-
-			// SINAD POR PAC CONSOLIDADO
-		}
 
 		// REQUISITOS CONFORMIDAD
 		List<RequisitoConformidadDto> listaRequisitos = compraDirecta.getListaRequisitosConformidad();

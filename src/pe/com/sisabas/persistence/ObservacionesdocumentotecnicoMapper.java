@@ -30,5 +30,5 @@ public interface ObservacionesdocumentotecnicoMapper{
 
 	List<Observacionesdocumentotecnico> selectDynamicExtended(Observacionesdocumentotecnico record) throws Exception;
 
-
+	List<Observacionesdocumentotecnico> selectByDocumentoTecnico(@Param("idDocumentoTecnico") java.lang.Integer idDocumentoTecnico) throws Exception;
 }

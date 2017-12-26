@@ -1,5 +1,8 @@
 package pe.com.sisabas.business;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import pe.com.sisabas.be.Observacionesdocumentotecnico;
 
 public interface ObservacionesdocumentotecnicoBusiness{
@@ -42,5 +45,6 @@ public interface ObservacionesdocumentotecnicoBusiness{
 
 	public void updateByPrimaryKeyFull(Observacionesdocumentotecnico record) throws Exception;
 
+	public List<Observacionesdocumentotecnico> selectByDocumentoTecnico(@Param("idDocumentoTecnico") java.lang.Integer idDocumentoTecnico) throws Exception;
 
 }

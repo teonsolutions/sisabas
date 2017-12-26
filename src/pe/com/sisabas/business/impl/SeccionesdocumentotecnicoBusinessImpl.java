@@ -219,6 +219,13 @@ public class SeccionesdocumentotecnicoBusinessImpl implements Seccionesdocumento
 		//Here Bussines Validations.
 	}
 
+	@Override
+	public List<Seccionesdocumentotecnico> selectByTipoDocumentoTecnico(String idCatalogoTipoDocumentoTecnico)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return seccionesdocumentotecnicoMapper.selectByTipoDocumentoTecnico(idCatalogoTipoDocumentoTecnico);
+	}
+
 
 }
 

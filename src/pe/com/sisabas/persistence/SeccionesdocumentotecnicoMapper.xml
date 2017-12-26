@@ -349,4 +349,9 @@
 
 	</if>
 	</select>
+	
+	<select id="selectByTipoDocumentoTecnico" resultMap="BasicResultMap" parameterType="java.lang.String">		
+		select * from abas.SeccionesDocumentoTecnico 
+		where IdCatalogoTipoDocumentoTecnico = #{idCatalogoTipoDocumentoTecnico,jdbcType=VARCHAR} order by IdSeccionesDocumentoTecnico asc
+	</select>	
 </mapper>
