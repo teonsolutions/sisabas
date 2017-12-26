@@ -226,4 +226,9 @@ public class Constantes {
 		public static final int EJECUCION_CONTRACTUAL = 4;
 	}
 	//Constantes personalizados
+	
+	public class tipoDocumentoTecnico{
+		public static final String ESPECIFICACION_TECNICA = "TDPL1";
+		public static final String TERMINO_REFERENCIA = "TDPL2";		
+	}
 }
