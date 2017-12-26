@@ -6,13 +6,17 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 import org.apache.taglibs.standard.lang.jstl.Evaluator;
 import org.omg.CORBA.TRANSACTION_MODE;
 import org.postgresql.core.SetupQueryRunner;
+import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.ToggleSelectEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -40,12 +44,17 @@ import pe.com.sisabas.exception.SecurityValidateException;
 import pe.com.sisabas.be.Documentotecnico;
 import pe.com.sisabas.business.DocumentotecnicoBusiness;
 import pe.com.sisabas.business.GentablaBusiness;
+import pe.com.sisabas.business.ObservacionesdocumentotecnicoBusiness;
 import pe.com.sisabas.business.ProgramacionBusiness;
+import pe.com.sisabas.business.SeccionesdocumentotecnicoBusiness;
 import pe.com.sisabas.dto.EstadoRequerimientoResponse;
 import pe.com.sisabas.dto.EvaluacionDocumentoRequest;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
+import pe.com.sisabas.dto.OrdenDto;
 import pe.com.sisabas.dto.TransactionRequest;
 import pe.com.sisabas.be.Gentabla;
+import pe.com.sisabas.be.Observacionesdocumentotecnico;
+import pe.com.sisabas.be.Seccionesdocumentotecnico;
 import pe.com.sisabas.business.GentablaBusiness;
 import pe.com.sisabas.be.Gentabla;
 
@@ -62,6 +71,8 @@ public class EvaluacionDocumentoController extends BaseController {
 	private boolean esSeleccionadoPorAprobar = false;
 	private int selectAprobacion = 1;
 	public List<EstadoRequerimientoResponse> listaEstadoRequerimiento;
+	private List<Observacionesdocumentotecnico> listaObservaciones;
+	private List<Seccionesdocumentotecnico> listaSecciones;
 	
 	public int getSelectAprobacion() {
 		return selectAprobacion;
@@ -129,6 +140,22 @@ public class EvaluacionDocumentoController extends BaseController {
 	public void setSearchParam(EvaluacionDocumentoRequest searchParam) {
 		this.searchParam = searchParam;
 	}
+		
+	public List<Observacionesdocumentotecnico> getListaObservaciones() {
+		return listaObservaciones;
+	}
+
+	public void setListaObservaciones(List<Observacionesdocumentotecnico> listaObservaciones) {
+		this.listaObservaciones = listaObservaciones;
+	}
+		
+	public List<Seccionesdocumentotecnico> getListaSecciones() {
+		return listaSecciones;
+	}
+
+	public void setListaSecciones(List<Seccionesdocumentotecnico> listaSecciones) {
+		this.listaSecciones = listaSecciones;
+	}
 
 	private String tituloBase; // titulo de la opcion
 	private String tituloParam;// titulo que llega como parametro (derivada
@@ -149,6 +176,12 @@ public class EvaluacionDocumentoController extends BaseController {
 	@Autowired
 	public GentablaBusiness gentablaBusiness;	
 	
+	@Autowired
+	public SeccionesdocumentotecnicoBusiness seccionesdocumentotecnicoBusiness;	
+	
+	@Autowired
+	public ObservacionesdocumentotecnicoBusiness observacionesdocumentotecnicoBusiness;	
+	
 	public EvaluacionDocumentoController() {
 		listaDocumentotecnico = new ArrayList<Documentotecnico>();
 	}
@@ -165,8 +198,7 @@ public class EvaluacionDocumentoController extends BaseController {
 				sicuopcion = SicuCallService.obtenercontroles(idOpcion);
 			}
 
-			listaEstadoRequerimiento = gentablaBusiness.getEstadoRequerimiento(Constantes.etapaAdministrativa.PROGRAMACION_Y_COSTOS);
-			
+			listaEstadoRequerimiento = gentablaBusiness.getEstadoRequerimiento(Constantes.etapaAdministrativa.PROGRAMACION_Y_COSTOS);			
 			/*
 			 * listaIdcatalogotipodocumentotecnicoKeys= new ArrayList<String>();
 			 * listaIdcatalogotipotdrKeys= new ArrayList<String>();
@@ -381,6 +413,8 @@ public class EvaluacionDocumentoController extends BaseController {
 		try {
 			securityControlValidate("btnAprobar");
 			resetRegisterForm();
+			listaSecciones = seccionesdocumentotecnicoBusiness.selectByTipoDocumentoTecnico(this.selectedPedido.getIdCatalogoTipoDocumentoTecnico());
+			listaObservaciones = observacionesdocumentotecnicoBusiness.selectByDocumentoTecnico(this.selectedPedido.getIddocumentotecnico());
 
 			STATUS_SUCCESS();
 			REGISTER_INIT();
@@ -495,4 +529,47 @@ public class EvaluacionDocumentoController extends BaseController {
 
 	// METHOD PROGRMACION & COSTOS
 	// ***********************************************************
+	// DATATABLE EDITABLE
+	public void onRowEdit(RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("Se editó correctamente",
+				"Observación: " + ((Observacionesdocumentotecnico) event.getObject()).getIdobservacionesdocumentotecnico());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void onRowCancel(RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("Se canceló la edición",
+				"Observación: " + ((Observacionesdocumentotecnico) event.getObject()).getIdobservacionesdocumentotecnico());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}	
+	
+	public void irRegistrarObservacion() {
+		STATUS_INIT();
+		try {
+			securityControlValidate("btnNuevaObservacion");
+			//validateSelectedRow();
+
+			Observacionesdocumentotecnico e = new Observacionesdocumentotecnico(); 
+			listaObservaciones.add(e);
+						
+			STATUS_SUCCESS();
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("no.access"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm",e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+		} catch (UnselectedRowException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", e.getMessage(),
+			FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			STATUS_ERROR();
+			addErrorMessageKey("msgsForm", e);
+		}
+	}	
 }
