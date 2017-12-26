@@ -672,19 +672,18 @@ public class RequerimientoController extends BaseController {
 			dto.setFinalidadpublica(this.documentotecnico.getFinalidadpublica());
 			dto.setObjetocontratacion(this.documentotecnico.getObjetocontratacion());
 			dto.setAntecedentes(this.documentotecnico.getAntecedentes());
-			dto.setTipoEsp(this.documentotecnico.getIdcatalogotipotdr());
+			dto.setTipoEsp(this.documentotecnico.getIdcatalogotipotdr());	
 			dto.setNroPac(this.documentotecnico.getNropac());
 			dto.setNroAnexo(this.documentotecnico.getNroanexoresponsable());
 			dto.setRutaAnexo(this.documentotecnico.getRutaanexo());
-
-			dto.setIddocumentotecnico(this.documentotecnico.getIddocumentotecnico());
-
-			System.err.println(
-					"---------------------------------------------rutaAnexo----------------------------------------- = "
-							+ dto.getRutaAnexo());
-			System.err.println(
-					"---------------------------------------------getiddocumento----------------------------------------- = "
-							+ dto.getIddocumentotecnico());
+            dto.setIddocumentotecnico(this.documentotecnico.getIddocumentotecnico());
+            
+            System.out.println("----------- el valor es : "+this.requerimientoResponse.getIdTipoBien());
+            
+			if(this.requerimientoResponse.getIdTipoBien().equals("B"))
+               dto.setIdCatalogoTipoDocumentoTecnico(Constantes.tipoDocumentoTecnico.ESPECIFICACION_TECNICA);
+			if(this.requerimientoResponse.getIdTipoBien().equals("S"))
+			   dto.setIdCatalogoTipoDocumentoTecnico(Constantes.tipoDocumentoTecnico.TERMINO_REFERENCIA);
 
 			dto.setBooleano(this.check);
 
