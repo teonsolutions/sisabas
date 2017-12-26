@@ -74,6 +74,8 @@ public class RequerimientoController extends BaseController {
 	private boolean value5;
 	private boolean value6;
 	private boolean value7;
+	private boolean value8;
+	private boolean value9;
 
 	private String pdfURL = "/resources/pdfs/fer,pdf";
 	private String pdf = "fer.pdf";
@@ -1166,6 +1168,22 @@ public class RequerimientoController extends BaseController {
 
 	public void setValue7(boolean value7) {
 		this.value7 = value7;
+	}
+
+	public boolean isValue8() {
+		return value8;
+	}
+
+	public void setValue8(boolean value8) {
+		this.value8 = value8;
+	}
+
+	public boolean isValue9() {
+		return value9;
+	}
+
+	public void setValue9(boolean value9) {
+		this.value9 = value9;
 	}
 
 }
