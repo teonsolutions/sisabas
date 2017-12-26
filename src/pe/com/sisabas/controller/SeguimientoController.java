@@ -166,7 +166,7 @@ public class SeguimientoController extends BaseController{
 				listTipoDocumentoKyes.clear();
 				
 				if(tipoNecesidad.equalsIgnoreCase(Constantes.tipoNecesidad.TIPO_NECESIDAD_PROGRAMADO)){
-					listTipoDocumentoKyes.add(Constantes.tipoDocumento.PEDIDO);
+					listTipoDocumentoKyes.add(Constantes.tipoDocumento.PAO);
 				}else{
 					if(tipoNecesidad.equalsIgnoreCase(Constantes.tipoNecesidad.TIPO_NECESIDAD_NO_PROGRAMADO)){
 						listTipoDocumentoKyes.add(Constantes.tipoDocumento.PEDIDO);listTipoDocumentoKyes.add(Constantes.tipoDocumento.PAO);
