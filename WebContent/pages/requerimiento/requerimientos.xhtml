@@ -121,9 +121,7 @@ function myFunction4() {
 										var="var" itemLabel="#{var.vchregdescri}"
 										itemValue="#{var.vchregcodigo}" />
 								</p:selectOneMenu></td>
-							
-							
-							
+
 							<td><p:outputLabel for="txtIdcatalogotipobien"
 									value="Tipo de bien(SIGA)" /></td>
 							<td><p:selectOneMenu id="txtIdcatalogotipobien"
@@ -134,7 +132,6 @@ function myFunction4() {
 										value="#{pedido.listaGentablaIdcatalogotipobien}" var="var"
 										itemLabel="#{var.vchregdescri}" itemValue="#{var.orden}" />
 								</p:selectOneMenu></td>
-
 
 							<td><p:outputLabel for="txtIdEstadoPedido"
 									value="Estado del pedido (SIGA)" /></td>
@@ -194,10 +191,16 @@ function myFunction4() {
 							</p:panel></td>
 						<td valign="top">
 							<div align="right" style="margin-top: 12px;">
-								<p:commandButton value="Imprimir" action="#{requerimiento.imprimir}"  id="imprimir1" disable="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE1'}"
+							    <h:panelGroup id="imprimir1">
+								<p:commandButton value="Imprimir" action="#{requerimiento.imprimir}"  rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE2'}"
 									update="hidStatus"
 									oncomplete="PF('diPedidoImprimir').show()"
 									icon="fa fa-print" />
+							    <p:commandButton value="Imprimir" action="#{requerimiento.imprimir}"  rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE1'}"
+									update="hidStatus"
+									oncomplete="PF('diPedidoImprimir2').show()"
+									icon="fa fa-print" />
+								</h:panelGroup>	
 								<p:spacer height="3" />
 								<p:commandButton value="Salir"
 									action="/pages/home.xhtml?faces-redirect=true" ajax="false"
@@ -289,7 +292,6 @@ function myFunction4() {
 							   
 						</p:commandButton>
 						
-						
 						<p:commandButton rendered="#{var.estadoPedidoIn eq 3 and var.idTipoBien eq 'S'}" 
 						    update=":formTdr:diTdr" icon="fa fa-eye" 
 						    title="Visualizar TDR" 
@@ -308,14 +310,14 @@ function myFunction4() {
 					</p:column>
 					
 					
-					<p:column styleClass="c_center" sortBy="#{var.idPacProgramado}"  rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE1'}">
+					<p:column styleClass="c_center" sortBy="#{var.idPacProgramado}"  rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE1'}" exportable="#{requerimiento.value8}">
 						<f:facet name="header">
 							<h:outputText value="Pac Programado" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.idPacProgramado}" />
 					</p:column>
 					
-					<p:column styleClass="c_center" sortBy="#{var.nroConsolid}"  rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE1'}">
+					<p:column styleClass="c_center" sortBy="#{var.nroConsolid}"  rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE1'}" exportable="#{requerimiento.value9}">
 						<f:facet name="header">
 							<h:outputText value="Nro Consolidado" styleClass="c_center" />
 						</f:facet>
@@ -397,10 +399,37 @@ function myFunction4() {
 							<p:dataExporter type="xls" target=":form:tblListaRequerimiento"
 								fileName="datosPedido" postProcessor="#{requerimiento.postProcessXLS}" />
 						</p:commandButton>
-
-
 					 </h:panelGrid>
 				 </p:dialog>
+				 
+				 <p:dialog id="diPedidoImprimir2" header="Exportar Requerimientos"
+					widgetVar="diPedidoImprimir2" resizable="false" modal="true"
+					dynamic="true">
+					 <h:panelGrid columns="2" style="text-align:center;">
+					 
+					 <p:outputLabel value="Pac Programado"/>
+					 <p:selectBooleanCheckbox value="#{requerimiento.value8}" />
+					 <p:outputLabel value="Nro Consolidado"/>
+					 <p:selectBooleanCheckbox value="#{requerimiento.value9}" />
+					 <p:outputLabel value="Descripción"/>
+					 <p:selectBooleanCheckbox value="#{requerimiento.value2}" />
+					 <p:outputLabel value="Tipo de Bien(SIGA)"/>
+					 <p:selectBooleanCheckbox value="#{requerimiento.value3}" />
+					 <p:outputLabel value="Monto"/>
+					 <p:selectBooleanCheckbox value="#{requerimiento.value4}" />
+					 <p:outputLabel value="Estado(SisAbas)"/>
+					 <p:selectBooleanCheckbox value="#{requerimiento.value6}" />
+					 <p:outputLabel value="Nombre Dependencia"/>
+					 <p:selectBooleanCheckbox value="#{requerimiento.value7}" />
+
+						<p:commandButton icon="ui-icon-circle-arrow-s"
+							value="Exportar" ajax="false" style="width:100px;">
+							<p:dataExporter type="xls" target=":form:tblListaRequerimiento"
+								fileName="datosPedido" postProcessor="#{requerimiento.postProcessXLS}" />
+						</p:commandButton>
+					 </h:panelGrid>
+				 </p:dialog>
+				 
 	
 				<p:dialog header="Asociar al POI" widgetVar="reqDialog" modal="true"
 					showEffect="fade" hideEffect="fade" resizable="false">
@@ -457,7 +486,6 @@ function myFunction4() {
 
 
 			<h:form id="formEsp">
-
 
 				<p:dialog header="Especificaciones Técnicas" widgetVar="reqDialog2"
 					modal="true" showEffect="fade" hideEffect="fade" resizable="false">
