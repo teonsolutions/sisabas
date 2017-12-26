@@ -184,15 +184,14 @@ function myFunction3() {
 								
 								<p:commandButton widgetVar="btnBuscar" id="btnBuscar"
 									value="Buscar" action="#{seguimiento.buscarSegRequerimientos}"
-									update="tblListaseguimiento,pnlBotones,msgTipoDocumento,msgIdcatalogotiponecesidad" icon="ui-icon-search"
+									update="tblListaseguimiento,pnlBotones,msgTipoDocumento,msgIdcatalogotiponecesidad" icon="fa fas fa-search"
 									title="Buscar" 
 									rendered="#{seguimiento.renderButton('btnBuscar')}" />
 								<p:spacer width="10" />
 								
-								<p:commandButton id="resetFiltroSeg" action="#{seguimiento.resetFiltroSeg}" value="Limpiar"
+								<p:commandButton id="resetFiltroSeg" action="#{seguimiento.resetFiltroSeg}" value="Limpiar" icon="fa fas fa-fire-extinguisher"
 								update="txtIdcatalogotiponecesidad,txtTipoDocumento,txtNumeroDocumento,txtIdcatalogotipobien"/>
-								
-								
+									
 							</p:panel>
 						</td>
 					
@@ -243,12 +242,14 @@ function myFunction3() {
 						<h:outputText value="#{var.id}" />
 					</p:column>
 
+                    <!--  
 					<p:column styleClass="c_string" sortBy="#{var.nroSinad}">
 						<f:facet name="header">
 							<h:outputText value="Nro. Sinad" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.nroSinad}" />
 					</p:column>
+                    -->
 
 					<p:column styleClass="c_center" sortBy="#{var.nroPedido}">
 						<f:facet name="header">
@@ -352,11 +353,8 @@ function myFunction3() {
 					
 
 				</p:dataTable>
-				
-			
 			
 			</h:form>
-
 
 
 			<h:form id="formSegEstado">
@@ -367,10 +365,8 @@ function myFunction3() {
 							<ui:include
 								src="/pages/seguimiento/component/c_seguimiento_estado.xhtml" />
 					
-			
-				</p:dialog>
-				
-				
+			    	</p:dialog>
+							
 			
 			</h:form>
 
