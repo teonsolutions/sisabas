@@ -174,7 +174,7 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 		
 		
 		if (especificacionTecnica.getIddocumentotecnico() == null){
-			System.out.println("sapppppppppppp 1");
+			
 			
 			//Insertando...
 					
@@ -292,7 +292,6 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 			}
 			
 			
-			
 			//actualizando estado pedido
 			
 			Pedido pedido2 = pedidoMapper.selectByPrimaryKeyBasic(documentoTecnico.getIdpedido());
@@ -300,9 +299,7 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 			pedidoMapper.updateByPrimaryKey(pedido2);
 			
 			
-			
-			
-			
+
 			//finalemnte se hace la insercicon de documento tecnico
 		//	documentotecnicoMapper.insert(documentoTecnico);
 			
@@ -311,7 +308,6 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 		}else{
 			
 			
-			System.out.println("sapeeeeeeeeeeeeeeeeeeeeeeeeee 2");
 			
 			//modificando...
 			iddocumentoTecnico = especificacionTecnica.getIddocumentotecnico();	
@@ -447,7 +443,7 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 					if(listaPlazosEliminar.get(i).getIdDependenciaDocumentoTecnico()!=null){
 						//eliminar
 						plazopagodocumentotecnico3 = plazoPagoMapper.selectByPrimaryKeyBasicActive(especificacionTecnica.getPagosEliminar().get(i).getIdDependenciaDocumentoTecnico());	
-						//System.out.println("ccc " + plazopagodocumentotecnico3.getPorcentajeavance());
+	
 						if(plazopagodocumentotecnico3!=null){
 							plazoPagoMapper.deleteByPrimaryKey(plazopagodocumentotecnico3.getIdplazopagodocumentotecnico());
 						}
