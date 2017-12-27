@@ -518,13 +518,14 @@
 								value="Las tareas corresponden al Plan Operativo Institucional registrado en el PLANIN." />
 							<br /> <br />
 						</div>
+						<div style="margin-left: 300px">
 						<table style="width: 70%;">
 							<tr>
 								<td>
 									<div align="left">
-										<p:commandButton value="Grabar"
+										<p:commandButton value="Grabar" 
 											rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
-											icon="fa fa-save" title="Aceptar" style="left: 200px;"
+											icon="fa fa-save" title="Aceptar" 
 											update=":form:growl,:form:tblListaRequerimiento"
 											oncomplete="PF('reqDialog2').hide();">
 											<f:actionListener
@@ -539,13 +540,13 @@
 											actionListener="#{requerimiento.limpiar}"
 											rendered="#{requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
 											icon="fa fa-rotate-left" title="Salir" process="@this"
-											immediate="true" style="left:200px"
+											immediate="true" 
 											onclick="hideDialogPF('frmGentipoRegistrar:diGentipoRegistrar');return false;" />
 
 										<p:commandButton value="Aceptar"
 											rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
 											icon="fa fas fa-check" title="Aceptar" 
-											style="left:150px" update=":form:growl"
+										    update=":form:growl"
 											oncomplete="PF('reqDialog2').hide();">
 											<f:actionListener binding="#{requerimiento.limpiar()}" />
 										</p:commandButton>
@@ -553,7 +554,7 @@
 								</td>
 								<td>
 									<div align="right">
-										<p:commandButton style="left:100px" id="btnRemitir"
+										<p:commandButton id="btnRemitir"
 											rendered="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 2) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 5)}"
 											disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 40}"
 											actionListener="#{requerimiento.destroyWorld}"
@@ -568,6 +569,7 @@
 								</td>
 							</tr>
 						</table>
+						</div>
 					</p:panel>
 
 				</p:dialog>
@@ -607,13 +609,14 @@
 								value="Las tareas corresponden al Plan Operativo Institucional registrado en el PLANIN." />
 							<br /> <br />
 						</div>
+						<div style="margin-left: 300px">
 						<table style="width: 70%;">
 							<tr>
 								<td>
 									<div align="left">
 										<p:commandButton value="Grabar"
 											rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
-											icon="fa fa-save" title="Aceptar" style="left: 200px;"
+											icon="fa fa-save" title="Aceptar"
 											update=":form:growl,:form:tblListaRequerimiento"
 											oncomplete="PF('reqDialogT').hide();">
 											<f:actionListener
@@ -628,12 +631,12 @@
 											actionListener="#{requerimiento.limpiar}"
 											rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
 											icon="fa fa-rotate-left" title="Salir" process="@this"
-											immediate="true" style="left: 200px;"
+											immediate="true"
 											onclick="hideDialogPF('frmGentipoRegistrar:diGentipoRegistrar');return false;" />
 
 										<p:commandButton value="Aceptar"
 											rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
-											icon="fa fas fa-check" title="Aceptar" style="left:150px"
+											icon="fa fas fa-check" title="Aceptar" 
 											update=":form:growl" oncomplete="PF('reqDialogT').hide();">
 											<f:actionListener binding="#{requerimiento.limpiar()}" />
 										</p:commandButton>
@@ -644,7 +647,7 @@
 									<div align="right">
 										<p:commandButton
 											rendered="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 2) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 5)}"
-											id="btnRemitir2" style="left:100px"
+											id="btnRemitir2" 
 											actionListener="#{requerimiento.destroyWorld}"
 											disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 40}"
 											value="Remitir a Programación" icon="fa fas fa-arrow-right" title="Remitir a Programación"
@@ -656,10 +659,9 @@
 										</p:commandButton>
 									</div>
 								</td>
-
-
 							</tr>
 						</table>
+						</div>
 					</p:panel>
 
 				</p:dialog>
