@@ -319,7 +319,7 @@
 						<f:facet name="header">
 							<h:outputText value="Pac Programado" styleClass="c_center" />
 						</f:facet>
-						<h:outputText value="#{var.idPacProgramado}" />
+						<h:outputText value="#{var.nroPac}" />
 					</p:column>
 
 					<p:column styleClass="c_center" sortBy="#{var.nroConsolid}"
@@ -539,13 +539,13 @@
 											actionListener="#{requerimiento.limpiar}"
 											rendered="#{requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
 											icon="fa fa-rotate-left" title="Salir" process="@this"
-											immediate="true" style="left:150px"
+											immediate="true" style="left:200px"
 											onclick="hideDialogPF('frmGentipoRegistrar:diGentipoRegistrar');return false;" />
 
 										<p:commandButton value="Aceptar"
 											rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
 											icon="fa fas fa-check" title="Aceptar" 
-											style="left:200px" update=":form:growl"
+											style="left:150px" update=":form:growl"
 											oncomplete="PF('reqDialog2').hide();">
 											<f:actionListener binding="#{requerimiento.limpiar()}" />
 										</p:commandButton>
