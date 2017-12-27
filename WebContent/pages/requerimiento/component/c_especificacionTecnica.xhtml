@@ -209,12 +209,12 @@
 				<p:column headerText="DIRECCION">
 				    <p:cellEditor> 
 				       <f:facet name="output"><h:outputText value="#{var.direccion}" /></f:facet>
-                       <f:facet name="input"><p:inputText value="#{var.direccion}" style="width:82%" /></f:facet>
+                       <f:facet name="input"><p:inputText value="#{var.direccion}" style="width:82%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
 					</p:cellEditor>  
 				</p:column>
 
-				<p:column headerText="EDITAR" styleClass="c_center" style="width: 9%;">
-				  <p:rowEditor editTitle="Editar"/>
+				<p:column headerText="EDITAR" styleClass="c_center" style="width: 9%;" >
+				  <p:rowEditor editTitle="Editar" />
 				</p:column>
 				
 				<p:column headerText="ELIMINAR" styleClass="c_center" style="width: 9%;">
@@ -242,13 +242,13 @@
 					<p:column headerText="NÚMERO ARMADA">
 					<p:cellEditor>
 		               <f:facet name="output"><h:outputText value="#{var.numero}" /></f:facet>
-		               <f:facet name="input"><p:inputText id="modelInput" value="#{var.numero}" style="width:100%"/></f:facet>
+		               <f:facet name="input"><p:inputText id="modelInput" value="#{var.numero}" style="width:100%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
                     </p:cellEditor>
 				   </p:column>
 				   <p:column headerText="PORCENTAJE DE ARMADA">
 				    <p:cellEditor> 
 				       <f:facet name="output"><h:outputText value="#{var.porcentaje}" /></f:facet>
-                       <f:facet name="input"><p:inputText value="#{var.porcentaje}" style="width:100%" /></f:facet>
+                       <f:facet name="input"><p:inputText value="#{var.porcentaje}" style="width:100%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
 					</p:cellEditor>  
 				    </p:column>
   
