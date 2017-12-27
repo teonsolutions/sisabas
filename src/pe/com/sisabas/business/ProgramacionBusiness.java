@@ -31,7 +31,7 @@ import pe.com.sisabas.dto.TransactionResponse;
 public interface ProgramacionBusiness {
 	public Resultado recibirDocumentoTecnico(EvaluacionDocumentoResponse item, TransactionRequest request) throws Exception;
 	public Resultado aprobarDocumentoTecnico(EvaluacionDocumentoResponse item, TransactionRequest request) throws Exception;
-	public Resultado observarDocumentoTecnico(EvaluacionDocumentoResponse item, TransactionRequest request) throws Exception;	
+	public Resultado observarDocumentoTecnico(TransactionRequest<EvaluacionDocumentoResponse> request) throws Exception;	
 	public List<PaoResponse> getPaoListado(PaoRequest record) throws Exception;
 	public List<PedidosPaoResponse> getPedidosPao(PaoRequest record) throws Exception;
 	public CompraDirectaDatosGeneralesDto getCompraDirectaDatosGenerales(PaoRequest record) throws Exception;

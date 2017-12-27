@@ -254,7 +254,7 @@
 					message="Esta seguro de recibir el Documento técnico?"
 					header="Confirmación" severity="alert" widgetVar="cdRecibir">
 					<p:commandButton value="Si" action="#{evaluacionDocumento.recibir}"
-						update=":form:tblListaDocumentotecnico,:form:growl"
+						update=":form:tblListaDocumentotecnico,:form:growl,:form:pnlBotones"
 						oncomplete="hideDialogPF('cdRecibir');" />
 					<p:commandButton value="No" onclick="hideDialogPF('cdRecibir');"
 						type="button" />

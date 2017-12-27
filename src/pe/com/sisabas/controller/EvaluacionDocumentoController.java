@@ -16,6 +16,7 @@ import javax.faces.context.FacesContext;
 import org.apache.taglibs.standard.lang.jstl.Evaluator;
 import org.omg.CORBA.TRANSACTION_MODE;
 import org.postgresql.core.SetupQueryRunner;
+import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.ToggleSelectEvent;
@@ -50,6 +51,7 @@ import pe.com.sisabas.business.SeccionesdocumentotecnicoBusiness;
 import pe.com.sisabas.dto.EstadoRequerimientoResponse;
 import pe.com.sisabas.dto.EvaluacionDocumentoRequest;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
+import pe.com.sisabas.dto.ObservacionDocumentoTecnicoDto;
 import pe.com.sisabas.dto.OrdenDto;
 import pe.com.sisabas.dto.TransactionRequest;
 import pe.com.sisabas.be.Gentabla;
@@ -62,7 +64,7 @@ import pe.com.sisabas.be.Gentabla;
 @Scope(value = "session")
 public class EvaluacionDocumentoController extends BaseController {
 	private static final long serialVersionUID = 1L;
-	
+
 	private List<Documentotecnico> listaDocumentotecnico;
 	private List<EvaluacionDocumentoResponse> listaPedidos;
 	private EvaluacionDocumentoResponse selectedPedido;
@@ -71,9 +73,9 @@ public class EvaluacionDocumentoController extends BaseController {
 	private boolean esSeleccionadoPorAprobar = false;
 	private int selectAprobacion = 1;
 	public List<EstadoRequerimientoResponse> listaEstadoRequerimiento;
-	private List<Observacionesdocumentotecnico> listaObservaciones;
+	private List<ObservacionDocumentoTecnicoDto> listaObservaciones;
 	private List<Seccionesdocumentotecnico> listaSecciones;
-	
+
 	public int getSelectAprobacion() {
 		return selectAprobacion;
 	}
@@ -104,23 +106,20 @@ public class EvaluacionDocumentoController extends BaseController {
 
 	public void setSelectedPedido(EvaluacionDocumentoResponse selectedPedido) {
 		this.selectedPedido = selectedPedido;
-		
-		//para activar button recibir
+
+		// para activar button recibir
 		boolean disabled = false;
 		boolean disabledApprove = false;
-		if (this.selectedPedido == null)
-		{
-			disabled = false;			
-		}
-		else{
+		if (this.selectedPedido == null) {
+			disabled = false;
+		} else {
 			disabled = this.selectedPedido.getEstadoPedidoIn().equalsIgnoreCase("3");
 			disabledApprove = this.selectedPedido.getEstadoPedidoIn().equalsIgnoreCase("4");
-		}		
+		}
 		this.setEsSeleccionadoPorRecibir(disabled);
-		this.setEsSeleccionadoPorAprobar(disabledApprove);		
+		this.setEsSeleccionadoPorAprobar(disabledApprove);
 	}
 
-		
 	public List<EvaluacionDocumentoResponse> getListaPedidos() {
 		return listaPedidos;
 	}
@@ -140,15 +139,15 @@ public class EvaluacionDocumentoController extends BaseController {
 	public void setSearchParam(EvaluacionDocumentoRequest searchParam) {
 		this.searchParam = searchParam;
 	}
-		
-	public List<Observacionesdocumentotecnico> getListaObservaciones() {
+
+	public List<ObservacionDocumentoTecnicoDto> getListaObservaciones() {
 		return listaObservaciones;
 	}
 
-	public void setListaObservaciones(List<Observacionesdocumentotecnico> listaObservaciones) {
+	public void setListaObservaciones(List<ObservacionDocumentoTecnicoDto> listaObservaciones) {
 		this.listaObservaciones = listaObservaciones;
 	}
-		
+
 	public List<Seccionesdocumentotecnico> getListaSecciones() {
 		return listaSecciones;
 	}
@@ -169,19 +168,18 @@ public class EvaluacionDocumentoController extends BaseController {
 	@Autowired
 	public DocumentotecnicoBusiness business;
 
-	
 	@Autowired
 	public ProgramacionBusiness businessProgramacion;
-	
+
 	@Autowired
-	public GentablaBusiness gentablaBusiness;	
-	
+	public GentablaBusiness gentablaBusiness;
+
 	@Autowired
-	public SeccionesdocumentotecnicoBusiness seccionesdocumentotecnicoBusiness;	
-	
+	public SeccionesdocumentotecnicoBusiness seccionesdocumentotecnicoBusiness;
+
 	@Autowired
-	public ObservacionesdocumentotecnicoBusiness observacionesdocumentotecnicoBusiness;	
-	
+	public ObservacionesdocumentotecnicoBusiness observacionesdocumentotecnicoBusiness;
+
 	public EvaluacionDocumentoController() {
 		listaDocumentotecnico = new ArrayList<Documentotecnico>();
 	}
@@ -198,7 +196,8 @@ public class EvaluacionDocumentoController extends BaseController {
 				sicuopcion = SicuCallService.obtenercontroles(idOpcion);
 			}
 
-			listaEstadoRequerimiento = gentablaBusiness.getEstadoRequerimiento(Constantes.etapaAdministrativa.PROGRAMACION_Y_COSTOS);			
+			listaEstadoRequerimiento = gentablaBusiness
+					.getEstadoRequerimiento(Constantes.etapaAdministrativa.PROGRAMACION_Y_COSTOS);
 			/*
 			 * listaIdcatalogotipodocumentotecnicoKeys= new ArrayList<String>();
 			 * listaIdcatalogotipotdrKeys= new ArrayList<String>();
@@ -282,7 +281,7 @@ public class EvaluacionDocumentoController extends BaseController {
 	public Documentotecnico getDocumentotecnicoB() {
 		return documentotecnicoB;
 	}
-	
+
 	public List<EstadoRequerimientoResponse> getListaEstadoRequerimiento() {
 		return listaEstadoRequerimiento;
 	}
@@ -297,50 +296,48 @@ public class EvaluacionDocumentoController extends BaseController {
 		listaDocumentotecnico = new ArrayList<Documentotecnico>();
 		setEsSeleccionado(false);
 		setSelectedDocumentotecnico(null);
-		
+
 		try {
 			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
-			
-			//Todos		
-			//getPedidosEvaluacion
+
+			// Todos
+			// getPedidosEvaluacion
 			searchParam.setIdUnidadEjecutora(Constantes.unidadEjecutora.ID_UNIDAD_EJECUTORA_ABAS);
-			searchParam.setAnio(usuario.getPeriodo().getAnio());			
+			searchParam.setAnio(usuario.getPeriodo().getAnio());
 			searchParam.setPageNumber(1);
 			searchParam.setPageSize(10);
-			
+
 			listaPedidos = business.getPedidosEvaluacion(searchParam);
 			setEsSeleccionado(false);
 			setSelectedDocumentotecnico(null);
 			if (listaPedidos.size() == 0)
-				addMessageKey("msgsForm",
-					Messages.getString("no.records.found"),
-					FacesMessage.SEVERITY_INFO);
-			
+				addMessageKey("msgsForm", Messages.getString("no.records.found"), FacesMessage.SEVERITY_INFO);
+
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
 		} catch (SecurityRestrictedControlException e) {
-			addMessageKey("msgsForm", Messages.getString("no.access"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
 		} catch (SecurityValidateException e) {
-			addMessageKey("msgsForm",e.getMessage(), FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
 		} catch (RemoteException e) {
-			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
 		} catch (Exception e) {
 			addErrorMessageKey("msgsForm", e);
 		}
-		
+
 	}
 
 	public void resetRegisterForm() {
 		reset("frmDocumentotecnicoRegistrar:panelC");
 	}
-	
+
 	public void validateSelectedRow() throws UnselectedRowException, CloneNotSupportedException {
 		if (selectedPedido == null)
 			throw new UnselectedRowException(Messages.getString("no.record.selected"));
 		else
-			pedido = (EvaluacionDocumentoResponse)selectedPedido.clone();
+			pedido = (EvaluacionDocumentoResponse) selectedPedido.clone();
 	}
-	
 
 	public void irRecibir() {
 		STATUS_INIT();
@@ -353,39 +350,42 @@ public class EvaluacionDocumentoController extends BaseController {
 			redirectSessionExpiredPage();
 		} catch (SecurityRestrictedControlException e) {
 			STATUS_ERROR();
-			addMessageKey("msgsForm", Messages.getString("no.access"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
 		} catch (SecurityValidateException e) {
 			STATUS_ERROR();
-			addMessageKey("msgsForm",e.getMessage(), FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
 		} catch (RemoteException e) {
 			STATUS_ERROR();
-			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
 		} catch (UnselectedRowException e) {
 			STATUS_ERROR();
-			addMessageKey("msgsForm", e.getMessage(),
-			FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
 		} catch (Exception e) {
 			STATUS_ERROR();
 			addErrorMessageKey("msgsForm", e);
 		}
-	}	
-	
+	}
+
 	/*
 	 * Recibir documento técnico
 	 */
 	public void recibir() {
 		REGISTER_INIT();
 		try {
-			securityControlValidate("btnRecibir");			
+			securityControlValidate("btnRecibir");
 			validateSelectedRow();
-			
+
 			TransactionRequest<Integer> request = new TransactionRequest<Integer>();
 			request.setUsuarioAuditoria(getUserLogin());
 			request.setEquipoAuditoria(getRemoteAddr());
-			businessProgramacion.recibirDocumentoTecnico(pedido, request);				
-			
+			businessProgramacion.recibirDocumentoTecnico(pedido, request);
+
 			showGrowlMessageSuccessfullyCompletedAction();
-			buscarPedidos();		
+			buscarPedidos();
+			this.setEsSeleccionadoPorRecibir(false);
+			this.setEsSeleccionadoPorAprobar(false);
+			
 			REGISTER_SUCCESS();
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
@@ -413,8 +413,25 @@ public class EvaluacionDocumentoController extends BaseController {
 		try {
 			securityControlValidate("btnAprobar");
 			resetRegisterForm();
-			listaSecciones = seccionesdocumentotecnicoBusiness.selectByTipoDocumentoTecnico(this.selectedPedido.getIdCatalogoTipoDocumentoTecnico());
-			listaObservaciones = observacionesdocumentotecnicoBusiness.selectByDocumentoTecnico(this.selectedPedido.getIddocumentotecnico());
+
+			/*
+			Seccionesdocumentotecnico param = new Seccionesdocumentotecnico();
+			param.setIdcatalogotipodocumentotecnico(this.selectedPedido.getIdCatalogoTipoDocumentoTecnico() == null
+					? this.selectedPedido.getTipoBienDesc().equals("BIEN")
+							? Constantes.tipoDocumentoTecnico.ESPECIFICACION_TECNICA
+							: Constantes.tipoDocumentoTecnico.TERMINO_REFERENCIA
+					: this.selectedPedido.getIdCatalogoTipoDocumentoTecnico());
+			*/
+			
+			listaSecciones = seccionesdocumentotecnicoBusiness
+					.selectByTipoDocumentoTecnico(this.selectedPedido.getIdCatalogoTipoDocumentoTecnico() == null
+							? this.selectedPedido.getTipoBienDesc().equals("BIEN")
+									? Constantes.tipoDocumentoTecnico.ESPECIFICACION_TECNICA
+									: Constantes.tipoDocumentoTecnico.TERMINO_REFERENCIA
+							: this.selectedPedido.getIdCatalogoTipoDocumentoTecnico());						
+
+			listaObservaciones = new ArrayList<ObservacionDocumentoTecnicoDto>();			
+			setSelectAprobacion(1);
 
 			STATUS_SUCCESS();
 			REGISTER_INIT();
@@ -436,24 +453,30 @@ public class EvaluacionDocumentoController extends BaseController {
 			addErrorMessageKey("msgsForm", e);
 		}
 	}
-	
+
 	public void aprobar() {
 		REGISTER_INIT();
 		try {
-			securityControlValidate("btnAprobar");			
+			securityControlValidate("btnAprobar");
 			validateSelectedRow();
-			
-			TransactionRequest<Integer> request = new TransactionRequest<Integer>();
-			request.setUsuarioAuditoria("PRUEBA");	
-			
-			if (this.selectAprobacion == 1){
-				businessProgramacion.aprobarDocumentoTecnico(pedido, request);	
-			}else{
-				businessProgramacion.observarDocumentoTecnico(pedido, request);
-			}				
-			
+
+			TransactionRequest<EvaluacionDocumentoResponse> request = new TransactionRequest<EvaluacionDocumentoResponse>();
+			request.setUsuarioAuditoria(getUserLogin());
+			request.setEquipoAuditoria(getRemoteAddr());
+			pedido.setObservaciones(listaObservaciones);
+			request.setEntityTransaction(pedido);			
+
+			if (this.selectAprobacion == 1) { //APROBADO
+				businessProgramacion.aprobarDocumentoTecnico(pedido, request);
+			} else {
+				businessProgramacion.observarDocumentoTecnico(request);
+			}
+
 			showGrowlMessageSuccessfullyCompletedAction();
-			buscarPedidos();		
+			buscarPedidos();
+			this.setEsSeleccionadoPorRecibir(false);
+			this.setEsSeleccionadoPorAprobar(false);
+			
 			REGISTER_SUCCESS();
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
@@ -471,14 +494,14 @@ public class EvaluacionDocumentoController extends BaseController {
 			STATUS_ERROR();
 			addErrorMessageKey("msgsForm", e);
 		}
-	}	
-	
+	}
+
 	public void irImprimir() {
 		STATUS_INIT();
 		try {
 			securityControlValidate("btnImprimir");
-			//resetRegisterForm();
-			//accion = IMPRIMIR;
+			// resetRegisterForm();
+			// accion = IMPRIMIR;
 			tituloBase = "Evaluación de documento » " + IMPRIMIR;
 
 			STATUS_SUCCESS();
@@ -487,40 +510,38 @@ public class EvaluacionDocumentoController extends BaseController {
 			redirectSessionExpiredPage();
 		} catch (SecurityRestrictedControlException e) {
 			STATUS_ERROR();
-			addMessageKey("msgsForm", Messages.getString("no.access"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
 		} catch (SecurityValidateException e) {
 			STATUS_ERROR();
-			addMessageKey("msgsForm",e.getMessage(), FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
 		} catch (RemoteException e) {
 			STATUS_ERROR();
-			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
 		} catch (Exception e) {
 			STATUS_ERROR();
 			addErrorMessageKey("msgsForm", e);
 		}
-	}		
-	
-	public void aceptar(){
+	}
+
+	public void aceptar() {
 		REGISTER_INIT();
-		try{
-			
+		try {
+
 			showGrowlMessageSuccessfullyCompletedAction();
-			
+
 			buscarPedidos();
 			REGISTER_SUCCESS();
-						/*
-		} catch (ValidateException e) {
-			REGISTER_ERROR();
-			addMessageKey("msgsDocumentotecnicoR", e.getMessage(),
-			FacesMessage.SEVERITY_ERROR);
-		} catch (BusinessException e) {
-			REGISTER_ERROR();
-			addMessageKey("msgsDocumentotecnicoR", e.getMessage(),
-			FacesMessage.SEVERITY_ERROR);
-			*/
-		} catch(DataIntegrityViolationException e) {
-			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),Messages.getString("exception.dataintegrity.message.detail"),
-			FacesMessage.SEVERITY_ERROR);
+			/*
+			 * } catch (ValidateException e) { REGISTER_ERROR();
+			 * addMessageKey("msgsDocumentotecnicoR", e.getMessage(),
+			 * FacesMessage.SEVERITY_ERROR); } catch (BusinessException e) {
+			 * REGISTER_ERROR(); addMessageKey("msgsDocumentotecnicoR",
+			 * e.getMessage(), FacesMessage.SEVERITY_ERROR);
+			 */
+		} catch (DataIntegrityViolationException e) {
+			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),
+					Messages.getString("exception.dataintegrity.message.detail"), FacesMessage.SEVERITY_ERROR);
 		} catch (Exception e) {
 			REGISTER_ERROR();
 			addErrorMessageKey("msgsDocumentotecnicoR", e);
@@ -531,45 +552,74 @@ public class EvaluacionDocumentoController extends BaseController {
 	// ***********************************************************
 	// DATATABLE EDITABLE
 	public void onRowEdit(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Se editó correctamente",
-				"Observación: " + ((Observacionesdocumentotecnico) event.getObject()).getIdobservacionesdocumentotecnico());
+		FacesMessage msg = new FacesMessage("Se editó correctamente", "Observación: "
+				+ ((ObservacionDocumentoTecnicoDto) event.getObject()).getIdobservacionesdocumentotecnico());
+		
+		try {
+		Integer key = ((ObservacionDocumentoTecnicoDto) event.getObject()).getIdseccionesdocumentotecnico();
+		Seccionesdocumentotecnico seccion = seccionesdocumentotecnicoBusiness.selectByPrimaryKeyBasic(key);
+		((ObservacionDocumentoTecnicoDto) event.getObject()).setDescripcionseccion(seccion != null? seccion.getDescripcionseccion(): "");
+		
+		} catch (DataIntegrityViolationException e) {
+			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),
+					Messages.getString("exception.dataintegrity.message.detail"), FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			REGISTER_ERROR();
+			addErrorMessageKey("msgsDocumentotecnicoR", e);
+		}
+		
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Se canceló la edición",
-				"Observación: " + ((Observacionesdocumentotecnico) event.getObject()).getIdobservacionesdocumentotecnico());
+		FacesMessage msg = new FacesMessage("Se canceló la edición", "Observación: "
+				+ ((ObservacionDocumentoTecnicoDto) event.getObject()).getIdobservacionesdocumentotecnico());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}	
-	
+	}
+
 	public void irRegistrarObservacion() {
 		STATUS_INIT();
 		try {
 			securityControlValidate("btnNuevaObservacion");
-			//validateSelectedRow();
+			// validateSelectedRow();
 
-			Observacionesdocumentotecnico e = new Observacionesdocumentotecnico(); 
+			ObservacionDocumentoTecnicoDto e = new ObservacionDocumentoTecnicoDto();
+			if (listaObservaciones.size() == 0)
+				e.setIdobservacionesdocumentotecnico(1);
+			else
+				e.setIdobservacionesdocumentotecnico(listaObservaciones.size() + 1);
 			listaObservaciones.add(e);
-						
+
 			STATUS_SUCCESS();
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
 		} catch (SecurityRestrictedControlException e) {
 			STATUS_ERROR();
-			addMessageKey("msgsForm", Messages.getString("no.access"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
 		} catch (SecurityValidateException e) {
 			STATUS_ERROR();
-			addMessageKey("msgsForm",e.getMessage(), FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
 		} catch (RemoteException e) {
 			STATUS_ERROR();
-			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"),e.getMessage(),FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
 		} catch (UnselectedRowException e) {
 			STATUS_ERROR();
-			addMessageKey("msgsForm", e.getMessage(),
-			FacesMessage.SEVERITY_ERROR);
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
 		} catch (Exception e) {
 			STATUS_ERROR();
 			addErrorMessageKey("msgsForm", e);
 		}
-	}	
+	}
+	
+	public void onCellEdit(CellEditEvent event) {
+		Object oldValue = event.getOldValue();
+		Object newValue = event.getNewValue();
+
+		if (newValue != null && !newValue.equals(oldValue)) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed",
+					"Old: " + oldValue + ", New:" + newValue);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+	}
 }

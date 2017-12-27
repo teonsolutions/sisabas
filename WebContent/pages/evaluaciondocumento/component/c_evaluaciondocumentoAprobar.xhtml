@@ -24,12 +24,90 @@
 									value="#{evaluacionDocumento.selectAprobacion}" required="true">
 									<f:selectItem itemLabel="APROBAR" itemValue="1" />
 									<f:selectItem itemLabel="OBSERVAR" itemValue="2" />
-												
+									<p:ajax update="opnlObservacion" />
 								</p:selectOneMenu></td>
 
 						</tr>
 					</table>
 				</p:panel></td>
+		</tr>
+		<tr>
+			<td><p:outputPanel id="opnlObservacion">
+					<p:panel id="pnlObservacion" widgetVar="pnlObservacion"
+						styleClass="gandalfPanelClassSectionFormHeader"
+						rendered="#{evaluacionDocumento.selectAprobacion eq 2}">
+						<p:panel id="pnlBotonesObservacion"
+							styleClass="gandalfPnlBotonesClass">
+							<div align="right">
+								<p:commandButton value="Agregar"
+									action="#{evaluacionDocumento.irRegistrarObservacion}"
+									icon="ui-icon-document" update="frmDocumentotecnicoRegistrar:tblObservacion"
+									rendered="#{evaluacionDocumento.renderButton('btnNuevaObservacion')}" />
+
+							</div>
+						</p:panel>
+						<p:dataTable id="tblObservacion"
+							value="#{evaluacionDocumento.listaObservaciones}" var="var"
+							emptyMessage="No se encontraron registros"
+							widgetVar="tblObservacion" paginator="false"
+							rows="#{sisabascontrol.registros_mant}"
+							paginatorPosition="bottom" selectionMode="single"
+							rowKey="#{var.idobservacionesdocumentotecnico}"
+							styleClass="gandalfTableClass" editable="true">
+
+ 
+							<p:ajax event="rowEdit"
+								listener="#{evaluacionDocumento.onRowEdit}"
+								update="frmDocumentotecnicoRegistrar:tblObservacion" />
+							<p:ajax event="rowEditCancel"
+								listener="#{evaluacionDocumento.onRowCancel}"
+								update="frmDocumentotecnicoRegistrar:tblObservacion" />
+ 
+ <!-- 
+							<p:ajax event="cellEdit" listener="{evaluacionDocumento.onCellEdit}"
+								update="frmDocumentotecnicoRegistrar:tblObservacion" />
+		 -->						
+							<p:column headerText="Sección" style="width: 250">
+								<p:cellEditor>
+									<f:facet name="header">
+										<f:facet name="output">
+											<h:outputText value="#{var.descripcionseccion}" />
+										</f:facet>
+									</f:facet>
+									<f:facet name="input">
+										<p:selectOneMenu value="#{var.idseccionesdocumentotecnico}"
+											id="ddlSeccion" required="false" label="Sección"
+											style="width: 90%">
+											<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+											<f:selectItems value="#{evaluacionDocumento.listaSecciones}"
+												var="varx" itemLabel="#{varx.descripcionseccion}"
+												itemValue="#{varx.idseccionesdocumentotecnico}" />
+										</p:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Observación">
+								<p:cellEditor>
+									<f:facet name="header">
+										<f:facet name="output">
+											<h:outputText value="#{var.observacion}" />
+										</f:facet>
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{var.observacion}" style="width:100%"
+											label="Year" maxlength="500" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							
+							
+							<p:column headerText="Acciones" style="width: 10%">
+								<p:rowEditor editTitle="Editar" />
+							</p:column>
+							
+						</p:dataTable>
+					</p:panel>
+				</p:outputPanel></td>
 		</tr>
 	</table>
 </p:panel>

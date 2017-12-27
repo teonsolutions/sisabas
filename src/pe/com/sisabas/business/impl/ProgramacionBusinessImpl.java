@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import pe.com.sisabas.be.Estadosporetapapordocumento;
 import pe.com.sisabas.be.Estadosportipodocumento;
 import pe.com.sisabas.be.Grupodocumento;
 import pe.com.sisabas.be.Miembrocomiteporproceso;
+import pe.com.sisabas.be.Observacionesdocumentotecnico;
 import pe.com.sisabas.be.Orden;
 import pe.com.sisabas.be.Pacconsolidado;
 import pe.com.sisabas.be.Pacprogramado;
@@ -35,6 +37,7 @@ import pe.com.sisabas.dto.CuadroComparativoItemsDto;
 import pe.com.sisabas.dto.CuadroComparativoRequest;
 import pe.com.sisabas.dto.CuadroComparativoVrDto;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
+import pe.com.sisabas.dto.ObservacionDocumentoTecnicoDto;
 import pe.com.sisabas.dto.OrdenDto;
 import pe.com.sisabas.dto.PacConsolidadoDto;
 import pe.com.sisabas.dto.PacItemsDto;
@@ -58,6 +61,7 @@ import pe.com.sisabas.persistence.EstadosporetapapordocumentoMapper;
 import pe.com.sisabas.persistence.EstadosportipodocumentoMapper;
 import pe.com.sisabas.persistence.GrupodocumentoMapper;
 import pe.com.sisabas.persistence.MiembrocomiteporprocesoMapper;
+import pe.com.sisabas.persistence.ObservacionesdocumentotecnicoMapper;
 import pe.com.sisabas.persistence.OrdenMapper;
 import pe.com.sisabas.persistence.PacconsolidadoMapper;
 import pe.com.sisabas.persistence.PacprogramadoMapper;
@@ -120,6 +124,9 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 	public MiembrocomiteporprocesoMapper miembrocomiteporprocesoMapper;
 
 	@Autowired
+	public ObservacionesdocumentotecnicoMapper observacionesdocumentotecnicoMapper;
+	
+	@Autowired
 	public UtilsBusiness utilsBusiness;
 
 	@Override
@@ -131,37 +138,42 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 
 		Integer idDocumento;
 		/*
-		if (item.getIdcatalogotiponecesidad().equals(Constantes.tipoNecesidad.TIPO_NECESIDAD_PROGRAMADO)) {
-			Pacprogramado programado = pacprogramadoMapper.selectByPrimaryKeyBasic(item.getIdPacProgramado());
-			programado.setEstado(Constantes.estadosPorEtapa.EN_REVISION_DE_DOCUMENTO_TECNICO);
-			programado.setFechamodificacionauditoria(dateUpdate);
-			programado.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
-			programado.setEquipoauditoria(request.getEquipoAuditoria());
+		 * if
+		 * (item.getIdcatalogotiponecesidad().equals(Constantes.tipoNecesidad.
+		 * TIPO_NECESIDAD_PROGRAMADO)) { Pacprogramado programado =
+		 * pacprogramadoMapper.selectByPrimaryKeyBasic(item.getIdPacProgramado()
+		 * ); programado.setEstado(Constantes.estadosPorEtapa.
+		 * EN_REVISION_DE_DOCUMENTO_TECNICO);
+		 * programado.setFechamodificacionauditoria(dateUpdate);
+		 * programado.setUsuariomodificacionauditoria(request.
+		 * getUsuarioAuditoria());
+		 * programado.setEquipoauditoria(request.getEquipoAuditoria());
+		 * 
+		 * idDocumento = item.getIdPacProgramado();
+		 * pacprogramadoMapper.updateByPrimaryKey(programado); } else { Pedido
+		 * pedido = pedidoMapper.selectByPrimaryKeyBasic(item.getIdpedido());
+		 * pedido.setEstadopedido(Constantes.estadosPorEtapa.
+		 * EN_REVISION_DE_DOCUMENTO_TECNICO);
+		 * pedido.setFechamodificacionauditoria(dateUpdate);
+		 * pedido.setEquipoauditoria(request.getEquipoAuditoria());
+		 * pedido.setUsuariomodificacionauditoria(request.getUsuarioAuditoria())
+		 * ;
+		 * 
+		 * idDocumento = pedido.getIdpedido();
+		 * pedidoMapper.updateByPrimaryKey(pedido); }
+		 */
 
-			idDocumento = item.getIdPacProgramado();
-			pacprogramadoMapper.updateByPrimaryKey(programado);
-		} else {
-			Pedido pedido = pedidoMapper.selectByPrimaryKeyBasic(item.getIdpedido());
-			pedido.setEstadopedido(Constantes.estadosPorEtapa.EN_REVISION_DE_DOCUMENTO_TECNICO);
-			pedido.setFechamodificacionauditoria(dateUpdate);
-			pedido.setEquipoauditoria(request.getEquipoAuditoria());
-			pedido.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
-			
-			idDocumento = pedido.getIdpedido();
-			pedidoMapper.updateByPrimaryKey(pedido);
-		}
-		*/
-		
-		//PARA PROGRAMADOS Y NO PROGRAMADOS, se utiliza la misma tabla de pedidos
+		// PARA PROGRAMADOS Y NO PROGRAMADOS, se utiliza la misma tabla de
+		// pedidos
 		Pedido pedido = pedidoMapper.selectByPrimaryKeyBasic(item.getIdpedido());
 		pedido.setEstadopedido(Constantes.estadosPorEtapa.EN_REVISION_DE_DOCUMENTO_TECNICO);
 		pedido.setFechamodificacionauditoria(dateUpdate);
 		pedido.setEquipoauditoria(request.getEquipoAuditoria());
 		pedido.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
-		
+
 		idDocumento = pedido.getIdpedido();
 		pedidoMapper.updateByPrimaryKey(pedido);
-		
+
 		// Insertamos históricos de estados
 		Estadosportipodocumento param = new Estadosportipodocumento();
 		param.setIdtipodocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO);
@@ -173,7 +185,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 		if (estado != null) {
 			java.util.Date date = new java.util.Date();
 			Estadosporetapapordocumento record = new Estadosporetapapordocumento();
-			record.setNrodocumento(idDocumento); //item.getIdpedido()
+			record.setNrodocumento(idDocumento); // item.getIdpedido()
 			record.setIdestadosportipodocumento(estado.getIdestadosportipodocumento());
 			record.setIdtipodocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO);
 			record.setFechaingreso(date);
@@ -201,36 +213,40 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 		Date dateUpdate = new Date();
 		Integer idDocumento;
 		/*
-		if (item.getIdcatalogotiponecesidad().equals(Constantes.tipoNecesidad.TIPO_NECESIDAD_PROGRAMADO)) {
-			Pacprogramado programado = pacprogramadoMapper.selectByPrimaryKeyBasic(item.getIdPacProgramado());
-			programado.setEstado(Constantes.estadosPorEtapa.DOCUMENTO_TECNICO_APROBADO);
-			programado.setFechamodificacionauditoria(dateUpdate);
-			programado.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
-			programado.setEquipoauditoria(request.getEquipoAuditoria());
-
-			idDocumento = programado.getIdpacprogramado();
-			pacprogramadoMapper.updateByPrimaryKey(programado);
-		} else {
-			Pedido pedido = pedidoMapper.selectByPrimaryKeyBasic(item.getIdpedido());
-			pedido.setEstadopedido(Constantes.estadosPorEtapa.DOCUMENTO_TECNICO_APROBADO);
-			pedido.setFechamodificacionauditoria(dateUpdate);
-			pedido.setEquipoauditoria(request.getEquipoAuditoria());
-			pedido.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
-			
-			idDocumento = pedido.getIdpedido();
-			pedidoMapper.updateByPrimaryKey(pedido);
-		}
-		*/
-		//SE UTILIZA LA MISMA TABLA PARA PROGRAMADOS Y NO PROGRAMDOS, tabla de pedido
+		 * if
+		 * (item.getIdcatalogotiponecesidad().equals(Constantes.tipoNecesidad.
+		 * TIPO_NECESIDAD_PROGRAMADO)) { Pacprogramado programado =
+		 * pacprogramadoMapper.selectByPrimaryKeyBasic(item.getIdPacProgramado()
+		 * ); programado.setEstado(Constantes.estadosPorEtapa.
+		 * DOCUMENTO_TECNICO_APROBADO);
+		 * programado.setFechamodificacionauditoria(dateUpdate);
+		 * programado.setUsuariomodificacionauditoria(request.
+		 * getUsuarioAuditoria());
+		 * programado.setEquipoauditoria(request.getEquipoAuditoria());
+		 * 
+		 * idDocumento = programado.getIdpacprogramado();
+		 * pacprogramadoMapper.updateByPrimaryKey(programado); } else { Pedido
+		 * pedido = pedidoMapper.selectByPrimaryKeyBasic(item.getIdpedido());
+		 * pedido.setEstadopedido(Constantes.estadosPorEtapa.
+		 * DOCUMENTO_TECNICO_APROBADO);
+		 * pedido.setFechamodificacionauditoria(dateUpdate);
+		 * pedido.setEquipoauditoria(request.getEquipoAuditoria());
+		 * pedido.setUsuariomodificacionauditoria(request.getUsuarioAuditoria())
+		 * ;
+		 * 
+		 * idDocumento = pedido.getIdpedido();
+		 * pedidoMapper.updateByPrimaryKey(pedido); }
+		 */
+		// SE UTILIZA LA MISMA TABLA PARA PROGRAMADOS Y NO PROGRAMDOS, tabla de
+		// pedido
 		Pedido pedido = pedidoMapper.selectByPrimaryKeyBasic(item.getIdpedido());
 		pedido.setEstadopedido(Constantes.estadosPorEtapa.DOCUMENTO_TECNICO_APROBADO);
 		pedido.setFechamodificacionauditoria(dateUpdate);
 		pedido.setEquipoauditoria(request.getEquipoAuditoria());
 		pedido.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
-		
+
 		idDocumento = pedido.getIdpedido();
 		pedidoMapper.updateByPrimaryKey(pedido);
-			
 
 		// Insertamos históricos de estados
 		Estadosportipodocumento param = new Estadosportipodocumento();
@@ -243,7 +259,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 		if (estado != null) {
 			java.util.Date date = new java.util.Date();
 			Estadosporetapapordocumento record = new Estadosporetapapordocumento();
-			record.setNrodocumento(idDocumento); //item.getIdpedido()
+			record.setNrodocumento(idDocumento); // item.getIdpedido()
 			record.setIdestadosportipodocumento(estado.getIdestadosportipodocumento());
 			record.setIdtipodocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO);
 			record.setFechaingreso(date);
@@ -264,41 +280,46 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 	}
 
 	@Override
-	public Resultado observarDocumentoTecnico(EvaluacionDocumentoResponse item, TransactionRequest request)
+	public Resultado observarDocumentoTecnico(TransactionRequest<EvaluacionDocumentoResponse> request)
 			throws Exception {
 		// TODO Auto-generated method stub
 		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
 		Date dateUpdate = new Date();
+		EvaluacionDocumentoResponse item = request.getEntityTransaction();
 
 		// PAO - PROGRAMADO
 		/*
-		if (item.getIdpedido() == null && item.getIdPacProgramado() != null) {
-			Pacprogramado programado = pacprogramadoMapper.selectByPrimaryKeyBasic(item.getIddocumentotecnico());
-			// programado.setGentablaIdcatalogoestado(OBSERVADO_POR_DOCUMENTO_TECNICO);
-			programado.setFechamodificacionauditoria(dateUpdate);
-			programado.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
-			programado.setEquipoauditoria(request.getEquipoAuditoria());
-
-			pacprogramadoMapper.updateByPrimaryKey(programado);
-
-		} else if (item.getIdpedido() != null && item.getIdPacProgramado() == null) {
-			// PEDIDO - NO PROGRAMADO
-			Pedido pedido = pedidoMapper.selectByPrimaryKeyBasic(item.getIddocumentotecnico());
-			pedido.setEstadopedido(Constantes.estadosPorEtapa.OBSERVADO_POR_DOCUMENTO_TECNICO);
-			pedido.setFechamodificacionauditoria(dateUpdate);
-			pedido.setEquipoauditoria(request.getEquipoAuditoria());
-			pedido.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
-			pedidoMapper.updateByPrimaryKey(pedido);
-		}
-		*/		
-		//SE UTILIZA LA MISMA TABLA PARA PROGRAMADOS Y NO PROGRAMDOS, tabla de pedido
+		 * if (item.getIdpedido() == null && item.getIdPacProgramado() != null)
+		 * { Pacprogramado programado =
+		 * pacprogramadoMapper.selectByPrimaryKeyBasic(item.
+		 * getIddocumentotecnico()); // programado.setGentablaIdcatalogoestado(
+		 * OBSERVADO_POR_DOCUMENTO_TECNICO);
+		 * programado.setFechamodificacionauditoria(dateUpdate);
+		 * programado.setUsuariomodificacionauditoria(request.
+		 * getUsuarioAuditoria());
+		 * programado.setEquipoauditoria(request.getEquipoAuditoria());
+		 * 
+		 * pacprogramadoMapper.updateByPrimaryKey(programado);
+		 * 
+		 * } else if (item.getIdpedido() != null && item.getIdPacProgramado() ==
+		 * null) { // PEDIDO - NO PROGRAMADO Pedido pedido =
+		 * pedidoMapper.selectByPrimaryKeyBasic(item.getIddocumentotecnico());
+		 * pedido.setEstadopedido(Constantes.estadosPorEtapa.
+		 * OBSERVADO_POR_DOCUMENTO_TECNICO);
+		 * pedido.setFechamodificacionauditoria(dateUpdate);
+		 * pedido.setEquipoauditoria(request.getEquipoAuditoria());
+		 * pedido.setUsuariomodificacionauditoria(request.getUsuarioAuditoria())
+		 * ; pedidoMapper.updateByPrimaryKey(pedido); }
+		 */
+		// SE UTILIZA LA MISMA TABLA PARA PROGRAMADOS Y NO PROGRAMDOS, tabla de
+		// pedido
 		Pedido pedido = pedidoMapper.selectByPrimaryKeyBasic(item.getIdpedido());
 		pedido.setEstadopedido(Constantes.estadosPorEtapa.OBSERVADO_POR_DOCUMENTO_TECNICO);
 		pedido.setFechamodificacionauditoria(dateUpdate);
 		pedido.setEquipoauditoria(request.getEquipoAuditoria());
-		pedido.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());		
+		pedido.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
 		pedidoMapper.updateByPrimaryKey(pedido);
-		
+
 		// Insertamos históricos de estados
 		Estadosportipodocumento param = new Estadosportipodocumento();
 		param.setIdtipodocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO);
@@ -325,6 +346,24 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 
 			record.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
 			estadosporetapapordocumentoMapper.insert(record);
+		}
+
+		for (ObservacionDocumentoTecnicoDto obs : item.getObservaciones()) {
+			Observacionesdocumentotecnico obsNew = new Observacionesdocumentotecnico();
+			obsNew.setIdobservacionesdocumentotecnico(
+					(int) utilsBusiness.getNextSeq(Sequence.SEQ_OBSERVACIONESDOCUMENTOTECNICO).longValue());
+			obsNew.setIddocumentotecnico(item.getIddocumentotecnico());
+			obsNew.setIdseccionesdocumentotecnico(obs.getIdseccionesdocumentotecnico());
+			obsNew.setObservacion(obs.getObservacion());
+			
+			//AUDIT
+			obsNew.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+			obsNew.setFechamodificacionauditoria(new Date());
+			obsNew.setEquipoauditoria(request.getEquipoAuditoria());
+			obsNew.setProgramaauditoria(request.getProgramaAuditoria());
+			obsNew.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+			observacionesdocumentotecnicoMapper.insert(obsNew);
+			
 		}
 
 		return result;
@@ -494,7 +533,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			// END AUDITORIA
 
 			pacconsolidadoMapper.insert(pc);
-			
+
 			if (compraDirecta.getIdTipoNecesidad().equals(Constantes.tipoNecesidad.TIPO_NECESIDAD_NO_PROGRAMADO)) {
 				// PEDIDOS POR PAC CONSOLIDADO
 				List<PedidosPaoResponse> pedidos = compraDirecta.getPedidos();
@@ -512,9 +551,9 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 					pedidosporpacconsolidadoMapper.insert(pedidoItem);
 				}
 				// SINAD POR PAC CONSOLIDADO
-			}			
-			
-		}	
+			}
+
+		}
 		result.setResultInt(idPacConsolidado);
 
 		// REQUISITOS CONFORMIDAD
@@ -1012,7 +1051,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 				// END AUDITORIA
 
 				pacconsolidadoMapper.updateByPrimaryKey(pc);
-				idPacConsolidado = pc.getIdpacconsolidado();		
+				idPacConsolidado = pc.getIdpacconsolidado();
 				result.setResultInt(idPacConsolidado);
 			}
 		} else {
@@ -1078,13 +1117,13 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			// END AUDITORIA
 
 			pacconsolidadoMapper.insert(pc);
-			
-			//SOLO CUANDO ES NUEVO INSERTA PEDIDOS				
+
+			// SOLO CUANDO ES NUEVO INSERTA PEDIDOS
 			if (pac.getIdTipoNecesidad().equals(Constantes.tipoNecesidad.TIPO_NECESIDAD_NO_PROGRAMADO)) {
 				// PEDIDOS POR PAC CONSOLIDADO
 				List<PedidosPaoResponse> pedidos = pac.getPedidos();
 				for (int i = 0; i < pedidos.size(); i++) {
-					//pedidos.get(i).getEstadoPedido()
+					// pedidos.get(i).getEstadoPedido()
 					Pedidosporpacconsolidado pedidoItem = new Pedidosporpacconsolidado();
 					pedidoItem.setIdpedidoporpacconsolidado(
 							(int) utilsBusiness.getNextSeq(Sequence.SEQ_PEDIDOSPORPACCONSOLIDADO).longValue());
@@ -1099,8 +1138,8 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 				}
 
 				// SINAD POR PAC CONSOLIDADO
-			}	
-			
+			}
+
 			result.setResultInt(idPacConsolidado);
 		}
 
@@ -1211,7 +1250,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 				pacEdit.setFechaaprobacionexpediente(new Date());
 			}
 			pacconsolidadoMapper.updateByPrimaryKey(pacEdit);
-			
+
 			Estadosportipodocumento param = new Estadosportipodocumento();
 			param.setIdtipodocumento(Constantes.tipoDocumento.PAO);
 			param.setIdestadosporetapa(Constantes.estadosPorEtapa.REMITIDO_A_PROCESOS);
@@ -1235,7 +1274,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 
 				estadoDoc.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
 				estadosporetapapordocumentoMapper.insert(estadoDoc);
-			}			
+			}
 		}
 
 		return result;
@@ -1252,11 +1291,11 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			pacEdit.setEstadorequerimiento(Constantes.estadosPorEtapa.REMITIDO_A_PROCESOS);
 			pacconsolidadoMapper.updateByPrimaryKey(pacEdit);
 
-			//STATUS: REMITIDO_A_PROCESOS
+			// STATUS: REMITIDO_A_PROCESOS
 			Estadosportipodocumento param = new Estadosportipodocumento();
 			param.setIdtipodocumento(Constantes.tipoDocumento.PROCESO);
 			param.setIdestadosporetapa(Constantes.estadosPorEtapa.REMITIDO_A_PROCESOS);
-			
+
 			Estadosportipodocumento estado = estadosportipodocumentoMapper.selectByEtapaTipoDocumento(param);
 			if (estado != null) {
 				java.util.Date date = new java.util.Date();

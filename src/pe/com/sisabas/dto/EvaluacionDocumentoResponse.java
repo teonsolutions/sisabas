@@ -2,8 +2,13 @@ package pe.com.sisabas.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class EvaluacionDocumentoResponse implements  Serializable,Cloneable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer iddocumentotecnico;
 	private Integer idpedido;
 	private Integer idPacProgramado;
@@ -19,6 +24,7 @@ public class EvaluacionDocumentoResponse implements  Serializable,Cloneable {
 	private String rutaAnexo;
 	private String idCatalogoTipoDocumentoTecnico;
 	private java.util.Date fechaModificacionAuditoria;
+	private List<ObservacionDocumentoTecnicoDto> observaciones;	
 	
 	public Integer getIddocumentotecnico() {
 		return iddocumentotecnico;
@@ -109,8 +115,14 @@ public class EvaluacionDocumentoResponse implements  Serializable,Cloneable {
 	}
 	public void setFechaModificacionAuditoria(java.util.Date fechaModificacionAuditoria) {
 		this.fechaModificacionAuditoria = fechaModificacionAuditoria;
-	}
+	}	
 	
+	public List<ObservacionDocumentoTecnicoDto> getObservaciones() {
+		return observaciones;
+	}
+	public void setObservaciones(List<ObservacionDocumentoTecnicoDto> observaciones) {
+		this.observaciones = observaciones;
+	}
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();

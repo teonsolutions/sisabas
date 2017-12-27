@@ -350,8 +350,11 @@
 	</if>
 	</select>
 	
-	<select id="selectByTipoDocumentoTecnico" resultMap="BasicResultMap" parameterType="java.lang.String">		
-		select * from abas.SeccionesDocumentoTecnico 
-		where IdCatalogoTipoDocumentoTecnico = #{idCatalogoTipoDocumentoTecnico,jdbcType=VARCHAR} order by IdSeccionesDocumentoTecnico asc
+	<select id="selectByTipoDocumentoTecnico" resultMap="BasicResultMap" parameterType="java.lang.String">
+		select 'false' as QUERYID,
+		<include refid="Basic_Column_List"/>		
+		from abas.SeccionesDocumentoTecnico A1
+		WHERE A1.IDCATALOGOTIPODOCUMENTOTECNICO = #{idCatalogoTipoDocumentoTecnico,jdbcType=VARCHAR}
+		ORDER BY A1.IDCATALOGOTIPODOCUMENTOTECNICO ASC
 	</select>	
 </mapper>
