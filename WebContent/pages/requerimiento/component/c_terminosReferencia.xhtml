@@ -198,25 +198,25 @@
 					<p:column headerText="CRONOGRAMA DE PAGO">
 					<p:cellEditor>
 		               <f:facet name="output"><h:outputText value="#{var.cronograma}" /></f:facet>
-		               <f:facet name="input"><p:inputText id="modelInput" value="#{var.cronograma}" style="width:100%"/></f:facet>
+		               <f:facet name="input"><p:inputText id="modelInput" value="#{var.cronograma}" style="width:100%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
                     </p:cellEditor>
 				   </p:column>
 				   <p:column headerText="PLAZO DE EJECUCUIÓN">
 					<p:cellEditor>
 		               <f:facet name="output"><h:outputText value="#{var.plazo}" /></f:facet>
-		               <f:facet name="input"><p:inputNumber value="#{var.plazo}" style="width:100%"/></f:facet>
+		               <f:facet name="input"><p:inputNumber value="#{var.plazo}" style="width:100%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
                     </p:cellEditor>
 				   </p:column>
 				   <p:column headerText="NIVEL DE AVANCE">
 					<p:cellEditor>
 		               <f:facet name="output"><h:outputText value="#{var.nivel}" /></f:facet>
-		               <f:facet name="input"><p:inputText value="#{var.nivel}" style="width:100%"/></f:facet>
+		               <f:facet name="input"><p:inputText value="#{var.nivel}" style="width:100%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
                     </p:cellEditor>
 				   </p:column>
 				   <p:column headerText="PORCENTAJE DE AVANCE">
 				    <p:cellEditor> 
 				       <f:facet name="output"><h:outputText value="#{var.porcentaje}" /></f:facet>
-                       <f:facet name="input"><p:inputNumber value="#{var.porcentaje}" style="width:100%" /></f:facet>
+                       <f:facet name="input"><p:inputNumber value="#{var.porcentaje}" style="width:100%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
 					</p:cellEditor>  
 				    </p:column>
   
@@ -257,7 +257,7 @@
 				<p:column headerText="DIRECCION">
 				    <p:cellEditor> 
 				       <f:facet name="output"><h:outputText value="#{var.direccion}" /></f:facet>
-                       <f:facet name="input"><p:inputText value="#{var.direccion}" style="width:100%" /></f:facet>
+                       <f:facet name="input"><p:inputText value="#{var.direccion}" style="width:100%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
 					</p:cellEditor>  
 				</p:column>
 
@@ -303,55 +303,55 @@
 				   <p:column headerText="NUMERO DE DOCUMENTO">
 					<p:cellEditor>
 		               <f:facet name="output"><h:outputText value="#{var.nroDocumento}" /></f:facet>
-		               <f:facet name="input"><p:inputNumber value="#{var.nroDocumento}" style="width:100%"/></f:facet>
+		               <f:facet name="input"><p:inputNumber value="#{var.nroDocumento}" style="width:100%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
                     </p:cellEditor>
 				   </p:column>
 				   <p:column headerText="APELLIDO PATERNO">
 					<p:cellEditor>
 		               <f:facet name="output"><h:outputText value="#{var.apPaterno}" /></f:facet>
-		               <f:facet name="input"><p:inputText value="#{var.apPaterno}" style="width:100%"/></f:facet>
+		               <f:facet name="input"><p:inputText value="#{var.apPaterno}" style="width:100%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
                     </p:cellEditor>
 				   </p:column>
 				   <p:column headerText="APELLIDO MATERNO">
 					<p:cellEditor>
 		               <f:facet name="output"><h:outputText value="#{var.apMaterno}" /></f:facet>
-		               <f:facet name="input"><p:inputText value="#{var.apMaterno}" style="width:100%"/></f:facet>
+		               <f:facet name="input"><p:inputText value="#{var.apMaterno}" style="width:100%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
                     </p:cellEditor>
 				   </p:column>
 				    <p:column headerText="NOMBRES">
 					<p:cellEditor>
 		               <f:facet name="output"><h:outputText value="#{var.nombres}"/></f:facet>
-		               <f:facet name="input"><p:inputText value="#{var.nombres}" style="width:100%"/></f:facet>
+		               <f:facet name="input"><p:inputText value="#{var.nombres}" style="width:100%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
                     </p:cellEditor>
 				   </p:column>
 				   <p:column headerText="TIPO DE MIEMBRO">
 					<p:cellEditor>
 		               <f:facet name="output"><h:outputText value="#{var.descMiembro}" /></f:facet>
-		               <f:facet name="input"><p:inputText value="#{var.descMiembro}" style="width:100%"/></f:facet>
+		               <f:facet name="input"><p:inputText value="#{var.descMiembro}" style="width:100%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
                     </p:cellEditor>
 				   </p:column>
 				   <p:column headerText="TELÉFONO">
 				    <p:cellEditor> 
 				       <f:facet name="output"><h:outputText value="#{var.telefono}"  /></f:facet>
-                       <f:facet name="input"><p:inputText value="#{var.telefono}"  style="width:100%" /></f:facet>
+                       <f:facet name="input"><p:inputText value="#{var.telefono}"  style="width:100%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
 					</p:cellEditor>  
 				    </p:column>
 				    <p:column headerText="ANEXO">
 				    <p:cellEditor> 
 				       <f:facet name="output"><h:outputText value="#{var.anexo}" /></f:facet>
-                       <f:facet name="input"><p:inputText value="#{var.anexo}" style="width:100%" /></f:facet>
+                       <f:facet name="input"><p:inputText value="#{var.anexo}" style="width:100%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
 					</p:cellEditor>  
 				    </p:column>
 				    <p:column headerText="CELULAR">
 				    <p:cellEditor> 
 				       <f:facet name="output"><h:outputText value="#{var.celular}"  /></f:facet>
-                       <f:facet name="input"><p:inputText value="#{var.celular}"  style="width:100%" /></f:facet>
+                       <f:facet name="input"><p:inputText value="#{var.celular}"  style="width:100%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
 					</p:cellEditor>  
 				    </p:column>
 				    <p:column headerText="CORREO">
 				    <p:cellEditor> 
 				       <f:facet name="output"><h:outputText value="#{var.correo}"   /></f:facet>
-                       <f:facet name="input"><p:inputText value="#{var.correo}"   style="width:100%" /></f:facet>
+                       <f:facet name="input"><p:inputText value="#{var.correo}"   style="width:100%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
 					</p:cellEditor>  
 				    </p:column>
   
