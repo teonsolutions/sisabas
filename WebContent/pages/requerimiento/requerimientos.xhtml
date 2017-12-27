@@ -200,7 +200,7 @@
 								<p:spacer height="3" />
 								<p:commandButton value="Salir"
 									action="/pages/home.xhtml?faces-redirect=true" ajax="false"
-									icon="ui-icon-arrowreturnthick-1-w" title="Salir" />
+									icon="fa fas fa-minus-circle" title="Salir" />
 							</div>
 						</td>
 					</tr>
@@ -293,7 +293,7 @@
 						</p:commandButton>
 
 						<p:commandButton
-							rendered="#{var.estadoPedidoIn eq 3 and var.idTipoBien eq 'S'} or (var.estadoPedidoIn eq 4 and var.idTipoBien eq 'S') or (var.estadoPedidoIn eq 6 and var.idTipoBien eq 'S')}"
+							rendered="#{(var.estadoPedidoIn eq 3 and var.idTipoBien eq 'S') or (var.estadoPedidoIn eq 4 and var.idTipoBien eq 'S') or (var.estadoPedidoIn eq 6 and var.idTipoBien eq 'S')}"
 							update=":formTdr:diTdr" icon="fa fa-eye" title="Visualizar TDR"
 							action="#{requerimiento.cargarItemRequerimientos}"
 							oncomplete="PF('reqDialogT').show()">
@@ -544,7 +544,7 @@
 
 										<p:commandButton value="Aceptar"
 											rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
-											icon="ui-icon-circle-check" title="Aceptar"
+											icon="fa fas fa-check" title="Aceptar"
 											style="left:150px" update=":form:growl"
 											oncomplete="PF('reqDialog2').hide();">
 											<f:actionListener binding="#{requerimiento.limpiar()}" />
