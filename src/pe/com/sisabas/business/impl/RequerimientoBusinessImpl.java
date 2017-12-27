@@ -509,6 +509,45 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 	}
 
 
+	@Override
+	public Resultado Remitir(TransactionRequest<Pedido> request) throws Exception {
+		// TODO Auto-generated method stub
+		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
+		Pedido requerimientoResponse = request.getEntityTransaction();
+		
+		System.out.println("El idPedido seleccionado es " + requerimientoResponse.getIdpedido());
+		Pedido pedido = pedidoMapper.selectByPrimaryKeyBasic(requerimientoResponse.getIdpedido());
+		pedido.setEstadopedido(Constantes.estadosPorEtapa.REMITIDO_A_PROGRAMACION);
+		pedidoMapper.updateByPrimaryKey(pedido);
+				
+		//GUARDA ESTADOS
+		// Insertamos históricos de estados
+		Estadosportipodocumento param = new Estadosportipodocumento();
+		param.setIdtipodocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO);
+		param.setIdestadosporetapa(Constantes.estadosPorEtapa.REMITIDO_A_PROGRAMACION);
+		Estadosportipodocumento estado = estadosportipodocumentoMapper.selectByEtapaTipoDocumento(param);
+		if (estado != null) {
+			java.util.Date date = new java.util.Date();
+			Estadosporetapapordocumento record = new Estadosporetapapordocumento();
+			record.setNrodocumento(pedido.getIdpedido());
+			record.setIdestadosportipodocumento(estado.getIdestadosportipodocumento());
+			record.setIdtipodocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO);
+			record.setFechaingreso(date);
+			record.setFechacreacionauditoria(date);
+			record.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+			record.setEquipoauditoria(request.getEquipoAuditoria());
+
+			record.setIdestadosporetapapordocumento(
+					(int) utilsBusiness.getNextSeq(Sequence.SEQ_ESTADOSPORETAPAPORDOCUMENTO).longValue());
+
+			record.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+			estadosporetapapordocumentoMapper.insert(record);
+		}		
+		
+		return result;
+	}
+
+
 	
 
 
