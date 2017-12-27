@@ -26,7 +26,7 @@
       <result property = "tipoDocumentoSinad" column="TipoDocumentoSinad"/>
       <result property = "numeroDocumentoSinad" column="NumeroDocumentoSinad"/>
       
-      <result property = "idPacProgramado" column="IdPacProgramado"/>
+      <result property = "nroPac" column="NroPac"/>
       <result property = "nroConsolid" column="NroConsolid"/>
       <result property = "tienePao" column="TienePao"/>
       
