@@ -62,6 +62,7 @@ import pe.com.sisabas.resources.Messages;
 import pe.com.sisabas.resources.controller.BaseController;
 import pe.com.sisabas.service.SicuCallService;
 import pe.com.sisabas.service.Sicuusuario;
+import sun.security.action.GetLongAction;
 
 @Component(value = "requerimiento")
 @Scope(value = "session")
@@ -468,7 +469,14 @@ public class RequerimientoController extends BaseController {
 			System.out.println("El idPedido seleccionado es " + requerimientoResponse.getIdPedido());
 			pedido = pedidoBusiness.selectByPrimaryKeyBasic(requerimientoResponse.getIdPedido());
 			pedido.setEstadopedido(Constantes.estadosPorEtapa.REMITIDO_A_PROGRAMACION);
-			pedidoMapper.updateByPrimaryKey(pedido);
+			//pedidoMapper.updateByPrimaryKey(pedido);
+			
+			TransactionRequest<Pedido> request = new TransactionRequest<Pedido>();
+			request.setEntityTransaction(pedido);
+			request.setUsuarioAuditoria(getUserLogin());
+			request.setEquipoAuditoria(getRemoteAddr());
+					
+			requerimientoBusiness.Remitir(request);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
