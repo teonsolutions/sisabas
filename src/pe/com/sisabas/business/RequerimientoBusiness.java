@@ -2,6 +2,7 @@ package pe.com.sisabas.business;
 
 import java.util.List;
 
+import pe.com.sisabas.be.Pedido;
 import pe.com.sisabas.be.RequerimientoInsertRequest;
 import pe.com.sisabas.be.RequerimientoItemRequest;
 import pe.com.sisabas.be.RequerimientoItemResponse;
@@ -29,6 +30,6 @@ public interface RequerimientoBusiness {
 
 	public List<Lugar> getLugaresPrestacion(Integer idDocumentoTecnico) throws Exception;
 	
-
+	public Resultado Remitir(TransactionRequest<Pedido> request) throws Exception;
 
 }
