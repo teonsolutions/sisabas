@@ -93,7 +93,7 @@
 						<p:outputLabel value="Tipo de Términos de Referencia" for="txtReq" />
 					</p:column>
 					<p:column>
-						<p:selectOneMenu id="txtReq" value="#{requerimiento.documentotecnico.idcatalogotipotdr}" style="width:200px;" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}">
+						<p:selectOneMenu id="txtReq" value="#{requerimiento.documentotecnico.idcatalogotipotdr}" style="width:200px;" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}">
 							
 							<f:selectItem itemLabel="Consultoria" itemValue="TITD5"/>
 							<f:selectItem itemLabel="Terceros" itemValue="TITD4"/>
@@ -115,7 +115,7 @@
 						</p:column>
 					</div>
 					<p:column>
-						<p:inputNumber value="#{requerimiento.documentotecnico.nropac}"  disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}" />
+						<p:inputNumber value="#{requerimiento.documentotecnico.nropac}"  disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}" />
 					</p:column>
 				</p:row>
 				<p:row>
@@ -124,7 +124,7 @@
 						<p:outputLabel value="Denominación de la contratación:" for="denominacion"/>
 					</p:column>
 					<p:column>
-						<p:inputTextarea id="denominacion" value="#{requerimiento.documentotecnico.denominacioncontratacion}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
+						<p:inputTextarea id="denominacion" value="#{requerimiento.documentotecnico.denominacioncontratacion}" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"
 							style="width:300px;" required="false"/>
 					</p:column>
 				</p:row>
@@ -133,7 +133,7 @@
 						<p:outputLabel value="Finalidad pública" for="finalidad"/>
 					</p:column>
 					<p:column>
-						<p:inputTextarea id="finalidad" value="#{requerimiento.documentotecnico.finalidadpublica}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
+						<p:inputTextarea id="finalidad" value="#{requerimiento.documentotecnico.finalidadpublica}" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"
 							style="width:300px;" />
 					</p:column>
 				</p:row>
@@ -143,7 +143,7 @@
 						<p:outputLabel value="Objetivos de la contratación:" for="objetivos"/>
 					</p:column>
 					<p:column>
-						<p:inputTextarea id="objetivos" value="#{requerimiento.documentotecnico.objetocontratacion}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
+						<p:inputTextarea id="objetivos" value="#{requerimiento.documentotecnico.objetocontratacion}" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"
 							style="width:300px;" />
 					</p:column>
 				</p:row>
@@ -153,7 +153,7 @@
 						<p:outputLabel value="Antecedentes:" />
 					</p:column>
 					<p:column>
-						<p:inputTextarea value="#{requerimiento.documentotecnico.antecedentes}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
+						<p:inputTextarea value="#{requerimiento.documentotecnico.antecedentes}" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"
 							style="width:300px;" />
 					</p:column>
 				</p:row>
@@ -187,7 +187,7 @@
 			<div align="right">
 				<p:commandButton
 					oncomplete="showDialogPF('frmPago2:diPago2')" onclick="myFunction();"
-					value="Agregar" icon="fa fa-plus"  disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"/>
+					value="Agregar" icon="fa fa-plus"  disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/>
 			</div>
 			<p:spacer height="5" />
 				<p:dataTable id="tablePagos" var="var"  emptyMessage="Formas de pago vacía." value="#{requerimiento.pagos}" style="white-space:nowrap!important; width:800px; font-size:5px;" reflow="true" scrollable="true" editable="true">
@@ -242,7 +242,7 @@
 		<p:tab title="Lugar de Prestación">
 			<div align="right">
 				<p:commandButton
-					oncomplete="showDialogPF('frmPrestacion2:diPrestacion2')" onclick="myFunction4();" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
+					oncomplete="showDialogPF('frmPrestacion2:diPrestacion2')" onclick="myFunction4();" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"
 					value="Agregar" icon="fa fa-plus"  />
 			</div>
 			<p:spacer height="5" />
@@ -279,7 +279,7 @@
           <h:form>
              <p:outputLabel value="Archivo formato PDF hasta 10 MB"/>
              <p:fileUpload fileUploadListener="#{requerimiento.handleFileUpload}" mode="advanced" dragDropSupport="false" update=":form:growl" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(pdf)$/"  
-             label="Seleccione archivo" cancelLabel="Cancelar" process="@this" uploadLabel="Subir" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"/>
+             label="Seleccione archivo" cancelLabel="Cancelar" process="@this" uploadLabel="Subir" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/>
             
           </h:form>
 		</p:tab>
@@ -287,7 +287,7 @@
 		<p:tab title="Comité Especial">
 		   <div align="left">
 		      <p:outputLabel value="Comité Especial " />
-		      <p:selectBooleanCheckbox value="#{requerimiento.check}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"> 
+		      <p:selectBooleanCheckbox value="#{requerimiento.check}" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"> 
 		         <p:ajax update=":form:growl, :formTdr:accordion:botonAgregaComite" listener="#{requerimiento.mensajeCheck}" />
 		      </p:selectBooleanCheckbox>		         
 		   </div>		
@@ -396,7 +396,7 @@
 				</p:column>
 				<p:column >
 					<p:inputText 
-						value="#{requerimiento.documentotecnico.nroanexoresponsable}" disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
+						value="#{requerimiento.documentotecnico.nroanexoresponsable}" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"
 						 />
 				</p:column>
 			</h:panelGrid>
