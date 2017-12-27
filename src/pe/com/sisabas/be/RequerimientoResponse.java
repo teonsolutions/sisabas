@@ -39,7 +39,7 @@ public class RequerimientoResponse extends SysTabla  implements  Serializable,Cl
 	
 	//atributos programado
 
-	private Integer idPacProgramado;
+	private String nroPac;
 	private Integer nroConsolid;
 	private Integer tienePao;
 	
@@ -341,15 +341,6 @@ public class RequerimientoResponse extends SysTabla  implements  Serializable,Cl
 	}
 
 
-	public Integer getIdPacProgramado() {
-		return idPacProgramado;
-	}
-
-
-	public void setIdPacProgramado(Integer idPacProgramado) {
-		this.idPacProgramado = idPacProgramado;
-	}
-
 
 	public Integer getTienePao() {
 		return tienePao;
@@ -369,6 +360,17 @@ public class RequerimientoResponse extends SysTabla  implements  Serializable,Cl
 	public void setNroConsolid(Integer nroConsolid) {
 		this.nroConsolid = nroConsolid;
 	}
+
+
+	public String getNroPac() {
+		return nroPac;
+	}
+
+
+	public void setNroPac(String nroPac) {
+		this.nroPac = nroPac;
+	}
+
 
 
 	
