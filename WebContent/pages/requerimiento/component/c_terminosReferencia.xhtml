@@ -125,7 +125,7 @@
 					</p:column>
 					<p:column>
 						<p:inputTextarea id="denominacion" value="#{requerimiento.documentotecnico.denominacioncontratacion}" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"
-							style="width:300px;" required="false"/>
+							style="width:300px;" required="true"/>
 					</p:column>
 				</p:row>
 				<p:row>
@@ -226,8 +226,8 @@
 				
 				    <p:column headerText="ELIMINAR" styleClass="c_center" style="width: 9%;">
 						<p:commandButton 
-							update=":formTdr:diTdr,:form:growl" icon="fa fa-remove" title="Eliminar"
-							actionListener="#{requerimiento.eliminarPago(var)}"
+							update=":formTdr:diTdr,:form:growl" icon="fa fa-remove" title="Eliminar" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"
+							actionListener="#{requerimiento.eliminarPago(var)}" process="@this"
 							>
 						</p:commandButton>
 				   </p:column>
@@ -268,7 +268,7 @@
 				<p:column headerText="ELIMINAR" styleClass="c_center" style="width: 9%;">
 						<p:commandButton 
 							update=":formTdr:diTdr,:form:growl" icon="fa fa-remove" title="Eliminar"
-							actionListener="#{requerimiento.eliminarLugar(var)}"
+							actionListener="#{requerimiento.eliminarLugar(var)}" process="@this" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"
 							>
 						</p:commandButton>
 				</p:column>
@@ -362,7 +362,7 @@
 				    <p:column headerText="ELIMINAR" styleClass="c_center" style="width: 9%;">
 						<p:commandButton 
 							update=":formTdr:diTdr,:form:growl" icon="fa fa-remove" title="Eliminar"
-							actionListener="#{requerimiento.eliminarComite(var)}"
+							actionListener="#{requerimiento.eliminarComite(var)}" process="@this"
 							>
 						</p:commandButton>
 				   </p:column>

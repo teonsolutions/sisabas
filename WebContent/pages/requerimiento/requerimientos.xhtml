@@ -397,16 +397,16 @@
 						<p:selectBooleanCheckbox value="#{requerimiento.value2}" />
 						<p:outputLabel value="Tipo de bien(SIGA)" />
 						<p:selectBooleanCheckbox value="#{requerimiento.value3}" />
-						<p:outputLabel value="Monto del pedido" />
+						<p:outputLabel value="Monto S/." />
 						<p:selectBooleanCheckbox value="#{requerimiento.value4}" />
-						<p:outputLabel value="Estado del pedido (SIGA)" />
+						<p:outputLabel value="Estado(SIGA)" />
 						<p:selectBooleanCheckbox value="#{requerimiento.value5}" />
-						<p:outputLabel value="Estado del pedido(SisAbas)" />
+						<p:outputLabel value="Estado(SisAbas)" />
 						<p:selectBooleanCheckbox value="#{requerimiento.value6}" />
-						<p:outputLabel value="Nombre Dependencia (SINAD)" />
+						<p:outputLabel value="Nombre Dependencia" />
 						<p:selectBooleanCheckbox value="#{requerimiento.value7}" />
 
-						<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar"
+						<p:commandButton icon="fa fa-print" value="Exportar"
 							ajax="false" style="width:100px;">
 							<p:dataExporter type="xls" target=":form:tblListaRequerimiento"
 								fileName="datosPedido"
@@ -428,14 +428,14 @@
 						<p:selectBooleanCheckbox value="#{requerimiento.value2}" />
 						<p:outputLabel value="Tipo de Bien(SIGA)" />
 						<p:selectBooleanCheckbox value="#{requerimiento.value3}" />
-						<p:outputLabel value="Monto" />
+						<p:outputLabel value="Monto S/." />
 						<p:selectBooleanCheckbox value="#{requerimiento.value4}" />
 						<p:outputLabel value="Estado(SisAbas)" />
 						<p:selectBooleanCheckbox value="#{requerimiento.value6}" />
 						<p:outputLabel value="Nombre Dependencia" />
 						<p:selectBooleanCheckbox value="#{requerimiento.value7}" />
 
-						<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar"
+						<p:commandButton icon="fa fa-print" value="Exportar"
 							ajax="false" style="width:100px;">
 							<p:dataExporter type="xls" target=":form:tblListaRequerimiento"
 								fileName="datosPedido"
@@ -524,7 +524,7 @@
 									<div align="left">
 										<p:commandButton value="Grabar"
 											rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
-											icon="fa fa-save" title="Aceptar" style="left:150px"
+											icon="fa fa-save" title="Aceptar" style="left: 200px;"
 											update=":form:growl,:form:tblListaRequerimiento"
 											oncomplete="PF('reqDialog2').hide();">
 											<f:actionListener
@@ -544,7 +544,7 @@
 
 										<p:commandButton value="Aceptar"
 											rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
-											icon="fa fas fa-check" title="Aceptar"
+											icon="fa fas fa-check" title="Aceptar" 
 											style="left:150px" update=":form:growl"
 											oncomplete="PF('reqDialog2').hide();">
 											<f:actionListener binding="#{requerimiento.limpiar()}" />
@@ -553,11 +553,11 @@
 								</td>
 								<td>
 									<div align="right">
-										<p:commandButton style="left:150px" id="btnRemitir"
+										<p:commandButton style="left:100px" id="btnRemitir"
 											rendered="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 2) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 5)}"
 											disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 40}"
 											actionListener="#{requerimiento.destroyWorld}"
-											value="Derivar" icon="fa fas fa-arrow-right" title="Derivar"
+											value="Remitir a Programación" icon="fa fas fa-arrow-right" title="Remitir a Programación" 
 											update=":form:growl, :form:tblListaRequerimiento"
 											oncomplete="PF('reqDialog2').hide();">
 											<p:confirm header="Confirmación"
@@ -613,7 +613,7 @@
 									<div align="left">
 										<p:commandButton value="Grabar"
 											rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
-											icon="fa fa-save" title="Aceptar"
+											icon="fa fa-save" title="Aceptar" style="left: 200px;"
 											update=":form:growl,:form:tblListaRequerimiento"
 											oncomplete="PF('reqDialogT').hide();">
 											<f:actionListener
@@ -628,12 +628,12 @@
 											actionListener="#{requerimiento.limpiar}"
 											rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
 											icon="fa fa-rotate-left" title="Salir" process="@this"
-											immediate="true"
+											immediate="true" style="left: 150px;"
 											onclick="hideDialogPF('frmGentipoRegistrar:diGentipoRegistrar');return false;" />
 
 										<p:commandButton value="Aceptar"
 											rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
-											icon="ui-icon-circle-check" title="Aceptar"
+											icon="fa fas fa-check" title="Aceptar" style="left:150px"
 											update=":form:growl" oncomplete="PF('reqDialogT').hide();">
 											<f:actionListener binding="#{requerimiento.limpiar()}" />
 										</p:commandButton>
@@ -644,10 +644,10 @@
 									<div align="right">
 										<p:commandButton
 											rendered="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 2) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 5)}"
-											id="btnRemitir2"
+											id="btnRemitir2" style="left:100px"
 											actionListener="#{requerimiento.destroyWorld}"
 											disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 40}"
-											value="Derivar" icon="fa fas fa-arrow-right" title="Derivar"
+											value="Remitir a Programación" icon="fa fas fa-arrow-right" title="Remitir a Programación"
 											update=":form:growl, :form:tblListaRequerimiento"
 											oncomplete="PF('reqDialogT').hide()">
 											<p:confirm header="Confirmación"
@@ -663,11 +663,7 @@
 					</p:panel>
 
 				</p:dialog>
-
 			</h:form>
-
-
-
 
 
 
@@ -961,7 +957,7 @@
 								<p:outputLabel value="PORCENTAJE DE AVANCE" for="txtPorcentaje" />
 							</p:column>
 							<p:column>
-								<p:inputNumber id="txtPorcentaje"
+								<p:inputNumber id="txtPorcentaje" symbol="%"
 									value="#{requerimiento.pago.porcentaje}" style="width:300px;"
 									label="Armada" />
 							</p:column>

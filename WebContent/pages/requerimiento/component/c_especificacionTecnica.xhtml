@@ -219,7 +219,7 @@
 				
 				<p:column headerText="ELIMINAR" styleClass="c_center" style="width: 9%;">
 						<p:commandButton 
-							update=":formEsp:diEsp,:form:growl" icon="fa fa-remove" title="Eliminar"
+							update=":formEsp:diEsp,:form:growl" icon="fa fa-remove" title="Eliminar" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"
 							actionListener="#{requerimiento.eliminarLugar(var)}" process="@this"
 							>
 						</p:commandButton>
@@ -259,7 +259,7 @@
 				    <p:column headerText="ELIMINAR" styleClass="c_center" style="width: 9%;">
 						<p:commandButton 
 							update=":formEsp:diEsp,:form:growl" icon="fa fa-remove" title="Eliminar"
-							actionListener="#{requerimiento.eliminarPago(var)}" process="@this"
+							actionListener="#{requerimiento.eliminarPago(var)}" process="@this" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"
 							>
 						</p:commandButton>
 				   </p:column>
