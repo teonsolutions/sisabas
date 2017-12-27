@@ -157,7 +157,7 @@ public class RequerimientoController extends BaseController {
 
 	public RequerimientoController() {
 
-		// System.out.println("***************Fer0000000**************"+lugares.size());
+		
 
 	}
 
@@ -252,7 +252,7 @@ public class RequerimientoController extends BaseController {
 	}
 
 	public void buscarRequerimientos() {
-		// System.out.println("***************FerRRRRRRRRRRR**************"+lugares.size());
+	
 		try {
 			
 			// Todos
