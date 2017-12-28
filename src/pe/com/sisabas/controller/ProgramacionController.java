@@ -66,6 +66,7 @@ import pe.com.sisabas.dto.Lugar;
 import pe.com.sisabas.dto.OrdenDto;
 import pe.com.sisabas.dto.PacConsolidadoDto;
 import pe.com.sisabas.dto.PacItemsDto;
+import pe.com.sisabas.dto.Pago;
 import pe.com.sisabas.dto.PedidosPaoResponse;
 import pe.com.sisabas.dto.RequisitoConformidadDto;
 import pe.com.sisabas.dto.Resultado;
@@ -103,7 +104,7 @@ public class ProgramacionController extends BaseController {
 	private boolean disabledTabEstudioMercado;
 	private boolean disabledTabOrden;
 	private boolean disabledTabAprobacion;
-	private boolean disabledButtons;	
+	private boolean disabledButtons;
 	private boolean disabledButtonsCD;
 
 	private String idOpcionText = "OPC_PAO";
@@ -336,15 +337,33 @@ public class ProgramacionController extends BaseController {
 				int nroExpediente = listaOrden.get(0).getNroExpedienteSiaf();
 				request.setNroExpedienteSiaf(nroExpediente);
 				listaSeguimientoPagosSiaf = programacionBusiness.getSeguimientoPagosSiaf(request);
+
+				// sum monto devengado y pagado
+				Double montoDevengado = 0.00;
+				Double montoPagado = 0.00;
+				for (SeguimientoPagosResponse pagoSiaf : listaSeguimientoPagosSiaf) {
+					if ((pagoSiaf.getFase() + "").equals("DEVENGADO"))
+						montoDevengado += pagoSiaf.getMonto();
+
+					if ((pagoSiaf.getFase() + "").equals("PAGADO"))
+						montoPagado += pagoSiaf.getMonto();
+				}
+
+				// set monto orden
+				listaOrden.get(0).setImporteDevengado(montoDevengado);
+				listaOrden.get(0).setImportePagado(montoPagado);
 			}
 
 			// get orden registered in abas
 			List<Orden> ordenDetail = programacionBusiness.getOrdenByPacConsolid(currentPao.getIdPacConsolid());
 			// Obtiene entregables, hay un solo orden por Pac consolidado
+			listaEntregable = null;
 			Integer armadas = null;
-			if (ordenDetail.get(0).getIdorden() != null) {
-				listaEntregable = programacionBusiness.getEntegablesByOrden(ordenDetail.get(0).getIdorden());
-				armadas = listaEntregable.size() > 0 ? listaEntregable.size() : null;
+			if (ordenDetail.size() > 0) {
+				if (ordenDetail.get(0).getIdorden() != null) {
+					listaEntregable = programacionBusiness.getEntegablesByOrden(ordenDetail.get(0).getIdorden());
+					armadas = listaEntregable.size() > 0 ? listaEntregable.size() : null;
+				}
 			}
 
 			for (int i = 0; i < listaOrden.size(); i++) {
@@ -379,6 +398,14 @@ public class ProgramacionController extends BaseController {
 		}
 	}
 
+	public void eliminarControlProducto(RequisitoConformidadDto control) { // adding new nationality and set its
+		// index
+		// coleccion para eliminar pago
+		currentPao.getListaRequisitosConformidad().remove(control);
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage("Mensaje", "Se eliminó control de producto correctamente"));
+	}		
+	
 	public void resetRegisterForm() {
 		reset("frmCuadrocomparativofuenteRegistrar:panelC");
 	}
@@ -427,8 +454,16 @@ public class ProgramacionController extends BaseController {
 				this.currentPao = new PaoResponse();
 			}
 
+			// valida si tiene orden de compra registrado
+			PaoRequest request = new PaoRequest();
+			request.setAnio(usuario.getPeriodo().getAnio());
+			request.setNroConsolid(currentPao.getNroConsolid());
+			request.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.PRONIED_SIAF);
+			List<OrdenDto> ords = programacionBusiness.getCompraDirectaOrden(request);
 			// EVALUATE IF THE PAO HAS MORE S/. 31600
-			if (currentPao.getValorMoneda() >= Constantes.paramentro.PAC_VALOR) {
+			// if (currentPao.getValorMoneda() >=
+			// Constantes.paramentro.PAC_VALOR) {
+			if (ords == null || ords.size() == 0) {
 				redirect = pacRegistrar();
 			} else {
 				redirect = ordenRegistrar();
@@ -453,7 +488,7 @@ public class ProgramacionController extends BaseController {
 			}
 			if (this.currentPao == null) {
 				this.currentPao = new PaoResponse();
-			}			
+			}
 			PaoRequest record = new PaoRequest();
 			record.setIdUnidadEjecutora(Constantes.unidadEjecutora.ID_UNIDAD_EJECUTORA_ABAS);
 			record.setAnio(usuario != null ? usuario.getPeriodo().getAnio() : 0);
@@ -500,12 +535,12 @@ public class ProgramacionController extends BaseController {
 				cDirecta.setTipoProceso(Constantes.maestroProcesoSiga.ADJUDIACION_SIN_PROCESO);
 
 				// VALIDAR SI ESTÁ EN GIRO DE ORDEN O ESTUDIO DEL MERCADO
-				if (cDirecta.getFlagCD().equals("1") && cDirecta.getNroProceso() != null){
-					cDirecta.setEstadoRequerimiento(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN);	
-				}else{
+				if (cDirecta.getFlagCD().equals("1") && cDirecta.getNroProceso() != null) {
+					cDirecta.setEstadoRequerimiento(Constantes.estadosPorEtapa.EN_GIRO_DE_ORDEN);
+				} else {
 					cDirecta.setEstadoRequerimiento(Constantes.estadosPorEtapa.EN_ESTUDIO_DE_MERCADO);
 				}
-								
+
 				cDirecta.setListaRequisitosConformidad(currentPao.getListaRequisitosConformidad());
 				TransactionRequest<CompraDirectaDatosGeneralesDto> transactionRequest = new TransactionRequest<CompraDirectaDatosGeneralesDto>();
 				transactionRequest.setUsuarioAuditoria(getUserLogin());
@@ -515,9 +550,9 @@ public class ProgramacionController extends BaseController {
 				if (this.currentPao.getIdPacConsolid() == null) {
 					this.currentPao.setIdPacConsolid(result.getResultInt());
 					this.currentPao.getCompraDirecta().setIdPacConsolid(result.getResultInt());
-					//this.currentPao.setEstadoRequerimiento(pacConsolid.getEstadoRequerimiento());
+					// this.currentPao.setEstadoRequerimiento(pacConsolid.getEstadoRequerimiento());
 					this.currentPao.getCompraDirecta().setEstadoRequerimiento(cDirecta.getEstadoRequerimiento());
-				}				
+				}
 				activeTabsCD();
 				REGISTER_SUCCESS();
 				buscarPao();
@@ -582,7 +617,7 @@ public class ProgramacionController extends BaseController {
 			if (this.currentPao.getIdPacConsolid() == null) {
 				this.currentPao.setIdPacConsolid(result.getResultInt());
 				this.currentPao.getPacConsolidado().setIdPacConsolidado(result.getResultInt());
-				//this.currentPao.setEstadoRequerimiento(pacConsolid.getEstadoRequerimiento());
+				// this.currentPao.setEstadoRequerimiento(pacConsolid.getEstadoRequerimiento());
 				this.currentPao.getPacConsolidado().setEstadoRequerimiento(pacConsolid.getEstadoRequerimiento());
 			}
 			activeTabs();
@@ -1380,7 +1415,8 @@ public class ProgramacionController extends BaseController {
 		this.setDisabledTabEstudioMercado(
 				this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
 
-		//this.setDisabledTabOrden(this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
+		// this.setDisabledTabOrden(this.currentPao.getIdPacConsolid() == null
+		// || this.currentPao.getIdPacConsolid() == 0);
 
 		boolean disabledAprobacion = false;
 		if (this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0) {
@@ -1407,7 +1443,8 @@ public class ProgramacionController extends BaseController {
 	private void activeTabsCD() {
 		this.setDisabledTabEstudioMercado(
 				this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
-		//this.setDisabledTabOrden(this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0);
+		// this.setDisabledTabOrden(this.currentPao.getIdPacConsolid() == null
+		// || this.currentPao.getIdPacConsolid() == 0);
 
 		boolean disabledOrden = false;
 		if (this.currentPao.getIdPacConsolid() == null || this.currentPao.getIdPacConsolid() == 0) {
@@ -1430,7 +1467,7 @@ public class ProgramacionController extends BaseController {
 		}
 		this.setDisabledButtonsCD(renderedBtns);
 	}
-	
+
 	public String pacRegistrar() {
 		logger.debug("pacRegistrar....");
 		try {
@@ -1822,7 +1859,5 @@ public class ProgramacionController extends BaseController {
 	public void setDisabledButtonsCD(boolean disabledButtonsCD) {
 		this.disabledButtonsCD = disabledButtonsCD;
 	}
-	
-	
 
 }

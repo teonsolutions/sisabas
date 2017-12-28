@@ -71,7 +71,8 @@
 									<!--  
 								<p:ajax event="rowSelect" update=":form:pnlBotones" immediate="true"/>
 								-->
-									<p:column styleClass="c_string" headerText="N° Pedido" width="10%">
+									<p:column styleClass="c_string" headerText="N° Pedido"
+										width="10%">
 										<f:facet name="header">
 											<h:outputText value="N° Pedido" />
 										</f:facet>
@@ -127,8 +128,9 @@
 									<div align="right">
 										<p:commandButton value="Agregar"
 											action="#{programacion.irRegistrarControl}"
+											disabled="#{programacion.disabledButtonsCD}"
 											update="hidStatus,:frmControlProductoRegistrar:diControlProductoRegistrar"
-											oncomplete="showDialog('form:tabViewPao:hidStatus','frmControlProductoRegistrar:diControlProductoRegistrar');"
+											oncomplete="showDialog('form:tabViewPao:accDatosGenerales:hidStatus','frmControlProductoRegistrar:diControlProductoRegistrar');"
 											icon="ui-icon-document"
 											rendered="#{programacion.renderButton('btnNuevoControl')}" />
 										<h:inputHidden id="hidStatus" value="true" />
@@ -153,7 +155,7 @@
 									<p:ajax event="rowEditCancel"
 										listener="#{programacion.onRowCancel2}" update=":form:msgs" />
 
-									<p:column headerText="Tipo de documento" style="width: 90%">
+									<p:column headerText="Tipo de documento" style="width: 80%">
 										<p:cellEditor>
 											<f:facet name="header">
 												<f:facet name="output">
@@ -173,8 +175,16 @@
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
-									<p:column headerText="Acciones">
+									<p:column headerText="Acciones" style="width: 10%">
 										<p:rowEditor editTitle="Editar" />
+									</p:column>
+									<p:column headerText="Eliminar" styleClass="c_center"
+										style="width: 10%;">
+										<p:commandButton update=":form:msgs,form:tabViewPao:accDatosGenerales:tblListaControl" icon="fa fa-remove"
+											title="Eliminar"
+											actionListener="#{programacion.eliminarControlProducto(var)}"
+											process="@this">
+										</p:commandButton>
 									</p:column>
 								</p:dataTable>
 							</p:tab>

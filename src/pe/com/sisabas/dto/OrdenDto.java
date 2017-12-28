@@ -33,7 +33,7 @@ public class OrdenDto implements Serializable,Cloneable{
 	private Integer idPacConsolidado;
 	private Integer idUnidadEjecutora;
 	private List<Entregable> entegables;
-
+	private Double importePagado;
 
 	public Integer getIdOrden() {
 		return idOrden;
@@ -262,6 +262,17 @@ public class OrdenDto implements Serializable,Cloneable{
 		this.entegables = entegables;
 	}
 	
+		
+	public Double getImportePagado() {
+		return importePagado;
+	}
+
+
+	public void setImportePagado(Double importePagado) {
+		this.importePagado = importePagado;
+	}
+
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
