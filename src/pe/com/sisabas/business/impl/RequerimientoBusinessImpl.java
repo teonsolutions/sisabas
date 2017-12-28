@@ -275,7 +275,7 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 				
 				
 				for(int i=0; i<especificacionTecnica.getComitesDto().size(); i++){
-				    Miembrocomiteporproceso nuevo = new Miembrocomiteporproceso();   	
+				    Miembrocomiteporproceso nuevo = new Miembrocomiteporproceso();   
 				    nuevo.setIdmiembrocomiteproceso(((int)utilsBusiness.getNextSeq(Sequence.SEQ_MIEMBROCOMITEPORPROCESO).longValue()));
 					nuevo.setIdpersona(especificacionTecnica.getComitesDto().get(i).getId());
 					nuevo.setIdcatalogotipomiembro(especificacionTecnica.getComitesDto().get(i).getTipoMiembro());
