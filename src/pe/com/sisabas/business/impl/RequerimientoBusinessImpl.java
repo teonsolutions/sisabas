@@ -265,10 +265,6 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 
 			
 			
-			
-			
-			
-			
 			if (especificacionTecnica.getComitesDto()!=null){
 				
 				System.out.println("================El tamanio de getcomitedto es "+especificacionTecnica.getComitesDto().size()+"============");
