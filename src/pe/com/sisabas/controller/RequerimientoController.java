@@ -267,12 +267,12 @@ public class RequerimientoController extends BaseController {
 
 			System.err.println("----------------- tipo es: " + requerimientoRequest.getTipoNecesidad());
 
-			if (requerimientoRequest.getTipoNecesidad().equals("TINE1")) {
+			if (requerimientoRequest.getTipoNecesidad().equals(Constantes.tipoNecesidad.TIPO_NECESIDAD_PROGRAMADO)) {
 				listaRequerimientos = requerimientoBusiness.selectDynamicFullProgramado(requerimientoRequest);
-				System.out.println("tinei1.................");
+				
 			} else {
 				listaRequerimientos = requerimientoBusiness.selectDynamicFull(requerimientoRequest);
-				System.out.println("tinei2.................");
+				
 			}
 			System.out.println("El tamanio es :" + listaRequerimientos.size());
 			for (int i = 0; i < listaRequerimientos.size(); i++) {
@@ -402,7 +402,7 @@ public class RequerimientoController extends BaseController {
 				lugares.clear();
 				for (int i = 0; i < dependencias.size(); i++) {
 					Lugar item = new Lugar();
-
+                    
 					item.setIdDependenciaDocumentoTecnico(dependencias.get(i).getIddependenciadocumentotecnico());
 					item.setDireccion(dependencias.get(i).getDireccion());
 					RequerimientoController.lugares.add(item);
