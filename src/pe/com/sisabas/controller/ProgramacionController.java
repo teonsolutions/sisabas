@@ -34,6 +34,7 @@ import pe.com.sisabas.persistence.MiembrocomiteporprocesoMapper;
 import pe.com.sisabas.resources.controller.BaseController;
 import pe.com.sisabas.resources.Messages;
 import pe.com.sisabas.resources.Constantes;
+import pe.com.sisabas.resources.Constantes.genparametro;
 import pe.com.sisabas.resources.Utils;
 import pe.com.sisabas.resources.UtilsSecurity;
 import pe.com.sisabas.service.SicuCallService;
@@ -47,8 +48,10 @@ import pe.com.sisabas.be.Comiteproceso;
 import pe.com.sisabas.be.Cuadrocomparativofuente;
 import pe.com.sisabas.be.Documentotecnico;
 import pe.com.sisabas.be.Entregable;
+import pe.com.sisabas.be.Genparametro;
 import pe.com.sisabas.business.CuadrocomparativofuenteBusiness;
 import pe.com.sisabas.business.DocumentotecnicoBusiness;
+import pe.com.sisabas.business.GenparametroBusiness;
 import pe.com.sisabas.business.GentablaBusiness;
 import pe.com.sisabas.business.MiembrocomiteporprocesoBusiness;
 import pe.com.sisabas.business.ProgramacionBusiness;
@@ -169,6 +172,9 @@ public class ProgramacionController extends BaseController {
 	@Autowired
 	public MiembrocomiteporprocesoBusiness miembrocomiteporprocesoBusiness;
 
+	@Autowired
+	public GenparametroBusiness genparametroBusiness;
+	
 	public ProgramacionController() {
 
 	}
@@ -398,14 +404,19 @@ public class ProgramacionController extends BaseController {
 		}
 	}
 
-	public void eliminarControlProducto(RequisitoConformidadDto control) { // adding new nationality and set its
+	public void eliminarControlProducto(RequisitoConformidadDto control) { // adding
+																			// new
+																			// nationality
+																			// and
+																			// set
+																			// its
 		// index
 		// coleccion para eliminar pago
 		currentPao.getListaRequisitosConformidad().remove(control);
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage("Mensaje", "Se eliminó control de producto correctamente"));
-	}		
-	
+	}
+
 	public void resetRegisterForm() {
 		reset("frmCuadrocomparativofuenteRegistrar:panelC");
 	}
@@ -455,18 +466,25 @@ public class ProgramacionController extends BaseController {
 			}
 
 			// valida si tiene orden de compra registrado
-			PaoRequest request = new PaoRequest();
-			request.setAnio(usuario.getPeriodo().getAnio());
-			request.setNroConsolid(currentPao.getNroConsolid());
-			request.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.PRONIED_SIAF);
-			List<OrdenDto> ords = programacionBusiness.getCompraDirectaOrden(request);
+			/*
+			 * PaoRequest request = new PaoRequest();
+			 * request.setAnio(usuario.getPeriodo().getAnio());
+			 * request.setNroConsolid(currentPao.getNroConsolid());
+			 * request.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.
+			 * PRONIED_SIAF); List<OrdenDto> ords =
+			 * programacionBusiness.getCompraDirectaOrden(request);
+			 */
 			// EVALUATE IF THE PAO HAS MORE S/. 31600
-			// if (currentPao.getValorMoneda() >=
-			// Constantes.paramentro.PAC_VALOR) {
-			if (ords == null || ords.size() == 0) {
-				redirect = pacRegistrar();
+			Genparametro param = new Genparametro();
+			param.setVchparamdescriadi(usuario.getPeriodo().getAnio().toString());
+			param.setVchparamgrupo("PAC");			
+			List<Genparametro> genPac = genparametroBusiness.selectDynamicBasic(param);
+			Double pacValor = (genPac != null && genPac.size() > 0) ? Double.parseDouble(genPac.get(0).getVchparamvalor()): Constantes.paramentro.PAC_VALOR; 
+			
+			if (currentPao.getValorMoneda() <= pacValor) {
+				redirect = ordenRegistrar();				
 			} else {
-				redirect = ordenRegistrar();
+				redirect = pacRegistrar();
 			}
 
 		} catch (Exception e) {
