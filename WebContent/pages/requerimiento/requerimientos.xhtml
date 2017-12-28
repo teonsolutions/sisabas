@@ -121,9 +121,14 @@
 									value="#{requerimiento.requerimientoRequest.tipoBien}"
 									style="width:150px;">
 									<f:selectItem itemLabel="TODOS" itemValue="" />
+									<f:selectItem itemLabel="BIEN" itemValue="B" />
+									<f:selectItem itemLabel="SERVICIO" itemValue="S" />
+									<!--  
 									<f:selectItems
 										value="#{pedido.listaGentablaIdcatalogotipobien}" var="var"
 										itemLabel="#{var.vchregdescri}" itemValue="#{var.orden}" />
+									-->	
+										
 								</p:selectOneMenu></td>
 
 							<td><p:outputLabel for="txtIdEstadoPedido"
