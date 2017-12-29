@@ -55,20 +55,16 @@ import pe.com.sisabas.business.GenparametroBusiness;
 import pe.com.sisabas.business.GentablaBusiness;
 import pe.com.sisabas.business.MiembrocomiteporprocesoBusiness;
 import pe.com.sisabas.business.ProgramacionBusiness;
-import pe.com.sisabas.business.RequisitosconformidadBusiness;
 import pe.com.sisabas.dto.ComiteDto;
 import pe.com.sisabas.dto.CompraDirectaDatosGeneralesDto;
 import pe.com.sisabas.dto.CuadroComparativoItemsDto;
 import pe.com.sisabas.dto.CuadroComparativoRequest;
 import pe.com.sisabas.dto.CuadroComparativoVrDto;
 import pe.com.sisabas.dto.EstadoRequerimientoResponse;
-import pe.com.sisabas.dto.EvaluacionDocumentoRequest;
-import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
 import pe.com.sisabas.dto.GentablaItemResponse;
 import pe.com.sisabas.dto.Lugar;
 import pe.com.sisabas.dto.OrdenDto;
 import pe.com.sisabas.dto.PacConsolidadoDto;
-import pe.com.sisabas.dto.PacItemsDto;
 import pe.com.sisabas.dto.Pago;
 import pe.com.sisabas.dto.PedidosPaoResponse;
 import pe.com.sisabas.dto.RequisitoConformidadDto;
@@ -616,9 +612,9 @@ public class ProgramacionController extends BaseController {
 			pacConsolid.setCodigoCentroCosto(usuario.getPeriodo().getCodigoCentroCosto());
 
 			if (pacConsolid.getIdCatalogoTipoNecesidad().equals(Constantes.tipoNecesidad.TIPO_NECESIDAD_PROGRAMADO))
-				pacConsolid.setIdTipoContratacion(Constantes.tipoContratacion.PAC);
+				pacConsolid.setIdCatalogoTipoContratacion(Constantes.tipoContratacion.PAC);
 			else
-				pacConsolid.setIdTipoContratacion(Constantes.tipoContratacion.NO_PAC);
+				pacConsolid.setIdCatalogoTipoContratacion(Constantes.tipoContratacion.NO_PAC);
 			// pacConsolid.setTipoProceso(Constantes.maestroProcesoSiga.ADJUDIACION_SIN_PROCESO);
 
 			// check status

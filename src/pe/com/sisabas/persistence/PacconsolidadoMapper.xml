@@ -129,6 +129,8 @@
 		<result column="NRO_CONSOLID" property="nroConsolid" jdbcType="INTEGER"/>
 		<result column="FECHA_PAO" property="fechaPao" jdbcType="DATE"/>
 		<result column="COD_TIPO_BIEN" property="idTipoBien" jdbcType="VARCHAR"/>
+		<result column="UNIDAD_MEDIDA" property="unidadMedida" jdbcType="INTEGER"/>
+		<result column="CANTIDAD" property="cantidad" jdbcType="INTEGER"/>
 		<result column="VALOR_MONEDA" property="valorMoneda" jdbcType="DOUBLE"/>
 		<result column="DSC_PAC" property="especificacionTecnica" jdbcType="VARCHAR"/>
 		<result column="FECHA_CERTIFICACION_PRESUPUESTAL" property="fechaCP" jdbcType="DATE"/>

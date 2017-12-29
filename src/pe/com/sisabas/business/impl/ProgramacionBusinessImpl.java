@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+//import org.apache.axis.wsdl.symbolTable.Utils;
 import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +72,7 @@ import pe.com.sisabas.persistence.RequisitosconformidadMapper;
 import pe.com.sisabas.resources.Constantes;
 import pe.com.sisabas.resources.Sequence;
 import pe.com.sisabas.resources.business.UtilsBusiness;
+import pe.com.sisabas.resources.Utils;
 
 @Service
 public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializable {
@@ -463,8 +465,9 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 				pc.setNroproceso(compraDirecta.getNroProceso());
 				double valorMoneda = compraDirecta.getValorMoneda();
 				BigDecimal valorEstimado = new BigDecimal(valorMoneda);
-				pc.setValorestimadocontracion(valorEstimado);
-
+				//pc.setValorestimadocontracion(valorEstimado);
+				pc.setValorestimadocontracion(Utils.round(valorEstimado));
+				
 				// pc.setEstadoauditoria(); // ITEM UNICO
 				// pc.setNroitems(0); // NUMERO DE ITEMS
 				// pc.setCantidad(); // CANTIDAD DE ITEMS
@@ -506,9 +509,13 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			pc.setCodigotipoproceso(compraDirecta.getTipoProceso());
 			pc.setFlagcd(compraDirecta.getFlagCD());
 			pc.setNroproceso(compraDirecta.getNroProceso());
+			pc.setUnidadmedida(compraDirecta.getUnidadMedida());
+			pc.setCantidad(compraDirecta.getCantidad());
+			
 			double valorMoneda = compraDirecta.getValorMoneda();
 			BigDecimal valorEstimado = new BigDecimal(valorMoneda);
-			pc.setValorestimadocontracion(valorEstimado);
+			pc.setValorestimadocontracion(Utils.round(valorEstimado));	
+			
 			pc.setIdcatalogotipocontratacion(compraDirecta.getIdTipoContratacion());
 			pc.setIdcatalogoestadopac(null);
 			pc.setIdcatalogotipobien(compraDirecta.getIdTipoBien());
@@ -1022,7 +1029,8 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 				pc.setCodigotipoproceso("14");
 				double valorMoneda = pac.getValorEstimadoContratacion();
 				BigDecimal valorEstimado = new BigDecimal(valorMoneda);
-				pc.setValorestimadocontracion(valorEstimado);
+				//pc.setValorestimadocontracion(valorEstimado);
+				pc.setValorestimadocontracion(Utils.round(valorEstimado));	
 
 				// PAC
 				pc.setNroitems(pac.getNroItems());
@@ -1078,8 +1086,11 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			pc.setFlagcd("0");
 			double valorMoneda = pac.getValorEstimadoContratacion();
 			BigDecimal valorEstimado = new BigDecimal(valorMoneda);
-			pc.setValorestimadocontracion(valorEstimado);
-			pc.setIdcatalogotipocontratacion(pac.getIdTipoContratacion());
+			//pc.setValorestimadocontracion(valorEstimado);
+			pc.setValorestimadocontracion(Utils.round(valorEstimado));
+
+			//pc.setIdcatalogotipocontratacion(pac.getIdTipoContratacion());
+			pc.setIdcatalogotipocontratacion(pac.getIdCatalogoTipoContratacion());			
 			pc.setIdcatalogoestadopac(pac.getIdCatalogoEstadoPac());
 			pc.setIdcatalogotipobien(pac.getIdTipoBien());
 			pc.setIdcatalogotiponecesidad(pac.getIdTipoNecesidad());
@@ -1095,7 +1106,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 			pc.setFechaasignacionespecialista(pac.getFechaRecepcionDocumentoTecnico());
 			pc.setNropac(pac.getNroPac());
 			pc.setIdcatalogotiponecesidad(pac.getIdCatalogoTipoNecesidad());
-			pc.setIdcatalogotipocontratacion(pac.getIdCatalogoTipoContratacion());
+			
 			pc.setEstadorequerimiento(pac.getEstadoRequerimiento());
 			pc.setIdcatalogoestadopac(pac.getIdCatalogoEstadoPac());
 			pc.setUnidadmedida(pac.getUnidadMedida());

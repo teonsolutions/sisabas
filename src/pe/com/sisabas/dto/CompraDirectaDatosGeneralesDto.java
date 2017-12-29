@@ -41,6 +41,8 @@ public class CompraDirectaDatosGeneralesDto implements  Serializable,Cloneable {
 	private String tipoProceso;
 	private List<RequisitoConformidadDto> listaRequisitosConformidad;
 	
+	private Integer unidadMedida;
+	private Integer cantidad;
 
 	public Integer getIdPacConsolid() {
 		return idPacConsolid;
@@ -305,7 +307,23 @@ public class CompraDirectaDatosGeneralesDto implements  Serializable,Cloneable {
 	public void setListaRequisitosConformidad(List<RequisitoConformidadDto> listaRequisitosConformidad) {
 		this.listaRequisitosConformidad = listaRequisitosConformidad;
 	}
-	
+		
+	public Integer getUnidadMedida() {
+		return unidadMedida;
+	}
+
+	public void setUnidadMedida(Integer unidadMedida) {
+		this.unidadMedida = unidadMedida;
+	}
+
+	public Integer getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
+	}
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();

@@ -244,6 +244,7 @@
 										<td><p:selectOneMenu
 												value="#{programacion.currentPao.pacConsolidado.idCatalogoTipoNecesidad}"
 												id="ddlTipoNecesidad" required="true"
+												disabled="true"
 												label="Tipo de necesidad">
 												<f:selectItem itemLabel="--Seleccione--" itemValue="" />
 												<f:selectItems
@@ -712,7 +713,8 @@
 										disabled="#{programacion.disabledButtons}"
 										action="#{programacion.guardarAprobacion}"
 										rendered="#{programacion.renderButton('btnGuadarAprobacion')}"
-										update="form:msgs" />
+										update="form:msgs"
+										process="@this" />
 
 									<!-- 
 								<p:commandButton value="Cancelar" action="{programacion.load}"
@@ -724,7 +726,8 @@
 										disabled="#{programacion.disabledButtons}"
 										action="#{programacion.derivarExpediente}"
 										rendered="#{programacion.renderButton('btnDerivar')}"
-										update="form:msgs,form:panel" />
+										update="form:msgs,form:panel" 
+										process="@this"/>
 								</div>
 							</p:tab>
 						</p:accordionPanel>
