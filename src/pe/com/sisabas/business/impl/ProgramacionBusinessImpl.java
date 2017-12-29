@@ -12,6 +12,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mysql.jdbc.Util;
+
 import pe.com.sisabas.be.Comiteproceso;
 import pe.com.sisabas.be.Cuadrocomparativofuente;
 import pe.com.sisabas.be.Cuadrocomparativoitem;
@@ -889,8 +891,11 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 				ordenNew.setAnioorden(ordenDto.getAnio());
 				ordenNew.setNroexpedientesiaf(ordenDto.getNroExpedienteSiaf().toString());
 				ordenNew.setMoneda(ordenDto.getMoneda());
+				
 				double monto = ordenDto.getTotalFactSoles();
-				ordenNew.setMontoorden(new BigDecimal(monto));
+				BigDecimal bigmontonew = new BigDecimal(monto);
+				ordenNew.setMontoorden(Utils.round(bigmontonew));
+				
 				ordenNew.setEstadoexpedientesiaf(ordenDto.getEstadoOrden());
 				ordenNew.setIdcatalogotipobien(ordenDto.getIdTipoBien());
 				ordenNew.setIdunidadejecutora(ordenDto.getIdUnidadEjecutora());
