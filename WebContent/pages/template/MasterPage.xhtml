@@ -15,9 +15,6 @@
 			src="#{request.contextPath}/resources/js/jasaro-validator.js"></script>
 
 
-
-
-
 		<p:importConstants type="pe.com.sisabas.resources.ConstantesPF"
 			var="PFConstants" />
 		<f:facet name="first">
@@ -97,10 +94,10 @@ a:-webkit-any-link {
 }
 
 #CONTENTSIDE {
-    width: 100%;
+    width: auto;
     overflow: hidden;
     z-index: 1;
-    
+    margin-left: 0px;
     background-color: #eff3f6;
 }
 
@@ -124,8 +121,7 @@ div {
 }
 
 .SubMenuLinkContainer {
-    width: 100%;
-    height: 100%;
+    width: auto;
     padding: 20px;
     overflow: hidden;
     background-color: #20282b;
@@ -133,8 +129,9 @@ div {
 }
 
 #MENUSIDEindent {
-    width: 97%;
-    height: 100%;
+    width: 93%;
+    height: auto;
+    
 }
 
 
@@ -1066,34 +1063,49 @@ figure {
 		<header> </header>
 		 -->
 		
-		
-
-		
-		
         <div class="PC"> 
-        
-        		<div id="MENUSIDE" class="ps-container" style="height: 100%;">
-					   <div id="MENUSIDEindent"> 
-					   
-					   
-						   	<p:panelMenu model="#{loginBean.model}" style="margin-left:0px; width: 100%" stateful="true" >
-						   	
-						   	
-						   	</p:panelMenu>
-							
-							 <!--   <p:menubar model="#{loginBean.model}" style="margin-left:0px; width: 100%" styleClass="SubMenuLinkContainer" toggleable="true"> 
-							   </p:menubar> -->
-					
-					
-						</div>
-				</div>
+		<div id="MENUSIDE" class="ps-container" style="height: 100%;">
 		
-				<div id="CONTENTSIDE">
-					
-					<ui:insert name="center">Center</ui:insert>
-					
-				</div>
-		</div> 
+		
+		
+		   <div id="MENUSIDEindent">
+			<p:menu style="margin-left:0px; width: 100%" toggleable="true" stateful="true">                   
+				<p:submenu label="ADMINISTRACIÓN" styleClass="ui-panelmenu-panel" style="height:22px; color: #325d82;">
+				    <p:menuitem value="Parámetros" outcome="/pages/genparametro/genparametroBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+				    <p:menuitem value="Periódos" outcome="/pages/periodo/periodoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+				</p:submenu>
+				
+				<p:submenu label="SEGUIMIENTO" styleClass="ui-panelmenu-panel" style="height:22px; color: #325d82; ">
+					<p:menuitem value="Estados" outcome="/pages/seguimiento/seguimiento.xhtml" icon="ui-icon-triangle-1-e"/>	
+				</p:submenu>
+				<p:submenu label="REQUERIMIENTOS" styleClass="ui-panelmenu-panel" style="height:22px; color: #325d82;">
+					 <p:menuitem value="Pedidos" outcome="/pages/requerimiento/requerimientos.xhtml" icon="ui-icon-triangle-1-e"/>
+		             
+				</p:submenu>
+				<p:submenu label="PROGRAMACIÓN" styleClass="ui-panelmenu-panel" style="height:22px; color: #325d82;">
+					<p:menuitem value="Evaluación de documento" outcome="/pages/evaluaciondocumento/evaluaciondocumentoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+		            <p:menuitem value="PAO" outcome="/pages/pao/paoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+				</p:submenu>
+				<p:submenu label="PROCESO DE SELECCIÓN" styleClass="ui-panelmenu-panel" style="height:22px; color: #325d82;">
+					<p:menuitem value="Recepción de documentos" outcome="/pages/requerimiento/requerimientos.xhtml" icon="ui-icon-triangle-1-e"/>
+		            <p:menuitem value="Procesos" outcome="/pages/requerimiento/requerimientos.xhtml" icon="ui-icon-triangle-1-e"/>
+		            <p:menuitem value="Procesos Desiertos" outcome="/pages/requerimiento/requerimientos.xhtml" icon="ui-icon-triangle-1-e"/>
+				</p:submenu>
+				<p:submenu label="EJECUCIÓN CONTRACTUAL" styleClass="ui-panelmenu-panel" style="height:22px; color: #325d82;">
+					<p:menuitem value="Seguimiento de contratos" outcome="/pages/contrato/componenteBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
+				</p:submenu>
+				
+			</p:menu>
+			</div>
+			
+		</div>
+
+		<div id="CONTENTSIDE">
+			
+			<ui:insert name="center">Center</ui:insert>
+			
+		</div>
+		</div>
 
 		<footer>
 			<table style="width: 100%">
