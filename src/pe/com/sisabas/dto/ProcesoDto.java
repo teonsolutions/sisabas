@@ -1,8 +1,9 @@
 package pe.com.sisabas.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ProcesoDto {
+public class ProcesoDto implements  Serializable,Cloneable {
 	private Integer idProcesoSeleccion;
 	private Integer idGrupoDocumento;
 	private Integer idPacConsolidado;
@@ -16,6 +17,7 @@ public class ProcesoDto {
 	private Integer proceso;
 	private String estadoproceso;
 	private String estadoSiga;
+	private String idEstadoSiga;
 	private Integer anio;
 	private Date fechaEnvioEjecucion;
 	private Integer idEstadoProceso;
@@ -24,7 +26,7 @@ public class ProcesoDto {
 	private Integer idComiteProceso;
 	private String comiteRecompuesto;
 	private Integer correlativo;
-	private Integer existeSiga;
+	private String existeSiga;
 	private String tipoModalidad;
 	public Integer getIdProcesoSeleccion() {
 		return idProcesoSeleccion;
@@ -104,6 +106,12 @@ public class ProcesoDto {
 	public void setEstadoSiga(String estadoSiga) {
 		this.estadoSiga = estadoSiga;
 	}
+	public String getIdEstadoSiga() {
+		return idEstadoSiga;
+	}
+	public void setIdEstadoSiga(String idEstadoSiga) {
+		this.idEstadoSiga = idEstadoSiga;
+	}	
 	public Integer getAnio() {
 		return anio;
 	}
@@ -152,19 +160,22 @@ public class ProcesoDto {
 	public void setCorrelativo(Integer correlativo) {
 		this.correlativo = correlativo;
 	}
-	public Integer getExisteSiga() {
-		return existeSiga;
-	}
-	public void setExisteSiga(Integer existeSiga) {
-		this.existeSiga = existeSiga;
-	}
 	public String getTipoModalidad() {
 		return tipoModalidad;
 	}
 	public void setTipoModalidad(String tipoModalidad) {
 		this.tipoModalidad = tipoModalidad;
 	}
+	public String getExisteSiga() {
+		return existeSiga;
+	}
+	public void setExisteSiga(String existeSiga) {
+		this.existeSiga = existeSiga;
+	}
 	
-	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	 }	
 		
 }

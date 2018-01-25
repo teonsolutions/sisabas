@@ -271,8 +271,9 @@ public class ProgramacionController extends BaseController {
 	public void buscarPao() {
 
 		try {
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
 			this.searchParam.setCodigoUnidadEjecutora(Constantes.unidadEjecutora.PRONIED);
-			this.searchParam.setAnio(2017);
+			this.searchParam.setAnio(usuario.getPeriodo().getAnio());
 			this.searchParam.setPageNumber(1);
 			this.searchParam.setPageSize(10);
 
