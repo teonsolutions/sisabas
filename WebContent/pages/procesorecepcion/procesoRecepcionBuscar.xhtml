@@ -67,20 +67,20 @@
 						<td valign="top"><p:panel id="pnlBotones"
 								styleClass="gandalfPnlBotonesClass">
 								<h:inputHidden id="hidStatus"
-									value="#{evaluacionDocumento.status}" />
+									value="#{procesoRecepcion.status}" />
 								<p:commandButton widgetVar="btnBuscar" id="btnBuscar"
-									value="Buscar" action="#{evaluacionDocumento.buscarPedidos}"
+									value="Buscar" action="#{procesoRecepcion.search}"
 									update="tblListado,pnlBotones" icon="fa fa-search"
 									title="Buscar"
-									rendered="#{evaluacionDocumento.renderButton('btnBuscar')}" />
+									rendered="#{procesoRecepcion.renderButton('btnBuscar')}" />
 								<p:spacer width="20" />
 
 								<p:commandButton value="Recibir"
-									action="#{evaluacionDocumento.irRecibir}" update="hidStatus"
+									action="#{procesoRecepcion.irRecibir}" update="hidStatus"
 									oncomplete="showDialog('form:hidStatus','form:cdRecibir');"
 									icon="fa fa-download" title="Recibir"
-									disabled="#{!evaluacionDocumento.esSeleccionadoPorRecibir}"
-									rendered="#{evaluacionDocumento.renderButton('btnRecibir')}" />
+									disabled="#{!procesoRecepcion.selectedToReceive}"
+									rendered="#{procesoRecepcion.renderButton('btnRecibir')}" />
 
 								<p:commandButton value="Comité especial"
 									action="#{evaluacionDocumento.irAprobar}"
@@ -113,74 +113,110 @@
 				</table>
 
 				<p:dataTable id="tblListado"
-					value="#{evaluacionDocumento.listaPedidos}" var="var"
-					emptyMessage="No se encontraron registros"
-					widgetVar="tblListado"
-					selection="#{evaluacionDocumento.selectedPedido}" paginator="true"
+					value="#{procesoRecepcion.dataList}" var="var"
+					emptyMessage="No se encontraron registros" widgetVar="tblListado"
+					selection="#{procesoRecepcion.selectedRow}" paginator="true"
 					rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
-					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(evaluacionDocumento.listaPedidos)}"
-					selectionMode="single" rowKey="#{var.iddocumentotecnico}"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(procesoRecepcion.dataList)}"
+					selectionMode="single" rowKey="#{var.nroProceso}"
 					styleClass="gandalfTableClass">
 					<p:ajax event="rowSelect"
-						listener="#{evaluacionDocumento.seleccionItem}"
+						listener="#{procesoRecepcion.seleccionItem}"
 						update=":form:pnlBotones" immediate="true" />
 
-					<p:column styleClass="c_string" sortBy="#{var.nroDocumento}"
-						style="width: 100px">
+
+					<p:column styleClass="c_string" sortBy="#{var.existeSiga}">
 						<f:facet name="header">
-							<h:outputText value="Nro. Documento"></h:outputText>
+							<h:outputText value="Existe en SIGA?"></h:outputText>
 						</f:facet>
-						<h:outputText value="#{var.nroDocumento}" />
+						<h:outputText value="#{var.existeSiga}" />
 					</p:column>
 
-					<p:column styleClass="c_string" sortBy="#{var.descripcion}"
-						style="width:40%">
+
+					<p:column styleClass="c_string" sortBy="#{var.tipoProcesoDesc}">
 						<f:facet name="header">
-							<h:outputText value="Descripción"></h:outputText>
+							<h:outputText value="Tipo de proceso"></h:outputText>
 						</f:facet>
-						<h:outputText value="#{var.descripcion}" />
+						<h:outputText value="#{var.tipoProcesoDesc}" />
 					</p:column>
 
-					<p:column styleClass="c_string" sortBy="#{var.tipoBienDesc}"
-						style="width: 150px">
+					<p:column styleClass="c_string" sortBy="#{var.nroProceso}">
+						<f:facet name="header">
+							<h:outputText value="Nro. Proceso"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.nroProceso}" />
+					</p:column>
+
+					<p:column styleClass="c_string" sortBy="#{var.tipoBienDesc}">
 						<f:facet name="header">
 							<h:outputText value="Tipo de bien"></h:outputText>
 						</f:facet>
 						<h:outputText value="#{var.tipoBienDesc}" />
 					</p:column>
 
-					<p:column styleClass="c_string" sortBy="#{var.monto}">
+					<p:column styleClass="c_string" sortBy="#{var.glosa}" style="width: 25%;">
 						<f:facet name="header">
-							<h:outputText value="Monto S/."></h:outputText>
+							<h:outputText value="Descripción del proceso"></h:outputText>
 						</f:facet>
-						<h:outputText value="#{var.monto}" />
+						<h:outputText value="#{var.glosa}" />
 					</p:column>
 
-					<p:column styleClass="c_string" sortBy="#{var.estadoDesc}">
+					<p:column styleClass="c_string"
+						sortBy="#{var.valorEstimadoContratacion}">
 						<f:facet name="header">
-							<h:outputText value="Estado"></h:outputText>
+							<h:outputText value="Valor Referencial S/."></h:outputText>
 						</f:facet>
-						<h:outputText value="#{var.estadoDesc}" />
+						<h:outputText value="#{var.valorEstimadoContratacion}" />
 					</p:column>
 
-
-					<p:column styleClass="c_string" sortBy="#{var.tipoNecesidadDesc}">
+					<p:column styleClass="c_string" sortBy="#{var.fechaRegistro}">
 						<f:facet name="header">
-							<h:outputText value="Tipo de Necesidad"></h:outputText>
+							<h:outputText value="Fecha"></h:outputText>
 						</f:facet>
-						<h:outputText value="#{var.tipoNecesidadDesc}" />
+						<h:outputText value="#{var.fechaRegistro}" />
+					</p:column>
+
+					<p:column styleClass="c_string"
+						sortBy="#{var.nombreEspecialistaProceso}">
+						<f:facet name="header">
+							<h:outputText value="Especialista asignado"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.nombreEspecialistaProceso}" />
+					</p:column>
+
+					<p:column styleClass="c_string"
+						sortBy="#{var.estadoproceso}">
+						<f:facet name="header">
+							<h:outputText value="Estado (SISABAS)"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.estadoproceso}" />
+					</p:column>
+
+					<p:column styleClass="c_string"
+						sortBy="#{var.estadoSiga}">
+						<f:facet name="header">
+							<h:outputText value="Estado (SIGA)"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.estadoSiga}" />
 					</p:column>
 				</p:dataTable>
-
-
+				<p:confirmDialog id="cdRecibir"
+					message="Esta seguro de recibir el expediente?"
+					header="Confirmación" severity="alert" widgetVar="cdRecibir">
+					<p:commandButton value="Si" action="#{evaluacionDocumento.recibir}"
+						update=":form:tblListado,:form:growl,:form:pnlBotones"
+						oncomplete="hideDialogPF('cdRecibir');" />
+					<p:commandButton value="No" onclick="hideDialogPF('cdRecibir');"
+						type="button" />
+				</p:confirmDialog>
 			</p:panel>
 		</h:form>
 
 		<h:form id="frmComiteSeleccion">
 			<p:dialog id="diComiteSeleccion"
 				header="#{evaluacionDocumento.tituloParam} #{evaluacionDocumento.tituloBase} Aprobación"
-				widgetVar="diComiteSeleccion" resizable="false"
-				modal="true" dynamic="true">
+				widgetVar="diComiteSeleccion" resizable="false" modal="true"
+				dynamic="true">
 				<p:scrollPanel mode="native" style="width:100%;height:100%;">
 					<p:messages for="msgsDocumentotecnicoR" autoUpdate="true"
 						closable="true" />
@@ -207,12 +243,10 @@
 				</table>
 			</p:dialog>
 		</h:form>
-	
+
 		<h:form id="frmImprimir">
-			<p:dialog id="diImprimir"
-				header="#{evaluacionDocumento.tituloBase}"
-				widgetVar="diImprimir" resizable="false"
-				modal="true" dynamic="true">
+			<p:dialog id="diImprimir" header="#{evaluacionDocumento.tituloBase}"
+				widgetVar="diImprimir" resizable="false" modal="true" dynamic="true">
 				<h:panelGrid columns="1" style="text-align:center;">
 
 					<p:commandButton icon="ui-icon-circle-arrow-s"
@@ -225,14 +259,14 @@
 					<ui:remove>
 						<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf"
 							ajax="false" style="width:100px;">
-							<p:dataExporter type="pdf"
-								target=":form:tblListado" fileName="datos"
+							<p:dataExporter type="pdf" target=":form:tblListado"
+								fileName="datos"
 								preProcessor="#{evaluacionDocumento.preProcessPDF}" />
 						</p:commandButton>
 					</ui:remove>
 
 				</h:panelGrid>
 			</p:dialog>
-		</h:form>	
+		</h:form>
 	</ui:define>
 </ui:composition>
