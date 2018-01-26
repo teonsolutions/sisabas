@@ -4,6 +4,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import pe.com.sisabas.be.Vcentrocosto;
 import pe.com.sisabas.be.VisSigaCentroCosto;
+import pe.com.sisabas.dto.CentroCostoRequest;
+import pe.com.sisabas.dto.CentroCostoResponse;
 
 public interface VcentrocostoMapper{
 
@@ -33,5 +35,6 @@ public interface VcentrocostoMapper{
 
 	List<VisSigaCentroCosto> selectDynamicFullVis(VisSigaCentroCosto record);
 
-
+	List<CentroCostoResponse> getCentroCosto(CentroCostoRequest record);
+	
 }

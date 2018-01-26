@@ -13,6 +13,8 @@ import pe.com.sisabas.be.Vcentrocosto;
 import pe.com.sisabas.be.VisSigaCentroCosto;
 import pe.com.sisabas.persistence.VcentrocostoMapper;
 import pe.com.sisabas.business.VcentrocostoBusiness;
+import pe.com.sisabas.dto.CentroCostoRequest;
+import pe.com.sisabas.dto.CentroCostoResponse;
 import pe.com.sisabas.exception.BusinessException;
 import pe.com.sisabas.exception.ValidateException;
 import pe.com.sisabas.resources.Constantes;
@@ -230,6 +232,12 @@ public class VcentrocostoBusinessImpl implements VcentrocostoBusiness, Serializa
 	public List<VisSigaCentroCosto> selectDynamicFullVis(VisSigaCentroCosto record) {
 		// TODO Auto-generated method stub
 		return vcentrocostoMapper.selectDynamicFullVis(record);
+	}
+
+	@Override
+	public List<CentroCostoResponse> getCentroCosto(CentroCostoRequest record) throws Exception {
+		// TODO Auto-generated method stub
+		return vcentrocostoMapper.getCentroCosto(record);
 	}
 
 

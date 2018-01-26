@@ -9,7 +9,9 @@
 	template="/pages/template/MasterPage.xhtml">
 	<ui:define name="center">
 		<h:form id="form">
-			<p:panel id="panel" header="" style="width: 98%">
+			<p:panel id="panel"
+				header="#{procesoRecepcion.tituloParam} #{procesoRecepcion.tituloBase} Buscar"
+				style="width: 98%">
 				<p:focus for="panel" />
 				<p:messages id="msgsForm" for="msgsForm" autoUpdate="true"
 					closable="true" showDetail="true" />
@@ -21,11 +23,11 @@
 							<td><p:outputLabel value="Tipo de Proceso"
 									for="ddlTipoProceso" /></td>
 							<td><p:selectOneMenu id="ddlTipoProceso"
-									value="#{evaluacionDocumento.searchParam.idcatalogotiponecesidad}">
-									<f:selectItems
-										value="#{pacconsolidado.listaGentablaIdcatalogotiponecesidad}"
-										var="var" itemLabel="#{var.vchregdescri}"
-										itemValue="#{var.vchregcodigo}" />
+									value="#{procesoRecepcion.searchParam.idTipoProceso}">
+									<f:selectItem itemLabel="TODOS" itemValue="" />
+									<f:selectItems value="#{procesoRecepcion.listaTipoProceso}"
+										var="var" itemLabel="#{var.descripcion}"
+										itemValue="#{var.codigo}" />
 								</p:selectOneMenu></td>
 							<td><p:outputLabel value="Tipo de bien" for="ddlTipoBien" /></td>
 							<td><p:selectOneMenu id="ddlTipoBien"
@@ -37,6 +39,17 @@
 										itemValue="#{var.vchregcodigo}" />
 								</p:selectOneMenu></td>
 
+							<td><p:outputLabel value="Oficina"
+									for="ddlCentroCosto" /></td>
+							<td><p:selectOneMenu id="ddlCentroCosto"
+									value="#{procesoRecepcion.searchParam.codigoCentroCosto}">
+									<f:selectItem itemLabel="TODOS" itemValue="" />
+									<f:selectItems
+										value="#{procesoRecepcion.listaCentroCosto}"
+										var="var" itemLabel="#{var.nombreDependencia}" itemValue="#{var.codigoCentroCosto}" />
+								</p:selectOneMenu></td>
+						</tr>
+						<tr>
 							<td><p:outputLabel value="Estado del proceso"
 									for="ddlEstadoProceso" /></td>
 							<td><p:selectOneMenu id="ddlEstadoProceso"
@@ -55,9 +68,8 @@
 							<td><p:inputText id="txtNroPao"
 									value="#{evaluacionDocumento.searchParam.nroDocumento}"
 									disabled="false" maxlength="5" style="width:150px;"
-									label="Número Pedido" /></td>
-						</tr>
-
+									label="Número Pedido" /></td>							
+						</tr>						
 					</table>
 				</p:panel>
 
@@ -66,8 +78,7 @@
 					<tr>
 						<td valign="top"><p:panel id="pnlBotones"
 								styleClass="gandalfPnlBotonesClass">
-								<h:inputHidden id="hidStatus"
-									value="#{procesoRecepcion.status}" />
+								<h:inputHidden id="hidStatus" value="#{procesoRecepcion.status}" />
 								<p:commandButton widgetVar="btnBuscar" id="btnBuscar"
 									value="Buscar" action="#{procesoRecepcion.search}"
 									update="tblListado,pnlBotones" icon="fa fa-search"
@@ -112,11 +123,11 @@
 					</tr>
 				</table>
 
-				<p:dataTable id="tblListado"
-					value="#{procesoRecepcion.dataList}" var="var"
-					emptyMessage="No se encontraron registros" widgetVar="tblListado"
-					selection="#{procesoRecepcion.selectedRow}" paginator="true"
-					rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+				<p:dataTable id="tblListado" value="#{procesoRecepcion.dataList}"
+					var="var" emptyMessage="No se encontraron registros"
+					widgetVar="tblListado" selection="#{procesoRecepcion.selectedRow}"
+					paginator="true" rows="#{sisabascontrol.registros_mant}"
+					paginatorPosition="bottom"
 					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(procesoRecepcion.dataList)}"
 					selectionMode="single" rowKey="#{var.nroProceso}"
 					styleClass="gandalfTableClass">
@@ -154,7 +165,8 @@
 						<h:outputText value="#{var.tipoBienDesc}" />
 					</p:column>
 
-					<p:column styleClass="c_string" sortBy="#{var.glosa}" style="width: 25%;">
+					<p:column styleClass="c_string" sortBy="#{var.glosa}"
+						style="width: 25%;">
 						<f:facet name="header">
 							<h:outputText value="Descripción del proceso"></h:outputText>
 						</f:facet>
@@ -184,16 +196,14 @@
 						<h:outputText value="#{var.nombreEspecialistaProceso}" />
 					</p:column>
 
-					<p:column styleClass="c_string"
-						sortBy="#{var.estadoproceso}">
+					<p:column styleClass="c_string" sortBy="#{var.estadoproceso}">
 						<f:facet name="header">
 							<h:outputText value="Estado (SISABAS)"></h:outputText>
 						</f:facet>
 						<h:outputText value="#{var.estadoproceso}" />
 					</p:column>
 
-					<p:column styleClass="c_string"
-						sortBy="#{var.estadoSiga}">
+					<p:column styleClass="c_string" sortBy="#{var.estadoSiga}">
 						<f:facet name="header">
 							<h:outputText value="Estado (SIGA)"></h:outputText>
 						</f:facet>

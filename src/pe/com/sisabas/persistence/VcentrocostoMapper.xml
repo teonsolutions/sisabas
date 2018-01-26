@@ -50,7 +50,11 @@
 	</resultMap>
 
 
-
+	<resultMap id="centroCostoResultCustom" type="pe.com.sisabas.dto.CentroCostoResponse">		
+		<result column="CENTRO_COSTO" property="codigoCentroCosto" jdbcType="VARCHAR" />
+		<result column="NOMBRE_DEPEND" property="nombreDependencia" jdbcType="VARCHAR" />
+	</resultMap>
+	
 
 	<sql id="Basic_Column_List">
 	A1.CODIGOCENTROCOSTO as A1_CODIGOCENTROCOSTO, A1.NOMBREDEPENDENCIA as A1_NOMBREDEPENDENCIA, A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, 
@@ -391,11 +395,28 @@
 				 AND A1.Anio = #{anio, jdbcType=VARCHAR}
 			</if>
 		
-		</where>
-	
-		
+		</where>	
+			
 	</select>
 	
+	<select id="getCentroCosto" resultMap="centroCostoResultCustom"  parameterType="pe.com.sisabas.dto.CentroCostoRequest" >		
+		  SELECT cc.CENTRO_COSTO
+				,cc.NOMBRE_DEPEND AS NOMBRE_DEPEND
+		
+		  FROM abas.visSigaCentroCostos cc
+		
+		  INNER JOIN abas.Periodo e 
+			ON CAST(cc.ANO_EJE AS INT)=CAST(e.Anio AS INT)
+			  
+		  INNER JOIN abas.UnidadEjecutora ue 
+			ON cc.SEC_EJEC = ue.CodigoSiafUnidadEjecutora
+		
+		  WHERE ue.CodigoUnidadEjecutora = #{codigoUnidadEjecuta}
+				AND e.IdPeriodo = #{idPeriodo}
+				AND cc.ESTADO='A'
+		
+		  ORDER BY cc.NOMBRE_DEPEND			
+	</select>	
 	
 
 	

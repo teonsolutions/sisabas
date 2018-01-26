@@ -14,6 +14,9 @@ import org.springframework.stereotype.Component;
 import pe.com.sisabas.be.Gentabla;
 import pe.com.sisabas.business.GentablaBusiness;
 import pe.com.sisabas.business.ProcesoBusiness;
+import pe.com.sisabas.business.VcentrocostoBusiness;
+import pe.com.sisabas.dto.CentroCostoRequest;
+import pe.com.sisabas.dto.CentroCostoResponse;
 import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
 import pe.com.sisabas.dto.ProcesoDto;
 import pe.com.sisabas.dto.ProcesoRequest;
@@ -46,6 +49,7 @@ public class ProcesoRecepcionController extends BaseController {
 	// DropDownList
 	public List<Gentabla> listaGentablaIdcatalogotipobien;
 	public List<TipoProcesoResponse> listaTipoProceso;
+	public List<CentroCostoResponse> listaCentroCosto;
 
 	// Redirect
 	public static String SUCCESS_MIEMBROS = "/pages/procesorecepcion/ordenRegistrar.xhtml?faces-redirect=true;";
@@ -61,6 +65,8 @@ public class ProcesoRecepcionController extends BaseController {
 	public GentablaBusiness gentablaBusiness;
 	@Autowired
 	public ProcesoBusiness procesoBusiness;
+	@Autowired
+	public VcentrocostoBusiness vcentrocostoBusiness;
 
 	public void ProcesoRecepcionController() {
 
@@ -77,16 +83,21 @@ public class ProcesoRecepcionController extends BaseController {
 	@PostConstruct
 	public void init() {
 		searchParam = new ProcesoRequest();
-		tituloBase = "Proceso » ";
+		tituloBase = "Recepción de documentos » ";
 		try {
 			if (SICU_SECURITY_ENABLE) {
 				idOpcion = SicuCallService.obtenerIdOpcion(idOpcionText).toString();
 				sicuopcion = SicuCallService.obtenercontroles(idOpcion);
 			}
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
 			listaGentablaIdcatalogotipobien = gentablaBusiness
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.TIBI));
-			// listaTipoProceso =
-			// gentablaBusiness.getTipoProceso(usuario.getPeriodo().getAnio());
+			listaTipoProceso = gentablaBusiness.getTipoProceso(usuario.getPeriodo().getAnio());
+			
+			CentroCostoRequest param = new CentroCostoRequest();
+			param.setCodigoUnidadEjecuta(Constantes.unidadEjecutora.PRONIED);
+			param.setIdPeriodo(usuario.getPeriodo().getIdPeriodo());			
+			List<CentroCostoResponse> listaCentroCosto = vcentrocostoBusiness.getCentroCosto(param);
 
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
@@ -139,7 +150,8 @@ public class ProcesoRecepcionController extends BaseController {
 			throw new UnselectedRowException(Messages.getString("no.record.selected"));
 		else
 			currentRow = (ProcesoDto) selectedRow.clone();
-	}	
+	}
+
 	public void irRecibir() {
 		STATUS_INIT();
 		try {
@@ -167,7 +179,7 @@ public class ProcesoRecepcionController extends BaseController {
 			addErrorMessageKey("msgsForm", e);
 		}
 	}
-	
+
 	public void recibir() {
 		REGISTER_INIT();
 		try {
@@ -177,13 +189,13 @@ public class ProcesoRecepcionController extends BaseController {
 			TransactionRequest<Integer> request = new TransactionRequest<Integer>();
 			request.setUsuarioAuditoria(getUserLogin());
 			request.setEquipoAuditoria(getRemoteAddr());
-			//businessProgramacion.recibirDocumentoTecnico(pedido, request);
+			// businessProgramacion.recibirDocumentoTecnico(pedido, request);
 
 			showGrowlMessageSuccessfullyCompletedAction();
 			search();
 			this.setSelectedToReceive(false);
-			//this.setEsSeleccionadoPorAprobar(false);
-			
+			// this.setEsSeleccionadoPorAprobar(false);
+
 			REGISTER_SUCCESS();
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
@@ -201,10 +213,17 @@ public class ProcesoRecepcionController extends BaseController {
 			STATUS_ERROR();
 			addErrorMessageKey("msgsForm", e);
 		}
-	}	
-	
+	}
+
 	// Properties
 	public List<ProcesoDto> getDataList() {
+		/**
+		 * SELECT CODIGO_DET, '[' + DESCRIPCION_ABREVIADA + '] ' + DESCRIPCION
+		 * AS DESCRIPCION FROM abas.visSigaMaestroProceso mp WHERE mp.CODIGO =
+		 * 'TIPO_PROCESO' AND mp.ANO_EJE = 2016 GROUP BY CODIGO_DET,
+		 * DESCRIPCION_ABREVIADA, DESCRIPCION
+		 */
+
 		return dataList;
 	}
 
@@ -278,6 +297,14 @@ public class ProcesoRecepcionController extends BaseController {
 
 	public void setSelectedToReceive(boolean selectedToReceive) {
 		this.selectedToReceive = selectedToReceive;
+	}
+
+	public List<CentroCostoResponse> getListaCentroCosto() {
+		return listaCentroCosto;
+	}
+
+	public void setListaCentroCosto(List<CentroCostoResponse> listaCentroCosto) {
+		this.listaCentroCosto = listaCentroCosto;
 	}
 
 }

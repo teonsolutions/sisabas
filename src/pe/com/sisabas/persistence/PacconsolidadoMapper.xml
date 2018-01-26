@@ -2313,5 +2313,7 @@
 	<select id="searchProceso" resultMap="procesoSearch" parameterType="pe.com.sisabas.dto.ProcesoRequest">
 		{call abas.paProcesosListar(#{anio},#{idSinad},#{nroProceso},#{nroConsolid},#{idTipoProceso},#{idTipoBien},#{estadoProceso},#{codigoCentroCosto},#{idUnidadEjecutoraSiaf})}
 	</select>
+	
+	
 
 </mapper>
