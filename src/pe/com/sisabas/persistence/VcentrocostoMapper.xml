@@ -411,7 +411,7 @@
 		  INNER JOIN abas.UnidadEjecutora ue 
 			ON cc.SEC_EJEC = ue.CodigoSiafUnidadEjecutora
 		
-		  WHERE ue.CodigoUnidadEjecutora = #{codigoUnidadEjecuta}
+		  WHERE ue.CodigoUnidadEjecutora = #{codigoUnidadEjecuta,jdbcType=VARCHAR}
 				AND e.IdPeriodo = #{idPeriodo}
 				AND cc.ESTADO='A'
 		
