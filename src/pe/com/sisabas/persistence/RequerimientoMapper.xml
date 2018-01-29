@@ -25,11 +25,9 @@
       <result property = "rowtotal" column="ROWTOTAL"/>
       <result property = "tipoDocumentoSinad" column="TipoDocumentoSinad"/>
       <result property = "numeroDocumentoSinad" column="NumeroDocumentoSinad"/>
-      
       <result property = "nroPac" column="NroPac"/>
       <result property = "nroConsolid" column="NroConsolid"/>
       <result property = "tienePao" column="TienePao"/>
-      
       
    </resultMap> 
    
@@ -73,8 +71,7 @@
       <result property = "nroContrato" column="NRO_CONTRATO" jdbcType="VARCHAR"/>
       <result property = "nroOrden" column="NRO_ORDEN" jdbcType="VARCHAR"/>
       <result property = "etapa" column="ETAPA" jdbcType="VARCHAR"/>
-      <result property = "estado" column="ESTADO" jdbcType="VARCHAR"/>
-      
+      <result property = "estado" column="ESTADO" jdbcType="VARCHAR"/>   
    </resultMap> 
    
     
@@ -92,12 +89,6 @@
    
   
   
-  	  
-		 
-	
-	
-   
-				
    
 
    <select id = "selectDynamicFull" resultMap = "result" parameterType = "pe.com.sisabas.be.RequerimientoRequest" statementType = "CALLABLE">

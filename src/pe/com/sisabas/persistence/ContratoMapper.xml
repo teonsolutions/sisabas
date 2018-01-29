@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pe.com.sisabas.persistence.ContratoMapper" >
+  <resultMap id = "result" type = "pe.com.sisabas.be.ContratoResponse">
+      <result property = "idProcesoSeleccion" column="IdProcesoSeleccion"/>
+      <result property = "tipoBien" column="TIPO_BIEN"/>
+      <result property = "nroConsolid" column="NroConsolid"/>
+      <result property = "nroProceso" column="NRO_PROCESO"/>
+      <result property = "codTipoProceso" column="CodigoTipoProceso"/>
+      <result property = "tipoProceso" column="TIPO_PROCESO"/>
+      <result property = "nroContrato" column="NRO_CONTRATO"/>
+      <result property = "nroDocumento" column="NRO_DOCUMENTO"/>
+      <result property = "fechaContrato" column="FECHA_CONTRATO"/>
+      <result property = "fechaContratoStr" column="FECHA_CONTRATO_STR"/>
+      <result property = "idDocumento" column="ID_DOCUMENTO"/>
+      <result property = "idPacConsolidado" column="IdPacConsolidado"/>
+      <result property = "dniEspEjecucion" column="DniEspecialistaEjecucion"/>
+      <result property = "nomEspEjecucion" column="NOMBRE_ESPECIALISTA_EJECUCION"/>
+      <result property = "idTipoContrato" column="ID_TIPO_CONTRATO"/>
+      <result property = "tipoContrato" column="TIPO_CONTRATO"/>
+      <result property = "idContrato" column="IdContrato"/>
+      <result property = "estado" column="ESTADO"/>
+      <result property = "tipoContratoTb" column="TIPO_CONTRATO_TB"/>
+      <result property = "anoProceso" column="ANO_PROCESO"/>
+      <result property = "registrado" column="REGISTRADO"/>
+      <result property = "estadoDocumentacion" column="EstadoDocumentacion"/>
+      <result property = "estadoDocumentacionDesc" column="ESTADO_DOCUMENTACION_DESC"/>
+      <result property = "rowTotal" column="ROWTOTAL"/>
+   </resultMap>
+ 
+   <select id = "selectDynamicFull" resultMap = "result" parameterType = "pe.com.sisabas.be.ContratoRequest" statementType = "CALLABLE">
+      {call abas.paEjecucionListarContratos(
+            #{codUnidEjecutora},
+            #{numeroContrato},
+            #{numeroProceso},
+            #{tipoBien},
+            #{fechaContrato},
+            #{tipoProceso},
+            #{centroCosto},
+            #{estado},
+            #{sinadContrato},
+            #{pageNumber},
+            #{pageSize}   
+      )}
+   </select>
+
+</mapper>
+   

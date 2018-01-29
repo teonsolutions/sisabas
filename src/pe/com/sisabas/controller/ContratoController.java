@@ -9,19 +9,23 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import pe.com.sisabas.be.ContratoRequest;
 import pe.com.sisabas.be.ContratoResponse;
 import pe.com.sisabas.business.ContratoBusiness;
+import pe.com.sisabas.business.GentablaBusiness;
+import pe.com.sisabas.dto.EstadoRequerimientoResponse;
 import pe.com.sisabas.exception.SecurityRestrictedControlException;
 import pe.com.sisabas.exception.SecuritySessionExpiredException;
 import pe.com.sisabas.exception.SecurityValidateException;
+import pe.com.sisabas.resources.Constantes;
 import pe.com.sisabas.resources.Messages;
 import pe.com.sisabas.resources.controller.BaseController;
 import pe.com.sisabas.service.Sicuusuario;
-import pe.com.sisabas.business.ContratoBusiness;
+
 
 
 @Component(value = "contrato")
@@ -40,13 +44,24 @@ public class ContratoController extends BaseController {
 	
 	private List<ContratoResponse> listaContratos = new ArrayList<ContratoResponse>();
 	
+	public List<EstadoRequerimientoResponse> listaEstadoRequerimiento;
+	
+	@Autowired
+	public GentablaBusiness gentablaBusiness;
 	
 	@PostConstruct
 	public void init() {
 		
+		try {
 		contratoRequest = new ContratoRequest();
 		contratoResponse= new ContratoResponse();
-
+		
+		listaEstadoRequerimiento = gentablaBusiness.getEstadoRequerimiento(Constantes.etapaAdministrativa.EJECUCION_CONTRACTUAL);
+		
+		} catch (Exception e) {
+			addErrorMessageKey("msgsForm", e);
+		}
+		
 	}
 
 	public boolean isAvanzado() {
@@ -117,6 +132,15 @@ public class ContratoController extends BaseController {
 	public void setContratoResponse(ContratoResponse contratoResponse) {
 		this.contratoResponse = contratoResponse;
 	}
-	
 
+	public List<EstadoRequerimientoResponse> getListaEstadoRequerimiento() {
+		return listaEstadoRequerimiento;
+	}
+
+	public void setListaEstadoRequerimiento(List<EstadoRequerimientoResponse> listaEstadoRequerimiento) {
+		this.listaEstadoRequerimiento = listaEstadoRequerimiento;
+	}
+	
+	
+	
 }

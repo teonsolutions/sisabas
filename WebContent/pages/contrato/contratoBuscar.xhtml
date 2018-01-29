@@ -145,15 +145,36 @@ a:-webkit-any-link {
 	                    <table style="width: 100%;" cellpadding="0" cellspacing="5">
 	                      <tr>
 								<td><p:outputLabel value="Tipo de bien" rendered="#{contrato.avanzado}"/></td>
-								<td><p:inputText id="inputText1" rendered="#{contrato.avanzado}" value="#{contrato.contratoRequest.tipoBien}"/></td>
+								<td>
+								   <p:selectOneMenu id="inputText1" rendered="#{contrato.avanzado}" value="#{contrato.contratoRequest.tipoBien}" style="width:150px;">
+									<f:selectItem itemLabel="TODOS" itemValue="" />
+									<f:selectItem itemLabel="BIEN" itemValue="B" />
+									<f:selectItem itemLabel="SERVICIO" itemValue="S" />
+								   </p:selectOneMenu>
+								</td>
 								<td><p:outputLabel value="Fecha de contrato" rendered="#{contrato.avanzado}"/></td>
 								<td><p:calendar id="inputText2" rendered="#{contrato.avanzado}" value="#{contrato.contratoRequest.fechaContrato}"/></td>
 								<td><p:outputLabel value="Estado" rendered="#{contrato.avanzado}"/></td>
-								<td><p:inputText id="inputText3" rendered="#{contrato.avanzado}" value="#{contrato.contratoRequest.estado}"/></td>
+								
+								<td>
+								<p:selectOneMenu id="inputText3" rendered="#{contrato.avanzado}" value="#{contrato.contratoRequest.estado}" style="width:150px;">
+									<f:selectItem itemLabel="TODOS" itemValue="" />
+									<f:selectItems value="#{contrato.listaEstadoRequerimiento}" var="var" itemLabel="#{var.descripcion}" itemValue="#{var.id}" />
+								</p:selectOneMenu>
+								</td>
+
 	                      </tr>
 	                      <tr>
-	                            <td><p:outputLabel value="Centro de costos" rendered="#{contrato.avanzado}"/></td>
-								<td><p:inputText id="inputText4" rendered="#{contrato.avanzado}"/></td>
+	                            <td><p:outputLabel value="Centro de costo" rendered="#{contrato.avanzado}" for="inputText4"/></td>
+								
+								
+								<td>
+		                        	<p:inputText  id="inputText4" value="#{pedido.pedidoB.vcentrocostoCodigocentrocosto.nombredependencia}" disabled="true" maxlength="15" style="width:150px;" label="Centro costo" rendered="#{contrato.avanzado}"/>
+			                        <p:commandButton icon="ui-icon-search" action="#{cc_vcentrocosto.init}"  oncomplete="showDialogPF('frmMainCodigocentrocostoBuscar:diVcentrocostoBuscar');" update=":frmMainCodigocentrocostoBuscar:diVcentrocostoBuscar" style="width:20px;height:20px;" title="Buscar"  disabled="false"/>
+			                        <p:commandButton icon="ui-icon-close" action="#{pedido.resetMainCodigocentrocosto}"  update="inputText4" style="width:20px;height:20px;" title="Borrar Filtro" immediate="true" disabled="false"/>
+		                       </td>
+
+								
 	                      </tr>
 	                    </table>	
           </p:panel>
@@ -277,5 +298,17 @@ a:-webkit-any-link {
 				</p:dataTable>
 	   
  	 </p:panel>
+ 	 
+ 	 <h:form id="frmMainCodigocentrocostoBuscar">
+		<p:dialog id="diVcentrocostoBuscar" header="VCentroCosto » Buscar" widgetVar="diVcentrocostoBuscar" resizable="false" modal="true" dynamic="true">
+		<p:messages for="msgsCC_Vcentrocosto" autoUpdate="true" closable="true"/>
+		 <cc:cc_vcentrocostoBuscar
+		 ajaxEventListener="#{pedido.loadMainCodigocentrocosto}"
+		 actionOncomplete="hideDialogPF('frmMainCodigocentrocostoBuscar:diVcentrocostoBuscar');"
+		 actionUpdate=":form:txtCodigocentrocosto"/>
+		</p:dialog>
+   </h:form>
+
+ 	 
 </ui:define>
 </ui:composition>

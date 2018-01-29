@@ -57,8 +57,6 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static Logger logger=Logger.getLogger(RequerimientoBusinessImpl.class);
-	
 	private Integer idGenerado;
 	
 	@Autowired
