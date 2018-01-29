@@ -17,7 +17,7 @@ import pe.com.sisabas.business.ProcesoBusiness;
 import pe.com.sisabas.business.VcentrocostoBusiness;
 import pe.com.sisabas.dto.CentroCostoRequest;
 import pe.com.sisabas.dto.CentroCostoResponse;
-import pe.com.sisabas.dto.EvaluacionDocumentoResponse;
+import pe.com.sisabas.dto.EstadoRequerimientoResponse;
 import pe.com.sisabas.dto.ProcesoDto;
 import pe.com.sisabas.dto.ProcesoRequest;
 import pe.com.sisabas.dto.TipoProcesoResponse;
@@ -50,6 +50,7 @@ public class ProcesoRecepcionController extends BaseController {
 	public List<Gentabla> listaGentablaIdcatalogotipobien;
 	public List<TipoProcesoResponse> listaTipoProceso;
 	public List<CentroCostoResponse> listaCentroCosto;
+	public List<EstadoRequerimientoResponse> listaEstadoRequerimiento;
 
 	// Redirect
 	public static String SUCCESS_MIEMBROS = "/pages/procesorecepcion/ordenRegistrar.xhtml?faces-redirect=true;";
@@ -97,7 +98,10 @@ public class ProcesoRecepcionController extends BaseController {
 			CentroCostoRequest param = new CentroCostoRequest();
 			param.setCodigoUnidadEjecuta(Constantes.unidadEjecutora.PRONIED);
 			param.setIdPeriodo(usuario.getPeriodo().getIdPeriodo());			
-			List<CentroCostoResponse> listaCentroCosto = vcentrocostoBusiness.getCentroCosto(param);
+			listaCentroCosto = vcentrocostoBusiness.getCentroCosto(param);
+
+			listaEstadoRequerimiento = gentablaBusiness
+					.getEstadoRequerimiento(Constantes.etapaAdministrativa.PROCESOS_DE_SELECCION);			
 
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
@@ -306,5 +310,15 @@ public class ProcesoRecepcionController extends BaseController {
 	public void setListaCentroCosto(List<CentroCostoResponse> listaCentroCosto) {
 		this.listaCentroCosto = listaCentroCosto;
 	}
+
+	public List<EstadoRequerimientoResponse> getListaEstadoRequerimiento() {
+		return listaEstadoRequerimiento;
+	}
+
+	public void setListaEstadoRequerimiento(List<EstadoRequerimientoResponse> listaEstadoRequerimiento) {
+		this.listaEstadoRequerimiento = listaEstadoRequerimiento;
+	}
+	
+	
 
 }

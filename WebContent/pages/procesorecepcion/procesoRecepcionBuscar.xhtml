@@ -56,7 +56,7 @@
 									value="#{evaluacionDocumento.searchParam.estadoPedido}">
 									<f:selectItem itemLabel="TODOS" itemValue="" />
 									<f:selectItems
-										value="#{evaluacionDocumento.listaEstadoRequerimiento}"
+										value="#{procesoRecepcion.listaEstadoRequerimiento}"
 										var="var" itemLabel="#{var.descripcion}" itemValue="#{var.id}" />
 								</p:selectOneMenu></td>
 							<td><p:outputLabel value="Nro. Proceso" for="txtNroProceso" /></td>
@@ -213,7 +213,7 @@
 				<p:confirmDialog id="cdRecibir"
 					message="Esta seguro de recibir el expediente?"
 					header="Confirmación" severity="alert" widgetVar="cdRecibir">
-					<p:commandButton value="Si" action="#{evaluacionDocumento.recibir}"
+					<p:commandButton value="Si" action="#{procesoRecepcion.recibir}"
 						update=":form:tblListado,:form:growl,:form:pnlBotones"
 						oncomplete="hideDialogPF('cdRecibir');" />
 					<p:commandButton value="No" onclick="hideDialogPF('cdRecibir');"
