@@ -13,6 +13,6 @@ import pe.com.sisabas.dto.ProcesoDto;
 
 public interface ProcesoBusiness {
 	public List<ProcesoDto> searchProceso(ProcesoRequest request) throws Exception;
-	public Resultado recibirProceso(TransactionRequest<Integer> request) throws Exception;	
+	public Resultado recibirProceso(TransactionRequest<ProcesoDto> request) throws Exception;	
 	
 }

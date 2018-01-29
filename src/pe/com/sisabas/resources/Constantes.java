@@ -171,8 +171,11 @@ public class Constantes {
 		//PAO
 		public static final int EN_ESTUDIO_DE_MERCADO = 7;
 		public static final int REMITIDO_A_PROCESOS = 12;	
-		
 		public static final int EN_GIRO_DE_ORDEN = 33;
+		
+		//PROCESS
+		public static final int EN_COMITE_ESPECIAL = 13;
+		
 	}	
 	
 	public class tipoDocumento{

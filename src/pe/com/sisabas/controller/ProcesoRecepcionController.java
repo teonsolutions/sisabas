@@ -190,10 +190,12 @@ public class ProcesoRecepcionController extends BaseController {
 			securityControlValidate("btnRecibir");
 			validateSelectedRow();
 
-			TransactionRequest<Integer> request = new TransactionRequest<Integer>();
+			TransactionRequest<ProcesoDto> request = new TransactionRequest<ProcesoDto>();
 			request.setUsuarioAuditoria(getUserLogin());
 			request.setEquipoAuditoria(getRemoteAddr());
-			// businessProgramacion.recibirDocumentoTecnico(pedido, request);
+			request.setEntityTransaction(this.currentRow);			
+			// businessProgramacion.recibirDocumentoTecnico(pedido, request);			
+			procesoBusiness.recibirProceso(request);
 
 			showGrowlMessageSuccessfullyCompletedAction();
 			search();
