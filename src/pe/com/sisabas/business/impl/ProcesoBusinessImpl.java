@@ -16,10 +16,12 @@ import pe.com.sisabas.be.Miembrocomiteporproceso;
 import pe.com.sisabas.be.Pacconsolidado;
 import pe.com.sisabas.business.ProcesoBusiness;
 import pe.com.sisabas.dto.ComiteDto;
+import pe.com.sisabas.dto.PacConsolidadoDto;
 import pe.com.sisabas.dto.ProcesoDto;
 import pe.com.sisabas.dto.ProcesoRequest;
 import pe.com.sisabas.dto.Resultado;
 import pe.com.sisabas.dto.TransactionRequest;
+import pe.com.sisabas.dto.TransactionResponse;
 import pe.com.sisabas.persistence.ComiteprocesoMapper;
 import pe.com.sisabas.persistence.EstadosporetapapordocumentoMapper;
 import pe.com.sisabas.persistence.EstadosportipodocumentoMapper;
@@ -147,6 +149,57 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable{
 		
 		
 		return null;
+	}
+
+	@Override
+	public TransactionResponse<Miembrocomiteporproceso> grabarMiembrosComite(TransactionRequest<ProcesoDto> request,
+			Miembrocomiteporproceso miembrocomiteporproceso) throws Exception {
+		// TODO Auto-generated method stub
+		TransactionResponse<Miembrocomiteporproceso> result = new TransactionResponse<Miembrocomiteporproceso>();
+		result.setEstado(true);
+		result.setMensaje(Constantes.mensajeGenerico.REGISTRO_CORRECTO);
+
+		ProcesoDto proc = request.getEntityTransaction();
+		if (miembrocomiteporproceso.getIdmiembrocomiteproceso() == null
+				|| miembrocomiteporproceso.getIdmiembrocomiteproceso() == 0) {
+			// INSERT
+			Integer idComiteProceso;
+			Pacconsolidado pacUpdate = pacconsolidadoMapper.selectByPrimaryKeyBasic(proc.getIdProcesoSeleccion());
+			if (pacUpdate != null) {
+				if (pacUpdate.getIdcomiteproceso() == null) {
+					Comiteproceso comiteMiembro = new Comiteproceso();
+					comiteMiembro.setFechacreacionauditoria(new Date());
+					comiteMiembro.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+					comiteMiembro.setEquipoauditoria(request.getEquipoAuditoria());
+					comiteMiembro.setProgramaauditoria(request.getProgramaAuditoria());
+					comiteMiembro.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+					idComiteProceso = (int) utilsBusiness.getNextSeq(Sequence.SEQ_COMITEPROCESO).longValue();
+					comiteMiembro.setIdcomiteproceso(idComiteProceso);
+					comiteprocesoMapper.insert(comiteMiembro);
+				} else {
+					idComiteProceso = pacUpdate.getIdcomiteproceso();
+				}
+				// Insert miembros de comite proceso
+				miembrocomiteporproceso.setIdcomiteproceso(idComiteProceso);
+				miembrocomiteporproceso.setFechacreacionauditoria(new Date());
+				miembrocomiteporproceso.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+				miembrocomiteporproceso.setEquipoauditoria(request.getEquipoAuditoria());
+				miembrocomiteporproceso.setProgramaauditoria(request.getProgramaAuditoria());
+				miembrocomiteporproceso.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+				miembrocomiteporproceso.setIdmiembrocomiteproceso(
+						(int) utilsBusiness.getNextSeq(Sequence.SEQ_MIEMBROCOMITEPORPROCESO).longValue());
+				miembrocomiteporprocesoMapper.insert(miembrocomiteporproceso);
+				pacUpdate.setIdcomiteproceso(idComiteProceso);
+				pacconsolidadoMapper.updateByPrimaryKey(pacUpdate);
+			}
+		} else {
+			// UPDATE
+			miembrocomiteporproceso.setFechamodificacionauditoria(new Date());
+			miembrocomiteporproceso.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
+			miembrocomiteporprocesoMapper.updateByPrimaryKey(miembrocomiteporproceso);
+		}
+		result.setEntityTransaction(miembrocomiteporproceso);
+		return result;
 	}
 
 		

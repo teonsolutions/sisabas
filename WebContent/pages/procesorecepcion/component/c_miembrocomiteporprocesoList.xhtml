@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<div align="right">
+		<p:panel id="pnlBotonesMiembroComite"
+			styleClass="gandalfPnlBotonesClass">
+			<p:commandButton value="Nuevo"
+				action="#{procesoRecepcion.irRegistrarMiembroComite}"
+				update="hidStatus,:frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar"
+				oncomplete="showDialog('form:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar');"
+				icon="ui-icon-document" process="@this"
+				rendered="#{procesoRecepcion.renderButton('btnNuevoMiembroComite')}" />
+			<p:commandButton value="Editar"
+				action="#{procesoRecepcion.irEditarMiembroComite}"
+				update="form:hidStatus,:frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar"
+				oncomplete="showDialog('form:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar');"
+				icon="ui-icon-pencil" process="@this"
+				disabled="#{!procesoRecepcion.esSeleccionadoMiembroComite}"
+				rendered="#{procesoRecepcion.renderButton('btnEditarMiembroComite')}" />
+			<p:commandButton value="Eliminar"
+				action="#{procesoRecepcion.irEliminarMiembroComite}"
+				update="hidStatus"
+				oncomplete="showDialog('form:hidStatus','form:cdEliminarMiembroComite');"
+				icon="ui-icon-circle-close" process="@this" title="Eliminar"
+				disabled="#{!procesoRecepcion.esSeleccionadoMiembroComite}"
+				rendered="#{procesoRecepcion.renderButton('btnEliminarMiembroComite')}" />
+			<p:commandButton value="Notificar"
+				action="#{procesoRecepcion.irEditarMiembroComite}"
+				update="form:hidStatus,:frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar"
+				oncomplete="showDialog('form:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar');"
+				icon="ui-icon-pencil" process="@this"
+				rendered="#{procesoRecepcion.renderButton('btnNotifyMiembroComite')}" />
+			<h:inputHidden id="hidStatus" value="true" />
+		</p:panel>
+	</div>
+	<p:dataTable id="tblListaMiembrocomiteporproceso"
+		value="#{procesoRecepcion.listaMiembrocomiteporproceso}" var="var"
+		emptyMessage="No se encontraron registros"
+		widgetVar="tblListaMiembrocomiteporproceso"
+		selection="#{procesoRecepcion.selectedMiembrocomiteporproceso}"
+		paginator="true" rows="#{sisabascontrol.registros_mant}"
+		paginatorPosition="bottom"
+		paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(procesoRecepcion.listaMiembrocomiteporproceso)}"
+		selectionMode="single" rowKey="#{var.idmiembrocomiteproceso}"
+		styleClass="gandalfTableClass">
+		<p:ajax event="rowSelect"
+			listener="#{procesoRecepcion.seleccionItemMiembroComite}"
+			update=":frmComiteSeleccion:pnlBotonesMiembroComite" immediate="true" />
+		<p:column styleClass="c_numeric"
+			sortBy="#{var.personaIdpersona.nombres}">
+			<f:facet name="header">
+				<h:outputText value="Persona" styleClass="c_numeric" />
+			</f:facet>
+			<h:outputText value="#{var.personaIdpersona.nombres}" />
+		</p:column>
+		<p:column styleClass="c_center"
+			sortBy="#{var.gentablaIdcatalogotipomiembro.vchregdescri}">
+			<f:facet name="header">
+				<h:outputText value="TipoMiembro" styleClass="c_center" />
+			</f:facet>
+			<h:outputText
+				value="#{var.gentablaIdcatalogotipomiembro.vchregdescri}" />
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.correo}">
+			<f:facet name="header">
+				<h:outputText value="Correo" styleClass="c_string" />
+			</f:facet>
+			<h:outputText value="#{var.correo}" />
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.telefono}">
+			<f:facet name="header">
+				<h:outputText value="Teléfono" styleClass="c_center" />
+			</f:facet>
+			<h:outputText value="#{var.telefono}" />
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.anexo}">
+			<f:facet name="header">
+				<h:outputText value="Anexo" styleClass="c_center" />
+			</f:facet>
+			<h:outputText value="#{var.anexo}" />
+		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.celular}">
+			<f:facet name="header">
+				<h:outputText value="Celular" styleClass="c_center" />
+			</f:facet>
+			<h:outputText value="#{var.celular}" />
+		</p:column>
+	</p:dataTable>
+	<p:confirmDialog id="cdEliminarMiembroComite"
+		message="Esta seguro de eliminar este registro?" header="Confirmación"
+		severity="alert" widgetVar="cdEliminarMiembroComite">
+		<p:commandButton value="Si"
+			action="#{procesoRecepcion.eliminarMiembroComite}"
+			update=":frmComiteSeleccion:tblListaMiembrocomiteporproceso,:form:growl"
+			process="@this" oncomplete="hideDialogPF('cdEliminarMiembroComite');" />
+		<p:commandButton value="No"
+			onclick="hideDialogPF('cdEliminarMiembroComite');" type="button" />
+	</p:confirmDialog>
+</p:panel>
+</html>

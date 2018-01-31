@@ -5,7 +5,6 @@ public class ProcesoRequest {
 	private String idTipoBien;
 	private Integer estadoProceso;
 	private Integer nroProceso;
-	private Integer nroPao;
 	private Integer idUnidadEjecutora;
 	private Integer idUnidadEjecutoraSiaf;
 	private Integer anio;
@@ -36,12 +35,6 @@ public class ProcesoRequest {
 	}
 	public void setNroProceso(Integer nroProceso) {
 		this.nroProceso = nroProceso;
-	}
-	public Integer getNroPao() {
-		return nroPao;
-	}
-	public void setNroPao(Integer nroPao) {
-		this.nroPao = nroPao;
 	}
 	public Integer getIdUnidadEjecutora() {
 		return idUnidadEjecutora;
