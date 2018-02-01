@@ -63,8 +63,7 @@ public class LoginController extends BaseController{
 	private MenuModel model;
 	private String Dni;
 	private int idUsuario;
-	
-
+	private String nombreUsuario;	
 	
 	@PostConstruct
 	public void init(){
@@ -105,7 +104,7 @@ public class LoginController extends BaseController{
        
         model=(new DefaultMenuModel());	
    
-      
+        String nombreCompleto = "";
 	    for(int i=0;i<listaNivel01.size();i++){// cabecera
 	    	
 	    	   System.out.println(listaNivel01.get(i).getDescripcion());
@@ -117,6 +116,9 @@ public class LoginController extends BaseController{
 	    		   if(getDni()== null){
 	    			   setDni(user);
 	    		   }
+	    		   
+	    		   nombreCompleto = listaNivel01.get(i).getPerNombres() + " " + listaNivel01.get(i).getPerApePaterno() + " " + listaNivel01.get(i).getPerApeMaterno();
+	    		   setNombreUsuario(nombreCompleto);
 	    	   }
 	    	   List<TsProcedimiento> listaNivel02= new ArrayList<TsProcedimiento>();
 	    	   listaNivel02=listapermisos.ListarPerfilesItem2(user, password, ideModulo, listaNivel01.get(i).getIdOpcion(), sCadGen);
@@ -161,6 +163,11 @@ public class LoginController extends BaseController{
 				if (sicuusuario!=null && sicuusuario.getVchstatus().equalsIgnoreCase("OK")){
 					authorized=true;
 					setRole(ROLE_USER);				
+					
+					//set dni and name
+					sicuusuario.setNroDocumento(getDni());
+					sicuusuario.setNombreUsuario(getNombreUsuario());
+					
 				    getHttpSession().setAttribute("sicuusuarioSESSION", sicuusuario);		
 				    
 				   
@@ -183,8 +190,11 @@ public class LoginController extends BaseController{
 				periodo.setIdPeriodo(1);
 				periodo.setAnio(2017);				
 				sicuusuario.setPeriodo(periodo);
-			    getHttpSession().setAttribute("sicuusuarioSESSION", sicuusuario);		
-			    
+				
+				//set dni and name
+				sicuusuario.setNroDocumento(getDni());
+				sicuusuario.setNombreUsuario(getNombreUsuario());
+			    getHttpSession().setAttribute("sicuusuarioSESSION", sicuusuario);				    
 			    
 			}
 		} catch (RemoteException e) {
@@ -416,6 +426,13 @@ public class LoginController extends BaseController{
 		this.idUsuario = idUsuario;
 	}
 
+	public String getNombreUsuario() {
+		return nombreUsuario;
+	}
 
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
+	}
+	
 
 }

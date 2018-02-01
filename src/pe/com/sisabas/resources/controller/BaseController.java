@@ -171,6 +171,21 @@ public class BaseController implements Serializable{
 		return login.getUser();
 	}
 	
+	//get new properties
+	public String getUserName(){
+	    FacesContext facesContext = FacesContext.getCurrentInstance();
+	    javax.servlet.http.HttpSession session = (javax.servlet.http.HttpSession) facesContext.getExternalContext().getSession(false);
+	    pe.com.sisabas.controller.LoginController login = (pe.com.sisabas.controller.LoginController)session.getAttribute("loginBean");
+		return login.getNombreUsuario();
+	}
+
+	public String getDni(){
+	    FacesContext facesContext = FacesContext.getCurrentInstance();
+	    javax.servlet.http.HttpSession session = (javax.servlet.http.HttpSession) facesContext.getExternalContext().getSession(false);
+	    pe.com.sisabas.controller.LoginController login = (pe.com.sisabas.controller.LoginController)session.getAttribute("loginBean");
+		return login.getDni();
+	}
+	
 	public HttpServletRequest getHttpServletRequest(){
 		HttpServletRequest httpServletRequest= (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();  
 	    return httpServletRequest;	    

@@ -249,11 +249,14 @@ public class ProcesoRecepcionController extends BaseController {
 			securityControlValidate("btnRecibir");
 			validateSelectedRow();
 
+			ProcesoDto processSave = (ProcesoDto)this.currentRow.clone();
 			TransactionRequest<ProcesoDto> request = new TransactionRequest<ProcesoDto>();
 			request.setUsuarioAuditoria(getUserLogin());
 			request.setEquipoAuditoria(getRemoteAddr());
-			request.setEntityTransaction(this.currentRow);
-			// businessProgramacion.recibirDocumentoTecnico(pedido, request);
+			request.setEntityTransaction(processSave);
+			processSave.setNombreEspecialistaProceso(getUserName());
+			processSave.setDniEspecialistaProceso(getDni());
+
 			procesoBusiness.recibirProceso(request);
 
 			showGrowlMessageSuccessfullyCompletedAction();
@@ -289,6 +292,7 @@ public class ProcesoRecepcionController extends BaseController {
 		try {
 			securityControlValidate("btnComite");
 			resetRegisterForm();
+			validateSelectedRow();
 			buscarMiembroComite();	
 				
 			STATUS_SUCCESS();

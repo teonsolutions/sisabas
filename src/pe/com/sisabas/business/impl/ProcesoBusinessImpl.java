@@ -144,8 +144,8 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable{
 		processNew.setNroconsolid(procesoDto.getNroConsolid());
 		processNew.setDescripcionprocesoseleccion(procesoDto.getGlosa());
 		processNew.setIdgrupodocumento(pac.getIdgrupodocumento());
-		processNew.setDniespecialidadproceso("");
-		processNew.setNombreexpecialistaproceso("");
+		processNew.setDniespecialidadproceso(procesoDto.getDniEspecialistaProceso());
+		processNew.setNombreexpecialistaproceso(procesoDto.getNombreEspecialistaProceso());
 		processNew.setFecharecepcionexpediente(new Date());
 		processNew.setEstadoproceso(estado.getIdestadosportipodocumento());
 		processNew.setIdcatalogotipomodalidad(procesoDto.getTipoModalidad() != null && procesoDto.getTipoModalidad() == "1"? Constantes.tipoModalidad.ITEM: Constantes.tipoModalidad.PAQUETE);

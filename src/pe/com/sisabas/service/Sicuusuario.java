@@ -20,6 +20,10 @@ public class Sicuusuario  extends pe.com.sisabas.service.Sicurespuesta  implemen
 
     private java.lang.String vchusurol;
     
+    private java.lang.String NroDocumento;
+    
+    private java.lang.String NombreUsuario;
+    
     //PARA GUARDAR PERIODO ACTIVO
     private Sicuperiodo periodo;
 
@@ -201,9 +205,27 @@ public class Sicuusuario  extends pe.com.sisabas.service.Sicurespuesta  implemen
      */
     public void setVchusurol(java.lang.String vchusurol) {
         this.vchusurol = vchusurol;
-    }
+    }   
+    
+    public java.lang.String getNroDocumento() {
+		return NroDocumento;
+	}
 
-    private java.lang.Object __equalsCalc = null;
+	public void setNroDocumento(java.lang.String nroDocumento) {
+		NroDocumento = nroDocumento;
+	}
+
+	public java.lang.String getNombreUsuario() {
+		return NombreUsuario;
+	}
+
+	public void setNombreUsuario(java.lang.String nombreUsuario) {
+		NombreUsuario = nombreUsuario;
+	}
+
+
+
+	private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof Sicuusuario)) return false;
         Sicuusuario other = (Sicuusuario) obj;

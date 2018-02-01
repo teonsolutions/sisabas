@@ -22,6 +22,7 @@ public class ProcesoDto implements  Serializable,Cloneable {
 	private Integer anio;
 	private Date fechaEnvioEjecucion;
 	private Integer idEstadoProceso;
+	private String dniEspecialistaProceso;
 	private String nombreEspecialistaProceso;
 	private String comiteNotificado;
 	private Integer idComiteProceso;
@@ -137,6 +138,12 @@ public class ProcesoDto implements  Serializable,Cloneable {
 	}
 	public void setIdEstadoProceso(Integer idEstadoProceso) {
 		this.idEstadoProceso = idEstadoProceso;
+	}	
+	public String getDniEspecialistaProceso() {
+		return dniEspecialistaProceso;
+	}
+	public void setDniEspecialistaProceso(String dniEspecialistaProceso) {
+		this.dniEspecialistaProceso = dniEspecialistaProceso;
 	}
 	public String getNombreEspecialistaProceso() {
 		return nombreEspecialistaProceso;
