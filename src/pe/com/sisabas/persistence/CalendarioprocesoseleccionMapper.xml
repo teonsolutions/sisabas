@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pe.com.sisabas.persistence.CalendarioprocesoseleccionMapper" >
+
+	<resultMap id="BasicResultMap" type="pe.com.sisabas.be.Calendarioprocesoseleccion">
+	<result column="A1_IDCALENDARIOPROCESO" property="idcalendarioproceso" jdbcType="INTEGER" />
+	<result column="A1_IDCONVOCATORIAPROCESO" property="idconvocatoriaproceso" jdbcType="INTEGER" />
+	<result column="A1_IDCATALOGOCODIGOCALENDARIO" property="idcatalogocodigocalendario" jdbcType="VARCHAR" />
+	<result column="A1_NOMBRECALENDARIO" property="nombrecalendario" jdbcType="VARCHAR" />
+	<result column="A1_FECHAINICIO" property="fechainicio" jdbcType="TIMESTAMP" />
+	<result column="A1_FECHAFIN" property="fechafin" jdbcType="TIMESTAMP" />
+	<result column="A1_FECHPUBLICACION" property="fechpublicacion" jdbcType="TIMESTAMP" />
+	<result column="A1_IDCATALOGOESTADOPUBLICACION" property="idcatalogoestadopublicacion" jdbcType="VARCHAR" />
+	<result column="A1_FECHACREACIONAUDITORIA" property="fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOCREACIONAUDITORIA" property="usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_FECHAMODIFICACIONAUDITORIA" property="fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOMODIFICACIONAUDITORIA" property="usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<resultMap id="FullResultMap" type="pe.com.sisabas.be.Calendarioprocesoseleccion">
+	<result column="A1_IDCALENDARIOPROCESO" property="idcalendarioproceso" jdbcType="INTEGER" />
+	<result column="A1_IDCONVOCATORIAPROCESO" property="idconvocatoriaproceso" jdbcType="INTEGER" />
+	<result column="A1_IDCATALOGOCODIGOCALENDARIO" property="idcatalogocodigocalendario" jdbcType="VARCHAR" />
+	<result column="A1_NOMBRECALENDARIO" property="nombrecalendario" jdbcType="VARCHAR" />
+	<result column="A1_FECHAINICIO" property="fechainicio" jdbcType="TIMESTAMP" />
+	<result column="A1_FECHAFIN" property="fechafin" jdbcType="TIMESTAMP" />
+	<result column="A1_FECHPUBLICACION" property="fechpublicacion" jdbcType="TIMESTAMP" />
+	<result column="A1_IDCATALOGOESTADOPUBLICACION" property="idcatalogoestadopublicacion" jdbcType="VARCHAR" />
+	<result column="A1_FECHACREACIONAUDITORIA" property="fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOCREACIONAUDITORIA" property="usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_FECHAMODIFICACIONAUDITORIA" property="fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOMODIFICACIONAUDITORIA" property="usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	<result column="A3_IDCONVOCATORIAPROCESO" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.idconvocatoriaproceso" jdbcType="INTEGER" />
+	<result column="A3_IDPROCESOSELECCION" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.idprocesoseleccion" jdbcType="INTEGER" />
+	<result column="A3_NROCONVOCATORIA" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.nroconvocatoria" jdbcType="INTEGER" />
+	<result column="A3_SECUENCIA" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.secuencia" jdbcType="INTEGER" />
+	<result column="A3_VALORREFERENCIA" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.valorreferencia" jdbcType="DECIMAL" />
+	<result column="A3_IDCATALOGOESTADOCONVOCATORIA" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.idcatalogoestadoconvocatoria" jdbcType="VARCHAR" />
+	<result column="A3_ESTADOCONVOCATORIAITEM" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.estadoconvocatoriaitem" jdbcType="INTEGER" />
+	<result column="A3_FECHAINICIO" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.fechainicio" jdbcType="TIMESTAMP" />
+	<result column="A3_FECHAFIN" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.fechafin" jdbcType="TIMESTAMP" />
+	<result column="A3_PRINCIPAL" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.principal" jdbcType="VARCHAR" />
+	<result column="A3_FECHACREACIONAUDITORIA" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A3_USUARIOCREACIONAUDITORIA" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A3_FECHAMODIFICACIONAUDITORIA" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A3_USUARIOMODIFICACIONAUDITORIA" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A3_EQUIPOAUDITORIA" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A3_PROGRAMAAUDITORIA" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.programaauditoria" jdbcType="VARCHAR" />
+	<result column="A3_ESTADOAUDITORIA" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.estadoauditoria" jdbcType="VARCHAR" />
+
+	<result column="A6_VCHREGCODIGO" property="gentablaIdcatalogocodigocalendario.vchregcodigo" jdbcType="VARCHAR" />
+	<result column="A6_VCHREGDESCRI" property="gentablaIdcatalogocodigocalendario.vchregdescri" jdbcType="VARCHAR" />
+	<result column="A6_VCHREGABREVIADO" property="gentablaIdcatalogocodigocalendario.vchregabreviado" jdbcType="VARCHAR" />
+	<result column="A6_VCHTIPCODIGO" property="gentablaIdcatalogocodigocalendario.vchtipcodigo" jdbcType="VARCHAR" />
+	<result column="A6_INTREGORDEN" property="gentablaIdcatalogocodigocalendario.intregorden" jdbcType="INTEGER" />
+	<result column="A6_VCHTABOTRO1" property="gentablaIdcatalogocodigocalendario.vchtabotro1" jdbcType="VARCHAR" />
+	<result column="A6_VCHTABOTRO2" property="gentablaIdcatalogocodigocalendario.vchtabotro2" jdbcType="VARCHAR" />
+	<result column="A6_VCHTABOTRO3" property="gentablaIdcatalogocodigocalendario.vchtabotro3" jdbcType="VARCHAR" />
+	<result column="A6_VCHTABOTRO4" property="gentablaIdcatalogocodigocalendario.vchtabotro4" jdbcType="VARCHAR" />
+	<result column="A6_ESTADOAUDITORIA" property="gentablaIdcatalogocodigocalendario.estadoauditoria" jdbcType="VARCHAR" />
+	<result column="A6_USUARIOCREACIONAUDITORIA" property="gentablaIdcatalogocodigocalendario.usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A6_USUARIOMODIFICACIONAUDITORIA" property="gentablaIdcatalogocodigocalendario.usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A6_FECHACREACIONAUDITORIA" property="gentablaIdcatalogocodigocalendario.fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A6_FECHAMODIFICACIONAUDITORIA" property="gentablaIdcatalogocodigocalendario.fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A6_EQUIPOAUDITORIA" property="gentablaIdcatalogocodigocalendario.equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A6_PROGRAMAAUDITORIA" property="gentablaIdcatalogocodigocalendario.programaauditoria" jdbcType="VARCHAR" />
+	<result column="A6_INTGANEMPID" property="gentablaIdcatalogocodigocalendario.intganempid" jdbcType="INTEGER" />
+
+	<result column="A8_VCHREGCODIGO" property="gentablaIdcatalogoestadopublicacion.vchregcodigo" jdbcType="VARCHAR" />
+	<result column="A8_VCHREGDESCRI" property="gentablaIdcatalogoestadopublicacion.vchregdescri" jdbcType="VARCHAR" />
+	<result column="A8_VCHREGABREVIADO" property="gentablaIdcatalogoestadopublicacion.vchregabreviado" jdbcType="VARCHAR" />
+	<result column="A8_VCHTIPCODIGO" property="gentablaIdcatalogoestadopublicacion.vchtipcodigo" jdbcType="VARCHAR" />
+	<result column="A8_INTREGORDEN" property="gentablaIdcatalogoestadopublicacion.intregorden" jdbcType="INTEGER" />
+	<result column="A8_VCHTABOTRO1" property="gentablaIdcatalogoestadopublicacion.vchtabotro1" jdbcType="VARCHAR" />
+	<result column="A8_VCHTABOTRO2" property="gentablaIdcatalogoestadopublicacion.vchtabotro2" jdbcType="VARCHAR" />
+	<result column="A8_VCHTABOTRO3" property="gentablaIdcatalogoestadopublicacion.vchtabotro3" jdbcType="VARCHAR" />
+	<result column="A8_VCHTABOTRO4" property="gentablaIdcatalogoestadopublicacion.vchtabotro4" jdbcType="VARCHAR" />
+	<result column="A8_ESTADOAUDITORIA" property="gentablaIdcatalogoestadopublicacion.estadoauditoria" jdbcType="VARCHAR" />
+	<result column="A8_USUARIOCREACIONAUDITORIA" property="gentablaIdcatalogoestadopublicacion.usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A8_USUARIOMODIFICACIONAUDITORIA" property="gentablaIdcatalogoestadopublicacion.usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A8_FECHACREACIONAUDITORIA" property="gentablaIdcatalogoestadopublicacion.fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A8_FECHAMODIFICACIONAUDITORIA" property="gentablaIdcatalogoestadopublicacion.fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A8_EQUIPOAUDITORIA" property="gentablaIdcatalogoestadopublicacion.equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A8_PROGRAMAAUDITORIA" property="gentablaIdcatalogoestadopublicacion.programaauditoria" jdbcType="VARCHAR" />
+	<result column="A8_INTGANEMPID" property="gentablaIdcatalogoestadopublicacion.intganempid" jdbcType="INTEGER" />
+
+	</resultMap>
+
+
+	<sql id="Basic_Column_List">
+	A1.IDCALENDARIOPROCESO as A1_IDCALENDARIOPROCESO, A1.IDCONVOCATORIAPROCESO as A1_IDCONVOCATORIAPROCESO, A1.IDCATALOGOCODIGOCALENDARIO as A1_IDCATALOGOCODIGOCALENDARIO, A1.NOMBRECALENDARIO as A1_NOMBRECALENDARIO, 
+	A1.FECHAINICIO as A1_FECHAINICIO, A1.FECHAFIN as A1_FECHAFIN, A1.FECHPUBLICACION as A1_FECHPUBLICACION, A1.IDCATALOGOESTADOPUBLICACION as A1_IDCATALOGOESTADOPUBLICACION, 
+	A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, 
+	A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA 
+	</sql>
+
+
+	<sql id="Full_Column_List">
+	A1.IDCALENDARIOPROCESO as A1_IDCALENDARIOPROCESO, A1.IDCONVOCATORIAPROCESO as A1_IDCONVOCATORIAPROCESO, A1.IDCATALOGOCODIGOCALENDARIO as A1_IDCATALOGOCODIGOCALENDARIO, A1.NOMBRECALENDARIO as A1_NOMBRECALENDARIO, 
+	A1.FECHAINICIO as A1_FECHAINICIO, A1.FECHAFIN as A1_FECHAFIN, A1.FECHPUBLICACION as A1_FECHPUBLICACION, A1.IDCATALOGOESTADOPUBLICACION as A1_IDCATALOGOESTADOPUBLICACION, 
+	A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, 
+	A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA, 
+	A3.IDCONVOCATORIAPROCESO as A3_IDCONVOCATORIAPROCESO, A3.IDPROCESOSELECCION as A3_IDPROCESOSELECCION, A3.NROCONVOCATORIA as A3_NROCONVOCATORIA, A3.SECUENCIA as A3_SECUENCIA, 
+	A3.VALORREFERENCIA as A3_VALORREFERENCIA, A3.IDCATALOGOESTADOCONVOCATORIA as A3_IDCATALOGOESTADOCONVOCATORIA, A3.ESTADOCONVOCATORIAITEM as A3_ESTADOCONVOCATORIAITEM, A3.FECHAINICIO as A3_FECHAINICIO, 
+	A3.FECHAFIN as A3_FECHAFIN, A3.PRINCIPAL as A3_PRINCIPAL, A3.FECHACREACIONAUDITORIA as A3_FECHACREACIONAUDITORIA, A3.USUARIOCREACIONAUDITORIA as A3_USUARIOCREACIONAUDITORIA, 
+	A3.FECHAMODIFICACIONAUDITORIA as A3_FECHAMODIFICACIONAUDITORIA, A3.USUARIOMODIFICACIONAUDITORIA as A3_USUARIOMODIFICACIONAUDITORIA, A3.EQUIPOAUDITORIA as A3_EQUIPOAUDITORIA, A3.PROGRAMAAUDITORIA as A3_PROGRAMAAUDITORIA, 
+	A3.ESTADOAUDITORIA as A3_ESTADOAUDITORIA, 
+	A6.VCHREGCODIGO as A6_VCHREGCODIGO, A6.VCHREGDESCRI as A6_VCHREGDESCRI, A6.VCHREGABREVIADO as A6_VCHREGABREVIADO, A6.VCHTIPCODIGO as A6_VCHTIPCODIGO, 
+	A6.INTREGORDEN as A6_INTREGORDEN, A6.VCHTABOTRO1 as A6_VCHTABOTRO1, A6.VCHTABOTRO2 as A6_VCHTABOTRO2, A6.VCHTABOTRO3 as A6_VCHTABOTRO3, 
+	A6.VCHTABOTRO4 as A6_VCHTABOTRO4, A6.ESTADOAUDITORIA as A6_ESTADOAUDITORIA, A6.USUARIOCREACIONAUDITORIA as A6_USUARIOCREACIONAUDITORIA, A6.USUARIOMODIFICACIONAUDITORIA as A6_USUARIOMODIFICACIONAUDITORIA, 
+	A6.FECHACREACIONAUDITORIA as A6_FECHACREACIONAUDITORIA, A6.FECHAMODIFICACIONAUDITORIA as A6_FECHAMODIFICACIONAUDITORIA, A6.EQUIPOAUDITORIA as A6_EQUIPOAUDITORIA, A6.PROGRAMAAUDITORIA as A6_PROGRAMAAUDITORIA, 
+	A6.INTGANEMPID as A6_INTGANEMPID, 
+	A8.VCHREGCODIGO as A8_VCHREGCODIGO, A8.VCHREGDESCRI as A8_VCHREGDESCRI, A8.VCHREGABREVIADO as A8_VCHREGABREVIADO, A8.VCHTIPCODIGO as A8_VCHTIPCODIGO, 
+	A8.INTREGORDEN as A8_INTREGORDEN, A8.VCHTABOTRO1 as A8_VCHTABOTRO1, A8.VCHTABOTRO2 as A8_VCHTABOTRO2, A8.VCHTABOTRO3 as A8_VCHTABOTRO3, 
+	A8.VCHTABOTRO4 as A8_VCHTABOTRO4, A8.ESTADOAUDITORIA as A8_ESTADOAUDITORIA, A8.USUARIOCREACIONAUDITORIA as A8_USUARIOCREACIONAUDITORIA, A8.USUARIOMODIFICACIONAUDITORIA as A8_USUARIOMODIFICACIONAUDITORIA, 
+	A8.FECHACREACIONAUDITORIA as A8_FECHACREACIONAUDITORIA, A8.FECHAMODIFICACIONAUDITORIA as A8_FECHAMODIFICACIONAUDITORIA, A8.EQUIPOAUDITORIA as A8_EQUIPOAUDITORIA, A8.PROGRAMAAUDITORIA as A8_PROGRAMAAUDITORIA, 
+	A8.INTGANEMPID as A8_INTGANEMPID 
+	</sql>
+
+
+
+	<select id="selectByPrimaryKeyBasic" resultMap="BasicResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.CalendarioProcesoSeleccion A1
+	
+	where A1.IdCalendarioProceso = #{idcalendarioproceso,jdbcType=INTEGER}
+</select>
+
+
+
+	<select id="selectByPrimaryKeyBasicActive" resultMap="BasicResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.CalendarioProcesoSeleccion A1
+	
+	where A1.IdCalendarioProceso = #{idcalendarioproceso,jdbcType=INTEGER}
+	and A1.estadoauditoria='1'
+	</select>
+
+
+
+	<select id="selectByPrimaryKeyFull" resultMap="FullResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.CalendarioProcesoSeleccion A1
+	
+	LEFT JOIN abas.ConvocatoriaProcesoSeleccion A3 ON A1.IdConvocatoriaProceso = A3.IdConvocatoriaProceso
+	LEFT JOIN abas.gentabla A6 ON A1.IdCatalogoCodigoCalendario = A6.vchregCodigo
+	LEFT JOIN abas.gentabla A8 ON A1.IdCatalogoEstadoPublicacion = A8.vchregCodigo
+	where A1.IdCalendarioProceso = #{idcalendarioproceso,jdbcType=INTEGER}
+</select>
+
+
+
+	<select id="selectByPrimaryKeyFullActive" resultMap="FullResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.CalendarioProcesoSeleccion A1
+	
+	LEFT JOIN abas.ConvocatoriaProcesoSeleccion A3 ON A1.IdConvocatoriaProceso = A3.IdConvocatoriaProceso
+	LEFT JOIN abas.gentabla A6 ON A1.IdCatalogoCodigoCalendario = A6.vchregCodigo
+	LEFT JOIN abas.gentabla A8 ON A1.IdCatalogoEstadoPublicacion = A8.vchregCodigo
+	where A1.IdCalendarioProceso = #{idcalendarioproceso,jdbcType=INTEGER}
+	and A1.estadoauditoria='1'
+	</select>
+
+
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	delete from abas.CalendarioProcesoSeleccion 
+	where IdCalendarioProceso = #{idcalendarioproceso,jdbcType=INTEGER}
+	</delete>
+
+
+
+
+
+	<insert id="insert" parameterType="pe.com.sisabas.be.Calendarioprocesoseleccion" >
+	insert into abas.CalendarioProcesoSeleccion (
+	IDCALENDARIOPROCESO, IDCONVOCATORIAPROCESO, IDCATALOGOCODIGOCALENDARIO, NOMBRECALENDARIO, 
+	FECHAINICIO, FECHAFIN, FECHPUBLICACION, IDCATALOGOESTADOPUBLICACION, 
+	FECHACREACIONAUDITORIA, USUARIOCREACIONAUDITORIA, FECHAMODIFICACIONAUDITORIA, USUARIOMODIFICACIONAUDITORIA, 
+	EQUIPOAUDITORIA, PROGRAMAAUDITORIA, ESTADOAUDITORIA ) 
+	VALUES (
+	#{idcalendarioproceso,jdbcType=INTEGER}, #{idconvocatoriaproceso,jdbcType=INTEGER}, #{idcatalogocodigocalendario,jdbcType=VARCHAR}, #{nombrecalendario,jdbcType=VARCHAR}, 
+	#{fechainicio,jdbcType=TIMESTAMP}, #{fechafin,jdbcType=TIMESTAMP}, #{fechpublicacion,jdbcType=TIMESTAMP}, #{idcatalogoestadopublicacion,jdbcType=VARCHAR}, 
+	#{fechacreacionauditoria,jdbcType=TIMESTAMP}, #{usuariocreacionauditoria,jdbcType=VARCHAR}, #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, #{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	#{equipoauditoria,jdbcType=VARCHAR}, #{programaauditoria,jdbcType=VARCHAR}, #{estadoauditoria,jdbcType=VARCHAR} ) 
+	</insert>
+
+
+
+	<insert id="insertSelective" parameterType="pe.com.sisabas.be.Calendarioprocesoseleccion" >
+	insert into abas.CalendarioProcesoSeleccion 
+	<trim prefix="(" suffix=")" suffixOverrides="," >
+	<if test="idcalendarioproceso != null" >
+		IdCalendarioProceso,
+	</if>
+	<if test="idconvocatoriaproceso != null" >
+		IdConvocatoriaProceso,
+	</if>
+	<if test="idcatalogocodigocalendario != null" >
+		IdCatalogoCodigoCalendario,
+	</if>
+	<if test="nombrecalendario != null" >
+		NombreCalendario,
+	</if>
+	<if test="fechainicio != null" >
+		FechaInicio,
+	</if>
+	<if test="fechafin != null" >
+		FechaFin,
+	</if>
+	<if test="fechpublicacion != null" >
+		FechPublicacion,
+	</if>
+	<if test="idcatalogoestadopublicacion != null" >
+		IdCatalogoEstadoPublicacion,
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		FechaCreacionAuditoria,
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		UsuarioCreacionAuditoria,
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		FechaModificacionAuditoria,
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		UsuarioModificacionAuditoria,
+	</if>
+	<if test="equipoauditoria != null" >
+		EquipoAuditoria,
+	</if>
+	<if test="programaauditoria != null" >
+		ProgramaAuditoria,
+	</if>
+	<if test="estadoauditoria != null" >
+		EstadoAuditoria,
+	</if>
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides="," >
+	<if test="idcalendarioproceso != null" >
+		#{idcalendarioproceso,jdbcType=INTEGER}, 
+	</if>
+	<if test="idconvocatoriaproceso != null" >
+		#{idconvocatoriaproceso,jdbcType=INTEGER}, 
+	</if>
+	<if test="idcatalogocodigocalendario != null" >
+		#{idcatalogocodigocalendario,jdbcType=VARCHAR}, 
+	</if>
+	<if test="nombrecalendario != null" >
+		#{nombrecalendario,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechainicio != null" >
+		#{fechainicio,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="fechafin != null" >
+		#{fechafin,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="fechpublicacion != null" >
+		#{fechpublicacion,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="idcatalogoestadopublicacion != null" >
+		#{idcatalogoestadopublicacion,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		#{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		#{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		#{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		#{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="equipoauditoria != null" >
+		#{equipoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="programaauditoria != null" >
+		#{programaauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoauditoria != null" >
+		#{estadoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	</trim>
+	</insert>
+
+
+
+	<update id="updateByPrimaryKey" parameterType="pe.com.sisabas.be.Calendarioprocesoseleccion" >
+	update abas.CalendarioProcesoSeleccion 
+	set 
+	IDCALENDARIOPROCESO = #{idcalendarioproceso,jdbcType=INTEGER}, IDCONVOCATORIAPROCESO = #{idconvocatoriaproceso,jdbcType=INTEGER}, 
+	IDCATALOGOCODIGOCALENDARIO = #{idcatalogocodigocalendario,jdbcType=VARCHAR}, NOMBRECALENDARIO = #{nombrecalendario,jdbcType=VARCHAR}, 
+	FECHAINICIO = #{fechainicio,jdbcType=TIMESTAMP}, FECHAFIN = #{fechafin,jdbcType=TIMESTAMP}, 
+	FECHPUBLICACION = #{fechpublicacion,jdbcType=TIMESTAMP}, IDCATALOGOESTADOPUBLICACION = #{idcatalogoestadopublicacion,jdbcType=VARCHAR}, 
+	FECHACREACIONAUDITORIA = #{fechacreacionauditoria,jdbcType=TIMESTAMP}, USUARIOCREACIONAUDITORIA = #{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	FECHAMODIFICACIONAUDITORIA = #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, USUARIOMODIFICACIONAUDITORIA = #{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, PROGRAMAAUDITORIA = #{programaauditoria,jdbcType=VARCHAR}, 
+	ESTADOAUDITORIA = #{estadoauditoria,jdbcType=VARCHAR} 
+	where IdCalendarioProceso = #{idcalendarioproceso,jdbcType=INTEGER}
+	</update>
+
+
+
+	<update id="updateByPrimaryKeySelective" parameterType="pe.com.sisabas.be.Calendarioprocesoseleccion" >
+	update abas.CalendarioProcesoSeleccion 
+	<set>
+	<if test="idcalendarioproceso != null" >
+		IDCALENDARIOPROCESO = #{idcalendarioproceso,jdbcType=INTEGER}, 
+	</if>
+	<if test="idconvocatoriaproceso != null" >
+		IDCONVOCATORIAPROCESO = #{idconvocatoriaproceso,jdbcType=INTEGER}, 
+	</if>
+	<if test="idcatalogocodigocalendario != null" >
+		IDCATALOGOCODIGOCALENDARIO = #{idcatalogocodigocalendario,jdbcType=VARCHAR}, 
+	</if>
+	<if test="nombrecalendario != null" >
+		NOMBRECALENDARIO = #{nombrecalendario,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechainicio != null" >
+		FECHAINICIO = #{fechainicio,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="fechafin != null" >
+		FECHAFIN = #{fechafin,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="fechpublicacion != null" >
+		FECHPUBLICACION = #{fechpublicacion,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="idcatalogoestadopublicacion != null" >
+		IDCATALOGOESTADOPUBLICACION = #{idcatalogoestadopublicacion,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		FECHACREACIONAUDITORIA = #{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		USUARIOCREACIONAUDITORIA = #{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		FECHAMODIFICACIONAUDITORIA = #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		USUARIOMODIFICACIONAUDITORIA = #{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="equipoauditoria != null" >
+		EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="programaauditoria != null" >
+		PROGRAMAAUDITORIA = #{programaauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoauditoria != null" >
+		ESTADOAUDITORIA = #{estadoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	</set>
+
+	where IdCalendarioProceso = #{idcalendarioproceso,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="selectDynamicBasic" resultMap="BasicResultMap"  parameterType="pe.com.sisabas.be.Calendarioprocesoseleccion" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.CalendarioProcesoSeleccion A1
+	<where>
+		<if test="idcalendarioproceso != null" >
+			 AND A1.IDCALENDARIOPROCESO = #{idcalendarioproceso,jdbcType=INTEGER} 
+		</if>
+		<if test="idconvocatoriaproceso != null" >
+			 AND A1.IDCONVOCATORIAPROCESO = #{idconvocatoriaproceso,jdbcType=INTEGER} 
+		</if>
+		<if test="idcatalogocodigocalendario != null" >
+			 AND A1.IDCATALOGOCODIGOCALENDARIO = #{idcatalogocodigocalendario,jdbcType=VARCHAR} 
+		</if>
+		<if test="nombrecalendario != null" >
+			 AND A1.NOMBRECALENDARIO LIKE ('%' + #{nombrecalendario,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechainicioini != null" >
+			 AND  (A1.FECHAINICIO)  <![CDATA[ >= ]]>  #{fechainicioini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechainiciofin != null" >
+			 AND (A1.FECHAINICIO) <![CDATA[ <= ]]>  #{fechainiciofin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="fechafinini != null" >
+			 AND  (A1.FECHAFIN)  <![CDATA[ >= ]]>  #{fechafinini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechafinfin != null" >
+			 AND (A1.FECHAFIN) <![CDATA[ <= ]]>  #{fechafinfin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="fechpublicacionini != null" >
+			 AND  (A1.FECHPUBLICACION)  <![CDATA[ >= ]]>  #{fechpublicacionini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechpublicacionfin != null" >
+			 AND (A1.FECHPUBLICACION) <![CDATA[ <= ]]>  #{fechpublicacionfin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="idcatalogoestadopublicacion != null" >
+			 AND A1.IDCATALOGOESTADOPUBLICACION = #{idcatalogoestadopublicacion,jdbcType=VARCHAR} 
+		</if>
+		<if test="fechacreacionauditoriaini != null" >
+			 AND  (A1.FECHACREACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechacreacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechacreacionauditoriafin != null" >
+			 AND (A1.FECHACREACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechacreacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariocreacionauditoria != null" >
+			 AND A1.USUARIOCREACIONAUDITORIA LIKE ('%' + #{usuariocreacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechamodificacionauditoriaini != null" >
+			 AND  (A1.FECHAMODIFICACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechamodificacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechamodificacionauditoriafin != null" >
+			 AND (A1.FECHAMODIFICACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechamodificacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariomodificacionauditoria != null" >
+			 AND A1.USUARIOMODIFICACIONAUDITORIA LIKE ('%' + #{usuariomodificacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="equipoauditoria != null" >
+			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="programaauditoria != null" >
+			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoauditoria != null" >
+			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+
+		<if test="listaIdconvocatoriaprocesoInKeys != null" >
+			AND A1.IDCONVOCATORIAPROCESO IN
+			<foreach collection="listaIdconvocatoriaprocesoInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+
+		<if test="listaIdcatalogocodigocalendarioInKeys != null" >
+			AND A1.IDCATALOGOCODIGOCALENDARIO IN
+			<foreach collection="listaIdcatalogocodigocalendarioInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=VARCHAR} </foreach>
+		</if>
+
+		<if test="listaIdcatalogoestadopublicacionInKeys != null" >
+			AND A1.IDCATALOGOESTADOPUBLICACION IN
+			<foreach collection="listaIdcatalogoestadopublicacionInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=VARCHAR} </foreach>
+		</if>
+	</where>
+
+	<if test="ordenListaCampos != null" >
+		 ORDER BY 
+		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+		<if test="ordenTipo != null" >
+			 ${ordenTipo} 
+		</if>
+	</if>
+
+	<if test="cantidadRegistros != null" >
+
+	</if>
+	</select>
+
+
+	<select id="selectDynamicFull" resultMap="FullResultMap"  parameterType="pe.com.sisabas.be.Calendarioprocesoseleccion" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.CalendarioProcesoSeleccion A1
+	LEFT JOIN abas.ConvocatoriaProcesoSeleccion A3 ON A1.IdConvocatoriaProceso = A3.IdConvocatoriaProceso
+	LEFT JOIN abas.gentabla A6 ON A1.IdCatalogoCodigoCalendario = A6.vchregCodigo
+	LEFT JOIN abas.gentabla A8 ON A1.IdCatalogoEstadoPublicacion = A8.vchregCodigo
+	<where>
+		<if test="idcalendarioproceso != null" >
+			 AND A1.IDCALENDARIOPROCESO = #{idcalendarioproceso,jdbcType=INTEGER} 
+		</if>
+		<if test="idconvocatoriaproceso != null" >
+			 AND A1.IDCONVOCATORIAPROCESO = #{idconvocatoriaproceso,jdbcType=INTEGER} 
+		</if>
+		<if test="idcatalogocodigocalendario != null" >
+			 AND A1.IDCATALOGOCODIGOCALENDARIO = #{idcatalogocodigocalendario,jdbcType=VARCHAR} 
+		</if>
+		<if test="nombrecalendario != null" >
+			 AND A1.NOMBRECALENDARIO LIKE ('%' + #{nombrecalendario,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechainicioini != null" >
+			 AND  (A1.FECHAINICIO)  <![CDATA[ >= ]]>  #{fechainicioini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechainiciofin != null" >
+			 AND (A1.FECHAINICIO) <![CDATA[ <= ]]>  #{fechainiciofin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="fechafinini != null" >
+			 AND  (A1.FECHAFIN)  <![CDATA[ >= ]]>  #{fechafinini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechafinfin != null" >
+			 AND (A1.FECHAFIN) <![CDATA[ <= ]]>  #{fechafinfin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="fechpublicacionini != null" >
+			 AND  (A1.FECHPUBLICACION)  <![CDATA[ >= ]]>  #{fechpublicacionini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechpublicacionfin != null" >
+			 AND (A1.FECHPUBLICACION) <![CDATA[ <= ]]>  #{fechpublicacionfin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="idcatalogoestadopublicacion != null" >
+			 AND A1.IDCATALOGOESTADOPUBLICACION = #{idcatalogoestadopublicacion,jdbcType=VARCHAR} 
+		</if>
+		<if test="fechacreacionauditoriaini != null" >
+			 AND  (A1.FECHACREACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechacreacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechacreacionauditoriafin != null" >
+			 AND (A1.FECHACREACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechacreacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariocreacionauditoria != null" >
+			 AND A1.USUARIOCREACIONAUDITORIA LIKE ('%' + #{usuariocreacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechamodificacionauditoriaini != null" >
+			 AND  (A1.FECHAMODIFICACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechamodificacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechamodificacionauditoriafin != null" >
+			 AND (A1.FECHAMODIFICACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechamodificacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariomodificacionauditoria != null" >
+			 AND A1.USUARIOMODIFICACIONAUDITORIA LIKE ('%' + #{usuariomodificacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="equipoauditoria != null" >
+			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="programaauditoria != null" >
+			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoauditoria != null" >
+			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+
+		<if test="listaIdconvocatoriaprocesoInKeys != null" >
+			AND A1.IDCONVOCATORIAPROCESO IN
+			<foreach collection="listaIdconvocatoriaprocesoInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+
+		<if test="listaIdcatalogocodigocalendarioInKeys != null" >
+			AND A1.IDCATALOGOCODIGOCALENDARIO IN
+			<foreach collection="listaIdcatalogocodigocalendarioInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=VARCHAR} </foreach>
+		</if>
+
+		<if test="listaIdcatalogoestadopublicacionInKeys != null" >
+			AND A1.IDCATALOGOESTADOPUBLICACION IN
+			<foreach collection="listaIdcatalogoestadopublicacionInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=VARCHAR} </foreach>
+		</if>
+	</where>
+
+	<if test="ordenListaCampos != null" >
+		 ORDER BY 
+		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+		<if test="ordenTipo != null" >
+			 ${ordenTipo} 
+		</if>
+	</if>
+
+	<if test="cantidadRegistros != null" >
+
+	</if>
+	</select>
+</mapper>

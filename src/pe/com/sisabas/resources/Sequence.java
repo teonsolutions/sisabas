@@ -48,6 +48,17 @@ public class Sequence{
 	public static final String SEQ_VISPEDIDO="seq_vispedido";
 	public static final String SEQ_VISSIGAPAACCONSOLIDADO="seq_vissigapaacconsolidado";
 
+	public static final String SEQ_PROCESOSELECCION="seq_procesoseleccion";
+	public static final String SEQ_ADENDA="seq_adenda";
+	public static final String SEQ_CALENDARIOPROCESOSELECCION="seq_calendarioprocesoseleccion";
+	public static final String SEQ_CONVOCATORIAPROCESOSELECCION="seq_convocatoriaprocesoseleccion";
+	public static final String SEQ_RESULTADOPROCESOPORUSUARIO="seq_resultadoprocesoporusuario";
+	public static final String SEQ_RESULTADOPROCESOSELECCION="seq_resultadoprocesoseleccion";
+	public static final String SEQ_CONTRATO="seq_contrato";
+	public static final String SEQ_CONTRATOSPORPROCESOSELECCION="seq_contratosporprocesoseleccion";
+	public static final String SEQ_PREVISIONPORCONTRATO="seq_previsionporcontrato";
+	public static final String SEQ_EVALUACIONDOCUMENTO="seq_evaluaciondocumento";
+	
 }
 
 /*
@@ -95,5 +106,17 @@ CREATE SEQUENCE [abas].[seq_vcertificacion] AS [bigint] START WITH 100 INCREMENT
 CREATE SEQUENCE [abas].[seq_vdetallepedido] AS [bigint] START WITH 100 INCREMENT BY 1 MINVALUE 100 MAXVALUE 9223372036854775807 CYCLE  CACHE  3
 CREATE SEQUENCE [abas].[seq_vispedido] AS [bigint] START WITH 100 INCREMENT BY 1 MINVALUE 100 MAXVALUE 9223372036854775807 CYCLE  CACHE  3
 CREATE SEQUENCE [abas].[seq_vissigapaacconsolidado] AS [bigint] START WITH 100 INCREMENT BY 1 MINVALUE 100 MAXVALUE 9223372036854775807 CYCLE  CACHE  3
+
+CREATE SEQUENCE [abas].[seq_procesoseleccion] AS [bigint] START WITH 100 INCREMENT BY 1 MINVALUE 100 MAXVALUE 9223372036854775807 CYCLE  CACHE  3
+CREATE SEQUENCE [abas].[seq_adenda] AS [bigint] START WITH 100 INCREMENT BY 1 MINVALUE 100 MAXVALUE 9223372036854775807 CYCLE  CACHE  3
+CREATE SEQUENCE [abas].[seq_calendarioprocesoseleccion] AS [bigint] START WITH 100 INCREMENT BY 1 MINVALUE 100 MAXVALUE 9223372036854775807 CYCLE  CACHE  3
+CREATE SEQUENCE [abas].[seq_convocatoriaprocesoseleccion] AS [bigint] START WITH 100 INCREMENT BY 1 MINVALUE 100 MAXVALUE 9223372036854775807 CYCLE  CACHE  3
+CREATE SEQUENCE [abas].[seq_resultadoprocesoporusuario] AS [bigint] START WITH 100 INCREMENT BY 1 MINVALUE 100 MAXVALUE 9223372036854775807 CYCLE  CACHE  3
+CREATE SEQUENCE [abas].[seq_resultadoprocesoseleccion] AS [bigint] START WITH 100 INCREMENT BY 1 MINVALUE 100 MAXVALUE 9223372036854775807 CYCLE  CACHE  3
+CREATE SEQUENCE [abas].[seq_contrato] AS [bigint] START WITH 100 INCREMENT BY 1 MINVALUE 100 MAXVALUE 9223372036854775807 CYCLE  CACHE  3
+CREATE SEQUENCE [abas].[seq_contratosporprocesoseleccion] AS [bigint] START WITH 100 INCREMENT BY 1 MINVALUE 100 MAXVALUE 9223372036854775807 CYCLE  CACHE  3
+CREATE SEQUENCE [abas].[seq_previsionporcontrato] AS [bigint] START WITH 100 INCREMENT BY 1 MINVALUE 100 MAXVALUE 9223372036854775807 CYCLE  CACHE  3
+CREATE SEQUENCE [abas].[seq_evaluaciondocumento] AS [bigint] START WITH 100 INCREMENT BY 1 MINVALUE 100 MAXVALUE 9223372036854775807 CYCLE  CACHE  3
+
 
 */

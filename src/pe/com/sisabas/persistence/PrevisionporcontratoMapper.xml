@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pe.com.sisabas.persistence.PrevisionporcontratoMapper" >
+
+	<resultMap id="BasicResultMap" type="pe.com.sisabas.be.Previsionporcontrato">
+	<result column="A1_IDPREVISIONPORCONTRATO" property="idprevisionporcontrato" jdbcType="INTEGER" />
+	<result column="A1_IDPREVISIONPRESUPUESTAL" property="idprevisionpresupuestal" jdbcType="INTEGER" />
+	<result column="A1_IDCONTRATO" property="idcontrato" jdbcType="INTEGER" />
+	<result column="A1_MONTOPREVISIOCONTRATO" property="montoprevisiocontrato" jdbcType="DECIMAL" />
+	<result column="A1_FECHACREACIONAUDITORIA" property="fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOCREACIONAUDITORIA" property="usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_FECHAMODIFICACIONAUDITORIA" property="fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOMODIFICACIONAUDITORIA" property="usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<resultMap id="FullResultMap" type="pe.com.sisabas.be.Previsionporcontrato">
+	<result column="A1_IDPREVISIONPORCONTRATO" property="idprevisionporcontrato" jdbcType="INTEGER" />
+	<result column="A1_IDPREVISIONPRESUPUESTAL" property="idprevisionpresupuestal" jdbcType="INTEGER" />
+	<result column="A1_IDCONTRATO" property="idcontrato" jdbcType="INTEGER" />
+	<result column="A1_MONTOPREVISIOCONTRATO" property="montoprevisiocontrato" jdbcType="DECIMAL" />
+	<result column="A1_FECHACREACIONAUDITORIA" property="fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOCREACIONAUDITORIA" property="usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_FECHAMODIFICACIONAUDITORIA" property="fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOMODIFICACIONAUDITORIA" property="usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	<result column="A3_IDCONTRATO" property="contratoIdcontrato.idcontrato" jdbcType="INTEGER" />
+	<result column="A3_IDUNIDADEJECUTORA" property="contratoIdcontrato.idunidadejecutora" jdbcType="INTEGER" />
+	<result column="A3_NROITEMS" property="contratoIdcontrato.nroitems" jdbcType="SMALLINT" />
+	<result column="A3_IDCATALOGOSISTEMAADQUISICION" property="contratoIdcontrato.idcatalogosistemaadquisicion" jdbcType="VARCHAR" />
+	<result column="A3_IDGRUPODOCUMENTO" property="contratoIdcontrato.idgrupodocumento" jdbcType="INTEGER" />
+	<result column="A3_IDCATALOGOTIPOCONTRATO" property="contratoIdcontrato.idcatalogotipocontrato" jdbcType="VARCHAR" />
+	<result column="A3_NROCONTRATO" property="contratoIdcontrato.nrocontrato" jdbcType="INTEGER" />
+	<result column="A3_SECUENCIACONTRATO" property="contratoIdcontrato.secuenciacontrato" jdbcType="INTEGER" />
+	<result column="A3_NROCCP" property="contratoIdcontrato.nroccp" jdbcType="VARCHAR" />
+	<result column="A3_IDCATALOGOTIPOBIEN" property="contratoIdcontrato.idcatalogotipobien" jdbcType="VARCHAR" />
+	<result column="A3_IDPROVEEDOR" property="contratoIdcontrato.idproveedor" jdbcType="INTEGER" />
+	<result column="A3_ESTADOCONTRATO" property="contratoIdcontrato.estadocontrato" jdbcType="INTEGER" />
+	<result column="A3_FECHAINICIAL" property="contratoIdcontrato.fechainicial" jdbcType="TIMESTAMP" />
+	<result column="A3_FECHAFIN" property="contratoIdcontrato.fechafin" jdbcType="TIMESTAMP" />
+	<result column="A3_MONEDA" property="contratoIdcontrato.moneda" jdbcType="VARCHAR" />
+	<result column="A3_MONTOCONTRATO" property="contratoIdcontrato.montocontrato" jdbcType="DECIMAL" />
+	<result column="A3_MONTOCERTIFICACION" property="contratoIdcontrato.montocertificacion" jdbcType="DECIMAL" />
+	<result column="A3_FECHACONTRATO" property="contratoIdcontrato.fechacontrato" jdbcType="TIMESTAMP" />
+	<result column="A3_TIENEPREVISION" property="contratoIdcontrato.tieneprevision" jdbcType="VARCHAR" />
+	<result column="A3_PLAZOEJECUCION" property="contratoIdcontrato.plazoejecucion" jdbcType="INTEGER" />
+	<result column="A3_CANTIDADARMADAS" property="contratoIdcontrato.cantidadarmadas" jdbcType="INTEGER" />
+	<result column="A3_FECHARECEPCIONEXPEDIENTE" property="contratoIdcontrato.fecharecepcionexpediente" jdbcType="TIMESTAMP" />
+	<result column="A3_DNIABOGADO" property="contratoIdcontrato.dniabogado" jdbcType="VARCHAR" />
+	<result column="A3_DNIESPECIALISTAEJECUCION" property="contratoIdcontrato.dniespecialistaejecucion" jdbcType="VARCHAR" />
+	<result column="A3_SINADCONTRATO" property="contratoIdcontrato.sinadcontrato" jdbcType="VARCHAR" />
+	<result column="A3_ANIOSINADCONTRATO" property="contratoIdcontrato.aniosinadcontrato" jdbcType="INTEGER" />
+	<result column="A3_NOMBREABOGADO" property="contratoIdcontrato.nombreabogado" jdbcType="VARCHAR" />
+	<result column="A3_NOMBREESPECIALISTA" property="contratoIdcontrato.nombreespecialista" jdbcType="VARCHAR" />
+	<result column="A3_NUMEROEXPEDIENTE" property="contratoIdcontrato.numeroexpediente" jdbcType="VARCHAR" />
+	<result column="A3_ANIO" property="contratoIdcontrato.anio" jdbcType="INTEGER" />
+	<result column="A3_NROCONSOLID" property="contratoIdcontrato.nroconsolid" jdbcType="INTEGER" />
+	<result column="A3_RUTACONTRATO" property="contratoIdcontrato.rutacontrato" jdbcType="VARCHAR" />
+	<result column="A3_IDCATALOGOESTADODOCUMENTACION" property="contratoIdcontrato.idcatalogoestadodocumentacion" jdbcType="VARCHAR" />
+	<result column="A3_FECHACREACIONAUDITORIA" property="contratoIdcontrato.fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A3_USUARIOCREACIONAUDITORIA" property="contratoIdcontrato.usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A3_FECHAMODIFICACIONAUDITORIA" property="contratoIdcontrato.fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A3_USUARIOMODIFICACIONAUDITORIA" property="contratoIdcontrato.usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A3_EQUIPOAUDITORIA" property="contratoIdcontrato.equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A3_PROGRAMAAUDITORIA" property="contratoIdcontrato.programaauditoria" jdbcType="VARCHAR" />
+	<result column="A3_ESTADOAUDITORIA" property="contratoIdcontrato.estadoauditoria" jdbcType="VARCHAR" />
+
+	<result column="A10_IDPREVISIONPRESUPUESTAL" property="previsionpresupuestalIdprevisionpresupuestal.idprevisionpresupuestal" jdbcType="INTEGER" />
+	<result column="A10_IDPACCONSOLIDADO" property="previsionpresupuestalIdprevisionpresupuestal.idpacconsolidado" jdbcType="INTEGER" />
+	<result column="A10_NROPREVISION" property="previsionpresupuestalIdprevisionpresupuestal.nroprevision" jdbcType="VARCHAR" />
+	<result column="A10_NRODOCUMENTOPPTO" property="previsionpresupuestalIdprevisionpresupuestal.nrodocumentoppto" jdbcType="VARCHAR" />
+	<result column="A10_NRODOCUMENTOOGA" property="previsionpresupuestalIdprevisionpresupuestal.nrodocumentooga" jdbcType="VARCHAR" />
+	<result column="A10_FECHAAUTORIZACION" property="previsionpresupuestalIdprevisionpresupuestal.fechaautorizacion" jdbcType="TIMESTAMP" />
+	<result column="A10_ANIO" property="previsionpresupuestalIdprevisionpresupuestal.anio" jdbcType="VARCHAR" />
+	<result column="A10_MONTOPREVISION" property="previsionpresupuestalIdprevisionpresupuestal.montoprevision" jdbcType="DECIMAL" />
+	<result column="A10_MONTOPREVISIONCONTRATO" property="previsionpresupuestalIdprevisionpresupuestal.montoprevisioncontrato" jdbcType="DECIMAL" />
+	<result column="A10_MONTOAMPLIACION" property="previsionpresupuestalIdprevisionpresupuestal.montoampliacion" jdbcType="DECIMAL" />
+	<result column="A10_MONTOANULACION" property="previsionpresupuestalIdprevisionpresupuestal.montoanulacion" jdbcType="DECIMAL" />
+	<result column="A10_FECHACREACIONAUDITORIA" property="previsionpresupuestalIdprevisionpresupuestal.fechacreacionauditoria" jdbcType="DATE" />
+	<result column="A10_USUARIOCREACIONAUDITORIA" property="previsionpresupuestalIdprevisionpresupuestal.usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A10_FECHAMODIFICACIONAUDITORIA" property="previsionpresupuestalIdprevisionpresupuestal.fechamodificacionauditoria" jdbcType="DATE" />
+	<result column="A10_USUARIOMODIFICACIONAUDITORIA" property="previsionpresupuestalIdprevisionpresupuestal.usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A10_EQUIPOAUDITORIA" property="previsionpresupuestalIdprevisionpresupuestal.equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A10_PROGRAMAAUDITORIA" property="previsionpresupuestalIdprevisionpresupuestal.programaauditoria" jdbcType="VARCHAR" />
+	<result column="A10_ESTADOAUDITORIA" property="previsionpresupuestalIdprevisionpresupuestal.estadoauditoria" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<sql id="Basic_Column_List">
+	A1.IDPREVISIONPORCONTRATO as A1_IDPREVISIONPORCONTRATO, A1.IDPREVISIONPRESUPUESTAL as A1_IDPREVISIONPRESUPUESTAL, A1.IDCONTRATO as A1_IDCONTRATO, A1.MONTOPREVISIOCONTRATO as A1_MONTOPREVISIOCONTRATO, 
+	A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, 
+	A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA 
+	</sql>
+
+
+	<sql id="Full_Column_List">
+	A1.IDPREVISIONPORCONTRATO as A1_IDPREVISIONPORCONTRATO, A1.IDPREVISIONPRESUPUESTAL as A1_IDPREVISIONPRESUPUESTAL, A1.IDCONTRATO as A1_IDCONTRATO, A1.MONTOPREVISIOCONTRATO as A1_MONTOPREVISIOCONTRATO, 
+	A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, 
+	A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA, 
+	A3.IDCONTRATO as A3_IDCONTRATO, A3.IDUNIDADEJECUTORA as A3_IDUNIDADEJECUTORA, A3.NROITEMS as A3_NROITEMS, A3.IDCATALOGOSISTEMAADQUISICION as A3_IDCATALOGOSISTEMAADQUISICION, 
+	A3.IDGRUPODOCUMENTO as A3_IDGRUPODOCUMENTO, A3.IDCATALOGOTIPOCONTRATO as A3_IDCATALOGOTIPOCONTRATO, A3.NROCONTRATO as A3_NROCONTRATO, A3.SECUENCIACONTRATO as A3_SECUENCIACONTRATO, 
+	A3.NROCCP as A3_NROCCP, A3.IDCATALOGOTIPOBIEN as A3_IDCATALOGOTIPOBIEN, A3.IDPROVEEDOR as A3_IDPROVEEDOR, A3.ESTADOCONTRATO as A3_ESTADOCONTRATO, 
+	A3.FECHAINICIAL as A3_FECHAINICIAL, A3.FECHAFIN as A3_FECHAFIN, A3.MONEDA as A3_MONEDA, A3.MONTOCONTRATO as A3_MONTOCONTRATO, 
+	A3.MONTOCERTIFICACION as A3_MONTOCERTIFICACION, A3.FECHACONTRATO as A3_FECHACONTRATO, A3.TIENEPREVISION as A3_TIENEPREVISION, A3.PLAZOEJECUCION as A3_PLAZOEJECUCION, 
+	A3.CANTIDADARMADAS as A3_CANTIDADARMADAS, A3.FECHARECEPCIONEXPEDIENTE as A3_FECHARECEPCIONEXPEDIENTE, A3.DNIABOGADO as A3_DNIABOGADO, A3.DNIESPECIALISTAEJECUCION as A3_DNIESPECIALISTAEJECUCION, 
+	A3.SINADCONTRATO as A3_SINADCONTRATO, A3.ANIOSINADCONTRATO as A3_ANIOSINADCONTRATO, A3.NOMBREABOGADO as A3_NOMBREABOGADO, A3.NOMBREESPECIALISTA as A3_NOMBREESPECIALISTA, 
+	A3.NUMEROEXPEDIENTE as A3_NUMEROEXPEDIENTE, A3.ANIO as A3_ANIO, A3.NROCONSOLID as A3_NROCONSOLID, A3.RUTACONTRATO as A3_RUTACONTRATO, 
+	A3.IDCATALOGOESTADODOCUMENTACION as A3_IDCATALOGOESTADODOCUMENTACION, A3.FECHACREACIONAUDITORIA as A3_FECHACREACIONAUDITORIA, A3.USUARIOCREACIONAUDITORIA as A3_USUARIOCREACIONAUDITORIA, A3.FECHAMODIFICACIONAUDITORIA as A3_FECHAMODIFICACIONAUDITORIA, 
+	A3.USUARIOMODIFICACIONAUDITORIA as A3_USUARIOMODIFICACIONAUDITORIA, A3.EQUIPOAUDITORIA as A3_EQUIPOAUDITORIA, A3.PROGRAMAAUDITORIA as A3_PROGRAMAAUDITORIA, A3.ESTADOAUDITORIA as A3_ESTADOAUDITORIA, 
+	
+	A10.IDPREVISIONPRESUPUESTAL as A10_IDPREVISIONPRESUPUESTAL, A10.IDPACCONSOLIDADO as A10_IDPACCONSOLIDADO, A10.NROPREVISION as A10_NROPREVISION, A10.NRODOCUMENTOPPTO as A10_NRODOCUMENTOPPTO, 
+	A10.NRODOCUMENTOOGA as A10_NRODOCUMENTOOGA, A10.FECHAAUTORIZACION as A10_FECHAAUTORIZACION, A10.ANIO as A10_ANIO, A10.MONTOPREVISION as A10_MONTOPREVISION, 
+	A10.MONTOPREVISIONCONTRATO as A10_MONTOPREVISIONCONTRATO, A10.MONTOAMPLIACION as A10_MONTOAMPLIACION, A10.MONTOANULACION as A10_MONTOANULACION, A10.FECHACREACIONAUDITORIA as A10_FECHACREACIONAUDITORIA, 
+	A10.USUARIOCREACIONAUDITORIA as A10_USUARIOCREACIONAUDITORIA, A10.FECHAMODIFICACIONAUDITORIA as A10_FECHAMODIFICACIONAUDITORIA, A10.USUARIOMODIFICACIONAUDITORIA as A10_USUARIOMODIFICACIONAUDITORIA, A10.EQUIPOAUDITORIA as A10_EQUIPOAUDITORIA, 
+	A10.PROGRAMAAUDITORIA as A10_PROGRAMAAUDITORIA, A10.ESTADOAUDITORIA as A10_ESTADOAUDITORIA 
+	</sql>
+
+
+
+	<select id="selectByPrimaryKeyBasic" resultMap="BasicResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.PrevisionPorContrato A1
+	
+	where A1.IdPrevisionPorContrato = #{idprevisionporcontrato,jdbcType=INTEGER}
+</select>
+
+
+
+	<select id="selectByPrimaryKeyBasicActive" resultMap="BasicResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.PrevisionPorContrato A1
+	
+	where A1.IdPrevisionPorContrato = #{idprevisionporcontrato,jdbcType=INTEGER}
+	and A1.estadoauditoria='1'
+	</select>
+
+
+
+	<select id="selectByPrimaryKeyFull" resultMap="FullResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.PrevisionPorContrato A1
+	
+	LEFT JOIN abas.Contrato A3 ON A1.IdContrato = A3.IdContrato
+	LEFT JOIN abas.PrevisionPresupuestal A10 ON A1.IdPrevisionPresupuestal = A10.IdPrevisionPresupuestal
+	where A1.IdPrevisionPorContrato = #{idprevisionporcontrato,jdbcType=INTEGER}
+</select>
+
+
+
+	<select id="selectByPrimaryKeyFullActive" resultMap="FullResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.PrevisionPorContrato A1
+	
+	LEFT JOIN abas.Contrato A3 ON A1.IdContrato = A3.IdContrato
+	LEFT JOIN abas.PrevisionPresupuestal A10 ON A1.IdPrevisionPresupuestal = A10.IdPrevisionPresupuestal
+	where A1.IdPrevisionPorContrato = #{idprevisionporcontrato,jdbcType=INTEGER}
+	and A1.estadoauditoria='1'
+	</select>
+
+
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	delete from abas.PrevisionPorContrato 
+	where IdPrevisionPorContrato = #{idprevisionporcontrato,jdbcType=INTEGER}
+	</delete>
+
+
+
+
+
+	<insert id="insert" parameterType="pe.com.sisabas.be.Previsionporcontrato" >
+	insert into abas.PrevisionPorContrato (
+	IDPREVISIONPORCONTRATO, IDPREVISIONPRESUPUESTAL, IDCONTRATO, MONTOPREVISIOCONTRATO, 
+	FECHACREACIONAUDITORIA, USUARIOCREACIONAUDITORIA, FECHAMODIFICACIONAUDITORIA, USUARIOMODIFICACIONAUDITORIA, 
+	EQUIPOAUDITORIA, PROGRAMAAUDITORIA, ESTADOAUDITORIA ) 
+	VALUES (
+	#{idprevisionporcontrato,jdbcType=INTEGER}, #{idprevisionpresupuestal,jdbcType=INTEGER}, #{idcontrato,jdbcType=INTEGER}, #{montoprevisiocontrato,jdbcType=DECIMAL}, 
+	#{fechacreacionauditoria,jdbcType=TIMESTAMP}, #{usuariocreacionauditoria,jdbcType=VARCHAR}, #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, #{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	#{equipoauditoria,jdbcType=VARCHAR}, #{programaauditoria,jdbcType=VARCHAR}, #{estadoauditoria,jdbcType=VARCHAR} ) 
+	</insert>
+
+
+
+	<insert id="insertSelective" parameterType="pe.com.sisabas.be.Previsionporcontrato" >
+	insert into abas.PrevisionPorContrato 
+	<trim prefix="(" suffix=")" suffixOverrides="," >
+	<if test="idprevisionporcontrato != null" >
+		IdPrevisionPorContrato,
+	</if>
+	<if test="idprevisionpresupuestal != null" >
+		IdPrevisionPresupuestal,
+	</if>
+	<if test="idcontrato != null" >
+		IdContrato,
+	</if>
+	<if test="montoprevisiocontrato != null" >
+		MontoPrevisioContrato,
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		FechaCreacionAuditoria,
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		UsuarioCreacionAuditoria,
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		FechaModificacionAuditoria,
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		UsuarioModificacionAuditoria,
+	</if>
+	<if test="equipoauditoria != null" >
+		EquipoAuditoria,
+	</if>
+	<if test="programaauditoria != null" >
+		ProgramaAuditoria,
+	</if>
+	<if test="estadoauditoria != null" >
+		EstadoAuditoria,
+	</if>
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides="," >
+	<if test="idprevisionporcontrato != null" >
+		#{idprevisionporcontrato,jdbcType=INTEGER}, 
+	</if>
+	<if test="idprevisionpresupuestal != null" >
+		#{idprevisionpresupuestal,jdbcType=INTEGER}, 
+	</if>
+	<if test="idcontrato != null" >
+		#{idcontrato,jdbcType=INTEGER}, 
+	</if>
+	<if test="montoprevisiocontrato != null" >
+		#{montoprevisiocontrato,jdbcType=DECIMAL}, 
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		#{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		#{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		#{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		#{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="equipoauditoria != null" >
+		#{equipoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="programaauditoria != null" >
+		#{programaauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoauditoria != null" >
+		#{estadoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	</trim>
+	</insert>
+
+
+
+	<update id="updateByPrimaryKey" parameterType="pe.com.sisabas.be.Previsionporcontrato" >
+	update abas.PrevisionPorContrato 
+	set 
+	IDPREVISIONPORCONTRATO = #{idprevisionporcontrato,jdbcType=INTEGER}, IDPREVISIONPRESUPUESTAL = #{idprevisionpresupuestal,jdbcType=INTEGER}, 
+	IDCONTRATO = #{idcontrato,jdbcType=INTEGER}, MONTOPREVISIOCONTRATO = #{montoprevisiocontrato,jdbcType=DECIMAL}, 
+	FECHACREACIONAUDITORIA = #{fechacreacionauditoria,jdbcType=TIMESTAMP}, USUARIOCREACIONAUDITORIA = #{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	FECHAMODIFICACIONAUDITORIA = #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, USUARIOMODIFICACIONAUDITORIA = #{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, PROGRAMAAUDITORIA = #{programaauditoria,jdbcType=VARCHAR}, 
+	ESTADOAUDITORIA = #{estadoauditoria,jdbcType=VARCHAR} 
+	where IdPrevisionPorContrato = #{idprevisionporcontrato,jdbcType=INTEGER}
+	</update>
+
+
+
+	<update id="updateByPrimaryKeySelective" parameterType="pe.com.sisabas.be.Previsionporcontrato" >
+	update abas.PrevisionPorContrato 
+	<set>
+	<if test="idprevisionporcontrato != null" >
+		IDPREVISIONPORCONTRATO = #{idprevisionporcontrato,jdbcType=INTEGER}, 
+	</if>
+	<if test="idprevisionpresupuestal != null" >
+		IDPREVISIONPRESUPUESTAL = #{idprevisionpresupuestal,jdbcType=INTEGER}, 
+	</if>
+	<if test="idcontrato != null" >
+		IDCONTRATO = #{idcontrato,jdbcType=INTEGER}, 
+	</if>
+	<if test="montoprevisiocontrato != null" >
+		MONTOPREVISIOCONTRATO = #{montoprevisiocontrato,jdbcType=DECIMAL}, 
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		FECHACREACIONAUDITORIA = #{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		USUARIOCREACIONAUDITORIA = #{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		FECHAMODIFICACIONAUDITORIA = #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		USUARIOMODIFICACIONAUDITORIA = #{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="equipoauditoria != null" >
+		EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="programaauditoria != null" >
+		PROGRAMAAUDITORIA = #{programaauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoauditoria != null" >
+		ESTADOAUDITORIA = #{estadoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	</set>
+
+	where IdPrevisionPorContrato = #{idprevisionporcontrato,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="selectDynamicBasic" resultMap="BasicResultMap"  parameterType="pe.com.sisabas.be.Previsionporcontrato" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.PrevisionPorContrato A1
+	<where>
+		<if test="idprevisionporcontrato != null" >
+			 AND A1.IDPREVISIONPORCONTRATO = #{idprevisionporcontrato,jdbcType=INTEGER} 
+		</if>
+		<if test="idprevisionpresupuestal != null" >
+			 AND A1.IDPREVISIONPRESUPUESTAL = #{idprevisionpresupuestal,jdbcType=INTEGER} 
+		</if>
+		<if test="idcontrato != null" >
+			 AND A1.IDCONTRATO = #{idcontrato,jdbcType=INTEGER} 
+		</if>
+		<if test="montoprevisiocontratoini != null" >
+			 AND A1.MONTOPREVISIOCONTRATO <![CDATA[ >= ]]> #{montoprevisiocontratoini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="montoprevisiocontratofin != null" >
+			 AND A1.MONTOPREVISIOCONTRATO <![CDATA[ <= ]]>  #{montoprevisiocontratofin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="fechacreacionauditoriaini != null" >
+			 AND  (A1.FECHACREACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechacreacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechacreacionauditoriafin != null" >
+			 AND (A1.FECHACREACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechacreacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariocreacionauditoria != null" >
+			 AND A1.USUARIOCREACIONAUDITORIA LIKE ('%' + #{usuariocreacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechamodificacionauditoriaini != null" >
+			 AND  (A1.FECHAMODIFICACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechamodificacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechamodificacionauditoriafin != null" >
+			 AND (A1.FECHAMODIFICACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechamodificacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariomodificacionauditoria != null" >
+			 AND A1.USUARIOMODIFICACIONAUDITORIA LIKE ('%' + #{usuariomodificacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="equipoauditoria != null" >
+			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="programaauditoria != null" >
+			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoauditoria != null" >
+			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+
+		<if test="listaIdprevisionpresupuestalInKeys != null" >
+			AND A1.IDPREVISIONPRESUPUESTAL IN
+			<foreach collection="listaIdprevisionpresupuestalInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+
+		<if test="listaIdcontratoInKeys != null" >
+			AND A1.IDCONTRATO IN
+			<foreach collection="listaIdcontratoInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+	</where>
+
+	<if test="ordenListaCampos != null" >
+		 ORDER BY 
+		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+		<if test="ordenTipo != null" >
+			 ${ordenTipo} 
+		</if>
+	</if>
+
+	<if test="cantidadRegistros != null" >
+
+	</if>
+	</select>
+
+
+	<select id="selectDynamicFull" resultMap="FullResultMap"  parameterType="pe.com.sisabas.be.Previsionporcontrato" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.PrevisionPorContrato A1
+	LEFT JOIN abas.Contrato A3 ON A1.IdContrato = A3.IdContrato
+	LEFT JOIN abas.PrevisionPresupuestal A10 ON A1.IdPrevisionPresupuestal = A10.IdPrevisionPresupuestal
+	<where>
+		<if test="idprevisionporcontrato != null" >
+			 AND A1.IDPREVISIONPORCONTRATO = #{idprevisionporcontrato,jdbcType=INTEGER} 
+		</if>
+		<if test="idprevisionpresupuestal != null" >
+			 AND A1.IDPREVISIONPRESUPUESTAL = #{idprevisionpresupuestal,jdbcType=INTEGER} 
+		</if>
+		<if test="idcontrato != null" >
+			 AND A1.IDCONTRATO = #{idcontrato,jdbcType=INTEGER} 
+		</if>
+		<if test="montoprevisiocontratoini != null" >
+			 AND A1.MONTOPREVISIOCONTRATO <![CDATA[ >= ]]> #{montoprevisiocontratoini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="montoprevisiocontratofin != null" >
+			 AND A1.MONTOPREVISIOCONTRATO <![CDATA[ <= ]]>  #{montoprevisiocontratofin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="fechacreacionauditoriaini != null" >
+			 AND  (A1.FECHACREACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechacreacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechacreacionauditoriafin != null" >
+			 AND (A1.FECHACREACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechacreacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariocreacionauditoria != null" >
+			 AND A1.USUARIOCREACIONAUDITORIA LIKE ('%' + #{usuariocreacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechamodificacionauditoriaini != null" >
+			 AND  (A1.FECHAMODIFICACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechamodificacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechamodificacionauditoriafin != null" >
+			 AND (A1.FECHAMODIFICACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechamodificacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariomodificacionauditoria != null" >
+			 AND A1.USUARIOMODIFICACIONAUDITORIA LIKE ('%' + #{usuariomodificacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="equipoauditoria != null" >
+			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="programaauditoria != null" >
+			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoauditoria != null" >
+			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+
+		<if test="listaIdprevisionpresupuestalInKeys != null" >
+			AND A1.IDPREVISIONPRESUPUESTAL IN
+			<foreach collection="listaIdprevisionpresupuestalInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+
+		<if test="listaIdcontratoInKeys != null" >
+			AND A1.IDCONTRATO IN
+			<foreach collection="listaIdcontratoInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+	</where>
+
+	<if test="ordenListaCampos != null" >
+		 ORDER BY 
+		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+		<if test="ordenTipo != null" >
+			 ${ordenTipo} 
+		</if>
+	</if>
+
+	<if test="cantidadRegistros != null" >
+
+	</if>
+	</select>
+</mapper>

@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pe.com.sisabas.persistence.ResultadoprocesoseleccionMapper" >
+
+	<resultMap id="BasicResultMap" type="pe.com.sisabas.be.Resultadoprocesoseleccion">
+	<result column="A1_IDRESULTADOPROCESO" property="idresultadoproceso" jdbcType="INTEGER" />
+	<result column="A1_IDCONVOCATORIAPROCESO" property="idconvocatoriaproceso" jdbcType="INTEGER" />
+	<result column="A1_IDRESULTADOPROCESOPADRE" property="idresultadoprocesopadre" jdbcType="INTEGER" />
+	<result column="A1_NROITEM" property="nroitem" jdbcType="VARCHAR" />
+	<result column="A1_NOMBREITEM" property="nombreitem" jdbcType="VARCHAR" />
+	<result column="A1_NRORUC" property="nroruc" jdbcType="VARCHAR" />
+	<result column="A1_NOMBREPROVEEDOR" property="nombreproveedor" jdbcType="VARCHAR" />
+	<result column="A1_IDCATALOGOESTADORESULTADO" property="idcatalogoestadoresultado" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOPROCESOITEM" property="estadoprocesoitem" jdbcType="INTEGER" />
+	<result column="A1_VALORREFERENCIAL" property="valorreferencial" jdbcType="DECIMAL" />
+	<result column="A1_MONTOADJUDICADO" property="montoadjudicado" jdbcType="DECIMAL" />
+	<result column="A1_FECHACREACIONAUDITORIA" property="fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOCREACIONAUDITORIA" property="usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_FECHAMODIFICACIONAUDITORIA" property="fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOMODIFICACIONAUDITORIA" property="usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<resultMap id="FullResultMap" type="pe.com.sisabas.be.Resultadoprocesoseleccion">
+	<result column="A1_IDRESULTADOPROCESO" property="idresultadoproceso" jdbcType="INTEGER" />
+	<result column="A1_IDCONVOCATORIAPROCESO" property="idconvocatoriaproceso" jdbcType="INTEGER" />
+	<result column="A1_IDRESULTADOPROCESOPADRE" property="idresultadoprocesopadre" jdbcType="INTEGER" />
+	<result column="A1_NROITEM" property="nroitem" jdbcType="VARCHAR" />
+	<result column="A1_NOMBREITEM" property="nombreitem" jdbcType="VARCHAR" />
+	<result column="A1_NRORUC" property="nroruc" jdbcType="VARCHAR" />
+	<result column="A1_NOMBREPROVEEDOR" property="nombreproveedor" jdbcType="VARCHAR" />
+	<result column="A1_IDCATALOGOESTADORESULTADO" property="idcatalogoestadoresultado" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOPROCESOITEM" property="estadoprocesoitem" jdbcType="INTEGER" />
+	<result column="A1_VALORREFERENCIAL" property="valorreferencial" jdbcType="DECIMAL" />
+	<result column="A1_MONTOADJUDICADO" property="montoadjudicado" jdbcType="DECIMAL" />
+	<result column="A1_FECHACREACIONAUDITORIA" property="fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOCREACIONAUDITORIA" property="usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_FECHAMODIFICACIONAUDITORIA" property="fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A1_USUARIOMODIFICACIONAUDITORIA" property="usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	<result column="A3_IDCONVOCATORIAPROCESO" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.idconvocatoriaproceso" jdbcType="INTEGER" />
+	<result column="A3_IDPROCESOSELECCION" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.idprocesoseleccion" jdbcType="INTEGER" />
+	<result column="A3_NROCONVOCATORIA" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.nroconvocatoria" jdbcType="INTEGER" />
+	<result column="A3_SECUENCIA" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.secuencia" jdbcType="INTEGER" />
+	<result column="A3_VALORREFERENCIA" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.valorreferencia" jdbcType="DECIMAL" />
+	<result column="A3_IDCATALOGOESTADOCONVOCATORIA" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.idcatalogoestadoconvocatoria" jdbcType="VARCHAR" />
+	<result column="A3_ESTADOCONVOCATORIAITEM" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.estadoconvocatoriaitem" jdbcType="INTEGER" />
+	<result column="A3_FECHAINICIO" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.fechainicio" jdbcType="TIMESTAMP" />
+	<result column="A3_FECHAFIN" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.fechafin" jdbcType="TIMESTAMP" />
+	<result column="A3_PRINCIPAL" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.principal" jdbcType="VARCHAR" />
+	<result column="A3_FECHACREACIONAUDITORIA" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A3_USUARIOCREACIONAUDITORIA" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A3_FECHAMODIFICACIONAUDITORIA" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A3_USUARIOMODIFICACIONAUDITORIA" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A3_EQUIPOAUDITORIA" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A3_PROGRAMAAUDITORIA" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.programaauditoria" jdbcType="VARCHAR" />
+	<result column="A3_ESTADOAUDITORIA" property="convocatoriaprocesoseleccionIdconvocatoriaproceso.estadoauditoria" jdbcType="VARCHAR" />
+
+	<result column="A6_VCHREGCODIGO" property="gentablaIdcatalogoestadoresultado.vchregcodigo" jdbcType="VARCHAR" />
+	<result column="A6_VCHREGDESCRI" property="gentablaIdcatalogoestadoresultado.vchregdescri" jdbcType="VARCHAR" />
+	<result column="A6_VCHREGABREVIADO" property="gentablaIdcatalogoestadoresultado.vchregabreviado" jdbcType="VARCHAR" />
+	<result column="A6_VCHTIPCODIGO" property="gentablaIdcatalogoestadoresultado.vchtipcodigo" jdbcType="VARCHAR" />
+	<result column="A6_INTREGORDEN" property="gentablaIdcatalogoestadoresultado.intregorden" jdbcType="INTEGER" />
+	<result column="A6_VCHTABOTRO1" property="gentablaIdcatalogoestadoresultado.vchtabotro1" jdbcType="VARCHAR" />
+	<result column="A6_VCHTABOTRO2" property="gentablaIdcatalogoestadoresultado.vchtabotro2" jdbcType="VARCHAR" />
+	<result column="A6_VCHTABOTRO3" property="gentablaIdcatalogoestadoresultado.vchtabotro3" jdbcType="VARCHAR" />
+	<result column="A6_VCHTABOTRO4" property="gentablaIdcatalogoestadoresultado.vchtabotro4" jdbcType="VARCHAR" />
+	<result column="A6_ESTADOAUDITORIA" property="gentablaIdcatalogoestadoresultado.estadoauditoria" jdbcType="VARCHAR" />
+	<result column="A6_USUARIOCREACIONAUDITORIA" property="gentablaIdcatalogoestadoresultado.usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A6_USUARIOMODIFICACIONAUDITORIA" property="gentablaIdcatalogoestadoresultado.usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A6_FECHACREACIONAUDITORIA" property="gentablaIdcatalogoestadoresultado.fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A6_FECHAMODIFICACIONAUDITORIA" property="gentablaIdcatalogoestadoresultado.fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A6_EQUIPOAUDITORIA" property="gentablaIdcatalogoestadoresultado.equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A6_PROGRAMAAUDITORIA" property="gentablaIdcatalogoestadoresultado.programaauditoria" jdbcType="VARCHAR" />
+	<result column="A6_INTGANEMPID" property="gentablaIdcatalogoestadoresultado.intganempid" jdbcType="INTEGER" />
+
+	<result column="A8_IDRESULTADOPROCESO" property="resultadoprocesoseleccionIdresultadoprocesopadre.idresultadoproceso" jdbcType="INTEGER" />
+	<result column="A8_IDCONVOCATORIAPROCESO" property="resultadoprocesoseleccionIdresultadoprocesopadre.idconvocatoriaproceso" jdbcType="INTEGER" />
+	<result column="A8_IDRESULTADOPROCESOPADRE" property="resultadoprocesoseleccionIdresultadoprocesopadre.idresultadoprocesopadre" jdbcType="INTEGER" />
+	<result column="A8_NROITEM" property="resultadoprocesoseleccionIdresultadoprocesopadre.nroitem" jdbcType="VARCHAR" />
+	<result column="A8_NOMBREITEM" property="resultadoprocesoseleccionIdresultadoprocesopadre.nombreitem" jdbcType="VARCHAR" />
+	<result column="A8_NRORUC" property="resultadoprocesoseleccionIdresultadoprocesopadre.nroruc" jdbcType="VARCHAR" />
+	<result column="A8_NOMBREPROVEEDOR" property="resultadoprocesoseleccionIdresultadoprocesopadre.nombreproveedor" jdbcType="VARCHAR" />
+	<result column="A8_IDCATALOGOESTADORESULTADO" property="resultadoprocesoseleccionIdresultadoprocesopadre.idcatalogoestadoresultado" jdbcType="VARCHAR" />
+	<result column="A8_ESTADOPROCESOITEM" property="resultadoprocesoseleccionIdresultadoprocesopadre.estadoprocesoitem" jdbcType="INTEGER" />
+	<result column="A8_VALORREFERENCIAL" property="resultadoprocesoseleccionIdresultadoprocesopadre.valorreferencial" jdbcType="DECIMAL" />
+	<result column="A8_MONTOADJUDICADO" property="resultadoprocesoseleccionIdresultadoprocesopadre.montoadjudicado" jdbcType="DECIMAL" />
+	<result column="A8_FECHACREACIONAUDITORIA" property="resultadoprocesoseleccionIdresultadoprocesopadre.fechacreacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A8_USUARIOCREACIONAUDITORIA" property="resultadoprocesoseleccionIdresultadoprocesopadre.usuariocreacionauditoria" jdbcType="VARCHAR" />
+	<result column="A8_FECHAMODIFICACIONAUDITORIA" property="resultadoprocesoseleccionIdresultadoprocesopadre.fechamodificacionauditoria" jdbcType="TIMESTAMP" />
+	<result column="A8_USUARIOMODIFICACIONAUDITORIA" property="resultadoprocesoseleccionIdresultadoprocesopadre.usuariomodificacionauditoria" jdbcType="VARCHAR" />
+	<result column="A8_EQUIPOAUDITORIA" property="resultadoprocesoseleccionIdresultadoprocesopadre.equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A8_PROGRAMAAUDITORIA" property="resultadoprocesoseleccionIdresultadoprocesopadre.programaauditoria" jdbcType="VARCHAR" />
+	<result column="A8_ESTADOAUDITORIA" property="resultadoprocesoseleccionIdresultadoprocesopadre.estadoauditoria" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+	<sql id="Basic_Column_List">
+	A1.IDRESULTADOPROCESO as A1_IDRESULTADOPROCESO, A1.IDCONVOCATORIAPROCESO as A1_IDCONVOCATORIAPROCESO, A1.IDRESULTADOPROCESOPADRE as A1_IDRESULTADOPROCESOPADRE, A1.NROITEM as A1_NROITEM, 
+	A1.NOMBREITEM as A1_NOMBREITEM, A1.NRORUC as A1_NRORUC, A1.NOMBREPROVEEDOR as A1_NOMBREPROVEEDOR, A1.IDCATALOGOESTADORESULTADO as A1_IDCATALOGOESTADORESULTADO, 
+	A1.ESTADOPROCESOITEM as A1_ESTADOPROCESOITEM, A1.VALORREFERENCIAL as A1_VALORREFERENCIAL, A1.MONTOADJUDICADO as A1_MONTOADJUDICADO, A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, 
+	A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, 
+	A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA 
+	</sql>
+
+
+	<sql id="Full_Column_List">
+	A1.IDRESULTADOPROCESO as A1_IDRESULTADOPROCESO, A1.IDCONVOCATORIAPROCESO as A1_IDCONVOCATORIAPROCESO, A1.IDRESULTADOPROCESOPADRE as A1_IDRESULTADOPROCESOPADRE, A1.NROITEM as A1_NROITEM, 
+	A1.NOMBREITEM as A1_NOMBREITEM, A1.NRORUC as A1_NRORUC, A1.NOMBREPROVEEDOR as A1_NOMBREPROVEEDOR, A1.IDCATALOGOESTADORESULTADO as A1_IDCATALOGOESTADORESULTADO, 
+	A1.ESTADOPROCESOITEM as A1_ESTADOPROCESOITEM, A1.VALORREFERENCIAL as A1_VALORREFERENCIAL, A1.MONTOADJUDICADO as A1_MONTOADJUDICADO, A1.FECHACREACIONAUDITORIA as A1_FECHACREACIONAUDITORIA, 
+	A1.USUARIOCREACIONAUDITORIA as A1_USUARIOCREACIONAUDITORIA, A1.FECHAMODIFICACIONAUDITORIA as A1_FECHAMODIFICACIONAUDITORIA, A1.USUARIOMODIFICACIONAUDITORIA as A1_USUARIOMODIFICACIONAUDITORIA, A1.EQUIPOAUDITORIA as A1_EQUIPOAUDITORIA, 
+	A1.PROGRAMAAUDITORIA as A1_PROGRAMAAUDITORIA, A1.ESTADOAUDITORIA as A1_ESTADOAUDITORIA, 
+	A3.IDCONVOCATORIAPROCESO as A3_IDCONVOCATORIAPROCESO, A3.IDPROCESOSELECCION as A3_IDPROCESOSELECCION, A3.NROCONVOCATORIA as A3_NROCONVOCATORIA, A3.SECUENCIA as A3_SECUENCIA, 
+	A3.VALORREFERENCIA as A3_VALORREFERENCIA, A3.IDCATALOGOESTADOCONVOCATORIA as A3_IDCATALOGOESTADOCONVOCATORIA, A3.ESTADOCONVOCATORIAITEM as A3_ESTADOCONVOCATORIAITEM, A3.FECHAINICIO as A3_FECHAINICIO, 
+	A3.FECHAFIN as A3_FECHAFIN, A3.PRINCIPAL as A3_PRINCIPAL, A3.FECHACREACIONAUDITORIA as A3_FECHACREACIONAUDITORIA, A3.USUARIOCREACIONAUDITORIA as A3_USUARIOCREACIONAUDITORIA, 
+	A3.FECHAMODIFICACIONAUDITORIA as A3_FECHAMODIFICACIONAUDITORIA, A3.USUARIOMODIFICACIONAUDITORIA as A3_USUARIOMODIFICACIONAUDITORIA, A3.EQUIPOAUDITORIA as A3_EQUIPOAUDITORIA, A3.PROGRAMAAUDITORIA as A3_PROGRAMAAUDITORIA, 
+	A3.ESTADOAUDITORIA as A3_ESTADOAUDITORIA, 
+	A6.VCHREGCODIGO as A6_VCHREGCODIGO, A6.VCHREGDESCRI as A6_VCHREGDESCRI, A6.VCHREGABREVIADO as A6_VCHREGABREVIADO, A6.VCHTIPCODIGO as A6_VCHTIPCODIGO, 
+	A6.INTREGORDEN as A6_INTREGORDEN, A6.VCHTABOTRO1 as A6_VCHTABOTRO1, A6.VCHTABOTRO2 as A6_VCHTABOTRO2, A6.VCHTABOTRO3 as A6_VCHTABOTRO3, 
+	A6.VCHTABOTRO4 as A6_VCHTABOTRO4, A6.ESTADOAUDITORIA as A6_ESTADOAUDITORIA, A6.USUARIOCREACIONAUDITORIA as A6_USUARIOCREACIONAUDITORIA, A6.USUARIOMODIFICACIONAUDITORIA as A6_USUARIOMODIFICACIONAUDITORIA, 
+	A6.FECHACREACIONAUDITORIA as A6_FECHACREACIONAUDITORIA, A6.FECHAMODIFICACIONAUDITORIA as A6_FECHAMODIFICACIONAUDITORIA, A6.EQUIPOAUDITORIA as A6_EQUIPOAUDITORIA, A6.PROGRAMAAUDITORIA as A6_PROGRAMAAUDITORIA, 
+	A6.INTGANEMPID as A6_INTGANEMPID, 
+	A8.IDRESULTADOPROCESO as A8_IDRESULTADOPROCESO, A8.IDCONVOCATORIAPROCESO as A8_IDCONVOCATORIAPROCESO, A8.IDRESULTADOPROCESOPADRE as A8_IDRESULTADOPROCESOPADRE, A8.NROITEM as A8_NROITEM, 
+	A8.NOMBREITEM as A8_NOMBREITEM, A8.NRORUC as A8_NRORUC, A8.NOMBREPROVEEDOR as A8_NOMBREPROVEEDOR, A8.IDCATALOGOESTADORESULTADO as A8_IDCATALOGOESTADORESULTADO, 
+	A8.ESTADOPROCESOITEM as A8_ESTADOPROCESOITEM, A8.VALORREFERENCIAL as A8_VALORREFERENCIAL, A8.MONTOADJUDICADO as A8_MONTOADJUDICADO, A8.FECHACREACIONAUDITORIA as A8_FECHACREACIONAUDITORIA, 
+	A8.USUARIOCREACIONAUDITORIA as A8_USUARIOCREACIONAUDITORIA, A8.FECHAMODIFICACIONAUDITORIA as A8_FECHAMODIFICACIONAUDITORIA, A8.USUARIOMODIFICACIONAUDITORIA as A8_USUARIOMODIFICACIONAUDITORIA, A8.EQUIPOAUDITORIA as A8_EQUIPOAUDITORIA, 
+	A8.PROGRAMAAUDITORIA as A8_PROGRAMAAUDITORIA, A8.ESTADOAUDITORIA as A8_ESTADOAUDITORIA 
+	</sql>
+
+
+
+	<select id="selectByPrimaryKeyBasic" resultMap="BasicResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.ResultadoProcesoSeleccion A1
+	
+	where A1.IdResultadoProceso = #{idresultadoproceso,jdbcType=INTEGER}
+</select>
+
+
+
+	<select id="selectByPrimaryKeyBasicActive" resultMap="BasicResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.ResultadoProcesoSeleccion A1
+	
+	where A1.IdResultadoProceso = #{idresultadoproceso,jdbcType=INTEGER}
+	and A1.estadoauditoria='1'
+	</select>
+
+
+
+	<select id="selectByPrimaryKeyFull" resultMap="FullResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.ResultadoProcesoSeleccion A1
+	
+	LEFT JOIN abas.ConvocatoriaProcesoSeleccion A3 ON A1.IdConvocatoriaProceso = A3.IdConvocatoriaProceso
+	LEFT JOIN abas.gentabla A6 ON A1.IdCatalogoEstadoResultado = A6.vchregCodigo
+	LEFT JOIN abas.ResultadoProcesoSeleccion A8 ON A1.IdResultadoProcesoPadre = A8.IdResultadoProceso
+	where A1.IdResultadoProceso = #{idresultadoproceso,jdbcType=INTEGER}
+</select>
+
+
+
+	<select id="selectByPrimaryKeyFullActive" resultMap="FullResultMap" parameterType="java.lang.Integer" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.ResultadoProcesoSeleccion A1
+	
+	LEFT JOIN abas.ConvocatoriaProcesoSeleccion A3 ON A1.IdConvocatoriaProceso = A3.IdConvocatoriaProceso
+	LEFT JOIN abas.gentabla A6 ON A1.IdCatalogoEstadoResultado = A6.vchregCodigo
+	LEFT JOIN abas.ResultadoProcesoSeleccion A8 ON A1.IdResultadoProcesoPadre = A8.IdResultadoProceso
+	where A1.IdResultadoProceso = #{idresultadoproceso,jdbcType=INTEGER}
+	and A1.estadoauditoria='1'
+	</select>
+
+
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	delete from abas.ResultadoProcesoSeleccion 
+	where IdResultadoProceso = #{idresultadoproceso,jdbcType=INTEGER}
+	</delete>
+
+
+
+
+
+	<insert id="insert" parameterType="pe.com.sisabas.be.Resultadoprocesoseleccion" >
+	insert into abas.ResultadoProcesoSeleccion (
+	IDRESULTADOPROCESO, IDCONVOCATORIAPROCESO, IDRESULTADOPROCESOPADRE, NROITEM, 
+	NOMBREITEM, NRORUC, NOMBREPROVEEDOR, IDCATALOGOESTADORESULTADO, 
+	ESTADOPROCESOITEM, VALORREFERENCIAL, MONTOADJUDICADO, FECHACREACIONAUDITORIA, 
+	USUARIOCREACIONAUDITORIA, FECHAMODIFICACIONAUDITORIA, USUARIOMODIFICACIONAUDITORIA, EQUIPOAUDITORIA, 
+	PROGRAMAAUDITORIA, ESTADOAUDITORIA ) 
+	VALUES (
+	#{idresultadoproceso,jdbcType=INTEGER}, #{idconvocatoriaproceso,jdbcType=INTEGER}, #{idresultadoprocesopadre,jdbcType=INTEGER}, #{nroitem,jdbcType=VARCHAR}, 
+	#{nombreitem,jdbcType=VARCHAR}, #{nroruc,jdbcType=VARCHAR}, #{nombreproveedor,jdbcType=VARCHAR}, #{idcatalogoestadoresultado,jdbcType=VARCHAR}, 
+	#{estadoprocesoitem,jdbcType=INTEGER}, #{valorreferencial,jdbcType=DECIMAL}, #{montoadjudicado,jdbcType=DECIMAL}, #{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	#{usuariocreacionauditoria,jdbcType=VARCHAR}, #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, #{usuariomodificacionauditoria,jdbcType=VARCHAR}, #{equipoauditoria,jdbcType=VARCHAR}, 
+	#{programaauditoria,jdbcType=VARCHAR}, #{estadoauditoria,jdbcType=VARCHAR} ) 
+	</insert>
+
+
+
+	<insert id="insertSelective" parameterType="pe.com.sisabas.be.Resultadoprocesoseleccion" >
+	insert into abas.ResultadoProcesoSeleccion 
+	<trim prefix="(" suffix=")" suffixOverrides="," >
+	<if test="idresultadoproceso != null" >
+		IdResultadoProceso,
+	</if>
+	<if test="idconvocatoriaproceso != null" >
+		IdConvocatoriaProceso,
+	</if>
+	<if test="idresultadoprocesopadre != null" >
+		IdResultadoProcesoPadre,
+	</if>
+	<if test="nroitem != null" >
+		NroItem,
+	</if>
+	<if test="nombreitem != null" >
+		NombreItem,
+	</if>
+	<if test="nroruc != null" >
+		NroRuc,
+	</if>
+	<if test="nombreproveedor != null" >
+		NombreProveedor,
+	</if>
+	<if test="idcatalogoestadoresultado != null" >
+		IdCatalogoEstadoResultado,
+	</if>
+	<if test="estadoprocesoitem != null" >
+		EstadoProcesoItem,
+	</if>
+	<if test="valorreferencial != null" >
+		ValorReferencial,
+	</if>
+	<if test="montoadjudicado != null" >
+		MontoAdjudicado,
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		FechaCreacionAuditoria,
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		UsuarioCreacionAuditoria,
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		FechaModificacionAuditoria,
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		UsuarioModificacionAuditoria,
+	</if>
+	<if test="equipoauditoria != null" >
+		EquipoAuditoria,
+	</if>
+	<if test="programaauditoria != null" >
+		ProgramaAuditoria,
+	</if>
+	<if test="estadoauditoria != null" >
+		EstadoAuditoria,
+	</if>
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides="," >
+	<if test="idresultadoproceso != null" >
+		#{idresultadoproceso,jdbcType=INTEGER}, 
+	</if>
+	<if test="idconvocatoriaproceso != null" >
+		#{idconvocatoriaproceso,jdbcType=INTEGER}, 
+	</if>
+	<if test="idresultadoprocesopadre != null" >
+		#{idresultadoprocesopadre,jdbcType=INTEGER}, 
+	</if>
+	<if test="nroitem != null" >
+		#{nroitem,jdbcType=VARCHAR}, 
+	</if>
+	<if test="nombreitem != null" >
+		#{nombreitem,jdbcType=VARCHAR}, 
+	</if>
+	<if test="nroruc != null" >
+		#{nroruc,jdbcType=VARCHAR}, 
+	</if>
+	<if test="nombreproveedor != null" >
+		#{nombreproveedor,jdbcType=VARCHAR}, 
+	</if>
+	<if test="idcatalogoestadoresultado != null" >
+		#{idcatalogoestadoresultado,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoprocesoitem != null" >
+		#{estadoprocesoitem,jdbcType=INTEGER}, 
+	</if>
+	<if test="valorreferencial != null" >
+		#{valorreferencial,jdbcType=DECIMAL}, 
+	</if>
+	<if test="montoadjudicado != null" >
+		#{montoadjudicado,jdbcType=DECIMAL}, 
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		#{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		#{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		#{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		#{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="equipoauditoria != null" >
+		#{equipoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="programaauditoria != null" >
+		#{programaauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoauditoria != null" >
+		#{estadoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	</trim>
+	</insert>
+
+
+
+	<update id="updateByPrimaryKey" parameterType="pe.com.sisabas.be.Resultadoprocesoseleccion" >
+	update abas.ResultadoProcesoSeleccion 
+	set 
+	IDRESULTADOPROCESO = #{idresultadoproceso,jdbcType=INTEGER}, IDCONVOCATORIAPROCESO = #{idconvocatoriaproceso,jdbcType=INTEGER}, 
+	IDRESULTADOPROCESOPADRE = #{idresultadoprocesopadre,jdbcType=INTEGER}, NROITEM = #{nroitem,jdbcType=VARCHAR}, 
+	NOMBREITEM = #{nombreitem,jdbcType=VARCHAR}, NRORUC = #{nroruc,jdbcType=VARCHAR}, 
+	NOMBREPROVEEDOR = #{nombreproveedor,jdbcType=VARCHAR}, IDCATALOGOESTADORESULTADO = #{idcatalogoestadoresultado,jdbcType=VARCHAR}, 
+	ESTADOPROCESOITEM = #{estadoprocesoitem,jdbcType=INTEGER}, VALORREFERENCIAL = #{valorreferencial,jdbcType=DECIMAL}, 
+	MONTOADJUDICADO = #{montoadjudicado,jdbcType=DECIMAL}, FECHACREACIONAUDITORIA = #{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	USUARIOCREACIONAUDITORIA = #{usuariocreacionauditoria,jdbcType=VARCHAR}, FECHAMODIFICACIONAUDITORIA = #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	USUARIOMODIFICACIONAUDITORIA = #{usuariomodificacionauditoria,jdbcType=VARCHAR}, EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, 
+	PROGRAMAAUDITORIA = #{programaauditoria,jdbcType=VARCHAR}, ESTADOAUDITORIA = #{estadoauditoria,jdbcType=VARCHAR} 
+	
+	where IdResultadoProceso = #{idresultadoproceso,jdbcType=INTEGER}
+	</update>
+
+
+
+	<update id="updateByPrimaryKeySelective" parameterType="pe.com.sisabas.be.Resultadoprocesoseleccion" >
+	update abas.ResultadoProcesoSeleccion 
+	<set>
+	<if test="idresultadoproceso != null" >
+		IDRESULTADOPROCESO = #{idresultadoproceso,jdbcType=INTEGER}, 
+	</if>
+	<if test="idconvocatoriaproceso != null" >
+		IDCONVOCATORIAPROCESO = #{idconvocatoriaproceso,jdbcType=INTEGER}, 
+	</if>
+	<if test="idresultadoprocesopadre != null" >
+		IDRESULTADOPROCESOPADRE = #{idresultadoprocesopadre,jdbcType=INTEGER}, 
+	</if>
+	<if test="nroitem != null" >
+		NROITEM = #{nroitem,jdbcType=VARCHAR}, 
+	</if>
+	<if test="nombreitem != null" >
+		NOMBREITEM = #{nombreitem,jdbcType=VARCHAR}, 
+	</if>
+	<if test="nroruc != null" >
+		NRORUC = #{nroruc,jdbcType=VARCHAR}, 
+	</if>
+	<if test="nombreproveedor != null" >
+		NOMBREPROVEEDOR = #{nombreproveedor,jdbcType=VARCHAR}, 
+	</if>
+	<if test="idcatalogoestadoresultado != null" >
+		IDCATALOGOESTADORESULTADO = #{idcatalogoestadoresultado,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoprocesoitem != null" >
+		ESTADOPROCESOITEM = #{estadoprocesoitem,jdbcType=INTEGER}, 
+	</if>
+	<if test="valorreferencial != null" >
+		VALORREFERENCIAL = #{valorreferencial,jdbcType=DECIMAL}, 
+	</if>
+	<if test="montoadjudicado != null" >
+		MONTOADJUDICADO = #{montoadjudicado,jdbcType=DECIMAL}, 
+	</if>
+	<if test="fechacreacionauditoria != null" >
+		FECHACREACIONAUDITORIA = #{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariocreacionauditoria != null" >
+		USUARIOCREACIONAUDITORIA = #{usuariocreacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="fechamodificacionauditoria != null" >
+		FECHAMODIFICACIONAUDITORIA = #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, 
+	</if>
+	<if test="usuariomodificacionauditoria != null" >
+		USUARIOMODIFICACIONAUDITORIA = #{usuariomodificacionauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="equipoauditoria != null" >
+		EQUIPOAUDITORIA = #{equipoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="programaauditoria != null" >
+		PROGRAMAAUDITORIA = #{programaauditoria,jdbcType=VARCHAR}, 
+	</if>
+	<if test="estadoauditoria != null" >
+		ESTADOAUDITORIA = #{estadoauditoria,jdbcType=VARCHAR}, 
+	</if>
+	</set>
+
+	where IdResultadoProceso = #{idresultadoproceso,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="selectDynamicBasic" resultMap="BasicResultMap"  parameterType="pe.com.sisabas.be.Resultadoprocesoseleccion" >
+	select 'false' as QUERYID,
+	<include refid="Basic_Column_List"/>
+	from abas.ResultadoProcesoSeleccion A1
+	<where>
+		<if test="idresultadoproceso != null" >
+			 AND A1.IDRESULTADOPROCESO = #{idresultadoproceso,jdbcType=INTEGER} 
+		</if>
+		<if test="idconvocatoriaproceso != null" >
+			 AND A1.IDCONVOCATORIAPROCESO = #{idconvocatoriaproceso,jdbcType=INTEGER} 
+		</if>
+		<if test="idresultadoprocesopadre != null" >
+			 AND A1.IDRESULTADOPROCESOPADRE = #{idresultadoprocesopadre,jdbcType=INTEGER} 
+		</if>
+		<if test="nroitem != null" >
+			 AND A1.NROITEM LIKE ('%' + #{nroitem,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="nombreitem != null" >
+			 AND A1.NOMBREITEM LIKE ('%' + #{nombreitem,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="nroruc != null" >
+			 AND A1.NRORUC LIKE ('%' + #{nroruc,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="nombreproveedor != null" >
+			 AND A1.NOMBREPROVEEDOR LIKE ('%' + #{nombreproveedor,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="idcatalogoestadoresultado != null" >
+			 AND A1.IDCATALOGOESTADORESULTADO = #{idcatalogoestadoresultado,jdbcType=VARCHAR} 
+		</if>
+		<if test="estadoprocesoitem != null" >
+			 AND A1.ESTADOPROCESOITEM = #{estadoprocesoitem,jdbcType=INTEGER} 
+		</if>
+		<if test="valorreferencialini != null" >
+			 AND A1.VALORREFERENCIAL <![CDATA[ >= ]]> #{valorreferencialini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="valorreferencialfin != null" >
+			 AND A1.VALORREFERENCIAL <![CDATA[ <= ]]>  #{valorreferencialfin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="montoadjudicadoini != null" >
+			 AND A1.MONTOADJUDICADO <![CDATA[ >= ]]> #{montoadjudicadoini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="montoadjudicadofin != null" >
+			 AND A1.MONTOADJUDICADO <![CDATA[ <= ]]>  #{montoadjudicadofin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="fechacreacionauditoriaini != null" >
+			 AND  (A1.FECHACREACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechacreacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechacreacionauditoriafin != null" >
+			 AND (A1.FECHACREACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechacreacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariocreacionauditoria != null" >
+			 AND A1.USUARIOCREACIONAUDITORIA LIKE ('%' + #{usuariocreacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechamodificacionauditoriaini != null" >
+			 AND  (A1.FECHAMODIFICACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechamodificacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechamodificacionauditoriafin != null" >
+			 AND (A1.FECHAMODIFICACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechamodificacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariomodificacionauditoria != null" >
+			 AND A1.USUARIOMODIFICACIONAUDITORIA LIKE ('%' + #{usuariomodificacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="equipoauditoria != null" >
+			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="programaauditoria != null" >
+			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoauditoria != null" >
+			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+
+		<if test="listaIdconvocatoriaprocesoInKeys != null" >
+			AND A1.IDCONVOCATORIAPROCESO IN
+			<foreach collection="listaIdconvocatoriaprocesoInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+
+		<if test="listaIdresultadoprocesopadreInKeys != null" >
+			AND A1.IDRESULTADOPROCESOPADRE IN
+			<foreach collection="listaIdresultadoprocesopadreInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+
+		<if test="listaIdcatalogoestadoresultadoInKeys != null" >
+			AND A1.IDCATALOGOESTADORESULTADO IN
+			<foreach collection="listaIdcatalogoestadoresultadoInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=VARCHAR} </foreach>
+		</if>
+	</where>
+
+	<if test="ordenListaCampos != null" >
+		 ORDER BY 
+		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+		<if test="ordenTipo != null" >
+			 ${ordenTipo} 
+		</if>
+	</if>
+
+	<if test="cantidadRegistros != null" >
+
+	</if>
+	</select>
+
+
+	<select id="selectDynamicFull" resultMap="FullResultMap"  parameterType="pe.com.sisabas.be.Resultadoprocesoseleccion" >
+	select 'false' as QUERYID,
+	<include refid="Full_Column_List"/>
+	from abas.ResultadoProcesoSeleccion A1
+	LEFT JOIN abas.ConvocatoriaProcesoSeleccion A3 ON A1.IdConvocatoriaProceso = A3.IdConvocatoriaProceso
+	LEFT JOIN abas.gentabla A6 ON A1.IdCatalogoEstadoResultado = A6.vchregCodigo
+	LEFT JOIN abas.ResultadoProcesoSeleccion A8 ON A1.IdResultadoProcesoPadre = A8.IdResultadoProceso
+	<where>
+		<if test="idresultadoproceso != null" >
+			 AND A1.IDRESULTADOPROCESO = #{idresultadoproceso,jdbcType=INTEGER} 
+		</if>
+		<if test="idconvocatoriaproceso != null" >
+			 AND A1.IDCONVOCATORIAPROCESO = #{idconvocatoriaproceso,jdbcType=INTEGER} 
+		</if>
+		<if test="idresultadoprocesopadre != null" >
+			 AND A1.IDRESULTADOPROCESOPADRE = #{idresultadoprocesopadre,jdbcType=INTEGER} 
+		</if>
+		<if test="nroitem != null" >
+			 AND A1.NROITEM LIKE ('%' + #{nroitem,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="nombreitem != null" >
+			 AND A1.NOMBREITEM LIKE ('%' + #{nombreitem,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="nroruc != null" >
+			 AND A1.NRORUC LIKE ('%' + #{nroruc,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="nombreproveedor != null" >
+			 AND A1.NOMBREPROVEEDOR LIKE ('%' + #{nombreproveedor,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="idcatalogoestadoresultado != null" >
+			 AND A1.IDCATALOGOESTADORESULTADO = #{idcatalogoestadoresultado,jdbcType=VARCHAR} 
+		</if>
+		<if test="estadoprocesoitem != null" >
+			 AND A1.ESTADOPROCESOITEM = #{estadoprocesoitem,jdbcType=INTEGER} 
+		</if>
+		<if test="valorreferencialini != null" >
+			 AND A1.VALORREFERENCIAL <![CDATA[ >= ]]> #{valorreferencialini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="valorreferencialfin != null" >
+			 AND A1.VALORREFERENCIAL <![CDATA[ <= ]]>  #{valorreferencialfin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="montoadjudicadoini != null" >
+			 AND A1.MONTOADJUDICADO <![CDATA[ >= ]]> #{montoadjudicadoini,jdbcType=DECIMAL} 
+		</if>
+
+		<if test="montoadjudicadofin != null" >
+			 AND A1.MONTOADJUDICADO <![CDATA[ <= ]]>  #{montoadjudicadofin,jdbcType=DECIMAL} 
+
+		</if>
+		<if test="fechacreacionauditoriaini != null" >
+			 AND  (A1.FECHACREACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechacreacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechacreacionauditoriafin != null" >
+			 AND (A1.FECHACREACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechacreacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariocreacionauditoria != null" >
+			 AND A1.USUARIOCREACIONAUDITORIA LIKE ('%' + #{usuariocreacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="fechamodificacionauditoriaini != null" >
+			 AND  (A1.FECHAMODIFICACIONAUDITORIA)  <![CDATA[ >= ]]>  #{fechamodificacionauditoriaini,jdbcType=TIMESTAMP} 
+		</if>
+
+		<if test="fechamodificacionauditoriafin != null" >
+			 AND (A1.FECHAMODIFICACIONAUDITORIA) <![CDATA[ <= ]]>  #{fechamodificacionauditoriafin,jdbcType=TIMESTAMP} 
+
+		</if>
+		<if test="usuariomodificacionauditoria != null" >
+			 AND A1.USUARIOMODIFICACIONAUDITORIA LIKE ('%' + #{usuariomodificacionauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="equipoauditoria != null" >
+			 AND A1.EQUIPOAUDITORIA LIKE ('%' + #{equipoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="programaauditoria != null" >
+			 AND A1.PROGRAMAAUDITORIA LIKE ('%' + #{programaauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+		<if test="estadoauditoria != null" >
+			 AND A1.ESTADOAUDITORIA LIKE ('%' + #{estadoauditoria,jdbcType=VARCHAR} + '%')
+		</if>
+
+		<if test="listaIdconvocatoriaprocesoInKeys != null" >
+			AND A1.IDCONVOCATORIAPROCESO IN
+			<foreach collection="listaIdconvocatoriaprocesoInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+
+		<if test="listaIdresultadoprocesopadreInKeys != null" >
+			AND A1.IDRESULTADOPROCESOPADRE IN
+			<foreach collection="listaIdresultadoprocesopadreInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=INTEGER} </foreach>
+		</if>
+
+		<if test="listaIdcatalogoestadoresultadoInKeys != null" >
+			AND A1.IDCATALOGOESTADORESULTADO IN
+			<foreach collection="listaIdcatalogoestadoresultadoInKeys" open="(" close=")" item="var"  separator="," >   #{var,jdbcType=VARCHAR} </foreach>
+		</if>
+	</where>
+
+	<if test="ordenListaCampos != null" >
+		 ORDER BY 
+		<foreach collection="ordenListaCampos" item="ord"  separator="," >   ${ord} </foreach>
+		<if test="ordenTipo != null" >
+			 ${ordenTipo} 
+		</if>
+	</if>
+
+	<if test="cantidadRegistros != null" >
+
+	</if>
+	</select>
+</mapper>
