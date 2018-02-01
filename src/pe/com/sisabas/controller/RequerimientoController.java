@@ -487,7 +487,7 @@ public class RequerimientoController extends BaseController {
 
 	public void insertarRequerimientos() {
 		try {
-			System.out.println("***************Fer5**************" + requerimientoResponse.getNroPedido());
+			
 
 			System.out.println("[RequerimientoController - insertarRequerimientos] valor getNroPedido es: "
 					+ requerimientoInsertRequest.getNroPedido());
