@@ -72,8 +72,5 @@ public interface PacconsolidadoMapper{
 	
 	PacConsolidadoDto getPacConsolidado(PaoRequest request) throws Exception;	
 	
-	//PROCESO
-	List<ProcesoDto> searchProceso(ProcesoRequest request) throws Exception;
-	
 	
 }

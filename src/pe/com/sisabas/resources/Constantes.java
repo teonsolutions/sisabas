@@ -235,4 +235,13 @@ public class Constantes {
 		public static final String TERMINO_REFERENCIA = "TDPL2";		
 	}
 	
+	public class tipoModalidad{
+		public static final String ITEM = "TIMO2";
+		public static final String PAQUETE = "TIMO1";
+	}
+	
+	public class estadoConvocatoriaItem{
+		public static final int REGISTRADO = 1;
+	}
+	
 }

@@ -10,6 +10,7 @@ public class ProcesoDto implements  Serializable,Cloneable {
 	private Integer nroProceso;
 	private Integer nroConsolid;
 	private String tipoBienDesc;
+	private String codigoTipoProceso;
 	private String tipoProcesoDesc;
 	private String glosa;
 	private Double valorEstimadoContratacion;
@@ -28,6 +29,7 @@ public class ProcesoDto implements  Serializable,Cloneable {
 	private Integer correlativo;
 	private String existeSiga;
 	private String tipoModalidad;
+		
 	public Integer getIdProcesoSeleccion() {
 		return idProcesoSeleccion;
 	}
@@ -63,6 +65,12 @@ public class ProcesoDto implements  Serializable,Cloneable {
 	}
 	public void setTipoBienDesc(String tipoBienDesc) {
 		this.tipoBienDesc = tipoBienDesc;
+	}	
+	public String getCodigoTipoProceso() {
+		return codigoTipoProceso;
+	}
+	public void setCodigoTipoProceso(String codigoTipoProceso) {
+		this.codigoTipoProceso = codigoTipoProceso;
 	}
 	public String getTipoProcesoDesc() {
 		return tipoProcesoDesc;

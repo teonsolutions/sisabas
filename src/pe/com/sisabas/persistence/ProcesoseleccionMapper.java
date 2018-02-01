@@ -3,6 +3,8 @@ package pe.com.sisabas.persistence;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import pe.com.sisabas.be.Procesoseleccion;
+import pe.com.sisabas.dto.ProcesoDto;
+import pe.com.sisabas.dto.ProcesoRequest;
 
 public interface ProcesoseleccionMapper{
 
@@ -30,5 +32,7 @@ public interface ProcesoseleccionMapper{
 
 	List<Procesoseleccion> selectDynamicExtended(Procesoseleccion record) throws Exception;
 
+	//PROCESO
+	List<ProcesoDto> searchProceso(ProcesoRequest request) throws Exception;
 
 }

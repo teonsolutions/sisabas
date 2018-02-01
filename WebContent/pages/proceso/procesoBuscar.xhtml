@@ -186,11 +186,13 @@
 						<h:outputText value="#{var.valorEstimadoContratacion}" />
 					</p:column>
 
-					<p:column styleClass="c_string" sortBy="#{var.fechaRegistro}">
+					<p:column sortBy="#{var.fechaRegistro}">
 						<f:facet name="header">
 							<h:outputText value="Fecha"></h:outputText>
 						</f:facet>
-						<h:outputText value="#{var.fechaRegistro}" />
+						<h:outputText value="#{var.fechaRegistro}" >
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
 					</p:column>
 
 					<p:column styleClass="c_string"

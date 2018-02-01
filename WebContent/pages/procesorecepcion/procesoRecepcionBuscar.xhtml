@@ -190,7 +190,9 @@
 						<f:facet name="header">
 							<h:outputText value="Fecha"></h:outputText>
 						</f:facet>
-						<h:outputText value="#{var.fechaRegistro}" />
+						<h:outputText value="#{var.fechaRegistro}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
 					</p:column>
 
 					<p:column styleClass="c_string"
@@ -266,7 +268,8 @@
 					<tr>
 						<td><h:inputHidden id="hidStatus"
 								value="#{procesoRecepcion.statusRegister}" /> <p:commandButton
-								value="Aceptar" action="#{procesoRecepcion.aceptarMiembroComite}"
+								value="Aceptar"
+								action="#{procesoRecepcion.aceptarMiembroComite}"
 								update="hidStatus,:frmComiteSeleccion:tblListaMiembrocomiteporproceso,:form:growl,:frmComiteSeleccion:pnlBotonesMiembroComite,panelC"
 								oncomplete="hideDialog('frmMiembrocomiteporprocesoRegistrar:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar')"
 								icon="ui-icon-circle-check" title="Aceptar" /></td>
@@ -293,7 +296,7 @@
 					actionUpdate=":frmMiembrocomiteporprocesoRegistrar:txtIdpersona" />
 			</p:dialog>
 		</h:form>
-		
+
 		<h:form id="frmImprimir">
 			<p:dialog id="diImprimir" header="#{procesoRecepcion.tituloBase}"
 				widgetVar="diImprimir" resizable="false" modal="true" dynamic="true">

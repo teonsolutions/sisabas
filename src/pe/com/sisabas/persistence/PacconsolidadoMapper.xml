@@ -243,33 +243,6 @@
 		<result column="FechaSolicitudAprobacionExpediente" property="fechaSolicitudAprobacionExpediente" jdbcType="DATE"/>
 		<result column="FechaAprobacionExpediente" property="fechaAprobacionExpediente" jdbcType="DATE"/>
 		
-	</resultMap>	
-
-	<resultMap type="pe.com.sisabas.dto.ProcesoDto" id="procesoSearch">
-		<result column="IdProcesoSeleccion" property="idProcesoSeleccion" jdbcType="INTEGER"/>
-		<result column="IdGrupoDocumento" property="idGrupoDocumento" jdbcType="INTEGER"/>
-		<result column="IdPacConsolidado" property="idPacConsolidado" jdbcType="INTEGER"/>
-		<result column="NroProceso" property="nroProceso" jdbcType="INTEGER"/>
-		<result column="NroConsolid" property="nroConsolid" jdbcType="INTEGER"/>
-		<result column="TIPO_BIEN" property="tipoBienDesc" jdbcType="VARCHAR"/>
-		<result column="TIPO_PROCESO" property="tipoProcesoDesc" jdbcType="VARCHAR"/>		
-		<result column="GLOSA" property="glosa" jdbcType="VARCHAR"/>
-		<result column="VALOR" property="valorEstimadoContratacion" jdbcType="DOUBLE"/>
-		<result column="FECHA_REG" property="fechaRegistro" jdbcType="DATE"/>
-		<result column="PROCESO" property="proceso" jdbcType="INTEGER"/>
-		<result column="ESTADO_PROCESO_SELECCION" property="estadoproceso" jdbcType="VARCHAR"/>
-		<result column="ESTADO_SIGA_DSC" property="estadoSiga" jdbcType="VARCHAR"/>
-		<result column="ESTADO_SIGA" property="idEstadoSiga" jdbcType="VARCHAR"/>		
-		<result column="Anio" property="anio" jdbcType="INTEGER"/>
-		<result column="FechaEnvioEjecucion" property="fechaEnvioEjecucion" jdbcType="DATE"/>
-		<result column="COD_ESTADO_PS" property="idEstadoProceso" jdbcType="INTEGER"/>
-		<result column="NOMBRE_ESPECIALISTA_PROCESOS" property="nombreEspecialistaProceso" jdbcType="VARCHAR"/>
-		<result column="ComiteNotificado" property="comiteNotificado" jdbcType="VARCHAR"/>
-		<result column="IdComiteProceso" property="idComiteProceso" jdbcType="INTEGER"/>
-		<result column="ComiteRecompuesto" property="comiteRecompuesto" jdbcType="VARCHAR"/>
-		<result column="CORRELATIVO" property="correlativo" jdbcType="INTEGER"/>
-		<result column="EXISTE_SIGA" property="existeSiga" jdbcType="VARCHAR"/>
-		<result column="TIPO_MODALIDAD" property="tipoModalidad" jdbcType="INTEGER"/>
 	</resultMap>
 	
 	<resultMap id="FullResultMap" type="pe.com.sisabas.be.Pacconsolidado">
@@ -2310,10 +2283,6 @@
 		{call abas.paProgramacionObtenerPacConsolidado(#{anio},#{nroConsolid})}
 	</select>
 
-	<select id="searchProceso" resultMap="procesoSearch" parameterType="pe.com.sisabas.dto.ProcesoRequest">
-		{call abas.paProcesosListar(#{anio},#{idSinad},#{nroProceso},#{nroConsolid},#{idTipoProceso},#{idTipoBien},#{estadoProceso},#{codigoCentroCosto},#{idUnidadEjecutoraSiaf})}
-	</select>
-	
-	
+
 
 </mapper>
