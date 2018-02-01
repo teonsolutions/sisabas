@@ -17,8 +17,8 @@ public class ContratoRequest extends SysTabla implements Serializable,Cloneable 
 	private String centroCosto;
 	private String estado;
 	private String sinadContrato;
-	private String pageNumber;
-	private String pageSize;
+	private Integer pageNumber;
+	private Integer pageSize;
 	
 	
 	public String getSinadContrato() {
@@ -27,18 +27,7 @@ public class ContratoRequest extends SysTabla implements Serializable,Cloneable 
 	public void setSinadContrato(String sinadContrato) {
 		this.sinadContrato = sinadContrato;
 	}
-	public String getPageNumber() {
-		return pageNumber;
-	}
-	public void setPageNumber(String pageNumber) {
-		this.pageNumber = pageNumber;
-	}
-	public String getPageSize() {
-		return pageSize;
-	}
-	public void setPageSize(String pageSize) {
-		this.pageSize = pageSize;
-	}
+	
 	public String getTipoProceso() {
 		return tipoProceso;
 	}
@@ -93,6 +82,19 @@ public class ContratoRequest extends SysTabla implements Serializable,Cloneable 
 	public void setEjercicio(Integer ejercicio) {
 		this.ejercicio = ejercicio;
 	}
+	public Integer getPageNumber() {
+		return pageNumber;
+	}
+	public void setPageNumber(Integer pageNumber) {
+		this.pageNumber = pageNumber;
+	}
+	public Integer getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
     
 
+	
 }
