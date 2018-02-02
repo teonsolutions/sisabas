@@ -1,17 +1,25 @@
 package pe.com.sisabas.controller;
 
+import java.io.File;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
 
 import pe.com.sisabas.be.Comiteproceso;
 import pe.com.sisabas.be.Gentabla;
@@ -38,6 +46,7 @@ import pe.com.sisabas.exception.SecurityValidateException;
 import pe.com.sisabas.exception.UnselectedRowException;
 import pe.com.sisabas.exception.ValidateException;
 import pe.com.sisabas.resources.Constantes;
+import pe.com.sisabas.resources.Email;
 import pe.com.sisabas.resources.Messages;
 import pe.com.sisabas.resources.controller.BaseController;
 import pe.com.sisabas.service.SicuCallService;
@@ -72,14 +81,14 @@ public class ProcesoRecepcionController extends BaseController {
 	// To Funcionality
 	private boolean selectedToReceive = false;
 	private boolean selectedToComite = false;
-	
-	//members
+
+	// members
 	private Miembrocomiteporproceso miembrocomiteporproceso;
 	private Miembrocomiteporproceso selectedMiembrocomiteporproceso;
-	private List<Miembrocomiteporproceso> listaMiembrocomiteporproceso;	
+	private List<Miembrocomiteporproceso> listaMiembrocomiteporproceso;
 	private boolean esSeleccionadoMiembroComite;
 	public List<Gentabla> listaGentablaIdcatalogotipomiembro;
-	
+
 	// Business layer section
 	@Autowired
 	public pe.com.sisabas.resources.business.UtilsBusiness utilsBusiness;
@@ -91,7 +100,7 @@ public class ProcesoRecepcionController extends BaseController {
 	public VcentrocostoBusiness vcentrocostoBusiness;
 	@Autowired
 	public MiembrocomiteporprocesoBusiness miembrocomiteporprocesoBusiness;
-	
+
 	public void ProcesoRecepcionController() {
 
 	}
@@ -145,12 +154,16 @@ public class ProcesoRecepcionController extends BaseController {
 		}
 
 	}
-		
+
 	public void validateSelectedRowMiembro() throws UnselectedRowException, CloneNotSupportedException {
 		if (this.selectedMiembrocomiteporproceso == null)
 			throw new UnselectedRowException(Messages.getString("no.record.selected"));
 		else
 			this.setMiembrocomiteporproceso((Miembrocomiteporproceso) this.selectedMiembrocomiteporproceso.clone());
+	}
+
+	public void seleccionItemMiembroComite(SelectEvent e) {
+		esSeleccionadoMiembroComite = true;
 	}
 
 	// methods
@@ -242,14 +255,14 @@ public class ProcesoRecepcionController extends BaseController {
 			addErrorMessageKey("msgsForm", e);
 		}
 	}
-	
+
 	public void recibir() {
 		REGISTER_INIT();
 		try {
 			securityControlValidate("btnRecibir");
 			validateSelectedRow();
 
-			ProcesoDto processSave = (ProcesoDto)this.currentRow.clone();
+			ProcesoDto processSave = (ProcesoDto) this.currentRow.clone();
 			TransactionRequest<ProcesoDto> request = new TransactionRequest<ProcesoDto>();
 			request.setUsuarioAuditoria(getUserLogin());
 			request.setEquipoAuditoria(getRemoteAddr());
@@ -286,15 +299,15 @@ public class ProcesoRecepcionController extends BaseController {
 	public void resetRegisterForm() {
 		reset("frmComiteSeleccion:panelC");
 	}
-	
+
 	public void irComite() {
 		STATUS_INIT();
 		try {
 			securityControlValidate("btnComite");
 			resetRegisterForm();
 			validateSelectedRow();
-			buscarMiembroComite();	
-				
+			buscarMiembroComite();
+
 			STATUS_SUCCESS();
 			REGISTER_INIT();
 
@@ -315,7 +328,7 @@ public class ProcesoRecepcionController extends BaseController {
 			addErrorMessageKey("msgsForm", e);
 		}
 	}
-	
+
 	public void buscarMiembroComite() {
 		try {
 			List<String> ordenListaCampos = new ArrayList<String>();
@@ -328,8 +341,8 @@ public class ProcesoRecepcionController extends BaseController {
 			miembrocomiteporproceso.addConditionInIdcatalogotipomiembro(null);
 			miembrocomiteporproceso.addConditionInIdcatalogoestadomiembrocomite(null);
 			// miembrocomiteporproceso.setIdcomiteproceso(currentPao.getIdTipoBien());
-			miembrocomiteporproceso.setIdcomiteproceso(this.currentRow.getIdComiteProceso() != null
-					? this.currentRow.getIdComiteProceso() : 0);
+			miembrocomiteporproceso.setIdcomiteproceso(
+					this.currentRow.getIdComiteProceso() != null ? this.currentRow.getIdComiteProceso() : 0);
 
 			// pe.com.sisabas.resources.Utils.convertPropertiesStringToUppercase(miembrocomiteporproceso);
 			// // pasa
@@ -359,7 +372,7 @@ public class ProcesoRecepcionController extends BaseController {
 			addErrorMessageKey("msgsForm", e);
 		}
 	}
-	
+
 	public void loadRegIdpersona(org.primefaces.event.SelectEvent event) {
 		try {
 			logger.debug("loadRegPersona.event...");
@@ -373,11 +386,11 @@ public class ProcesoRecepcionController extends BaseController {
 			addErrorMessageKey("msgsForm", e);
 		}
 	}
-	
+
 	public void resetRegisterFormMiembroComite() {
 		reset("frmMiembrocomiteporprocesoRegistrar:panelC");
 	}
-	
+
 	public void irRegistrarMiembroComite() {
 		STATUS_INIT();
 		try {
@@ -447,7 +460,7 @@ public class ProcesoRecepcionController extends BaseController {
 			addErrorMessageKey("msgsForm", e);
 		}
 	}
-	
+
 	public void aceptarMiembroComite() {
 		REGISTER_INIT();
 		try {
@@ -484,7 +497,121 @@ public class ProcesoRecepcionController extends BaseController {
 			addErrorMessageKey("msgsMiembrocomiteporprocesoR", e);
 		}
 	}
-	
+
+	public void goSendMail() {
+		STATUS_INIT();
+		try {
+			securityControlValidate("btnNotifyMiembroComite");
+			validateSelectedRowMiembro();
+
+			STATUS_SUCCESS();
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
+		} catch (UnselectedRowException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			STATUS_ERROR();
+			addErrorMessageKey("msgsForm", e);
+		}
+	}
+
+	public void sendMailComite() {
+		try {			
+			List<String> ordenListaCampos = new ArrayList<String>();
+			ordenListaCampos.add("A1.IDMIEMBROCOMITEPROCESO");
+			Miembrocomiteporproceso miembrocomiteporproceso = new Miembrocomiteporproceso();
+			miembrocomiteporproceso.setOrdenListaCampos(ordenListaCampos);
+			miembrocomiteporproceso.setOrdenTipo("DESC");
+
+			// Add conditions IN clause
+			miembrocomiteporproceso.addConditionInIdcatalogotipomiembro(null);
+			miembrocomiteporproceso.addConditionInIdcatalogoestadomiembrocomite(null);
+			// miembrocomiteporproceso.setIdcomiteproceso(currentPao.getIdTipoBien());
+			miembrocomiteporproceso.setIdcomiteproceso(
+					this.currentRow.getIdComiteProceso() != null ? this.currentRow.getIdComiteProceso() : 0);
+
+			listaMiembrocomiteporproceso = miembrocomiteporprocesoBusiness.selectDynamicFull(miembrocomiteporproceso);
+			String[] addresses = new String[listaMiembrocomiteporproceso.size()];
+			List<Miembrocomiteporproceso> membersNotified = new ArrayList<Miembrocomiteporproceso>();
+			
+			int pos = 0;
+			for (Miembrocomiteporproceso member : listaMiembrocomiteporproceso) {
+				if (member.getEsnotificado() == null || member.getEsnotificado().equals("0")) {
+					// addresses.add(member.getCorreo());
+					addresses[pos] = member.getCorreo();
+					membersNotified.add(member);
+					pos++;
+				}				
+			}
+			// body
+			String body = "Es grato dirigirme a ustedes con la finalidad de notificarles el formato de solicitud, de aprobación de expediente de contratación y designación de miembros de comité; especial de fecha {0}, en conformidad al artículo 27; del Reglamento de la Ley de Contrataciones del Estado, mediante el cual se les designa como integrantes del comité; especial.";
+			HttpServletRequest  httpServletRequest  = (HttpServletRequest)  FacesContext.getCurrentInstance().getExternalContext().getRequest();
+			String path    = httpServletRequest.getServletContext().getRealPath("/miembrosComiteMessage.xml");
+			
+			File xmlFile = new File(path);
+			DocumentBuilderFactory dbFactory  = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder;
+			dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(xmlFile);
+			doc.getDocumentElement().normalize();
+			doc.getDocumentElement().getNodeName();
+			NodeList nodeList = doc.getElementsByTagName("Asunto");
+			Node node = (Node)nodeList.item(0);
+			body = node.getNodeName();
+						
+			// Send mail
+			String asunto = String.format(
+					"NOTIFICACIÓN DE DESIGNACIÓN DE COMITÉ ESPECIAL - {0} N° {1}-{2}-PRONIED/UE {3}",
+					this.currentRow.getNroProceso(), this.currentRow.getNroProceso(), this.currentRow.getNroProceso());
+			body = "Es grato dirigirme a ustedes con la finalidad de notificarles el formato de solicitud, de aprobación de expediente de contratación y designación de miembros de comité; especial de fecha {0}, en conformidad al artículo 27; del Reglamento de la Ley de Contrataciones del Estado, mediante el cual se les designa como integrantes del comité; especial.";
+					
+
+			//Email mail = new Email();
+			//mail.sendEmail(addresses, null, asunto, body, "");
+			
+			/*
+			 * if (listaMiembrocomiteporproceso.size() == 0)
+			 * addMessageKey("msgsForm", Messages.getString("no.records.found"),
+			 * FacesMessage.SEVERITY_INFO);
+			 */
+			
+			//update member notified
+			TransactionRequest<List<Miembrocomiteporproceso>> request = new TransactionRequest<List<Miembrocomiteporproceso>>();
+			request.setUsuarioAuditoria(getUserLogin());
+			request.setEquipoAuditoria(getRemoteAddr());
+			request.setEntityTransaction(membersNotified);
+			procesoBusiness.NotificarMiembros(request);
+			buscarMiembroComite();
+		
+			showGrowlMessageSuccessfullyCompletedAction();
+			STATUS_SUCCESS();
+
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			addErrorMessageKey("msgsForm", e);
+		}
+
+	}
+
 	public void irEliminarMiembroComite() {
 		STATUS_INIT();
 		try {
@@ -512,11 +639,12 @@ public class ProcesoRecepcionController extends BaseController {
 			addErrorMessageKey("msgsForm", e);
 		}
 	}
-	
+
 	// Properties
 	public List<ProcesoDto> getDataList() {
-		return dataList;	}
-	
+		return dataList;
+	}
+
 	public void setDataList(List<ProcesoDto> dataList) {
 		this.dataList = dataList;
 	}
@@ -672,6 +800,4 @@ public class ProcesoRecepcionController extends BaseController {
 		this.tituloMiembroComite = tituloMiembroComite;
 	}
 
-	
-	
 }

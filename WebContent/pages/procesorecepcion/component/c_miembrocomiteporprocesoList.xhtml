@@ -26,15 +26,15 @@
 			<p:commandButton value="Eliminar"
 				action="#{procesoRecepcion.irEliminarMiembroComite}"
 				update="hidStatus"
-				oncomplete="showDialog('form:hidStatus','form:cdEliminarMiembroComite');"
+				oncomplete="showDialog('form:hidStatus','frmComiteSeleccion:cdEliminarMiembroComite');"
 				icon="ui-icon-circle-close" process="@this" title="Eliminar"
 				disabled="#{!procesoRecepcion.esSeleccionadoMiembroComite}"
 				rendered="#{procesoRecepcion.renderButton('btnEliminarMiembroComite')}" />
 			<p:commandButton value="Notificar"
-				action="#{procesoRecepcion.irEditarMiembroComite}"
-				update="form:hidStatus,:frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar"
-				oncomplete="showDialog('form:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar');"
-				icon="ui-icon-pencil" process="@this"
+				action="#{procesoRecepcion.goSendMail}"
+				update="hidStatus"
+				oncomplete="showDialog('form:hidStatus','frmComiteSeleccion:cdSendMail');"
+				icon="ui-icon-circle-close" process="@this" title="Notificar a miembros de comité"
 				rendered="#{procesoRecepcion.renderButton('btnNotifyMiembroComite')}" />
 			<h:inputHidden id="hidStatus" value="true" />
 		</p:panel>
@@ -52,12 +52,12 @@
 		<p:ajax event="rowSelect"
 			listener="#{procesoRecepcion.seleccionItemMiembroComite}"
 			update=":frmComiteSeleccion:pnlBotonesMiembroComite" immediate="true" />
-		<p:column styleClass="c_numeric"
+		<p:column styleClass="c_string"
 			sortBy="#{var.personaIdpersona.nombres}">
 			<f:facet name="header">
 				<h:outputText value="Persona" styleClass="c_numeric" />
 			</f:facet>
-			<h:outputText value="#{var.personaIdpersona.nombres}" />
+			<h:outputText value="#{var.personaIdpersona.nombres.concat(' ').concat(var.personaIdpersona.apellidopaterno).concat(' ').concat(var.personaIdpersona.apellidomaterno) }" />
 		</p:column>
 		<p:column styleClass="c_center"
 			sortBy="#{var.gentablaIdcatalogotipomiembro.vchregdescri}">
@@ -91,16 +91,12 @@
 			</f:facet>
 			<h:outputText value="#{var.celular}" />
 		</p:column>
+		<p:column styleClass="c_center" sortBy="#{var.esnotificado}">
+			<f:facet name="header">
+				<h:outputText value="Notificado?" styleClass="c_center" />
+			</f:facet>
+			<h:outputText value="#{var.esnotificado eq '1'? 'Si': 'No'}" />
+		</p:column>		
 	</p:dataTable>
-	<p:confirmDialog id="cdEliminarMiembroComite"
-		message="Esta seguro de eliminar este registro?" header="Confirmación"
-		severity="alert" widgetVar="cdEliminarMiembroComite">
-		<p:commandButton value="Si"
-			action="#{procesoRecepcion.eliminarMiembroComite}"
-			update=":frmComiteSeleccion:tblListaMiembrocomiteporproceso,:form:growl"
-			process="@this" oncomplete="hideDialogPF('cdEliminarMiembroComite');" />
-		<p:commandButton value="No"
-			onclick="hideDialogPF('cdEliminarMiembroComite');" type="button" />
-	</p:confirmDialog>
 </p:panel>
 </html>

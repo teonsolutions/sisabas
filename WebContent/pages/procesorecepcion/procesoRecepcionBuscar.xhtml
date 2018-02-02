@@ -251,6 +251,30 @@
 					</tr>
 				</table>
 			</p:dialog>
+			<p:confirmDialog id="cdEliminarMiembroComite"
+				message="Esta seguro de eliminar este registro?"
+				header="Confirmación" severity="alert"
+				widgetVar="cdEliminarMiembroComite">
+				<p:commandButton value="Si"
+					action="#{procesoRecepcion.eliminarMiembroComite}"
+					update=":frmComiteSeleccion:tblListaMiembrocomiteporproceso,:form:growl"
+					process="@this"
+					oncomplete="hideDialogPF('cdEliminarMiembroComite');" />
+				<p:commandButton value="No"
+					onclick="hideDialogPF('cdEliminarMiembroComite');" type="button" />
+			</p:confirmDialog>
+			<p:confirmDialog id="cdSendMail"
+				message="Este proceso enviará correo a miembros de comité. Desea continuar?"
+				header="Confirmación" severity="alert" widgetVar="cdSendMail">
+				<p:commandButton value="Si"
+					action="#{procesoRecepcion.sendMailComite}"
+					update=":frmComiteSeleccion:tblListaMiembrocomiteporproceso,:form:growl"
+					process="@this"
+					oncomplete="hideDialogPF('cdSendMail');" />
+				<p:commandButton value="No" onclick="hideDialogPF('cdSendMail');"
+					type="button" />
+			</p:confirmDialog>
+
 		</h:form>
 
 		<h:form id="frmMiembrocomiteporprocesoRegistrar">

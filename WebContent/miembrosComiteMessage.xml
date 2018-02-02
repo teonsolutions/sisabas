@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<correos>
+	<correo>
+		<Asunto>NOTIFICACIÓN DE DESIGNACIÓN DE COMITÉ ESPECIAL - {0} N°
+			{1}-{2}-MINEDU/UE {3}</Asunto>
+		<Contenido>
+      <![CDATA[
+          <table>
+          <tr>
+          <td>
+           <p><span style="font-size:13px;font-family:arial;">Se&ntilde;ores:&nbsp;Comit&eacute; Especial:</span></p>
+          <p><span style="font-size:13px;font-family:arial;">Es grato dirigirme a ustedes&nbsp;con la finalidad de notificarles el formato de solicitud, de aprobaci&oacute;n 
+          de expediente de contrataci&oacute;n y designaci&oacute;n de miembros de comit&eacute; especial de fecha {0}, en conformidad al art&iacute;culo 27&ordm; 
+          del Reglamento de la Ley de Contrataciones del Estado, mediante el cual se les designa como integrantes del 
+          comit&eacute; especial.</span></p>
+		</td></tr>
+		<tr>
+		<td>
+		          <table align="left" border="1" cellpadding="0" cellspacing="0" style="width: 800px;">
+			          <thead style="background-color:#337899">
+				          <tr>
+					          <th style="width: 250px;"><span style="color:white;font-size:13px;font-family:arial;">Apellidos y Nombres</span></th>
+					          <th style="width: 80px;"><span style="color:white;font-size:13px;font-family:arial;">Cargo</span></th>
+					          <th style="width: 80px;"><span style="color:white;font-size:13px;font-family:arial;">Correo</span></th>
+					          <th style="width: 50px;"><span style="color:white;font-size:13px;font-family:arial;">Anexo</span></th>
+				          </tr>
+			          </thead>
+			          <tbody>
+				          {1}
+			          </tbody>
+		          </table>
+		</td></tr>
+		<tr>
+		<td>
+		          <p><span style="font-size:13px;font-family:arial;align="left"">Este comit&eacute; especial tendr&aacute; a su cargo la organizaci&oacute;n 
+		          y ejecuci&oacute;n del proceso:</span></p>
+		
+		</td></tr>
+		<tr>
+		<td>
+		          <table align="left" border="1" cellpadding="0" cellspacing="0" style="width:1000px">
+			        <thead style="background-color:#337899">
+				        <tr>
+					        <th style="width: 200px;"><span style="color:white;font-size:13px;font-family:arial;">N&uacute;mero</span></th>
+					        <th style="width: 300px;"><span style="color:white;font-size:13px;font-family:arial;">Tipo</span></th>
+					        <th style="width: 400px;"><span style="color:white;font-size:13px;font-family:arial;">Descripci&oacute;n</span></th>
+					        <th style="width: 300px;"><span style="color:white;font-size:13px;font-family:arial;">Monto</span></th>
+				        </tr>
+			        </thead>
+			          <tbody>
+				        <tr>
+					        <td><span style="font-size:13px;font-family:arial;text-align: center;">N&deg; {2}-{3}-MINEDU/UE {4}</span></td>
+					        <td><span style="font-size:13px;font-family:arial;text-align: center;">{5}</span></td>
+					        <td><span style="font-size:13px;font-family:arial;text-align: center;">{6}</span></td>
+					        <td><span style="font-size:13px;font-family:arial;text-align: center;">{7}&nbsp;( {8} con {9}/100 Nuevos Soles )</span></td>
+				        </tr>
+			        </tbody>
+		          </table>
+		
+		</td></tr>
+		<tr>
+		<td>
+		
+		          <p><span >Asimismo, comunicar que el expediente de contrataci&oacute;n debidamente aprobado est&aacute; siendo entregado 
+		          al presidente del comit&eacute; especial, de conformidad a lo establecido en el art&iacute;culo antes citado.</span></p>
+		          
+		          <p style="font-size:13px;font-family:arial;">Atentamente,</p>
+		          
+		          <p>&nbsp;</p>
+		          <br/>
+		          <br/>
+		          <img src="{10}/Images/firma_notificacion_comite.png" />
+		</td></tr>
+		</table>
+          ]]>
+		</Contenido>
+	</correo>
+</correos>
+

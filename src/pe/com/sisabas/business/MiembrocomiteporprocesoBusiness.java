@@ -40,7 +40,6 @@ public interface MiembrocomiteporprocesoBusiness{
 
 	public void updateByPrimaryKeyBasic(Miembrocomiteporproceso record) throws Exception;
 
-	public void updateByPrimaryKeyFull(Miembrocomiteporproceso record) throws Exception;
-
-
+	public void updateByPrimaryKeyFull(Miembrocomiteporproceso record) throws Exception;	
+	
 }

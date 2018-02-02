@@ -207,6 +207,7 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable{
 	}
 
 	@Override
+	@Transactional
 	public TransactionResponse<Miembrocomiteporproceso> grabarMiembrosComite(TransactionRequest<ProcesoDto> request,
 			Miembrocomiteporproceso miembrocomiteporproceso) throws Exception {
 		// TODO Auto-generated method stub
@@ -219,9 +220,9 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable{
 				|| miembrocomiteporproceso.getIdmiembrocomiteproceso() == 0) {
 			// INSERT
 			Integer idComiteProceso;
-			Pacconsolidado pacUpdate = pacconsolidadoMapper.selectByPrimaryKeyBasic(proc.getIdProcesoSeleccion());
-			if (pacUpdate != null) {
-				if (pacUpdate.getIdcomiteproceso() == null) {
+			Procesoseleccion procUpdate = procesoseleccionMapper.selectByPrimaryKeyBasic(proc.getIdProcesoSeleccion());
+			if (procUpdate != null) {
+				if (procUpdate.getIdcomiteproceso() == null) {
 					Comiteproceso comiteMiembro = new Comiteproceso();
 					comiteMiembro.setFechacreacionauditoria(new Date());
 					comiteMiembro.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
@@ -232,7 +233,7 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable{
 					comiteMiembro.setIdcomiteproceso(idComiteProceso);
 					comiteprocesoMapper.insert(comiteMiembro);
 				} else {
-					idComiteProceso = pacUpdate.getIdcomiteproceso();
+					idComiteProceso = procUpdate.getIdcomiteproceso();
 				}
 				// Insert miembros de comite proceso
 				miembrocomiteporproceso.setIdcomiteproceso(idComiteProceso);
@@ -244,8 +245,8 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable{
 				miembrocomiteporproceso.setIdmiembrocomiteproceso(
 						(int) utilsBusiness.getNextSeq(Sequence.SEQ_MIEMBROCOMITEPORPROCESO).longValue());
 				miembrocomiteporprocesoMapper.insert(miembrocomiteporproceso);
-				pacUpdate.setIdcomiteproceso(idComiteProceso);
-				pacconsolidadoMapper.updateByPrimaryKey(pacUpdate);
+				procUpdate.setIdcomiteproceso(idComiteProceso);
+				procesoseleccionMapper.updateByPrimaryKey(procUpdate);
 			}
 		} else {
 			// UPDATE
@@ -254,6 +255,24 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable{
 			miembrocomiteporprocesoMapper.updateByPrimaryKey(miembrocomiteporproceso);
 		}
 		result.setEntityTransaction(miembrocomiteporproceso);
+		return result;
+	}
+
+	@Override
+	@Transactional
+	public Resultado NotificarMiembros(TransactionRequest<List<Miembrocomiteporproceso>> request) throws Exception {
+		// TODO Auto-generated method stub
+		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
+		List<Miembrocomiteporproceso> members = request.getEntityTransaction();
+		for (Miembrocomiteporproceso member : members) {
+			Miembrocomiteporproceso miembrocomiteporproceso = miembrocomiteporprocesoMapper.selectByPrimaryKeyBasic(member.getIdmiembrocomiteproceso());
+			miembrocomiteporproceso.setEsnotificado("1");
+			miembrocomiteporproceso.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
+			miembrocomiteporproceso.setFechamodificacionauditoria(new Date());
+			miembrocomiteporproceso.setEquipoauditoria(request.getEquipoAuditoria());
+			miembrocomiteporproceso.setProgramaauditoria(request.getProgramaAuditoria());
+			miembrocomiteporprocesoMapper.updateByPrimaryKey(miembrocomiteporproceso);
+		}
 		return result;
 	}
 
