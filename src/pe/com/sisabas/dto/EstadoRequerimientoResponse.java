@@ -4,6 +4,16 @@ public class EstadoRequerimientoResponse {
 	private Integer id;
 	private String descripcion;
 	private Integer idEstadosPorTipoDocumento;
+	public EstadoRequerimientoResponse(){
+		
+	}
+	
+	public EstadoRequerimientoResponse(Integer idEstadoPorEtapa, String descripcion, Integer idEstadosPorTipoDocumento){
+		this.id = idEstadoPorEtapa;
+		this.descripcion = descripcion;
+		this.idEstadosPorTipoDocumento = idEstadosPorTipoDocumento;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

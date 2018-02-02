@@ -175,8 +175,20 @@ public class Constantes {
 		
 		//PROCESS
 		public static final int EN_COMITE_ESPECIAL = 13;
-		
+		public static final int REMITIDO_A_EJECUCION = 30;
 	}	
+	
+	public class estadosPorTipoDocumento{
+		public static final int REMITIDO_A_EJECUCION = 152;
+		public static final int REMITIDO_A_PROCESOS = 20;
+		public static final int REMITIDO_A_PROGRAMACION = 11;
+	}
+	
+	public class estadosPorTipoDocumentoDesc{
+		public static final String REMITIDO_A_EJECUCION = "REMITIDO A EJECUCION";
+		public static final String REMITIDO_A_PROCESOS = "REMITIDO A PROCESOS";
+		public static final String REMITIDO_A_PROGRAMACION = "REMITIDO A PROGRAMACIÓN";
+	}
 	
 	public class tipoDocumento{
 		public static final int PEDIDO = 1;

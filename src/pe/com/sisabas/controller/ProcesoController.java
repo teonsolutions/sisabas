@@ -98,6 +98,8 @@ public class ProcesoController extends BaseController {
 
 			listaEstadoRequerimiento = gentablaBusiness
 					.getEstadoRequerimiento(Constantes.etapaAdministrativa.PROCESOS_DE_SELECCION);
+			EstadoRequerimientoResponse newEstado = new EstadoRequerimientoResponse(Constantes.estadosPorEtapa.REMITIDO_A_EJECUCION, Constantes.estadosPorTipoDocumentoDesc.REMITIDO_A_EJECUCION, Constantes.estadosPorTipoDocumento.REMITIDO_A_EJECUCION);			
+			listaEstadoRequerimiento.add(0, newEstado);
 
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
