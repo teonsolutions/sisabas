@@ -65,6 +65,7 @@
 	<resultMap type="pe.com.sisabas.dto.EstadoRequerimientoResponse" id="estadoRequerimientoItems">
 		<result column="IdEstadosPorEtapa" property="id" jdbcType="INTEGER"/>
 		<result column="DescripcionEstadoPorEtapa" property="descripcion" jdbcType="VARCHAR"/>
+		<result column="IdEstadosPorTipoDocumento" property="idEstadosPorTipoDocumento" jdbcType="INTEGER"/>
 	</resultMap>
 	
 	<resultMap type="pe.com.sisabas.dto.GentablaItemResponse" id="gentablaItemResponse">
@@ -536,7 +537,7 @@
 	</select>	
 	
 	<select id="getEstadoRequerimiento" resultMap="estadoRequerimientoItems" parameterType="java.lang.Integer">
-		select t2.IdEstadosPorEtapa, t1.DescripcionEstadoPorEtapa 
+		select t2.IdEstadosPorEtapa, t1.DescripcionEstadoPorEtapa, t2.IdEstadosPorTipoDocumento 
 		from abas.EstadosPorEtapa t1
 		inner join abas.EstadosPorTipoDocumento t2 on t2.IdEstadosPorEtapa = t1.IdEstadoPorEtapa
 		and t1.IdEtapaAdministrativa = #{idEtapaAdministrativa}
