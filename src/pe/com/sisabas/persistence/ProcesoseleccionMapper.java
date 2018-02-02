@@ -34,5 +34,7 @@ public interface ProcesoseleccionMapper{
 
 	//PROCESO
 	List<ProcesoDto> searchProceso(ProcesoRequest request) throws Exception;
+	
+	List<ProcesoDto> searchProcesoSeguimiento(ProcesoRequest request) throws Exception;
 
 }

@@ -10,7 +10,7 @@
 	<ui:define name="center">
 		<h:form id="form">
 			<p:panel id="panel"
-				header="#{procesoRecepcion.tituloParam} #{procesoRecepcion.tituloBase} Buscar"
+				header="#{proceso.tituloParam} #{proceso.tituloBase} Buscar"
 				style="width: 98%">
 				<p:focus for="panel" />
 				<p:messages id="msgsForm" for="msgsForm" autoUpdate="true"
@@ -23,9 +23,9 @@
 							<td><p:outputLabel value="Tipo de Proceso"
 									for="ddlTipoProceso" /></td>
 							<td><p:selectOneMenu id="ddlTipoProceso"
-									value="#{procesoRecepcion.searchParam.idTipoProceso}">
+									value="#{proceso.searchParam.idTipoProceso}">
 									<f:selectItem itemLabel="TODOS" itemValue="" />
-									<f:selectItems value="#{procesoRecepcion.listaTipoProceso}"
+									<f:selectItems value="#{proceso.listaTipoProceso}"
 										var="var" itemLabel="#{var.descripcion}"
 										itemValue="#{var.codigo}" />
 								</p:selectOneMenu></td>
@@ -41,9 +41,9 @@
 
 							<td><p:outputLabel value="Oficina" for="ddlCentroCosto" /></td>
 							<td><p:selectOneMenu id="ddlCentroCosto"
-									value="#{procesoRecepcion.searchParam.codigoCentroCosto}">
+									value="#{proceso.searchParam.codigoCentroCosto}">
 									<f:selectItem itemLabel="TODOS" itemValue="" />
-									<f:selectItems value="#{procesoRecepcion.listaCentroCosto}"
+									<f:selectItems value="#{proceso.listaCentroCosto}"
 										var="var" itemLabel="#{var.nombreDependencia}"
 										itemValue="#{var.codigoCentroCosto}" />
 								</p:selectOneMenu></td>
@@ -52,20 +52,20 @@
 							<td><p:outputLabel value="Estado del proceso"
 									for="ddlEstadoProceso" /></td>
 							<td><p:selectOneMenu id="ddlEstadoProceso"
-									value="#{procesoRecepcion.searchParam.estadoProceso}">
+									value="#{proceso.searchParam.estadoProceso}">
 									<f:selectItem itemLabel="TODOS" itemValue="" />
 									<f:selectItems
-										value="#{procesoRecepcion.listaEstadoRequerimiento}" var="var"
+										value="#{proceso.listaEstadoRequerimiento}" var="var"
 										itemLabel="#{var.descripcion}" itemValue="#{var.id}" />
 								</p:selectOneMenu></td>
 							<td><p:outputLabel value="Nro. Proceso" for="txtNroProceso" /></td>
 							<td><p:inputText id="txtNroProceso"
-									value="#{procesoRecepcion.searchParam.nroProceso}"
+									value="#{proceso.searchParam.nroProceso}"
 									disabled="false" maxlength="5" style="width:150px;"
 									label="Número Pedido" /></td>
 							<td><p:outputLabel value="Nro. PAO (SIGA)" for="txtNroPao" /></td>
 							<td><p:inputText id="txtNroPao"
-									value="#{procesoRecepcion.searchParam.nroConsolid}"
+									value="#{proceso.searchParam.nroConsolid}"
 									disabled="false" maxlength="5" style="width:150px;"
 									label="Nro. PAO (SIGA)" /></td>
 						</tr>
@@ -76,31 +76,23 @@
 					<tr>
 						<td valign="top"><p:panel id="pnlBotones"
 								styleClass="gandalfPnlBotonesClass">
-								<h:inputHidden id="hidStatus" value="#{procesoRecepcion.status}" />
+								<h:inputHidden id="hidStatus" value="#{proceso.status}" />
 								<p:commandButton widgetVar="btnBuscar" id="btnBuscar"
-									value="Buscar" action="#{procesoRecepcion.search}"
+									value="Buscar" action="#{proceso.search}"
 									update="tblListado,pnlBotones" icon="fa fa-search"
 									title="Buscar"
-									rendered="#{procesoRecepcion.renderButton('btnBuscar')}" />
+									rendered="#{proceso.renderButton('btnBuscar')}" />
 								<p:spacer width="20" />
 
-								<p:commandButton value="Recibir"
-									action="#{procesoRecepcion.irRecibir}" update="hidStatus"
+								<p:commandButton value="Seguimiento"
+									action="#{proceso.irRecibir}" update="hidStatus"
 									oncomplete="showDialog('form:hidStatus','form:cdRecibir');"
 									icon="fa fa-download" title="Recibir"
-									disabled="#{!procesoRecepcion.selectedToReceive}"
-									rendered="#{procesoRecepcion.renderButton('btnRecibir')}" />
-
-								<p:commandButton value="Comité especial"
-									action="#{procesoRecepcion.irComite}"
-									update="hidStatus,:frmComiteSeleccion:diComiteSeleccion"
-									oncomplete="showDialog('form:hidStatus','frmComiteSeleccion:diComiteSeleccion');"
-									icon="fa fa-group"
-									disabled="#{!procesoRecepcion.selectedToComite}"
-									rendered="#{procesoRecepcion.renderButton('btnComite')}" />
+									disabled="#{!proceso.esSeleccionado}"
+									rendered="#{proceso.renderButton('btnRecibir')}" />
 
 								<p:commandButton value="Imprimir"
-									action="#{procesoRecepcion.irImprimir}"
+									action="#{proceso.irImprimir}"
 									update="hidStatus,:frmImprimir:diImprimir"
 									oncomplete="showDialog('form:hidStatus','frmImprimir:diImprimir');"
 									icon="fa fa-print"
@@ -121,16 +113,16 @@
 					</tr>
 				</table>
 
-				<p:dataTable id="tblListado" value="#{procesoRecepcion.dataList}"
+				<p:dataTable id="tblListado" value="#{proceso.dataList}"
 					var="var" emptyMessage="No se encontraron registros"
-					widgetVar="tblListado" selection="#{procesoRecepcion.selectedRow}"
+					widgetVar="tblListado" selection="#{proceso.selectedRow}"
 					paginator="true" rows="#{sisabascontrol.registros_mant}"
 					paginatorPosition="bottom"
-					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(procesoRecepcion.dataList)}"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(proceso.dataList)}"
 					selectionMode="single" rowKey="#{var.nroProceso}"
 					styleClass="gandalfTableClass">
 					<p:ajax event="rowSelect"
-						listener="#{procesoRecepcion.seleccionItem}"
+						listener="#{proceso.seleccionItem}"
 						update=":form:pnlBotones" immediate="true" />
 
 
@@ -217,87 +209,11 @@
 						<h:outputText value="#{var.estadoSiga}" />
 					</p:column>
 				</p:dataTable>
-				<p:confirmDialog id="cdRecibir"
-					message="Esta seguro de recibir el expediente?"
-					header="Confirmación" severity="alert" widgetVar="cdRecibir">
-					<p:commandButton value="Si" action="#{procesoRecepcion.recibir}"
-						update=":form:tblListado,:form:growl,:form:pnlBotones"
-						oncomplete="hideDialogPF('cdRecibir');" />
-					<p:commandButton value="No" onclick="hideDialogPF('cdRecibir');"
-						type="button" />
-				</p:confirmDialog>
 			</p:panel>
 		</h:form>
 
-		<h:form id="frmComiteSeleccion">
-			<p:dialog id="diComiteSeleccion"
-				header="Miembros de comité >> Buscar" widgetVar="diComiteSeleccion"
-				resizable="false" modal="true" dynamic="true">
-				<p:scrollPanel mode="native" style="width:100%;height:100%;">
-					<p:messages for="msgsDocumentotecnicoR" autoUpdate="true"
-						closable="true" />
-					<ui:include
-						src="/pages/procesorecepcion/component/c_miembrocomiteporprocesoList.xhtml" />
-				</p:scrollPanel>
-				<table style="width: 100%;">
-					<tr>
-						<td>
-							<div align="right">
-								<p:commandButton value="Salir"
-									icon="ui-icon-arrowreturnthick-1-w" title="Salir"
-									onclick="hideDialogPF('frmDocumentotecnicoRegistrar:diDocumentotecnicoRegistrar');return false;" />
-							</div>
-						</td>
-					</tr>
-				</table>
-			</p:dialog>
-		</h:form>
-
-		<h:form id="frmMiembrocomiteporprocesoRegistrar">
-			<p:dialog id="diMiembrocomiteporprocesoRegistrar"
-				header="#{procesoRecepcion.tituloMiembroComite}"
-				widgetVar="diMiembrocomiteporprocesoRegistrar" resizable="false"
-				modal="true" dynamic="true">
-				<p:scrollPanel mode="native" style="width:100%;height:100%;">
-					<p:messages for="msgsMiembrocomiteporprocesoR" autoUpdate="true"
-						closable="true" />
-					<ui:include
-						src="/pages/procesorecepcion/component/c_miembrocomiteporprocesoRegistrar.xhtml" />
-				</p:scrollPanel>
-				<table style="width: 100%;">
-					<tr>
-						<td><h:inputHidden id="hidStatus"
-								value="#{procesoRecepcion.statusRegister}" /> <p:commandButton
-								value="Aceptar" action="#{procesoRecepcion.aceptarMiembroComite}"
-								update="hidStatus,:frmComiteSeleccion:tblListaMiembrocomiteporproceso,:form:growl,:frmComiteSeleccion:pnlBotonesMiembroComite,panelC"
-								oncomplete="hideDialog('frmMiembrocomiteporprocesoRegistrar:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar')"
-								icon="ui-icon-circle-check" title="Aceptar" /></td>
-						<td>
-							<div align="right">
-								<p:commandButton value="Salir"
-									icon="ui-icon-arrowreturnthick-1-w" title="Salir"
-									onclick="hideDialogPF('frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar');return false;" />
-							</div>
-						</td>
-					</tr>
-				</table>
-			</p:dialog>
-		</h:form>
-
-		<h:form id="frmRegIdpersonaBuscar">
-			<p:dialog id="diPersonaBuscar" header="Persona » Buscar"
-				widgetVar="diPersonaBuscar" resizable="false" modal="true"
-				dynamic="true">
-				<p:messages for="msgsCC_Persona" autoUpdate="true" closable="true" />
-				<cc:cc_personaBuscar
-					ajaxEventListener="#{procesoRecepcion.loadRegIdpersona}"
-					actionOncomplete="hideDialogPF('frmRegIdpersonaBuscar:diPersonaBuscar');"
-					actionUpdate=":frmMiembrocomiteporprocesoRegistrar:txtIdpersona" />
-			</p:dialog>
-		</h:form>
-		
 		<h:form id="frmImprimir">
-			<p:dialog id="diImprimir" header="#{procesoRecepcion.tituloBase}"
+			<p:dialog id="diImprimir" header="#{proceso.tituloBase}"
 				widgetVar="diImprimir" resizable="false" modal="true" dynamic="true">
 				<h:panelGrid columns="1" style="text-align:center;">
 
@@ -305,7 +221,7 @@
 						value="Exportar Lista Excel" ajax="false" style="width:100px;">
 						<p:dataExporter type="xls" target=":form:tblListado"
 							fileName="datosDocumentotecnico"
-							postProcessor="#{procesoRecepcion.postProcessXLS}" />
+							postProcessor="#{proceso.postProcessXLS}" />
 					</p:commandButton>
 
 					<ui:remove>
@@ -313,7 +229,7 @@
 							ajax="false" style="width:100px;">
 							<p:dataExporter type="pdf" target=":form:tblListado"
 								fileName="datos"
-								preProcessor="#{procesoRecepcion.preProcessPDF}" />
+								preProcessor="#{proceso.preProcessPDF}" />
 						</p:commandButton>
 					</ui:remove>
 

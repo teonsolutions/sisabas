@@ -276,6 +276,12 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable{
 		return result;
 	}
 
+	@Override
+	public List<ProcesoDto> searchProcesoSeguimiento(ProcesoRequest request) throws Exception {
+		// TODO Auto-generated method stub
+		return procesoseleccionMapper.searchProcesoSeguimiento(request);
+	}
+
 		
 	
 }

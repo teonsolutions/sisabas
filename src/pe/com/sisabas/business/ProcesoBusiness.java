@@ -19,4 +19,5 @@ public interface ProcesoBusiness {
 	public Resultado recibirProceso(TransactionRequest<ProcesoDto> request) throws Exception;
 	public TransactionResponse<Miembrocomiteporproceso> grabarMiembrosComite(TransactionRequest<ProcesoDto> request, Miembrocomiteporproceso miembrocomiteporproceso) throws Exception;
 	public Resultado NotificarMiembros(TransactionRequest<List<Miembrocomiteporproceso>> request) throws Exception;
+	public List<ProcesoDto> searchProcesoSeguimiento(ProcesoRequest request) throws Exception;
 }

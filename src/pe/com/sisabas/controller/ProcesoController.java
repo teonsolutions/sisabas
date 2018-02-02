@@ -116,6 +116,34 @@ public class ProcesoController extends BaseController {
 		}		
 	}
 	
+	public void irImprimir() {
+		STATUS_INIT();
+		try {
+			securityControlValidate("btnImprimir");
+			// resetRegisterForm();
+			// accion = IMPRIMIR;
+			tituloBase = "Proceso » " + IMPRIMIR;
+
+			STATUS_SUCCESS();
+			REGISTER_INIT();
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			STATUS_ERROR();
+			addErrorMessageKey("msgsForm", e);
+		}
+	}
+	
 	// methods
 	public void search() {
 		try {
@@ -123,7 +151,7 @@ public class ProcesoController extends BaseController {
 			this.searchParam.setAnio(usuario.getPeriodo().getAnio());
 			this.searchParam.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.PRONIED_SIAF);
 			this.setEsSeleccionado(false);
-			this.dataList = procesoBusiness.searchProceso(this.searchParam);
+			this.dataList = procesoBusiness.searchProcesoSeguimiento(this.searchParam);
 
 			if (this.dataList.size() == 0)
 				addMessageKey("msgsForm", Messages.getString("no.records.found"), FacesMessage.SEVERITY_INFO);
