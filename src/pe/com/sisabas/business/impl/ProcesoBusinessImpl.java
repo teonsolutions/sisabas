@@ -282,6 +282,16 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable{
 		return procesoseleccionMapper.searchProcesoSeguimiento(request);
 	}
 
+	@Override
+	public Resultado saveProceso(TransactionRequest<Procesoseleccion> request) throws Exception {
+		// TODO Auto-generated method stub
+		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
+		Procesoseleccion proceso = request.getEntityTransaction();
+		
+		
+		return null;
+	}
+
 		
 	
 }
