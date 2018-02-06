@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -283,15 +284,49 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable{
 	}
 
 	@Override
+	@Transactional
 	public Resultado saveProceso(TransactionRequest<Procesoseleccion> request) throws Exception {
 		// TODO Auto-generated method stub
 		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
-		Procesoseleccion proceso = request.getEntityTransaction();
+		Procesoseleccion procesoRequest = request.getEntityTransaction();
+		Procesoseleccion procesoEdit = procesoseleccionMapper.selectByPrimaryKeyBasic(procesoRequest.getIdprocesoseleccion());
+		boolean derivadaEjecucion = false;
 		
+		//editing process...
+		procesoEdit.setFechaactaproyectobase(procesoRequest.getFechaactaproyectobase());
+		procesoEdit.setNroactaproyectobase(procesoRequest.getNroactaproyectobase());
+		procesoEdit.setFechaobservacionbase(procesoRequest.getFechaobservacionbase());
+		procesoEdit.setObservaciones(procesoRequest.getObservaciones());
+		procesoEdit.setFechasubsanacionbase(procesoRequest.getFechasubsanacionbase());
+		procesoEdit.setIdcatalogosistemacontratacion(procesoRequest.getIdcatalogosistemacontratacion());
+		procesoEdit.setModalidadejecucion(procesoRequest.getModalidadejecucion());
+		procesoEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
+		procesoEdit.setFechamodificacionauditoria(new Date());
+		procesoEdit.setEquipoauditoria(request.getEquipoAuditoria());
+		procesoEdit.setProgramaauditoria(request.getProgramaAuditoria());		
 		
-		return null;
+		//******************************SAVE CONVOCATORIA******************************************
+		//before delete convocatorias
+		Convocatoriaprocesoseleccion convocatoriaEdit;
+		for (Convocatoriaprocesoseleccion convocatoria : procesoRequest.getListaConvocatoriaprocesoseleccion()) {
+			if (convocatoria.getIdconvocatoriaproceso() == null){
+				convocatoria.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+				convocatoria.setFechacreacionauditoria(new Date());
+				convocatoria.setProgramaauditoria(request.getProgramaAuditoria());
+				convocatoria.setEquipoauditoria(request.getEquipoAuditoria());
+				convocatoria.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+				convocatoriaprocesoseleccionMapper.insert(convocatoria);
+			}else{
+				convocatoriaEdit = convocatoriaprocesoseleccionMapper.selectByPrimaryKeyBasic(convocatoria.getIdconvocatoriaproceso());
+				convocatoriaEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
+				convocatoriaEdit.setFechamodificacionauditoria(new Date());
+				convocatoriaEdit.setProgramaauditoria(request.getProgramaAuditoria());
+				convocatoriaEdit.setEquipoauditoria(request.getEquipoAuditoria());				
+				convocatoriaprocesoseleccionMapper.updateByPrimaryKey(convocatoriaEdit);
+			}
+		}
+		
+		return result;
 	}
-
-		
 	
 }
