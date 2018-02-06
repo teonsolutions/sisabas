@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pe.com.sisabas.be.Convocatoriaprocesoseleccion;
+import pe.com.sisabas.be.Miembrocomiteporproceso;
 import pe.com.sisabas.persistence.ConvocatoriaprocesoseleccionMapper;
 import pe.com.sisabas.business.ConvocatoriaprocesoseleccionBusiness;
 import pe.com.sisabas.exception.BusinessException;
@@ -225,6 +226,24 @@ public class ConvocatoriaprocesoseleccionBusinessImpl implements Convocatoriapro
 			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.idconvocatoriaproceso.required"));
 
 		//Here Bussines Validations.
+	}
+
+	@Override
+	public List<Convocatoriaprocesoseleccion> selectByIdProceso(Integer idProcesoSeleccion) throws Exception {
+		// TODO Auto-generated method stub
+		List<String> ordenListaCampos = new ArrayList<String>();
+		ordenListaCampos.add("A1.IDPROCESOSELECCION");
+		Convocatoriaprocesoseleccion record = new Convocatoriaprocesoseleccion();
+		record.setOrdenListaCampos(ordenListaCampos);
+		record.setOrdenTipo("DESC");
+		record.setIdprocesoseleccion(idProcesoSeleccion);
+				
+		List<Convocatoriaprocesoseleccion> list=convocatoriaprocesoseleccionMapper.selectDynamicFull(record);
+		if(Convocatoriaprocesoseleccion.HAVE_BIGDECIMALS)
+		for (Convocatoriaprocesoseleccion row : list) {
+			row.roundBigDecimals();
+		}
+		return list;
 	}
 
 

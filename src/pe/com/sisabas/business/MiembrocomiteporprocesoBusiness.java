@@ -40,6 +40,10 @@ public interface MiembrocomiteporprocesoBusiness{
 
 	public void updateByPrimaryKeyBasic(Miembrocomiteporproceso record) throws Exception;
 
-	public void updateByPrimaryKeyFull(Miembrocomiteporproceso record) throws Exception;	
+	public void updateByPrimaryKeyFull(Miembrocomiteporproceso record) throws Exception;
+	
+	//CUSTOM
+	public List<Miembrocomiteporproceso> selectDynamicFullByIdComiteProceso(Integer idComiteProceso) throws Exception;
+	
 	
 }

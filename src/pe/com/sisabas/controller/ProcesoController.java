@@ -12,13 +12,19 @@ import org.springframework.stereotype.Component;
 
 import pe.com.sisabas.be.Gentabla;
 import pe.com.sisabas.be.Miembrocomiteporproceso;
+import pe.com.sisabas.be.Procesoseleccion;
+import pe.com.sisabas.business.ConvocatoriaprocesoseleccionBusiness;
 import pe.com.sisabas.business.GentablaBusiness;
 import pe.com.sisabas.business.MiembrocomiteporprocesoBusiness;
 import pe.com.sisabas.business.ProcesoBusiness;
+import pe.com.sisabas.business.ProcesoseleccionBusiness;
 import pe.com.sisabas.business.VcentrocostoBusiness;
 import pe.com.sisabas.dto.CentroCostoRequest;
 import pe.com.sisabas.dto.CentroCostoResponse;
 import pe.com.sisabas.dto.EstadoRequerimientoResponse;
+import pe.com.sisabas.dto.PacConsolidadoDto;
+import pe.com.sisabas.dto.PaoRequest;
+import pe.com.sisabas.dto.PaoResponse;
 import pe.com.sisabas.dto.ProcesoDto;
 import pe.com.sisabas.dto.ProcesoRequest;
 import pe.com.sisabas.dto.TipoProcesoResponse;
@@ -26,6 +32,8 @@ import pe.com.sisabas.exception.SecurityRestrictedControlException;
 import pe.com.sisabas.exception.SecuritySessionExpiredException;
 import pe.com.sisabas.exception.SecurityValidateException;
 import pe.com.sisabas.exception.UnselectedRowException;
+import pe.com.sisabas.persistence.ConvocatoriaprocesoseleccionMapper;
+import pe.com.sisabas.persistence.ProcesoseleccionMapper;
 import pe.com.sisabas.resources.Constantes;
 import pe.com.sisabas.resources.Messages;
 import pe.com.sisabas.resources.controller.BaseController;
@@ -36,26 +44,29 @@ import pe.com.sisabas.service.Sicuusuario;
 @Scope(value = "session")
 public class ProcesoController extends BaseController {
 	private static final long serialVersionUID = 1L;
-	
+
 	private List<ProcesoDto> dataList;
 	private ProcesoDto selectedRow;
 	private ProcesoRequest searchParam;
 	private ProcesoDto currentRow;
-	
+	private Procesoseleccion processEdit;
+
 	// Title
 	private String tituloBase;
 	private String tituloParam;
 	private String accion;
-	
+
 	// DropDownList
 	public List<Gentabla> listaGentablaIdcatalogotipobien;
 	public List<TipoProcesoResponse> listaTipoProceso;
 	public List<CentroCostoResponse> listaCentroCosto;
 	public List<EstadoRequerimientoResponse> listaEstadoRequerimiento;
 	private List<Miembrocomiteporproceso> listaMiembrocomiteporproceso;
-	
+	private List<Gentabla> listaSistemaContratacion;
+
 	private String idOpcionText = "OPC_PROCESO";
-	
+	public static String SUCCESS_SEGUIMIENTO = "/pages/proceso/procesoSeguimiento.xhtml?faces-redirect=true;";
+
 	// Business layer section
 	@Autowired
 	public pe.com.sisabas.resources.business.UtilsBusiness utilsBusiness;
@@ -67,20 +78,24 @@ public class ProcesoController extends BaseController {
 	public VcentrocostoBusiness vcentrocostoBusiness;
 	@Autowired
 	public MiembrocomiteporprocesoBusiness miembrocomiteporprocesoBusiness;
-	
-	public ProcesoController(){
-		
+	@Autowired
+	public ProcesoseleccionBusiness procesoseleccionBusiness;
+	@Autowired
+	public ConvocatoriaprocesoseleccionBusiness convocatoriaprocesoseleccionBusiness;
+
+	public ProcesoController() {
+
 	}
-	
+
 	public String load() {
 		return "/pages/proceso/procesoBuscar.xhtml?faces-redirect=true";
 	}
-	
+
 	@PostConstruct
-	public void init(){
+	public void init() {
 		searchParam = new ProcesoRequest();
 		tituloBase = "Proceso » ";
-		
+
 		try {
 			if (SICU_SECURITY_ENABLE) {
 				idOpcion = SicuCallService.obtenerIdOpcion(idOpcionText).toString();
@@ -98,7 +113,10 @@ public class ProcesoController extends BaseController {
 
 			listaEstadoRequerimiento = gentablaBusiness
 					.getEstadoRequerimiento(Constantes.etapaAdministrativa.PROCESOS_DE_SELECCION);
-			EstadoRequerimientoResponse newEstado = new EstadoRequerimientoResponse(Constantes.estadosPorEtapa.REMITIDO_A_EJECUCION, Constantes.estadosPorTipoDocumentoDesc.REMITIDO_A_EJECUCION, Constantes.estadosPorTipoDocumento.REMITIDO_A_EJECUCION);			
+			EstadoRequerimientoResponse newEstado = new EstadoRequerimientoResponse(
+					Constantes.estadosPorEtapa.REMITIDO_A_EJECUCION,
+					Constantes.estadosPorTipoDocumentoDesc.REMITIDO_A_EJECUCION,
+					Constantes.estadosPorTipoDocumento.REMITIDO_A_EJECUCION);
 			listaEstadoRequerimiento.add(0, newEstado);
 
 		} catch (SecuritySessionExpiredException e) {
@@ -115,9 +133,38 @@ public class ProcesoController extends BaseController {
 					FacesMessage.SEVERITY_ERROR);
 		} catch (Exception e) {
 			addErrorMessageKey("msgsForm", e);
-		}		
+		}
 	}
-	
+
+	public String goSeguimiento() {
+		logger.debug("pacRegistrar....");
+		try {
+
+			//Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
+			validateSelectedRow();
+			if (this.esSeleccionado) {
+			}
+
+			this.processEdit = procesoseleccionBusiness.selectByPrimaryKeyBasic(currentRow.getIdProcesoSeleccion());
+			// convocatoriaprocesoseleccionBusiness.selectByPrimaryKeyBasic(par_idconvocatoriaproceso)
+			//Get convocatorias
+			//Get calendarios
+
+			// Get miembros de comite por proceso
+			listaMiembrocomiteporproceso = miembrocomiteporprocesoBusiness.selectDynamicFullByIdComiteProceso(
+					this.currentRow.getIdComiteProceso() != null ? this.currentRow.getIdComiteProceso() : 0);
+			listaSistemaContratacion = gentablaBusiness
+					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.SICP));
+			
+
+		} catch (Exception e) {
+			addErrorMessage(e);
+			return "/login.xhtml";
+		}
+
+		return SUCCESS_SEGUIMIENTO;
+	}
+
 	public void irImprimir() {
 		STATUS_INIT();
 		try {
@@ -145,7 +192,7 @@ public class ProcesoController extends BaseController {
 			addErrorMessageKey("msgsForm", e);
 		}
 	}
-	
+
 	// methods
 	public void search() {
 		try {
@@ -172,7 +219,7 @@ public class ProcesoController extends BaseController {
 			addErrorMessageKey("msgsForm", e);
 		}
 	}
-	
+
 	public void validateSelectedRow() throws UnselectedRowException, CloneNotSupportedException {
 		if (selectedRow == null)
 			throw new UnselectedRowException(Messages.getString("no.record.selected"));
@@ -274,11 +321,24 @@ public class ProcesoController extends BaseController {
 
 	public void setListaMiembrocomiteporproceso(List<Miembrocomiteporproceso> listaMiembrocomiteporproceso) {
 		this.listaMiembrocomiteporproceso = listaMiembrocomiteporproceso;
-	}	
-	
-	//properties
-	
-	
-	
-	
+	}
+
+	public List<Gentabla> getListaSistemaContratacion() {
+		return listaSistemaContratacion;
+	}
+
+	public void setListaSistemaContratacion(List<Gentabla> listaSistemaContratacion) {
+		this.listaSistemaContratacion = listaSistemaContratacion;
+	}
+
+	public Procesoseleccion getProcessEdit() {
+		return processEdit;
+	}
+
+	public void setProcessEdit(Procesoseleccion processEdit) {
+		this.processEdit = processEdit;
+	}
+
+	// properties
+
 }

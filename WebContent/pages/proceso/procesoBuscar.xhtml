@@ -85,12 +85,12 @@
 								<p:spacer width="20" />
 
 								<p:commandButton value="Seguimiento"
-									action="#{proceso.irRecibir}" update="hidStatus"
+									action="#{proceso.goSeguimiento}" update="hidStatus"
 									oncomplete="showDialog('form:hidStatus','form:cdRecibir');"
-									icon="fa fa-download" title="Recibir"
+									icon="fa fa-pencil" title="Seguimiento de proceso"
 									disabled="#{!proceso.esSeleccionado}"
-									rendered="#{proceso.renderButton('btnRecibir')}" />
-
+									rendered="#{proceso.renderButton('btnSeguimiento')}" />
+									
 								<p:commandButton value="Imprimir"
 									action="#{proceso.irImprimir}"
 									update="hidStatus,:frmImprimir:diImprimir"

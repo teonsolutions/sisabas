@@ -176,6 +176,9 @@ public class Constantes {
 		//PROCESS
 		public static final int EN_COMITE_ESPECIAL = 13;
 		public static final int REMITIDO_A_EJECUCION = 30;
+		
+		//EJECUCION
+		public static final int EN_SUSCRIPCION_DE_CONTRATO = 31;
 	}	
 	
 	public class estadosPorTipoDocumento{

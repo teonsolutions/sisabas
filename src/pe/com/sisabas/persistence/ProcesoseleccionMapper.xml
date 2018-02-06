@@ -249,6 +249,7 @@
 		<result column="Anio" property="anio" jdbcType="INTEGER"/>
 		<result column="FechaEnvioEjecucion" property="fechaEnvioEjecucion" jdbcType="DATE"/>
 		<result column="COD_ESTADO_PS" property="idEstadoProceso" jdbcType="INTEGER"/>
+		<result column="DniEspecialidadProceso" property="dniEspecialistaProceso" jdbcType="VARCHAR"/>
 		<result column="NOMBRE_ESPECIALISTA_PROCESOS" property="nombreEspecialistaProceso" jdbcType="VARCHAR"/>
 		<result column="ComiteNotificado" property="comiteNotificado" jdbcType="VARCHAR"/>
 		<result column="IdComiteProceso" property="idComiteProceso" jdbcType="INTEGER"/>

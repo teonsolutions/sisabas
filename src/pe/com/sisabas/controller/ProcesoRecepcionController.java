@@ -331,29 +331,7 @@ public class ProcesoRecepcionController extends BaseController {
 
 	public void buscarMiembroComite() {
 		try {
-			List<String> ordenListaCampos = new ArrayList<String>();
-			ordenListaCampos.add("A1.IDMIEMBROCOMITEPROCESO");
-			Miembrocomiteporproceso miembrocomiteporproceso = new Miembrocomiteporproceso();
-			miembrocomiteporproceso.setOrdenListaCampos(ordenListaCampos);
-			miembrocomiteporproceso.setOrdenTipo("DESC");
-
-			// Add conditions IN clause
-			miembrocomiteporproceso.addConditionInIdcatalogotipomiembro(null);
-			miembrocomiteporproceso.addConditionInIdcatalogoestadomiembrocomite(null);
-			// miembrocomiteporproceso.setIdcomiteproceso(currentPao.getIdTipoBien());
-			miembrocomiteporproceso.setIdcomiteproceso(
-					this.currentRow.getIdComiteProceso() != null ? this.currentRow.getIdComiteProceso() : 0);
-
-			// pe.com.sisabas.resources.Utils.convertPropertiesStringToUppercase(miembrocomiteporproceso);
-			// // pasa
-			// a
-			// mayusculas
-			// los
-			// datos
-			// para
-			// la
-			// busqueda
-			listaMiembrocomiteporproceso = miembrocomiteporprocesoBusiness.selectDynamicFull(miembrocomiteporproceso);
+			listaMiembrocomiteporproceso = miembrocomiteporprocesoBusiness.selectDynamicFullByIdComiteProceso(this.currentRow.getIdComiteProceso() != null ? this.currentRow.getIdComiteProceso() : 0);
 			setEsSeleccionadoMiembroComite(false);
 			setSelectedMiembrocomiteporproceso(null);
 			if (listaMiembrocomiteporproceso.size() == 0)

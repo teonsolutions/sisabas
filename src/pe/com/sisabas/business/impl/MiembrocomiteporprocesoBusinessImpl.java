@@ -265,6 +265,30 @@ public class MiembrocomiteporprocesoBusinessImpl implements Miembrocomiteporproc
 		//Here Bussines Validations.
 	}
 
+	@Override
+	public List<Miembrocomiteporproceso> selectDynamicFullByIdComiteProceso(Integer idComiteProceso) throws Exception {
+		// TODO Auto-generated method stub
+		List<String> ordenListaCampos = new ArrayList<String>();
+		ordenListaCampos.add("A1.IDMIEMBROCOMITEPROCESO");
+		Miembrocomiteporproceso record = new Miembrocomiteporproceso();
+		record.setOrdenListaCampos(ordenListaCampos);
+		record.setOrdenTipo("DESC");
+
+		// Add conditions IN clause
+		record.addConditionInIdcatalogotipomiembro(null);
+		record.addConditionInIdcatalogoestadomiembrocomite(null);
+		// miembrocomiteporproceso.setIdcomiteproceso(currentPao.getIdTipoBien());
+		record.setIdcomiteproceso(idComiteProceso);
+				
+		List<Miembrocomiteporproceso> list=miembrocomiteporprocesoMapper.selectDynamicFull(record);
+		if(Miembrocomiteporproceso.HAVE_BIGDECIMALS)
+		for (Miembrocomiteporproceso row : list) {
+			row.roundBigDecimals();
+		}
+		
+		return list;
+	}
+
 
 }
 

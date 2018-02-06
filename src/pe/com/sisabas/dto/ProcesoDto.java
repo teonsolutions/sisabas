@@ -30,7 +30,7 @@ public class ProcesoDto implements  Serializable,Cloneable {
 	private Integer correlativo;
 	private String existeSiga;
 	private String tipoModalidad;
-		
+	
 	public Integer getIdProcesoSeleccion() {
 		return idProcesoSeleccion;
 	}
