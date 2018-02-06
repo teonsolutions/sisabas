@@ -364,6 +364,20 @@
 	#{usuariomodificacionauditoria,jdbcType=VARCHAR}, #{equipoauditoria,jdbcType=VARCHAR}, #{programaauditoria,jdbcType=VARCHAR}, #{estadoauditoria,jdbcType=VARCHAR} 
 	) 
 	</insert>
+	
+	
+	<insert id="insertBasic" parameterType="pe.com.sisabas.be.Contrato" >
+	insert into abas.Contrato (IDCONTRATO,
+	IDGRUPODOCUMENTO, DNIESPECIALISTAEJECUCION, NOMBREESPECIALISTA, FECHARECEPCIONEXPEDIENTE,
+	NROCONSOLID, NROCONTRATO, ANIO, ESTADOCONTRATO,
+	IDUNIDADEJECUTORA, FECHACREACIONAUDITORIA, USUARIOCREACIONAUDITORIA, IDCATALOGOESTADODOCUMENTACION
+	) 
+	VALUES (#{idcontrato,jdbcType=INTEGER},
+	#{idgrupodocumento,jdbcType=INTEGER}, #{dniespecialistaejecucion,jdbcType=VARCHAR}, #{nombreespecialista,jdbcType=VARCHAR}, #{fecharecepcionexpediente,jdbcType=TIMESTAMP}, 
+    #{nroconsolid,jdbcType=INTEGER}, #{nrocontrato,jdbcType=INTEGER}, #{anio,jdbcType=INTEGER}, #{estadocontrato,jdbcType=INTEGER},
+    #{idunidadejecutora,jdbcType=INTEGER}, #{fechacreacionauditoria,jdbcType=TIMESTAMP}, #{usuariocreacionauditoria,jdbcType=VARCHAR}, #{idcatalogoestadodocumentacion,jdbcType=VARCHAR}
+	) 
+	</insert>
 
 
 
