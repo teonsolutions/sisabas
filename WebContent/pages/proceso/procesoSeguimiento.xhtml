@@ -107,7 +107,8 @@
 												id="lblNombreEspecialistaProceso" /></td>
 									</tr>
 									<tr>
-										<td><p:calendar id="txtFechaRecepcion" value="#{proceso.currentRow.fechaRegistro}"
+										<td><p:calendar id="txtFechaRecepcion"
+												value="#{proceso.processEdit.fecharecepcionexpediente}"
 												required="true" pattern="dd/MM/yyyy"
 												label="Fecha de recepción" navigator="true" locale="es"
 												styleClass="dateTimeField" style="width:100%" /></td>
@@ -124,8 +125,8 @@
 							</p:tab>
 							<p:tab title="Comité especial">
 								<p:dataTable id="tblListaMiembrocomiteporproceso"
-									value="#{proceso.listaMiembrocomiteporproceso}"
-									var="var" emptyMessage="No se encontraron registros"
+									value="#{proceso.listaMiembrocomiteporproceso}" var="var"
+									emptyMessage="No se encontraron registros"
 									widgetVar="tblListaMiembrocomiteporproceso"
 									selection="#{procesoRecepcion.selectedMiembrocomiteporproceso}"
 									paginator="true" rows="#{sisabascontrol.registros_mant}"
@@ -138,7 +139,8 @@
 										<f:facet name="header">
 											<h:outputText value="Persona" styleClass="c_string" />
 										</f:facet>
-										<h:outputText value="#{var.personaIdpersona.nombres.concat(' ').concat(var.personaIdpersona.apellidopaterno).concat(' ').concat(var.personaIdpersona.apellidomaterno) }" />
+										<h:outputText
+											value="#{var.personaIdpersona.nombres.concat(' ').concat(var.personaIdpersona.apellidopaterno).concat(' ').concat(var.personaIdpersona.apellidomaterno) }" />
 									</p:column>
 									<p:column styleClass="c_center"
 										sortBy="#{var.gentablaIdcatalogotipomiembro.vchregdescri}">
@@ -185,15 +187,16 @@
 												for="txtFechaObservacionBase" id="lblFechaObservacionBase" /></td>
 									</tr>
 									<tr>
-										<td><p:calendar id="txtFechaActaProyectoBase" value=""
+										<td><p:calendar id="txtFechaActaProyectoBase"
+												value="#{proceso.processEdit.fechaactaproyectobase}"
 												required="false" pattern="dd/MM/yyyy"
 												label="Fecha de acta de proyecto base" navigator="true"
 												locale="es" styleClass="dateTimeField" style="width:100%" /></td>
 										<td><p:inputText id="txtNumeroActaProyectoBase"
 												required="false" maxlength="10" style="width:150px;"
 												label="Número del acta del proyecto base" disabled="false"
-												value="#{programacion.currentPao.nroConsolid}" /></td>
-										<td><p:calendar id="txtFechaObservacionBase" value=""
+												value="#{proceso.processEdit.nroactaproyectobase}" /></td>
+										<td><p:calendar id="txtFechaObservacionBase" value="#{proceso.processEdit.fechaobservacionbase}"
 												required="false" pattern="dd/MM/yyyy"
 												label="Fecha de observación base" navigator="true"
 												locale="es" styleClass="dateTimeField" style="width:100%" />
@@ -207,7 +210,7 @@
 										<td colspan="3"><p:inputTextarea id="txtObservaciones"
 												rows="2" cols="50" queryDelay="750" minQueryLength="4"
 												disabled="false"
-												value="#{programacion.currentPao.compraDirecta.especificacionTecnica}"
+												value="#{proceso.processEdit.observacionesproyectobases}"
 												style="width: 100%" /></td>
 									</tr>
 									<tr>
@@ -220,34 +223,33 @@
 												id="lblLlaveEnMano" /></td>
 									</tr>
 									<tr>
-										<td><p:calendar id="txtFechaSubsanacionBase" value=""
+										<td><p:calendar id="txtFechaSubsanacionBase" value="#{proceso.processEdit.fechasubsanacionbase}"
 												required="false" pattern="dd/MM/yyyy"
 												label="Fecha de subsanación de base" navigator="true"
 												locale="es" styleClass="dateTimeField" style="width:100%" />
 										</td>
 										<td><p:selectOneMenu
-												value="#{var.idcatalogotipodocumento}"
+												value="#{proceso.processEdit.idcatalogosistemacontratacion}"
 												id="ddlSistemaContratacion" required="false"
 												label="Sistema de contratación">
 												<f:selectItem itemLabel="--Seleccione--" itemValue="" />
-												<f:selectItems
-													value="#{proceso.listaSistemaContratacion}"
+												<f:selectItems value="#{proceso.listaSistemaContratacion}"
 													var="var" itemLabel="#{var.vchregdescri}"
 													itemValue="#{var.vchregcodigo}" />
 											</p:selectOneMenu></td>
 										<td><p:outputPanel id="customPanel"
 												style="margin-bottom:10px">
-												<p:selectOneRadio id="compraDirectaRadio" layout="custom"
-													value="#{programacion.currentPao.compraDirecta.flagCD}">
+												<p:selectOneRadio id="llaveManoRadio" layout="custom"
+													value="#{proceso.processEdit.modalidadejecucion}">
 													<f:selectItem itemLabel="SI" itemValue="1" />
 													<f:selectItem itemLabel="NO" itemValue="0" />
 												</p:selectOneRadio>
 												<h:panelGrid columns="4" cellpadding="5">
-													<p:radioButton id="opt1" for="compraDirectaRadio"
+													<p:radioButton id="opt1" for="llaveManoRadio"
 														itemIndex="0" />
 													<h:outputLabel for="opt1" value="Si" />
 
-													<p:radioButton id="opt2" for="compraDirectaRadio"
+													<p:radioButton id="opt2" for="llaveManoRadio"
 														itemIndex="1" />
 													<h:outputLabel for="opt2" value="No" />
 
@@ -260,12 +262,12 @@
 						<p:spacer height="1"></p:spacer>
 						<div align="center">
 							<p:commandButton value="Guardar" icon="fa fa-save"
-								title="Guardar datos generales"
-								disabled="#{programacion.disabledButtonsCD}"
-								action="#{programacion.guardarDatosGenerales}"
-								rendered="#{programacion.renderButton('btnGuadarDatosGenerales')}"
+								title="Guardar proceso"
+								disabled="#{proceso.disabledButtons}"
+								action="#{proceso.saveProceso}"
+								rendered="#{proceso.renderButton('btnSaveProceso')}"
 								update="form:msgs,form:panel" />
-							<p:commandButton value="Cancelar" action="#{programacion.load}"
+							<p:commandButton value="Cancelar" action="#{proceso.load}"
 								ajax="false" icon="ui-icon-arrowreturnthick-1-w"
 								title="Cancelar" />
 						</div>

@@ -8,8 +8,10 @@ import javax.faces.application.FacesMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
+import pe.com.sisabas.be.Convocatoriaprocesoseleccion;
 import pe.com.sisabas.be.Gentabla;
 import pe.com.sisabas.be.Miembrocomiteporproceso;
 import pe.com.sisabas.be.Procesoseleccion;
@@ -27,11 +29,15 @@ import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
 import pe.com.sisabas.dto.ProcesoDto;
 import pe.com.sisabas.dto.ProcesoRequest;
+import pe.com.sisabas.dto.Resultado;
 import pe.com.sisabas.dto.TipoProcesoResponse;
+import pe.com.sisabas.dto.TransactionRequest;
+import pe.com.sisabas.exception.BusinessException;
 import pe.com.sisabas.exception.SecurityRestrictedControlException;
 import pe.com.sisabas.exception.SecuritySessionExpiredException;
 import pe.com.sisabas.exception.SecurityValidateException;
 import pe.com.sisabas.exception.UnselectedRowException;
+import pe.com.sisabas.exception.ValidateException;
 import pe.com.sisabas.persistence.ConvocatoriaprocesoseleccionMapper;
 import pe.com.sisabas.persistence.ProcesoseleccionMapper;
 import pe.com.sisabas.resources.Constantes;
@@ -66,7 +72,8 @@ public class ProcesoController extends BaseController {
 
 	private String idOpcionText = "OPC_PROCESO";
 	public static String SUCCESS_SEGUIMIENTO = "/pages/proceso/procesoSeguimiento.xhtml?faces-redirect=true;";
-
+	private boolean disabledButtons;
+	
 	// Business layer section
 	@Autowired
 	public pe.com.sisabas.resources.business.UtilsBusiness utilsBusiness;
@@ -146,6 +153,9 @@ public class ProcesoController extends BaseController {
 			}
 
 			this.processEdit = procesoseleccionBusiness.selectByPrimaryKeyBasic(currentRow.getIdProcesoSeleccion());
+			List<Convocatoriaprocesoseleccion> listConvoca = convocatoriaprocesoseleccionBusiness.selectByIdProceso(currentRow.getIdProcesoSeleccion());
+			this.processEdit.setListaConvocatoriaprocesoseleccion(listConvoca);
+			
 			// convocatoriaprocesoseleccionBusiness.selectByPrimaryKeyBasic(par_idconvocatoriaproceso)
 			//Get convocatorias
 			//Get calendarios
@@ -165,6 +175,38 @@ public class ProcesoController extends BaseController {
 		return SUCCESS_SEGUIMIENTO;
 	}
 
+	public void saveProceso() {
+		REGISTER_INIT();
+		try {
+
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
+			if (usuario == null) {
+				REGISTER_ERROR();
+				addMessageKey("msgsDocumentotecnicoR", "Teminó la sesión", FacesMessage.SEVERITY_ERROR);
+				return;
+			}
+
+			
+			REGISTER_SUCCESS();			
+			showGrowlMessageSuccessfullyCompletedAction();
+			
+			/*
+		} catch (ValidateException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsDocumentotecnicoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (BusinessException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsDocumentotecnicoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+			*/
+		} catch (DataIntegrityViolationException e) {
+			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),
+					Messages.getString("exception.dataintegrity.message.detail"), FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			REGISTER_ERROR();
+			addErrorMessageKey("msgsDocumentotecnicoR", e);
+		}
+	}
+	
 	public void irImprimir() {
 		STATUS_INIT();
 		try {
@@ -339,6 +381,15 @@ public class ProcesoController extends BaseController {
 		this.processEdit = processEdit;
 	}
 
+	public boolean isDisabledButtons() {
+		return disabledButtons;
+	}
+
+	public void setDisabledButtons(boolean disabledButtons) {
+		this.disabledButtons = disabledButtons;
+	}
+
+	
 	// properties
 
 }
