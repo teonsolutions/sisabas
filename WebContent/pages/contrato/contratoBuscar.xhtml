@@ -145,49 +145,54 @@ a:-webkit-any-link {
 	                    <table style="width: 100%;" cellpadding="0" cellspacing="5">
 	                      <tr>
 								<td><p:outputLabel value="Tipo de bien" rendered="#{contrato.avanzado}"/></td>
-								<td>
-								   <p:selectOneMenu id="inputText1" rendered="#{contrato.avanzado}" value="#{contrato.contratoRequest.tipoBien}" style="width:150px;">
+								
+								<td><p:selectOneMenu id="inputText1" rendered="#{contrato.avanzado}" value="#{contrato.contratoRequest.tipoBien}" style="width:150px;">
 									<f:selectItem itemLabel="TODOS" itemValue="" />
-									<f:selectItem itemLabel="BIEN" itemValue="B" />
-									<f:selectItem itemLabel="SERVICIO" itemValue="S" />
-								   </p:selectOneMenu>
-								</td>
+									<f:selectItems
+										value="#{pacconsolidado.listaGentablaIdcatalogotipobien}"
+										var="var" itemLabel="#{var.vchregdescri}"
+										itemValue="#{var.vchregcodigo}" />
+								    </p:selectOneMenu>
+								</td>								
+								
 								<td><p:outputLabel value="Fecha de contrato" rendered="#{contrato.avanzado}"/></td>
 								<td><p:calendar id="inputText2" rendered="#{contrato.avanzado}" value="#{contrato.contratoRequest.fechaContrato}"/></td>
-								<td><p:outputLabel value="Estado" rendered="#{contrato.avanzado}"/></td>
 								
+								
+								
+								<td><p:outputLabel value="Estado" rendered="#{contrato.avanzado}" style="width:220px;"/></td>
 								<td>
 								<p:selectOneMenu id="inputText3" rendered="#{contrato.avanzado}" value="#{contrato.contratoRequest.estado}" style="width:150px;">
 									<f:selectItem itemLabel="TODOS" itemValue="" />
 									<f:selectItems value="#{contrato.listaEstadoRequerimiento}" var="var" itemLabel="#{var.descripcion}" itemValue="#{var.id}" />
 								</p:selectOneMenu>
 								</td>
+								
 
 	                      </tr>
 	                      <tr>
-	                            <td><p:outputLabel value="Centro de costo" rendered="#{contrato.avanzado}" for="inputText4"/></td>
-								
-								
+	                            <td>
+	                                <p:outputLabel value="Centro de costo" rendered="#{contrato.avanzado}"/>
+	                            </td>
 								<td>
-		                        	<p:inputText  id="inputText4" value="#{pedido.pedidoB.vcentrocostoCodigocentrocosto.nombredependencia}" disabled="true" maxlength="15" style="width:150px;" label="Centro costo" rendered="#{contrato.avanzado}"/>
-			                        <p:commandButton icon="ui-icon-search" action="#{cc_vcentrocosto.init}"  oncomplete="showDialogPF('frmMainCodigocentrocostoBuscar:diVcentrocostoBuscar');" update=":frmMainCodigocentrocostoBuscar:diVcentrocostoBuscar" style="width:20px;height:20px;" title="Buscar"  disabled="false"/>
-			                        <p:commandButton icon="ui-icon-close" action="#{pedido.resetMainCodigocentrocosto}"  update="inputText4" style="width:20px;height:20px;" title="Borrar Filtro" immediate="true" disabled="false"/>
-		                       </td>
-
-								
+								    <p:selectOneMenu id="inputText4" rendered="#{contrato.avanzado}" value="#{contrato.contratoRequest.centroCosto}" style="width:200px;">
+									<f:selectItem itemLabel="TODOS" itemValue="" />
+									<f:selectItems value="#{contrato.listaCentroCosto}" var="var" itemLabel="#{var.nombreDependencia}" itemValue="#{var.codigoCentroCosto}" />
+								</p:selectOneMenu>
+								</td>
 	                      </tr>
 	                    </table>	
           </p:panel>
         
       </p:panel>
-     </h:form>	
+  
        <table  style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
         <tr>
 	      <td>
 	        <p:spacer width="10" height="22" />
-			<p:commandButton  id="btnBuscar" value="Buscar" icon="fa fa-search" title="Buscar" />	
+			<p:commandButton  id="btnBuscar" value="Buscar" icon="fa fa-search" title="Buscar" actionListener="#{contrato.buscarContratos}" update="dataContratos"/>	
 			<p:spacer width="10"/>		
-	        <p:commandLink  value="Limpiar" style="color:#034f84;">
+	        <p:commandLink  value="Limpiar" onclick="myFunction3();" update="form" style="color:#034f84;">
 			</p:commandLink>
 		  </td>
 		  <td valign="top">
@@ -196,7 +201,7 @@ a:-webkit-any-link {
 					 <p:commandButton value="Imprimir" action="#{requerimiento.imprimir}" icon="fa fa-print" />
 				</h:panelGroup>
 				<p:spacer height="3" />
-				<p:commandButton value="Salir"  icon="fa fas fa-minus-circle" title="Salir" />
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" icon="fa fas fa-minus-circle" title="Salir" />
 			</div>
 		 </td>
 		</tr>
@@ -210,105 +215,310 @@ a:-webkit-any-link {
 		
 		</tr>		
 	   </table>
-	   <br/>   
-	   <p:dataTable id="tblListaRequerimiento"                                                                                                
-					value="#{contrato.listaContratos}" var="var"
-					emptyMessage="No se encontraron contratos"
-					widgetVar="tblListaRequerimiento"
-					selection="#{pedido.selectedPedido}" paginator="true"
-					rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
-					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(requerimiento.listaRequerimientos)}"
-					rowKey="#{var.nroPedido}" styleClass="gandalfTableClass">
-					<p:ajax event="rowSelect" listener="#{pedido.seleccionItem}" immediate="true" />
+	   <br/>   			
+		<p:dataTable var="var" value="#{contrato.listaContratos}" id="dataContratos" emptyMessage="No se encontraron registros"
+		   styleClass="gandalfTableClass">			
 
-					<p:column styleClass="c_center" exportable="false" width="9%">
+					<p:column styleClass="c_center" width="10%">
 						<f:facet name="header">
 							<h:outputText value="Acciones" styleClass="c_center" />
 						</f:facet>
+						
+						<p:commandButton icon="fa fa-pencil-square-o" title="Evaluar documentación" rendered ="#{var.estadoDocumentacion eq '0'}"
+						oncomplete="PF('reqDialog').show()" update=":formEva:panelEva,form:dataContratos">
+						   <i class="fa fa-circle-thin" style="color:black;"/>
+						   <p:spacer width="10"></p:spacer>
+						   <f:setPropertyActionListener value="#{var}" target="#{contrato.contratoResponse}" />
+						</p:commandButton>
+						
+						
+						<p:commandButton icon="fa fa-pencil-square-o" title="Evaluar documentación observada" rendered ="#{var.estadoDocumentacion eq 'EEFI2'}"
+						oncomplete="PF('reqDialog2').show()" update=":formEva2:panelEva2" style="color: orange;">
+						   <i class="fa fa-circle" style="color:yellow;"/>
+						   <p:spacer width="10"></p:spacer>
+						   <f:setPropertyActionListener value="#{var}" target="#{contrato.contratoResponse}" />
+						</p:commandButton>
+						
+						
+					    <p:commandButton icon="fa fa-file-text-o" title="Seguimiento de contratos" rendered ="#{var.estadoDocumentacion eq 'EEFI1'}"
+						oncomplete="PF('segDialog').show()" update=":formSeg:diEsp">
+						   <i class="fa fa-circle" style="color:green;"/>
+						   <p:spacer width="10"></p:spacer>
+						   <f:setPropertyActionListener value="#{var}" target="#{contrato.contratoResponse}" />
+						</p:commandButton>
+					
+						
+						
 					</p:column>
 					
-					<p:column styleClass="c_center" sortBy="#{var.nropedido}" exportable="#{requerimiento.value1}" width="6%">
-						<f:facet name="header">
-							<h:outputText value="Número" styleClass="c_center" />
-						</f:facet>
-						<h:outputText value="----------" />
-					</p:column>
+					
 
-					<p:column styleClass="c_center" sortBy="#{var.estadoDocumentacion}" exportable="#{requerimiento.value8}">
+					<p:column styleClass="c_center">
 						<f:facet name="header">
 							<h:outputText value="Estado documentación" styleClass="c_center" />
 						</f:facet>
-						<h:outputText value="#{var.estadoDocumentacion}" />
+						<h:outputText value="#{var.estadoDocumentacionDesc}" />
 					</p:column>
 
-					<p:column styleClass="c_center" sortBy="#{var.tipoProceso}" exportable="#{requerimiento.value9}">
+					<p:column styleClass="c_center">
 						<f:facet name="header">
 							<h:outputText value="Tipo de proceso" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.tipoProceso}" />
 					</p:column>
 
-					<p:column styleClass="c_string" sortBy="#{var.nroProceso}"
-						exportable="#{requerimiento.value2}" width="10%">
+					<p:column styleClass="c_string" width="8%">
 						<f:facet name="header">
 							<h:outputText value="Número de proceso" styleClass="c_center" />
 						</f:facet>
-						<h:outputText value="#{var.nroProceso}" />
+						<h:outputText value="#{var.nroProceso}"/>
 					</p:column>
 
-					<p:column styleClass="c_center" sortBy="#{var.tipoBien}"
-						exportable="#{requerimiento.value3}" width="9%">
+					<p:column styleClass="c_center" width="9%">
 						<f:facet name="header">
 							<h:outputText value="Tipo de bien" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.tipoBien}" />
 					</p:column>
 
-					<p:column styleClass="c_numeric" sortBy="#{var.nroContrato}"
-						exportable="#{requerimiento.value4}" width="10%">
+					<p:column styleClass="c_numeric" width="10%">
 						<f:facet name="header">
 							<h:outputText value="Número de contrato SIGA" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.nroContrato}" styleClass="c_center" />
 					</p:column>
-					<p:column styleClass="c_string" sortBy="#{var.tipoContrato}"
-						exportable="#{requerimiento.value5}"
-						width="10%">
+					
+					<p:column styleClass="c_string" width="10%">
 						<f:facet name="header">
 							<h:outputText value="Tipo de contrato" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.tipoContrato}" />
 					</p:column>
+					
+					
 
-					<p:column styleClass="c_string" sortBy="#{var.fechaContrato}"
-						exportable="#{requerimiento.value6}"  width="8%">
+					<p:column styleClass="c_string" width="8%">
 						<f:facet name="header">
 							<h:outputText value="Fecha contrato" styleClass="c_center" />
 						</f:facet>
-						<h:outputText value="#{var.fechaContrato}" />
+						<h:outputText value="#{var.formatoFecha}" />
 					</p:column>
-					<p:column styleClass="c_string"
-						exportable="#{requerimiento.value7}"
-						sortBy="#{var.numeroExpedienteSinad}">
+					
+					<p:column styleClass="c_center">
+						<f:facet name="header">
+							<h:outputText value="Estado" styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.estado}" />
+					</p:column>
+					
+					<p:column styleClass="c_string" >
 						<f:facet name="header">
 							<h:outputText value="Centro de costo" styleClass="c_center" />
 						</f:facet>
-						<h:outputText value="----------" />
+						<h:outputText value="#{var.centroCostos}" />
 					</p:column>
-				</p:dataTable>
-	   
- 	 </p:panel>
- 	 
- 	 <h:form id="frmMainCodigocentrocostoBuscar">
-		<p:dialog id="diVcentrocostoBuscar" header="VCentroCosto » Buscar" widgetVar="diVcentrocostoBuscar" resizable="false" modal="true" dynamic="true">
-		<p:messages for="msgsCC_Vcentrocosto" autoUpdate="true" closable="true"/>
-		 <cc:cc_vcentrocostoBuscar
-		 ajaxEventListener="#{pedido.loadMainCodigocentrocosto}"
-		 actionOncomplete="hideDialogPF('frmMainCodigocentrocostoBuscar:diVcentrocostoBuscar');"
-		 actionUpdate=":form:txtCodigocentrocosto"/>
-		</p:dialog>
-   </h:form>
+		</p:dataTable>
+	  </h:form>	
+	  
+	  <h:form id="formEva">	
 
- 	 
+ 	      <p:dialog header="Evaluación de Documentación" widgetVar="reqDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+ 	                <p:messages for="msgsEva" autoUpdate="true" closable="true"/>
+					<p:panel header="Evaluar documentación entregado por el proveedor" style="margin: 5px; margin-top: 10px; margin-bottom: 10px;" id="panelEva">
+						<p:focus for="panel" />
+						<p:outputPanel  style="text-align:center;">
+						 <div class="ui-scrollpanel ui-scrollpanel-native ui-widget ui-widget-content ui-corner-all">
+				            <p:panelGrid columnClasses="label,value" styleClass="gandalfPanelClassSectionFormHeader" style="margin-top:15px">
+                            <f:facet name="header">
+                            <p:row>
+                             <p:column><p:outputLabel value="Estado Documentación" /></p:column>
+				             <p:column><p:outputLabel value="Tipo de Proceso" /></p:column>
+				             <p:column><p:outputLabel value="Nro Proceso" /></p:column>    
+				             <p:column><p:outputLabel value="Tipo de bien" /></p:column> 
+				             <p:column><p:outputLabel value="Nro Contrato" /></p:column>
+				             <p:column><p:outputLabel value="Tipo Contrato" /></p:column>
+				             <p:column><p:outputLabel value="Fecha Contrato" /></p:column>  
+			                </p:row>
+                            </f:facet>
+                            <p:row>
+                            <p:column>
+                               <p:selectOneMenu value="#{contrato.estadodocumentacion}" id="ddlTipoFaseI" required="true">
+								 <f:selectItem itemLabel="--Seleccione--" itemValue="" />
+								 <f:selectItems value="#{contrato.listaEstadoFaseI}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
+							   </p:selectOneMenu>
+							   <p:message for="ddlTipoFaseI" />
+							 </p:column>
+				             <p:column>#{contrato.contratoResponse.tipoProceso}</p:column>
+				             <p:column>#{contrato.contratoResponse.nroProceso}</p:column>    
+				             <p:column>#{contrato.contratoResponse.tipoBien}</p:column> 
+				             <p:column>#{contrato.contratoResponse.nroContrato}</p:column>
+				             <p:column>#{contrato.contratoResponse.tipoContrato}</p:column>
+				             <p:column>#{contrato.contratoResponse.formatoFecha}</p:column>  
+                            </p:row>
+                            
+                            </p:panelGrid>
+						  </div>
+						</p:outputPanel>
+			            <br/>
+						<table style="width: 70%;">
+							<tr>
+								<td><p:commandButton value="Grabar" style="margin-left:200px;" update=":form:growl, :form:dataContratos" 
+										actionListener="#{contrato.insertarContratos}"  icon="fa fa-save" title="Aceptar" oncomplete="PF('reqDialog').hide();" >
+										<p:confirm header="Mensaje de confirmación" 
+												message="¿Esta seguro que desea recibir el contrato?"
+												icon="ui-icon-alert" />
+									</p:commandButton>	
+										
+										</td>
+								<td>
+									<p:commandButton value="Cancelar" style="margin-left:300px;"
+									    icon="fa fa-times-circle" title="Salir" onclick="hideDialogPF('reqDialog');return false;" />
+									
+								</td>
+							</tr>
+						</table>
+					</p:panel>
+			</p:dialog>
+		</h:form>
+		<h:form id="formEva2">	
+			
+			<p:dialog header="Evaluación de Documentación Observadas" widgetVar="reqDialog2" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+					<p:panel header="Evaluar documentación que fueron observadas" style="margin: 5px; margin-top: 10px; margin-bottom: 10px;" id="panelEva2">
+						<p:focus for="panel" />
+						<p:outputPanel  style="text-align:center;">
+						 <div class="ui-scrollpanel ui-scrollpanel-native ui-widget ui-widget-content ui-corner-all">
+				            <p:panelGrid columnClasses="label,value" styleClass="gandalfPanelClassSectionFormHeader" style="margin-top:15px">
+                            <f:facet name="header">
+                            <p:row>
+                             <p:column><p:outputLabel value="Estado Documentación" /></p:column>
+				             <p:column><p:outputLabel value="Tipo de Proceso" /></p:column>
+				             <p:column><p:outputLabel value="Nro Proceso" /></p:column>    
+				             <p:column><p:outputLabel value="Tipo de bien" /></p:column> 
+				             <p:column><p:outputLabel value="Nro Contrato" /></p:column>
+				             <p:column><p:outputLabel value="Tipo Contrato" /></p:column>
+				             <p:column><p:outputLabel value="Fecha Contrato" /></p:column>  
+			                </p:row>
+                            </f:facet>
+                            <p:row>
+                            <p:column>
+                               <p:selectOneMenu value="------" id="ddlTipoFaseII" required="true">
+								 <f:selectItem itemLabel="--Seleccione--" itemValue="" />
+								 <f:selectItems value="#{contrato.listaEstadoFaseII}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
+							   </p:selectOneMenu>
+							 </p:column>
+				             <p:column>#{contrato.contratoResponse.tipoProceso}</p:column>
+				             <p:column>#{contrato.contratoResponse.nroProceso}</p:column>    
+				             <p:column>#{contrato.contratoResponse.tipoBien}</p:column> 
+				             <p:column>#{contrato.contratoResponse.nroContrato}</p:column>
+				             <p:column>#{contrato.contratoResponse.tipoContrato}</p:column>
+				             <p:column>#{contrato.contratoResponse.formatoFecha}</p:column>  
+                            </p:row>
+                            
+                            </p:panelGrid>
+						  </div>
+						</p:outputPanel>
+			            <br/>
+						<table style="width: 70%;">
+							<tr>
+								<td><p:commandButton value="Grabar" style="margin-left:200px;" update=":form:growl"
+										actionListener="#{requerimiento.insertarRequerimientos}" icon="fa fa-save" title="Aceptar" oncomplete="PF('reqDialog2').hide();" /></td>
+								<td>
+									<p:commandButton value="Cancelar" style="margin-left:300px;"
+									    icon="fa fa-times-circle" title="Salir" onclick="hideDialogPF('reqDialog2');return false;" />
+									
+								</td>
+							</tr>
+						</table>
+					</p:panel>
+			</p:dialog>
+ 	    </h:form>
+ 	    
+ 	    <h:form id="formSeg">
+
+				<p:dialog header="Seguimiento de Ejecución" widgetVar="segDialog"
+					modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+					<p:panel style="width:98%;" id="diEsp">
+						<p:focus for="panel" />
+						<p:scrollPanel mode="native" style="width:100%;height:600px">
+							<p:messages for="msgsGentablaR" autoUpdate="true" closable="true" />
+							<ui:include
+								src="/pages/contrato/component/c_seguimientoContrato.xhtml" />
+						</p:scrollPanel>
+
+						<div style="text-align: left;">
+							<p:outputLabel
+								value="Las tareas corresponden al Plan Operativo Institucional registrado en el PLANIN." />
+							<br /> <br />
+						</div>
+						<div style="margin-left: 300px">
+						<table style="width: 70%;">
+							<tr>
+								<td>
+									<div align="left">
+										<p:commandButton value="Grabar" 
+											rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
+											icon="fa fa-save" title="Aceptar" 
+											update=":form:growl"
+											oncomplete="PF('reqDialog2').hide();">
+											<f:actionListener
+												binding="#{requerimiento.aceptarRequerimiento()}" />
+											<f:actionListener binding="#{requerimiento.limpiar()}" />
+										</p:commandButton>
+									</div>
+								</td>
+								<td>
+									<div align="center">
+										<p:commandButton value="Cancelar"
+											actionListener="#{requerimiento.limpiar}"
+											rendered="#{requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
+											icon="fa fa-times-circle" title="Salir" process="@this"
+											immediate="true" 
+											onclick="hideDialogPF('frmGentipoRegistrar:diGentipoRegistrar');return false;" />
+
+										<p:commandButton value="Aceptar"
+											rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
+											icon="fa fas fa-check" title="Aceptar" 
+										    update=":form:growl"
+											oncomplete="PF('reqDialog2').hide();">
+											<f:actionListener binding="#{requerimiento.limpiar()}" />
+										</p:commandButton>
+									</div>
+								</td>
+								<td>
+									<div align="right">
+										<p:commandButton id="btnRemitir"
+											rendered="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 2) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 5)}"
+											disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 40}"
+											actionListener="#{requerimiento.destroyWorld}"
+											value="Remitir a Programación" icon="fa fas fa-arrow-right" title="Remitir a Programación" 
+											update=":form:growl"
+											oncomplete="PF('reqDialog2').hide();">
+											<p:confirm header="Confirmación"
+												message="¿Esta seguro de remitir a programación?"
+												icon="ui-icon-alert" />
+										</p:commandButton>
+									</div>
+								</td>
+							</tr>
+						</table>
+						</div>
+					</p:panel>
+
+				</p:dialog>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<div style="background-color: #cdeef3;">
+						<p:commandButton value="Si" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="No" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</div>
+				</p:confirmDialog>
+
+			</h:form>
+ 	    
+ 	    
+ 	    
+ 	   
+ 	 </p:panel> 
 </ui:define>
 </ui:composition>

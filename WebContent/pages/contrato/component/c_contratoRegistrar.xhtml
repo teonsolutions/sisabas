@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<div align="left">
+		<p:message id="msgIdcontrato" for="txtIdcontrato"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdunidadejecutora" for="txtIdunidadejecutora"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNroitems" for="txtNroitems"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdcatalogosistemaadquisicion" for="txtIdcatalogosistemaadquisicion"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdgrupodocumento" for="txtIdgrupodocumento"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdcatalogotipocontrato" for="txtIdcatalogotipocontrato"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNrocontrato" for="txtNrocontrato"  showSummary="true" showDetail="false"/>
+		<p:message id="msgSecuenciacontrato" for="txtSecuenciacontrato"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNroccp" for="txtNroccp"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdcatalogotipobien" for="txtIdcatalogotipobien"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdproveedor" for="txtIdproveedor"  showSummary="true" showDetail="false"/>
+		<p:message id="msgEstadocontrato" for="txtEstadocontrato"  showSummary="true" showDetail="false"/>
+		<p:message id="msgFechainicial" for="txtFechainicial"  showSummary="true" showDetail="false"/>
+		<p:message id="msgFechafin" for="txtFechafin"  showSummary="true" showDetail="false"/>
+		<p:message id="msgMoneda" for="txtMoneda"  showSummary="true" showDetail="false"/>
+		<p:message id="msgMontocontrato" for="txtMontocontrato"  showSummary="true" showDetail="false"/>
+		<p:message id="msgMontocertificacion" for="txtMontocertificacion"  showSummary="true" showDetail="false"/>
+		<p:message id="msgFechacontrato" for="txtFechacontrato"  showSummary="true" showDetail="false"/>
+		<p:message id="msgTieneprevision" for="txtTieneprevision"  showSummary="true" showDetail="false"/>
+		<p:message id="msgPlazoejecucion" for="txtPlazoejecucion"  showSummary="true" showDetail="false"/>
+		<p:message id="msgCantidadarmadas" for="txtCantidadarmadas"  showSummary="true" showDetail="false"/>
+		<p:message id="msgFecharecepcionexpediente" for="txtFecharecepcionexpediente"  showSummary="true" showDetail="false"/>
+		<p:message id="msgDniabogado" for="txtDniabogado"  showSummary="true" showDetail="false"/>
+		<p:message id="msgDniespecialistaejecucion" for="txtDniespecialistaejecucion"  showSummary="true" showDetail="false"/>
+		<p:message id="msgSinadcontrato" for="txtSinadcontrato"  showSummary="true" showDetail="false"/>
+		<p:message id="msgAniosinadcontrato" for="txtAniosinadcontrato"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNombreabogado" for="txtNombreabogado"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNombreespecialista" for="txtNombreespecialista"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNumeroexpediente" for="txtNumeroexpediente"  showSummary="true" showDetail="false"/>
+		<p:message id="msgAnio" for="txtAnio"  showSummary="true" showDetail="false"/>
+		<p:message id="msgNroconsolid" for="txtNroconsolid"  showSummary="true" showDetail="false"/>
+		<p:message id="msgRutacontrato" for="txtRutacontrato"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdcatalogoestadodocumentacion" for="txtIdcatalogoestadodocumentacion"  showSummary="true" showDetail="false"/>
+	</div>
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="Id" for="txtIdcontrato" id="lblIdcontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcontrato" value="#{contrato.contrato.idcontrato}" required="true" maxlength="10" style="width:200px;" label="Id" />
+		</td>
+		<td>
+			<p:outputLabel  value="Unidad Ejecutora" for="txtIdunidadejecutora" id="lblIdunidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdunidadejecutora" value="#{contrato.contrato.unidadejecutoraIdunidadejecutora.nombreunidadejecutora}" disabled="true" required="false" maxlength="10" style="width:200px;" label="Unidad Ejecutora" />
+			<p:commandButton icon="ui-icon-search" action="#{cc_unidadejecutora.init}" immediate="true" oncomplete="showDialogPF('frmRegIdunidadejecutoraBuscar:diUnidadejecutoraBuscar');" update=":frmRegIdunidadejecutoraBuscar:diUnidadejecutoraBuscar" style="width:20px;height:20px;"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Numero de Items" for="txtNroitems" id="lblNroitems"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroitems" value="#{contrato.contrato.nroitems}" required="false" maxlength="5" style="width:200px;" label="Numero de Items" />
+		</td>
+		<td>
+			<p:outputLabel  value="Sistema Adquisicion" for="txtIdcatalogosistemaadquisicion" id="lblIdcatalogosistemaadquisicion"/>
+		</td>
+		<td>
+			<p:selectOneMenu  value="#{contrato.contrato.idcatalogosistemaadquisicion}" id="txtIdcatalogosistemaadquisicion" required="false" label="Sistema Adquisicion">
+				<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+				<f:selectItems value="#{contrato.listaGentablaIdcatalogosistemaadquisicion}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
+			</p:selectOneMenu>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Grupo documento" for="txtIdgrupodocumento" id="lblIdgrupodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdgrupodocumento" value="#{contrato.contrato.grupodocumentoIdgrupodocumento.anio}" disabled="true" required="false" maxlength="10" style="width:200px;" label="Grupo documento" />
+			<p:commandButton icon="ui-icon-search" action="#{cc_grupodocumento.init}" immediate="true" oncomplete="showDialogPF('frmRegIdgrupodocumentoBuscar:diGrupodocumentoBuscar');" update=":frmRegIdgrupodocumentoBuscar:diGrupodocumentoBuscar" style="width:20px;height:20px;"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Tipo Contrato" for="txtIdcatalogotipocontrato" id="lblIdcatalogotipocontrato"/>
+		</td>
+		<td>
+			<p:selectOneMenu  value="#{contrato.contrato.idcatalogotipocontrato}" id="txtIdcatalogotipocontrato" required="false" label="Tipo Contrato">
+				<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+				<f:selectItems value="#{contrato.listaGentablaIdcatalogotipocontrato}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
+			</p:selectOneMenu>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Número Contrato" for="txtNrocontrato" id="lblNrocontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNrocontrato" value="#{contrato.contrato.nrocontrato}" required="false" maxlength="10" style="width:200px;" label="Número Contrato" />
+		</td>
+		<td>
+			<p:outputLabel  value="Secuencia Contrato" for="txtSecuenciacontrato" id="lblSecuenciacontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtSecuenciacontrato" value="#{contrato.contrato.secuenciacontrato}" required="false" maxlength="10" style="width:200px;" label="Secuencia Contrato" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Numero CPP" for="txtNroccp" id="lblNroccp"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroccp" value="#{contrato.contrato.nroccp}" required="false" maxlength="20" style="width:200px;" label="Numero CPP" />
+		</td>
+		<td>
+			<p:outputLabel  value="Tipo Bien" for="txtIdcatalogotipobien" id="lblIdcatalogotipobien"/>
+		</td>
+		<td>
+			<p:selectOneMenu  value="#{contrato.contrato.idcatalogotipobien}" id="txtIdcatalogotipobien" required="false" label="Tipo Bien">
+				<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+				<f:selectItems value="#{contrato.listaGentablaIdcatalogotipobien}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
+			</p:selectOneMenu>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Proveedor" for="txtIdproveedor" id="lblIdproveedor"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdproveedor" value="#{contrato.contrato.idproveedor}" required="false" maxlength="10" style="width:200px;" label="Proveedor" />
+		</td>
+		<td>
+			<p:outputLabel  value="Estado Contrato" for="txtEstadocontrato" id="lblEstadocontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadocontrato" value="#{contrato.contrato.estadocontrato}" required="false" maxlength="10" style="width:200px;" label="Estado Contrato" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha Inicial" for="txtFechainicial" id="lblFechainicial"/>
+		</td>
+		<td>
+			<p:calendar   id="txtFechainicial" value="#{contrato.contrato.fechainicial}" required="false" pattern="dd/MM/yyyy HH:mm" label="Fecha Inicial" navigator="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Fecha Fin" for="txtFechafin" id="lblFechafin"/>
+		</td>
+		<td>
+			<p:calendar   id="txtFechafin" value="#{contrato.contrato.fechafin}" required="false" pattern="dd/MM/yyyy HH:mm" label="Fecha Fin" navigator="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Moneda" for="txtMoneda" id="lblMoneda"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMoneda" value="#{contrato.contrato.moneda}" required="false" maxlength="10" style="width:200px;" label="Moneda" />
+		</td>
+		<td>
+			<p:outputLabel  value="Monto Contrato" for="txtMontocontrato" id="lblMontocontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMontocontrato" value="#{contrato.contrato.montocontrato}" required="false" maxlength="18" style="width:200px;" label="Monto Contrato" onkeypress="return jsSoloNumerosEnteros(event);"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Monto Certificacion" for="txtMontocertificacion" id="lblMontocertificacion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMontocertificacion" value="#{contrato.contrato.montocertificacion}" required="false" maxlength="18" style="width:200px;" label="Monto Certificacion" onkeypress="return jsSoloNumerosEnteros(event);"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Fecha Contrato" for="txtFechacontrato" id="lblFechacontrato"/>
+		</td>
+		<td>
+			<p:calendar   id="txtFechacontrato" value="#{contrato.contrato.fechacontrato}" required="false" pattern="dd/MM/yyyy HH:mm" label="Fecha Contrato" navigator="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Tiene Prevision" for="txtTieneprevision" id="lblTieneprevision"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTieneprevision" value="#{contrato.contrato.tieneprevision}" required="false" maxlength="1" style="width:200px;" label="Tiene Prevision" />
+		</td>
+		<td>
+			<p:outputLabel  value="Plazo Ejecucion" for="txtPlazoejecucion" id="lblPlazoejecucion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtPlazoejecucion" value="#{contrato.contrato.plazoejecucion}" required="false" maxlength="10" style="width:200px;" label="Plazo Ejecucion" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Cantidad Armadas" for="txtCantidadarmadas" id="lblCantidadarmadas"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCantidadarmadas" value="#{contrato.contrato.cantidadarmadas}" required="false" maxlength="10" style="width:200px;" label="Cantidad Armadas" />
+		</td>
+		<td>
+			<p:outputLabel  value="Fecha Recepcion Expediente" for="txtFecharecepcionexpediente" id="lblFecharecepcionexpediente"/>
+		</td>
+		<td>
+			<p:calendar   id="txtFecharecepcionexpediente" value="#{contrato.contrato.fecharecepcionexpediente}" required="false" pattern="dd/MM/yyyy HH:mm" label="Fecha Recepcion Expediente" navigator="true" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Dni Abogado" for="txtDniabogado" id="lblDniabogado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDniabogado" value="#{contrato.contrato.dniabogado}" required="false" maxlength="8" style="width:200px;" label="Dni Abogado" />
+		</td>
+		<td>
+			<p:outputLabel  value="Dni Especialista Ejecucion" for="txtDniespecialistaejecucion" id="lblDniespecialistaejecucion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDniespecialistaejecucion" value="#{contrato.contrato.dniespecialistaejecucion}" required="false" maxlength="8" style="width:200px;" label="Dni Especialista Ejecucion" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Sinad Contrato" for="txtSinadcontrato" id="lblSinadcontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtSinadcontrato" value="#{contrato.contrato.sinadcontrato}" required="false" maxlength="10" style="width:200px;" label="Sinad Contrato" />
+		</td>
+		<td>
+			<p:outputLabel  value="Anio Sinad Contrato" for="txtAniosinadcontrato" id="lblAniosinadcontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAniosinadcontrato" value="#{contrato.contrato.aniosinadcontrato}" required="false" maxlength="10" style="width:200px;" label="Anio Sinad Contrato" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Nombre Abogado" for="txtNombreabogado" id="lblNombreabogado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombreabogado" value="#{contrato.contrato.nombreabogado}" required="false" maxlength="250" style="width:200px;" label="Nombre Abogado" />
+		</td>
+		<td>
+			<p:outputLabel  value="Nombre Especialista" for="txtNombreespecialista" id="lblNombreespecialista"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombreespecialista" value="#{contrato.contrato.nombreespecialista}" required="false" maxlength="250" style="width:200px;" label="Nombre Especialista" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Numero Expediente" for="txtNumeroexpediente" id="lblNumeroexpediente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumeroexpediente" value="#{contrato.contrato.numeroexpediente}" required="false" maxlength="30" style="width:200px;" label="Numero Expediente" />
+		</td>
+		<td>
+			<p:outputLabel  value="Anio" for="txtAnio" id="lblAnio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnio" value="#{contrato.contrato.anio}" required="false" maxlength="10" style="width:200px;" label="Anio" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Numero Consolidado" for="txtNroconsolid" id="lblNroconsolid"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroconsolid" value="#{contrato.contrato.nroconsolid}" required="false" maxlength="10" style="width:200px;" label="Numero Consolidado" />
+		</td>
+		<td>
+			<p:outputLabel  value="Ruta Contrato" for="txtRutacontrato" id="lblRutacontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtRutacontrato" value="#{contrato.contrato.rutacontrato}" required="false" maxlength="300" style="width:200px;" label="Ruta Contrato" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Estado Documentacion" for="txtIdcatalogoestadodocumentacion" id="lblIdcatalogoestadodocumentacion"/>
+		</td>
+		<td>
+			<p:selectOneMenu  value="#{contrato.contrato.idcatalogoestadodocumentacion}" id="txtIdcatalogoestadodocumentacion" required="false" label="Estado Documentacion">
+				<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+				<f:selectItems value="#{contrato.listaGentablaIdcatalogoestadodocumentacion}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
+			</p:selectOneMenu>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+</p:panel>
+</html>

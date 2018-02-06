@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:tabView id="panelDetailC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<p:tab title="Detalle">
+<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="2">
+			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="Id" for="txtIdcontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcontrato" value="#{contrato.contrato.idcontrato}" disabled="true" style="width:150px;" label="Id"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Unidad Ejecutora" for="txtIdunidadejecutora"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdunidadejecutora" value="#{contrato.contrato.unidadejecutoraIdunidadejecutora.nombreunidadejecutora}" disabled="true" style="width:150px;" label="Unidad Ejecutora"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Numero de Items" for="txtNroitems"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroitems" value="#{contrato.contrato.nroitems}" disabled="true" style="width:150px;" label="Numero de Items"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Sistema Adquisicion" for="txtIdcatalogosistemaadquisicion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogosistemaadquisicion" value="#{contrato.contrato.gentablaIdcatalogosistemaadquisicion.vchregdescri}" disabled="true" style="width:150px;" label="Sistema Adquisicion"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Grupo documento" for="txtIdgrupodocumento"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdgrupodocumento" value="#{contrato.contrato.grupodocumentoIdgrupodocumento.anio}" disabled="true" style="width:150px;" label="Grupo documento"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Tipo Contrato" for="txtIdcatalogotipocontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogotipocontrato" value="#{contrato.contrato.gentablaIdcatalogotipocontrato.vchregdescri}" disabled="true" style="width:150px;" label="Tipo Contrato"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Número Contrato" for="txtNrocontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNrocontrato" value="#{contrato.contrato.nrocontrato}" disabled="true" style="width:150px;" label="Número Contrato"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Secuencia Contrato" for="txtSecuenciacontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtSecuenciacontrato" value="#{contrato.contrato.secuenciacontrato}" disabled="true" style="width:150px;" label="Secuencia Contrato"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Numero CPP" for="txtNroccp"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroccp" value="#{contrato.contrato.nroccp}" disabled="true" style="width:150px;" label="Numero CPP"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Tipo Bien" for="txtIdcatalogotipobien"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogotipobien" value="#{contrato.contrato.gentablaIdcatalogotipobien.vchregdescri}" disabled="true" style="width:150px;" label="Tipo Bien"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Proveedor" for="txtIdproveedor"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdproveedor" value="#{contrato.contrato.idproveedor}" disabled="true" style="width:150px;" label="Proveedor"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Estado Contrato" for="txtEstadocontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadocontrato" value="#{contrato.contrato.estadocontrato}" disabled="true" style="width:150px;" label="Estado Contrato"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha Inicial" for="txtFechainicial"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechainicial" value="#{contrato.contrato.fechainicial}" disabled="true" style="width:150px;" label="Fecha Inicial">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+		<td>
+			<p:outputLabel  value="Fecha Fin" for="txtFechafin"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechafin" value="#{contrato.contrato.fechafin}" disabled="true" style="width:150px;" label="Fecha Fin">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Moneda" for="txtMoneda"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMoneda" value="#{contrato.contrato.moneda}" disabled="true" style="width:150px;" label="Moneda"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Monto Contrato" for="txtMontocontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMontocontrato" value="#{contrato.contrato.montocontrato}" disabled="true" style="width:150px;" label="Monto Contrato"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Monto Certificacion" for="txtMontocertificacion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMontocertificacion" value="#{contrato.contrato.montocertificacion}" disabled="true" style="width:150px;" label="Monto Certificacion"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Fecha Contrato" for="txtFechacontrato"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFechacontrato" value="#{contrato.contrato.fechacontrato}" disabled="true" style="width:150px;" label="Fecha Contrato">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Tiene Prevision" for="txtTieneprevision"/>
+		</td>
+		<td>
+			<p:inputText  id="txtTieneprevision" value="#{contrato.contrato.tieneprevision}" disabled="true" style="width:150px;" label="Tiene Prevision"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Plazo Ejecucion" for="txtPlazoejecucion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtPlazoejecucion" value="#{contrato.contrato.plazoejecucion}" disabled="true" style="width:150px;" label="Plazo Ejecucion"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Cantidad Armadas" for="txtCantidadarmadas"/>
+		</td>
+		<td>
+			<p:inputText  id="txtCantidadarmadas" value="#{contrato.contrato.cantidadarmadas}" disabled="true" style="width:150px;" label="Cantidad Armadas"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Fecha Recepcion Expediente" for="txtFecharecepcionexpediente"/>
+		</td>
+		<td>
+			<h:inputText  id="txtFecharecepcionexpediente" value="#{contrato.contrato.fecharecepcionexpediente}" disabled="true" style="width:150px;" label="Fecha Recepcion Expediente">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>			</h:inputText>		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Dni Abogado" for="txtDniabogado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDniabogado" value="#{contrato.contrato.dniabogado}" disabled="true" style="width:150px;" label="Dni Abogado"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Dni Especialista Ejecucion" for="txtDniespecialistaejecucion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtDniespecialistaejecucion" value="#{contrato.contrato.dniespecialistaejecucion}" disabled="true" style="width:150px;" label="Dni Especialista Ejecucion"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Sinad Contrato" for="txtSinadcontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtSinadcontrato" value="#{contrato.contrato.sinadcontrato}" disabled="true" style="width:150px;" label="Sinad Contrato"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Anio Sinad Contrato" for="txtAniosinadcontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAniosinadcontrato" value="#{contrato.contrato.aniosinadcontrato}" disabled="true" style="width:150px;" label="Anio Sinad Contrato"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Nombre Abogado" for="txtNombreabogado"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombreabogado" value="#{contrato.contrato.nombreabogado}" disabled="true" style="width:300px;" label="Nombre Abogado"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Nombre Especialista" for="txtNombreespecialista"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNombreespecialista" value="#{contrato.contrato.nombreespecialista}" disabled="true" style="width:300px;" label="Nombre Especialista"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Numero Expediente" for="txtNumeroexpediente"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNumeroexpediente" value="#{contrato.contrato.numeroexpediente}" disabled="true" style="width:150px;" label="Numero Expediente"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Anio" for="txtAnio"/>
+		</td>
+		<td>
+			<p:inputText  id="txtAnio" value="#{contrato.contrato.anio}" disabled="true" style="width:150px;" label="Anio"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Numero Consolidado" for="txtNroconsolid"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroconsolid" value="#{contrato.contrato.nroconsolid}" disabled="true" style="width:150px;" label="Numero Consolidado"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Ruta Contrato" for="txtRutacontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtRutacontrato" value="#{contrato.contrato.rutacontrato}" disabled="true" style="width:300px;" label="Ruta Contrato"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Estado Documentacion" for="txtIdcatalogoestadodocumentacion"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcatalogoestadodocumentacion" value="#{contrato.contrato.gentablaIdcatalogoestadodocumentacion.vchregdescri}" disabled="true" style="width:150px;" label="Estado Documentacion"/>
+		</td>
+	</tr>
+
+</table>
+			</p:panel>
+		</td>
+	</tr>
+</table>
+	</p:tab>
+
+	<p:tab title="Datos de Auditoría">
+
+	<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha de Creación" for="txtFechacreacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechacreacionauditoria" value="#{contrato.contrato.fechacreacionauditoria}" disabled="true" style="width:150px;" label="Fecha de Creación">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>
+			</p:inputText>
+		</td>
+		<td>
+			<p:outputLabel  value="Usuario de Creación" for="txtUsuariocreacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuariocreacionauditoria" value="#{contrato.contrato.usuariocreacionauditoria}" disabled="true" style="width:150px;" label="Usuario de Creación"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Fecha de última modificacion" for="txtFechamodificacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtFechamodificacionauditoria" value="#{contrato.contrato.fechamodificacionauditoria}" disabled="true" style="width:150px;" label="Fecha de última modificacion">
+				<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a" timeZone="GMT-5"/>
+			</p:inputText>
+		</td>
+		<td>
+			<p:outputLabel  value="Usuario de última modificacion" for="txtUsuariomodificacionauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtUsuariomodificacionauditoria" value="#{contrato.contrato.usuariomodificacionauditoria}" disabled="true" style="width:150px;" label="Usuario de última modificacion"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="IP/Nombre Equipo" for="txtEquipoauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEquipoauditoria" value="#{contrato.contrato.equipoauditoria}" disabled="true" style="width:300px;" label="IP/Nombre Equipo"/>
+		</td>
+		<td>
+			<p:outputLabel  value="Programa/Clase" for="txtProgramaauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtProgramaauditoria" value="#{contrato.contrato.programaauditoria}" disabled="true" style="width:300px;" label="Programa/Clase"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Estado Registro" for="txtEstadoauditoria"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadoauditoria" value="#{contrato.contrato.estadoauditoria}" disabled="true" style="width:150px;" label="Estado Registro"/>
+		</td>
+	</tr>
+
+	</table>
+	</p:tab>
+
+	<p:tab title="Adenda">
+		<ui:include src="/pages/adenda/component/c_adendaDerivedTableList.xhtml"/>
+	</p:tab>
+	<p:tab title="PrevisionPorContrato">
+		<ui:include src="/pages/previsionporcontrato/component/c_previsionporcontratoDerivedTableList.xhtml"/>
+	</p:tab>
+</p:tabView>
+</html>

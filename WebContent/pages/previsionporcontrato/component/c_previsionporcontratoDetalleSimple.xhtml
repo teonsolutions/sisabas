@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelDetailC">
+<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+
+	<tr>
+		<td>
+			<p:outputLabel  value="ID" for="txtIdprevisionporcontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdprevisionporcontrato" value="#{previsionporcontrato.previsionporcontrato.idprevisionporcontrato}" disabled="true" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel  value="PrevisionPresupuestal" for="txtIdprevisionpresupuestal"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdprevisionpresupuestal" value="#{previsionporcontrato.previsionporcontrato.idprevisionpresupuestal}" disabled="true" style="width:150px;" label="PrevisionPresupuestal"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel  value="Contrato" for="txtIdcontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcontrato" value="#{previsionporcontrato.previsionporcontrato.contratoIdcontrato.idcontrato}" disabled="true" style="width:150px;" label="Contrato"/>
+		</td>
+		<td>
+			<p:outputLabel  value="MontoPrevisionContrato" for="txtMontoprevisiocontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMontoprevisiocontrato" value="#{previsionporcontrato.previsionporcontrato.montoprevisiocontrato}" disabled="true" style="width:150px;" label="MontoPrevisionContrato"/>
+		</td>
+	</tr>
+
+</table>
+</p:panel>
+</html>

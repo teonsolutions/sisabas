@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<p:outputPanel>
+
+
+
+
+	<p:accordionPanel multiple="true" id="accordion">
+		<p:tab title="Datos del proceso de selección">
+
+			<p:panelGrid columns="4" id="panelGridCabecera"
+				rendered="#{not empty requerimiento.requerimientoResponse}"
+				columnClasses="label,value"
+				styleClass="gandalfPanelClassSectionFormHeader">
+
+				<p:column>
+					<p:outputLabel value="Tipo de proceso (SIGA)" />
+				</p:column>
+				<p:column>
+					<p:inputText value="#{contrato.contratoResponse.tipoProceso}" disabled="true" style="width:200px"/>
+				</p:column>
+
+				<p:column>
+					<p:outputLabel value="Número de proceso" />
+				</p:column>
+				<p:column>
+					<p:inputText value="#{contrato.contratoResponse.nroProceso}" disabled="true" style="width:200px"/>
+				</p:column>
+
+				<p:column>
+					<p:outputLabel value="Tipo de bien(SIGA)" />
+				</p:column>
+				<p:column>
+					<p:inputText value="#{contrato.contratoResponse.tipoBien}" disabled="true" style="width:200px"/>
+				</p:column>
+
+				<p:column>
+					<p:outputLabel value="Fecha de Registro(SIGA)" />
+				</p:column>
+				<p:column>
+					<p:inputText value="#{contrato.contratoResponse.formatoFecha}" disabled="true" />
+				</p:column>
+
+				<p:column>
+					<p:outputLabel value="Monto del proceso(SIGA)" />
+				</p:column>
+				<p:column>
+					<p:inputText value="-------------" disabled="true" />
+				</p:column>
+
+				<p:column>
+					<p:outputLabel value="Número de PAO(SIGA)" />
+				</p:column>
+				<p:column>
+					<p:inputText value="-------------" disabled="true" />
+				</p:column>
+
+              
+				<p:outputLabel value="Descripción(SIGA)" style="" />
+				<p:inputTextarea value="--------------" disabled="true" style="width:250px" />
+              
+                <p:column>
+					<p:outputLabel value="Estado proceso(SIGA)" />
+				</p:column>
+				<p:column>
+					<p:inputText value="-------------" disabled="true" />
+				</p:column>
+
+                
+			</p:panelGrid>
+
+
+		</p:tab>
+
+		<p:tab title="Información del contrato" titleStyleClass="blueTab">
+			<p:panelGrid columns="3"
+				rendered="#{not empty requerimiento.requerimientoResponse}" 
+				columnClasses="label,value"
+				styleClass="gandalfPanelClassSectionFormHeader">
+                
+				<p:row>
+						<p:outputLabel value="Número de contrato" />
+						<p:inputText value="-------------" disabled="true" style="width:200px"/>
+					
+                </p:row>
+                <p:row>
+						<p:outputLabel value="Número de PAC" />
+					    <br/>
+						<p:inputText value="-------------" disabled="true" style="width:200px"/>
+					
+				</p:row>
+				<p:row>
+						<p:outputLabel value="Nro de Item Adjudicado" />
+						<p:inputText value="-------------" disabled="true" style="width:200px"/>
+					
+				</p:row>
+				<p:row>
+						<p:outputLabel value="Fecha inicial" />
+						<br/>
+						<p:inputText value="-------------" disabled="true" style="width:200px"/>
+				</p:row>
+				<p:row>
+						<p:outputLabel value="Fecha final" />
+						<br/><br/>
+						<p:inputText value="-------------" disabled="true" style="width:200px"/>
+					
+				</p:row>
+				<p:row>
+						<p:outputLabel value="Monto contrato" />
+						<br/>
+						<p:inputText value="-------------" disabled="true" style="width:200px"/>
+					
+				</p:row>
+				<p:row>
+						<p:outputLabel value="Ruc del contratista" />
+						<p:inputText value="-------------" disabled="true" style="width:200px"/>
+					
+                </p:row>
+                <p:row>
+						<p:outputLabel value="Contratista" />
+					    <br/>
+						<p:inputText value="-------------" disabled="true" style="width:200px"/>
+					
+				</p:row>
+				<p:row>
+						<p:outputLabel value="Tipo de contrato" />
+						<p:inputText value="-------------" disabled="true" style="width:200px"/>
+					
+				</p:row>
+				<p:row>
+						<p:outputLabel value="Número de CPP" />
+						<br/><br/>
+						<p:inputText value="-------------" disabled="true" style="width:200px"/>
+				</p:row>
+				<p:row>
+						<p:outputLabel value="Monto de certificación" />
+						<p:inputText value="-------------" disabled="true" style="width:200px"/>
+					
+				</p:row>
+				<p:row>
+						<p:outputLabel value="Sistema de adquisición" />
+						<br/>
+						<p:inputText value="-------------" disabled="true" style="width:200px"/>
+					
+				</p:row>
+				<p:row>
+						<p:outputLabel value="Fecha de recepcion del expediente" />
+						<p:inputText value="-------------" disabled="true" style="width:200px"/>
+					
+				</p:row>
+				<p:row>
+						<p:outputLabel value="Plazo de ejecución" />
+						<p:inputText value="-------------" disabled="true" style="width:200px"/>
+					
+				</p:row>
+				<p:row>
+						<p:outputLabel value="Abogado del contrato" />
+						<br/>
+						<p:inputText value="-------------" disabled="true" style="width:200px"/>
+					
+				</p:row>
+				<p:row>
+						<p:outputLabel value="Apellidos y nombres del abogado" />
+						<p:inputText value="-------------" disabled="true" style="width:200px"/>
+					
+				</p:row>
+				<p:row> <p:column colspan="2">
+						<p:outputLabel value="Cantidad de armadas" />
+						<p:inputText value="-------------" disabled="true" style="width:200px"/>
+						</p:column>
+					
+				</p:row>
+			</p:panelGrid>
+		        <p:spacer width="10" height="4"/>
+						<p:outputLabel value="Archivo" />
+						<br/>
+						<p:inputText value="-------------" disabled="true" style="width:400px; margin-left:10px"/>
+				
+			
+		</p:tab>
+
+		<p:tab title="Control de órdenes" rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE2'}" >
+           
+			<p:dataTable var="var"
+				value="#{requerimiento.listaItemRequerimientos}"
+				style="white-space:nowrap!important; width:800px; font-size:5px;"
+				reflow="true" scrollable="true" scrollHeight="">
+				<p:column width="8%" headerText="NÚMERO">
+					<h:outputText value="#{var.numeracion}" />
+				</p:column>
+
+				<p:column width="18%" headerText="NÚMERO DE ITEM">
+					<h:outputText value="#{var.itemBien}" />
+				</p:column>
+
+				<p:column headerText="DESCRIPCIÓN DEL ITEM">
+					<h:outputText value="#{var.nombreItem}" />
+				</p:column>
+
+				<p:column headerText="CANTIDAD" width="15%">
+					<h:outputText value="#{var.cantSolicitada}" />
+				</p:column>
+
+				<f:facet name="footer">
+			             TOTAL DE ITEMS #{fn:length(requerimiento.listaItemRequerimientos)}.
+			    </f:facet>
+			</p:dataTable>
+		</p:tab>
+
+
+
+
+
+         <p:tab title="Control de pagos por entregables">
+			<div align="right">
+				<p:commandButton
+					oncomplete="showDialogPF('frmPrestacion:diPrestacion')" onclick="myFunction();" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"
+					value="Agregar" icon="fa fa-plus"/>
+			</div>
+			<p:spacer height="5" />
+			<p:dataTable id="tableLugares" var="var" emptyMessage="Lugares de prestacion vacía."
+				value="#{requerimiento.lugares}"
+				style="white-space:nowrap!important; width:800px; font-size:5px;"
+				reflow="true" scrollable="true" editable="true">
+				
+				<p:ajax event="rowEdit" listener="#{requerimiento.onRowEdit}" update=":form:growl" />
+                <p:ajax event="rowEditCancel" listener="#{requerimiento.onRowCancel}" update=":form:growl" /> 
+				
+				<p:column headerText="DIRECCION">
+				    <p:cellEditor> 
+				       <f:facet name="output"><h:outputText value="#{var.direccion}" /></f:facet>
+                       <f:facet name="input"><p:inputText value="#{var.direccion}" style="width:82%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
+					</p:cellEditor>  
+				</p:column>
+
+				<p:column headerText="EDITAR" styleClass="c_center" style="width: 9%;" >
+				  <p:rowEditor editTitle="Editar" />
+				</p:column>
+				
+				<p:column headerText="ELIMINAR" styleClass="c_center" style="width: 9%;">
+						<p:commandButton 
+							update=":formEsp:diEsp,:form:growl" icon="fa fa-remove" title="Eliminar" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"
+							actionListener="#{requerimiento.eliminarLugar(var)}" process="@this"
+							>
+						</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:tab>
+
+		<p:tab title="Detalle de pagos por orden" id="formPago">
+			<div align="right">
+				<p:commandButton
+					oncomplete="showDialogPF('frmPago:diPago')" onclick="myFunctionPago();" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"
+					value="Agregar" icon="fa fa-plus" />
+			</div>
+			<p:spacer height="5" />
+				<p:dataTable id="tablePagos" var="var"  emptyMessage="Formas de pago vacía." value="#{requerimiento.pagos}" style="white-space:nowrap!important; width:800px; font-size:5px;" reflow="true" scrollable="true" editable="true">
+					
+					<p:ajax event="rowEdit" listener="#{requerimiento.onRowEdit2}" update=":form:growl" />
+					<p:ajax event="rowEditCancel" listener="#{requerimiento.onRowCancel2}" update=":form:growl" />
+					
+					<p:column headerText="NÚMERO ARMADA">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{var.numero}" /></f:facet>
+		               <f:facet name="input"><p:inputText id="modelInput" value="#{var.numero}" style="width:100%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
+                    </p:cellEditor>
+				   </p:column>
+				   <p:column headerText="PORCENTAJE DE ARMADA">
+				    <p:cellEditor> 
+				       <f:facet name="output"><h:outputText value="#{var.porcentaje}" /></f:facet>
+                       <f:facet name="input"><p:inputText value="#{var.porcentaje}" style="width:100%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
+					</p:cellEditor>  
+				    </p:column>
+  
+					<p:column headerText="EDITAR" styleClass="c_center" style="width: 9%;">
+				         <p:rowEditor editTitle="Editar" />
+				    </p:column>
+				
+				    <p:column headerText="ELIMINAR" styleClass="c_center" style="width: 9%;">
+						<p:commandButton 
+							update=":formEsp:diEsp,:form:growl" icon="fa fa-remove" title="Eliminar"
+							actionListener="#{requerimiento.eliminarPago(var)}" process="@this" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"
+							>
+						</p:commandButton>
+				   </p:column>
+				      
+				      <p:column  rowspan="#{fn:length(requerimiento.pagos)}" style="width: 15%;">			    
+				        <p:outputLabel value="TOTAL % #{requerimiento.totalPorcentaje}." id="footerTotal"></p:outputLabel>		
+				      </p:column>	  	               
+			       
+			  	
+				</p:dataTable>
+		</p:tab>
+		
+	</p:accordionPanel>
+
+</p:outputPanel>
+
+
+
+
+</html>

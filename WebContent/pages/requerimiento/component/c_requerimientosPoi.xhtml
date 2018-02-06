@@ -17,18 +17,18 @@
 		       <div class="ui-panel-content ui-widget-content">
                 <p:panelGrid  columns="2" rendered="#{not empty requerimiento.requerimientoResponse}" columnClasses="label,value" styleClass="gandalfPanelClassSectionFormHeader" >
                  
-                 <p:outputLabel value="Descripción del Pedido:" style=""/>
+                 <p:outputLabel value="Descripción del Pedido:" />
                 
                  <p:inputTextarea value="#{requerimiento.requerimientoResponse.motivoPedido}" disabled="true" style="width:500px"/>
 
-                <p:column><p:outputLabel value="Número del pedido" /></p:column>
-                <p:column><p:inputText  value="#{requerimiento.requerimientoResponse.nroPedido}" disabled="true"/></p:column>
+                 <p:column><p:outputLabel value="Número del pedido" /></p:column>
+                 <p:column><p:inputText  value="#{requerimiento.requerimientoResponse.nroPedido}" disabled="true"/></p:column>
                 
-                <p:column><p:outputLabel value="Tipo de bien:" /></p:column>
-                <p:column><p:inputText  value="#{requerimiento.requerimientoResponse.tipobien}" disabled="true"/></p:column>
+                 <p:column><p:outputLabel value="Tipo de bien:" /></p:column>
+                 <p:column><p:inputText  value="#{requerimiento.requerimientoResponse.tipobien}" disabled="true"/></p:column>
 
-                <p:column><p:outputLabel value="Monto del pedido" /></p:column>
-                <p:column><p:inputText  value="#{requerimiento.requerimientoResponse.montoPedido}" disabled="true"/></p:column>
+                 <p:column><p:outputLabel value="Monto del pedido" /></p:column>
+                 <p:column><p:inputText  value="#{requerimiento.requerimientoResponse.montoPedido}" disabled="true"/></p:column>
                 
                </p:panelGrid>
               </div>

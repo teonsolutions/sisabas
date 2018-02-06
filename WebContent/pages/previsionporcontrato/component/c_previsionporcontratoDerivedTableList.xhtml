@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<h:inputHidden id="hidStatusPrevisionporcontrato" value="#{previsionporcontrato.status}"/>
+<p:contextMenu for="tblListaPrevisionporcontrato">
+	<p:menuitem value="Detalle" action="#{previsionporcontrato.irDetalle}"  process="@this,hidStatusPrevisionporcontrato,tblListaPrevisionporcontrato"  update="hidStatusPrevisionporcontrato,:frmPrevisionporcontratoDetalle:diPrevisionporcontratoDetalle"  oncomplete="showDialog('frmContratoDetalle:panelDetailC:hidStatusPrevisionporcontrato','frmPrevisionporcontratoDetalle:diPrevisionporcontratoDetalle');"  icon="ui-icon-zoomin" rendered="#{previsionporcontrato.renderButton('btnDetalle')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaPrevisionporcontrato" value="#{previsionporcontrato.listaPrevisionporcontrato}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaPrevisionporcontrato" selection="#{previsionporcontrato.selectedPrevisionporcontrato}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(previsionporcontrato.listaPrevisionporcontrato)}"
+	selectionMode="single" rowKey="#{var.idprevisionporcontrato}" styleClass="gandalfTableClass" rowStyleClass="#{var.params.ACTION!=null?(var.params.ACTION=='INSERT'?'old':'dead'):''}">
+		<p:column styleClass="c_numeric" sortBy="#{var.idprevisionporcontrato}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idprevisionporcontrato}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.idprevisionpresupuestal}">
+			<f:facet name="header">
+				<h:outputText value="PrevisionPresupuestal" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idprevisionpresupuestal}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.contratoIdcontrato.idcontrato}">
+			<f:facet name="header">
+				<h:outputText value="Contrato" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.contratoIdcontrato.idcontrato}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.montoprevisiocontrato}">
+			<f:facet name="header">
+				<h:outputText value="MontoPrevisionContrato" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.montoprevisiocontrato}"/>
+		</p:column>
+</p:dataTable>
+</html>

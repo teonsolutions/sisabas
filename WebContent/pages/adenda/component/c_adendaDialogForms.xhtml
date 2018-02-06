@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmAdendaImprimir">
+	<p:dialog id="diAdendaImprimir" header="#{adenda.titulo}" widgetVar="diAdendaImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaAdenda" fileName="datosAdenda" postProcessor="#{adenda.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaAdenda" fileName="datos" preProcessor="#{adenda.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmAdendaRegistrar">
+	<p:dialog id="diAdendaRegistrar" header="#{adenda.titulo}" widgetVar="diAdendaRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsAdendaR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/adenda/component/c_adendaRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{adenda.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{adenda.aceptar}" update="hidStatus,:form:tblListaAdenda,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmAdendaRegistrar:hidStatus','frmAdendaRegistrar:diAdendaRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmAdendaRegistrar:diAdendaRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmAdendaDetalle">
+	<p:dialog id="diAdendaDetalle" header="#{adenda.titulo}" widgetVar="diAdendaDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/adenda/component/c_adendaDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmAdendaDetalle:diAdendaDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmAdendaAnular">
+	<p:dialog id="diAdendaAnular" header="#{adenda.titulo}" widgetVar="diAdendaAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsAdendaA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/adenda/component/c_adendaDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{adenda.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{adenda.anular}" update="hidStatus,:form:tblListaAdenda,:form:growl,panelDetailC" oncomplete="hideDialog('frmAdendaAnular:hidStatus','frmAdendaAnular:diAdendaAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmAdendaAnular:diAdendaAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+</html>

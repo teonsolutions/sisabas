@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+<ui:define name="center">
+<h:form id="form">
+
+<p:panel id="panel" header="#{adenda.tituloParam} #{adenda.tituloBase} Buscar" style="width:98%;">
+<p:focus  for="panel"/>
+
+<p:messages id="msgsForm" for="msgsForm" autoUpdate="true" closable="true" showDetail="true"/>
+<p:growl id="growl" showDetail="true" for="growl"/>
+
+<p:panel>
+<table style="width:100%;" cellpadding="0" cellspacing="5">
+	<tr>
+		<td>
+			<p:outputLabel value="ID" for="txtIdadenda"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdadenda" value="#{adenda.adendaB.idadenda}" disabled="false" maxlength="10" style="width:150px;" label="ID"/>
+		</td>
+		<td>
+			<p:outputLabel value="Contrato" for="txtIdcontrato"/>
+		</td>
+		<td>
+			<p:inputText  id="txtIdcontrato" value="#{adenda.adendaB.contratoIdcontrato.idcontrato}" disabled="true" maxlength="10" style="width:150px;" label="Contrato"/>
+			<p:commandButton icon="ui-icon-search" action="#{cc_contrato.init}"  oncomplete="showDialogPF('frmMainIdcontratoBuscar:diContratoBuscar');" update=":frmMainIdcontratoBuscar:diContratoBuscar" style="width:20px;height:20px;" title="Buscar"  disabled="#{adenda.esDerivada=='1'?true:false}"/>
+			<p:commandButton icon="ui-icon-close" action="#{adenda.resetMainIdcontrato}"  update="txtIdcontrato" style="width:20px;height:20px;" title="Borrar Filtro" immediate="true" disabled="#{adenda.esDerivada=='1'?true:false}"/>
+		</td>
+		<td>
+			<p:outputLabel value="Número Adenda" for="txtNroadenda"/>
+		</td>
+		<td>
+			<p:inputText  id="txtNroadenda" value="#{adenda.adendaB.nroadenda}" disabled="false" maxlength="10" style="width:150px;" label="Número Adenda"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Motivo Adenda" for="txtMotivoadenda"/>
+		</td>
+		<td>
+			<p:inputText  id="txtMotivoadenda" value="#{adenda.adendaB.motivoadenda}" disabled="false" maxlength="500" style="width:150px;" label="Motivo Adenda"/>
+		</td>
+		<td>
+			<p:outputLabel value="Monto Adenda - Desde" for="txtMontoadendaini"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontoadendaini" value ="#{adenda.adendaB.montoadendaini}" maxlength="18" style="width:150px;" label="Monto Adenda - Desde"/>
+		</td>
+		<td>
+			<p:outputLabel value="Monto Adenda - Hasta" for="txtMontoadendafin"/>
+		</td>
+		<td>
+			<p:inputText id="txtMontoadendafin" value ="#{adenda.adendaB.montoadendafin}" maxlength="18" style="width:150px;" label="Monto Adenda - Hasta"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Fecha Inicio Adenda - Desde" for="txtFechainicioadendaini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechainicioadendaini" value="#{adenda.adendaB.fechainicioadendaini}" label="Fecha Inicio Adenda - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="Fecha Inicio Adenda - Hasta" for="txtFechainicioadendafin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechainicioadendafin" value="#{adenda.adendaB.fechainicioadendafin}" label="Fecha Inicio Adenda - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="Fecha Fin Adenda - Desde" for="txtFechafinadendaini"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechafinadendaini" value="#{adenda.adendaB.fechafinadendaini}" label="Fecha Fin Adenda - Desde" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p:outputLabel value="Fecha Fin Adenda - Hasta" for="txtFechafinadendafin"/>
+		</td>
+		<td>
+			<p:calendar id="txtFechafinadendafin" value="#{adenda.adendaB.fechafinadendafin}" label="Fecha Fin Adenda - Hasta" navigator="true" pattern="dd/MM/yyyy HH:mm" locale="es" styleClass="dateTimeField"/>
+		</td>
+		<td>
+			<p:outputLabel value="Estado Adenda" for="txtEstadoadenda"/>
+		</td>
+		<td>
+			<p:inputText  id="txtEstadoadenda" value="#{adenda.adendaB.estadoadenda}" disabled="false" maxlength="10" style="width:150px;" label="Estado Adenda"/>
+		</td>
+		<td>
+			<p:outputLabel value="Ruta Adenda" for="txtRutaadenda"/>
+		</td>
+		<td>
+			<p:inputText  id="txtRutaadenda" value="#{adenda.adendaB.rutaadenda}" disabled="false" maxlength="300" style="width:150px;" label="Ruta Adenda"/>
+		</td>
+	</tr>
+</table>
+</p:panel>
+
+<table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td valign="top">
+			<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+				<h:inputHidden id="hidStatus" value="#{adenda.status}"/>
+			<p:commandButton widgetVar="btnBuscar" id="btnBuscar" value="Buscar" action="#{adenda.buscar}"  update="tblListaAdenda,pnlBotones" icon="ui-icon-search" title="Buscar"  rendered="#{adenda.renderButton('btnBuscar')}"   />
+				<p:spacer width="20"/>
+				<p:commandButton value="Nuevo" action="#{adenda.irRegistrar}"  update="hidStatus,:frmAdendaRegistrar:diAdendaRegistrar" oncomplete="showDialog('form:hidStatus','frmAdendaRegistrar:diAdendaRegistrar');" icon="ui-icon-document"  rendered="#{adenda.renderButton('btnNuevo')}"   />
+				<p:commandButton value="Editar" action="#{adenda.irEditar}"  update="hidStatus,:frmAdendaRegistrar:diAdendaRegistrar" oncomplete="showDialog('form:hidStatus','frmAdendaRegistrar:diAdendaRegistrar');" icon="ui-icon-pencil" disabled="#{!adenda.esSeleccionado}"  rendered="#{adenda.renderButton('btnEditar')}"  />
+				<p:commandButton value="Detalle" action="#{adenda.irDetalle}"  update="hidStatus,:frmAdendaDetalle:diAdendaDetalle" oncomplete="showDialog('form:hidStatus','frmAdendaDetalle:diAdendaDetalle');" icon="ui-icon-zoomin" disabled="#{!adenda.esSeleccionado}"   rendered="#{adenda.renderButton('btnDetalle')}"  />
+				<p:commandButton value="Anular/Activar" action="#{adenda.irAnular}"  update="hidStatus,:frmAdendaAnular:diAdendaAnular" oncomplete="showDialog('form:hidStatus','frmAdendaAnular:diAdendaAnular');" icon="ui-icon-circle-minus" disabled="#{!adenda.esSeleccionado}"   rendered="#{adenda.renderButton('btnAnularActivar')}"  />
+				<p:commandButton value="Eliminar" action="#{adenda.irEliminar}"  update="hidStatus" oncomplete="showDialog('form:hidStatus','form:cdEliminar');" icon="ui-icon-circle-close" title="Eliminar" disabled="#{!adenda.esSeleccionado}"   rendered="#{adenda.renderButton('btnEliminar')}"  />
+				<p:commandButton value="Imprimir" action="#{adenda.irImprimir}"  update="hidStatus,:frmAdendaImprimir:diAdendaImprimir" oncomplete="showDialog('form:hidStatus','frmAdendaImprimir:diAdendaImprimir');" icon="ui-icon-print"   rendered="#{adenda.renderButton('btnImprimir')}"  />
+			</p:panel>
+		</td>
+		<td valign="top">
+			<div align="right" style="margin-top:12px">
+				<p:commandButton value="Salir" action="#{contrato.load}" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{adenda.esDerivada=='1'}"/>
+				<p:commandButton value="Salir" action="/pages/home.xhtml?faces-redirect=true" ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir" rendered="#{adenda.esDerivada=='0'}"/>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<p:contextMenu for="tblListaAdenda">
+	<p:menuitem value="Editar" action="#{adenda.irEditar}"   update="hidStatus,:frmAdendaRegistrar:diAdendaRegistrar"  oncomplete="showDialog('form:hidStatus','frmAdendaRegistrar:diAdendaRegistrar');"  icon="ui-icon-pencil" rendered="#{adenda.renderButton('btnEditar')}" />
+	<p:menuitem value="Detalle" action="#{adenda.irDetalle}"   update="hidStatus,:frmAdendaDetalle:diAdendaDetalle"  oncomplete="showDialog('form:hidStatus','frmAdendaDetalle:diAdendaDetalle');"  icon="ui-icon-zoomin" rendered="#{adenda.renderButton('btnDetalle')}" />
+	<p:menuitem value="Anular/Activar" action="#{adenda.irAnular}"   update="hidStatus,:frmAdendaAnular:diAdendaAnular"  oncomplete="showDialog('form:hidStatus','frmAdendaAnular:diAdendaAnular');"  icon="ui-icon-circle-minus" rendered="#{adenda.renderButton('btnAnularActivar')}" />
+	<p:menuitem value="Eliminar" action="#{adenda.irEliminar}"   update="hidStatus"  oncomplete="showDialog('form:hidStatus','form:cdEliminar');"  icon="ui-icon-close" rendered="#{adenda.renderButton('btnEliminar')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaAdenda" value="#{adenda.listaAdenda}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaAdenda" selection="#{adenda.selectedAdenda}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(adenda.listaAdenda)}"
+	selectionMode="single" rowKey="#{var.idadenda}" styleClass="gandalfTableClass">
+	<p:ajax event="rowSelect" listener="#{adenda.seleccionItem}" update=":form:pnlBotones" immediate="true"/>
+		<p:column styleClass="c_numeric" sortBy="#{var.idadenda}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idadenda}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.contratoIdcontrato.idcontrato}">
+			<f:facet name="header">
+				<h:outputText value="Contrato" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.contratoIdcontrato.idcontrato}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.nroadenda}">
+			<f:facet name="header">
+				<h:outputText value="Número Adenda" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.nroadenda}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.motivoadenda}">
+			<f:facet name="header">
+				<h:outputText value="Motivo Adenda" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.motivoadenda}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.montoadenda}">
+			<f:facet name="header">
+				<h:outputText value="Monto Adenda" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.montoadenda}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechainicioadenda}">
+			<f:facet name="header">
+				<h:outputText value="Fecha Inicio Adenda" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechainicioadenda}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechafinadenda}">
+			<f:facet name="header">
+				<h:outputText value="Fecha Fin Adenda" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechafinadenda}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.estadoadenda}">
+			<f:facet name="header">
+				<h:outputText value="Estado Adenda" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.estadoadenda}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.rutaadenda}">
+			<f:facet name="header">
+				<h:outputText value="Ruta Adenda" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.rutaadenda}"/>
+		</p:column>
+</p:dataTable>
+
+<p:confirmDialog id="cdEliminar" message="Esta seguro de eliminar este registro?"
+	header="Confirmación" severity="alert" widgetVar="cdEliminar">
+	<p:commandButton value="Si" action="#{adenda.eliminar}"  update=":form:tblListaAdenda,:form:growl" oncomplete="hideDialogPF('cdEliminar');"/>
+	<p:commandButton value="No" onclick="hideDialogPF('cdEliminar');" type="button" />
+</p:confirmDialog>
+
+</p:panel>
+</h:form>
+
+<h:form id="frmAdendaImprimir">
+	<p:dialog id="diAdendaImprimir" header="#{adenda.titulo}" widgetVar="diAdendaImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaAdenda" fileName="datosAdenda" postProcessor="#{adenda.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaAdenda" fileName="datos" preProcessor="#{adenda.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmAdendaRegistrar">
+	<p:dialog id="diAdendaRegistrar" header="#{adenda.titulo}" widgetVar="diAdendaRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsAdendaR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/adenda/component/c_adendaRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{adenda.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{adenda.aceptar}" update="hidStatus,:form:tblListaAdenda,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmAdendaRegistrar:hidStatus','frmAdendaRegistrar:diAdendaRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmAdendaRegistrar:diAdendaRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmAdendaDetalle">
+	<p:dialog id="diAdendaDetalle" header="#{adenda.titulo}" widgetVar="diAdendaDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/adenda/component/c_adendaDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmAdendaDetalle:diAdendaDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmAdendaAnular">
+	<p:dialog id="diAdendaAnular" header="#{adenda.titulo}" widgetVar="diAdendaAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsAdendaA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/adenda/component/c_adendaDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{adenda.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{adenda.anular}" update="hidStatus,:form:tblListaAdenda,:form:growl,panelDetailC" oncomplete="hideDialog('frmAdendaAnular:hidStatus','frmAdendaAnular:diAdendaAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmAdendaAnular:diAdendaAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmMainIdcontratoBuscar">
+	<p:dialog id="diContratoBuscar" header="Contrato » Buscar" widgetVar="diContratoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Contrato" autoUpdate="true" closable="true"/>
+	 <cc:cc_contratoBuscar
+	 ajaxEventListener="#{adenda.loadMainIdcontrato}"
+	 actionOncomplete="hideDialogPF('frmMainIdcontratoBuscar:diContratoBuscar');"
+	 actionUpdate=":form:txtIdcontrato"/>
+	</p:dialog>
+</h:form>
+
+
+
+</ui:define>
+</ui:composition>

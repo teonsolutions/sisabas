@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<h:inputHidden id="hidStatusAdenda" value="#{adenda.status}"/>
+<p:contextMenu for="tblListaAdenda">
+	<p:menuitem value="Detalle" action="#{adenda.irDetalle}"  process="@this,hidStatusAdenda,tblListaAdenda"  update="hidStatusAdenda,:frmAdendaDetalle:diAdendaDetalle"  oncomplete="showDialog('frmContratoDetalle:panelDetailC:hidStatusAdenda','frmAdendaDetalle:diAdendaDetalle');"  icon="ui-icon-zoomin" rendered="#{adenda.renderButton('btnDetalle')}" />
+</p:contextMenu>
+<p:dataTable id="tblListaAdenda" value="#{adenda.listaAdenda}" var="var" emptyMessage="No se encontraron registros" 
+	widgetVar="tblListaAdenda" selection="#{adenda.selectedAdenda}"
+	paginator="true" rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(adenda.listaAdenda)}"
+	selectionMode="single" rowKey="#{var.idadenda}" styleClass="gandalfTableClass" rowStyleClass="#{var.params.ACTION!=null?(var.params.ACTION=='INSERT'?'old':'dead'):''}">
+		<p:column styleClass="c_numeric" sortBy="#{var.idadenda}">
+			<f:facet name="header">
+				<h:outputText value="ID" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.idadenda}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.contratoIdcontrato.idcontrato}">
+			<f:facet name="header">
+				<h:outputText value="Contrato" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.contratoIdcontrato.idcontrato}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.nroadenda}">
+			<f:facet name="header">
+				<h:outputText value="Número Adenda" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.nroadenda}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.motivoadenda}">
+			<f:facet name="header">
+				<h:outputText value="Motivo Adenda" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.motivoadenda}"/>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.montoadenda}">
+			<f:facet name="header">
+				<h:outputText value="Monto Adenda" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.montoadenda}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechainicioadenda}">
+			<f:facet name="header">
+				<h:outputText value="Fecha Inicio Adenda" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechainicioadenda}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.fechafinadenda}">
+			<f:facet name="header">
+				<h:outputText value="Fecha Fin Adenda" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.fechafinadenda}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss a" timeZone="GMT-5"/>
+			</h:outputText>
+		</p:column>
+		<p:column styleClass="c_numeric" sortBy="#{var.estadoadenda}">
+			<f:facet name="header">
+				<h:outputText value="Estado Adenda" styleClass="c_numeric"/>
+			</f:facet>
+			<h:outputText value="#{var.estadoadenda}"/>
+		</p:column>
+		<p:column styleClass="c_string" sortBy="#{var.rutaadenda}">
+			<f:facet name="header">
+				<h:outputText value="Ruta Adenda" styleClass="c_string"/>
+			</f:facet>
+			<h:outputText value="#{var.rutaadenda}"/>
+		</p:column>
+</p:dataTable>
+</html>

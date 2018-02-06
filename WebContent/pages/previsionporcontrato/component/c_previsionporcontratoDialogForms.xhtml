@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmPrevisionporcontratoImprimir">
+	<p:dialog id="diPrevisionporcontratoImprimir" header="#{previsionporcontrato.titulo}" widgetVar="diPrevisionporcontratoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaPrevisionporcontrato" fileName="datosPrevisionporcontrato" postProcessor="#{previsionporcontrato.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaPrevisionporcontrato" fileName="datos" preProcessor="#{previsionporcontrato.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPrevisionporcontratoRegistrar">
+	<p:dialog id="diPrevisionporcontratoRegistrar" header="#{previsionporcontrato.titulo}" widgetVar="diPrevisionporcontratoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsPrevisionporcontratoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/previsionporcontrato/component/c_previsionporcontratoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{previsionporcontrato.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{previsionporcontrato.aceptar}" update="hidStatus,:form:tblListaPrevisionporcontrato,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmPrevisionporcontratoRegistrar:hidStatus','frmPrevisionporcontratoRegistrar:diPrevisionporcontratoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPrevisionporcontratoRegistrar:diPrevisionporcontratoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPrevisionporcontratoDetalle">
+	<p:dialog id="diPrevisionporcontratoDetalle" header="#{previsionporcontrato.titulo}" widgetVar="diPrevisionporcontratoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/previsionporcontrato/component/c_previsionporcontratoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPrevisionporcontratoDetalle:diPrevisionporcontratoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmPrevisionporcontratoAnular">
+	<p:dialog id="diPrevisionporcontratoAnular" header="#{previsionporcontrato.titulo}" widgetVar="diPrevisionporcontratoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsPrevisionporcontratoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/previsionporcontrato/component/c_previsionporcontratoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{previsionporcontrato.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{previsionporcontrato.anular}" update="hidStatus,:form:tblListaPrevisionporcontrato,:form:growl,panelDetailC" oncomplete="hideDialog('frmPrevisionporcontratoAnular:hidStatus','frmPrevisionporcontratoAnular:diPrevisionporcontratoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPrevisionporcontratoAnular:diPrevisionporcontratoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+</html>

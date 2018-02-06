@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="frmContratoImprimir">
+	<p:dialog id="diContratoImprimir" header="#{contrato.titulo}" widgetVar="diContratoImprimir" resizable="false" modal="true"  dynamic="true">
+	<h:panelGrid columns="1" style="text-align:center;">
+
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Exportar Lista Excel" ajax="false"   style="width:100px;" >
+		<p:dataExporter type="xls" target=":form:tblListaContrato" fileName="datosContrato" postProcessor="#{contrato.postProcessXLS}"/>
+	</p:commandButton>
+
+	<ui:remove>
+	<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf" ajax="false"  style="width:100px;" >
+		<p:dataExporter type="pdf" target=":form:tblListaContrato" fileName="datos" preProcessor="#{contrato.preProcessPDF}"/>
+	</p:commandButton>
+	</ui:remove>
+
+	</h:panelGrid>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmContratoRegistrar">
+	<p:dialog id="diContratoRegistrar" header="#{contrato.titulo}" widgetVar="diContratoRegistrar" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsContratoR" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/contrato/component/c_contratoRegistrar.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{contrato.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{contrato.aceptar}" update="hidStatus,:form:tblListaContrato,:form:growl,:form:pnlBotones,panelC" oncomplete="hideDialog('frmContratoRegistrar:hidStatus','frmContratoRegistrar:diContratoRegistrar')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmContratoRegistrar:diContratoRegistrar');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmContratoDetalle">
+	<p:dialog id="diContratoDetalle" header="#{contrato.titulo}" widgetVar="diContratoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/contrato/component/c_contratoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmContratoDetalle:diContratoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmContratoAnular">
+	<p:dialog id="diContratoAnular" header="#{contrato.titulo}" widgetVar="diContratoAnular" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+	<p:messages for="msgsContratoA" autoUpdate="true" closable="true"/>
+		<ui:include src="/pages/contrato/component/c_contratoDetalleSimple.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<h:inputHidden id="hidStatus" value="#{contrato.statusRegister}"/>
+					<p:commandButton value="Aceptar" action="#{contrato.anular}" update="hidStatus,:form:tblListaContrato,:form:growl,panelDetailC" oncomplete="hideDialog('frmContratoAnular:hidStatus','frmContratoAnular:diContratoAnular')" icon="ui-icon-circle-check" title="Aceptar"/>
+				</td>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmContratoAnular:diContratoAnular');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdunidadejecutoraBuscar">
+	<p:dialog id="diUnidadejecutoraBuscar" header="Unidad Ejecutora » Buscar" widgetVar="diUnidadejecutoraBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Unidadejecutora" autoUpdate="true" closable="true"/>
+	 <cc:cc_unidadejecutoraBuscar
+	 ajaxEventListener="#{contrato.loadRegIdunidadejecutora}"
+	 actionOncomplete="hideDialogPF('frmRegIdunidadejecutoraBuscar:diUnidadejecutoraBuscar');"
+	 actionUpdate=":frmContratoRegistrar:txtIdunidadejecutora"/>
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmRegIdgrupodocumentoBuscar">
+	<p:dialog id="diGrupodocumentoBuscar" header="Grupo documento » Buscar" widgetVar="diGrupodocumentoBuscar" resizable="false" modal="true" dynamic="true">
+	<p:messages for="msgsCC_Grupodocumento" autoUpdate="true" closable="true"/>
+	 <cc:cc_grupodocumentoBuscar
+	 ajaxEventListener="#{contrato.loadRegIdgrupodocumento}"
+	 actionOncomplete="hideDialogPF('frmRegIdgrupodocumentoBuscar:diGrupodocumentoBuscar');"
+	 actionUpdate=":frmContratoRegistrar:txtIdgrupodocumento"/>
+	</p:dialog>
+</h:form>
+
+
+	<!-- Derived Table Main (adenda)  -->
+<h:form id="frmAdendaDetalle">
+	<p:dialog id="diAdendaDetalle" header="#{adenda.titulo}" widgetVar="diAdendaDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/adenda/component/c_adendaDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmAdendaDetalle:diAdendaDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+	<!-- Derived Table Main (previsionporcontrato)  -->
+<h:form id="frmPrevisionporcontratoDetalle">
+	<p:dialog id="diPrevisionporcontratoDetalle" header="#{previsionporcontrato.titulo}" widgetVar="diPrevisionporcontratoDetalle" resizable="false" modal="true" dynamic="true">
+	<p:scrollPanel mode="native" style="width:100%;height:100%;">
+		<ui:include src="/pages/previsionporcontrato/component/c_previsionporcontratoDetalle.xhtml"/>
+	</p:scrollPanel>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div align="right">
+						<p:commandButton value="Salir" icon="ui-icon-arrowreturnthick-1-w" title="Salir" onclick="hideDialogPF('frmPrevisionporcontratoDetalle:diPrevisionporcontratoDetalle');return false;"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</p:dialog>
+</h:form>
+
+</html>
