@@ -1,6 +1,7 @@
 package pe.com.sisabas.business.impl;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +10,18 @@ import org.springframework.stereotype.Service;
 import pe.com.sisabas.be.Contrato;
 import pe.com.sisabas.be.ContratoRequest;
 import pe.com.sisabas.be.ContratoResponse;
+import pe.com.sisabas.be.Estadosporetapapordocumento;
+import pe.com.sisabas.be.Estadosportipodocumento;
+import pe.com.sisabas.be.Evaluaciondocumento;
 import pe.com.sisabas.business.ContratoBusiness;
 import pe.com.sisabas.persistence.ContratoMapper;
+import pe.com.sisabas.persistence.EstadosporetapapordocumentoMapper;
+import pe.com.sisabas.persistence.EstadosportipodocumentoMapper;
+import pe.com.sisabas.persistence.EvaluaciondocumentoMapper;
 import pe.com.sisabas.resources.business.UtilsBusiness;
 import pe.com.sisabas.resources.Sequence;
 import pe.com.sisabas.resources.Utils;
+import pe.com.sisabas.resources.Constantes;
 import pe.com.sisabas.resources.Messages;
 import pe.com.sisabas.exception.ValidateException;
 
@@ -23,6 +31,15 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 
 	@Autowired
 	public ContratoMapper contratoMapper;
+	
+	@Autowired
+	public EvaluaciondocumentoMapper evaluaciondocumentoMapper;
+	
+	@Autowired
+	public EstadosportipodocumentoMapper estadosportipodocumentoMapper;
+	
+	@Autowired
+	public EstadosporetapapordocumentoMapper estadosporetapapordocumentoMapper;
 	
 	@Autowired
 	public UtilsBusiness utilsBusiness;
@@ -52,8 +69,48 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 		updateBooleanToChar(record);
 		validateInsert(record);
 		Utils.convertPropertiesStringToUppercase(record);
-		contratoMapper.insert(record);
+		contratoMapper.insertBasic(record);
 		
+		//insertando EvaluacionDocumento y EstadosPorEtapaPorDocumento
+		Evaluaciondocumento evaDocumento = new Evaluaciondocumento();
+		evaDocumento.setIdevaluaciondocumento(((int)utilsBusiness.getNextSeq(Sequence.SEQ_EVALUACIONDOCUMENTO).longValue()));
+		evaDocumento.setIdcontrato(record.getIdcontrato());
+		evaDocumento.setIdcatalogoestadodocumentacion(record.getIdcatalogoestadodocumentacion());
+		evaDocumento.setFechacreacionauditoriafin(new Date());
+		evaDocumento.setUsuariocreacionauditoria(record.getUsuariocreacionauditoria());
+		evaDocumento.setEquipoauditoria(record.getEquipoauditoria());
+		
+		
+		
+		
+		evaluaciondocumentoMapper.insert(evaDocumento);
+		
+		//System.out.println("el valor del idContrato es " +record.getIdcontrato());
+		Estadosportipodocumento param = new Estadosportipodocumento();
+		param.setIdtipodocumento(Constantes.tipoDocumento.PROCESO);
+		param.setIdestadosporetapa(Constantes.estadosPorEtapa.EN_COMITE_ESPECIAL); //sincronizar
+		Estadosportipodocumento estado = estadosportipodocumentoMapper.selectByEtapaTipoDocumento(param);
+		
+		if (estado != null) {
+			java.util.Date date = new java.util.Date();
+			Estadosporetapapordocumento estadoNuevo = new Estadosporetapapordocumento();
+			estadoNuevo.setNrodocumento(record.getIdcontrato()); //Process number
+			estadoNuevo.setIdestadosportipodocumento(estado.getIdestadosportipodocumento());
+			estadoNuevo.setIdtipodocumento(Constantes.tipoDocumento.PROCESO);
+			estadoNuevo.setFechaingreso(date);
+			estadoNuevo.setFechacreacionauditoria(date);
+			estadoNuevo.setUsuariocreacionauditoria(record.getUsuariocreacionauditoria());
+			estadoNuevo.setEquipoauditoria(record.getEquipoauditoria());
+			estadoNuevo.setProgramaauditoria(record.getProgramaauditoria());
+
+			// record.setIdestadosporetapapordocumento((int)utilsBusiness.getNextSeqTemporal(pe.com.sisabas.resources.Sequence.SEQ_ESTADOSPORETAPAPORDOCUMENTO).longValue());
+
+			estadoNuevo.setIdestadosporetapapordocumento(
+					(int) utilsBusiness.getNextSeq(Sequence.SEQ_ESTADOSPORETAPAPORDOCUMENTO).longValue());
+
+			estadoNuevo.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+			estadosporetapapordocumentoMapper.insert(estadoNuevo);
+		}
 	}
 	
 	public void updateBooleanToChar(Contrato record) throws Exception {
@@ -103,5 +160,8 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 			throw new ValidateException(Messages.getString("contrato.estadoauditoria.length.error",record.getEstadoauditoria().length()));
 
 		//Here Bussines Validations.
+		
 	}
+
+	
 }

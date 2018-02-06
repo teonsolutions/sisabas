@@ -26,6 +26,8 @@ public interface ContratoMapper {
 	int updateByPrimaryKey(Contrato record) throws Exception;
 
 	int insert(Contrato record) throws Exception;
+	
+	int insertBasic(Contrato record) throws Exception;
 
 	int insertSelective(Contrato record) throws Exception;
 	

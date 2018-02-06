@@ -4,6 +4,7 @@ package pe.com.sisabas.controller;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -16,10 +17,12 @@ import org.springframework.stereotype.Component;
 import pe.com.sisabas.be.Contrato;
 import pe.com.sisabas.be.ContratoRequest;
 import pe.com.sisabas.be.ContratoResponse;
+import pe.com.sisabas.be.Evaluaciondocumento;
 import pe.com.sisabas.be.Gentabla;
 import pe.com.sisabas.be.Grupodocumento;
 import pe.com.sisabas.be.Unidadejecutora;
 import pe.com.sisabas.business.ContratoBusiness;
+import pe.com.sisabas.business.EvaluaciondocumentoBusiness;
 import pe.com.sisabas.business.GentablaBusiness;
 import pe.com.sisabas.business.VcentrocostoBusiness;
 import pe.com.sisabas.dto.CentroCostoRequest;
@@ -31,6 +34,9 @@ import pe.com.sisabas.exception.SecurityValidateException;
 import pe.com.sisabas.exception.UnselectedRowException;
 import pe.com.sisabas.resources.Constantes;
 import pe.com.sisabas.resources.Messages;
+import pe.com.sisabas.resources.Sequence;
+import pe.com.sisabas.resources.Utils;
+import pe.com.sisabas.resources.business.UtilsBusiness;
 import pe.com.sisabas.resources.controller.BaseController;
 import pe.com.sisabas.service.Sicuusuario;
 
@@ -45,6 +51,8 @@ public class ContratoController extends BaseController {
 	private boolean avanzado = false;
 	
 	private List<String> listaIdcatalogosistemaadquisicionKeys;
+	
+	public List<Gentabla> listaGentablaIdcatalogoestadodocumentacion;
 	
 	private Contrato contratoB;
 	
@@ -69,9 +77,18 @@ public class ContratoController extends BaseController {
 	
 	private String tituloBase;
 	private String tituloParam;
+	private String estadodocumentacion;
+	private Evaluaciondocumento evaldocumento;
+	
+	
+	@Autowired
+	public EvaluaciondocumentoBusiness evalDocumentoBusiness;
 	
 	@Autowired
 	public GentablaBusiness gentablaBusiness;
+	
+	@Autowired
+	public UtilsBusiness utilsBusiness;
 	
 	@Autowired
 	public VcentrocostoBusiness vcentrocostoBusiness;
@@ -81,6 +98,7 @@ public class ContratoController extends BaseController {
 		contrato = new Contrato();
 		contrato.setUnidadejecutoraIdunidadejecutora(new Unidadejecutora());
 		contrato.setGrupodocumentoIdgrupodocumento(new Grupodocumento());
+		contrato.setGentablaIdcatalogoestadodocumentacion(new Gentabla());
 
 }
 
@@ -90,11 +108,13 @@ public class ContratoController extends BaseController {
 		
 		try {
 			
+		evaldocumento = new Evaluaciondocumento();
 		contratoB = new Contrato();	
 		tituloBase = "Contrato » ";	
 			
 		contratoB.setUnidadejecutoraIdunidadejecutora(new Unidadejecutora());
 		contratoB.setGrupodocumentoIdgrupodocumento(new Grupodocumento());
+		contratoB.setGentablaIdcatalogoestadodocumentacion(new Gentabla());
 			
 		Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");	
 		listaIdcatalogosistemaadquisicionKeys= new ArrayList<String>();
@@ -115,6 +135,7 @@ public class ContratoController extends BaseController {
 		
 		listaEstadoRequerimiento = gentablaBusiness.getEstadoRequerimiento(Constantes.etapaAdministrativa.EJECUCION_CONTRACTUAL);
 		
+		listaGentablaIdcatalogoestadodocumentacion = gentablaBusiness.selectDynamicBasic(new Gentabla());
 		
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
@@ -185,8 +206,48 @@ public class ContratoController extends BaseController {
 	
 	public void insertarContratos(){
 		
-		System.out.println("***************Fer5**************" + contratoResponse.getIdProcesoSeleccion());
-		
+		try {
+
+			//Insertado...
+			
+			System.out.println("IdCatalogoEstadoDocumentacion" +contratoResponse.getEstadoDocumentacionDesc());
+			
+			Integer seqContrato = (int)utilsBusiness.getNextSeq(Sequence.SEQ_CONTRATO).longValue();
+			
+			contrato.setIdcontrato(seqContrato);
+			contrato.setIdgrupodocumento(contratoResponse.getIdDocumento());
+			contrato.setDniespecialistaejecucion(contratoResponse.getDniEspEjecucion());
+			contrato.setNombreespecialista(contratoResponse.getNomEspEjecucion());
+			contrato.setFecharecepcionexpediente(new Date());
+			contrato.setNroconsolid(contratoResponse.getNroConsolid());
+	        contrato.setNrocontrato(contratoResponse.getNroContrato());
+	        contrato.setAnio(contratoResponse.getAnoProceso());
+	        contrato.setEstadocontrato(contratoResponse.getEstadoContrato());
+	        contrato.setIdunidadejecutora(Constantes.unidadEjecutora.ID_UNIDAD_EJECUTORA_ABAS);
+	        contrato.setFechacreacionauditoria(Utils.currentTimeStamp());
+	        contrato.setUsuariocreacionauditoria(getUserLogin());
+	       // contrato.setGentablaIdcatalogoestadodocumentacion(gentablaIdcatalogoestadodocumentacion);
+	        contrato.setIdcatalogoestadodocumentacion(this.estadodocumentacion);
+	        contrato.setProgramaauditoria(pe.com.sisabas.resources.Utils.obtenerPrograma(this.getClass()));
+	        contrato.setEquipoauditoria(getRemoteAddr());
+	       // contrato.setGentablaIdcatalogoestadodocumentacion(gentablaBusiness.selectByPrimaryKeyBasicFromList(contrato.getIdcatalogoestadodocumentacion(),listaGentablaIdcatalogoestadodocumentacion));
+	       contratoBusiness.insertBasic(contrato);
+	       /*System.out.println("el valor del idContrato es " +contrato.getIdcontrato());*/
+	       buscarContratos();
+
+	       //contratoBusiness.selectByPrimaryKeyBasic(requerimientoResponse.getIdPedido());
+	       
+	       /*
+	       evaldocumento.setIdevaluaciondocumento(((int)utilsBusiness.getNextSeq(Sequence.SEQ_EVALUACIONDOCUMENTO).longValue()));
+	       evaldocumento.setIdcontrato(contrato.getIdcontrato());
+	       evaldocumento.setIdcatalogoestadodocumentacion(contrato.getIdcatalogoestadodocumentacion());
+	       evalDocumentoBusiness.insertBasic(evaldocumento);*/
+	              
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 	}
@@ -340,6 +401,36 @@ public class ContratoController extends BaseController {
 	public void setListaIdcatalogosistemaadquisicionKeys(List<String> listaIdcatalogosistemaadquisicionKeys) {
 		this.listaIdcatalogosistemaadquisicionKeys = listaIdcatalogosistemaadquisicionKeys;
 	}
+	
+	
+	public void setListaGentablaIdcatalogoestadodocumentacion(List<Gentabla> listaGentablaIdcatalogoestadodocumentacion){
+		this.listaGentablaIdcatalogoestadodocumentacion=listaGentablaIdcatalogoestadodocumentacion;
+	}
+
+	public List<Gentabla> getListaGentablaIdcatalogoestadodocumentacion(){
+		return listaGentablaIdcatalogoestadodocumentacion;
+	}
+
+
+	public String getEstadodocumentacion() {
+		return estadodocumentacion;
+	}
+
+
+	public void setEstadodocumentacion(String estadodocumentacion) {
+		this.estadodocumentacion = estadodocumentacion;
+	}
+
+
+	public Evaluaciondocumento getEvaldocumento() {
+		return evaldocumento;
+	}
+
+
+	public void setEvaldocumento(Evaluaciondocumento evaldocumento) {
+		this.evaldocumento = evaldocumento;
+	}
+	
 	
 	
 	

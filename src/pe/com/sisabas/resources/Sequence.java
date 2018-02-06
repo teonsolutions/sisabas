@@ -3,6 +3,7 @@ package pe.com.sisabas.resources;
 
 public class Sequence{
 
+	public static final String SEQ_SISABAS="seq_sisabas";	
 	public static final String SEQ_ABAS="seq_abas";
 	public static final String SEQ_CERTIFICADOPRESUPUESTAL="seq_certificadopresupuestal";
 	public static final String SEQ_COMITEPROCESO="seq_comiteproceso";

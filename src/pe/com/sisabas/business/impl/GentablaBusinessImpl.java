@@ -76,14 +76,20 @@ public class GentablaBusinessImpl implements GentablaBusiness, Serializable{
 
 	@Override
 	public Gentabla selectByPrimaryKeyBasicFromList(java.lang.String par_vchregcodigo, List<Gentabla> list) throws Exception {
+		System.out.println("--ww1--");
 		Gentabla record=null;
 		for (Gentabla row : list) {
+			System.out.println("Vchregcodigo" +row.getVchregcodigo());
+			
+			
 			if(row.equals(new Gentabla( par_vchregcodigo))){
 				record=row;
+				System.out.println("encontro!! "+record.getVchregcodigo());
 				break;
 			}
 		}
 		if(record==null)
+			System.out.println("--ww0--");
 			record=selectByPrimaryKeyBasic( par_vchregcodigo);
 
 		return record;
