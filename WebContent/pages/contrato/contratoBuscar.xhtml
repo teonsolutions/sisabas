@@ -113,7 +113,7 @@ a:-webkit-any-link {
            <tr>
              <td><p:outputLabel value="Tipo de proceso(SIGA)" /></td>
              <td><p:selectOneMenu value="#{contrato.contratoRequest.tipoProceso}" id="ddlTipoProceso" >
-												<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+												<f:selectItem itemLabel="TODOS" itemValue="" />
 												<f:selectItems value="#{programacion.listaTipoProceso}"
 													var="var" itemLabel="#{var.descripcion}"
 													itemValue="#{var.codigo}" />
