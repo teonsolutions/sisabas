@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import pe.com.sisabas.be.Calendarioprocesoseleccion;
 import pe.com.sisabas.be.Comiteproceso;
 import pe.com.sisabas.be.Convocatoriaprocesoseleccion;
+import pe.com.sisabas.be.Entregable;
 import pe.com.sisabas.be.Estadosporetapapordocumento;
 import pe.com.sisabas.be.Estadosportipodocumento;
 import pe.com.sisabas.be.Miembrocomiteporproceso;
@@ -26,6 +28,7 @@ import pe.com.sisabas.dto.ProcesoRequest;
 import pe.com.sisabas.dto.Resultado;
 import pe.com.sisabas.dto.TransactionRequest;
 import pe.com.sisabas.dto.TransactionResponse;
+import pe.com.sisabas.persistence.CalendarioprocesoseleccionMapper;
 import pe.com.sisabas.persistence.ComiteprocesoMapper;
 import pe.com.sisabas.persistence.ConvocatoriaprocesoseleccionMapper;
 import pe.com.sisabas.persistence.EstadosporetapapordocumentoMapper;
@@ -38,7 +41,7 @@ import pe.com.sisabas.resources.Sequence;
 import pe.com.sisabas.resources.business.UtilsBusiness;
 
 @Service
-public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable{
+public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 
 	/**
 	 * 
@@ -50,25 +53,28 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable{
 
 	@Autowired
 	public EstadosporetapapordocumentoMapper estadosporetapapordocumentoMapper;
-	
+
 	@Autowired
 	public UtilsBusiness utilsBusiness;
-	
+
 	@Autowired
-	public EstadosportipodocumentoMapper estadosportipodocumentoMapper;	
-	
+	public EstadosportipodocumentoMapper estadosportipodocumentoMapper;
+
 	@Autowired
 	public MiembrocomiteporprocesoMapper miembrocomiteporprocesoMapper;
-	
+
 	@Autowired
 	public ComiteprocesoMapper comiteprocesoMapper;
-	
+
 	@Autowired
 	public ProcesoseleccionMapper procesoseleccionMapper;
 
 	@Autowired
 	public ConvocatoriaprocesoseleccionMapper convocatoriaprocesoseleccionMapper;
-	
+
+	@Autowired
+	public CalendarioprocesoseleccionMapper calendarioprocesoseleccionMapper;
+
 	@Override
 	public List<ProcesoDto> searchProceso(ProcesoRequest request) throws Exception {
 		// TODO Auto-generated method stub
@@ -81,18 +87,18 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable{
 		// TODO Auto-generated method stub
 		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
 		ProcesoDto procesoDto = request.getEntityTransaction();
-		Pacconsolidado pac = pacconsolidadoMapper.selectByPrimaryKeyBasic(procesoDto.getIdPacConsolidado());	
-		
-		//status
+		Pacconsolidado pac = pacconsolidadoMapper.selectByPrimaryKeyBasic(procesoDto.getIdPacConsolidado());
+
+		// status
 		Estadosportipodocumento param = new Estadosportipodocumento();
 		param.setIdtipodocumento(Constantes.tipoDocumento.PROCESO);
 		param.setIdestadosporetapa(Constantes.estadosPorEtapa.EN_COMITE_ESPECIAL);
 		Estadosportipodocumento estado = estadosportipodocumentoMapper.selectByEtapaTipoDocumento(param);
-		
-		//Process
+
+		// Process
 		Integer idProcesoSeleccion = 0;
-		
-		//Get miembros de comité de selección
+
+		// Get miembros de comité de selección
 		List<String> ordenListaCampos = new ArrayList<String>();
 		ordenListaCampos.add("A1.IDMIEMBROCOMITEPROCESO");
 		Miembrocomiteporproceso miembrocomiteporproceso = new Miembrocomiteporproceso();
@@ -103,14 +109,15 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable{
 		miembrocomiteporproceso.addConditionInIdcatalogotipomiembro(null);
 		miembrocomiteporproceso.addConditionInIdcatalogoestadomiembrocomite(null);
 		miembrocomiteporproceso.setIdmiembrocomiteproceso(pac.getIdcomiteproceso());
-		List<Miembrocomiteporproceso> listaMiembrocomiteporproceso = miembrocomiteporprocesoMapper.selectDynamicFull(miembrocomiteporproceso);
-		
+		List<Miembrocomiteporproceso> listaMiembrocomiteporproceso = miembrocomiteporprocesoMapper
+				.selectDynamicFull(miembrocomiteporproceso);
+
 		Integer idComiteProceso = 0;
-		if (listaMiembrocomiteporproceso != null && listaMiembrocomiteporproceso.size() > 0){
+		if (listaMiembrocomiteporproceso != null && listaMiembrocomiteporproceso.size() > 0) {
 			boolean cmSaved = false;
 			for (Miembrocomiteporproceso member : listaMiembrocomiteporproceso) {
-				if (!cmSaved){
-					//create new miembro comite
+				if (!cmSaved) {
+					// create new miembro comite
 					Comiteproceso comiteMiembro = new Comiteproceso();
 					comiteMiembro.setFechacreacionauditoria(new Date());
 					comiteMiembro.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
@@ -119,12 +126,12 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable{
 					comiteMiembro.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
 					idComiteProceso = (int) utilsBusiness.getNextSeq(Sequence.SEQ_COMITEPROCESO).longValue();
 					comiteMiembro.setIdcomiteproceso(idComiteProceso);
-					comiteprocesoMapper.insert(comiteMiembro);	
+					comiteprocesoMapper.insert(comiteMiembro);
 					cmSaved = true;
 				}
-				
-				//members
-				Miembrocomiteporproceso miembrocomiteporprocesoNew = (Miembrocomiteporproceso)member.clone();
+
+				// members
+				Miembrocomiteporproceso miembrocomiteporprocesoNew = (Miembrocomiteporproceso) member.clone();
 				miembrocomiteporprocesoNew.setIdcomiteproceso(idComiteProceso);
 				miembrocomiteporprocesoNew.setFechacreacionauditoria(new Date());
 				miembrocomiteporprocesoNew.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
@@ -133,11 +140,11 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable{
 				miembrocomiteporprocesoNew.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
 				miembrocomiteporprocesoNew.setIdmiembrocomiteproceso(
 						(int) utilsBusiness.getNextSeq(Sequence.SEQ_MIEMBROCOMITEPORPROCESO).longValue());
-				miembrocomiteporprocesoMapper.insert(miembrocomiteporprocesoNew);							
+				miembrocomiteporprocesoMapper.insert(miembrocomiteporprocesoNew);
 			}
 		}
-		
-		//insert process
+
+		// insert process
 		Procesoseleccion processNew = new Procesoseleccion();
 		processNew.setIdpacconsolidado(procesoDto.getIdPacConsolidado());
 		processNew.setCodigotipoproceso(procesoDto.getCodigoTipoProceso());
@@ -149,29 +156,31 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable{
 		processNew.setNombreexpecialistaproceso(procesoDto.getNombreEspecialistaProceso());
 		processNew.setFecharecepcionexpediente(new Date());
 		processNew.setEstadoproceso(estado.getIdestadosportipodocumento());
-		processNew.setIdcatalogotipomodalidad(procesoDto.getTipoModalidad() != null && procesoDto.getTipoModalidad() == "1"? Constantes.tipoModalidad.ITEM: Constantes.tipoModalidad.PAQUETE);
+		processNew.setIdcatalogotipomodalidad(
+				procesoDto.getTipoModalidad() != null && procesoDto.getTipoModalidad() == "1"
+						? Constantes.tipoModalidad.ITEM : Constantes.tipoModalidad.PAQUETE);
 		processNew.setAnio(procesoDto.getAnio());
 		processNew.setIdcomiteproceso(idComiteProceso);
-		processNew.setComitenotificado("0"); //bay default 0 = false
-		//log
+		processNew.setComitenotificado("0"); // bay default 0 = false
+		// log
 		processNew.setFechacreacionauditoria(new Date());
 		processNew.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
 		processNew.setEquipoauditoria(request.getEquipoAuditoria());
 		processNew.setProgramaauditoria(request.getProgramaAuditoria());
-		processNew.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);		
-		idProcesoSeleccion = (int) utilsBusiness.getNextSeq(Sequence.SEQ_PROCESOSELECCION).longValue();		
-		processNew.setIdprocesoseleccion(idProcesoSeleccion);				
+		processNew.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+		idProcesoSeleccion = (int) utilsBusiness.getNextSeq(Sequence.SEQ_PROCESOSELECCION).longValue();
+		processNew.setIdprocesoseleccion(idProcesoSeleccion);
 		procesoseleccionMapper.insert(processNew);
-				
-		//create convocatoria by default
+
+		// create convocatoria by default
 		Convocatoriaprocesoseleccion convocatoriaNew = new Convocatoriaprocesoseleccion();
 		convocatoriaNew.setIdprocesoseleccion(idProcesoSeleccion);
-		convocatoriaNew.setNroconvocatoria(1); //default 1
-		convocatoriaNew.setSecuencia(1); //default 1
+		convocatoriaNew.setNroconvocatoria(1); // default 1
+		convocatoriaNew.setSecuencia(1); // default 1
 		BigDecimal valorReferencial = new BigDecimal(procesoDto.getValorEstimadoContratacion());
 		convocatoriaNew.setValorreferencia(valorReferencial);
 		convocatoriaNew.setEstadoconvocatoriaitem(Constantes.estadoConvocatoriaItem.REGISTRADO);
-		convocatoriaNew.setPrincipal("1"); //default "1" = true
+		convocatoriaNew.setPrincipal("1"); // default "1" = true
 		convocatoriaNew.setFechacreacionauditoria(new Date());
 		convocatoriaNew.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
 		convocatoriaNew.setEquipoauditoria(request.getEquipoAuditoria());
@@ -180,11 +189,11 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable{
 		convocatoriaNew.setIdconvocatoriaproceso(
 				(int) utilsBusiness.getNextSeq(Sequence.SEQ_CONVOCATORIAPROCESOSELECCION).longValue());
 		convocatoriaprocesoseleccionMapper.insert(convocatoriaNew);
-		
+
 		if (estado != null) {
 			java.util.Date date = new java.util.Date();
 			Estadosporetapapordocumento record = new Estadosporetapapordocumento();
-			record.setNrodocumento(idProcesoSeleccion); //Process number
+			record.setNrodocumento(idProcesoSeleccion); // Process number
 			record.setIdestadosportipodocumento(estado.getIdestadosportipodocumento());
 			record.setIdtipodocumento(Constantes.tipoDocumento.PROCESO);
 			record.setFechaingreso(date);
@@ -199,11 +208,10 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable{
 
 			record.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
 			estadosporetapapordocumentoMapper.insert(record);
-		}	
-		
-		//Miembros de comite de selección hace una copia de PAO
-		
-		
+		}
+
+		// Miembros de comite de selección hace una copia de PAO
+
 		return result;
 	}
 
@@ -266,7 +274,8 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable{
 		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
 		List<Miembrocomiteporproceso> members = request.getEntityTransaction();
 		for (Miembrocomiteporproceso member : members) {
-			Miembrocomiteporproceso miembrocomiteporproceso = miembrocomiteporprocesoMapper.selectByPrimaryKeyBasic(member.getIdmiembrocomiteproceso());
+			Miembrocomiteporproceso miembrocomiteporproceso = miembrocomiteporprocesoMapper
+					.selectByPrimaryKeyBasic(member.getIdmiembrocomiteproceso());
 			miembrocomiteporproceso.setEsnotificado("1");
 			miembrocomiteporproceso.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
 			miembrocomiteporproceso.setFechamodificacionauditoria(new Date());
@@ -289,10 +298,11 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable{
 		// TODO Auto-generated method stub
 		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
 		Procesoseleccion procesoRequest = request.getEntityTransaction();
-		Procesoseleccion procesoEdit = procesoseleccionMapper.selectByPrimaryKeyBasic(procesoRequest.getIdprocesoseleccion());
+		Procesoseleccion procesoEdit = procesoseleccionMapper
+				.selectByPrimaryKeyBasic(procesoRequest.getIdprocesoseleccion());
 		boolean derivadaEjecucion = false;
-		
-		//editing process...
+
+		// editing process...
 		procesoEdit.setFechaactaproyectobase(procesoRequest.getFechaactaproyectobase());
 		procesoEdit.setNroactaproyectobase(procesoRequest.getNroactaproyectobase());
 		procesoEdit.setFechaobservacionbase(procesoRequest.getFechaobservacionbase());
@@ -303,30 +313,120 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable{
 		procesoEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
 		procesoEdit.setFechamodificacionauditoria(new Date());
 		procesoEdit.setEquipoauditoria(request.getEquipoAuditoria());
-		procesoEdit.setProgramaauditoria(request.getProgramaAuditoria());		
+		procesoEdit.setProgramaauditoria(request.getProgramaAuditoria());
+		procesoseleccionMapper.updateByPrimaryKey(procesoEdit);
+
+		// ******************************SAVE
+		// CONVOCATORIA******************************************
+		// before delete convocatorias
+		// delete details
+		/*
+		List<Entregable> entregablesDelete = entregableMapper.getEntegablesByOrden(ordenDto.getIdOrden());
+		for (Entregable item : ordenDto.getEntegables()) {
+			for (Entregable delete : entregablesDelete) {
+				if (item.getIdentregable() == delete.getIdentregable()) {
+					delete.setEstadoauditoria("Keep");
+				}
+			}
+		}
+		// Elimino aquelos no estas
+		for (Entregable entregable : entregablesDelete) {
+			if (!entregable.getEstadoauditoria().equals("Keep")) {
+				entregableMapper.deleteByPrimaryKey(entregable.getIdentregable());
+			}
+		}		
+		List<Convocatoriaprocesoseleccion> convocatoriasDelete = convocatoriaprocesoseleccionMapper.selectConvocatoriaByIdProceso(procesoRequest.getIdprocesoseleccion());
+		for (Convocatoriaprocesoseleccion item : procesoRequest.getListaConvocatoriaprocesoseleccion()) {
+			for (Convocatoriaprocesoseleccion delete : convocatoriasDelete) {
+				
+			}
+		}
+		*/
 		
-		//******************************SAVE CONVOCATORIA******************************************
-		//before delete convocatorias
 		Convocatoriaprocesoseleccion convocatoriaEdit;
 		for (Convocatoriaprocesoseleccion convocatoria : procesoRequest.getListaConvocatoriaprocesoseleccion()) {
-			if (convocatoria.getIdconvocatoriaproceso() == null){
+			if (convocatoria.getIdconvocatoriaproceso() == null) {
+				// add
 				convocatoria.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
 				convocatoria.setFechacreacionauditoria(new Date());
 				convocatoria.setProgramaauditoria(request.getProgramaAuditoria());
 				convocatoria.setEquipoauditoria(request.getEquipoAuditoria());
 				convocatoria.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+				convocatoria.setIdconvocatoriaproceso(
+						(int) utilsBusiness.getNextSeq(Sequence.SEQ_CONVOCATORIAPROCESOSELECCION).longValue());
 				convocatoriaprocesoseleccionMapper.insert(convocatoria);
-			}else{
-				convocatoriaEdit = convocatoriaprocesoseleccionMapper.selectByPrimaryKeyBasic(convocatoria.getIdconvocatoriaproceso());
+			} else {
+				// update
+				convocatoriaEdit = convocatoriaprocesoseleccionMapper
+						.selectByPrimaryKeyBasic(convocatoria.getIdconvocatoriaproceso());
+				convocatoriaEdit.setValorreferencia(convocatoria.getValorreferencia());
+				convocatoriaEdit.setIdcatalogoestadoconvocatoria(convocatoria.getIdcatalogoestadoconvocatoria());
+				convocatoriaEdit.setFechainicio(convocatoria.getFechainicio());
+				convocatoriaEdit.setFechafin(convocatoria.getFechafin());
 				convocatoriaEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
 				convocatoriaEdit.setFechamodificacionauditoria(new Date());
 				convocatoriaEdit.setProgramaauditoria(request.getProgramaAuditoria());
-				convocatoriaEdit.setEquipoauditoria(request.getEquipoAuditoria());				
+				convocatoriaEdit.setEquipoauditoria(request.getEquipoAuditoria());
 				convocatoriaprocesoseleccionMapper.updateByPrimaryKey(convocatoriaEdit);
 			}
+
+			// save calendar
+			if (convocatoria.getListaCalendarioprocesoseleccion() != null){
+				for (Calendarioprocesoseleccion calendar : convocatoria.getListaCalendarioprocesoseleccion()) {
+					if (calendar.getIdcalendarioproceso() == null) {
+						// add
+						calendar.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+						calendar.setFechacreacionauditoria(new Date());
+						calendar.setProgramaauditoria(request.getProgramaAuditoria());
+						calendar.setEquipoauditoria(request.getEquipoAuditoria());
+						calendar.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+						calendar.setIdconvocatoriaproceso(
+								(int) utilsBusiness.getNextSeq(Sequence.SEQ_CALENDARIOPROCESOSELECCION).longValue());					
+						calendarioprocesoseleccionMapper.insert(calendar);
+					} else {
+						// update
+						Calendarioprocesoseleccion calendarEdit = calendarioprocesoseleccionMapper
+								.selectByPrimaryKeyBasic(calendar.getIdcalendarioproceso());
+						calendarEdit.setFechainicio(calendar.getFechainicio());
+						calendarEdit.setFechafin(calendar.getFechafin());
+						calendarEdit.setIdcatalogoestadopublicacion(calendar.getIdcatalogoestadopublicacion());
+						calendarEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
+						calendarEdit.setFechamodificacionauditoria(new Date());
+						calendarEdit.setProgramaauditoria(request.getProgramaAuditoria());
+						calendarEdit.setEquipoauditoria(request.getEquipoAuditoria());
+						calendarioprocesoseleccionMapper.updateByPrimaryKey(calendarEdit);
+					}
+				}				
+			}
 		}
-		
+
+		// insert status
+		if (derivadaEjecucion) {
+			Estadosportipodocumento param = new Estadosportipodocumento();
+			param.setIdtipodocumento(Constantes.tipoDocumento.PROCESO);
+			param.setIdestadosporetapa(Constantes.estadosPorEtapa.REMITIDO_A_EJECUCION);
+			Estadosportipodocumento estado = estadosportipodocumentoMapper.selectByEtapaTipoDocumento(param);
+
+			if (estado != null) {
+				java.util.Date date = new java.util.Date();
+				Estadosporetapapordocumento record = new Estadosporetapapordocumento();
+				record.setNrodocumento(procesoRequest.getIdprocesoseleccion()); // Process
+																				// number
+				record.setIdestadosportipodocumento(estado.getIdestadosportipodocumento());
+				record.setIdtipodocumento(Constantes.tipoDocumento.PROCESO);
+				record.setFechaingreso(date);
+				record.setFechacreacionauditoria(date);
+				record.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+				record.setEquipoauditoria(request.getEquipoAuditoria());
+				record.setIdestadosporetapapordocumento(
+						(int) utilsBusiness.getNextSeq(Sequence.SEQ_ESTADOSPORETAPAPORDOCUMENTO).longValue());
+
+				record.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+				estadosporetapapordocumentoMapper.insert(record);
+			}
+		}
+
 		return result;
 	}
-	
+
 }

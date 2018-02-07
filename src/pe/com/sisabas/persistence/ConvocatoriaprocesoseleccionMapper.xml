@@ -621,4 +621,9 @@
 
 	</if>
 	</select>
+	
+	<select id="selectConvocatoriaByIdProceso" resultMap="BasicResultMap" parameterType="java.lang.Integer">
+		select * from abas.ConvocatoriaProcesoSeleccion where IdProcesoSeleccion = (#{idProcesoSeleccion})
+	</select>	
+
 </mapper>

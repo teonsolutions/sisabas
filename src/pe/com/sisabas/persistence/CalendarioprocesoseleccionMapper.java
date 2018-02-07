@@ -30,5 +30,7 @@ public interface CalendarioprocesoseleccionMapper{
 
 	List<Calendarioprocesoseleccion> selectDynamicExtended(Calendarioprocesoseleccion record) throws Exception;
 
+	//CUSTOM
+	List<Calendarioprocesoseleccion> selectCalendarioByIdConvocatoria(@Param("idConvocatoriaProceso") java.lang.Integer idConvocatoriaProceso) throws Exception;	
 
 }

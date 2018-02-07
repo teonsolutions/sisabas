@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
+import pe.com.sisabas.be.Calendarioprocesoseleccion;
 import pe.com.sisabas.be.Convocatoriaprocesoseleccion;
 import pe.com.sisabas.be.Gentabla;
 import pe.com.sisabas.be.Miembrocomiteporproceso;
@@ -70,10 +71,13 @@ public class ProcesoController extends BaseController {
 	private List<Miembrocomiteporproceso> listaMiembrocomiteporproceso;
 	private List<Gentabla> listaSistemaContratacion;
 
+	private List<Convocatoriaprocesoseleccion> listConvocatoria;
+	private List<Calendarioprocesoseleccion> listCalendario;
+
 	private String idOpcionText = "OPC_PROCESO";
 	public static String SUCCESS_SEGUIMIENTO = "/pages/proceso/procesoSeguimiento.xhtml?faces-redirect=true;";
 	private boolean disabledButtons;
-	
+
 	// Business layer section
 	@Autowired
 	public pe.com.sisabas.resources.business.UtilsBusiness utilsBusiness;
@@ -126,6 +130,9 @@ public class ProcesoController extends BaseController {
 					Constantes.estadosPorTipoDocumento.REMITIDO_A_EJECUCION);
 			listaEstadoRequerimiento.add(0, newEstado);
 
+			listaSistemaContratacion = gentablaBusiness
+					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.SICP));
+
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
 		} catch (SecurityRestrictedControlException e) {
@@ -147,25 +154,26 @@ public class ProcesoController extends BaseController {
 		logger.debug("pacRegistrar....");
 		try {
 
-			//Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
+			// Sicuusuario usuario = (Sicuusuario)
+			// getHttpSession().getAttribute("sicuusuarioSESSION");
 			validateSelectedRow();
 			if (this.esSeleccionado) {
 			}
 
 			this.processEdit = procesoseleccionBusiness.selectByPrimaryKeyBasic(currentRow.getIdProcesoSeleccion());
-			List<Convocatoriaprocesoseleccion> listConvoca = convocatoriaprocesoseleccionBusiness.selectByIdProceso(currentRow.getIdProcesoSeleccion());
+			List<Convocatoriaprocesoseleccion> listConvoca = convocatoriaprocesoseleccionBusiness
+					.selectByIdProceso(currentRow.getIdProcesoSeleccion());
 			this.processEdit.setListaConvocatoriaprocesoseleccion(listConvoca);
-			
+
 			// convocatoriaprocesoseleccionBusiness.selectByPrimaryKeyBasic(par_idconvocatoriaproceso)
-			//Get convocatorias
-			//Get calendarios
+			// Get convocatorias
+			// Get calendarios
 
 			// Get miembros de comite por proceso
 			listaMiembrocomiteporproceso = miembrocomiteporprocesoBusiness.selectDynamicFullByIdComiteProceso(
 					this.currentRow.getIdComiteProceso() != null ? this.currentRow.getIdComiteProceso() : 0);
-			listaSistemaContratacion = gentablaBusiness
-					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.SICP));
-			
+			this.listConvocatoria = convocatoriaprocesoseleccionBusiness
+					.selectByIdProceso(this.currentRow.getIdProcesoSeleccion());
 
 		} catch (Exception e) {
 			addErrorMessage(e);
@@ -186,18 +194,22 @@ public class ProcesoController extends BaseController {
 				return;
 			}
 
-			
-			REGISTER_SUCCESS();			
+			TransactionRequest<Procesoseleccion> request = new TransactionRequest<Procesoseleccion>();
+			request.setUsuarioAuditoria(getUserLogin());
+			request.setEquipoAuditoria(getRemoteAddr());
+			request.setEntityTransaction(processEdit);
+			Resultado result = procesoBusiness.saveProceso(request);
+
+			REGISTER_SUCCESS();
 			showGrowlMessageSuccessfullyCompletedAction();
-			
+
 			/*
-		} catch (ValidateException e) {
-			REGISTER_ERROR();
-			addMessageKey("msgsDocumentotecnicoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
-		} catch (BusinessException e) {
-			REGISTER_ERROR();
-			addMessageKey("msgsDocumentotecnicoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
-			*/
+			 * } catch (ValidateException e) { REGISTER_ERROR();
+			 * addMessageKey("msgsDocumentotecnicoR", e.getMessage(),
+			 * FacesMessage.SEVERITY_ERROR); } catch (BusinessException e) {
+			 * REGISTER_ERROR(); addMessageKey("msgsDocumentotecnicoR",
+			 * e.getMessage(), FacesMessage.SEVERITY_ERROR);
+			 */
 		} catch (DataIntegrityViolationException e) {
 			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),
 					Messages.getString("exception.dataintegrity.message.detail"), FacesMessage.SEVERITY_ERROR);
@@ -206,7 +218,7 @@ public class ProcesoController extends BaseController {
 			addErrorMessageKey("msgsDocumentotecnicoR", e);
 		}
 	}
-	
+
 	public void irImprimir() {
 		STATUS_INIT();
 		try {
@@ -389,7 +401,22 @@ public class ProcesoController extends BaseController {
 		this.disabledButtons = disabledButtons;
 	}
 
-	
+	public List<Convocatoriaprocesoseleccion> getListConvocatoria() {
+		return listConvocatoria;
+	}
+
+	public void setListConvocatoria(List<Convocatoriaprocesoseleccion> listConvocatoria) {
+		this.listConvocatoria = listConvocatoria;
+	}
+
+	public List<Calendarioprocesoseleccion> getListCalendario() {
+		return listCalendario;
+	}
+
+	public void setListCalendario(List<Calendarioprocesoseleccion> listCalendario) {
+		this.listCalendario = listCalendario;
+	}
+
 	// properties
 
 }

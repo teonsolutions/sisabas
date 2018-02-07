@@ -113,11 +113,11 @@
 												label="Fecha de recepción" navigator="true" locale="es"
 												styleClass="dateTimeField" style="width:100%" /></td>
 										<td><p:inputText id="txtDniEspecialistaProceso"
-												required="true" maxlength="10" style="width:150px;"
+												required="false" maxlength="8" style="width:150px;"
 												label="DNI Especialista de procesos" disabled="true"
 												value="#{proceso.currentRow.dniEspecialistaProceso}" /></td>
 										<td><p:inputText id="txtNombreEspecialistaProceso"
-												required="true" maxlength="10" style="width:100%;"
+												required="false" maxlength="300" style="width:100%;"
 												label="Nombre de Especialista de procesos" disabled="true"
 												value="#{proceso.currentRow.nombreEspecialistaProceso}" /></td>
 									</tr>
@@ -230,7 +230,7 @@
 										</td>
 										<td><p:selectOneMenu
 												value="#{proceso.processEdit.idcatalogosistemacontratacion}"
-												id="ddlSistemaContratacion" required="false"
+												id="ddlSistemaContratacion" required="true"
 												label="Sistema de contratación">
 												<f:selectItem itemLabel="--Seleccione--" itemValue="" />
 												<f:selectItems value="#{proceso.listaSistemaContratacion}"
@@ -276,51 +276,51 @@
 						<p:accordionPanel id="accCalendario" multiple="true">
 							<p:tab title="Convocatorias">
 								<p:dataTable id="tblListaConvocatoria"
-									value="#{procesoRecepcion.listaMiembrocomiteporproceso}"
+									value="#{proceso.listConvocatoria}"
 									var="var" emptyMessage="No se encontraron registros"
-									widgetVar="tblListaMiembrocomiteporproceso"
+									widgetVar="tblListaConvocatoria"
 									selection="#{procesoRecepcion.selectedMiembrocomiteporproceso}"
 									paginator="true" rows="#{sisabascontrol.registros_mant}"
 									paginatorPosition="bottom"
-									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(procesoRecepcion.listaMiembrocomiteporproceso)}"
-									selectionMode="single" rowKey="#{var.idmiembrocomiteproceso}"
+									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(proceso.listConvocatoria)}"
+									selectionMode="single" rowKey="#{var.idconvocatoriaproceso}"
 									styleClass="gandalfTableClass">
 									<p:column styleClass="c_numeric"
-										sortBy="#{var.personaIdpersona.nombres}">
+										sortBy="#{var.nroconvocatoria}">
 										<f:facet name="header">
-											<h:outputText value="Persona" styleClass="c_numeric" />
+											<h:outputText value="Número Convocatoria" styleClass="c_numeric" />
 										</f:facet>
 										<h:outputText value="#{var.personaIdpersona.nombres}" />
 									</p:column>
 									<p:column styleClass="c_center"
-										sortBy="#{var.gentablaIdcatalogotipomiembro.vchregdescri}">
+										sortBy="#{var.secuencia}">
 										<f:facet name="header">
-											<h:outputText value="TipoMiembro" styleClass="c_center" />
+											<h:outputText value="Secuencia" styleClass="c_center" />
 										</f:facet>
 										<h:outputText
-											value="#{var.gentablaIdcatalogotipomiembro.vchregdescri}" />
+											value="#{var.secuencia}" />
 									</p:column>
-									<p:column styleClass="c_string" sortBy="#{var.correo}">
+									<p:column styleClass="c_string" sortBy="#{var.valorreferencia}">
 										<f:facet name="header">
-											<h:outputText value="Correo" styleClass="c_string" />
+											<h:outputText value="Valor Referencial S/." styleClass="c_string" />
 										</f:facet>
-										<h:outputText value="#{var.correo}" />
+										<h:outputText value="#{var.valorreferencia}" />
 									</p:column>
-									<p:column styleClass="c_center" sortBy="#{var.telefono}">
+									<p:column styleClass="c_center" sortBy="#{var.idcatalogoestadoconvocatoria}">
 										<f:facet name="header">
-											<h:outputText value="Teléfono" styleClass="c_center" />
+											<h:outputText value="Estado" styleClass="c_center" />
 										</f:facet>
-										<h:outputText value="#{var.telefono}" />
+										<h:outputText value="#{var.idcatalogoestadoconvocatoria}" />
 									</p:column>
-									<p:column styleClass="c_center" sortBy="#{var.anexo}">
+									<p:column styleClass="c_center" sortBy="#{var.fechainicio}">
 										<f:facet name="header">
-											<h:outputText value="Anexo" styleClass="c_center" />
+											<h:outputText value="Fecha Inicial" styleClass="c_center" />
 										</f:facet>
 										<h:outputText value="#{var.anexo}" />
 									</p:column>
-									<p:column styleClass="c_center" sortBy="#{var.celular}">
+									<p:column styleClass="c_center" sortBy="#{var.fechafin}">
 										<f:facet name="header">
-											<h:outputText value="Celular" styleClass="c_center" />
+											<h:outputText value="Fecha Final" styleClass="c_center" />
 										</f:facet>
 										<h:outputText value="#{var.celular}" />
 									</p:column>
@@ -331,51 +331,37 @@
 								<p:dataTable id="tblListaCalendario"
 									value="#{procesoRecepcion.listaMiembrocomiteporproceso}"
 									var="var" emptyMessage="No se encontraron registros"
-									widgetVar="tblListaMiembrocomiteporproceso"
-									selection="#{procesoRecepcion.selectedMiembrocomiteporproceso}"
+									widgetVar="tblListaCalendario"
+									selection="#{proceso.listCalendario}"
 									paginator="true" rows="#{sisabascontrol.registros_mant}"
 									paginatorPosition="bottom"
-									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(procesoRecepcion.listaMiembrocomiteporproceso)}"
-									selectionMode="single" rowKey="#{var.idmiembrocomiteproceso}"
+									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(proceso.listCalendario)}"
+									selectionMode="single" rowKey="#{var.idcalendarioproceso}"
 									styleClass="gandalfTableClass">
-									<p:column styleClass="c_numeric"
-										sortBy="#{var.personaIdpersona.nombres}">
+									<p:column styleClass="c_string"
+										sortBy="#{var.nombrecalendario}">
 										<f:facet name="header">
-											<h:outputText value="Persona" styleClass="c_numeric" />
+											<h:outputText value="Actividades del proceso" styleClass="c_string" />
 										</f:facet>
-										<h:outputText value="#{var.personaIdpersona.nombres}" />
+										<h:outputText value="#{var.nombrecalendario}" />
 									</p:column>
-									<p:column styleClass="c_center"
-										sortBy="#{var.gentablaIdcatalogotipomiembro.vchregdescri}">
-										<f:facet name="header">
-											<h:outputText value="TipoMiembro" styleClass="c_center" />
-										</f:facet>
-										<h:outputText
-											value="#{var.gentablaIdcatalogotipomiembro.vchregdescri}" />
-									</p:column>
-									<p:column styleClass="c_string" sortBy="#{var.correo}">
+									<p:column styleClass="c_string" sortBy="#{var.fechainicio}">
 										<f:facet name="header">
 											<h:outputText value="Correo" styleClass="c_string" />
 										</f:facet>
-										<h:outputText value="#{var.correo}" />
+										<h:outputText value="#{var.fechainicio}" />
 									</p:column>
-									<p:column styleClass="c_center" sortBy="#{var.telefono}">
+									<p:column styleClass="c_center" sortBy="#{var.fechafin}">
 										<f:facet name="header">
 											<h:outputText value="Teléfono" styleClass="c_center" />
 										</f:facet>
-										<h:outputText value="#{var.telefono}" />
+										<h:outputText value="#{var.fechafin}" />
 									</p:column>
-									<p:column styleClass="c_center" sortBy="#{var.anexo}">
-										<f:facet name="header">
-											<h:outputText value="Anexo" styleClass="c_center" />
-										</f:facet>
-										<h:outputText value="#{var.anexo}" />
-									</p:column>
-									<p:column styleClass="c_center" sortBy="#{var.celular}">
+									<p:column styleClass="c_center" sortBy="#{var.idcatalogoestadopublicacion}">
 										<f:facet name="header">
 											<h:outputText value="Celular" styleClass="c_center" />
 										</f:facet>
-										<h:outputText value="#{var.celular}" />
+										<h:outputText value="#{var.idcatalogoestadopublicacion}" />
 									</p:column>
 								</p:dataTable>
 

@@ -583,4 +583,8 @@
 
 	</if>
 	</select>
+	
+	<select id="selectCalendarioByIdConvocatoria" resultMap="BasicResultMap" parameterType="java.lang.Integer">
+		select * from abas.CalendarioProcesoSeleccion where IdConvocatoriaProceso = (#{idConvocatoriaProceso})
+	</select>	
 </mapper>
