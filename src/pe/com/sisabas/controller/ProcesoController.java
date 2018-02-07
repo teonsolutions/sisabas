@@ -1,11 +1,15 @@
 package pe.com.sisabas.controller;
 
 import java.rmi.RemoteException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
+import org.primefaces.event.RowEditEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -25,6 +29,7 @@ import pe.com.sisabas.business.VcentrocostoBusiness;
 import pe.com.sisabas.dto.CentroCostoRequest;
 import pe.com.sisabas.dto.CentroCostoResponse;
 import pe.com.sisabas.dto.EstadoRequerimientoResponse;
+import pe.com.sisabas.dto.OrdenDto;
 import pe.com.sisabas.dto.PacConsolidadoDto;
 import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
@@ -281,6 +286,19 @@ public class ProcesoController extends BaseController {
 			currentRow = (ProcesoDto) selectedRow.clone();
 	}
 
+	// Datatable Editable
+	public void onRowEdit(RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("Se editó correctamente",
+				"Convocatoria: " + ((Convocatoriaprocesoseleccion) event.getObject()).getNroconvocatoria());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void onRowCancel(RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("Se canceló la edición",
+				"Convocatoria: " + ((Convocatoriaprocesoseleccion) event.getObject()).getNroconvocatoria());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+	
 	public List<ProcesoDto> getDataList() {
 		return dataList;
 	}

@@ -89,7 +89,7 @@
 
 				</table>
 
-				<p:tabView id="tabViewPao" dynamic="true"
+				<p:tabView id="tabViewProceso" dynamic="true"
 					activeIndex="#{programacion.pacTabIndex}">
 					<p:tab title="Datos de proceso selección">
 						<p:accordionPanel id="accDatosGenerales" multiple="true">
@@ -284,13 +284,20 @@
 									paginatorPosition="bottom"
 									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(proceso.listConvocatoria)}"
 									selectionMode="single" rowKey="#{var.idconvocatoriaproceso}"
-									styleClass="gandalfTableClass">
-									<p:column styleClass="c_numeric"
+									styleClass="gandalfTableClass"
+									editable="true">
+									
+									<p:ajax event="rowEdit" listener="#{proceso.onRowEdit}"
+										update=":form:msgs,form:tabViewProceso:accCalendario:tblListaConvocatoria" />
+									<p:ajax event="rowEditCancel"
+										listener="#{proceso.onRowCancel}" update=":form:msgs" />
+																			
+									<p:column styleClass="c_center"
 										sortBy="#{var.nroconvocatoria}">
 										<f:facet name="header">
-											<h:outputText value="Número Convocatoria" styleClass="c_numeric" />
+											<h:outputText value="Número Convocatoria" styleClass="c_center" />
 										</f:facet>
-										<h:outputText value="#{var.personaIdpersona.nombres}" />
+										<h:outputText value="#{var.nroconvocatoria}" />
 									</p:column>
 									<p:column styleClass="c_center"
 										sortBy="#{var.secuencia}">
@@ -300,9 +307,9 @@
 										<h:outputText
 											value="#{var.secuencia}" />
 									</p:column>
-									<p:column styleClass="c_string" sortBy="#{var.valorreferencia}">
+									<p:column styleClass="c_numeric" sortBy="#{var.valorreferencia}">
 										<f:facet name="header">
-											<h:outputText value="Valor Referencial S/." styleClass="c_string" />
+											<h:outputText value="Valor Referencial S/." styleClass="c_numeric" />
 										</f:facet>
 										<h:outputText value="#{var.valorreferencia}" />
 									</p:column>
@@ -316,14 +323,17 @@
 										<f:facet name="header">
 											<h:outputText value="Fecha Inicial" styleClass="c_center" />
 										</f:facet>
-										<h:outputText value="#{var.anexo}" />
+										<h:outputText value="#{var.fechainicio}" />
 									</p:column>
 									<p:column styleClass="c_center" sortBy="#{var.fechafin}">
 										<f:facet name="header">
 											<h:outputText value="Fecha Final" styleClass="c_center" />
 										</f:facet>
-										<h:outputText value="#{var.celular}" />
-									</p:column>
+										<h:outputText value="#{var.fechafin}" />
+									</p:column>									
+									<p:column headerText="Acciones">
+										<p:rowEditor editTitle="Editar" />
+									</p:column>																		
 								</p:dataTable>
 
 							</p:tab>
