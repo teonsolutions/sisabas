@@ -280,7 +280,7 @@
 									var="var" emptyMessage="No se encontraron registros"
 									widgetVar="tblListaConvocatoria"
 									selection="#{procesoRecepcion.selectedMiembrocomiteporproceso}"
-									paginator="true" rows="#{sisabascontrol.registros_mant}"
+									paginator="false" rows="#{sisabascontrol.registros_mant}"
 									paginatorPosition="bottom"
 									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(proceso.listConvocatoria)}"
 									selectionMode="single" rowKey="#{var.idconvocatoriaproceso}"
@@ -386,11 +386,12 @@
 									var="var" emptyMessage="No se encontraron registros"
 									widgetVar="tblListaCalendario"	
 									selection="#{procesoRecepcion.selectedMiembrocomiteporproceso}"								
-									paginator="true" rows="#{sisabascontrol.registros_mant}"
+									paginator="false" rows="#{sisabascontrol.registros_mant}"
 									paginatorPosition="bottom"
 									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(proceso.listCalendario)}"
 									selectionMode="single" rowKey="#{var.idcatalogocodigocalendario}"
-									styleClass="gandalfTableClass">
+									styleClass="gandalfTableClass"
+									editable="true">
 									
 									<p:ajax event="rowEdit" listener="#{proceso.onRowEditCalendar}"
 										update=":form:msgs,form:tabViewProceso:accCalendario:tblListaCalendario" />

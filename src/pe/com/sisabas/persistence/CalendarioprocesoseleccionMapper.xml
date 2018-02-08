@@ -594,7 +594,7 @@
 	</if>
 	</select>
 	
-	<select id="selectCalendarioByIdConvocatoria" resultMap="BasicResultMap" parameterType="java.lang.Integer">
+	<select id="selectCalendarioByIdConvocatoria" resultMap="BasicResultMapCustom" parameterType="java.lang.Integer">
 		select x.IdCalendarioProceso, x.IdConvocatoriaProceso, ISNULL(x.IdCatalogoCodigoCalendario, ac.vchregCodigo) as IdCatalogoCodigoCalendario, 
 			ISNULL(x.NombreCalendario, ac.vchregdescri) as NombreCalendario, x.FechaInicio, x.FechaFin, x.IdCatalogoEstadoPublicacion, x.DescripcionEstado
 		from (

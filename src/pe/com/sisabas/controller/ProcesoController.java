@@ -81,7 +81,7 @@ public class ProcesoController extends BaseController {
 	private List<Miembrocomiteporproceso> listaMiembrocomiteporproceso;
 	private List<Gentabla> listaSistemaContratacion;
 	private List<Gentabla> listaGentablaIdcatalogoestadoconvocatoria;
-	private List<Gentabla> listaGentablaIdcatalogoestadopublicacion;	
+	private List<Gentabla> listaGentablaIdcatalogoestadopublicacion;
 
 	private List<ConvocatoriaDto> listConvocatoria;
 	private List<CalendarioDto> listCalendario;
@@ -147,7 +147,7 @@ public class ProcesoController extends BaseController {
 
 			listaGentablaIdcatalogoestadoconvocatoria = gentablaBusiness
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.ECPR));
-			
+
 			listaGentablaIdcatalogoestadopublicacion = gentablaBusiness
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EEPR));
 
@@ -182,13 +182,12 @@ public class ProcesoController extends BaseController {
 			// Get miembros de comite por proceso
 			listaMiembrocomiteporproceso = miembrocomiteporprocesoBusiness.selectDynamicFullByIdComiteProceso(
 					this.currentRow.getIdComiteProceso() != null ? this.currentRow.getIdComiteProceso() : 0);
-			this.listConvocatoria = procesoBusiness
-					.searchConvocatoriaProceso(this.currentRow.getIdProcesoSeleccion());
-			//Set current calendar
-			if (this.listConvocatoria != null && this.listConvocatoria.size() > 0){
-				if (this.listConvocatoria.get(0).getListaCalendario() != null){
-					this.listCalendario = this.listConvocatoria.get(0).getListaCalendario(); 
-				}				
+			this.listConvocatoria = procesoBusiness.searchConvocatoriaProceso(this.currentRow.getIdProcesoSeleccion());
+			// Set current calendar
+			if (this.listConvocatoria != null && this.listConvocatoria.size() > 0) {
+				if (this.listConvocatoria.get(0).getListaCalendario() != null) {
+					this.listCalendario = this.listConvocatoria.get(0).getListaCalendario();
+				}
 			}
 		} catch (Exception e) {
 			addErrorMessage(e);
@@ -209,7 +208,7 @@ public class ProcesoController extends BaseController {
 				return;
 			}
 
-			TransactionRequest<Procesoseleccion> request = new TransactionRequest<Procesoseleccion>();				
+			TransactionRequest<Procesoseleccion> request = new TransactionRequest<Procesoseleccion>();
 			List<Convocatoriaprocesoseleccion> listconvoca = new ArrayList<Convocatoriaprocesoseleccion>();
 			for (ConvocatoriaDto item : listConvocatoria) {
 				Convocatoriaprocesoseleccion newItem = new Convocatoriaprocesoseleccion();
@@ -220,9 +219,9 @@ public class ProcesoController extends BaseController {
 				newItem.setIdcatalogoestadoconvocatoria(item.getIdcatalogoestadoconvocatoria());
 				newItem.setFechainicio(item.getFechainicio());
 				newItem.setFechafin(item.getFechafin());
-				
+
 				List<Calendarioprocesoseleccion> lstCalendario = new ArrayList<Calendarioprocesoseleccion>();
-				if (item.getListaCalendario() != null){
+				if (item.getListaCalendario() != null) {
 					for (CalendarioDto calendar : listCalendario) {
 						Calendarioprocesoseleccion newCalendar = new Calendarioprocesoseleccion();
 						newCalendar.setIdcalendarioproceso(calendar.getIdcalendarioproceso());
@@ -235,10 +234,10 @@ public class ProcesoController extends BaseController {
 						lstCalendario.add(newCalendar);
 					}
 					newItem.setListaCalendarioprocesoseleccion(lstCalendario);
-				}				
+				}
 				listconvoca.add(newItem);
 			}
-			
+
 			request.setUsuarioAuditoria(getUserLogin());
 			request.setEquipoAuditoria(getRemoteAddr());
 			request.setEntityTransaction(processEdit);
@@ -329,6 +328,14 @@ public class ProcesoController extends BaseController {
 	public void onRowEdit(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Se editó correctamente",
 				"Convocatoria: " + ((ConvocatoriaDto) event.getObject()).getNroconvocatoria());
+		// get description of the status
+		try {
+			String id = ((ConvocatoriaDto) event.getObject()).getIdcatalogoestadoconvocatoria();
+			Gentabla genTabla = gentablaBusiness.selectByPrimaryKeyBasic(id);
+			String descripcion = genTabla != null ? genTabla.getVchregdescri() : "";
+			((ConvocatoriaDto) event.getObject()).setDescripcionestado(descripcion);
+		} catch (Exception ex) {
+		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
@@ -337,7 +344,7 @@ public class ProcesoController extends BaseController {
 				"Convocatoria: " + ((ConvocatoriaDto) event.getObject()).getNroconvocatoria());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
-	
+
 	public void onRowEditCalendar(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Se editó correctamente",
 				"Calendario: " + ((CalendarioDto) event.getObject()).getNombrecalendario());
@@ -349,7 +356,7 @@ public class ProcesoController extends BaseController {
 				"Calendario: " + ((CalendarioDto) event.getObject()).getNombrecalendario());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
-	
+
 	public List<ProcesoDto> getDataList() {
 		return dataList;
 	}
@@ -501,8 +508,7 @@ public class ProcesoController extends BaseController {
 	public void setListaGentablaIdcatalogoestadopublicacion(List<Gentabla> listaGentablaIdcatalogoestadopublicacion) {
 		this.listaGentablaIdcatalogoestadopublicacion = listaGentablaIdcatalogoestadopublicacion;
 	}
-	
-	
+
 	// properties
 
 }
