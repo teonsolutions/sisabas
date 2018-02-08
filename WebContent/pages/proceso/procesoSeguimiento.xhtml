@@ -306,31 +306,74 @@
 										</f:facet>
 										<h:outputText
 											value="#{var.secuencia}" />
-									</p:column>
-									<p:column styleClass="c_numeric" sortBy="#{var.valorreferencia}">
-										<f:facet name="header">
-											<h:outputText value="Valor Referencial S/." styleClass="c_numeric" />
-										</f:facet>
-										<h:outputText value="#{var.valorreferencia}" />
-									</p:column>
-									<p:column styleClass="c_center" sortBy="#{var.idcatalogoestadoconvocatoria}">
-										<f:facet name="header">
-											<h:outputText value="Estado" styleClass="c_center" />
-										</f:facet>
-										<h:outputText value="#{var.idcatalogoestadoconvocatoria}" />
-									</p:column>
-									<p:column styleClass="c_center" sortBy="#{var.fechainicio}">
-										<f:facet name="header">
-											<h:outputText value="Fecha Inicial" styleClass="c_center" />
-										</f:facet>
-										<h:outputText value="#{var.fechainicio}" />
-									</p:column>
-									<p:column styleClass="c_center" sortBy="#{var.fechafin}">
-										<f:facet name="header">
-											<h:outputText value="Fecha Final" styleClass="c_center" />
-										</f:facet>
-										<h:outputText value="#{var.fechafin}" />
 									</p:column>									
+									<p:column headerText="Valor Referencial S/.">
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.valorreferencia}" />
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:inputNumber value="#{var.valorreferencia}" style="width:100%"
+													label="Year" maxlength="20" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>									
+									<p:column headerText="Estado">
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.descripcionestado}" />
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:selectOneMenu value="#{var.idcatalogoestadoconvocatoria}"
+													id="ddlEstado" required="false"
+													label="Estado" style="width: 95%">
+													<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+													<f:selectItems
+														value="#{proceso.listaGentablaIdcatalogoestadoconvocatoria}"
+														var="var" itemLabel="#{var.vchregdescri}"
+														itemValue="#{var.vchregcodigo}" />
+												</p:selectOneMenu>
+											</f:facet>
+										</p:cellEditor>
+									</p:column>																		
+									<p:column headerText="Fecha Inicial">
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.fechainicio}">
+														<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+													</h:outputText>
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:calendar value="#{var.fechainicio}"
+													required="false" pattern="dd/MM/yyyy"
+													label="Fecha Inicial" navigator="true"
+													locale="es" styleClass="dateTimeField" style="width:100%" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+									<p:column headerText="Fecha Final">
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.fechafin}">
+														<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+													</h:outputText>
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:calendar value="#{var.fechafin}"
+													required="false" pattern="dd/MM/yyyy"
+													label="Fecha Final" navigator="true"
+													locale="es" styleClass="dateTimeField" style="width:100%" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>																		
 									<p:column headerText="Acciones">
 										<p:rowEditor editTitle="Editar" />
 									</p:column>																		
@@ -339,40 +382,85 @@
 							</p:tab>
 							<p:tab title="Calendario">
 								<p:dataTable id="tblListaCalendario"
-									value="#{procesoRecepcion.listaMiembrocomiteporproceso}"
+									value="#{proceso.listCalendario}"
 									var="var" emptyMessage="No se encontraron registros"
-									widgetVar="tblListaCalendario"
-									selection="#{proceso.listCalendario}"
+									widgetVar="tblListaCalendario"	
+									selection="#{procesoRecepcion.selectedMiembrocomiteporproceso}"								
 									paginator="true" rows="#{sisabascontrol.registros_mant}"
 									paginatorPosition="bottom"
 									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(proceso.listCalendario)}"
-									selectionMode="single" rowKey="#{var.idcalendarioproceso}"
+									selectionMode="single" rowKey="#{var.idcatalogocodigocalendario}"
 									styleClass="gandalfTableClass">
+									
+									<p:ajax event="rowEdit" listener="#{proceso.onRowEditCalendar}"
+										update=":form:msgs,form:tabViewProceso:accCalendario:tblListaCalendario" />
+									<p:ajax event="rowEditCancel"
+										listener="#{proceso.onRowCancelCalendar}" update=":form:msgs" />
+																			
 									<p:column styleClass="c_string"
 										sortBy="#{var.nombrecalendario}">
 										<f:facet name="header">
 											<h:outputText value="Actividades del proceso" styleClass="c_string" />
 										</f:facet>
 										<h:outputText value="#{var.nombrecalendario}" />
+									</p:column>												
+									<p:column headerText="Fecha Inicial">
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.fechainicio}">
+														<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+													</h:outputText>
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:calendar value="#{var.fechainicio}"
+													required="false" pattern="dd/MM/yyyy"
+													label="Fecha Inicial" navigator="true"
+													locale="es" styleClass="dateTimeField" style="width:100%" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>																		
+									<p:column headerText="Fecha Final">
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.fechafin}">
+														<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+													</h:outputText>
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:calendar value="#{var.fechafin}"
+													required="false" pattern="dd/MM/yyyy"
+													label="Fecha Final" navigator="true"
+													locale="es" styleClass="dateTimeField" style="width:100%" />
+											</f:facet>
+										</p:cellEditor>
 									</p:column>
-									<p:column styleClass="c_string" sortBy="#{var.fechainicio}">
-										<f:facet name="header">
-											<h:outputText value="Correo" styleClass="c_string" />
-										</f:facet>
-										<h:outputText value="#{var.fechainicio}" />
-									</p:column>
-									<p:column styleClass="c_center" sortBy="#{var.fechafin}">
-										<f:facet name="header">
-											<h:outputText value="Teléfono" styleClass="c_center" />
-										</f:facet>
-										<h:outputText value="#{var.fechafin}" />
-									</p:column>
-									<p:column styleClass="c_center" sortBy="#{var.idcatalogoestadopublicacion}">
-										<f:facet name="header">
-											<h:outputText value="Celular" styleClass="c_center" />
-										</f:facet>
-										<h:outputText value="#{var.idcatalogoestadopublicacion}" />
-									</p:column>
+									<p:column headerText="Estado">
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.descripcionestado}" />
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:selectOneMenu value="#{var.idcatalogoestadopublicacion}"
+													id="ddlEstado" required="false"
+													label="Estado" style="width: 95%">
+													<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+													<f:selectItems
+														value="#{proceso.listaGentablaIdcatalogoestadopublicacion}"
+														var="var" itemLabel="#{var.vchregdescri}"
+														itemValue="#{var.vchregcodigo}" />
+												</p:selectOneMenu>
+											</f:facet>
+										</p:cellEditor>
+									</p:column>									
+									<p:column headerText="Acciones">
+										<p:rowEditor editTitle="Editar" />
+									</p:column>										
 								</p:dataTable>
 
 							</p:tab>

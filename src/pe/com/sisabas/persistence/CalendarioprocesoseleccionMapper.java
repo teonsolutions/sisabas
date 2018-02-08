@@ -3,6 +3,7 @@ package pe.com.sisabas.persistence;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import pe.com.sisabas.be.Calendarioprocesoseleccion;
+import pe.com.sisabas.dto.CalendarioDto;
 
 public interface CalendarioprocesoseleccionMapper{
 
@@ -31,6 +32,6 @@ public interface CalendarioprocesoseleccionMapper{
 	List<Calendarioprocesoseleccion> selectDynamicExtended(Calendarioprocesoseleccion record) throws Exception;
 
 	//CUSTOM
-	List<Calendarioprocesoseleccion> selectCalendarioByIdConvocatoria(@Param("idConvocatoriaProceso") java.lang.Integer idConvocatoriaProceso) throws Exception;	
+	List<CalendarioDto> selectCalendarioByIdConvocatoria(@Param("idConvocatoriaProceso") java.lang.Integer idConvocatoriaProceso) throws Exception;	
 
 }

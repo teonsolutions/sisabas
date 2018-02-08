@@ -3,6 +3,7 @@ package pe.com.sisabas.persistence;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import pe.com.sisabas.be.Convocatoriaprocesoseleccion;
+import pe.com.sisabas.dto.ConvocatoriaDto;
 
 public interface ConvocatoriaprocesoseleccionMapper{
 
@@ -31,6 +32,6 @@ public interface ConvocatoriaprocesoseleccionMapper{
 	List<Convocatoriaprocesoseleccion> selectDynamicExtended(Convocatoriaprocesoseleccion record) throws Exception;
 
 	//CUSTOM
-	List<Convocatoriaprocesoseleccion> selectConvocatoriaByIdProceso(@Param("idProcesoSeleccion") java.lang.Integer idProcesoSeleccion) throws Exception;
+	List<ConvocatoriaDto> selectConvocatoriaByIdProceso(@Param("idProcesoSeleccion") java.lang.Integer idProcesoSeleccion) throws Exception;
 	
 }

@@ -95,7 +95,17 @@
 
 	</resultMap>
 
-
+	<resultMap id="BasicResultMapCustom" type="pe.com.sisabas.dto.CalendarioDto">
+	<result column="IdCalendarioProceso" property="idcalendarioproceso" jdbcType="INTEGER" />
+	<result column="IdConvocatoriaProceso" property="idconvocatoriaproceso" jdbcType="INTEGER" />
+	<result column="IdCatalogoCodigoCalendario" property="idcatalogocodigocalendario" jdbcType="VARCHAR" />
+	<result column="NombreCalendario" property="nombrecalendario" jdbcType="VARCHAR" />
+	<result column="FechaInicio" property="fechainicio" jdbcType="TIMESTAMP" />
+	<result column="FechaFin" property="fechafin" jdbcType="TIMESTAMP" />
+	<result column="IdCatalogoEstadoPublicacion" property="idcatalogoestadopublicacion" jdbcType="VARCHAR" />
+	<result column="DescripcionEstado" property="descripcionestado" jdbcType="VARCHAR" />	
+	</resultMap>
+	
 	<sql id="Basic_Column_List">
 	A1.IDCALENDARIOPROCESO as A1_IDCALENDARIOPROCESO, A1.IDCONVOCATORIAPROCESO as A1_IDCONVOCATORIAPROCESO, A1.IDCATALOGOCODIGOCALENDARIO as A1_IDCATALOGOCODIGOCALENDARIO, A1.NOMBRECALENDARIO as A1_NOMBRECALENDARIO, 
 	A1.FECHAINICIO as A1_FECHAINICIO, A1.FECHAFIN as A1_FECHAFIN, A1.FECHPUBLICACION as A1_FECHPUBLICACION, A1.IDCATALOGOESTADOPUBLICACION as A1_IDCATALOGOESTADOPUBLICACION, 
@@ -585,6 +595,16 @@
 	</select>
 	
 	<select id="selectCalendarioByIdConvocatoria" resultMap="BasicResultMap" parameterType="java.lang.Integer">
-		select * from abas.CalendarioProcesoSeleccion where IdConvocatoriaProceso = (#{idConvocatoriaProceso})
+		select x.IdCalendarioProceso, x.IdConvocatoriaProceso, ISNULL(x.IdCatalogoCodigoCalendario, ac.vchregCodigo) as IdCatalogoCodigoCalendario, 
+			ISNULL(x.NombreCalendario, ac.vchregdescri) as NombreCalendario, x.FechaInicio, x.FechaFin, x.IdCatalogoEstadoPublicacion, x.DescripcionEstado
+		from (
+			select c.IdCalendarioProceso, c.IdConvocatoriaProceso, c.IdCatalogoCodigoCalendario, c.NombreCalendario, c.FechaInicio, c.FechaFin, c.IdCatalogoEstadoPublicacion, e.vchregdescri as DescripcionEstado
+			from abas.CalendarioProcesoSeleccion c
+			inner join abas.gentabla a on a.vchregCodigo = c.IdCatalogoCodigoCalendario and a.vchtipCodigo = 'APRO'
+			left join abas.gentabla e on e.vchregCodigo = c.IdCatalogoEstadoPublicacion and e.vchtipCodigo = 'EEPR'
+			where c.IdConvocatoriaProceso = (#{idConvocatoriaProceso})
+		) as x
+		right join abas.gentabla ac on ac.vchregCodigo = x.IdCatalogoCodigoCalendario where ac.vchtipCodigo = 'APRO'
+		order by isnull(x.IdCalendarioProceso, ac.intregorden) asc 		
 	</select>	
 </mapper>

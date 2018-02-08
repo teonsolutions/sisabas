@@ -1,5 +1,6 @@
 
 package pe.com.sisabas.business.impl;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ import pe.com.sisabas.be.Convocatoriaprocesoseleccion;
 import pe.com.sisabas.be.Miembrocomiteporproceso;
 import pe.com.sisabas.persistence.ConvocatoriaprocesoseleccionMapper;
 import pe.com.sisabas.business.ConvocatoriaprocesoseleccionBusiness;
+import pe.com.sisabas.dto.CalendarioDto;
+import pe.com.sisabas.dto.ConvocatoriaDto;
 import pe.com.sisabas.exception.BusinessException;
 import pe.com.sisabas.exception.ValidateException;
 import pe.com.sisabas.resources.Constantes;
@@ -21,11 +24,10 @@ import pe.com.sisabas.resources.Sequence;
 import pe.com.sisabas.resources.Utils;
 import pe.com.sisabas.resources.business.UtilsBusiness;
 
-
 @Service
-public class ConvocatoriaprocesoseleccionBusinessImpl implements ConvocatoriaprocesoseleccionBusiness, Serializable{
+public class ConvocatoriaprocesoseleccionBusinessImpl implements ConvocatoriaprocesoseleccionBusiness, Serializable {
 
-	private static Logger logger=Logger.getLogger(ConvocatoriaprocesoseleccionBusinessImpl.class);
+	private static Logger logger = Logger.getLogger(ConvocatoriaprocesoseleccionBusinessImpl.class);
 
 	private static final long serialVersionUID = 1L;
 
@@ -43,7 +45,8 @@ public class ConvocatoriaprocesoseleccionBusinessImpl implements Convocatoriapro
 
 	@Override
 	public void insertBasic(Convocatoriaprocesoseleccion record) throws Exception {
-		record.setIdconvocatoriaproceso((int)utilsBusiness.getNextSeq(Sequence.SEQ_CONVOCATORIAPROCESOSELECCION).longValue());
+		record.setIdconvocatoriaproceso(
+				(int) utilsBusiness.getNextSeq(Sequence.SEQ_CONVOCATORIAPROCESOSELECCION).longValue());
 		record.setFechacreacionauditoria(Utils.currentTimeStamp());
 		record.setEstadoauditoria("1");
 		updateBooleanToChar(record);
@@ -52,16 +55,17 @@ public class ConvocatoriaprocesoseleccionBusinessImpl implements Convocatoriapro
 		convocatoriaprocesoseleccionMapper.insert(record);
 	}
 
-	@Transactional(rollbackFor={Exception.class})
+	@Transactional(rollbackFor = { Exception.class })
 	@Override
 	public void insertFull(Convocatoriaprocesoseleccion record) throws Exception {
-		//Business Logic
+		// Business Logic
 		insertBasic(record);
 	}
 
 	@Override
 	public void insertSelectiveBasic(Convocatoriaprocesoseleccion record) throws Exception {
-		record.setIdconvocatoriaproceso((int)utilsBusiness.getNextSeq(Sequence.SEQ_CONVOCATORIAPROCESOSELECCION).longValue());
+		record.setIdconvocatoriaproceso(
+				(int) utilsBusiness.getNextSeq(Sequence.SEQ_CONVOCATORIAPROCESOSELECCION).longValue());
 		record.setFechacreacionauditoria(Utils.currentTimeStamp());
 		record.setEstadoauditoria("1");
 		updateBooleanToChar(record);
@@ -70,37 +74,42 @@ public class ConvocatoriaprocesoseleccionBusinessImpl implements Convocatoriapro
 	}
 
 	@Override
-	public Convocatoriaprocesoseleccion selectByPrimaryKeyBasic(java.lang.Integer par_idconvocatoriaproceso) throws Exception {
+	public Convocatoriaprocesoseleccion selectByPrimaryKeyBasic(java.lang.Integer par_idconvocatoriaproceso)
+			throws Exception {
 		return convocatoriaprocesoseleccionMapper.selectByPrimaryKeyBasic(par_idconvocatoriaproceso);
 	}
 
 	@Override
-	public Convocatoriaprocesoseleccion selectByPrimaryKeyBasicFromList(java.lang.Integer par_idconvocatoriaproceso, List<Convocatoriaprocesoseleccion> list) throws Exception {
-		Convocatoriaprocesoseleccion record=null;
+	public Convocatoriaprocesoseleccion selectByPrimaryKeyBasicFromList(java.lang.Integer par_idconvocatoriaproceso,
+			List<Convocatoriaprocesoseleccion> list) throws Exception {
+		Convocatoriaprocesoseleccion record = null;
 		for (Convocatoriaprocesoseleccion row : list) {
-			if(row.equals(new Convocatoriaprocesoseleccion( par_idconvocatoriaproceso))){
-				record=row;
+			if (row.equals(new Convocatoriaprocesoseleccion(par_idconvocatoriaproceso))) {
+				record = row;
 				break;
 			}
 		}
-		if(record==null)
-			record=selectByPrimaryKeyBasic( par_idconvocatoriaproceso);
+		if (record == null)
+			record = selectByPrimaryKeyBasic(par_idconvocatoriaproceso);
 
 		return record;
 	}
 
 	@Override
-	public Convocatoriaprocesoseleccion selectByPrimaryKeyBasicActive(java.lang.Integer par_idconvocatoriaproceso) throws Exception {
+	public Convocatoriaprocesoseleccion selectByPrimaryKeyBasicActive(java.lang.Integer par_idconvocatoriaproceso)
+			throws Exception {
 		return convocatoriaprocesoseleccionMapper.selectByPrimaryKeyBasicActive(par_idconvocatoriaproceso);
 	}
 
 	@Override
-	public Convocatoriaprocesoseleccion selectByPrimaryKeyFull(java.lang.Integer par_idconvocatoriaproceso) throws Exception {
+	public Convocatoriaprocesoseleccion selectByPrimaryKeyFull(java.lang.Integer par_idconvocatoriaproceso)
+			throws Exception {
 		return convocatoriaprocesoseleccionMapper.selectByPrimaryKeyFull(par_idconvocatoriaproceso);
 	}
 
 	@Override
-	public Convocatoriaprocesoseleccion selectByPrimaryKeyFullActive(java.lang.Integer par_idconvocatoriaproceso) throws Exception {
+	public Convocatoriaprocesoseleccion selectByPrimaryKeyFullActive(java.lang.Integer par_idconvocatoriaproceso)
+			throws Exception {
 		return convocatoriaprocesoseleccionMapper.selectByPrimaryKeyFullActive(par_idconvocatoriaproceso);
 	}
 
@@ -110,35 +119,39 @@ public class ConvocatoriaprocesoseleccionBusinessImpl implements Convocatoriapro
 	}
 
 	@Override
-	public List<Convocatoriaprocesoseleccion> selectDynamicBasicActives(Convocatoriaprocesoseleccion record) throws Exception {
+	public List<Convocatoriaprocesoseleccion> selectDynamicBasicActives(Convocatoriaprocesoseleccion record)
+			throws Exception {
 		record.setEstadoauditoria("1");
 		return convocatoriaprocesoseleccionMapper.selectDynamicBasic(record);
 	}
 
 	@Override
 	public List<Convocatoriaprocesoseleccion> selectDynamicFull(Convocatoriaprocesoseleccion record) throws Exception {
-		List<Convocatoriaprocesoseleccion> list=convocatoriaprocesoseleccionMapper.selectDynamicFull(record);
-		if(Convocatoriaprocesoseleccion.HAVE_BIGDECIMALS)
-		for (Convocatoriaprocesoseleccion row : list) {
-			row.roundBigDecimals();
-		}
+		List<Convocatoriaprocesoseleccion> list = convocatoriaprocesoseleccionMapper.selectDynamicFull(record);
+		if (Convocatoriaprocesoseleccion.HAVE_BIGDECIMALS)
+			for (Convocatoriaprocesoseleccion row : list) {
+				row.roundBigDecimals();
+			}
 
 		return list;
 	}
 
 	@Override
-	public List<Convocatoriaprocesoseleccion> selectDynamicFullActives(Convocatoriaprocesoseleccion record) throws Exception {
+	public List<Convocatoriaprocesoseleccion> selectDynamicFullActives(Convocatoriaprocesoseleccion record)
+			throws Exception {
 		record.setEstadoauditoria("1");
 		return convocatoriaprocesoseleccionMapper.selectDynamicFull(record);
 	}
 
 	@Override
-	public List<Convocatoriaprocesoseleccion> selectDynamicExtended(Convocatoriaprocesoseleccion record) throws Exception {
+	public List<Convocatoriaprocesoseleccion> selectDynamicExtended(Convocatoriaprocesoseleccion record)
+			throws Exception {
 		return convocatoriaprocesoseleccionMapper.selectDynamicExtended(record);
 	}
 
 	@Override
-	public List<Convocatoriaprocesoseleccion> selectDynamicExtendedActives(Convocatoriaprocesoseleccion record) throws Exception {
+	public List<Convocatoriaprocesoseleccion> selectDynamicExtendedActives(Convocatoriaprocesoseleccion record)
+			throws Exception {
 		record.setEstadoauditoria("1");
 		return convocatoriaprocesoseleccionMapper.selectDynamicExtended(record);
 	}
@@ -151,10 +164,10 @@ public class ConvocatoriaprocesoseleccionBusinessImpl implements Convocatoriapro
 		convocatoriaprocesoseleccionMapper.updateByPrimaryKeySelective(record);
 	}
 
-	@Transactional(rollbackFor={Exception.class})
+	@Transactional(rollbackFor = { Exception.class })
 	@Override
 	public void updateByPrimaryKeySelectiveFull(Convocatoriaprocesoseleccion record) throws Exception {
-		//Business Logic
+		// Business Logic
 		updateByPrimaryKeySelectiveBasic(record);
 	}
 
@@ -167,85 +180,96 @@ public class ConvocatoriaprocesoseleccionBusinessImpl implements Convocatoriapro
 		convocatoriaprocesoseleccionMapper.updateByPrimaryKey(record);
 	}
 
-	@Transactional(rollbackFor={Exception.class})
+	@Transactional(rollbackFor = { Exception.class })
 	@Override
 	public void updateByPrimaryKeyFull(Convocatoriaprocesoseleccion record) throws Exception {
-		//Business Logic
+		// Business Logic
 		updateByPrimaryKeyBasic(record);
 	}
 
 	public void updateBooleanToChar(Convocatoriaprocesoseleccion record) throws Exception {
 	}
 
-	public void validateInsert(Convocatoriaprocesoseleccion record)throws Exception{
-		if(record.getIdconvocatoriaproceso()==null)
-			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.idconvocatoriaproceso.required"));
+	public void validateInsert(Convocatoriaprocesoseleccion record) throws Exception {
+		if (record.getIdconvocatoriaproceso() == null)
+			throw new ValidateException(
+					Messages.getString("convocatoriaprocesoseleccion.idconvocatoriaproceso.required"));
 
-		if(record.getIdcatalogoestadoconvocatoria()!=null &&  record.getIdcatalogoestadoconvocatoria().length() > 10)
-			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.idcatalogoestadoconvocatoria.length.error",record.getIdcatalogoestadoconvocatoria().length()));
-		if(record.getPrincipal()!=null &&  record.getPrincipal().length() > 1)
-			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.principal.length.error",record.getPrincipal().length()));
-		if(record.getUsuariocreacionauditoria()!=null &&  record.getUsuariocreacionauditoria().length() > 15)
-			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.usuariocreacionauditoria.length.error",record.getUsuariocreacionauditoria().length()));
-		if(record.getUsuariomodificacionauditoria()!=null &&  record.getUsuariomodificacionauditoria().length() > 15)
-			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.usuariomodificacionauditoria.length.error",record.getUsuariomodificacionauditoria().length()));
-		if(record.getEquipoauditoria()!=null &&  record.getEquipoauditoria().length() > 45)
-			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.equipoauditoria.length.error",record.getEquipoauditoria().length()));
-		if(record.getProgramaauditoria()!=null &&  record.getProgramaauditoria().length() > 200)
-			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.programaauditoria.length.error",record.getProgramaauditoria().length()));
-		if(record.getEstadoauditoria()!=null &&  record.getEstadoauditoria().length() > 1)
-			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.estadoauditoria.length.error",record.getEstadoauditoria().length()));
+		if (record.getIdcatalogoestadoconvocatoria() != null && record.getIdcatalogoestadoconvocatoria().length() > 10)
+			throw new ValidateException(
+					Messages.getString("convocatoriaprocesoseleccion.idcatalogoestadoconvocatoria.length.error",
+							record.getIdcatalogoestadoconvocatoria().length()));
+		if (record.getPrincipal() != null && record.getPrincipal().length() > 1)
+			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.principal.length.error",
+					record.getPrincipal().length()));
+		if (record.getUsuariocreacionauditoria() != null && record.getUsuariocreacionauditoria().length() > 15)
+			throw new ValidateException(
+					Messages.getString("convocatoriaprocesoseleccion.usuariocreacionauditoria.length.error",
+							record.getUsuariocreacionauditoria().length()));
+		if (record.getUsuariomodificacionauditoria() != null && record.getUsuariomodificacionauditoria().length() > 15)
+			throw new ValidateException(
+					Messages.getString("convocatoriaprocesoseleccion.usuariomodificacionauditoria.length.error",
+							record.getUsuariomodificacionauditoria().length()));
+		if (record.getEquipoauditoria() != null && record.getEquipoauditoria().length() > 45)
+			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.equipoauditoria.length.error",
+					record.getEquipoauditoria().length()));
+		if (record.getProgramaauditoria() != null && record.getProgramaauditoria().length() > 200)
+			throw new ValidateException(
+					Messages.getString("convocatoriaprocesoseleccion.programaauditoria.length.error",
+							record.getProgramaauditoria().length()));
+		if (record.getEstadoauditoria() != null && record.getEstadoauditoria().length() > 1)
+			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.estadoauditoria.length.error",
+					record.getEstadoauditoria().length()));
 
-		//Here Bussines Validations.
+		// Here Bussines Validations.
 	}
 
-	public void validateUpdate(Convocatoriaprocesoseleccion record)throws Exception{
-		if(record.getIdconvocatoriaproceso()==null)
-			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.idconvocatoriaproceso.required"));
+	public void validateUpdate(Convocatoriaprocesoseleccion record) throws Exception {
+		if (record.getIdconvocatoriaproceso() == null)
+			throw new ValidateException(
+					Messages.getString("convocatoriaprocesoseleccion.idconvocatoriaproceso.required"));
 
-		if(record.getIdcatalogoestadoconvocatoria()!=null &&  record.getIdcatalogoestadoconvocatoria().length() > 10)
-			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.idcatalogoestadoconvocatoria.length.error",record.getIdcatalogoestadoconvocatoria().length()));
-		if(record.getPrincipal()!=null &&  record.getPrincipal().length() > 1)
-			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.principal.length.error",record.getPrincipal().length()));
-		if(record.getUsuariocreacionauditoria()!=null &&  record.getUsuariocreacionauditoria().length() > 15)
-			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.usuariocreacionauditoria.length.error",record.getUsuariocreacionauditoria().length()));
-		if(record.getUsuariomodificacionauditoria()!=null &&  record.getUsuariomodificacionauditoria().length() > 15)
-			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.usuariomodificacionauditoria.length.error",record.getUsuariomodificacionauditoria().length()));
-		if(record.getEquipoauditoria()!=null &&  record.getEquipoauditoria().length() > 45)
-			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.equipoauditoria.length.error",record.getEquipoauditoria().length()));
-		if(record.getProgramaauditoria()!=null &&  record.getProgramaauditoria().length() > 200)
-			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.programaauditoria.length.error",record.getProgramaauditoria().length()));
-		if(record.getEstadoauditoria()!=null &&  record.getEstadoauditoria().length() > 1)
-			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.estadoauditoria.length.error",record.getEstadoauditoria().length()));
+		if (record.getIdcatalogoestadoconvocatoria() != null && record.getIdcatalogoestadoconvocatoria().length() > 10)
+			throw new ValidateException(
+					Messages.getString("convocatoriaprocesoseleccion.idcatalogoestadoconvocatoria.length.error",
+							record.getIdcatalogoestadoconvocatoria().length()));
+		if (record.getPrincipal() != null && record.getPrincipal().length() > 1)
+			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.principal.length.error",
+					record.getPrincipal().length()));
+		if (record.getUsuariocreacionauditoria() != null && record.getUsuariocreacionauditoria().length() > 15)
+			throw new ValidateException(
+					Messages.getString("convocatoriaprocesoseleccion.usuariocreacionauditoria.length.error",
+							record.getUsuariocreacionauditoria().length()));
+		if (record.getUsuariomodificacionauditoria() != null && record.getUsuariomodificacionauditoria().length() > 15)
+			throw new ValidateException(
+					Messages.getString("convocatoriaprocesoseleccion.usuariomodificacionauditoria.length.error",
+							record.getUsuariomodificacionauditoria().length()));
+		if (record.getEquipoauditoria() != null && record.getEquipoauditoria().length() > 45)
+			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.equipoauditoria.length.error",
+					record.getEquipoauditoria().length()));
+		if (record.getProgramaauditoria() != null && record.getProgramaauditoria().length() > 200)
+			throw new ValidateException(
+					Messages.getString("convocatoriaprocesoseleccion.programaauditoria.length.error",
+							record.getProgramaauditoria().length()));
+		if (record.getEstadoauditoria() != null && record.getEstadoauditoria().length() > 1)
+			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.estadoauditoria.length.error",
+					record.getEstadoauditoria().length()));
 
-		//Here Bussines Validations.
+		// Here Bussines Validations.
 	}
 
-	public void validateDelete(java.lang.Integer par_idconvocatoriaproceso)throws Exception{
-		if(par_idconvocatoriaproceso==null)
-			throw new ValidateException(Messages.getString("convocatoriaprocesoseleccion.idconvocatoriaproceso.required"));
+	public void validateDelete(java.lang.Integer par_idconvocatoriaproceso) throws Exception {
+		if (par_idconvocatoriaproceso == null)
+			throw new ValidateException(
+					Messages.getString("convocatoriaprocesoseleccion.idconvocatoriaproceso.required"));
 
-		//Here Bussines Validations.
+		// Here Bussines Validations.
 	}
 
 	@Override
-	public List<Convocatoriaprocesoseleccion> selectByIdProceso(Integer idProcesoSeleccion) throws Exception {
+	public List<ConvocatoriaDto> selectByIdProceso(Integer idProcesoSeleccion) throws Exception {
 		// TODO Auto-generated method stub
-		List<String> ordenListaCampos = new ArrayList<String>();
-		ordenListaCampos.add("A1.IDPROCESOSELECCION");
-		Convocatoriaprocesoseleccion record = new Convocatoriaprocesoseleccion();
-		record.setOrdenListaCampos(ordenListaCampos);
-		record.setOrdenTipo("DESC");
-		record.setIdprocesoseleccion(idProcesoSeleccion);
-				
-		List<Convocatoriaprocesoseleccion> list=convocatoriaprocesoseleccionMapper.selectDynamicFull(record);
-		if(Convocatoriaprocesoseleccion.HAVE_BIGDECIMALS)
-		for (Convocatoriaprocesoseleccion row : list) {
-			row.roundBigDecimals();
-		}
-		return list;
+		return convocatoriaprocesoseleccionMapper.selectConvocatoriaByIdProceso(idProcesoSeleccion);
 	}
 
-
 }
-

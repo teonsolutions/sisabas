@@ -21,7 +21,9 @@ import pe.com.sisabas.be.Miembrocomiteporproceso;
 import pe.com.sisabas.be.Pacconsolidado;
 import pe.com.sisabas.be.Procesoseleccion;
 import pe.com.sisabas.business.ProcesoBusiness;
+import pe.com.sisabas.dto.CalendarioDto;
 import pe.com.sisabas.dto.ComiteDto;
+import pe.com.sisabas.dto.ConvocatoriaDto;
 import pe.com.sisabas.dto.PacConsolidadoDto;
 import pe.com.sisabas.dto.ProcesoDto;
 import pe.com.sisabas.dto.ProcesoRequest;
@@ -406,7 +408,6 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 			param.setIdtipodocumento(Constantes.tipoDocumento.PROCESO);
 			param.setIdestadosporetapa(Constantes.estadosPorEtapa.REMITIDO_A_EJECUCION);
 			Estadosportipodocumento estado = estadosportipodocumentoMapper.selectByEtapaTipoDocumento(param);
-
 			if (estado != null) {
 				java.util.Date date = new java.util.Date();
 				Estadosporetapapordocumento record = new Estadosporetapapordocumento();
@@ -425,8 +426,21 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 				estadosporetapapordocumentoMapper.insert(record);
 			}
 		}
-
 		return result;
+	}
+
+	@Override
+	public List<ConvocatoriaDto> searchConvocatoriaProceso(Integer idProcesoSeleccion) throws Exception {
+		// TODO Auto-generated method stub
+		List<ConvocatoriaDto> listConvoca = convocatoriaprocesoseleccionMapper
+				.selectConvocatoriaByIdProceso(idProcesoSeleccion);
+		for (int i = 0; i < listConvoca.size(); i++) {
+			//calendarios
+			List<CalendarioDto> calendars = calendarioprocesoseleccionMapper.selectCalendarioByIdConvocatoria(listConvoca.get(i).getIdconvocatoriaproceso());
+			listConvoca.get(i).setListaCalendario(calendars);
+		}
+		
+		return listConvoca;
 	}
 
 }

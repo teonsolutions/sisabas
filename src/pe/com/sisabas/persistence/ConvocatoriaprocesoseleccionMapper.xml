@@ -109,6 +109,18 @@
 
 	</resultMap>
 
+	<resultMap id="BasicResultMapCustom" type="pe.com.sisabas.dto.ConvocatoriaDto">
+	<result column="IdConvocatoriaProceso" property="idconvocatoriaproceso" jdbcType="INTEGER" />
+	<result column="NroConvocatoria" property="nroconvocatoria" jdbcType="INTEGER" />
+	<result column="Secuencia" property="secuencia" jdbcType="INTEGER" />
+	<result column="ValorReferencia" property="valorreferencia" jdbcType="DECIMAL" />
+	<result column="IdCatalogoEstadoConvocatoria" property="idcatalogoestadoconvocatoria" jdbcType="VARCHAR" />
+	<result column="Descripcionestado" property="descripcionestado" jdbcType="VARCHAR" />
+	<result column="EstadoConvocatoriaItem" property="estadoconvocatoriaitem" jdbcType="INTEGER" />
+	<result column="FechaInicio" property="fechainicio" jdbcType="TIMESTAMP" />
+	<result column="FechaFin" property="fechafin" jdbcType="TIMESTAMP" />
+
+	</resultMap>
 
 	<sql id="Basic_Column_List">
 	A1.IDCONVOCATORIAPROCESO as A1_IDCONVOCATORIAPROCESO, A1.IDPROCESOSELECCION as A1_IDPROCESOSELECCION, A1.NROCONVOCATORIA as A1_NROCONVOCATORIA, A1.SECUENCIA as A1_SECUENCIA, 
@@ -622,8 +634,13 @@
 	</if>
 	</select>
 	
-	<select id="selectConvocatoriaByIdProceso" resultMap="BasicResultMap" parameterType="java.lang.Integer">
-		select * from abas.ConvocatoriaProcesoSeleccion where IdProcesoSeleccion = (#{idProcesoSeleccion})
+	<select id="selectConvocatoriaByIdProceso" resultMap="BasicResultMapCustom" parameterType="java.lang.Integer">
+		select c.IdConvocatoriaProceso, c.NroConvocatoria, c.Secuencia, c.ValorReferencia, c.IdCatalogoEstadoConvocatoria, 
+				e.vchregdescri as Descripcionestado, c.EstadoConvocatoriaItem, c.FechaInicio, c.FechaFin
+		from abas.ConvocatoriaProcesoSeleccion c
+		left join abas.gentabla e on e.vchregCodigo = c.IdCatalogoEstadoConvocatoria and e.vchtipCodigo = 'ECPR'
+		where c.IdProcesoSeleccion = (#{idProcesoSeleccion})
+		order by NroConvocatoria asc		
 	</select>	
 
 </mapper>

@@ -2,6 +2,7 @@ package pe.com.sisabas.business;
 
 import java.util.List;
 import pe.com.sisabas.be.Convocatoriaprocesoseleccion;
+import pe.com.sisabas.dto.ConvocatoriaDto;
 
 public interface ConvocatoriaprocesoseleccionBusiness {
 
@@ -53,6 +54,6 @@ public interface ConvocatoriaprocesoseleccionBusiness {
 	public void updateByPrimaryKeyFull(Convocatoriaprocesoseleccion record) throws Exception;
 
 	// Custom
-	public List<Convocatoriaprocesoseleccion> selectByIdProceso(Integer idProcesoSeleccion) throws Exception;
+	public List<ConvocatoriaDto> selectByIdProceso(Integer idProcesoSeleccion) throws Exception;
 
 }

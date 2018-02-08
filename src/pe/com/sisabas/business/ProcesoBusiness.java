@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import pe.com.sisabas.be.Miembrocomiteporproceso;
 import pe.com.sisabas.be.Procesoseleccion;
+import pe.com.sisabas.dto.ConvocatoriaDto;
 import pe.com.sisabas.dto.PacConsolidadoDto;
 import pe.com.sisabas.dto.ProcesoDto;
 
@@ -22,4 +23,5 @@ public interface ProcesoBusiness {
 	public Resultado NotificarMiembros(TransactionRequest<List<Miembrocomiteporproceso>> request) throws Exception;
 	public List<ProcesoDto> searchProcesoSeguimiento(ProcesoRequest request) throws Exception;
 	public Resultado saveProceso(TransactionRequest<Procesoseleccion> request) throws Exception;
+	public List<ConvocatoriaDto> searchConvocatoriaProceso(Integer idProcesoSeleccion) throws Exception;
 }
