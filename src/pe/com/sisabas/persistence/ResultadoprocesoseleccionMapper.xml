@@ -103,6 +103,25 @@
 	</resultMap>
 
 
+	<resultMap id="BasicResultMapCustom" type="pe.com.sisabas.dto.ProcesoResultadoItemDto">
+	<result column="IdResultadoProceso" property="idresultadoproceso" jdbcType="INTEGER" />
+	<result column="IdConvocatoriaProceso" property="idconvocatoriaproceso" jdbcType="INTEGER" />
+	<result column="NroItem" property="nroitem" jdbcType="VARCHAR" />
+	<result column="NombreItem" property="nombreitem" jdbcType="VARCHAR" />
+	<result column="NroRuc" property="nroruc" jdbcType="VARCHAR" />
+	<result column="NombreProveedor" property="nombreproveedor" jdbcType="VARCHAR" />
+	<result column="IdCatalogoEstadoResultado" property="idcatalogoestadoresultado" jdbcType="VARCHAR" />
+	<result column="EstadoProcesoItem" property="estadoprocesoitem" jdbcType="INTEGER" />
+	<result column="ValorReferencial" property="valorreferencial" jdbcType="DECIMAL" />
+	<result column="MontoAdjudicado" property="montoadjudicado" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<resultMap id="BasicResultMapCustomSiga" type="pe.com.sisabas.dto.ProcesoResultadoItemDto">
+	<result column="ITEM" property="nroitem" jdbcType="VARCHAR" />
+	<result column="NOMBRE_ITEM" property="nombreitem" jdbcType="VARCHAR" />
+	<result column="MONTO" property="valorreferencial" jdbcType="DECIMAL" />
+	</resultMap>	
+
 	<sql id="Basic_Column_List">
 	A1.IDRESULTADOPROCESO as A1_IDRESULTADOPROCESO, A1.IDCONVOCATORIAPROCESO as A1_IDCONVOCATORIAPROCESO, A1.IDRESULTADOPROCESOPADRE as A1_IDRESULTADOPROCESOPADRE, A1.NROITEM as A1_NROITEM, 
 	A1.NOMBREITEM as A1_NOMBREITEM, A1.NRORUC as A1_NRORUC, A1.NOMBREPROVEEDOR as A1_NOMBREPROVEEDOR, A1.IDCATALOGOESTADORESULTADO as A1_IDCATALOGOESTADORESULTADO, 
@@ -631,4 +650,27 @@
 
 	</if>
 	</select>
+	
+	<select id="selectResultadoSiga" resultMap="BasicResultMapCustomSiga" parameterType="pe.com.sisabas.dto.ProcesoRequest">
+		{call abas.paProcesosListarItems(#{nroConsolid},#{anio},#{idUnidadEjecutoraSiaf})}
+	</select>	
+
+	<select id="selectResultadoByIdConvocatoria" resultMap="BasicResultMapCustom" parameterType="java.lang.Integer">
+		select
+			IdResultadoProceso,
+			IdConvocatoriaProceso, 
+			IdResultadoProcesoPadre, 
+			NroItem,      
+			NombreItem, 
+			NroRuc,    
+			NombreProveedor, 
+			IdCatalogoEstadoResultado, 
+			EstadoProcesoItem, 
+			ValorReferencial,                     
+			MontoAdjudicado
+		from abas.ResultadoProcesoSeleccion
+		where IdConvocatoriaProceso = #{idconvocatoriaproceso}
+		order by IdResultadoProceso asc
+	</select>		
+	
 </mapper>

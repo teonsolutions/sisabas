@@ -235,9 +235,9 @@ public class ProcesoController extends BaseController {
 					}
 					newItem.setListaCalendarioprocesoseleccion(lstCalendario);
 				}
-				listconvoca.add(newItem);
+				listconvoca.add(newItem);				
 			}
-
+			processEdit.setListaConvocatoriaprocesoseleccion(listconvoca);
 			request.setUsuarioAuditoria(getUserLogin());
 			request.setEquipoAuditoria(getRemoteAddr());
 			request.setEntityTransaction(processEdit);
@@ -328,12 +328,24 @@ public class ProcesoController extends BaseController {
 	public void onRowEdit(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Se editó correctamente",
 				"Convocatoria: " + ((ConvocatoriaDto) event.getObject()).getNroconvocatoria());
+		ConvocatoriaDto convoca = ((ConvocatoriaDto) event.getObject());
 		// get description of the status
 		try {
-			String id = ((ConvocatoriaDto) event.getObject()).getIdcatalogoestadoconvocatoria();
-			Gentabla genTabla = gentablaBusiness.selectByPrimaryKeyBasic(id);
-			String descripcion = genTabla != null ? genTabla.getVchregdescri() : "";
-			((ConvocatoriaDto) event.getObject()).setDescripcionestado(descripcion);
+			//validate the date
+			/*
+			if (convoca.getFechainicio().compareTo(convoca.getFechafin()) <= 0)
+			{*/
+				String id = ((ConvocatoriaDto) event.getObject()).getIdcatalogoestadoconvocatoria();
+				Gentabla genTabla = gentablaBusiness.selectByPrimaryKeyBasic(id);
+				String descripcion = genTabla != null ? genTabla.getVchregdescri() : "";
+				((ConvocatoriaDto) event.getObject()).setDescripcionestado(descripcion);				
+			/*}else{*/
+				//cancel editing				
+				//onRowCancel(event);
+				//throw new ValidatorException(
+	                    //FacesMessageUtil.newBundledFacesMessage(FacesMessage.SEVERITY_ERROR, "", "msg.dateRange", ((Calendar)component).getLabel(), startDate);
+
+			//}
 		} catch (Exception ex) {
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -348,6 +360,13 @@ public class ProcesoController extends BaseController {
 	public void onRowEditCalendar(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Se editó correctamente",
 				"Calendario: " + ((CalendarioDto) event.getObject()).getNombrecalendario());
+		try {
+			String id = ((CalendarioDto) event.getObject()).getIdcatalogoestadopublicacion();
+			Gentabla genTabla = gentablaBusiness.selectByPrimaryKeyBasic(id);
+			String descripcion = genTabla != null ? genTabla.getVchregdescri() : "";
+			((CalendarioDto) event.getObject()).setDescripcionestado(descripcion);
+		} catch (Exception ex) {
+		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 

@@ -12,7 +12,7 @@
 			<p:growl id="msgs" showDetail="true"></p:growl>
 			<p:growl id="growl" showDetail="true" for="growl" />
 			<p:panel id="panel" header="Seguimiento de proceso"
-				style="width: 70%">
+				style="width: 100%">
 				<p:spacer height="1"></p:spacer>
 				<p:focus for="panel" />
 				<table style="width: 100%">
@@ -196,7 +196,8 @@
 												required="false" maxlength="10" style="width:150px;"
 												label="Número del acta del proyecto base" disabled="false"
 												value="#{proceso.processEdit.nroactaproyectobase}" /></td>
-										<td><p:calendar id="txtFechaObservacionBase" value="#{proceso.processEdit.fechaobservacionbase}"
+										<td><p:calendar id="txtFechaObservacionBase"
+												value="#{proceso.processEdit.fechaobservacionbase}"
 												required="false" pattern="dd/MM/yyyy"
 												label="Fecha de observación base" navigator="true"
 												locale="es" styleClass="dateTimeField" style="width:100%" />
@@ -223,7 +224,8 @@
 												id="lblLlaveEnMano" /></td>
 									</tr>
 									<tr>
-										<td><p:calendar id="txtFechaSubsanacionBase" value="#{proceso.processEdit.fechasubsanacionbase}"
+										<td><p:calendar id="txtFechaSubsanacionBase"
+												value="#{proceso.processEdit.fechasubsanacionbase}"
 												required="false" pattern="dd/MM/yyyy"
 												label="Fecha de subsanación de base" navigator="true"
 												locale="es" styleClass="dateTimeField" style="width:100%" />
@@ -245,12 +247,10 @@
 													<f:selectItem itemLabel="NO" itemValue="0" />
 												</p:selectOneRadio>
 												<h:panelGrid columns="4" cellpadding="5">
-													<p:radioButton id="opt1" for="llaveManoRadio"
-														itemIndex="0" />
+													<p:radioButton id="opt1" for="llaveManoRadio" itemIndex="0" />
 													<h:outputLabel for="opt1" value="Si" />
 
-													<p:radioButton id="opt2" for="llaveManoRadio"
-														itemIndex="1" />
+													<p:radioButton id="opt2" for="llaveManoRadio" itemIndex="1" />
 													<h:outputLabel for="opt2" value="No" />
 
 												</h:panelGrid>
@@ -262,8 +262,7 @@
 						<p:spacer height="1"></p:spacer>
 						<div align="center">
 							<p:commandButton value="Guardar" icon="fa fa-save"
-								title="Guardar proceso"
-								disabled="#{proceso.disabledButtons}"
+								title="Guardar proceso" disabled="#{proceso.disabledButtons}"
 								action="#{proceso.saveProceso}"
 								rendered="#{proceso.renderButton('btnSaveProceso')}"
 								update="form:msgs,form:panel" />
@@ -276,37 +275,34 @@
 						<p:accordionPanel id="accCalendario" multiple="true">
 							<p:tab title="Convocatorias">
 								<p:dataTable id="tblListaConvocatoria"
-									value="#{proceso.listConvocatoria}"
-									var="var" emptyMessage="No se encontraron registros"
+									value="#{proceso.listConvocatoria}" var="var"
+									emptyMessage="No se encontraron registros"
 									widgetVar="tblListaConvocatoria"
 									selection="#{procesoRecepcion.selectedMiembrocomiteporproceso}"
 									paginator="false" rows="#{sisabascontrol.registros_mant}"
 									paginatorPosition="bottom"
 									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(proceso.listConvocatoria)}"
 									selectionMode="single" rowKey="#{var.idconvocatoriaproceso}"
-									styleClass="gandalfTableClass"
-									editable="true">
-									
+									styleClass="gandalfTableClass" editable="true">
+
 									<p:ajax event="rowEdit" listener="#{proceso.onRowEdit}"
 										update=":form:msgs,form:tabViewProceso:accCalendario:tblListaConvocatoria" />
-									<p:ajax event="rowEditCancel"
-										listener="#{proceso.onRowCancel}" update=":form:msgs" />
-																			
-									<p:column styleClass="c_center"
-										sortBy="#{var.nroconvocatoria}">
+									<p:ajax event="rowEditCancel" listener="#{proceso.onRowCancel}"
+										update=":form:msgs" />
+
+									<p:column styleClass="c_center">
 										<f:facet name="header">
-											<h:outputText value="Número Convocatoria" styleClass="c_center" />
+											<h:outputText value="Número Convocatoria"
+												styleClass="c_center" />
 										</f:facet>
 										<h:outputText value="#{var.nroconvocatoria}" />
 									</p:column>
-									<p:column styleClass="c_center"
-										sortBy="#{var.secuencia}">
+									<p:column styleClass="c_center">
 										<f:facet name="header">
 											<h:outputText value="Secuencia" styleClass="c_center" />
 										</f:facet>
-										<h:outputText
-											value="#{var.secuencia}" />
-									</p:column>									
+										<h:outputText value="#{var.secuencia}" />
+									</p:column>
 									<p:column headerText="Valor Referencial S/.">
 										<p:cellEditor>
 											<f:facet name="header">
@@ -315,11 +311,44 @@
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:inputNumber value="#{var.valorreferencia}" style="width:100%"
-													label="Year" maxlength="20" />
+												<p:inputNumber value="#{var.valorreferencia}"
+													style="width:100%" label="Year" maxlength="20" />
 											</f:facet>
 										</p:cellEditor>
-									</p:column>									
+									</p:column>
+
+									<p:column headerText="Fecha Inicial">
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.fechainicio}">
+														<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+													</h:outputText>
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:calendar value="#{var.fechainicio}" required="false"
+													pattern="dd/MM/yyyy" label="Fecha Inicial" navigator="true"
+													locale="es" styleClass="dateTimeField" style="width:100%" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+									<p:column headerText="Fecha Final">
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.fechafin}">
+														<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+													</h:outputText>
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:calendar value="#{var.fechafin}" required="false"
+													pattern="dd/MM/yyyy" label="Fecha Final" navigator="true"
+													locale="es" styleClass="dateTimeField" style="width:100%" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
 									<p:column headerText="Estado">
 										<p:cellEditor>
 											<f:facet name="header">
@@ -329,8 +358,8 @@
 											</f:facet>
 											<f:facet name="input">
 												<p:selectOneMenu value="#{var.idcatalogoestadoconvocatoria}"
-													id="ddlEstado" required="false"
-													label="Estado" style="width: 95%">
+													id="ddlEstado" required="false" label="Estado"
+													style="width: 85%">
 													<f:selectItem itemLabel="--Seleccione--" itemValue="" />
 													<f:selectItems
 														value="#{proceso.listaGentablaIdcatalogoestadoconvocatoria}"
@@ -339,7 +368,38 @@
 												</p:selectOneMenu>
 											</f:facet>
 										</p:cellEditor>
-									</p:column>																		
+									</p:column>
+									<p:column headerText="Acciones">
+										<p:rowEditor editTitle="Editar" />
+									</p:column>
+								</p:dataTable>
+
+							</p:tab>
+							<p:tab title="Calendario">
+								<p:dataTable id="tblListaCalendario"
+									value="#{proceso.listCalendario}" var="var"
+									emptyMessage="No se encontraron registros"
+									widgetVar="tblListaCalendario"
+									selection="#{procesoRecepcion.selectedMiembrocomiteporproceso}"
+									paginator="false" rows="#{sisabascontrol.registros_mant}"
+									paginatorPosition="bottom"
+									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(proceso.listCalendario)}"
+									selectionMode="single"
+									rowKey="#{var.idcatalogocodigocalendario}"
+									styleClass="gandalfTableClass" editable="true">
+
+									<p:ajax event="rowEdit" listener="#{proceso.onRowEditCalendar}"
+										update=":form:msgs,form:tabViewProceso:accCalendario:tblListaCalendario" />
+									<p:ajax event="rowEditCancel"
+										listener="#{proceso.onRowCancelCalendar}" update=":form:msgs" />
+
+									<p:column styleClass="c_string">
+										<f:facet name="header">
+											<h:outputText value="Actividades del proceso"
+												styleClass="c_string" />
+										</f:facet>
+										<h:outputText value="#{var.nombrecalendario}" />
+									</p:column>
 									<p:column headerText="Fecha Inicial">
 										<p:cellEditor>
 											<f:facet name="header">
@@ -350,10 +410,10 @@
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:calendar value="#{var.fechainicio}"
-													required="false" pattern="dd/MM/yyyy"
-													label="Fecha Inicial" navigator="true"
-													locale="es" styleClass="dateTimeField" style="width:100%" />
+												<p:calendar id="fechaIni" value="#{var.fechainicio}"
+													required="false" pattern="dd/MM/yyyy" label="Fecha Inicial"
+													navigator="true" locale="es" styleClass="dateTimeField"
+													style="width:100%" />
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
@@ -367,75 +427,11 @@
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:calendar value="#{var.fechafin}"
-													required="false" pattern="dd/MM/yyyy"
-													label="Fecha Final" navigator="true"
-													locale="es" styleClass="dateTimeField" style="width:100%" />
-											</f:facet>
-										</p:cellEditor>
-									</p:column>																		
-									<p:column headerText="Acciones">
-										<p:rowEditor editTitle="Editar" />
-									</p:column>																		
-								</p:dataTable>
-
-							</p:tab>
-							<p:tab title="Calendario">
-								<p:dataTable id="tblListaCalendario"
-									value="#{proceso.listCalendario}"
-									var="var" emptyMessage="No se encontraron registros"
-									widgetVar="tblListaCalendario"	
-									selection="#{procesoRecepcion.selectedMiembrocomiteporproceso}"								
-									paginator="false" rows="#{sisabascontrol.registros_mant}"
-									paginatorPosition="bottom"
-									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(proceso.listCalendario)}"
-									selectionMode="single" rowKey="#{var.idcatalogocodigocalendario}"
-									styleClass="gandalfTableClass"
-									editable="true">
-									
-									<p:ajax event="rowEdit" listener="#{proceso.onRowEditCalendar}"
-										update=":form:msgs,form:tabViewProceso:accCalendario:tblListaCalendario" />
-									<p:ajax event="rowEditCancel"
-										listener="#{proceso.onRowCancelCalendar}" update=":form:msgs" />
-																			
-									<p:column styleClass="c_string"
-										sortBy="#{var.nombrecalendario}">
-										<f:facet name="header">
-											<h:outputText value="Actividades del proceso" styleClass="c_string" />
-										</f:facet>
-										<h:outputText value="#{var.nombrecalendario}" />
-									</p:column>												
-									<p:column headerText="Fecha Inicial">
-										<p:cellEditor>
-											<f:facet name="header">
-												<f:facet name="output">
-													<h:outputText value="#{var.fechainicio}">
-														<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
-													</h:outputText>
-												</f:facet>
-											</f:facet>
-											<f:facet name="input">
-												<p:calendar value="#{var.fechainicio}"
-													required="false" pattern="dd/MM/yyyy"
-													label="Fecha Inicial" navigator="true"
-													locale="es" styleClass="dateTimeField" style="width:100%" />
-											</f:facet>
-										</p:cellEditor>
-									</p:column>																		
-									<p:column headerText="Fecha Final">
-										<p:cellEditor>
-											<f:facet name="header">
-												<f:facet name="output">
-													<h:outputText value="#{var.fechafin}">
-														<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
-													</h:outputText>
-												</f:facet>
-											</f:facet>
-											<f:facet name="input">
-												<p:calendar value="#{var.fechafin}"
-													required="false" pattern="dd/MM/yyyy"
-													label="Fecha Final" navigator="true"
-													locale="es" styleClass="dateTimeField" style="width:100%" />
+												<p:calendar value="#{var.fechafin}" required="false"
+													pattern="dd/MM/yyyy" label="Fecha Final" navigator="true"
+													locale="es" styleClass="dateTimeField" style="width:100%">
+													<p:ajax event="dateSelect" update="fechaIni" />
+												</p:calendar>
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
@@ -448,8 +444,8 @@
 											</f:facet>
 											<f:facet name="input">
 												<p:selectOneMenu value="#{var.idcatalogoestadopublicacion}"
-													id="ddlEstado" required="false"
-													label="Estado" style="width: 95%">
+													id="ddlEstado" required="false" label="Estado"
+													style="width: 90%">
 													<f:selectItem itemLabel="--Seleccione--" itemValue="" />
 													<f:selectItems
 														value="#{proceso.listaGentablaIdcatalogoestadopublicacion}"
@@ -458,10 +454,10 @@
 												</p:selectOneMenu>
 											</f:facet>
 										</p:cellEditor>
-									</p:column>									
+									</p:column>
 									<p:column headerText="Acciones">
 										<p:rowEditor editTitle="Editar" />
-									</p:column>										
+									</p:column>
 								</p:dataTable>
 
 							</p:tab>
@@ -478,14 +474,16 @@
 									</tr>
 									<tr>
 										<td><p:calendar id="txtFechaElevacionObservacion"
-												value="" required="true" pattern="dd/MM/yyyy"
+												value="#{proceso.processEdit.fechaelevacionobservacion}" required="false"
+												pattern="dd/MM/yyyy"
 												label="Fecha de elevación de observación" navigator="true"
 												locale="es" styleClass="dateTimeField" style="width:100%" />
 										</td>
-										<td><p:calendar id="txtFechaPronunciamiento" value=""
-												required="true" pattern="dd/MM/yyyy"
-												label="Fecha de pronunciamiento" navigator="true"
-												locale="es" styleClass="dateTimeField" style="width:100%" /></td>
+										<td><p:calendar id="txtFechaPronunciamiento"
+												value="#{proceso.processEdit.fechapronunciamiento}" required="false"
+												pattern="dd/MM/yyyy" label="Fecha de pronunciamiento"
+												navigator="true" locale="es" styleClass="dateTimeField"
+												style="width:100%" /></td>
 									</tr>
 								</table>
 							</p:tab>
@@ -499,15 +497,16 @@
 												id="lblFechaResolucionApelacion" /></td>
 									</tr>
 									<tr>
-										<td><p:calendar id="txtFechaApelacion" value=""
-												required="true" pattern="dd/MM/yyyy"
-												label="Fecha de apelación" navigator="true" locale="es"
-												styleClass="dateTimeField" style="width:100%" /></td>
-										<td><p:calendar id="txtFechaResolucionApelacion" value=""
-												required="true" pattern="dd/MM/yyyy"
-												label="Fecha de resolución apelación" navigator="true"
-												locale="es" styleClass="dateTimeField" style="width:100%" />
-										</td>
+										<td><p:calendar id="txtFechaApelacion"
+												value="#{proceso.processEdit.fechaapelacion}" required="false"
+												pattern="dd/MM/yyyy" label="Fecha de apelación"
+												navigator="true" locale="es" styleClass="dateTimeField"
+												style="width:100%" /></td>
+										<td><p:calendar id="txtFechaResolucionApelacion"
+												value="#{proceso.processEdit.fecharesolucionapelacion}" required="false"
+												pattern="dd/MM/yyyy" label="Fecha de resolución apelación"
+												navigator="true" locale="es" styleClass="dateTimeField"
+												style="width:100%" /></td>
 									</tr>
 								</table>
 							</p:tab>
@@ -522,7 +521,8 @@
 									</tr>
 									<tr>
 										<td><p:calendar id="txtFechaPubConsentimientoSEACE"
-												value="" required="true" pattern="dd/MM/yyyy"
+												value="#{proceso.processEdit.fechapublicacionconsentimiento}"
+												required="false" pattern="dd/MM/yyyy"
 												label="Fecha de publicación consentimiento SEACE"
 												navigator="true" locale="es" styleClass="dateTimeField"
 												style="width:100%" /></td>
@@ -599,16 +599,18 @@
 												for="txtEstadoProceso" id="lblEstadoProceso" /></td>
 									</tr>
 									<tr>
-										<td><p:calendar id="txtFechaEnvioProgramacion" value=""
-												required="true" pattern="dd/MM/yyyy"
-												label="Fecha de envío a programación" navigator="true"
-												locale="es" styleClass="dateTimeField" style="width:100%" /></td>
-										<td><p:calendar id="txtFechaEnvioEjecucion" value=""
-												required="true" pattern="dd/MM/yyyy"
+										<td><p:calendar id="txtFechaEnvioProgramacion"
+												value="#{proceso.processEdit.fechaenvioprogramacion}" required="false"
+												pattern="dd/MM/yyyy" label="Fecha de envío a programación"
+												navigator="true" locale="es" styleClass="dateTimeField"
+												style="width:100%" /></td>
+										<td><p:calendar id="txtFechaEnvioEjecucion"
+												value="#{proceso.processEdit.fechaenvioejecucion}" required="false"
+												pattern="dd/MM/yyyy"
 												label="Fecha de envío a ejecución contractual"
 												navigator="true" locale="es" styleClass="dateTimeField"
 												style="width:100%" /></td>
-										<td><p:inputText id="txtEstadoProceso" required="true"
+										<td><p:inputText id="txtEstadoProceso" required="false"
 												maxlength="10" style="width:150px;"
 												label="Estado de proceso" disabled="true"
 												value="#{programacion.currentPao.nroConsolid}" /></td>
@@ -622,7 +624,7 @@
 							<p:commandButton value="Guardar" icon="fa fa-save"
 								title="Guardar datos generales"
 								disabled="#{programacion.disabledButtonsCD}"
-								action="#{programacion.guardarDatosGenerales}"
+								action="#{proceso.saveProceso}"
 								rendered="#{programacion.renderButton('btnGuadarDatosGenerales')}"
 								update="form:msgs,form:panel" />
 							<p:commandButton value="Cancelar" action="#{programacion.load}"
