@@ -325,30 +325,8 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 		procesoEdit.setProgramaauditoria(request.getProgramaAuditoria());
 		procesoseleccionMapper.updateByPrimaryKey(procesoEdit);
 
-		// ******************************SAVE
-		// CONVOCATORIA******************************************
-		// before delete convocatorias
-		// delete details
-		/*
-		 * List<Entregable> entregablesDelete =
-		 * entregableMapper.getEntegablesByOrden(ordenDto.getIdOrden()); for
-		 * (Entregable item : ordenDto.getEntegables()) { for (Entregable delete
-		 * : entregablesDelete) { if (item.getIdentregable() ==
-		 * delete.getIdentregable()) { delete.setEstadoauditoria("Keep"); } } }
-		 * // Elimino aquelos no estas for (Entregable entregable :
-		 * entregablesDelete) { if
-		 * (!entregable.getEstadoauditoria().equals("Keep")) {
-		 * entregableMapper.deleteByPrimaryKey(entregable.getIdentregable()); }
-		 * } List<Convocatoriaprocesoseleccion> convocatoriasDelete =
-		 * convocatoriaprocesoseleccionMapper.selectConvocatoriaByIdProceso(
-		 * procesoRequest.getIdprocesoseleccion()); for
-		 * (Convocatoriaprocesoseleccion item :
-		 * procesoRequest.getListaConvocatoriaprocesoseleccion()) { for
-		 * (Convocatoriaprocesoseleccion delete : convocatoriasDelete) {
-		 * 
-		 * } }
-		 */
-
+		// ******************************SAVE************************************************************
+		// CONVOCATORIA**********************************************************************************
 		Convocatoriaprocesoseleccion convocatoriaEdit;
 		Integer idConvocatoria;
 		for (Convocatoriaprocesoseleccion convocatoria : procesoRequest.getListaConvocatoriaprocesoseleccion()) {

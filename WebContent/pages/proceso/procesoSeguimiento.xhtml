@@ -262,10 +262,11 @@
 						<p:spacer height="1"></p:spacer>
 						<div align="center">
 							<p:commandButton value="Guardar" icon="fa fa-save"
-								title="Guardar proceso" disabled="#{proceso.disabledButtons}"
+								title="Guardar Datos de proceso selección" disabled="#{proceso.disabledButtons}"
 								action="#{proceso.saveProceso}"
 								rendered="#{proceso.renderButton('btnSaveProceso')}"
-								update="form:msgs,form:panel" />
+								update="form:msgs,form:panel" 
+								process="@this"/>
 							<p:commandButton value="Cancelar" action="#{proceso.load}"
 								ajax="false" icon="ui-icon-arrowreturnthick-1-w"
 								title="Cancelar" />
