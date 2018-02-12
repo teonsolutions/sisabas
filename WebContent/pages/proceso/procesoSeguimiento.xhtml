@@ -289,7 +289,7 @@
 									<p:ajax event="rowEdit" listener="#{proceso.onRowEdit}"
 										update=":form:msgs,form:tabViewProceso:accCalendario:tblListaConvocatoria" />
 									<p:ajax event="rowEditCancel" listener="#{proceso.onRowCancel}"
-										update=":form:msgs" />
+										update=":form:msgs,form:tabViewProceso:accCalendario:tblListaConvocatoria" />
 
 									<p:column styleClass="c_center">
 										<f:facet name="header">
@@ -392,7 +392,7 @@
 									<p:ajax event="rowEdit" listener="#{proceso.onRowEditCalendar}"
 										update=":form:msgs,form:tabViewProceso:accCalendario:tblListaCalendario" />
 									<p:ajax event="rowEditCancel"
-										listener="#{proceso.onRowCancelCalendar}" update=":form:msgs" />
+										listener="#{proceso.onRowCancelCalendar}" update=":form:msgs,form:tabViewProceso:accCalendario:tblListaCalendario" />
 
 									<p:column styleClass="c_string">
 										<f:facet name="header">
@@ -547,11 +547,11 @@
 										listener="#{proceso.onRowEditResultado}"
 										update=":form:msgs,form:tabViewProceso:accCalendario:tblListaResultado" />
 									<p:ajax event="rowEditCancel"
-										listener="#{proceso.onRowCancelResultado}" update=":form:msgs" />
+										listener="#{proceso.onRowCancelResultado}" update=":form:msgs,form:tabViewProceso:accCalendario:tblListaResultado" />
 
-									<p:column styleClass="c_numeric" sortBy="#{var.nombreitem}">
+									<p:column styleClass="c_string" sortBy="#{var.nombreitem}">
 										<f:facet name="header">
-											<h:outputText value="Item" styleClass="c_numeric" />
+											<h:outputText value="Item" styleClass="c_string" />
 										</f:facet>
 										<h:outputText value="#{var.nombreitem}" />
 									</p:column>
@@ -611,7 +611,7 @@
 											<f:facet name="input">
 												<p:inputNumber value="#{var.montoadjudicado}"
 													style="width:100%" label="Year" maxlength="20"
-													decimalPlaces="2" />
+													decimalPlaces="20" />
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
