@@ -12,6 +12,9 @@ public class ProcesoRequest {
 	private Integer idSinad;
 	private Integer nroConsolid;
 	
+	//addional
+	private Integer idProcesoSeleccion;
+	
 	public String getIdTipoProceso() {
 		return idTipoProceso;
 	}
@@ -71,6 +74,12 @@ public class ProcesoRequest {
 	}
 	public void setNroConsolid(Integer nroConsolid) {
 		this.nroConsolid = nroConsolid;
+	}
+	public Integer getIdProcesoSeleccion() {
+		return idProcesoSeleccion;
+	}
+	public void setIdProcesoSeleccion(Integer idProcesoSeleccion) {
+		this.idProcesoSeleccion = idProcesoSeleccion;
 	}
 	
 }

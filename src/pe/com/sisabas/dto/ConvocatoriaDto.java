@@ -14,6 +14,7 @@ public class ConvocatoriaDto {
 	private java.util.Date fechainicio;
 	private java.util.Date fechafin;
 	private List<CalendarioDto> listaCalendario;
+	private List<ProcesoResultadoItemDto> listaResultado;
 	
 	public java.lang.Integer getIdconvocatoriaproceso() {
 		return idconvocatoriaproceso;
@@ -74,6 +75,12 @@ public class ConvocatoriaDto {
 	}
 	public void setListaCalendario(List<CalendarioDto> listaCalendario) {
 		this.listaCalendario = listaCalendario;
+	}
+	public List<ProcesoResultadoItemDto> getListaResultado() {
+		return listaResultado;
+	}
+	public void setListaResultado(List<ProcesoResultadoItemDto> listaResultado) {
+		this.listaResultado = listaResultado;
 	}
 	
 	

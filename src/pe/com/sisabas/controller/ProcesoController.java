@@ -22,6 +22,7 @@ import pe.com.sisabas.be.Convocatoriaprocesoseleccion;
 import pe.com.sisabas.be.Gentabla;
 import pe.com.sisabas.be.Miembrocomiteporproceso;
 import pe.com.sisabas.be.Procesoseleccion;
+import pe.com.sisabas.be.Resultadoprocesoseleccion;
 import pe.com.sisabas.business.ConvocatoriaprocesoseleccionBusiness;
 import pe.com.sisabas.business.GentablaBusiness;
 import pe.com.sisabas.business.MiembrocomiteporprocesoBusiness;
@@ -39,6 +40,7 @@ import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
 import pe.com.sisabas.dto.ProcesoDto;
 import pe.com.sisabas.dto.ProcesoRequest;
+import pe.com.sisabas.dto.ProcesoResultadoItemDto;
 import pe.com.sisabas.dto.Resultado;
 import pe.com.sisabas.dto.TipoProcesoResponse;
 import pe.com.sisabas.dto.TransactionRequest;
@@ -82,14 +84,21 @@ public class ProcesoController extends BaseController {
 	private List<Gentabla> listaSistemaContratacion;
 	private List<Gentabla> listaGentablaIdcatalogoestadoconvocatoria;
 	private List<Gentabla> listaGentablaIdcatalogoestadopublicacion;
+	private List<Gentabla> listaGentablaIdcatalogoestadoresultado;
 
 	private List<ConvocatoriaDto> listConvocatoria;
 	private List<CalendarioDto> listCalendario;
+	private List<ProcesoResultadoItemDto> listResultado;
 
 	private String idOpcionText = "OPC_PROCESO";
 	public static String SUCCESS_SEGUIMIENTO = "/pages/proceso/procesoSeguimiento.xhtml?faces-redirect=true;";
 	private boolean disabledButtons;
 
+	//selected
+	private ConvocatoriaDto selectedConvocatoria;
+	private CalendarioDto selectedCalendadio;
+	private ProcesoResultadoItemDto selectedResultado;
+	
 	// Business layer section
 	@Autowired
 	public pe.com.sisabas.resources.business.UtilsBusiness utilsBusiness;
@@ -151,6 +160,9 @@ public class ProcesoController extends BaseController {
 			listaGentablaIdcatalogoestadopublicacion = gentablaBusiness
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EEPR));
 
+			listaGentablaIdcatalogoestadoresultado = gentablaBusiness
+					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EPRI));			
+
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
 		} catch (SecurityRestrictedControlException e) {
@@ -188,6 +200,9 @@ public class ProcesoController extends BaseController {
 				if (this.listConvocatoria.get(0).getListaCalendario() != null) {
 					this.listCalendario = this.listConvocatoria.get(0).getListaCalendario();
 				}
+				if (this.listConvocatoria.get(0).getListaResultado() != null){
+					this.listResultado = this.listConvocatoria.get(0).getListaResultado();
+				}
 			}
 		} catch (Exception e) {
 			addErrorMessage(e);
@@ -220,6 +235,7 @@ public class ProcesoController extends BaseController {
 				newItem.setFechainicio(item.getFechainicio());
 				newItem.setFechafin(item.getFechafin());
 
+				//calendarios
 				List<Calendarioprocesoseleccion> lstCalendario = new ArrayList<Calendarioprocesoseleccion>();
 				if (item.getListaCalendario() != null) {
 					for (CalendarioDto calendar : listCalendario) {
@@ -234,7 +250,30 @@ public class ProcesoController extends BaseController {
 						lstCalendario.add(newCalendar);
 					}
 					newItem.setListaCalendarioprocesoseleccion(lstCalendario);
+				}				
+				
+				//resultado de procesos
+				List<Resultadoprocesoseleccion> lstResultado = new ArrayList<Resultadoprocesoseleccion>();
+				if (item.getListaResultado() != null){
+					for (ProcesoResultadoItemDto resultado : listResultado) {
+						Resultadoprocesoseleccion newResultado = new Resultadoprocesoseleccion();
+						newResultado.setIdresultadoproceso(resultado.getIdresultadoproceso());
+						newResultado.setIdconvocatoriaproceso(resultado.getIdconvocatoriaproceso());
+						newResultado.setNroitem(resultado.getNroitem());
+						newResultado.setNombreitem(resultado.getNombreitem());
+						newResultado.setNroruc(resultado.getNroruc());
+						newResultado.setNombreproveedor(resultado.getNombreproveedor());
+						newResultado.setIdcatalogoestadoresultado(resultado.getIdcatalogoestadoresultado());
+						BigDecimal valorreferencial = new BigDecimal(resultado.getValorreferencial());						
+						newResultado.setValorreferencial(Utils.round(valorreferencial));
+						
+						BigDecimal montoadjudicado = new BigDecimal(resultado.getMontoadjudicado());						
+						newResultado.setMontoadjudicado(Utils.round(montoadjudicado));
+						lstResultado.add(newResultado);						
+					}
+					newItem.setListaResultadoprocesoseleccion(lstResultado);
 				}
+				
 				listconvoca.add(newItem);				
 			}
 			processEdit.setListaConvocatoriaprocesoseleccion(listconvoca);
@@ -376,6 +415,25 @@ public class ProcesoController extends BaseController {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
+	public void onRowEditResultado(RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("Se editó correctamente",
+				"Resultado: " + ((ProcesoResultadoItemDto) event.getObject()).getNroitem());
+		try {
+			String id = ((ProcesoResultadoItemDto) event.getObject()).getIdcatalogoestadoresultado();
+			Gentabla genTabla = gentablaBusiness.selectByPrimaryKeyBasic(id);
+			String descripcion = genTabla != null ? genTabla.getVchregdescri() : "";
+			((ProcesoResultadoItemDto) event.getObject()).setDescripcionestado(descripcion);
+		} catch (Exception ex) {
+		}
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void onRowCancelResultado(RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("Se canceló la edición",
+				"Resultado: " + ((ProcesoResultadoItemDto) event.getObject()).getNroitem());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+	
 	public List<ProcesoDto> getDataList() {
 		return dataList;
 	}
@@ -528,6 +586,47 @@ public class ProcesoController extends BaseController {
 		this.listaGentablaIdcatalogoestadopublicacion = listaGentablaIdcatalogoestadopublicacion;
 	}
 
+	public List<ProcesoResultadoItemDto> getListResultado() {
+		return listResultado;
+	}
+
+	public void setListResultado(List<ProcesoResultadoItemDto> listResultado) {
+		this.listResultado = listResultado;
+	}
+
+	public List<Gentabla> getListaGentablaIdcatalogoestadoresultado() {
+		return listaGentablaIdcatalogoestadoresultado;
+	}
+
+	public void setListaGentablaIdcatalogoestadoresultado(List<Gentabla> listaGentablaIdcatalogoestadoresultado) {
+		this.listaGentablaIdcatalogoestadoresultado = listaGentablaIdcatalogoestadoresultado;
+	}
+
+	public ConvocatoriaDto getSelectedConvocatoria() {
+		return selectedConvocatoria;
+	}
+
+	public void setSelectedConvocatoria(ConvocatoriaDto selectedConvocatoria) {
+		this.selectedConvocatoria = selectedConvocatoria;
+	}
+
+	public CalendarioDto getSelectedCalendadio() {
+		return selectedCalendadio;
+	}
+
+	public void setSelectedCalendadio(CalendarioDto selectedCalendadio) {
+		this.selectedCalendadio = selectedCalendadio;
+	}
+
+	public ProcesoResultadoItemDto getSelectedResultado() {
+		return selectedResultado;
+	}
+
+	public void setSelectedResultado(ProcesoResultadoItemDto selectedResultado) {
+		this.selectedResultado = selectedResultado;
+	}
+
+	
 	// properties
 
 }

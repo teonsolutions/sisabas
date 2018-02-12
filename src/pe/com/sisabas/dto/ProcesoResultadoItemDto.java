@@ -11,6 +11,10 @@ public class ProcesoResultadoItemDto {
 	private Integer estadoprocesoitem;
 	private Double valorreferencial;
 	private Double montoadjudicado;
+	private Double cantidad;
+	private Integer unidadmedida;
+	private String descripcionestado;
+	
 	public Integer getIdresultadoproceso() {
 		return idresultadoproceso;
 	}
@@ -70,6 +74,24 @@ public class ProcesoResultadoItemDto {
 	}
 	public void setMontoadjudicado(Double montoadjudicado) {
 		this.montoadjudicado = montoadjudicado;
+	}
+	public Double getCantidad() {
+		return cantidad;
+	}
+	public void setCantidad(Double cantidad) {
+		this.cantidad = cantidad;
+	}
+	public Integer getUnidadmedida() {
+		return unidadmedida;
+	}
+	public void setUnidadmedida(Integer unidadmedida) {
+		this.unidadmedida = unidadmedida;
+	}
+	public String getDescripcionestado() {
+		return descripcionestado;
+	}
+	public void setDescripcionestado(String descripcionestado) {
+		this.descripcionestado = descripcionestado;
 	}
 	
 	
