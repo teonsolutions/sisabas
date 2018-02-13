@@ -364,6 +364,15 @@ public class ProcesoController extends BaseController {
 			currentRow = (ProcesoDto) selectedRow.clone();
 	}
 
+	public void varlidarFecha(){
+		
+		
+		String valor = "";
+		//FacesMessage msg = new FacesMessage("Se editó correctamente",null);
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Mensaje", null));
+		
+	}
+	
 	// Datatable Editable
 	public void onRowEdit(RowEditEvent event) {
 		DataTable dt = (DataTable)event.getSource();

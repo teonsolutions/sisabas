@@ -9,6 +9,7 @@
 	template="/pages/template/MasterPage.xhtml">
 	<ui:define name="center">
 		<h:form id="form">
+			
 			<p:growl id="msgs" showDetail="true"></p:growl>
 			<p:growl id="growl" showDetail="true" for="growl" />
 			<p:panel id="panel" header="Seguimiento de proceso"
@@ -92,7 +93,8 @@
 				<p:tabView id="tabViewProceso" dynamic="true"
 					activeIndex="#{programacion.pacTabIndex}">
 					<p:tab title="Datos de proceso selección">
-						<p:accordionPanel id="accDatosGenerales" multiple="true" activeIndex="0,1">
+						<p:accordionPanel id="accDatosGenerales" multiple="true"
+							activeIndex="0,1">
 							<p:tab title="Recepción de expediente">
 								<table style="width: 100%">
 									<tr>
@@ -263,25 +265,26 @@
 						<p:spacer height="1"></p:spacer>
 						<div align="center">
 							<p:commandButton value="Guardar" icon="fa fa-save"
-								title="Guardar Datos de proceso selección" disabled="#{proceso.disabledButtons}"
+								title="Guardar Datos de proceso selección"
+								disabled="#{proceso.disabledButtons}"
 								action="#{proceso.saveProceso}"
 								rendered="#{proceso.renderButton('btnSaveProceso')}"
-								update="form:msgs,form:panel" 
-								process="@this"/>
+								update="form:msgs,form:panel" process="@this" />
 							<p:commandButton value="Cancelar" action="#{proceso.load}"
 								ajax="false" icon="ui-icon-arrowreturnthick-1-w"
 								title="Cancelar" />
 						</div>
 					</p:tab>
 					<p:tab title="Calendario">
-						<p:accordionPanel id="accCalendario" multiple="true" activeIndex="0,1">
-							<p:tab title="Convocatorias">
+						<p:accordionPanel id="accCalendario" multiple="true"
+							activeIndex="0,1">
+							<p:tab title="Convocatorias">								
 								<p:dataTable id="tblListaConvocatoria"
 									value="#{proceso.listConvocatoria}" var="var"
 									emptyMessage="No se encontraron registros"
 									widgetVar="tblListaConvocatoria"
-									selection="#{proceso.selectedConvocatoria}"
-									paginator="false" rows="#{sisabascontrol.registros_mant}"
+									selection="#{proceso.selectedConvocatoria}" paginator="false"
+									rows="#{sisabascontrol.registros_mant}"
 									paginatorPosition="bottom"
 									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(proceso.listConvocatoria)}"
 									selectionMode="single" rowKey="#{var.idconvocatoriaproceso}"
@@ -313,8 +316,9 @@
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:inputNumber value="#{var.valorreferencia}" required="true"
-													style="width:100%" label="Year" maxlength="20" />
+												<p:inputNumber value="#{var.valorreferencia}"
+													required="true" style="width:100%" label="Year"
+													maxlength="20" />
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
@@ -329,10 +333,12 @@
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:calendar value="#{var.fechainicio}" maxdate="#{var.fechafin}" 
-													required="true" showButtonPanel="true"
-													pattern="dd/MM/yyyy" label="Fecha Inicial" navigator="true"
-													locale="es" styleClass="dateTimeField" style="width:100%" />
+												<p:calendar id="calInicio" value="#{var.fechainicio}"
+													maxdate="#{var.fechafin}" required="true"
+													showButtonPanel="true" pattern="dd/MM/yyyy"
+													label="Fecha Inicial" navigator="true" locale="es"
+													styleClass="dateTimeField" style="width:100%">
+												</p:calendar>
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
@@ -346,10 +352,12 @@
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:calendar value="#{var.fechafin}" mindate="#{var.fechainicio}" 
-													required="true"
+												<p:calendar id="calFinal" value="#{var.fechafin}"
+													mindate="#{var.fechainicio}" required="true"
 													pattern="dd/MM/yyyy" label="Fecha Final" navigator="true"
-													locale="es" styleClass="dateTimeField" style="width:100%" />
+													locale="es" styleClass="dateTimeField" style="width:100%">
+													<p:ajax event="dateSelect" listener="#{proceso.varlidarFecha}" process="calInicio,calFinal"></p:ajax>
+												</p:calendar>
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
@@ -384,8 +392,8 @@
 									value="#{proceso.listCalendario}" var="var"
 									emptyMessage="No se encontraron registros"
 									widgetVar="tblListaCalendario"
-									selection="#{proceso.selectedCalendadio}"
-									paginator="false" rows="#{sisabascontrol.registros_mant}"
+									selection="#{proceso.selectedCalendadio}" paginator="false"
+									rows="#{sisabascontrol.registros_mant}"
 									paginatorPosition="bottom"
 									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(proceso.listCalendario)}"
 									selectionMode="single"
@@ -395,7 +403,8 @@
 									<p:ajax event="rowEdit" listener="#{proceso.onRowEditCalendar}"
 										update=":form:msgs,form:tabViewProceso:accCalendario:tblListaCalendario" />
 									<p:ajax event="rowEditCancel"
-										listener="#{proceso.onRowCancelCalendar}" update=":form:msgs,form:tabViewProceso:accCalendario:tblListaCalendario" />
+										listener="#{proceso.onRowCancelCalendar}"
+										update=":form:msgs,form:tabViewProceso:accCalendario:tblListaCalendario" />
 
 									<p:column styleClass="c_string">
 										<f:facet name="header">
@@ -539,8 +548,8 @@
 									value="#{proceso.listResultado}" var="var"
 									emptyMessage="No se encontraron registros"
 									widgetVar="tblListaResultado"
-									selection="#{proceso.selectedResultado}"
-									paginator="true" rows="#{sisabascontrol.registros_mant}"
+									selection="#{proceso.selectedResultado}" paginator="true"
+									rows="#{sisabascontrol.registros_mant}"
 									paginatorPosition="bottom"
 									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(proceso.listResultado)}"
 									selectionMode="single" rowKey="#{var.nroitem}"
@@ -550,7 +559,8 @@
 										listener="#{proceso.onRowEditResultado}"
 										update=":form:msgs,form:tabViewProceso:accCalendario:tblListaResultado" />
 									<p:ajax event="rowEditCancel"
-										listener="#{proceso.onRowCancelResultado}" update=":form:msgs,form:tabViewProceso:accCalendario:tblListaResultado" />
+										listener="#{proceso.onRowCancelResultado}"
+										update=":form:msgs,form:tabViewProceso:accCalendario:tblListaResultado" />
 
 									<p:column styleClass="c_string" sortBy="#{var.nombreitem}">
 										<f:facet name="header">
@@ -667,8 +677,7 @@
 								disabled="#{programacion.disabledButtonsCD}"
 								action="#{proceso.saveProceso}"
 								rendered="#{proceso.renderButton('btnSaveCalendario')}"
-								update="form:msgs,form:panel" 
-								process="@this"/>
+								update="form:msgs,form:panel" process="@this" />
 							<p:commandButton value="Cancelar" action="#{proceso.load}"
 								ajax="false" icon="ui-icon-arrowreturnthick-1-w"
 								title="Cancelar" />
