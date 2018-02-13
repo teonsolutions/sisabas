@@ -192,6 +192,9 @@
 	<result column="ID_ESTADO_SIAF" property="idEstadoSiaf" jdbcType="VARCHAR" />
 	<result column="ESTADO_SIAF" property="estadoSiafDesc" jdbcType="VARCHAR" />
 	</resultMap>
+	
+	
+	
 		
 	<sql id="Basic_Column_List">
 	A1.IDORDEN as A1_IDORDEN, A1.IDPACCONSOLIDADO as A1_IDPACCONSOLIDADO, A1.IDGRUPODOCUMENTO as A1_IDGRUPODOCUMENTO, A1.NROORDEN as A1_NROORDEN, 
@@ -906,6 +909,11 @@
 	<select id="getCompraDirectaOrden" resultMap="OrdenResultMap" statementType="CALLABLE" parameterType="pe.com.sisabas.dto.PaoRequest">
 		{call abas.paProgramacionCompraDirectaOrden(#{anio},#{nroConsolid},#{idUnidadEjecutoraSiaf})}		
 	</select>	
+	
+	<select id="getListaOrden" resultMap="OrdenResultMap" statementType="CALLABLE" parameterType="pe.com.sisabas.dto.OrdenListaDto">
+	    {call abas.paListaOrden(#{ejercicio},#{nroOrden})}	
+	</select>
+	
 	
 	<select id="getOrdenByPacConsolid" resultMap="BasicResultMap" statementType="CALLABLE" parameterType="java.lang.Integer">
 		select * from abas.Orden where IdPacConsolidado = (#{idPacConsolidado})		

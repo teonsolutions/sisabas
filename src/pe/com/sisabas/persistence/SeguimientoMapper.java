@@ -16,4 +16,6 @@ public interface SeguimientoMapper {
 
 	List<SegEstadoReqResponse> callpaSeguimientoEstadoRequerimiento(SegEstadoReqRequest segEstadoReqRequest);
 	
+	
+	
 }

@@ -30,6 +30,47 @@
       <result property = "estadoDocumentacionDesc" column="ESTADO_DOCUMENTACION_DESC"/>
       <result property = "rowTotal" column="ROWTOTAL"/>
     </resultMap>
+    
+    <resultMap id = "result2" type = "pe.com.sisabas.dto.SegResponse">
+      <result property = "tipoBien" column="TIPO_BIEN"/>  
+      <result property = "nombreTipoBien" column="NOMBRE_TIPO_BIEN"/> 
+      <result property = "idProcesoSeleccion" column="IdProcesoSeleccion"/>
+      <result property = "idPacConsolidado" column="IdPacConsolidado"/>
+      <result property = "nroProceso" column="NroProceso"/>
+      <result property = "idContrato" column="IdContrato"/>
+      <result property = "ejercicio" column="EJERCICIO"/>
+      <result property = "fechaReg" column="FECHA_REG"/>
+      <result property = "montoProceso" column="MONTO_PROCESO"/>
+      <result property = "descAbreviada" column="DESCRIPCION_ABREVIADA"/>
+      <result property = "codTipoProceso" column="CodigoTipoProceso"/>
+      <result property = "tipoProceso" column="TIPO_PROCESO"/>
+      <result property = "nroDocumento" column="NRO_DOCUMENTO"/>
+      <result property = "nroContrato" column="NRO_CONTRATO"/>
+      <result property = "fechaContrato" column="FECHA_CONTRATO"/>
+      <result property = "item" column="ITEM"/>
+      <result property = "fechaInicial" column="FECHA_INICIAL"/>
+      <result property = "registrado" column="REGISTRADO"/>
+      <result property = "idCatalogoTipoContrato" column="IdCatalogoTipoContrato"/>
+      <result property = "fechaFinal" column="FECHA_FINAL"/>
+      <result property = "nroConsolid" column="NroConsolid"/>
+      <result property = "especTecnicas" column="ESPEC_TECNICAS"/>
+      <result property = "estadoProceso" column="ESTADO_PROCESO"/>
+      <result property = "nroRuc" column="NRO_RUC"/>
+      <result property = "nombreProv" column="NOMBRE_PROV"/>
+      <result property = "proveedor" column="PROVEEDOR"/>
+      <result property = "nroCp" column="NroCP"/>
+      <result property = "montoCp" column="MontoCP"/>
+      <result property = "moneda" column="MONEDA"/>
+      <result property = "montoContrato" column="MONTO_CONTRATO"/>
+      <result property = "idDocumento" column="ID_DOCUMENTO"/>
+      <result property = "secContrato" column="SEC_CONTRATO"/>
+      <result property = "fechaRecepcionExpediente" column="FechaRecepcionExpediente"/>
+      <result property = "plazoEjecucion" column="PlazoEjecucion"/>
+      <result property = "nombreAbogado" column="NombreAbogado"/>
+      <result property = "dniAbogado" column="DniAbogado"/>
+      <result property = "cantidadArmadas" column="CantidadArmadas"/>
+      <result property = "idCatalogoSistemaAdquisicion" column="IdCatalogoSistemaAdquisicion"/>
+    </resultMap>
 
 	<resultMap id="BasicResultMap" type="pe.com.sisabas.be.Contrato">
 	<result column="A1_IDCONTRATO" property="idcontrato" jdbcType="INTEGER" />
@@ -334,8 +375,11 @@
 	where IdContrato = #{idcontrato,jdbcType=INTEGER}
 	</delete>
 
-
-
+   <select id="listaEjercicio" resultType="Integer">
+      SELECT DISTINCT ANO_EJE FROM BDABASv1.abas.visSigaOrdenAdquisicion
+    </select>
+  
+ 
 
 
 	<insert id="insert" parameterType="pe.com.sisabas.be.Contrato" >
@@ -999,8 +1043,7 @@
 	</if>
 	</select>
 	
-	
-	 <select id = "selectDynamicFull" resultMap = "result" parameterType = "pe.com.sisabas.be.ContratoRequest" statementType = "CALLABLE">
+   <select id = "selectDynamicFull" resultMap = "result" parameterType = "pe.com.sisabas.be.ContratoRequest" statementType = "CALLABLE">
       {call abas.paEjecucionListarContratos(
             #{ejercicio},
             #{codUnidEjecutora},
@@ -1014,6 +1057,16 @@
             #{sinadContrato},
             #{pageNumber},
             #{pageSize}   
+      )}
+      
+   </select>
+   
+   <select id = "obtenerSeguimiento" resultMap = "result2" parameterType = "pe.com.sisabas.dto.SegRequest" statementType = "CALLABLE">
+      {call abas.paEjecucionObtenerSeguimiento(
+            #{codUnidadEjecutora},
+            #{idEjercicio},
+            #{idTipoProceso},
+            #{idContrato}   
       )}
       
    </select>

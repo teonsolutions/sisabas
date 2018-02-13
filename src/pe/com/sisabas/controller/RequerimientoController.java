@@ -78,7 +78,7 @@ public class RequerimientoController extends BaseController {
 	private boolean value8;
 	private boolean value9;
 
-	private String pdfURL = "/resources/pdfs/fer,pdf";
+	private String pdfURL = "/resources/pdfs/fer.pdf";
 	private String pdf = "fer.pdf";
 
 	private static final long serialVersionUID = 1L;

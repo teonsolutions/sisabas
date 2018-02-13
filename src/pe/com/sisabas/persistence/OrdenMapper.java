@@ -4,6 +4,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import pe.com.sisabas.be.Orden;
 import pe.com.sisabas.dto.OrdenDto;
+import pe.com.sisabas.dto.OrdenListaDto;
 import pe.com.sisabas.dto.PaoRequest;
 
 public interface OrdenMapper{
@@ -36,6 +37,8 @@ public interface OrdenMapper{
 	List<OrdenDto> getCompraDirectaOrden(PaoRequest request) throws Exception;
 	
 	List<Orden> getOrdenByPacConsolid(@Param("idPacConsolidado") java.lang.Integer idPacConsolidado) throws Exception;
+	
+	List<OrdenDto> getListaOrden(OrdenListaDto request) throws Exception;
 	
 
 }

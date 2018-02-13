@@ -1196,6 +1196,7 @@ public class ProgramacionBusinessImpl implements ProgramacionBusiness, Serializa
 
 		return result;
 	}
+	
 
 	@Override
 	public TransactionResponse<Miembrocomiteporproceso> grabarMiembrosComite(

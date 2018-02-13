@@ -36,6 +36,8 @@ import pe.com.sisabas.dto.EspecificacionTecnicaDto;
 import pe.com.sisabas.dto.Lugar;
 import pe.com.sisabas.dto.Pago;
 import pe.com.sisabas.dto.Resultado;
+import pe.com.sisabas.dto.SegRequest;
+import pe.com.sisabas.dto.SegResponse;
 import pe.com.sisabas.dto.TransactionRequest;
 import pe.com.sisabas.persistence.ComiteprocesoMapper;
 import pe.com.sisabas.persistence.DependenciadocumentotecnicoMapper;
@@ -78,7 +80,6 @@ public class SeguimientoBusinessImpl implements SeguimientoBusiness, Serializabl
 	}
 
 
-	
 	
 	
 

@@ -14,6 +14,8 @@ import pe.com.sisabas.be.SeguimientoResponse;
 import pe.com.sisabas.dto.EspecificacionTecnicaDto;
 import pe.com.sisabas.dto.Lugar;
 import pe.com.sisabas.dto.Resultado;
+import pe.com.sisabas.dto.SegRequest;
+import pe.com.sisabas.dto.SegResponse;
 import pe.com.sisabas.dto.TransactionRequest;
 
 public interface SeguimientoBusiness {
@@ -22,4 +24,7 @@ public interface SeguimientoBusiness {
 	public List<SeguimientoResponse> callpaSeguimientoRequerimiento(SeguimientoRequest seguimientoRequest) throws Exception;
 
 	public List<SegEstadoReqResponse> callpaSeguimientoEstadoRequerimiento(SegEstadoReqRequest segEstadoRequest) throws Exception;
+	
+	
+	
 }

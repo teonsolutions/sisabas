@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import pe.com.sisabas.be.Contrato;
 import pe.com.sisabas.be.ContratoRequest;
 import pe.com.sisabas.be.ContratoResponse;
+import pe.com.sisabas.dto.SegRequest;
+import pe.com.sisabas.dto.SegResponse;
 
 
 public interface ContratoMapper {
@@ -36,4 +38,8 @@ public interface ContratoMapper {
 	List<ContratoResponse> selectDynamicFull(ContratoRequest record) throws Exception;
     
 	List<Contrato> selectDynamicExtended(Contrato record) throws Exception;
+	
+	List<SegResponse> obtenerSeguimiento(SegRequest record) throws Exception;
+	
+	List<Integer> listaEjercicio() throws Exception;
 }
