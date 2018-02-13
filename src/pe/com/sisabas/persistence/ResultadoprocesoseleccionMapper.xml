@@ -114,6 +114,7 @@
 	<result column="EstadoProcesoItem" property="estadoprocesoitem" jdbcType="INTEGER" />
 	<result column="ValorReferencial" property="valorreferencial" jdbcType="DECIMAL" />
 	<result column="MontoAdjudicado" property="montoadjudicado" jdbcType="DECIMAL" />
+	<result column="DescripcionEstado" property="descripcionestado" jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<resultMap id="BasicResultMapCustomSiga" type="pe.com.sisabas.dto.ProcesoResultadoItemDto">
@@ -657,18 +658,20 @@
 
 	<select id="selectResultadoByIdConvocatoria" resultMap="BasicResultMapCustom" parameterType="java.lang.Integer">
 		select
-			IdResultadoProceso,
-			IdConvocatoriaProceso, 
-			IdResultadoProcesoPadre, 
-			NroItem,      
-			NombreItem, 
-			NroRuc,    
-			NombreProveedor, 
-			IdCatalogoEstadoResultado, 
-			EstadoProcesoItem, 
-			ValorReferencial,                     
-			MontoAdjudicado
-		from abas.ResultadoProcesoSeleccion
+			a.IdResultadoProceso,
+			a.IdConvocatoriaProceso, 
+			a.IdResultadoProcesoPadre, 
+			a.NroItem,      
+			a.NombreItem, 
+			a.NroRuc,    
+			a.NombreProveedor, 
+			a.IdCatalogoEstadoResultado, 
+			a.EstadoProcesoItem, 
+			a.ValorReferencial,                     
+			a.MontoAdjudicado,
+			b.vchregdescri as DescripcionEstado
+		from abas.ResultadoProcesoSeleccion a
+		left join abas.gentabla b on b.vchregCodigo = a.IdCatalogoEstadoResultado and b.vchtipCodigo = 'EPRI'
 		where IdConvocatoriaProceso = #{idconvocatoriaproceso}
 		order by IdResultadoProceso asc
 	</select>		

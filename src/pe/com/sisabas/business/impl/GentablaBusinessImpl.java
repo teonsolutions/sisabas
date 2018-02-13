@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pe.com.sisabas.be.Gentabla;
 import pe.com.sisabas.persistence.GentablaMapper;
 import pe.com.sisabas.business.GentablaBusiness;
+import pe.com.sisabas.dto.ConvocatoriaDto;
 import pe.com.sisabas.dto.EstadoRequerimientoResponse;
 import pe.com.sisabas.dto.GentablaItemResponse;
 import pe.com.sisabas.dto.TipoProcesoResponse;
@@ -355,6 +356,14 @@ public class GentablaBusinessImpl implements GentablaBusiness, Serializable{
 	public List<GentablaItemResponse> getItems(String tipo) throws Exception {
 		// TODO Auto-generated method stub
 		return gentablaMapper.getItems(tipo);
+	}
+
+	@Override
+	public String getDescripcion(String key) throws Exception {
+		// TODO Auto-generated method stub
+		Gentabla genTabla = gentablaMapper.selectByPrimaryKeyBasic(key);
+		String descripcion = genTabla != null ? genTabla.getVchregdescri() : "";
+		return descripcion;
 	}
 
 

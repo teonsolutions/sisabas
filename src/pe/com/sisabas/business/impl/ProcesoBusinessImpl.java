@@ -397,7 +397,7 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 						resultado.setFechacreacionauditoria(new Date());
 						resultado.setProgramaauditoria(request.getProgramaAuditoria());
 						resultado.setEquipoauditoria(request.getEquipoAuditoria());
-						resultado.setEquipoauditoria(Constantes.estadoAuditoria.ACTIVO);
+						resultado.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
 						resultado.setIdresultadoproceso(
 								(int) utilsBusiness.getNextSeq(Sequence.SEQ_RESULTADOPROCESOSELECCION).longValue());
 						resultadoprocesoseleccionMapper.insert(resultado);
@@ -454,7 +454,7 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 		if (proc != null) {
 			request.setNroConsolid(proc.getNroconsolid());
 			request.setAnio(proc.getAnio());
-			request.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.ID_UNIDAD_EJECUTORA_ABAS);
+			request.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.PRONIED_SIAF);
 		}
 
 		List<ConvocatoriaDto> listConvoca = convocatoriaprocesoseleccionMapper

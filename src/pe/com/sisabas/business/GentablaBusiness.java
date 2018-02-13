@@ -54,4 +54,6 @@ public interface GentablaBusiness{
 	public List<EstadoRequerimientoResponse> getEstadoRequerimiento(@Param("idEtapaAdministrativa") Integer idEtapaAdministrativa) throws Exception;
 	
 	public List<GentablaItemResponse> getItems(String tipo) throws Exception;	
+	
+	public String getDescripcion(String key) throws Exception;
 }

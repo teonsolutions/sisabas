@@ -42,7 +42,7 @@
 						<td colspan="3"><p:inputTextarea id="txtDescripProceso"
 								required="false" rows="2" cols="50" queryDelay="750"
 								minQueryLength="4" disabled="true"
-								value="#{proceso.currentRow.glosa}" style="width: 100%" /></td>
+								value="#{proceso.currentRow.glosa}" style="width: 90%" /></td>
 					</tr>
 					<tr>
 						<td><p:outputLabel value="Tipo de proceso"
@@ -92,7 +92,7 @@
 				<p:tabView id="tabViewProceso" dynamic="true"
 					activeIndex="#{programacion.pacTabIndex}">
 					<p:tab title="Datos de proceso selección">
-						<p:accordionPanel id="accDatosGenerales" multiple="true">
+						<p:accordionPanel id="accDatosGenerales" multiple="true" activeIndex="0,1">
 							<p:tab title="Recepción de expediente">
 								<table style="width: 100%">
 									<tr>
@@ -129,7 +129,7 @@
 									emptyMessage="No se encontraron registros"
 									widgetVar="tblListaMiembrocomiteporproceso"
 									selection="#{procesoRecepcion.selectedMiembrocomiteporproceso}"
-									paginator="true" rows="#{sisabascontrol.registros_mant}"
+									paginator="false" rows="#{sisabascontrol.registros_mant}"
 									paginatorPosition="bottom"
 									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(procesoRecepcion.listaMiembrocomiteporproceso)}"
 									selectionMode="single" rowKey="#{var.idmiembrocomiteproceso}"
@@ -175,6 +175,7 @@
 										<h:outputText value="#{var.celular}" />
 									</p:column>
 								</p:dataTable>
+								<p:spacer height="1"></p:spacer>
 								<table style="width: 100%">
 									<tr>
 										<td><p:outputLabel value="Fecha de acta de proyecto base"
@@ -212,7 +213,7 @@
 												rows="2" cols="50" queryDelay="750" minQueryLength="4"
 												disabled="false"
 												value="#{proceso.processEdit.observacionesproyectobases}"
-												style="width: 100%" /></td>
+												style="width: 90%" /></td>
 									</tr>
 									<tr>
 										<td><p:outputLabel value="Fecha de subsanación de base"
@@ -273,7 +274,7 @@
 						</div>
 					</p:tab>
 					<p:tab title="Calendario">
-						<p:accordionPanel id="accCalendario" multiple="true">
+						<p:accordionPanel id="accCalendario" multiple="true" activeIndex="0,1">
 							<p:tab title="Convocatorias">
 								<p:dataTable id="tblListaConvocatoria"
 									value="#{proceso.listConvocatoria}" var="var"
@@ -312,7 +313,7 @@
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:inputNumber value="#{var.valorreferencia}"
+												<p:inputNumber value="#{var.valorreferencia}" required="true"
 													style="width:100%" label="Year" maxlength="20" />
 											</f:facet>
 										</p:cellEditor>
@@ -328,7 +329,8 @@
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:calendar value="#{var.fechainicio}" required="false"
+												<p:calendar value="#{var.fechainicio}" maxdate="#{var.fechafin}" 
+													required="true" showButtonPanel="true"
 													pattern="dd/MM/yyyy" label="Fecha Inicial" navigator="true"
 													locale="es" styleClass="dateTimeField" style="width:100%" />
 											</f:facet>
@@ -344,7 +346,8 @@
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:calendar value="#{var.fechafin}" required="false"
+												<p:calendar value="#{var.fechafin}" mindate="#{var.fechainicio}" 
+													required="true"
 													pattern="dd/MM/yyyy" label="Fecha Final" navigator="true"
 													locale="es" styleClass="dateTimeField" style="width:100%" />
 											</f:facet>
@@ -359,13 +362,13 @@
 											</f:facet>
 											<f:facet name="input">
 												<p:selectOneMenu value="#{var.idcatalogoestadoconvocatoria}"
-													id="ddlEstado" required="false" label="Estado"
+													id="ddlEstado" required="true" label="Estado"
 													style="width: 85%">
 													<f:selectItem itemLabel="--Seleccione--" itemValue="" />
 													<f:selectItems
 														value="#{proceso.listaGentablaIdcatalogoestadoconvocatoria}"
-														var="var" itemLabel="#{var.vchregdescri}"
-														itemValue="#{var.vchregcodigo}" />
+														var="status" itemLabel="#{status.vchregdescri}"
+														itemValue="#{status.vchregcodigo}" />
 												</p:selectOneMenu>
 											</f:facet>
 										</p:cellEditor>
@@ -412,7 +415,7 @@
 											</f:facet>
 											<f:facet name="input">
 												<p:calendar id="fechaIni" value="#{var.fechainicio}"
-													required="false" pattern="dd/MM/yyyy" label="Fecha Inicial"
+													required="true" pattern="dd/MM/yyyy" label="Fecha Inicial"
 													navigator="true" locale="es" styleClass="dateTimeField"
 													style="width:100%" />
 											</f:facet>
@@ -428,7 +431,7 @@
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:calendar value="#{var.fechafin}" required="false"
+												<p:calendar value="#{var.fechafin}" required="true"
 													pattern="dd/MM/yyyy" label="Fecha Final" navigator="true"
 													locale="es" styleClass="dateTimeField" style="width:100%">
 													<p:ajax event="dateSelect" update="fechaIni" />
@@ -445,13 +448,13 @@
 											</f:facet>
 											<f:facet name="input">
 												<p:selectOneMenu value="#{var.idcatalogoestadopublicacion}"
-													id="ddlEstado" required="false" label="Estado"
+													id="ddlEstado" required="true" label="Estado"
 													style="width: 90%">
 													<f:selectItem itemLabel="--Seleccione--" itemValue="" />
 													<f:selectItems
 														value="#{proceso.listaGentablaIdcatalogoestadopublicacion}"
-														var="var" itemLabel="#{var.vchregdescri}"
-														itemValue="#{var.vchregcodigo}" />
+														var="status" itemLabel="#{status.vchregdescri}"
+														itemValue="#{status.vchregcodigo}" />
 												</p:selectOneMenu>
 											</f:facet>
 										</p:cellEditor>
@@ -569,8 +572,8 @@
 													<f:selectItem itemLabel="--Seleccione--" itemValue="" />
 													<f:selectItems
 														value="#{proceso.listaGentablaIdcatalogoestadoresultado}"
-														var="var" itemLabel="#{var.vchregdescri}"
-														itemValue="#{var.vchregcodigo}" />
+														var="status" itemLabel="#{status.vchregdescri}"
+														itemValue="#{status.vchregcodigo}" />
 												</p:selectOneMenu>
 											</f:facet>
 										</p:cellEditor>
@@ -619,7 +622,7 @@
 										<p:rowEditor editTitle="Editar" />
 									</p:column>
 								</p:dataTable>
-								<table>
+								<table style="width: 100%">
 									<tr>
 										<td colspan="3"></td>
 									</tr>
@@ -639,19 +642,19 @@
 									<tr>
 										<td><p:calendar id="txtFechaEnvioProgramacion"
 												value="#{proceso.processEdit.fechaenvioprogramacion}"
-												required="false" pattern="dd/MM/yyyy"
+												required="false" pattern="dd/MM/yyyy" disabled="true"
 												label="Fecha de envío a programación" navigator="true"
 												locale="es" styleClass="dateTimeField" style="width:100%" /></td>
 										<td><p:calendar id="txtFechaEnvioEjecucion"
 												value="#{proceso.processEdit.fechaenvioejecucion}"
-												required="false" pattern="dd/MM/yyyy"
+												required="false" pattern="dd/MM/yyyy" disabled="true"
 												label="Fecha de envío a ejecución contractual"
 												navigator="true" locale="es" styleClass="dateTimeField"
 												style="width:100%" /></td>
 										<td><p:inputText id="txtEstadoProceso" required="false"
 												maxlength="10" style="width:150px;"
 												label="Estado de proceso" disabled="true"
-												value="#{programacion.currentPao.nroConsolid}" /></td>
+												value="#{proceso.currentRow.estadoproceso}" /></td>
 										<td></td>
 									</tr>
 								</table>

@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.RowEditEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -94,11 +95,11 @@ public class ProcesoController extends BaseController {
 	public static String SUCCESS_SEGUIMIENTO = "/pages/proceso/procesoSeguimiento.xhtml?faces-redirect=true;";
 	private boolean disabledButtons;
 
-	//selected
+	// selected
 	private ConvocatoriaDto selectedConvocatoria;
 	private CalendarioDto selectedCalendadio;
 	private ProcesoResultadoItemDto selectedResultado;
-	
+
 	// Business layer section
 	@Autowired
 	public pe.com.sisabas.resources.business.UtilsBusiness utilsBusiness;
@@ -161,7 +162,7 @@ public class ProcesoController extends BaseController {
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EEPR));
 
 			listaGentablaIdcatalogoestadoresultado = gentablaBusiness
-					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EPRI));			
+					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EPRI));
 
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
@@ -200,7 +201,7 @@ public class ProcesoController extends BaseController {
 				if (this.listConvocatoria.get(0).getListaCalendario() != null) {
 					this.listCalendario = this.listConvocatoria.get(0).getListaCalendario();
 				}
-				if (this.listConvocatoria.get(0).getListaResultado() != null){
+				if (this.listConvocatoria.get(0).getListaResultado() != null) {
 					this.listResultado = this.listConvocatoria.get(0).getListaResultado();
 				}
 			}
@@ -235,7 +236,7 @@ public class ProcesoController extends BaseController {
 				newItem.setFechainicio(item.getFechainicio());
 				newItem.setFechafin(item.getFechafin());
 
-				//calendarios
+				// calendarios
 				List<Calendarioprocesoseleccion> lstCalendario = new ArrayList<Calendarioprocesoseleccion>();
 				if (item.getListaCalendario() != null) {
 					for (CalendarioDto calendar : listCalendario) {
@@ -250,11 +251,11 @@ public class ProcesoController extends BaseController {
 						lstCalendario.add(newCalendar);
 					}
 					newItem.setListaCalendarioprocesoseleccion(lstCalendario);
-				}				
-				
-				//resultado de procesos
+				}
+
+				// resultado de procesos
 				List<Resultadoprocesoseleccion> lstResultado = new ArrayList<Resultadoprocesoseleccion>();
-				if (item.getListaResultado() != null){
+				if (item.getListaResultado() != null) {
 					for (ProcesoResultadoItemDto resultado : listResultado) {
 						Resultadoprocesoseleccion newResultado = new Resultadoprocesoseleccion();
 						newResultado.setIdresultadoproceso(resultado.getIdresultadoproceso());
@@ -264,17 +265,17 @@ public class ProcesoController extends BaseController {
 						newResultado.setNroruc(resultado.getNroruc());
 						newResultado.setNombreproveedor(resultado.getNombreproveedor());
 						newResultado.setIdcatalogoestadoresultado(resultado.getIdcatalogoestadoresultado());
-						BigDecimal valorreferencial = new BigDecimal(resultado.getValorreferencial());						
+						BigDecimal valorreferencial = new BigDecimal(resultado.getValorreferencial());
 						newResultado.setValorreferencial(Utils.round(valorreferencial));
-						
-						BigDecimal montoadjudicado = new BigDecimal(resultado.getMontoadjudicado());						
+
+						BigDecimal montoadjudicado = new BigDecimal(resultado.getMontoadjudicado());
 						newResultado.setMontoadjudicado(Utils.round(montoadjudicado));
-						lstResultado.add(newResultado);						
+						lstResultado.add(newResultado);
 					}
 					newItem.setListaResultadoprocesoseleccion(lstResultado);
 				}
-				
-				listconvoca.add(newItem);				
+
+				listconvoca.add(newItem);
 			}
 			processEdit.setListaConvocatoriaprocesoseleccion(listconvoca);
 			request.setUsuarioAuditoria(getUserLogin());
@@ -365,27 +366,33 @@ public class ProcesoController extends BaseController {
 
 	// Datatable Editable
 	public void onRowEdit(RowEditEvent event) {
+		DataTable dt = (DataTable)event.getSource();
+		
+		
 		FacesMessage msg = new FacesMessage("Se editó correctamente",
 				"Convocatoria: " + ((ConvocatoriaDto) event.getObject()).getNroconvocatoria());
 		ConvocatoriaDto convoca = ((ConvocatoriaDto) event.getObject());
 		// get description of the status
 		try {
-			//validate the date
+			// validate the date
+			throw new Exception("Error");
 			/*
-			if (convoca.getFechainicio().compareTo(convoca.getFechafin()) <= 0)
-			{*/
-				String id = ((ConvocatoriaDto) event.getObject()).getIdcatalogoestadoconvocatoria();
-				Gentabla genTabla = gentablaBusiness.selectByPrimaryKeyBasic(id);
-				String descripcion = genTabla != null ? genTabla.getVchregdescri() : "";
-				((ConvocatoriaDto) event.getObject()).setDescripcionestado(descripcion);				
-			/*}else{*/
-				//cancel editing				
-				//onRowCancel(event);
-				//throw new ValidatorException(
-	                    //FacesMessageUtil.newBundledFacesMessage(FacesMessage.SEVERITY_ERROR, "", "msg.dateRange", ((Calendar)component).getLabel(), startDate);
+			if (convoca.getFechainicio().compareTo(convoca.getFechafin()) <= 0) {
 
-			//}
+				String id = ((ConvocatoriaDto) event.getObject()).getIdcatalogoestadoconvocatoria();
+				((ConvocatoriaDto) event.getObject()).setDescripcionestado(gentablaBusiness.getDescripcion(id));
+			} else {
+				// cancel editing
+				onRowCancel(event);				
+				
+				// throw new ValidatorException(
+				// FacesMessageUtil.newBundledFacesMessage(FacesMessage.SEVERITY_ERROR,
+				// "", "msg.dateRange", ((Calendar)component).getLabel(),
+				// startDate);
+			}*/
 		} catch (Exception ex) {
+			msg = new FacesMessage("Falló");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
@@ -401,9 +408,8 @@ public class ProcesoController extends BaseController {
 				"Calendario: " + ((CalendarioDto) event.getObject()).getNombrecalendario());
 		try {
 			String id = ((CalendarioDto) event.getObject()).getIdcatalogoestadopublicacion();
-			Gentabla genTabla = gentablaBusiness.selectByPrimaryKeyBasic(id);
-			String descripcion = genTabla != null ? genTabla.getVchregdescri() : "";
-			((CalendarioDto) event.getObject()).setDescripcionestado(descripcion);
+			((CalendarioDto) event.getObject()).setDescripcionestado(gentablaBusiness.getDescripcion(id));
+
 		} catch (Exception ex) {
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -420,9 +426,8 @@ public class ProcesoController extends BaseController {
 				"Resultado: " + ((ProcesoResultadoItemDto) event.getObject()).getNroitem());
 		try {
 			String id = ((ProcesoResultadoItemDto) event.getObject()).getIdcatalogoestadoresultado();
-			Gentabla genTabla = gentablaBusiness.selectByPrimaryKeyBasic(id);
-			String descripcion = genTabla != null ? genTabla.getVchregdescri() : "";
-			((ProcesoResultadoItemDto) event.getObject()).setDescripcionestado(descripcion);
+			((ProcesoResultadoItemDto) event.getObject()).setDescripcionestado(gentablaBusiness.getDescripcion(id));
+
 		} catch (Exception ex) {
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -433,7 +438,7 @@ public class ProcesoController extends BaseController {
 				"Resultado: " + ((ProcesoResultadoItemDto) event.getObject()).getNroitem());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
-	
+
 	public List<ProcesoDto> getDataList() {
 		return dataList;
 	}
@@ -626,7 +631,6 @@ public class ProcesoController extends BaseController {
 		this.selectedResultado = selectedResultado;
 	}
 
-	
 	// properties
 
 }
