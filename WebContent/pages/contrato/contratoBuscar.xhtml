@@ -240,17 +240,15 @@ a:-webkit-any-link {
 						</p:commandButton>
 						
 						
-					    <p:commandButton icon="fa fa-file-text-o" title="Seguimiento de contratos" rendered ="#{var.estadoDocumentacion eq 'EEFI1'}"
-						oncomplete="PF('segDialog').show()" update=":formSeg:diEsp">
+					    <p:commandButton icon="fa fa-file-text-o" title="Seguimiento de contratos" rendered ="#{var.estadoDocumentacion eq 'EEFI1'}" 
+					    action="/pages/contrato/component/c_seguimientoEjecucion.xhtml?faces-redirect=true">
 						   <i class="fa fa-circle" style="color:green;"/>
 						   <p:spacer width="10"></p:spacer>
 						   <f:setPropertyActionListener value="#{var}" target="#{contrato.contratoResponse}" />
+						   <f:actionListener binding="#{contrato.obtenerSeguimiento()}" />
 						</p:commandButton>
 					
-						
-						
 					</p:column>
-					
 					
 
 					<p:column styleClass="c_center">
@@ -295,8 +293,6 @@ a:-webkit-any-link {
 						<h:outputText value="#{var.tipoContrato}" />
 					</p:column>
 					
-					
-
 					<p:column styleClass="c_string" width="8%">
 						<f:facet name="header">
 							<h:outputText value="Fecha contrato" styleClass="c_center" />
@@ -433,89 +429,9 @@ a:-webkit-any-link {
 			</p:dialog>
  	    </h:form>
  	    
- 	    <h:form id="formSeg">
-
-				<p:dialog header="Seguimiento de Ejecución" widgetVar="segDialog"
-					modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-					<p:panel style="width:98%;" id="diEsp">
-						<p:focus for="panel" />
-						<p:scrollPanel mode="native" style="width:100%;height:600px">
-							<p:messages for="msgsGentablaR" autoUpdate="true" closable="true" />
-							<ui:include
-								src="/pages/contrato/component/c_seguimientoContrato.xhtml" />
-						</p:scrollPanel>
-
-						<div style="text-align: left;">
-							<p:outputLabel
-								value="Las tareas corresponden al Plan Operativo Institucional registrado en el PLANIN." />
-							<br /> <br />
-						</div>
-						<div style="margin-left: 300px">
-						<table style="width: 70%;">
-							<tr>
-								<td>
-									<div align="left">
-										<p:commandButton value="Grabar" 
-											rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
-											icon="fa fa-save" title="Aceptar" 
-											update=":form:growl"
-											oncomplete="PF('reqDialog2').hide();">
-											<f:actionListener
-												binding="#{requerimiento.aceptarRequerimiento()}" />
-											<f:actionListener binding="#{requerimiento.limpiar()}" />
-										</p:commandButton>
-									</div>
-								</td>
-								<td>
-									<div align="center">
-										<p:commandButton value="Cancelar"
-											actionListener="#{requerimiento.limpiar}"
-											rendered="#{requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
-											icon="fa fa-times-circle" title="Salir" process="@this"
-											immediate="true" 
-											onclick="hideDialogPF('frmGentipoRegistrar:diGentipoRegistrar');return false;" />
-
-										<p:commandButton value="Aceptar"
-											rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
-											icon="fa fas fa-check" title="Aceptar" 
-										    update=":form:growl"
-											oncomplete="PF('reqDialog2').hide();">
-											<f:actionListener binding="#{requerimiento.limpiar()}" />
-										</p:commandButton>
-									</div>
-								</td>
-								<td>
-									<div align="right">
-										<p:commandButton id="btnRemitir"
-											rendered="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 2) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 5)}"
-											disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 40}"
-											actionListener="#{requerimiento.destroyWorld}"
-											value="Remitir a Programación" icon="fa fas fa-arrow-right" title="Remitir a Programación" 
-											update=":form:growl"
-											oncomplete="PF('reqDialog2').hide();">
-											<p:confirm header="Confirmación"
-												message="¿Esta seguro de remitir a programación?"
-												icon="ui-icon-alert" />
-										</p:commandButton>
-									</div>
-								</td>
-							</tr>
-						</table>
-						</div>
-					</p:panel>
-
-				</p:dialog>
-				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-					<div style="background-color: #cdeef3;">
-						<p:commandButton value="Si" type="button"
-							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-						<p:commandButton value="No" type="button"
-							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-					</div>
-				</p:confirmDialog>
-
-			</h:form>
- 	    
+ 	   
+			
+	        
  	    
  	    
  	   
