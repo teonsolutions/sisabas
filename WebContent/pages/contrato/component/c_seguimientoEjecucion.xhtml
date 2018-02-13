@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+	
+	<ui:define name="center">
+	<p:panel id="panel">
+	<h:form id="formSeg">
+	<p:focus for="panel" />
+	
+	<p:growl id="growl" showDetail="true" life="2500" />
+					<p:panel style="width:98%;" id="diEsp">
+						<p:focus for="panel" />
+						<p:scrollPanel mode="native" >
+							<p:messages for="msgsGentablaR" autoUpdate="true" closable="true" />
+							<ui:include
+								src="/pages/contrato/component/c_seguimientoContrato.xhtml" />
+						</p:scrollPanel>
+
+						<div style="text-align: left;">
+							<br />
+						</div>
+						<div style="margin-left: 300px">
+						<table style="width: 70%;">
+							<tr>
+								<td>
+									<div align="left">
+										<p:commandButton value="Grabar" 
+											rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
+											icon="fa fa-save" title="Aceptar" 
+											update=":formSeg:growl"
+											oncomplete="PF('reqDialog2').hide();">
+											<f:actionListener
+												binding="#{contrato.actualizarContrato()}" />
+
+										</p:commandButton>
+									</div>
+								</td>
+								<td>
+									<div align="center">
+										<p:commandButton value="Cancelar"
+											actionListener="#{requerimiento.limpiar}"
+											rendered="#{requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
+											icon="fa fa-times-circle" title="Salir" process="@this"
+											immediate="true" 
+											onclick="hideDialogPF('frmGentipoRegistrar:diGentipoRegistrar');return false;" />
+
+										<p:commandButton value="Aceptar"
+											rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn eq 3}"
+											icon="fa fas fa-check" title="Aceptar" 
+										    update=":form:growl"
+											oncomplete="PF('reqDialog2').hide();">
+											<f:actionListener binding="#{requerimiento.limpiar()}" />
+										</p:commandButton>
+									</div>
+								</td>
+								<td>
+									<div align="right">
+										<p:commandButton id="btnRemitir"
+											rendered="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 2) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 5)}"
+											disabled="#{requerimiento.requerimientoResponse.estadoPedidoIn eq 40}"
+											actionListener="#{requerimiento.destroyWorld}"
+											value="Remitir a Programación" icon="fa fas fa-arrow-right" title="Remitir a Programación" 
+											
+											oncomplete="PF('reqDialog2').hide();">
+											<p:confirm header="Confirmación"
+												message="¿Esta seguro de remitir a programación?"
+												icon="ui-icon-alert" />
+										</p:commandButton>
+									</div>
+								</td>
+							</tr>
+						</table>
+						</div>
+					</p:panel>
+
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<div style="background-color: #cdeef3;">
+						<p:commandButton value="Si" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="No" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</div>
+				</p:confirmDialog>
+
+			</h:form>
+			
+			<h:form id="formOrden">
+			   <p:dialog id="dialogOrden" header="Listado de Ordenes" width="75%"
+					widgetVar="dialogOrden" resizable="false" modal="true"
+					dynamic="true" styleClass="gandalfTableClass" >
+					<p:spacer height="1"/>
+					<p:panel>
+					     <p:dataTable id="tblListaOrden"
+									value="#{contrato.listaOrden2}" var="var"
+									emptyMessage="No se encontraron registros"
+									widgetVar="tblListaOrden" paginator="false"
+									rows="#{sisabascontrol.registros_mant}" 
+									paginatorPosition="bottom" selectionMode="single"
+									rowKey="#{var.nroOrden}" styleClass="gandalfTableClass">
+									<p:column headerText="Número Orden">
+										<f:facet name="header">
+											<h:outputText value="Número Orden"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.nroOrden}" />
+									</p:column>
+									<p:column headerText="Fecha Orden">
+										<f:facet name="header">
+											<h:outputText value="Fecha Orden">
+											</h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.fechaOrden}">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="Tipo de bien">
+										<f:facet name="header">
+											<h:outputText value="Tipo de bien"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.tipoBienDesc}" />
+									</p:column>
+									<p:column headerText="Nro. RUC">
+										<f:facet name="header">
+											<h:outputText value="Nro. RUC"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.nroRuc}" />
+									</p:column>
+									<p:column headerText="Importe">
+										<f:facet name="header">
+											<h:outputText value="Importe Orden"></h:outputText>
+										</f:facet>
+										<h:outputText value="#{var.totalFactSoles}" />
+									</p:column>
+									<p:column headerText="Accion" style="text-align:center;">
+										<f:facet name="header">
+											<h:outputText value="Accion"></h:outputText>
+										</f:facet>
+										 <p:selectBooleanCheckbox value="#{selectBooleanView.value2}">
+                                          <p:ajax update=":formSeg:growl" listener="#{selectBooleanView.addMessage}" />
+                                         </p:selectBooleanCheckbox>
+									</p:column>
+								</p:dataTable>
+							</p:panel>
+							
+							<table style="width: 70%; margin-left: 25%;">
+							 <tr>
+							    <td><p:commandButton value="Agregar" icon="fa fa-save" /></td>
+							    <td><p:commandButton value="Cancelar" icon="fa fa-undo"/></td>
+			                 </tr> 
+							</table>
+							
+				</p:dialog>
+			</h:form>
+	
+	
+	 </p:panel>
+	</ui:define>
+	
+	
+	
+</ui:composition>	
