@@ -55,6 +55,7 @@ import pe.com.sisabas.persistence.ConvocatoriaprocesoseleccionMapper;
 import pe.com.sisabas.persistence.ProcesoseleccionMapper;
 import pe.com.sisabas.resources.Constantes;
 import pe.com.sisabas.resources.Messages;
+import pe.com.sisabas.resources.URLReader;
 import pe.com.sisabas.resources.Utils;
 import pe.com.sisabas.resources.controller.BaseController;
 import pe.com.sisabas.service.SicuCallService;
@@ -185,6 +186,9 @@ public class ProcesoController extends BaseController {
 		logger.debug("pacRegistrar....");
 		try {
 
+			//URLReader reader = new URLReader(); 
+			//reader.ReadPage("");
+			
 			// Sicuusuario usuario = (Sicuusuario)
 			// getHttpSession().getAttribute("sicuusuarioSESSION");
 			validateSelectedRow();
@@ -212,7 +216,7 @@ public class ProcesoController extends BaseController {
 
 		return SUCCESS_SEGUIMIENTO;
 	}
-
+	
 	public void saveProceso() {
 		REGISTER_INIT();
 		try {
@@ -413,6 +417,9 @@ public class ProcesoController extends BaseController {
 	}
 
 	public void onRowEditCalendar(RowEditEvent event) {
+		//onRowCancelCalendar(event);
+		
+		
 		FacesMessage msg = new FacesMessage("Se editó correctamente",
 				"Calendario: " + ((CalendarioDto) event.getObject()).getNombrecalendario());
 		try {

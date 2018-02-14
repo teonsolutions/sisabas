@@ -312,6 +312,18 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 		boolean derivadaEjecucion = false;
 
 		// editing process...
+		
+		//Elevado a OSCE
+		procesoEdit.setFechaelevacionobservacion(procesoRequest.getFechaelevacionobservacion());
+		procesoEdit.setFechapronunciamiento(procesoRequest.getFechapronunciamiento());
+		
+		//Apelacion
+		procesoEdit.setFechaapelacion(procesoRequest.getFechaapelacion());
+		procesoEdit.setFecharesolucionapelacion(procesoRequest.getFecharesolucionapelacion());
+		
+		//Fecha consentimiento de buena PRO
+		procesoEdit.setFechapublicacionconsentimiento(procesoEdit.getFechapublicacionconsentimiento());
+		
 		procesoEdit.setFechaactaproyectobase(procesoRequest.getFechaactaproyectobase());
 		procesoEdit.setNroactaproyectobase(procesoRequest.getNroactaproyectobase());
 		procesoEdit.setFechaobservacionbase(procesoRequest.getFechaobservacionbase());
@@ -319,6 +331,7 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 		procesoEdit.setFechasubsanacionbase(procesoRequest.getFechasubsanacionbase());
 		procesoEdit.setIdcatalogosistemacontratacion(procesoRequest.getIdcatalogosistemacontratacion());
 		procesoEdit.setModalidadejecucion(procesoRequest.getModalidadejecucion());
+		
 		procesoEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
 		procesoEdit.setFechamodificacionauditoria(new Date());
 		procesoEdit.setEquipoauditoria(request.getEquipoAuditoria());
