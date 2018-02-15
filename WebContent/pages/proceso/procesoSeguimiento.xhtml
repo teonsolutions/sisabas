@@ -307,6 +307,17 @@
 						<p:accordionPanel id="accCalendario" multiple="true"
 							activeIndex="0,1">
 							<p:tab title="Convocatorias">
+								<p:panel id="pnlBotones">
+									<h:inputHidden id="hidStatus" value="#{proceso.status}" />
+									<p:commandButton value="Enviar a Ejecución"
+										action="#{proceso.goSendToEjecucion}" update="hidStatus"
+										oncomplete="showDialog('form:hidStatus','form:cdSendEjecucion');"
+										icon="fa fa-pencil"
+										title="Enviar a expediente a Ejecución contractual"
+										disabled="#{!proceso.esSeleccionadoConvocatoria}"
+										rendered="#{proceso.renderButton('btnSendEjecucion')}" />
+								</p:panel>
+								<p:spacer height="1"></p:spacer>
 								<p:dataTable id="tblListaConvocatoria"
 									value="#{proceso.listConvocatoria}" var="var"
 									emptyMessage="No se encontraron registros"
@@ -415,7 +426,16 @@
 										<p:rowEditor editTitle="Editar" />
 									</p:column>
 								</p:dataTable>
-
+								<p:confirmDialog id="cdSendEjecucion"
+									message="Esta seguro de enviar el expediente a Ejecución?"
+									header="Confirmación" severity="alert"
+									widgetVar="cdSendEjecucion">
+									<p:commandButton value="Si" action="#{proceso.sendToEjecucion}"
+										update=":form:tabViewProceso:accCalendario:tblListaConvocatoria,:form:growl,:form:tabViewProceso:accCalendario:pnlBotones"
+										oncomplete="hideDialogPF('cdSendEjecucion');" />
+									<p:commandButton value="No"
+										onclick="hideDialogPF('cdSendEjecucion');" type="button" />
+								</p:confirmDialog>
 							</p:tab>
 							<p:tab title="Calendario">
 								<p:dataTable id="tblListaCalendario"
@@ -423,12 +443,14 @@
 									emptyMessage="No se encontraron registros"
 									widgetVar="tblListaCalendario"
 									selection="#{proceso.selectedCalendadio}" paginator="false"
-									rows="#{sisabascontrol.registros_mant}"
-									paginatorPosition="bottom"
+									rows="20" paginatorPosition="bottom"
 									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(proceso.listCalendario)}"
 									selectionMode="single"
 									rowKey="#{var.idcatalogocodigocalendario}"
 									styleClass="gandalfTableClass" editable="true">
+
+									<p:ajax event="rowSelect" listener="#{proceso.seleccionItemConvocatoria}"
+										update=":form:tabViewProceso:accCalendario:pnlBotones" immediate="true" />
 
 									<p:ajax event="rowEdit" listener="#{proceso.onRowEditCalendar}"
 										update=":form:msgs,form:tabViewProceso:accCalendario:tblListaCalendario" />
@@ -506,32 +528,32 @@
 
 							</p:tab>
 							<p:tab title="Elevado a la OSCE">
-								
-									<table>
-										<tr>
-											<td><p:outputLabel
-													value="Fecha de elevación de observación"
-													for="txtFechaElevacionObservacion"
-													id="lblFechaElevacionObservacion" /></td>
-											<td><p:outputLabel value="Fecha de pronunciamiento"
-													for="txtFechaPronunciamiento" id="lblFechaPronunciamiento" />
-											</td>
-										</tr>
-										<tr>
-											<td><p:calendar id="txtFechaElevacionObservacion"
-													value="#{proceso.processEdit.fechaelevacionobservacion}"
-													required="false" pattern="dd/MM/yyyy"
-													label="Fecha de elevación de observación" navigator="true"
-													locale="es" styleClass="dateTimeField" style="width:100%" />
-											</td>
-											<td><p:calendar id="txtFechaPronunciamiento"
-													value="#{proceso.processEdit.fechapronunciamiento}"
-													required="false" pattern="dd/MM/yyyy"
-													label="Fecha de pronunciamiento" navigator="true"
-													locale="es" styleClass="dateTimeField" style="width:100%" /></td>
-										</tr>
-									</table>
-								
+
+								<table>
+									<tr>
+										<td><p:outputLabel
+												value="Fecha de elevación de observación"
+												for="txtFechaElevacionObservacion"
+												id="lblFechaElevacionObservacion" /></td>
+										<td><p:outputLabel value="Fecha de pronunciamiento"
+												for="txtFechaPronunciamiento" id="lblFechaPronunciamiento" />
+										</td>
+									</tr>
+									<tr>
+										<td><p:calendar id="txtFechaElevacionObservacion"
+												value="#{proceso.processEdit.fechaelevacionobservacion}"
+												required="false" pattern="dd/MM/yyyy"
+												label="Fecha de elevación de observación" navigator="true"
+												locale="es" styleClass="dateTimeField" style="width:100%" />
+										</td>
+										<td><p:calendar id="txtFechaPronunciamiento"
+												value="#{proceso.processEdit.fechapronunciamiento}"
+												required="false" pattern="dd/MM/yyyy"
+												label="Fecha de pronunciamiento" navigator="true"
+												locale="es" styleClass="dateTimeField" style="width:100%" /></td>
+									</tr>
+								</table>
+
 							</p:tab>
 							<p:tab title="Apelación">
 								<table>
@@ -581,7 +603,7 @@
 									value="#{proceso.listResultado}" var="var"
 									emptyMessage="No se encontraron registros"
 									widgetVar="tblListaResultado"
-									selection="#{proceso.selectedResultado}" paginator="true"
+									selection="#{proceso.selectedResultado}" paginator="false"
 									rows="#{sisabascontrol.registros_mant}"
 									paginatorPosition="bottom"
 									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(proceso.listResultado)}"
@@ -708,7 +730,7 @@
 							<p:commandButton value="Guardar" icon="fa fa-save"
 								title="Guardar calendario" action="#{proceso.saveProceso}"
 								rendered="#{proceso.renderButton('btnSaveCalendario')}"
-								update="form:msgs,form:panel"  />
+								update="form:msgs,form:panel" />
 							<p:commandButton value="Cancelar" action="#{proceso.load}"
 								ajax="false" icon="ui-icon-arrowreturnthick-1-w"
 								title="Cancelar" />

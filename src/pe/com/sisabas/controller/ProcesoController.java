@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Component;
 
 import pe.com.sisabas.be.Calendarioprocesoseleccion;
 import pe.com.sisabas.be.Convocatoriaprocesoseleccion;
+import pe.com.sisabas.be.Cuadrocomparativofuente;
 import pe.com.sisabas.be.Gentabla;
 import pe.com.sisabas.be.Miembrocomiteporproceso;
 import pe.com.sisabas.be.Procesoseleccion;
@@ -97,9 +99,11 @@ public class ProcesoController extends BaseController {
 	private boolean disabledButtons;
 
 	// selected
+	private ConvocatoriaDto currentConvocatoria;
 	private ConvocatoriaDto selectedConvocatoria;
 	private CalendarioDto selectedCalendadio;
 	private ProcesoResultadoItemDto selectedResultado;
+	private boolean esSeleccionadoConvocatoria;
 
 	// Business layer section
 	@Autowired
@@ -182,6 +186,10 @@ public class ProcesoController extends BaseController {
 		}
 	}
 
+	public void seleccionItemConvocatoria(SelectEvent e) {
+		esSeleccionadoConvocatoria = true;
+	}
+		
 	public String goSeguimiento() {
 		logger.debug("pacRegistrar....");
 		try {
@@ -215,6 +223,14 @@ public class ProcesoController extends BaseController {
 		}
 
 		return SUCCESS_SEGUIMIENTO;
+	}
+	
+	public void goSendToEjecucion(){
+		
+	}
+	
+	public void sendToEjecucion(){
+		
 	}
 	
 	public void saveProceso() {
@@ -367,10 +383,15 @@ public class ProcesoController extends BaseController {
 		else
 			currentRow = (ProcesoDto) selectedRow.clone();
 	}
+	
+	public void validateSelectedRowConvocatoria() throws UnselectedRowException, CloneNotSupportedException {
+		if (this.selectedConvocatoria == null)
+			throw new UnselectedRowException(Messages.getString("no.record.selected"));
+		else
+			this.setCurrentConvocatoria((ConvocatoriaDto) this.selectedConvocatoria.clone());
+	}	
 
-	public void varlidarFecha(){
-		
-		
+	public void varlidarFecha(){				
 		String valor = "";
 		//FacesMessage msg = new FacesMessage("Se editó correctamente",null);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Mensaje", null));
@@ -647,6 +668,24 @@ public class ProcesoController extends BaseController {
 		this.selectedResultado = selectedResultado;
 	}
 
+	public boolean isEsSeleccionadoConvocatoria() {
+		return esSeleccionadoConvocatoria;
+	}
+
+	public void setEsSeleccionadoConvocatoria(boolean esSeleccionadoConvocatoria) {
+		this.esSeleccionadoConvocatoria = esSeleccionadoConvocatoria;
+	}
+
+	public ConvocatoriaDto getCurrentConvocatoria() {
+		return currentConvocatoria;
+	}
+
+	public void setCurrentConvocatoria(ConvocatoriaDto currentConvocatoria) {
+		this.currentConvocatoria = currentConvocatoria;
+	}
+
+	
+	
 	// properties
 
 }

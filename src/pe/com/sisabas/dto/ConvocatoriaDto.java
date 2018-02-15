@@ -1,7 +1,8 @@
 package pe.com.sisabas.dto;
+import java.io.Serializable;
 import java.util.List;
 
-public class ConvocatoriaDto {
+public class ConvocatoriaDto implements  Serializable,Cloneable {
 	private static final long serialVersionUID = 1L;
 	
 	private java.lang.Integer idconvocatoriaproceso;
@@ -83,5 +84,8 @@ public class ConvocatoriaDto {
 		this.listaResultado = listaResultado;
 	}
 	
-	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	 }
 }

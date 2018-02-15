@@ -322,7 +322,7 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 		procesoEdit.setFecharesolucionapelacion(procesoRequest.getFecharesolucionapelacion());
 		
 		//Fecha consentimiento de buena PRO
-		procesoEdit.setFechapublicacionconsentimiento(procesoEdit.getFechapublicacionconsentimiento());
+		procesoEdit.setFechapublicacionconsentimiento(procesoRequest.getFechapublicacionconsentimiento());
 		
 		procesoEdit.setFechaactaproyectobase(procesoRequest.getFechaactaproyectobase());
 		procesoEdit.setNroactaproyectobase(procesoRequest.getNroactaproyectobase());
