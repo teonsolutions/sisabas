@@ -1,6 +1,7 @@
 package pe.com.sisabas.business;
 
 import pe.com.sisabas.dto.ProcesoRequest;
+import pe.com.sisabas.dto.ProcesoResultadoItemDto;
 import pe.com.sisabas.dto.Resultado;
 import pe.com.sisabas.dto.TransactionRequest;
 import pe.com.sisabas.dto.TransactionResponse;
@@ -24,4 +25,5 @@ public interface ProcesoBusiness {
 	public List<ProcesoDto> searchProcesoSeguimiento(ProcesoRequest request) throws Exception;
 	public Resultado saveProceso(TransactionRequest<Procesoseleccion> request) throws Exception;
 	public List<ConvocatoriaDto> searchConvocatoriaProceso(Integer idProcesoSeleccion) throws Exception;
+	public List<ProcesoResultadoItemDto> selectResultadoByIdConvocatoria(Integer idconvocatoriaproceso) throws Exception;
 }

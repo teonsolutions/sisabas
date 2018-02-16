@@ -490,4 +490,11 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 		return listConvoca;
 	}
 
+	@Override
+	public List<ProcesoResultadoItemDto> selectResultadoByIdConvocatoria(Integer idconvocatoriaproceso) throws Exception {
+		// TODO Auto-generated method stub
+		return resultadoprocesoseleccionMapper.selectResultadoByIdConvocatoria(idconvocatoriaproceso);
+	}
+	
+
 }

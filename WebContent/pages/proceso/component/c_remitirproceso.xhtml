@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+	<div align="left"></div>
+	<p:dataTable id="tblListaResultadoRemitir"
+		value="#{proceso.listResultadoSend}" var="var"
+		emptyMessage="No se encontraron registros"
+		widgetVar="tblListaResultadoRemitir"
+		selection="#{proceso.selectedCalendadio}" paginator="false" rows="20"
+		paginatorPosition="bottom"
+		paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(proceso.listResultadoSend)}"
+		selectionMode="single" rowKey="#{var.idresultadoproceso}"
+		styleClass="gandalfTableClass" editable="true">
+		<p:column styleClass="c_string">
+			<f:facet name="header">
+				<h:outputText value="Item" styleClass="c_string" />
+			</f:facet>
+			<h:outputText value="#{var.nombreitem}" />
+		</p:column>
+		<p:column styleClass="c_string">
+			<f:facet name="header">
+				<h:outputText value="RUC"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{var.nroruc}" />
+		</p:column>
+		<p:column styleClass="c_string">
+			<f:facet name="header">
+				<h:outputText value="Proveedor"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{var.nombreproveedor}" />
+		</p:column>
+		<p:column styleClass="c_string">
+			<f:facet name="header">
+				<h:outputText value="Estado"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{var.descripcionestado}" />
+		</p:column>
+		<p:column styleClass="c_string">
+			<f:facet name="header">
+				<h:outputText value="Monto adjudicado"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{var.montoadjudicado}" />
+		</p:column>
+		<p:column headerText="Remitir a">
+			<p:cellEditor>
+				<f:facet name="header">
+				</f:facet>
+				<f:facet name="output">
+					<p:selectOneMenu value="#{var.destino}" id="ddlEstado"
+						required="true" label="Remitir a" style="width: 90%">
+						<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+						<f:selectItems value="#{var.destinos}" var="status"
+							itemLabel="#{status.text}" itemValue="#{status.value}">
+						</f:selectItems>
+					</p:selectOneMenu>
+				</f:facet>
+
+			</p:cellEditor>
+		</p:column>
+		<p:column headerText="Observación">
+			<p:cellEditor>
+				<f:facet name="header">
+					<f:facet name="output">
+						<h:outputText value="#{var.observacion}" />
+					</f:facet>
+				</f:facet>
+				<f:facet name="input">
+					<p:inputText value="#{var.observacion}" required="true"
+						style="width:100%" label="Year" maxlength="20" />
+				</f:facet>
+
+			</p:cellEditor>
+		</p:column>
+
+	</p:dataTable>
+</p:panel>
+</html>

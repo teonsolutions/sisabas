@@ -31,12 +31,15 @@ import pe.com.sisabas.business.GentablaBusiness;
 import pe.com.sisabas.business.MiembrocomiteporprocesoBusiness;
 import pe.com.sisabas.business.ProcesoBusiness;
 import pe.com.sisabas.business.ProcesoseleccionBusiness;
+import pe.com.sisabas.business.ResultadoprocesoporusuarioBusiness;
 import pe.com.sisabas.business.VcentrocostoBusiness;
 import pe.com.sisabas.dto.CalendarioDto;
 import pe.com.sisabas.dto.CentroCostoRequest;
 import pe.com.sisabas.dto.CentroCostoResponse;
 import pe.com.sisabas.dto.ConvocatoriaDto;
+import pe.com.sisabas.dto.CuadroComparativoRequest;
 import pe.com.sisabas.dto.EstadoRequerimientoResponse;
+import pe.com.sisabas.dto.ItemIntResponse;
 import pe.com.sisabas.dto.OrdenDto;
 import pe.com.sisabas.dto.PacConsolidadoDto;
 import pe.com.sisabas.dto.PaoRequest;
@@ -93,6 +96,7 @@ public class ProcesoController extends BaseController {
 	private List<ConvocatoriaDto> listConvocatoria;
 	private List<CalendarioDto> listCalendario;
 	private List<ProcesoResultadoItemDto> listResultado;
+	private List<ProcesoResultadoItemDto> listResultadoSend;
 
 	private String idOpcionText = "OPC_PROCESO";
 	public static String SUCCESS_SEGUIMIENTO = "/pages/proceso/procesoSeguimiento.xhtml?faces-redirect=true;";
@@ -225,8 +229,50 @@ public class ProcesoController extends BaseController {
 		return SUCCESS_SEGUIMIENTO;
 	}
 	
+	public void resetRegisterForm() {
+		reset("frmRemitirProceso:panelC");
+	}
+	
 	public void goSendToEjecucion(){
-		
+		STATUS_INIT();
+		try {
+
+			securityControlValidate("btnSendEjecucion");
+			resetRegisterForm();
+			validateSelectedRowConvocatoria();
+			
+			listResultadoSend = procesoBusiness.selectResultadoByIdConvocatoria(this.selectedConvocatoria.getIdconvocatoriaproceso()); 
+			for (ProcesoResultadoItemDto resultado : listResultadoSend) {
+				List<ItemIntResponse> items = new ArrayList<ItemIntResponse>();
+				if (resultado.getIdcatalogoestadoresultado().equals(Constantes.estadoResultadoProceso.BUENA_PRO_CONSENTIDA)){					
+					items.add(new ItemIntResponse(Constantes.destinoRemisionProceso.EJECUCION_CONTRACTUAL, "EJECUCIÓN CONTRACTUAL"));					
+				}else{
+					items.add(new ItemIntResponse(Constantes.destinoRemisionProceso.PROCESO_SELECCION, "COORDINADOR DE PROCESO DE SELECCIÓN"));
+					items.add(new ItemIntResponse(Constantes.destinoRemisionProceso.PROGRAMACION_COSTOS, "PROGRAMACIÓN Y COSTOS"));
+				}		
+				resultado.setDestinos(items);
+			}				
+			
+			//this.listResultadoSend = resul
+
+			STATUS_SUCCESS();
+			REGISTER_INIT();
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			STATUS_ERROR();
+			addErrorMessageKey("msgsForm", e);
+		}		
 	}
 	
 	public void sendToEjecucion(){
@@ -682,6 +728,14 @@ public class ProcesoController extends BaseController {
 
 	public void setCurrentConvocatoria(ConvocatoriaDto currentConvocatoria) {
 		this.currentConvocatoria = currentConvocatoria;
+	}
+
+	public List<ProcesoResultadoItemDto> getListResultadoSend() {
+		return listResultadoSend;
+	}
+
+	public void setListResultadoSend(List<ProcesoResultadoItemDto> listResultadoSend) {
+		this.listResultadoSend = listResultadoSend;
 	}
 
 	

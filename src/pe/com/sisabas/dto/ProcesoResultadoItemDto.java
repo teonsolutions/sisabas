@@ -1,5 +1,7 @@
 package pe.com.sisabas.dto;
 
+import java.util.List;
+
 public class ProcesoResultadoItemDto {
 	private Integer idresultadoproceso;
 	private Integer idconvocatoriaproceso;
@@ -14,6 +16,11 @@ public class ProcesoResultadoItemDto {
 	private Double cantidad;
 	private Integer unidadmedida;
 	private String descripcionestado;
+	private Integer destino;
+	
+	//additional
+	private String observacion;
+	private List<ItemIntResponse> destinos;
 	
 	public Integer getIdresultadoproceso() {
 		return idresultadoproceso;
@@ -92,6 +99,24 @@ public class ProcesoResultadoItemDto {
 	}
 	public void setDescripcionestado(String descripcionestado) {
 		this.descripcionestado = descripcionestado;
+	}
+	public String getObservacion() {
+		return observacion;
+	}
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
+	}
+	public List<ItemIntResponse> getDestinos() {
+		return destinos;
+	}
+	public void setDestinos(List<ItemIntResponse> destinos) {
+		this.destinos = destinos;
+	}
+	public Integer getDestino() {
+		return destino;
+	}
+	public void setDestino(Integer destino) {
+		this.destino = destino;
 	}
 	
 	
