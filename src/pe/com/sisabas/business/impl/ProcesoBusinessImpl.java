@@ -495,6 +495,17 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 		// TODO Auto-generated method stub
 		return resultadoprocesoseleccionMapper.selectResultadoByIdConvocatoria(idconvocatoriaproceso);
 	}
+
+	@Override
+	@Transactional
+	public Resultado sendProceso(TransactionRequest<List<ProcesoResultadoItemDto>> request) throws Exception {
+		// TODO Auto-generated method stub
+		List<ProcesoResultadoItemDto> items = request.getEntityTransaction();
+		for (ProcesoResultadoItemDto item : items) {
+			
+		}
+		return null;
+	}
 	
 
 }
