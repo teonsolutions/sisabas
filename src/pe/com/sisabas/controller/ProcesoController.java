@@ -194,19 +194,19 @@ public class ProcesoController extends BaseController {
 	public void onCellEdit(CellEditEvent event) {
 		Object oldValue = event.getOldValue();
 		Object newValue = event.getNewValue();
-		
+
 		String descripcion = "";
 		int rowIndex = event.getRowIndex();
-		
+
 		ProcesoResultadoItemDto item = this.listResultadoSend.get(rowIndex);
-		if (item.getDestino().equals(Constantes.destinoRemisionProceso.EJECUCION_CONTRACTUAL)){
+		if (item.getDestino().equals(Constantes.destinoRemisionProceso.EJECUCION_CONTRACTUAL)) {
 			descripcion = "EJECUCIÓN CONTRACTUAL";
-		}else if (item.getDestino().equals(Constantes.destinoRemisionProceso.PROCESO_SELECCION)){
+		} else if (item.getDestino().equals(Constantes.destinoRemisionProceso.PROCESO_SELECCION)) {
 			descripcion = "COORDINADOR DE PROCESO DE SELECCIÓN";
-		}else if (item.getDestino().equals(Constantes.destinoRemisionProceso.PROGRAMACION_COSTOS)){
+		} else if (item.getDestino().equals(Constantes.destinoRemisionProceso.PROGRAMACION_COSTOS)) {
 			descripcion = "PROGRAMACIÓN Y COSTOS";
 		}
-				
+
 		this.listResultadoSend.get(rowIndex).setDestinodescripcion(descripcion);
 
 		if (newValue != null && !newValue.equals(oldValue)) {
@@ -215,9 +215,14 @@ public class ProcesoController extends BaseController {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
-	
+
 	public void seleccionItemConvocatoria(SelectEvent e) {
-		esSeleccionadoConvocatoria = true;
+		ConvocatoriaDto c = (ConvocatoriaDto) e.getObject();
+		if (c.getEstadoconvocatoriaitem().equals(Constantes.estadoConvocatoriaItem.REGISTRADO)) {
+			esSeleccionadoConvocatoria = true;
+		} else {
+			esSeleccionadoConvocatoria = false;
+		}
 	}
 
 	public String goSeguimiento() {
@@ -237,7 +242,22 @@ public class ProcesoController extends BaseController {
 			// Get miembros de comite por proceso
 			listaMiembrocomiteporproceso = miembrocomiteporprocesoBusiness.selectDynamicFullByIdComiteProceso(
 					this.currentRow.getIdComiteProceso() != null ? this.currentRow.getIdComiteProceso() : 0);
+
+			// list convocatorias
+			searchConvocatoria();
+		} catch (Exception e) {
+			addErrorMessage(e);
+			return "/login.xhtml";
+		}
+
+		return SUCCESS_SEGUIMIENTO;
+	}
+
+	public void searchConvocatoria() {
+		STATUS_INIT();
+		try {
 			this.listConvocatoria = procesoBusiness.searchConvocatoriaProceso(this.currentRow.getIdProcesoSeleccion());
+			this.esSeleccionadoConvocatoria = false;
 			// Set current calendar
 			if (this.listConvocatoria != null && this.listConvocatoria.size() > 0) {
 				if (this.listConvocatoria.get(0).getListaCalendario() != null) {
@@ -247,12 +267,23 @@ public class ProcesoController extends BaseController {
 					this.listResultado = this.listConvocatoria.get(0).getListaResultado();
 				}
 			}
-		} catch (Exception e) {
-			addErrorMessage(e);
-			return "/login.xhtml";
-		}
 
-		return SUCCESS_SEGUIMIENTO;
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			STATUS_ERROR();
+			addErrorMessageKey("msgsForm", e);
+		}
 	}
 
 	public void resetRegisterForm() {
@@ -317,20 +348,30 @@ public class ProcesoController extends BaseController {
 				return;
 			}
 			for (int i = 0; i < this.listResultado.size(); i++) {
-				if (this.listResultadoSend.get(i).getDestino().equals(Constantes.destinoRemisionProceso.EJECUCION_CONTRACTUAL)){
-					this.listResultadoSend.get(i).setEstadoprocesoitem(Constantes.estadoResultadoProcesoItem.EN_EJECUCION_CONTRACTUAL);
-				}else if(this.listResultadoSend.get(i).getDestino().equals(Constantes.destinoRemisionProceso.PROCESO_SELECCION)){
-					this.listResultadoSend.get(i).setEstadoprocesoitem(Constantes.estadoResultadoProcesoItem.EN_PROCESO_DESIERTO);
-				}else if(this.listResultadoSend.get(i).getDestino().equals(Constantes.destinoRemisionProceso.PROGRAMACION_COSTOS)){
-					this.listResultadoSend.get(i).setEstadoprocesoitem(Constantes.estadoResultadoProcesoItem.EN_PROGRAMACION_COSTOS);
-				}			
+				if (this.listResultadoSend.get(i).getDestino()
+						.equals(Constantes.destinoRemisionProceso.EJECUCION_CONTRACTUAL)) {
+					this.listResultadoSend.get(i)
+							.setEstadoprocesoitem(Constantes.estadoResultadoProcesoItem.EN_EJECUCION_CONTRACTUAL);
+				} else if (this.listResultadoSend.get(i).getDestino()
+						.equals(Constantes.destinoRemisionProceso.PROCESO_SELECCION)) {
+					this.listResultadoSend.get(i)
+							.setEstadoprocesoitem(Constantes.estadoResultadoProcesoItem.EN_PROCESO_DESIERTO);
+				} else if (this.listResultadoSend.get(i).getDestino()
+						.equals(Constantes.destinoRemisionProceso.PROGRAMACION_COSTOS)) {
+					this.listResultadoSend.get(i)
+							.setEstadoprocesoitem(Constantes.estadoResultadoProcesoItem.EN_PROGRAMACION_COSTOS);
+				}
 			}
-			
-			TransactionRequest<List<ProcesoResultadoItemDto>> request = new TransactionRequest<List<ProcesoResultadoItemDto>>();			
+
+			TransactionRequest<List<ProcesoResultadoItemDto>> request = new TransactionRequest<List<ProcesoResultadoItemDto>>();
 			request.setEntityTransaction(this.listResultadoSend);
 			request.setUsuarioAuditoria(getUserLogin());
 			request.setEquipoAuditoria(getRemoteAddr());
 			procesoBusiness.sendProceso(request, this.currentRow.getIdProcesoSeleccion());
+			
+			//list convocatoria again
+			searchConvocatoria();
+			
 			REGISTER_SUCCESS();
 			showGrowlMessageSuccessfullyCompletedAction();
 

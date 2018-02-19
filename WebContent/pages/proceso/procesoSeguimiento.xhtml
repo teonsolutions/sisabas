@@ -309,12 +309,12 @@
 							<p:tab title="Convocatorias">
 								<p:panel id="pnlBotones">
 									<h:inputHidden id="hidStatus" value="#{proceso.status}" />
-									<p:commandButton value="Enviar a Ejecución"
+									<p:commandButton value="Remitir Expediente"
 										action="#{proceso.goSendToEjecucion}"
 										update="hidStatus,:frmRemitirProceso:diRemitirProceso"
 										oncomplete="showDialog('form:tabViewProceso:accCalendario:hidStatus','frmRemitirProceso:diRemitirProceso');"
 										icon="fa fa-pencil"
-										title="Enviar a expediente a Ejecución contractual"
+										title="Enviar a expediente"
 										disabled="#{!proceso.esSeleccionadoConvocatoria}"
 										rendered="#{proceso.renderButton('btnSendEjecucion')}" />
 
@@ -333,11 +333,11 @@
 
 									<p:ajax event="rowSelect"
 										listener="#{proceso.seleccionItemConvocatoria}"
-										update=":form:tabViewProceso:accCalendario:pnlBotones"
+										update=":form:tabViewProceso:accCalendario:pnlBotones,form:tabViewProceso:accCalendario:tblListaCalendario,form:tabViewProceso:accCalendario:tblListaResultado"
 										immediate="true" />
 
 									<p:ajax event="rowEdit" listener="#{proceso.onRowEdit}"
-										update=":form:msgs,form:tabViewProceso:accCalendario:tblListaConvocatoria" />
+										update=":form:msgs,form:tabViewProceso:accCalendario:tblListaConvocatoria," />
 									<p:ajax event="rowEditCancel" listener="#{proceso.onRowCancel}"
 										update=":form:msgs,form:tabViewProceso:accCalendario:tblListaConvocatoria" />
 
@@ -433,17 +433,7 @@
 									<p:column headerText="Acciones">
 										<h:inputHidden id="hidStatus" value="#{proceso.status}" />
 										<p:rowEditor editTitle="Editar"
-											rendered="#{var.estadoconvocatoriaitem eq 1}"/>										
-										<p:commandButton icon="ui-icon ui-icon-pencil"
-											title="Enviar a expediente a Ejecución contractual"
-											action="#{proceso.goSendToEjecucion}"
-											rendered="#{var.estadoconvocatoriaitem eq 1}"
-											oncomplete="showDialog('form:tabViewProceso:accCalendario:hidStatus','frmRemitirProceso:diRemitirProceso');"
-											update="hidStatus,:frmRemitirProceso:diRemitirProceso">
-											<p:spacer width="10"></p:spacer>
-											<f:setPropertyActionListener value="#{var}"
-												target="#{proceso.selectedConvocatoria}" />
-										</p:commandButton>
+											rendered="#{var.estadoconvocatoriaitem eq 1}" />
 									</p:column>
 								</p:dataTable>
 							</p:tab>
@@ -529,7 +519,7 @@
 										</p:cellEditor>
 									</p:column>
 									<p:column headerText="Acciones">
-										<p:rowEditor editTitle="Editar" />
+										<p:rowEditor editTitle="Editar" rendered="#{proceso.esSeleccionadoConvocatoria}" />
 									</p:column>
 								</p:dataTable>
 
@@ -691,7 +681,7 @@
 										</p:cellEditor>
 									</p:column>
 									<p:column headerText="Acciones">
-										<p:rowEditor editTitle="Editar" />
+										<p:rowEditor editTitle="Editar" rendered="#{var.estadoprocesoitem eq 1 and proceso.esSeleccionadoConvocatoria}" />
 									</p:column>
 								</p:dataTable>
 								<table style="width: 100%">
