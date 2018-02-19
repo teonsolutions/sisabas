@@ -21,6 +21,7 @@ public class ProcesoResultadoItemDto {
 	//additional
 	private String observacion;
 	private List<ItemIntResponse> destinos;
+	private String destinodescripcion;
 	
 	public Integer getIdresultadoproceso() {
 		return idresultadoproceso;
@@ -118,6 +119,11 @@ public class ProcesoResultadoItemDto {
 	public void setDestino(Integer destino) {
 		this.destino = destino;
 	}
-	
+	public String getDestinodescripcion() {
+		return destinodescripcion;
+	}
+	public void setDestinodescripcion(String destinodescripcion) {
+		this.destinodescripcion = destinodescripcion;
+	}	
 	
 }

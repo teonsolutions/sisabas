@@ -11,12 +11,15 @@
 	<p:dataTable id="tblListaResultadoRemitir"
 		value="#{proceso.listResultadoSend}" var="var"
 		emptyMessage="No se encontraron registros"
-		widgetVar="tblListaResultadoRemitir"
-		selection="#{proceso.selectedCalendadio}" paginator="false" rows="20"
+		widgetVar="tblListaResultadoRemitir" paginator="false" rows="20"
 		paginatorPosition="bottom"
 		paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(proceso.listResultadoSend)}"
 		selectionMode="single" rowKey="#{var.idresultadoproceso}"
-		styleClass="gandalfTableClass" editable="true">
+		styleClass="gandalfTableClass" editable="true" editMode="cell">
+
+		<p:ajax event="cellEdit" listener="#{proceso.onCellEdit}"
+			update=":form:msgs" />
+
 		<p:column styleClass="c_string">
 			<f:facet name="header">
 				<h:outputText value="Item" styleClass="c_string" />
@@ -47,36 +50,27 @@
 			</f:facet>
 			<h:outputText value="#{var.montoadjudicado}" />
 		</p:column>
-		<p:column headerText="Remitir a">
+		<p:column headerText="Remitir a" style="width: 150px">
 			<p:cellEditor>
 				<f:facet name="header">
+					<f:facet name="output">
+						<h:outputText value="#{var.destinodescripcion}" />
+					</f:facet>
 				</f:facet>
-				<f:facet name="output">
+				<f:facet name="input">
 					<p:selectOneMenu value="#{var.destino}" id="ddlEstado"
-						required="true" label="Remitir a" style="width: 90%">
+						required="true" label="Remitir a" style="width: 85%">
 						<f:selectItem itemLabel="--Seleccione--" itemValue="" />
 						<f:selectItems value="#{var.destinos}" var="status"
 							itemLabel="#{status.text}" itemValue="#{status.value}">
 						</f:selectItems>
 					</p:selectOneMenu>
 				</f:facet>
-
 			</p:cellEditor>
 		</p:column>
-		<p:column headerText="Observación">
-			<p:cellEditor>
-				<f:facet name="header">
-					<f:facet name="output">
-						<h:outputText value="#{var.observacion}" />
-					</f:facet>
-				</f:facet>
-				<f:facet name="input">
-					<p:inputText value="#{var.observacion}" required="true"
-						style="width:100%" label="Year" maxlength="20" />
-				</f:facet>
 
-			</p:cellEditor>
-		</p:column>
+
+
 
 	</p:dataTable>
 </p:panel>

@@ -310,13 +310,14 @@
 								<p:panel id="pnlBotones">
 									<h:inputHidden id="hidStatus" value="#{proceso.status}" />
 									<p:commandButton value="Enviar a Ejecución"
-										action="#{proceso.goSendToEjecucion}" update="hidStatus,:frmRemitirProceso:diRemitirProceso"
+										action="#{proceso.goSendToEjecucion}"
+										update="hidStatus,:frmRemitirProceso:diRemitirProceso"
 										oncomplete="showDialog('form:tabViewProceso:accCalendario:hidStatus','frmRemitirProceso:diRemitirProceso');"
 										icon="fa fa-pencil"
 										title="Enviar a expediente a Ejecución contractual"
 										disabled="#{!proceso.esSeleccionadoConvocatoria}"
-										rendered="#{proceso.renderButton('btnSendEjecucion')}" />										
-																				
+										rendered="#{proceso.renderButton('btnSendEjecucion')}" />
+
 								</p:panel>
 								<p:spacer height="1"></p:spacer>
 								<p:dataTable id="tblListaConvocatoria"
@@ -329,12 +330,12 @@
 									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(proceso.listConvocatoria)}"
 									selectionMode="single" rowKey="#{var.idconvocatoriaproceso}"
 									styleClass="gandalfTableClass" editable="true">
-									
+
 									<p:ajax event="rowSelect"
 										listener="#{proceso.seleccionItemConvocatoria}"
 										update=":form:tabViewProceso:accCalendario:pnlBotones"
 										immediate="true" />
-										
+
 									<p:ajax event="rowEdit" listener="#{proceso.onRowEdit}"
 										update=":form:msgs,form:tabViewProceso:accCalendario:tblListaConvocatoria" />
 									<p:ajax event="rowEditCancel" listener="#{proceso.onRowCancel}"
@@ -428,8 +429,21 @@
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
+
 									<p:column headerText="Acciones">
-										<p:rowEditor editTitle="Editar" />
+										<h:inputHidden id="hidStatus" value="#{proceso.status}" />
+										<p:rowEditor editTitle="Editar"
+											rendered="#{var.estadoconvocatoriaitem eq 1}"/>										
+										<p:commandButton icon="ui-icon ui-icon-pencil"
+											title="Enviar a expediente a Ejecución contractual"
+											action="#{proceso.goSendToEjecucion}"
+											rendered="#{var.estadoconvocatoriaitem eq 1}"
+											oncomplete="showDialog('form:tabViewProceso:accCalendario:hidStatus','frmRemitirProceso:diRemitirProceso');"
+											update="hidStatus,:frmRemitirProceso:diRemitirProceso">
+											<p:spacer width="10"></p:spacer>
+											<f:setPropertyActionListener value="#{var}"
+												target="#{proceso.selectedConvocatoria}" />
+										</p:commandButton>
 									</p:column>
 								</p:dataTable>
 							</p:tab>
@@ -735,22 +749,21 @@
 		</h:form>
 
 		<h:form id="frmRemitirProceso">
-			<p:dialog id="diRemitirProceso"
-				header="#{genparametro.titulo}" widgetVar="diRemitirProceso"
-				resizable="false" modal="true" dynamic="true">
+			<p:dialog id="diRemitirProceso" header="#{genparametro.titulo}"
+				widgetVar="diRemitirProceso" resizable="false" modal="true"
+				dynamic="true">
 				<p:scrollPanel mode="native" style="width:100%;height:100%;">
 					<p:messages for="msgsGenparametroR" autoUpdate="true"
 						closable="true" />
-					<ui:include
-						src="/pages/proceso/component/c_remitirproceso.xhtml" />
+					<ui:include src="/pages/proceso/component/c_remitirproceso.xhtml" />
 				</p:scrollPanel>
 				<table style="width: 100%;">
 					<tr>
 						<td><h:inputHidden id="hidStatus"
-								value="#{genparametro.statusRegister}" /> <p:commandButton
-								value="Aceptar" action="#{proceso.aceptar}"
+								value="#{proceso.statusRegister}" /> <p:commandButton
+								value="Aceptar" action="#{proceso.sendToEjecucion}"
 								update="hidStatus,:frmRemitirProceso:diRemitirProceso,:form:growl,:form:tabViewProceso:accCalendario:pnlBotones,panelC"
-								oncomplete="hideDialog('frmRemitirProceso:hidStatus','frmRemitirProceso:diRemitirProceso')"
+								oncomplete="hideDialog('form:tabViewProceso:accCalendario:hidStatus','frmRemitirProceso:diRemitirProceso')"
 								icon="ui-icon-circle-check" title="Aceptar" /></td>
 						<td>
 							<div align="right">

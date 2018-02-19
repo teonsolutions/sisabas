@@ -12,6 +12,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.component.datatable.DataTable;
+import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -190,17 +191,42 @@ public class ProcesoController extends BaseController {
 		}
 	}
 
+	public void onCellEdit(CellEditEvent event) {
+		Object oldValue = event.getOldValue();
+		Object newValue = event.getNewValue();
+		
+		String descripcion = "";
+		int rowIndex = event.getRowIndex();
+		
+		ProcesoResultadoItemDto item = this.listResultadoSend.get(rowIndex);
+		if (item.getDestino().equals(Constantes.destinoRemisionProceso.EJECUCION_CONTRACTUAL)){
+			descripcion = "EJECUCIÓN CONTRACTUAL";
+		}else if (item.getDestino().equals(Constantes.destinoRemisionProceso.PROCESO_SELECCION)){
+			descripcion = "COORDINADOR DE PROCESO DE SELECCIÓN";
+		}else if (item.getDestino().equals(Constantes.destinoRemisionProceso.PROGRAMACION_COSTOS)){
+			descripcion = "PROGRAMACIÓN Y COSTOS";
+		}
+				
+		this.listResultadoSend.get(rowIndex).setDestinodescripcion(descripcion);
+
+		if (newValue != null && !newValue.equals(oldValue)) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed",
+					"Old: " + oldValue + ", New:" + newValue);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+	}
+	
 	public void seleccionItemConvocatoria(SelectEvent e) {
 		esSeleccionadoConvocatoria = true;
 	}
-		
+
 	public String goSeguimiento() {
 		logger.debug("pacRegistrar....");
 		try {
 
-			//URLReader reader = new URLReader(); 
-			//reader.ReadPage("");
-			
+			// URLReader reader = new URLReader();
+			// reader.ReadPage("");
+
 			// Sicuusuario usuario = (Sicuusuario)
 			// getHttpSession().getAttribute("sicuusuarioSESSION");
 			validateSelectedRow();
@@ -228,32 +254,37 @@ public class ProcesoController extends BaseController {
 
 		return SUCCESS_SEGUIMIENTO;
 	}
-	
+
 	public void resetRegisterForm() {
 		reset("frmRemitirProceso:panelC");
 	}
-	
-	public void goSendToEjecucion(){
+
+	public void goSendToEjecucion() {
 		STATUS_INIT();
 		try {
 
 			securityControlValidate("btnSendEjecucion");
 			resetRegisterForm();
 			validateSelectedRowConvocatoria();
-			
-			listResultadoSend = procesoBusiness.selectResultadoByIdConvocatoria(this.selectedConvocatoria.getIdconvocatoriaproceso()); 
+
+			listResultadoSend = procesoBusiness
+					.selectResultadoByIdConvocatoria(this.selectedConvocatoria.getIdconvocatoriaproceso());
 			for (ProcesoResultadoItemDto resultado : listResultadoSend) {
 				List<ItemIntResponse> items = new ArrayList<ItemIntResponse>();
-				if (resultado.getIdcatalogoestadoresultado().equals(Constantes.estadoResultadoProceso.BUENA_PRO_CONSENTIDA)){					
-					items.add(new ItemIntResponse(Constantes.destinoRemisionProceso.EJECUCION_CONTRACTUAL, "EJECUCIÓN CONTRACTUAL"));					
-				}else{
-					items.add(new ItemIntResponse(Constantes.destinoRemisionProceso.PROCESO_SELECCION, "COORDINADOR DE PROCESO DE SELECCIÓN"));
-					items.add(new ItemIntResponse(Constantes.destinoRemisionProceso.PROGRAMACION_COSTOS, "PROGRAMACIÓN Y COSTOS"));
-				}		
+				if (resultado.getIdcatalogoestadoresultado()
+						.equals(Constantes.estadoResultadoProceso.BUENA_PRO_CONSENTIDA)) {
+					items.add(new ItemIntResponse(Constantes.destinoRemisionProceso.EJECUCION_CONTRACTUAL,
+							"EJECUCIÓN CONTRACTUAL"));
+				} else {
+					items.add(new ItemIntResponse(Constantes.destinoRemisionProceso.PROCESO_SELECCION,
+							"COORDINADOR DE PROCESO DE SELECCIÓN"));
+					items.add(new ItemIntResponse(Constantes.destinoRemisionProceso.PROGRAMACION_COSTOS,
+							"PROGRAMACIÓN Y COSTOS"));
+				}
 				resultado.setDestinos(items);
-			}				
-			
-			//this.listResultadoSend = resul
+			}
+
+			// this.listResultadoSend = resul
 
 			STATUS_SUCCESS();
 			REGISTER_INIT();
@@ -272,13 +303,52 @@ public class ProcesoController extends BaseController {
 		} catch (Exception e) {
 			STATUS_ERROR();
 			addErrorMessageKey("msgsForm", e);
-		}		
+		}
 	}
-	
-	public void sendToEjecucion(){
-		
+
+	public void sendToEjecucion() {
+		REGISTER_INIT();
+		try {
+
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
+			if (usuario == null) {
+				REGISTER_ERROR();
+				addMessageKey("msgsDocumentotecnicoR", "Teminó la sesión", FacesMessage.SEVERITY_ERROR);
+				return;
+			}
+			for (int i = 0; i < this.listResultado.size(); i++) {
+				if (this.listResultadoSend.get(i).getDestino().equals(Constantes.destinoRemisionProceso.EJECUCION_CONTRACTUAL)){
+					this.listResultadoSend.get(i).setEstadoprocesoitem(Constantes.estadoResultadoProcesoItem.EN_EJECUCION_CONTRACTUAL);
+				}else if(this.listResultadoSend.get(i).getDestino().equals(Constantes.destinoRemisionProceso.PROCESO_SELECCION)){
+					this.listResultadoSend.get(i).setEstadoprocesoitem(Constantes.estadoResultadoProcesoItem.EN_PROCESO_DESIERTO);
+				}else if(this.listResultadoSend.get(i).getDestino().equals(Constantes.destinoRemisionProceso.PROGRAMACION_COSTOS)){
+					this.listResultadoSend.get(i).setEstadoprocesoitem(Constantes.estadoResultadoProcesoItem.EN_PROGRAMACION_COSTOS);
+				}			
+			}
+			
+			TransactionRequest<List<ProcesoResultadoItemDto>> request = new TransactionRequest<List<ProcesoResultadoItemDto>>();			
+			request.setEntityTransaction(this.listResultadoSend);
+			request.setUsuarioAuditoria(getUserLogin());
+			request.setEquipoAuditoria(getRemoteAddr());
+			procesoBusiness.sendProceso(request, this.currentRow.getIdProcesoSeleccion());
+			REGISTER_SUCCESS();
+			showGrowlMessageSuccessfullyCompletedAction();
+
+		} catch (ValidateException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsDocumentotecnicoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (BusinessException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsDocumentotecnicoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (DataIntegrityViolationException e) {
+			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),
+					Messages.getString("exception.dataintegrity.message.detail"), FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			REGISTER_ERROR();
+			addErrorMessageKey("msgsDocumentotecnicoR", e);
+		}
 	}
-	
+
 	public void saveProceso() {
 		REGISTER_INIT();
 		try {
@@ -352,13 +422,13 @@ public class ProcesoController extends BaseController {
 			REGISTER_SUCCESS();
 			showGrowlMessageSuccessfullyCompletedAction();
 
-			/*
-			 * } catch (ValidateException e) { REGISTER_ERROR();
-			 * addMessageKey("msgsDocumentotecnicoR", e.getMessage(),
-			 * FacesMessage.SEVERITY_ERROR); } catch (BusinessException e) {
-			 * REGISTER_ERROR(); addMessageKey("msgsDocumentotecnicoR",
-			 * e.getMessage(), FacesMessage.SEVERITY_ERROR);
-			 */
+		} catch (ValidateException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsDocumentotecnicoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (BusinessException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsDocumentotecnicoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+
 		} catch (DataIntegrityViolationException e) {
 			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),
 					Messages.getString("exception.dataintegrity.message.detail"), FacesMessage.SEVERITY_ERROR);
@@ -429,26 +499,26 @@ public class ProcesoController extends BaseController {
 		else
 			currentRow = (ProcesoDto) selectedRow.clone();
 	}
-	
+
 	public void validateSelectedRowConvocatoria() throws UnselectedRowException, CloneNotSupportedException {
 		if (this.selectedConvocatoria == null)
 			throw new UnselectedRowException(Messages.getString("no.record.selected"));
 		else
 			this.setCurrentConvocatoria((ConvocatoriaDto) this.selectedConvocatoria.clone());
-	}	
-
-	public void varlidarFecha(){				
-		String valor = "";
-		//FacesMessage msg = new FacesMessage("Se editó correctamente",null);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Mensaje", null));
-		
 	}
-	
+
+	public void varlidarFecha() {
+		String valor = "";
+		// FacesMessage msg = new FacesMessage("Se editó correctamente",null);
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje", null));
+
+	}
+
 	// Datatable Editable
 	public void onRowEdit(RowEditEvent event) {
-		DataTable dt = (DataTable)event.getSource();
-		
-		
+		DataTable dt = (DataTable) event.getSource();
+
 		FacesMessage msg = new FacesMessage("Se editó correctamente",
 				"Convocatoria: " + ((ConvocatoriaDto) event.getObject()).getNroconvocatoria());
 		ConvocatoriaDto convoca = ((ConvocatoriaDto) event.getObject());
@@ -457,19 +527,21 @@ public class ProcesoController extends BaseController {
 			// validate the date
 			throw new Exception("Error");
 			/*
-			if (convoca.getFechainicio().compareTo(convoca.getFechafin()) <= 0) {
-
-				String id = ((ConvocatoriaDto) event.getObject()).getIdcatalogoestadoconvocatoria();
-				((ConvocatoriaDto) event.getObject()).setDescripcionestado(gentablaBusiness.getDescripcion(id));
-			} else {
-				// cancel editing
-				onRowCancel(event);				
-				
-				// throw new ValidatorException(
-				// FacesMessageUtil.newBundledFacesMessage(FacesMessage.SEVERITY_ERROR,
-				// "", "msg.dateRange", ((Calendar)component).getLabel(),
-				// startDate);
-			}*/
+			 * if (convoca.getFechainicio().compareTo(convoca.getFechafin()) <=
+			 * 0) {
+			 * 
+			 * String id = ((ConvocatoriaDto)
+			 * event.getObject()).getIdcatalogoestadoconvocatoria();
+			 * ((ConvocatoriaDto)
+			 * event.getObject()).setDescripcionestado(gentablaBusiness.
+			 * getDescripcion(id)); } else { // cancel editing
+			 * onRowCancel(event);
+			 * 
+			 * // throw new ValidatorException( //
+			 * FacesMessageUtil.newBundledFacesMessage(FacesMessage.
+			 * SEVERITY_ERROR, // "", "msg.dateRange",
+			 * ((Calendar)component).getLabel(), // startDate); }
+			 */
 		} catch (Exception ex) {
 			msg = new FacesMessage("Falló");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -484,9 +556,8 @@ public class ProcesoController extends BaseController {
 	}
 
 	public void onRowEditCalendar(RowEditEvent event) {
-		//onRowCancelCalendar(event);
-		
-		
+		// onRowCancelCalendar(event);
+
 		FacesMessage msg = new FacesMessage("Se editó correctamente",
 				"Calendario: " + ((CalendarioDto) event.getObject()).getNombrecalendario());
 		try {
@@ -738,8 +809,6 @@ public class ProcesoController extends BaseController {
 		this.listResultadoSend = listResultadoSend;
 	}
 
-	
-	
 	// properties
 
 }

@@ -262,6 +262,8 @@ public class Constantes {
 
 	public class estadoConvocatoriaItem {
 		public static final int REGISTRADO = 1;
+		public static final int REMITIDO = 2;
+		public static final int CERRADO = 3;
 	}
 
 	public class destinoRemisionProceso {
@@ -273,5 +275,14 @@ public class Constantes {
 	public class estadoResultadoProceso {
 		public static final String DESIERTO = "EPRI7";
 		public static final String BUENA_PRO_CONSENTIDA = "EPRI4";
+	}
+	
+	public class estadoResultadoProcesoItem{
+		public static final int REGISTRADO = 1;
+		public static final int EN_EJECUCION_CONTRACTUAL = 2;
+		public static final int EN_PROCESO_DESIERTO = 3;
+		public static final int EN_PROGRAMACION_COSTOS = 4;
+		public static final int ASIGNADO_ESPECIALISTA = 5;
+		public static final int CERRADO_POR_OTRO_PROCESO = 6;		
 	}
 }

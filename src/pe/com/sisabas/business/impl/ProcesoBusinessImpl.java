@@ -498,13 +498,53 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 
 	@Override
 	@Transactional
-	public Resultado sendProceso(TransactionRequest<List<ProcesoResultadoItemDto>> request) throws Exception {
+	public Resultado sendProceso(TransactionRequest<List<ProcesoResultadoItemDto>> request, Integer idProcesoSeleccion) throws Exception {
 		// TODO Auto-generated method stub
+		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
+		boolean isSendEjecucion = false;
 		List<ProcesoResultadoItemDto> items = request.getEntityTransaction();
+		int pos = 0;
 		for (ProcesoResultadoItemDto item : items) {
+			if (pos == 0){
+				//convocatoria
+				Convocatoriaprocesoseleccion convocatoriaEdit = convocatoriaprocesoseleccionMapper.selectByPrimaryKeyBasic(item.getIdconvocatoriaproceso());
+				if (convocatoriaEdit != null){
+					convocatoriaEdit.setEstadoconvocatoriaitem(Constantes.estadoConvocatoriaItem.REMITIDO);
+					convocatoriaEdit.setFechamodificacionauditoria(new Date());
+					convocatoriaEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
+					convocatoriaprocesoseleccionMapper.updateByPrimaryKey(convocatoriaEdit);
+				}
+			}
 			
+			//update resultado de proceso
+			Resultadoprocesoseleccion resultadoEdit = resultadoprocesoseleccionMapper.selectByPrimaryKeyBasic(item.getIdresultadoproceso());
+			if (resultadoEdit != null){
+				if (item.getDestino().equals(Constantes.destinoRemisionProceso.EJECUCION_CONTRACTUAL)){
+					isSendEjecucion = true;
+				}
+				resultadoEdit.setEstadoprocesoitem(item.getEstadoprocesoitem());
+				resultadoEdit.setFechamodificacionauditoria(new Date());
+				resultadoEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
+				resultadoprocesoseleccionMapper.updateByPrimaryKey(resultadoEdit);
+			}
+			
+			pos++;
 		}
-		return null;
+		
+		if (isSendEjecucion){
+			//update proceso de selección
+			Procesoseleccion procesoEdit = procesoseleccionMapper.selectByPrimaryKeyBasic(idProcesoSeleccion);
+			if (procesoEdit != null){
+				if (!procesoEdit.getEstadoproceso().equals(Constantes.estadosPorTipoDocumento.REMITIDO_A_EJECUCION)){
+					procesoEdit.setEstadoproceso(Constantes.estadosPorTipoDocumento.REMITIDO_A_EJECUCION);
+					procesoEdit.setFechamodificacionauditoria(new Date());
+					procesoEdit.setFechaenvioejecucion(new Date());
+					procesoseleccionMapper.updateByPrimaryKey(procesoEdit);
+				}
+			}
+		}
+		result.setMensaje("El resultado de proceso fue remitido exitosamente.");
+		return result;
 	}
 	
 
