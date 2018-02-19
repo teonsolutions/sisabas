@@ -312,18 +312,19 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 		boolean derivadaEjecucion = false;
 
 		// editing process...
-		
-		//Elevado a OSCE
+
+		// Elevado a OSCE
 		procesoEdit.setFechaelevacionobservacion(procesoRequest.getFechaelevacionobservacion());
 		procesoEdit.setFechapronunciamiento(procesoRequest.getFechapronunciamiento());
-		
-		//Apelacion
+
+		// Apelacion
 		procesoEdit.setFechaapelacion(procesoRequest.getFechaapelacion());
 		procesoEdit.setFecharesolucionapelacion(procesoRequest.getFecharesolucionapelacion());
-		
-		//Fecha consentimiento de buena PRO
+
+		// Fecha consentimiento de buena PRO
 		procesoEdit.setFechapublicacionconsentimiento(procesoRequest.getFechapublicacionconsentimiento());
-		
+
+		//Comité especial**********************************************************************
 		procesoEdit.setFechaactaproyectobase(procesoRequest.getFechaactaproyectobase());
 		procesoEdit.setNroactaproyectobase(procesoRequest.getNroactaproyectobase());
 		procesoEdit.setFechaobservacionbase(procesoRequest.getFechaobservacionbase());
@@ -331,7 +332,8 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 		procesoEdit.setFechasubsanacionbase(procesoRequest.getFechasubsanacionbase());
 		procesoEdit.setIdcatalogosistemacontratacion(procesoRequest.getIdcatalogosistemacontratacion());
 		procesoEdit.setModalidadejecucion(procesoRequest.getModalidadejecucion());
-		
+		//*************************************************************************************		
+
 		procesoEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
 		procesoEdit.setFechamodificacionauditoria(new Date());
 		procesoEdit.setEquipoauditoria(request.getEquipoAuditoria());
@@ -350,8 +352,7 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 				convocatoria.setProgramaauditoria(request.getProgramaAuditoria());
 				convocatoria.setEquipoauditoria(request.getEquipoAuditoria());
 				convocatoria.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
-				idConvocatoria = 
-						(int) utilsBusiness.getNextSeq(Sequence.SEQ_CONVOCATORIAPROCESOSELECCION).longValue();
+				idConvocatoria = (int) utilsBusiness.getNextSeq(Sequence.SEQ_CONVOCATORIAPROCESOSELECCION).longValue();
 				convocatoria.setIdconvocatoriaproceso(idConvocatoria);
 				convocatoriaprocesoseleccionMapper.insert(convocatoria);
 			} else {
@@ -491,35 +492,39 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 	}
 
 	@Override
-	public List<ProcesoResultadoItemDto> selectResultadoByIdConvocatoria(Integer idconvocatoriaproceso) throws Exception {
+	public List<ProcesoResultadoItemDto> selectResultadoByIdConvocatoria(Integer idconvocatoriaproceso)
+			throws Exception {
 		// TODO Auto-generated method stub
 		return resultadoprocesoseleccionMapper.selectResultadoByIdConvocatoria(idconvocatoriaproceso);
 	}
 
 	@Override
 	@Transactional
-	public Resultado sendProceso(TransactionRequest<List<ProcesoResultadoItemDto>> request, Integer idProcesoSeleccion) throws Exception {
+	public Resultado sendProceso(TransactionRequest<List<ProcesoResultadoItemDto>> request, Integer idProcesoSeleccion)
+			throws Exception {
 		// TODO Auto-generated method stub
 		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
 		boolean isSendEjecucion = false;
 		List<ProcesoResultadoItemDto> items = request.getEntityTransaction();
 		int pos = 0;
 		for (ProcesoResultadoItemDto item : items) {
-			if (pos == 0){
-				//convocatoria
-				Convocatoriaprocesoseleccion convocatoriaEdit = convocatoriaprocesoseleccionMapper.selectByPrimaryKeyBasic(item.getIdconvocatoriaproceso());
-				if (convocatoriaEdit != null){
+			if (pos == 0) {
+				// convocatoria
+				Convocatoriaprocesoseleccion convocatoriaEdit = convocatoriaprocesoseleccionMapper
+						.selectByPrimaryKeyBasic(item.getIdconvocatoriaproceso());
+				if (convocatoriaEdit != null) {
 					convocatoriaEdit.setEstadoconvocatoriaitem(Constantes.estadoConvocatoriaItem.REMITIDO);
 					convocatoriaEdit.setFechamodificacionauditoria(new Date());
 					convocatoriaEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
 					convocatoriaprocesoseleccionMapper.updateByPrimaryKey(convocatoriaEdit);
 				}
 			}
-			
-			//update resultado de proceso
-			Resultadoprocesoseleccion resultadoEdit = resultadoprocesoseleccionMapper.selectByPrimaryKeyBasic(item.getIdresultadoproceso());
-			if (resultadoEdit != null){
-				if (item.getDestino().equals(Constantes.destinoRemisionProceso.EJECUCION_CONTRACTUAL)){
+
+			// update resultado de proceso
+			Resultadoprocesoseleccion resultadoEdit = resultadoprocesoseleccionMapper
+					.selectByPrimaryKeyBasic(item.getIdresultadoproceso());
+			if (resultadoEdit != null) {
+				if (item.getDestino().equals(Constantes.destinoRemisionProceso.EJECUCION_CONTRACTUAL)) {
 					isSendEjecucion = true;
 				}
 				resultadoEdit.setEstadoprocesoitem(item.getEstadoprocesoitem());
@@ -527,15 +532,15 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 				resultadoEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
 				resultadoprocesoseleccionMapper.updateByPrimaryKey(resultadoEdit);
 			}
-			
+
 			pos++;
 		}
-		
-		if (isSendEjecucion){
-			//update proceso de selección
+
+		if (isSendEjecucion) {
+			// update proceso de selección
 			Procesoseleccion procesoEdit = procesoseleccionMapper.selectByPrimaryKeyBasic(idProcesoSeleccion);
-			if (procesoEdit != null){
-				if (!procesoEdit.getEstadoproceso().equals(Constantes.estadosPorTipoDocumento.REMITIDO_A_EJECUCION)){
+			if (procesoEdit != null) {
+				if (!procesoEdit.getEstadoproceso().equals(Constantes.estadosPorTipoDocumento.REMITIDO_A_EJECUCION)) {
 					procesoEdit.setEstadoproceso(Constantes.estadosPorTipoDocumento.REMITIDO_A_EJECUCION);
 					procesoEdit.setFechamodificacionauditoria(new Date());
 					procesoEdit.setFechaenvioejecucion(new Date());
@@ -546,6 +551,139 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 		result.setMensaje("El resultado de proceso fue remitido exitosamente.");
 		return result;
 	}
-	
+
+	@Override
+	@Transactional
+	public Resultado saveCalendario(TransactionRequest<Procesoseleccion> request) throws Exception {
+		// TODO Auto-generated method stub
+		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
+		Procesoseleccion procesoRequest = request.getEntityTransaction();
+		Procesoseleccion procesoEdit = procesoseleccionMapper
+				.selectByPrimaryKeyBasic(procesoRequest.getIdprocesoseleccion());
+		boolean derivadaEjecucion = false;
+
+		// editing process...
+
+		// Elevado a OSCE
+		procesoEdit.setFechaelevacionobservacion(procesoRequest.getFechaelevacionobservacion());
+		procesoEdit.setFechapronunciamiento(procesoRequest.getFechapronunciamiento());
+
+		// Apelacion
+		procesoEdit.setFechaapelacion(procesoRequest.getFechaapelacion());
+		procesoEdit.setFecharesolucionapelacion(procesoRequest.getFecharesolucionapelacion());
+
+		// Fecha consentimiento de buena PRO
+		procesoEdit.setFechapublicacionconsentimiento(procesoRequest.getFechapublicacionconsentimiento());
+
+		procesoEdit.setFechaactaproyectobase(procesoRequest.getFechaactaproyectobase());
+		procesoEdit.setNroactaproyectobase(procesoRequest.getNroactaproyectobase());
+		procesoEdit.setFechaobservacionbase(procesoRequest.getFechaobservacionbase());
+		procesoEdit.setObservaciones(procesoRequest.getObservaciones());
+		procesoEdit.setFechasubsanacionbase(procesoRequest.getFechasubsanacionbase());
+		procesoEdit.setIdcatalogosistemacontratacion(procesoRequest.getIdcatalogosistemacontratacion());
+		procesoEdit.setModalidadejecucion(procesoRequest.getModalidadejecucion());
+
+		procesoEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
+		procesoEdit.setFechamodificacionauditoria(new Date());
+		procesoEdit.setEquipoauditoria(request.getEquipoAuditoria());
+		procesoEdit.setProgramaauditoria(request.getProgramaAuditoria());
+		procesoseleccionMapper.updateByPrimaryKey(procesoEdit);
+
+		// ******************************SAVE************************************************************
+		// CONVOCATORIA**********************************************************************************
+		Convocatoriaprocesoseleccion convocatoriaEdit;
+		Integer idConvocatoria;
+		for (Convocatoriaprocesoseleccion convocatoria : procesoRequest.getListaConvocatoriaprocesoseleccion()) {
+			if (convocatoria.getIdconvocatoriaproceso() == null) {
+				// add
+				convocatoria.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+				convocatoria.setFechacreacionauditoria(new Date());
+				convocatoria.setProgramaauditoria(request.getProgramaAuditoria());
+				convocatoria.setEquipoauditoria(request.getEquipoAuditoria());
+				convocatoria.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+				idConvocatoria = (int) utilsBusiness.getNextSeq(Sequence.SEQ_CONVOCATORIAPROCESOSELECCION).longValue();
+				convocatoria.setIdconvocatoriaproceso(idConvocatoria);
+				convocatoriaprocesoseleccionMapper.insert(convocatoria);
+			} else {
+				// update
+				convocatoriaEdit = convocatoriaprocesoseleccionMapper
+						.selectByPrimaryKeyBasic(convocatoria.getIdconvocatoriaproceso());
+				convocatoriaEdit.setValorreferencia(convocatoria.getValorreferencia());
+				convocatoriaEdit.setIdcatalogoestadoconvocatoria(convocatoria.getIdcatalogoestadoconvocatoria());
+				convocatoriaEdit.setFechainicio(convocatoria.getFechainicio());
+				convocatoriaEdit.setFechafin(convocatoria.getFechafin());
+				convocatoriaEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
+				convocatoriaEdit.setFechamodificacionauditoria(new Date());
+				convocatoriaEdit.setProgramaauditoria(request.getProgramaAuditoria());
+				convocatoriaEdit.setEquipoauditoria(request.getEquipoAuditoria());
+				convocatoriaprocesoseleccionMapper.updateByPrimaryKey(convocatoriaEdit);
+				idConvocatoria = convocatoriaEdit.getIdconvocatoriaproceso();
+			}
+
+			// save calendar
+			if (convocatoria.getListaCalendarioprocesoseleccion() != null) {
+				for (Calendarioprocesoseleccion calendar : convocatoria.getListaCalendarioprocesoseleccion()) {
+					if (calendar.getIdcalendarioproceso() == null) {
+						// add
+						calendar.setIdconvocatoriaproceso(idConvocatoria);
+						calendar.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+						calendar.setFechacreacionauditoria(new Date());
+						calendar.setProgramaauditoria(request.getProgramaAuditoria());
+						calendar.setEquipoauditoria(request.getEquipoAuditoria());
+						calendar.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+						calendar.setIdcalendarioproceso(
+								(int) utilsBusiness.getNextSeq(Sequence.SEQ_CALENDARIOPROCESOSELECCION).longValue());
+						calendarioprocesoseleccionMapper.insert(calendar);
+					} else {
+						// update
+						Calendarioprocesoseleccion calendarEdit = calendarioprocesoseleccionMapper
+								.selectByPrimaryKeyBasic(calendar.getIdcalendarioproceso());
+						calendarEdit.setFechainicio(calendar.getFechainicio());
+						calendarEdit.setFechafin(calendar.getFechafin());
+						calendarEdit.setIdcatalogoestadopublicacion(calendar.getIdcatalogoestadopublicacion());
+						calendarEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
+						calendarEdit.setFechamodificacionauditoria(new Date());
+						calendarEdit.setProgramaauditoria(request.getProgramaAuditoria());
+						calendarEdit.setEquipoauditoria(request.getEquipoAuditoria());
+						calendarioprocesoseleccionMapper.updateByPrimaryKey(calendarEdit);
+					}
+				}
+			}
+
+			// save results
+			if (convocatoria.getListaResultadoprocesoseleccion() != null) {
+				for (Resultadoprocesoseleccion resultado : convocatoria.getListaResultadoprocesoseleccion()) {
+					if (resultado.getIdresultadoproceso() == null) {
+						// add
+						resultado.setIdconvocatoriaproceso(idConvocatoria);
+						resultado.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+						resultado.setFechacreacionauditoria(new Date());
+						resultado.setProgramaauditoria(request.getProgramaAuditoria());
+						resultado.setEquipoauditoria(request.getEquipoAuditoria());
+						resultado.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+						resultado.setIdresultadoproceso(
+								(int) utilsBusiness.getNextSeq(Sequence.SEQ_RESULTADOPROCESOSELECCION).longValue());
+						resultadoprocesoseleccionMapper.insert(resultado);
+					} else {
+						// update
+						Resultadoprocesoseleccion resultadoEdit = resultadoprocesoseleccionMapper
+								.selectByPrimaryKeyBasic(resultado.getIdresultadoproceso());
+						resultadoEdit.setNroruc(resultado.getNroruc());
+						resultadoEdit.setNombreproveedor(resultado.getNombreproveedor());
+						resultadoEdit.setIdcatalogoestadoresultado(resultado.getIdcatalogoestadoresultado());
+						resultadoEdit.setMontoadjudicado(resultado.getMontoadjudicado());
+						resultadoEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
+						resultadoEdit.setFechamodificacionauditoria(new Date());
+						resultadoEdit.setEquipoauditoria(request.getEquipoAuditoria());
+						resultadoEdit.setProgramaauditoria(request.getProgramaAuditoria());
+						resultadoprocesoseleccionMapper.updateByPrimaryKey(resultadoEdit);
+					}
+				}
+			}
+		}
+		
+		//Resultado
+		return result;
+	}
 
 }

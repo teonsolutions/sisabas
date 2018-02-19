@@ -479,6 +479,95 @@ public class ProcesoController extends BaseController {
 		}
 	}
 
+	public void saveCalendario() {
+		REGISTER_INIT();
+		try {
+
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
+			if (usuario == null) {
+				REGISTER_ERROR();
+				addMessageKey("msgsDocumentotecnicoR", "Teminó la sesión", FacesMessage.SEVERITY_ERROR);
+				return;
+			}
+
+			TransactionRequest<Procesoseleccion> request = new TransactionRequest<Procesoseleccion>();
+			List<Convocatoriaprocesoseleccion> listconvoca = new ArrayList<Convocatoriaprocesoseleccion>();
+			for (ConvocatoriaDto item : listConvocatoria) {
+				Convocatoriaprocesoseleccion newItem = new Convocatoriaprocesoseleccion();
+				newItem.setIdconvocatoriaproceso(item.getIdconvocatoriaproceso());
+				newItem.setNroconvocatoria(item.getNroconvocatoria());
+				BigDecimal valorreferencia = new BigDecimal(item.getValorreferencia());
+				newItem.setValorreferencia(Utils.round(valorreferencia));
+				newItem.setIdcatalogoestadoconvocatoria(item.getIdcatalogoestadoconvocatoria());
+				newItem.setFechainicio(item.getFechainicio());
+				newItem.setFechafin(item.getFechafin());
+
+				// calendarios
+				List<Calendarioprocesoseleccion> lstCalendario = new ArrayList<Calendarioprocesoseleccion>();
+				if (item.getListaCalendario() != null) {
+					for (CalendarioDto calendar : listCalendario) {
+						Calendarioprocesoseleccion newCalendar = new Calendarioprocesoseleccion();
+						newCalendar.setIdcalendarioproceso(calendar.getIdcalendarioproceso());
+						newCalendar.setIdconvocatoriaproceso(calendar.getIdcalendarioproceso());
+						newCalendar.setIdcatalogocodigocalendario(calendar.getIdcatalogocodigocalendario());
+						newCalendar.setNombrecalendario(calendar.getNombrecalendario());
+						newCalendar.setFechainicio(calendar.getFechainicio());
+						newCalendar.setFechafin(calendar.getFechafin());
+						newCalendar.setIdcatalogoestadopublicacion(calendar.getIdcatalogoestadopublicacion());
+						lstCalendario.add(newCalendar);
+					}
+					newItem.setListaCalendarioprocesoseleccion(lstCalendario);
+				}
+
+				// resultado de procesos
+				List<Resultadoprocesoseleccion> lstResultado = new ArrayList<Resultadoprocesoseleccion>();
+				if (item.getListaResultado() != null) {
+					for (ProcesoResultadoItemDto resultado : listResultado) {
+						Resultadoprocesoseleccion newResultado = new Resultadoprocesoseleccion();
+						newResultado.setIdresultadoproceso(resultado.getIdresultadoproceso());
+						newResultado.setIdconvocatoriaproceso(resultado.getIdconvocatoriaproceso());
+						newResultado.setNroitem(resultado.getNroitem());
+						newResultado.setNombreitem(resultado.getNombreitem());
+						newResultado.setNroruc(resultado.getNroruc());
+						newResultado.setNombreproveedor(resultado.getNombreproveedor());
+						newResultado.setIdcatalogoestadoresultado(resultado.getIdcatalogoestadoresultado());
+						BigDecimal valorreferencial = new BigDecimal(resultado.getValorreferencial());
+						newResultado.setValorreferencial(Utils.round(valorreferencial));
+
+						BigDecimal montoadjudicado = new BigDecimal(resultado.getMontoadjudicado());
+						newResultado.setMontoadjudicado(Utils.round(montoadjudicado));
+						lstResultado.add(newResultado);
+					}
+					newItem.setListaResultadoprocesoseleccion(lstResultado);
+				}
+
+				listconvoca.add(newItem);
+			}
+			processEdit.setListaConvocatoriaprocesoseleccion(listconvoca);
+			request.setUsuarioAuditoria(getUserLogin());
+			request.setEquipoAuditoria(getRemoteAddr());
+			request.setEntityTransaction(processEdit);
+			Resultado result = procesoBusiness.saveProceso(request);
+
+			REGISTER_SUCCESS();
+			showGrowlMessageSuccessfullyCompletedAction();
+
+		} catch (ValidateException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsDocumentotecnicoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (BusinessException e) {
+			REGISTER_ERROR();
+			addMessageKey("msgsDocumentotecnicoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+
+		} catch (DataIntegrityViolationException e) {
+			addMessageKey("msgsForm", Messages.getString("exception.dataintegrity.message.title"),
+					Messages.getString("exception.dataintegrity.message.detail"), FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			REGISTER_ERROR();
+			addErrorMessageKey("msgsDocumentotecnicoR", e);
+		}
+	}
+	
 	public void irImprimir() {
 		STATUS_INIT();
 		try {
