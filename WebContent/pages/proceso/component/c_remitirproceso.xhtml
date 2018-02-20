@@ -58,7 +58,7 @@
 					</f:facet>
 				</f:facet>
 				<f:facet name="input">
-					<p:selectOneMenu value="#{var.destino}" id="ddlEstado"
+					<p:selectOneMenu value="#{var.destino}" id="ddlEstado" rendered="#{var.idcatalogoestadoresultado != 'EPRI4'}"
 						required="true" label="Remitir a" style="width: 85%">
 						<f:selectItem itemLabel="--Seleccione--" itemValue="" />
 						<f:selectItems value="#{var.destinos}" var="status"
@@ -68,9 +68,6 @@
 				</f:facet>
 			</p:cellEditor>
 		</p:column>
-
-
-
 
 	</p:dataTable>
 </p:panel>

@@ -214,6 +214,12 @@ public class Constantes {
 		public static final String INACTIVO = "0";
 	}
 
+	public class estadoAuditoriaFilter {
+		public static final String ACTIVO = "1";
+		public static final String INACTIVO = "0";
+		public static final String TODOS = "";
+	}
+	
 	public class unidadEjecutora {
 		public static final String PRONIED = "108";
 		public static final int PRONIED_SIAF = 1253;
@@ -270,6 +276,12 @@ public class Constantes {
 		public static final int EJECUCION_CONTRACTUAL = 1;
 		public static final int PROCESO_SELECCION = 2;
 		public static final int PROGRAMACION_COSTOS = 3;
+	}
+	
+	public class destinoRemisionProcesoDescripcion {
+		public static final String EJECUCION_CONTRACTUAL = "EJECUCIÓN CONTRACTUAL";
+		public static final String PROCESO_SELECCION = "COORDINADOR DE PROCESO DE SELECCIÓN";
+		public static final String PROGRAMACION_COSTOS = "PROGRAMACIÓN Y COSTOS";
 	}
 
 	public class estadoResultadoProceso {

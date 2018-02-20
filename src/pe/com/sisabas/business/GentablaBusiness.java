@@ -56,4 +56,6 @@ public interface GentablaBusiness{
 	public List<GentablaItemResponse> getItems(String tipo) throws Exception;	
 	
 	public String getDescripcion(String key) throws Exception;
+	
+	public List<Gentabla> selectByTypeCustom(String type, String status) throws Exception;
 }

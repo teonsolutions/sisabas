@@ -35,9 +35,10 @@
 			}
 		</script>
 		<h:form id="form">
+			<!-- 
 			<p:commandButton value="Prueba" icon="fa fa-save" title="Prueba"
 				onclick="readHTML()" />
-
+ -->
 			<p:growl id="msgs" showDetail="true"></p:growl>
 			<p:growl id="growl" showDetail="true" for="growl" />
 			<p:panel id="panel" header="Seguimiento de proceso"
@@ -311,10 +312,9 @@
 									<h:inputHidden id="hidStatus" value="#{proceso.status}" />
 									<p:commandButton value="Remitir Expediente"
 										action="#{proceso.goSendToEjecucion}"
-										update="hidStatus,:frmRemitirProceso:diRemitirProceso"
+										update="hidStatus,:frmRemitirProceso:diRemitirProceso,:form:growl"
 										oncomplete="showDialog('form:tabViewProceso:accCalendario:hidStatus','frmRemitirProceso:diRemitirProceso');"
-										icon="fa fa-pencil"
-										title="Enviar a expediente"
+										icon="fa fa-pencil" title="Enviar a expediente"
 										disabled="#{!proceso.esSeleccionadoConvocatoria}"
 										rendered="#{proceso.renderButton('btnSendEjecucion')}" />
 
@@ -519,7 +519,8 @@
 										</p:cellEditor>
 									</p:column>
 									<p:column headerText="Acciones">
-										<p:rowEditor editTitle="Editar" rendered="#{proceso.esSeleccionadoConvocatoria}" />
+										<p:rowEditor editTitle="Editar"
+											rendered="#{proceso.esSeleccionadoConvocatoria}" />
 									</p:column>
 								</p:dataTable>
 
@@ -681,7 +682,8 @@
 										</p:cellEditor>
 									</p:column>
 									<p:column headerText="Acciones">
-										<p:rowEditor editTitle="Editar" rendered="#{var.estadoprocesoitem eq 1 and proceso.esSeleccionadoConvocatoria}" />
+										<p:rowEditor editTitle="Editar"
+											rendered="#{var.estadoprocesoitem eq 1 and proceso.esSeleccionadoConvocatoria}" />
 									</p:column>
 								</p:dataTable>
 								<table style="width: 100%">

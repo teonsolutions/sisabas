@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.component.datatable.DataTable;
@@ -76,7 +77,7 @@ public class ProcesoController extends BaseController {
 	private ProcesoDto selectedRow;
 	private ProcesoRequest searchParam;
 	private ProcesoDto currentRow;
-	private Procesoseleccion processEdit;
+	private Procesoseleccion processEdit;	
 
 	// Title
 	private String tituloBase;
@@ -109,6 +110,7 @@ public class ProcesoController extends BaseController {
 	private CalendarioDto selectedCalendadio;
 	private ProcesoResultadoItemDto selectedResultado;
 	private boolean esSeleccionadoConvocatoria;
+	private boolean isCalendarEditing = false;
 
 	// Business layer section
 	@Autowired
@@ -164,15 +166,16 @@ public class ProcesoController extends BaseController {
 
 			listaSistemaContratacion = gentablaBusiness
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.SICP));
-
+			/*
 			listaGentablaIdcatalogoestadoconvocatoria = gentablaBusiness
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.ECPR));
+					*/
+			listaGentablaIdcatalogoestadoconvocatoria = gentablaBusiness.selectByTypeCustom(Constantes.tabla.ECPR, Constantes.estadoAuditoriaFilter.INACTIVO);
 
 			listaGentablaIdcatalogoestadopublicacion = gentablaBusiness
-					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EEPR));
-
-			listaGentablaIdcatalogoestadoresultado = gentablaBusiness
-					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EPRI));
+					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EEPR));		
+			
+			listaGentablaIdcatalogoestadoresultado = gentablaBusiness.selectByTypeCustom(Constantes.tabla.EPRI, Constantes.estadoAuditoriaFilter.INACTIVO);
 
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
@@ -291,27 +294,41 @@ public class ProcesoController extends BaseController {
 	}
 
 	public void goSendToEjecucion() {
+		//validate before
+		if (this.isCalendarEditing){
+			showGrowlMessageSuccessfullyCompletedAction("Validación", "Para remitir expediente primero de guardar los cambios.", FacesMessage.SEVERITY_WARN);
+			return;
+		}
+		
 		STATUS_INIT();
 		try {
 
 			securityControlValidate("btnSendEjecucion");
 			resetRegisterForm();
 			validateSelectedRowConvocatoria();
-
+			
 			listResultadoSend = procesoBusiness
 					.selectResultadoByIdConvocatoria(this.selectedConvocatoria.getIdconvocatoriaproceso());
 			for (ProcesoResultadoItemDto resultado : listResultadoSend) {
 				List<ItemIntResponse> items = new ArrayList<ItemIntResponse>();
 				if (resultado.getIdcatalogoestadoresultado()
 						.equals(Constantes.estadoResultadoProceso.BUENA_PRO_CONSENTIDA)) {
+					
 					items.add(new ItemIntResponse(Constantes.destinoRemisionProceso.EJECUCION_CONTRACTUAL,
-							"EJECUCIÓN CONTRACTUAL"));
+							Constantes.destinoRemisionProcesoDescripcion.EJECUCION_CONTRACTUAL));
+					
+					resultado.setDestino(Constantes.destinoRemisionProceso.EJECUCION_CONTRACTUAL);					
+					resultado.setDestinodescripcion(Constantes.destinoRemisionProcesoDescripcion.EJECUCION_CONTRACTUAL);
+					
 				} else {
 					items.add(new ItemIntResponse(Constantes.destinoRemisionProceso.PROCESO_SELECCION,
-							"COORDINADOR DE PROCESO DE SELECCIÓN"));
+							Constantes.destinoRemisionProcesoDescripcion.PROCESO_SELECCION));
 					items.add(new ItemIntResponse(Constantes.destinoRemisionProceso.PROGRAMACION_COSTOS,
-							"PROGRAMACIÓN Y COSTOS"));
+							Constantes.destinoRemisionProcesoDescripcion.PROGRAMACION_COSTOS));
+					resultado.setDestino(null);					
+					resultado.setDestinodescripcion(null);					
 				}
+				
 				resultado.setDestinos(items);
 			}
 
@@ -336,7 +353,7 @@ public class ProcesoController extends BaseController {
 			addErrorMessageKey("msgsForm", e);
 		}
 	}
-
+	
 	public void sendToEjecucion() {
 		REGISTER_INIT();
 		try {
@@ -347,6 +364,20 @@ public class ProcesoController extends BaseController {
 				addMessageKey("msgsDocumentotecnicoR", "Teminó la sesión", FacesMessage.SEVERITY_ERROR);
 				return;
 			}
+
+			// validate
+			for (ProcesoResultadoItemDto resultado : this.listResultadoSend) {
+				if (resultado.getDestino() == null){
+					showGrowlMessageSuccessfullyCompletedAction("Validación", "No ha seleccionado el destino para enviar el expediente.", FacesMessage.SEVERITY_WARN);
+					return;
+				}
+				if (resultado.getDestino().equals(Constantes.destinoRemisionProceso.EJECUCION_CONTRACTUAL)){
+					//validate here
+					showGrowlMessageSuccessfullyCompletedAction("Validación", "Proveedor XXX no tiene contrato registrado.", FacesMessage.SEVERITY_WARN);
+					return;
+				}
+			}		
+
 			for (int i = 0; i < this.listResultado.size(); i++) {
 				if (this.listResultadoSend.get(i).getDestino()
 						.equals(Constantes.destinoRemisionProceso.EJECUCION_CONTRACTUAL)) {
@@ -368,10 +399,10 @@ public class ProcesoController extends BaseController {
 			request.setUsuarioAuditoria(getUserLogin());
 			request.setEquipoAuditoria(getRemoteAddr());
 			procesoBusiness.sendProceso(request, this.currentRow.getIdProcesoSeleccion());
-			
-			//list convocatoria again
+
+			// list convocatoria again
 			searchConvocatoria();
-			
+
 			REGISTER_SUCCESS();
 			showGrowlMessageSuccessfullyCompletedAction();
 
@@ -548,7 +579,8 @@ public class ProcesoController extends BaseController {
 			request.setEquipoAuditoria(getRemoteAddr());
 			request.setEntityTransaction(processEdit);
 			Resultado result = procesoBusiness.saveProceso(request);
-
+			this.isCalendarEditing = false;
+			
 			REGISTER_SUCCESS();
 			showGrowlMessageSuccessfullyCompletedAction();
 
@@ -567,7 +599,7 @@ public class ProcesoController extends BaseController {
 			addErrorMessageKey("msgsDocumentotecnicoR", e);
 		}
 	}
-	
+
 	public void irImprimir() {
 		STATUS_INIT();
 		try {
@@ -655,7 +687,7 @@ public class ProcesoController extends BaseController {
 		// get description of the status
 		try {
 			// validate the date
-			throw new Exception("Error");
+			//throw new Exception("Error");
 			/*
 			 * if (convoca.getFechainicio().compareTo(convoca.getFechafin()) <=
 			 * 0) {
@@ -672,6 +704,7 @@ public class ProcesoController extends BaseController {
 			 * SEVERITY_ERROR, // "", "msg.dateRange",
 			 * ((Calendar)component).getLabel(), // startDate); }
 			 */
+			this.isCalendarEditing = true;
 		} catch (Exception ex) {
 			msg = new FacesMessage("Falló");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -682,7 +715,7 @@ public class ProcesoController extends BaseController {
 	public void onRowCancel(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Se canceló la edición",
 				"Convocatoria: " + ((ConvocatoriaDto) event.getObject()).getNroconvocatoria());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+		FacesContext.getCurrentInstance().addMessage(null, msg);		
 	}
 
 	public void onRowEditCalendar(RowEditEvent event) {
@@ -697,6 +730,7 @@ public class ProcesoController extends BaseController {
 		} catch (Exception ex) {
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+		this.isCalendarEditing = true;
 	}
 
 	public void onRowCancelCalendar(RowEditEvent event) {
@@ -711,7 +745,7 @@ public class ProcesoController extends BaseController {
 		try {
 			String id = ((ProcesoResultadoItemDto) event.getObject()).getIdcatalogoestadoresultado();
 			((ProcesoResultadoItemDto) event.getObject()).setDescripcionestado(gentablaBusiness.getDescripcion(id));
-
+			this.isCalendarEditing = true;
 		} catch (Exception ex) {
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -939,6 +973,15 @@ public class ProcesoController extends BaseController {
 		this.listResultadoSend = listResultadoSend;
 	}
 
+	public boolean isCalendarEditing() {
+		return isCalendarEditing;
+	}
+
+	public void setCalendarEditing(boolean isCalendarEditing) {
+		this.isCalendarEditing = isCalendarEditing;
+	}
+
+	
 	// properties
 
 }
