@@ -62,7 +62,6 @@ import pe.com.sisabas.persistence.ConvocatoriaprocesoseleccionMapper;
 import pe.com.sisabas.persistence.ProcesoseleccionMapper;
 import pe.com.sisabas.resources.Constantes;
 import pe.com.sisabas.resources.Messages;
-import pe.com.sisabas.resources.URLReader;
 import pe.com.sisabas.resources.Utils;
 import pe.com.sisabas.resources.controller.BaseController;
 import pe.com.sisabas.service.SicuCallService;
