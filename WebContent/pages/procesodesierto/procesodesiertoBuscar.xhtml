@@ -1,0 +1,240 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	template="/pages/template/MasterPage.xhtml">
+	<ui:define name="center">
+		<h:form id="form">
+			<p:panel id="panel"
+				header="#{procesodesierto.tituloParam} #{procesodesierto.tituloBase} Buscar"
+				style="width: 98%">
+				<p:focus for="panel" />
+				<p:messages id="msgsForm" for="msgsForm" autoUpdate="true"
+					closable="true" showDetail="true" />
+				<p:growl id="growl" showDetail="true" for="growl" />
+
+				<p:panel>
+					<table style="width: 100%;" cellpadding="0" cellspacing="5">
+						<tr>
+							<td><p:outputLabel value="Tipo de Proceso"
+									for="ddlTipoProceso" /></td>
+							<td><p:selectOneMenu id="ddlTipoProceso"
+									value="#{procesodesierto.searchParam.idTipoProceso}">
+									<f:selectItem itemLabel="TODOS" itemValue="" />
+									<f:selectItems value="#{procesodesierto.listaTipoProceso}"
+										var="var" itemLabel="#{var.descripcion}"
+										itemValue="#{var.codigo}" />
+								</p:selectOneMenu></td>
+							<td><p:outputLabel value="Tipo de bien" for="ddlTipoBien" /></td>
+							<td><p:selectOneMenu id="ddlTipoBien"
+									value="#{evaluacionDocumento.searchParam.idcatalogotipobien}">
+									<f:selectItem itemLabel="TODOS" itemValue="" />
+									<f:selectItems
+										value="#{pacconsolidado.listaGentablaIdcatalogotipobien}"
+										var="var" itemLabel="#{var.vchregdescri}"
+										itemValue="#{var.vchregcodigo}" />
+								</p:selectOneMenu></td>
+
+							<td><p:outputLabel value="Oficina" for="ddlCentroCosto" /></td>
+							<td><p:selectOneMenu id="ddlCentroCosto"
+									value="#{procesodesierto.searchParam.codigoCentroCosto}">
+									<f:selectItem itemLabel="TODOS" itemValue="" />
+									<f:selectItems value="#{procesodesierto.listaCentroCosto}"
+										var="var" itemLabel="#{var.nombreDependencia}"
+										itemValue="#{var.codigoCentroCosto}" />
+								</p:selectOneMenu></td>
+						</tr>
+						<tr>
+							<td><p:outputLabel value="Estado del proceso"
+									for="ddlEstadoProceso" /></td>
+							<td><p:selectOneMenu id="ddlEstadoProceso"
+									value="#{procesodesierto.searchParam.estadoProceso}">
+									<f:selectItem itemLabel="TODOS" itemValue="" />
+									<f:selectItems
+										value="#{procesodesierto.listaEstadoRequerimiento}" var="var"
+										itemLabel="#{var.descripcion}" itemValue="#{var.idEstadosPorTipoDocumento}" />
+								</p:selectOneMenu></td>
+							<td><p:outputLabel value="Nro. Proceso" for="txtNroProceso" /></td>
+							<td><p:inputText id="txtNroProceso"
+									value="#{procesodesierto.searchParam.nroProceso}"
+									disabled="false" maxlength="5" style="width:150px;"
+									label="Número Pedido" /></td>
+							<td><p:outputLabel value="Nro. PAO (SIGA)" for="txtNroPao" /></td>
+							<td><p:inputText id="txtNroPao"
+									value="#{procesodesierto.searchParam.nroConsolid}"
+									disabled="false" maxlength="5" style="width:150px;"
+									label="Nro. PAO (SIGA)" /></td>
+						</tr>
+					</table>
+				</p:panel>
+
+				<table style="width: 100%;">
+					<tr>
+						<td valign="top"><p:panel id="pnlBotones"
+								styleClass="gandalfPnlBotonesClass">
+								<h:inputHidden id="hidStatus" value="#{procesodesierto.status}" />
+								<p:commandButton widgetVar="btnBuscar" id="btnBuscar"
+									value="Buscar" action="#{procesodesierto.search}"
+									update="tblListado,pnlBotones" icon="fa fa-search"
+									title="Buscar"
+									rendered="#{procesodesierto.renderButton('btnBuscar')}" />
+								<p:spacer width="20" />
+
+								<p:commandButton value="Asignar"
+									action="#{procesodesierto.goSeguimiento}" update="hidStatus"
+									oncomplete="showDialog('form:hidStatus','form:cdRecibir');"
+									icon="fa fa-user-plus" title="Asignar a especialista"
+									disabled="#{!procesodesierto.esSeleccionado}"
+									rendered="#{procesodesierto.renderButton('btnSeguimiento')}" />
+									
+								<p:commandButton value="Imprimir"
+									action="#{procesodesierto.irImprimir}"
+									update="hidStatus,:frmImprimir:diImprimir"
+									oncomplete="showDialog('form:hidStatus','frmImprimir:diImprimir');"
+									icon="fa fa-print"
+									rendered="#{evaluacionDocumento.renderButton('btnImprimir')}" />
+
+							</p:panel></td>
+						<td valign="top">
+							<div align="right" style="margin-top: 12px">
+								<p:commandButton value="Salir" action="#{pedido.load}"
+									ajax="false" icon="ui-icon-arrowreturnthick-1-w" title="Salir"
+									rendered="#{documentotecnico.esDerivada=='1'}" />
+								<p:commandButton value="Salir"
+									action="/pages/home.xhtml?faces-redirect=true" ajax="false"
+									icon="fa fas fa-minus-circle" title="Salir"
+									rendered="#{documentotecnico.esDerivada=='0'}" />
+							</div>
+						</td>
+					</tr>
+				</table>
+
+				<p:dataTable id="tblListado" value="#{procesodesierto.dataList}"
+					var="var" emptyMessage="No se encontraron registros"
+					widgetVar="tblListado" selection="#{procesodesierto.selectedRow}"
+					paginator="true" rows="#{sisabascontrol.registros_mant}"
+					paginatorPosition="bottom"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(procesodesierto.dataList)}"
+					selectionMode="single" rowKey="#{var.nroProceso}"
+					styleClass="gandalfTableClass">
+					<p:ajax event="rowSelect"
+						listener="#{procesodesierto.seleccionItem}"
+						update=":form:pnlBotones" immediate="true" />
+
+
+					<p:column styleClass="c_string" sortBy="#{var.existeSiga}">
+						<f:facet name="header">
+							<h:outputText value="Existe en SIGA?"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.existeSiga}" />
+					</p:column>
+
+
+					<p:column styleClass="c_string" sortBy="#{var.tipoProcesoDesc}">
+						<f:facet name="header">
+							<h:outputText value="Tipo de proceso"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.tipoProcesoDesc}" />
+					</p:column>
+
+					<p:column styleClass="c_string" sortBy="#{var.nroProceso}">
+						<f:facet name="header">
+							<h:outputText value="Nro. Proceso"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.nroProceso}" />
+					</p:column>
+
+					<p:column styleClass="c_string" sortBy="#{var.nroConsolid}">
+						<f:facet name="header">
+							<h:outputText value="Nro. PAO (SIGA)"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.nroConsolid}" />
+					</p:column>
+
+					<p:column styleClass="c_string" sortBy="#{var.tipoBienDesc}">
+						<f:facet name="header">
+							<h:outputText value="Tipo de bien"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.tipoBienDesc}" />
+					</p:column>
+
+					<p:column styleClass="c_string" sortBy="#{var.glosa}"
+						style="width: 25%;">
+						<f:facet name="header">
+							<h:outputText value="Descripción del proceso"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.glosa}" />
+					</p:column>
+
+					<p:column styleClass="c_string"
+						sortBy="#{var.valorEstimadoContratacion}">
+						<f:facet name="header">
+							<h:outputText value="Valor Referencial S/."></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.valorEstimadoContratacion}" />
+					</p:column>
+
+					<p:column sortBy="#{var.fechaRegistro}">
+						<f:facet name="header">
+							<h:outputText value="Fecha"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.fechaRegistro}" >
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column styleClass="c_string"
+						sortBy="#{var.nombreEspecialistaProceso}">
+						<f:facet name="header">
+							<h:outputText value="Especialista asignado"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.nombreEspecialistaProceso}" />
+					</p:column>
+
+					<p:column styleClass="c_string" sortBy="#{var.estadoproceso}">
+						<f:facet name="header">
+							<h:outputText value="Estado (SISABAS)"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.estadoproceso}" />
+					</p:column>
+
+					<p:column styleClass="c_string" sortBy="#{var.estadoSiga}">
+						<f:facet name="header">
+							<h:outputText value="Estado (SIGA)"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.estadoSiga}" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+
+		<h:form id="frmImprimir">
+			<p:dialog id="diImprimir" header="#{procesodesierto.tituloBase}"
+				widgetVar="diImprimir" resizable="false" modal="true" dynamic="true">
+				<h:panelGrid columns="1" style="text-align:center;">
+
+					<p:commandButton icon="ui-icon-circle-arrow-s"
+						value="Exportar Lista Excel" ajax="false" style="width:100px;">
+						<p:dataExporter type="xls" target=":form:tblListado"
+							fileName="datosDocumentotecnico"
+							postProcessor="#{procesodesierto.postProcessXLS}" />
+					</p:commandButton>
+
+					<ui:remove>
+						<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf"
+							ajax="false" style="width:100px;">
+							<p:dataExporter type="pdf" target=":form:tblListado"
+								fileName="datos"
+								preProcessor="#{procesodesierto.preProcessPDF}" />
+						</p:commandButton>
+					</ui:remove>
+
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -28,4 +28,5 @@ public interface ProcesoBusiness {
 	public List<ProcesoResultadoItemDto> selectResultadoByIdConvocatoria(Integer idconvocatoriaproceso) throws Exception;
 	public Resultado sendProceso(TransactionRequest<List<ProcesoResultadoItemDto>> request, Integer idProcesoSeleccion) throws Exception;
 	public Resultado saveCalendario(TransactionRequest<Procesoseleccion> request) throws Exception;
+	public List<ProcesoDto> searchProcesoDesierto(ProcesoRequest request) throws Exception;
 }
