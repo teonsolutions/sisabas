@@ -686,11 +686,12 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 		return result;
 	}
 
-
 	@Override
 	public List<ProcesoDto> searchProcesoDesierto(ProcesoRequest request) throws Exception {
 		// TODO Auto-generated method stub
-		return procesoseleccionMapper.searchProcesoDesierto(request);		
+		return procesoseleccionMapper.searchProcesoDesierto(request);
 	}
+
+
 
 }
