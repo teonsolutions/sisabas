@@ -121,6 +121,11 @@ public class Contrato extends SysTabla implements  Serializable,Cloneable{
 	private java.lang.String estadoauditoria;
 	private List<Adenda> listaAdenda;
 	private List<Previsionporcontrato> listaPrevisionporcontrato;
+	
+	private List<Orden> listaOrden;
+	
+	
+	
 
 	public Contrato() {}
 
@@ -878,6 +883,14 @@ public class Contrato extends SysTabla implements  Serializable,Cloneable{
 
 	public void setListaPrevisionporcontrato(List<Previsionporcontrato> listaPrevisionporcontrato) {
 		this.listaPrevisionporcontrato = listaPrevisionporcontrato;
+	}
+
+	public List<Orden> getListaOrden() {
+		return listaOrden;
+	}
+
+	public void setListaOrden(List<Orden> listaOrden) {
+		this.listaOrden = listaOrden;
 	}
 
 }

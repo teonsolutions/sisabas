@@ -1,14 +1,19 @@
 package pe.com.sisabas.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 import pe.com.sisabas.be.Entregable;
 
 public class OrdenDto implements Serializable,Cloneable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer idOrden;
-	private Integer nroOrden;
+	private String nroOrden;
 	private Date fechaOrden;
 	private String idTipoBien;
 	private String tipoBienDesc;
@@ -18,7 +23,14 @@ public class OrdenDto implements Serializable,Cloneable{
 	private Integer nroExpedienteSiaf;
 	private String idEstadoSiaf;
 	private String estadoSiafDesc;
-		
+	private Integer idGrupoDocumento;
+	private BigDecimal montoOrden;
+	private Integer idContrato;	
+	private String nroProceso;
+	private String nroContrato;
+	private Date fechainicioprestacion;
+	private String idCatalogoTipoBien;
+	
 	//Additional
 	private Double importeDevengado;
 	private Integer armadas;
@@ -33,7 +45,20 @@ public class OrdenDto implements Serializable,Cloneable{
 	private Integer idPacConsolidado;
 	private Integer idUnidadEjecutora;
 	private List<Entregable> entegables;
+	private List<EntregableDto> entregables;
 	private Double importePagado;
+	
+	private List<SeguimientoPagosResponse> seguimientoPagosResponse;
+	
+	
+	//posicion
+	private Integer posicion;
+	
+	//auditoria
+	
+	private String equipoAuditoria;
+	private String programaAuditoria;
+	private String usuarioAuditoria;
 
 	public Integer getIdOrden() {
 		return idOrden;
@@ -44,14 +69,6 @@ public class OrdenDto implements Serializable,Cloneable{
 		this.idOrden = idOrden;
 	}
 	
-	public Integer getNroOrden() {
-		return nroOrden;
-	}
-
-
-	public void setNroOrden(Integer nroOrden) {
-		this.nroOrden = nroOrden;
-	}
 
 
 	public Date getFechaOrden() {
@@ -276,5 +293,150 @@ public class OrdenDto implements Serializable,Cloneable{
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
-	 }	
+	 }
+
+
+	public Integer getPosicion() {
+		return posicion;
+	}
+
+
+	public void setPosicion(Integer posicion) {
+		this.posicion = posicion;
+	}
+
+
+	public List<EntregableDto> getEntregables() {
+		return entregables;
+	}
+
+
+	public void setEntregables(List<EntregableDto> entregables) {
+		this.entregables = entregables;
+	}
+
+
+	public Integer getIdGrupoDocumento() {
+		return idGrupoDocumento;
+	}
+
+
+	public void setIdGrupoDocumento(Integer idGrupoDocumento) {
+		this.idGrupoDocumento = idGrupoDocumento;
+	}
+
+
+	public Integer getIdContrato() {
+		return idContrato;
+	}
+
+
+	public void setIdContrato(Integer idContrato) {
+		this.idContrato = idContrato;
+	}
+
+
+	public String getNroProceso() {
+		return nroProceso;
+	}
+
+
+	public void setNroProceso(String nroProceso) {
+		this.nroProceso = nroProceso;
+	}
+
+
+	public String getNroContrato() {
+		return nroContrato;
+	}
+
+
+	public void setNroContrato(String nroContrato) {
+		this.nroContrato = nroContrato;
+	}
+
+
+	public Date getFechainicioprestacion() {
+		return fechainicioprestacion;
+	}
+
+
+	public void setFechainicioprestacion(Date fechainicioprestacion) {
+		this.fechainicioprestacion = fechainicioprestacion;
+	}
+
+
+	public String getIdCatalogoTipoBien() {
+		return idCatalogoTipoBien;
+	}
+
+
+	public void setIdCatalogoTipoBien(String idCatalogoTipoBien) {
+		this.idCatalogoTipoBien = idCatalogoTipoBien;
+	}
+
+
+	public String getEquipoAuditoria() {
+		return equipoAuditoria;
+	}
+
+
+	public void setEquipoAuditoria(String equipoAuditoria) {
+		this.equipoAuditoria = equipoAuditoria;
+	}
+
+
+	public String getProgramaAuditoria() {
+		return programaAuditoria;
+	}
+
+
+	public void setProgramaAuditoria(String programaAuditoria) {
+		this.programaAuditoria = programaAuditoria;
+	}
+
+
+	public String getUsuarioAuditoria() {
+		return usuarioAuditoria;
+	}
+
+
+	public void setUsuarioAuditoria(String usuarioAuditoria) {
+		this.usuarioAuditoria = usuarioAuditoria;
+	}
+
+
+	public String getNroOrden() {
+		return nroOrden;
+	}
+
+
+	public void setNroOrden(String nroOrden) {
+		this.nroOrden = nroOrden;
+	}
+
+
+	public BigDecimal getMontoOrden() {
+		return montoOrden;
+	}
+
+
+	public void setMontoOrden(BigDecimal montoOrden) {
+		this.montoOrden = montoOrden;
+	}
+
+
+	public List<SeguimientoPagosResponse> getSeguimientoPagosResponse() {
+		return seguimientoPagosResponse;
+	}
+
+
+	public void setSeguimientoPagosResponse(List<SeguimientoPagosResponse> seguimientoPagosResponse) {
+		this.seguimientoPagosResponse = seguimientoPagosResponse;
+	}
+
+
+
+
+	
 }

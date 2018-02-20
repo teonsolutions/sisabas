@@ -4,6 +4,9 @@ import java.util.Date;
 
 public class SeguimientoPagosResponse {
 
+	private Integer posicion;
+	
+	
 	private String expediente;
 	private String anioProceso;
 	private String mesProceso;
@@ -67,6 +70,12 @@ public class SeguimientoPagosResponse {
 	}
 	public void setMonto(Double monto) {
 		this.monto = monto;
+	}
+	public Integer getPosicion() {
+		return posicion;
+	}
+	public void setPosicion(Integer posicion) {
+		this.posicion = posicion;
 	}
 	
 	

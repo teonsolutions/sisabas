@@ -156,22 +156,24 @@
 						
 				</tr>	
 				<tr>
+						
 						<td><p:outputLabel value="Sistema de adquisición" /></td>
 						<td>
 							<p:selectOneMenu value="#{var.idCatalogoSistemaAdquisicion}" style="width:200px;" >	
 							     <f:selectItem itemLabel="SELECCIONAR" itemValue="" />				
 							     <f:selectItems
 											value="#{contrato.listaGentablaIdcatalogosistemaadquisicion}"
-											var="var" itemLabel="#{var.vchregdescri}"
-											itemValue="#{var.vchregcodigo}" />		
+											var="var1" itemLabel="#{var1.vchregdescri}"
+											itemValue="#{var1.vchregcodigo}" />		
 							</p:selectOneMenu>
 						</td>
 					
-						<td><p:outputLabel value="Plazo de ejecución" /></td>
+					    <td><p:outputLabel value="Plazo de ejecución" /></td>
 						<td>
 						    <p:inputText value="#{var.plazoEjecucion}"  style="width:200px" id="plazoEjecucion"/>
 						    <p:watermark for="plazoEjecucion" value="INGRESE NUMERO DE PLAZO" />
 						</td>
+						
 						
                 </tr>
 				<tr>
@@ -187,7 +189,7 @@
 		</p:tab>
 
 		<p:tab title="Control de órdenes" >
-		   <p:panel>
+		   <p:panel id="panelOrden">
 		   
 		   <table>
 		   <tr>
@@ -208,14 +210,25 @@
             </tr>
             </table>
             <p:spacer height="10"/>
-            <p:dataTable id="tblListaOrden"
+            <p:dataTable id="tblListaOrden" editable="true" selection="#{contrato.orden1}"
 									value="#{contrato.listaOrden}" var="var"
 									emptyMessage="No se encontraron registros"
 									widgetVar="tblListaOrden" paginator="false"
 									rows="#{sisabascontrol.registros_mant}"
 									paginatorPosition="bottom" selectionMode="single"
 									rowKey="#{var.nroOrden}" styleClass="gandalfTableClass">
-									<p:column headerText="Número Orden">
+									
+									<p:ajax event="rowEdit" 
+									    listener="#{contrato.onRowEdit}"
+									    update=":formSeg:msgs,formSeg:accordion:tblListaEntregable"/>
+									<p:ajax event="rowEditCancel"
+										listener="#{contrato.onRowCancel}" update=":formSeg:msgs,formSeg:accordion:tblListaEntregable" />
+									<p:ajax event="rowSelect" listener="#{contrato.fer}" update=":formSeg:msgs,formSeg:accordion:tblListaEntregable,:formSeg:accordion:tblListaPagosSiaf" />
+									 
+                                    <p:column headerText="Número" width="4%">
+										<h:outputText value="#{var.posicion}" />
+									</p:column>
+									<p:column headerText="Número de Orden">
 										<f:facet name="header">
 											<h:outputText value="Número Orden"></h:outputText>
 										</f:facet>
@@ -266,39 +279,8 @@
 										</f:facet>
 										<h:outputText value="#{var.nroExpedienteSiaf}" />
 									</p:column>
-									<p:column headerText="Acciones">
-										<f:facet name="header">
-											<h:outputText value="Estado SIAF"></h:outputText>
-										</f:facet>
+									<p:column headerText="Estado SIAF">
 										<h:outputText value="#{var.estadoSiafDesc}" />
-									</p:column>
-								</p:dataTable>
-								<p:dataTable id="tblListaOrdenEdit"
-									value="#{contrato.listaOrden}" var="var"
-									emptyMessage="No se encontraron registros"
-									widgetVar="tblListaOrden" paginator="false"
-									rows="#{sisabascontrol.registros_mant}"
-									paginatorPosition="bottom" selectionMode="single"
-									rowKey="#{var.nroOrden}" styleClass="gandalfTableClass"
-									editable="true">
-
-									<!-- 
-									<p:ajax event="cellEdit" listener="{programacion.onCellEdit}"
-										update=":form:msgs" />
- 									-->
- 									
- 									
- 									<!-- 
-									<p:ajax event="rowEdit" listener="#{programacion.onRowEdit}"
-										update=":formSeg:growl, formSeg:accordion:tblListaEntregable" />
-									<p:ajax event="rowEditCancel"
-										listener="#{programacion.onRowCancel}" update=":formSeg:growl" />-->
-
-									<p:column headerText="Número Orden">
-										<f:facet name="header">
-											<h:outputText value="Número Orden"></h:outputText>
-										</f:facet>
-										<h:outputText value="#{var.nroOrden}" />
 									</p:column>
 									<p:column headerText="Armadas">
 										<p:cellEditor>
@@ -330,50 +312,24 @@
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
-									<p:column headerText="Plazo (días)">
-										<p:cellEditor>
-											<f:facet name="header">
-												<f:facet name="output">
-													<h:outputText value="#{var.plazo}" />
-												</f:facet>
-											</f:facet>
-											<f:facet name="input">
-												<p:inputNumber value="#{var.plazo}" style="width:100%"
-													label="Year" maxlength="2" />
-											</f:facet>
-										</p:cellEditor>
-									</p:column>
-									<p:column headerText="Fin prestación">
-										<f:facet name="header">
-											<h:outputText value="Fin prestación">
-											</h:outputText>
-										</f:facet>
-										<h:outputText value="#{var.fechaFinPrestacion}">
-											<f:convertDateTime pattern="dd/MM/yyyy" />
-										</h:outputText>
-									</p:column>
-									<p:column headerText="Acciones">
+									<p:column headerText="Acciones" >
 										<p:rowEditor editTitle="Editar" />
 									</p:column>
-						        </p:dataTable>
-								
-			
+								</p:dataTable>
 			</p:panel>
 		</p:tab>
-
-
 
 
          <p:tab title="Control de pagos por entregables">
 			<p:panel>
 			<p:spacer height="5" />
 			<p:dataTable id="tblListaEntregable"
-									value="#{programacion.listaEntregable}" var="var"
+									value="#{contrato.listaEntregable}" var="var"
 									emptyMessage="No se encontraron registros"
 									widgetVar="tblListaEntregable" paginator="false"
 									rows="#{sisabascontrol.registros_mant}"
 									paginatorPosition="bottom" selectionMode="single"
-									rowKey="#{var.nroentregable}" styleClass="gandalfTableClass"
+									rowKey="#{var.descripcion}" styleClass="gandalfTableClass"
 									editable="true">
 
 									<!-- 
@@ -387,17 +343,30 @@
 										<h:outputText value="UGME" />
 									</p:column>
 									 -->
+									<p:column headerText="Proveido" width="8%">
+										<p:cellEditor>
+											<f:facet name="header">
+												<f:facet name="output">
+													<h:outputText value="#{var.proveido}" />
+												</f:facet>
+											</f:facet>
+											<f:facet name="input">
+												<p:inputText value="#{var.proveido}"
+													style="width:100%" label="Year" maxlength="2" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
 									<p:column headerText="Fecha">
 										<p:cellEditor>
 											<f:facet name="header">
 												<f:facet name="output">
-													<h:outputText value="#{var.fechapresentacionentregable}">
+													<h:outputText value="#{var.fecha}">
 														<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
 													</h:outputText>
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:calendar value="#{var.fechapresentacionentregable}"
+												<p:calendar value="#{var.fecha}"
 													required="false" pattern="dd/MM/yyyy" label="Fecha"
 													navigator="true" locale="es" styleClass="dateTimeField" />
 											</f:facet>
@@ -407,17 +376,17 @@
 										<f:facet name="header">
 											<h:outputText value="Descripción"></h:outputText>
 										</f:facet>
-										<h:outputText value="#{var.nroentregable}" />
+										<h:outputText value="#{var.descripcion}" />
 									</p:column>
 									<p:column headerText="Plazos (días)">
 										<p:cellEditor>
 											<f:facet name="header">
 												<f:facet name="output">
-													<h:outputText value="#{var.plazoentregable}" />
+													<h:outputText value="#{var.plazo}" />
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:inputNumber value="#{var.plazoentregable}"
+												<p:inputNumber value="#{var.plazo}"
 													style="width:100%" label="Year" maxlength="2" />
 											</f:facet>
 										</p:cellEditor>
@@ -426,11 +395,11 @@
 										<p:cellEditor>
 											<f:facet name="header">
 												<f:facet name="output">
-													<h:outputText value="#{var.montoentregable}" />
+													<h:outputText value="#{var.importe}" />
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:inputNumber value="#{var.montoentregable}"
+												<p:inputNumber value="#{var.importe}" symbol="S/."
 													style="width:100%" label="Year" maxlength="2" />
 											</f:facet>
 										</p:cellEditor>
@@ -439,11 +408,11 @@
 										<p:cellEditor>
 											<f:facet name="header">
 												<f:facet name="output">
-													<h:outputText value="#{var.montopenalidadentregable}" />
+													<h:outputText value="#{var.montoPenalidad}" />
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:inputNumber value="#{var.montopenalidadentregable}"
+												<p:inputNumber value="#{var.montoPenalidad}" symbol="S/." 
 													style="width:100%" label="Year" maxlength="20"
 													decimalPlaces="2" />
 											</f:facet>
@@ -453,11 +422,11 @@
 										<p:cellEditor>
 											<f:facet name="header">
 												<f:facet name="output">
-													<h:outputText value="#{var.observacionesentregable}" />
+													<h:outputText value="#{var.observacion}" />
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:inputText value="#{var.observacionesentregable}"
+												<p:inputText value="#{var.observacion}"
 													style="width:100%" label="Year" maxlength="500" />
 											</f:facet>
 										</p:cellEditor>
@@ -466,18 +435,18 @@
 										<p:cellEditor>
 											<f:facet name="header">
 												<f:facet name="output">
-													<h:outputText value="#{var.idcatalogoestadoentregable}" />
+													<h:outputText value="#{var.estado}" />
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:selectOneMenu value="#{var.idcatalogoestadoentregable}"
+												<p:selectOneMenu value="#{var.estado}"
 													id="dllIdcatalogoestadoentregable" required="false"
 													label="Estado">
 													<f:selectItem itemLabel="--Seleccione--" itemValue="" />
 													<f:selectItems
 														value="#{programacion.listaGentablaIdcatalogoestadoentregable}"
-														var="var" itemLabel="#{var.vchregdescri}"
-														itemValue="#{var.vchregcodigo}" />
+														var="var1" itemLabel="#{var1.vchregdescri}"
+														itemValue="#{var1.vchregcodigo}" />
 												</p:selectOneMenu>
 											</f:facet>
 										</p:cellEditor>
@@ -493,10 +462,10 @@
            <p:panel>
 			<p:spacer height="5" />
 				<p:dataTable id="tblListaPagosSiaf"
-									value="#{programacion.listaSeguimientoPagosSiaf}" var="var"
+									value="#{contrato.listaSeguimientoPagosSiaf}" var="var"
 									emptyMessage="No se encontraron registros"
 									widgetVar="tblListaPagosSiaf" paginator="true"
-									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(programacion.listaSeguimientoPagosSiaf)}"
+									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(contrato.listaSeguimientoPagosSiaf)}"
 									rows="#{sisabascontrol.registros_mant}"
 									paginatorPosition="bottom" selectionMode="single"
 									rowKey="#{var.expediente}" styleClass="gandalfTableClass">

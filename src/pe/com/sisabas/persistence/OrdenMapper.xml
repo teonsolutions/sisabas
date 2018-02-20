@@ -315,7 +315,7 @@
 	FECHAORDEN, ANIOORDEN, ESTADOORDEN, NROEXPEDIENTESIAF, 
 	MONEDA, MONTOORDEN, NROPROCESO, NROCONTRATO, 
 	ESTADOEXPEDIENTESIAF, FECHAINICIOPRESTACION, IDCATALOGOTIPOBIEN, FECHAFINPRESTACION, 
-	ANIO, IDUNIDADEJECUTORA, PLAZOEJECUCION, FECHACREACIONAUDITORIA, 
+	ANIO, IDUNIDADEJECUTORA, PLAZOEJECUCION, IDCONTRATO, FECHACREACIONAUDITORIA, 
 	USUARIOCREACIONAUDITORIA, FECHAMODIFICACIONAUDITORIA, USUARIOMODIFICACIONAUDITORIA, EQUIPOAUDITORIA, 
 	PROGRAMAAUDITORIA, ESTADOAUDITORIA ) 
 	VALUES (
@@ -323,7 +323,7 @@
 	#{fechaorden,jdbcType=TIMESTAMP}, #{anioorden,jdbcType=INTEGER}, #{estadoorden,jdbcType=SMALLINT}, #{nroexpedientesiaf,jdbcType=VARCHAR}, 
 	#{moneda,jdbcType=VARCHAR}, #{montoorden,jdbcType=DECIMAL}, #{nroproceso,jdbcType=VARCHAR}, #{nrocontrato,jdbcType=VARCHAR}, 
 	#{estadoexpedientesiaf,jdbcType=SMALLINT}, #{fechainicioprestacion,jdbcType=TIMESTAMP}, #{idcatalogotipobien,jdbcType=VARCHAR}, #{fechafinprestacion,jdbcType=TIMESTAMP}, 
-	#{anio,jdbcType=INTEGER}, #{idunidadejecutora,jdbcType=INTEGER}, #{plazoejecucion,jdbcType=INTEGER}, #{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
+	#{anio,jdbcType=INTEGER}, #{idunidadejecutora,jdbcType=INTEGER}, #{plazoejecucion,jdbcType=INTEGER}, #{idcontrato,jdbcType=INTEGER}, #{fechacreacionauditoria,jdbcType=TIMESTAMP}, 
 	#{usuariocreacionauditoria,jdbcType=VARCHAR}, #{fechamodificacionauditoria,jdbcType=TIMESTAMP}, #{usuariomodificacionauditoria,jdbcType=VARCHAR}, #{equipoauditoria,jdbcType=VARCHAR}, 
 	#{programaauditoria,jdbcType=VARCHAR}, #{estadoauditoria,jdbcType=VARCHAR} ) 
 	</insert>

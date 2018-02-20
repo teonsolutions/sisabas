@@ -13,7 +13,7 @@
 	<p:panel id="panel">
 	<h:form id="formSeg">
 	<p:focus for="panel" />
-	
+	<p:growl id="msgs" showDetail="true"></p:growl>
 	<p:growl id="growl" showDetail="true" life="2500" />
 					<p:panel style="width:98%;" id="diEsp">
 						<p:focus for="panel" />
@@ -32,13 +32,16 @@
 								<td>
 									<div align="left">
 										<p:commandButton value="Grabar" 
+										    actionListener="#{contrato.actualizarContrato}"
 											rendered="#{ requerimiento.requerimientoResponse.estadoPedidoIn ne 3}"
+											action="/pages/contrato/contratoBuscar.xhtml?faces-redirect=true"
 											icon="fa fa-save" title="Aceptar" 
-											update=":formSeg:growl"
+											update="panel"
 											oncomplete="PF('reqDialog2').hide();">
-											<f:actionListener
-												binding="#{contrato.actualizarContrato()}" />
-
+											<p:confirm header="Mensaje de confirmación"
+												message="¿Esta seguro que desea actualizar este registro?"
+												icon="ui-icon-alert" />
+                                             
 										</p:commandButton>
 									</div>
 								</td>
@@ -56,7 +59,7 @@
 											icon="fa fas fa-check" title="Aceptar" 
 										    update=":form:growl"
 											oncomplete="PF('reqDialog2').hide();">
-											<f:actionListener binding="#{requerimiento.limpiar()}" />
+											<!--      <f:actionListener binding="#{contrato.limpiar()}" />  --> 
 										</p:commandButton>
 									</div>
 								</td>
@@ -100,9 +103,7 @@
 					     <p:dataTable id="tblListaOrden"
 									value="#{contrato.listaOrden2}" var="var"
 									emptyMessage="No se encontraron registros"
-									widgetVar="tblListaOrden" paginator="false"
-									rows="#{sisabascontrol.registros_mant}" 
-									paginatorPosition="bottom" selectionMode="single"
+									widgetVar="tblListaOrden" selection="#{contrato.selectOrden}"
 									rowKey="#{var.nroOrden}" styleClass="gandalfTableClass">
 									<p:column headerText="Número Orden">
 										<f:facet name="header">
@@ -137,20 +138,18 @@
 										</f:facet>
 										<h:outputText value="#{var.totalFactSoles}" />
 									</p:column>
-									<p:column headerText="Accion" style="text-align:center;">
-										<f:facet name="header">
-											<h:outputText value="Accion"></h:outputText>
-										</f:facet>
-										 <p:selectBooleanCheckbox value="#{selectBooleanView.value2}">
-                                          <p:ajax update=":formSeg:growl" listener="#{selectBooleanView.addMessage}" />
-                                         </p:selectBooleanCheckbox>
+									<p:column headerText="Accion" style="text-align:center;" selectionMode="single">
 									</p:column>
 								</p:dataTable>
 							</p:panel>
 							
 							<table style="width: 70%; margin-left: 25%;">
 							 <tr>
-							    <td><p:commandButton value="Agregar" icon="fa fa-save" /></td>
+							    <td>
+							        <p:commandButton value="Agregar" icon="fa fa-save" oncomplete="PF('dialogOrden').hide()"
+							         update=":formSeg:accordion:tblListaOrden,:formSeg:accordion:tblListaPagosSiaf" actionListener="#{contrato.agregarOrden}"
+							        />
+							    </td>
 							    <td><p:commandButton value="Cancelar" icon="fa fa-undo"/></td>
 			                 </tr> 
 							</table>

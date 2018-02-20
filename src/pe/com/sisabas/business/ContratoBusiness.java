@@ -5,6 +5,9 @@ import java.util.List;
 import pe.com.sisabas.be.Contrato;
 import pe.com.sisabas.be.ContratoRequest;
 import pe.com.sisabas.be.ContratoResponse;
+import pe.com.sisabas.dto.ContratoDto;
+import pe.com.sisabas.dto.OrdenDto;
+import pe.com.sisabas.dto.OrdenListaDto;
 import pe.com.sisabas.dto.SegRequest;
 import pe.com.sisabas.dto.SegResponse;
 
@@ -21,4 +24,7 @@ public interface ContratoBusiness {
 	public Contrato selectByPrimaryKeyBasic(java.lang.Integer par_idcontrato) throws Exception;
 
     public List<Integer> listEjercicio() throws Exception;
+    
+    public void actualizarContrato(ContratoDto request) throws Exception;
+    
 }

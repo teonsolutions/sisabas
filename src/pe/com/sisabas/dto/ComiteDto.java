@@ -1,7 +1,13 @@
 package pe.com.sisabas.dto;
 
-public class ComiteDto {
+import java.io.Serializable;
+
+public class ComiteDto implements  Serializable,Cloneable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String nroDocumento;
 	private String apPaterno;

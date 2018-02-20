@@ -301,8 +301,7 @@ public class ProgramacionController extends BaseController {
 		try {
 
 			Cuadrocomparativofuente param = new Cuadrocomparativofuente();
-			param.setIdpacconsolidado(
-					this.currentPao.getIdPacConsolid() != null ? this.currentPao.getIdPacConsolid() : 0);
+			param.setIdpacconsolidado(this.currentPao.getIdPacConsolid() != null ? this.currentPao.getIdPacConsolid() : 0);
 			listaCuadrocomparativofuente = cuadroComparativoFuenteBusiness.selectDynamicFull(param);
 			setEsSeleccionadoFuente(false);
 			setSelectedCuadrocomparativofuente(null);
@@ -362,11 +361,16 @@ public class ProgramacionController extends BaseController {
 			// Obtiene entregables, hay un solo orden por Pac consolidado
 			listaEntregable = null;
 			Integer armadas = null;
+			
 			if (ordenDetail.size() > 0) {
 				if (ordenDetail.get(0).getIdorden() != null) {
 					listaEntregable = programacionBusiness.getEntegablesByOrden(ordenDetail.get(0).getIdorden());
+					System.err.println("**************************************"+ ordenDetail.get(0).getIdorden()  +"***************************************************");
 					armadas = listaEntregable.size() > 0 ? listaEntregable.size() : null;
 				}
+			}else{
+				System.err.println("**************************************"+ "nada" +"***************************************************");
+				
 			}
 
 			for (int i = 0; i < listaOrden.size(); i++) {

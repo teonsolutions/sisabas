@@ -67,6 +67,15 @@ public class Orden extends SysTabla implements  Serializable,Cloneable{
 	private Unidadejecutora unidadejecutoraIdunidadejecutora;
 	/**[Plazo Ejecución]*/
 	private java.lang.Integer plazoejecucion;
+
+	/**[Contrato]*/
+	private java.lang.Integer idcontrato;
+	private Contrato contratoiIdcontrato;
+	
+	/**[Adenda]*/
+	private java.lang.Integer idadenda;
+	private Adenda adendaiIdadenda;
+
 	/**[*][Fecha de Creación]*/
 	private java.util.Date fechacreacionauditoria;
 	private java.util.Date fechacreacionauditoriaini;
@@ -605,6 +614,38 @@ public class Orden extends SysTabla implements  Serializable,Cloneable{
 
 	public void setListaEntregable(List<Entregable> listaEntregable) {
 		this.listaEntregable = listaEntregable;
+	}
+
+	public java.lang.Integer getIdcontrato() {
+		return idcontrato;
+	}
+
+	public void setIdcontrato(java.lang.Integer idcontrato) {
+		this.idcontrato = idcontrato;
+	}
+
+	public Contrato getContratoiIdcontrato() {
+		return contratoiIdcontrato;
+	}
+
+	public void setContratoiIdcontrato(Contrato contratoiIdcontrato) {
+		this.contratoiIdcontrato = contratoiIdcontrato;
+	}
+
+	public java.lang.Integer getIdadenda() {
+		return idadenda;
+	}
+
+	public void setIdadenda(java.lang.Integer idadenda) {
+		this.idadenda = idadenda;
+	}
+
+	public Adenda getAdendaiIdadenda() {
+		return adendaiIdadenda;
+	}
+
+	public void setAdendaiIdadenda(Adenda adendaiIdadenda) {
+		this.adendaiIdadenda = adendaiIdadenda;
 	}
 
 }
