@@ -86,14 +86,12 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 
 	@Override
 	public List<ProcesoDto> searchProceso(ProcesoRequest request) throws Exception {
-		// TODO Auto-generated method stub
 		return procesoseleccionMapper.searchProceso(request);
 	}
 
 	@Override
 	@Transactional
 	public Resultado recibirProceso(TransactionRequest<ProcesoDto> request) throws Exception {
-		// TODO Auto-generated method stub
 		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
 		ProcesoDto procesoDto = request.getEntityTransaction();
 		Pacconsolidado pac = pacconsolidadoMapper.selectByPrimaryKeyBasic(procesoDto.getIdPacConsolidado());
@@ -228,7 +226,6 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 	@Transactional
 	public TransactionResponse<Miembrocomiteporproceso> grabarMiembrosComite(TransactionRequest<ProcesoDto> request,
 			Miembrocomiteporproceso miembrocomiteporproceso) throws Exception {
-		// TODO Auto-generated method stub
 		TransactionResponse<Miembrocomiteporproceso> result = new TransactionResponse<Miembrocomiteporproceso>();
 		result.setEstado(true);
 		result.setMensaje(Constantes.mensajeGenerico.REGISTRO_CORRECTO);
@@ -279,7 +276,6 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 	@Override
 	@Transactional
 	public Resultado NotificarMiembros(TransactionRequest<List<Miembrocomiteporproceso>> request) throws Exception {
-		// TODO Auto-generated method stub
 		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
 		List<Miembrocomiteporproceso> members = request.getEntityTransaction();
 		for (Miembrocomiteporproceso member : members) {
@@ -297,14 +293,12 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 
 	@Override
 	public List<ProcesoDto> searchProcesoSeguimiento(ProcesoRequest request) throws Exception {
-		// TODO Auto-generated method stub
 		return procesoseleccionMapper.searchProcesoSeguimiento(request);
 	}
 
 	@Override
 	@Transactional
 	public Resultado saveProceso(TransactionRequest<Procesoseleccion> request) throws Exception {
-		// TODO Auto-generated method stub
 		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
 		Procesoseleccion procesoRequest = request.getEntityTransaction();
 		Procesoseleccion procesoEdit = procesoseleccionMapper
@@ -462,7 +456,6 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 
 	@Override
 	public List<ConvocatoriaDto> searchConvocatoriaProceso(Integer idProcesoSeleccion) throws Exception {
-		// TODO Auto-generated method stub
 		Procesoseleccion proc = procesoseleccionMapper.selectByPrimaryKeyBasic(idProcesoSeleccion);
 		ProcesoRequest request = new ProcesoRequest();
 		if (proc != null) {
@@ -494,7 +487,6 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 	@Override
 	public List<ProcesoResultadoItemDto> selectResultadoByIdConvocatoria(Integer idconvocatoriaproceso)
 			throws Exception {
-		// TODO Auto-generated method stub
 		return resultadoprocesoseleccionMapper.selectResultadoByIdConvocatoria(idconvocatoriaproceso);
 	}
 
@@ -502,7 +494,6 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 	@Transactional
 	public Resultado sendProceso(TransactionRequest<List<ProcesoResultadoItemDto>> request, Integer idProcesoSeleccion)
 			throws Exception {
-		// TODO Auto-generated method stub
 		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
 		boolean isSendEjecucion = false;
 		List<ProcesoResultadoItemDto> items = request.getEntityTransaction();
@@ -555,7 +546,6 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 	@Override
 	@Transactional
 	public Resultado saveCalendario(TransactionRequest<Procesoseleccion> request) throws Exception {
-		// TODO Auto-generated method stub
 		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
 		Procesoseleccion procesoRequest = request.getEntityTransaction();
 		Procesoseleccion procesoEdit = procesoseleccionMapper
@@ -688,7 +678,6 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 
 	@Override
 	public List<ProcesoDto> searchProcesoDesierto(ProcesoRequest request) throws Exception {
-		// TODO Auto-generated method stub
 		return procesoseleccionMapper.searchProcesoDesierto(request);
 	}
 

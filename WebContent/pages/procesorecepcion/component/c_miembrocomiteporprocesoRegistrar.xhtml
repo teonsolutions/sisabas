@@ -1,6 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	lang="es"
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -9,69 +8,83 @@
 	xmlns:p="http://primefaces.org/ui">
 <p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
 	<div align="left">
-		<p:message id="msgIdpersona" for="txtIdpersona"  showSummary="true" showDetail="false"/>
-		<p:message id="msgIdcatalogotipomiembro" for="txtIdcatalogotipomiembro"  showSummary="true" showDetail="false"/>
-		<p:message id="msgCorreo" for="txtCorreo"  showSummary="true" showDetail="false"/>
-		<p:message id="msgTelefono" for="txtTelefono"  showSummary="true" showDetail="false"/>
-		<p:message id="msgAnexo" for="txtAnexo"  showSummary="true" showDetail="false"/>
-		<p:message id="msgCelular" for="txtCelular"  showSummary="true" showDetail="false"/>
+		<p:message id="msgIdpersona" for="txtIdpersona" showSummary="true"
+			showDetail="false" />
+		<p:message id="msgIdcatalogotipomiembro"
+			for="txtIdcatalogotipomiembro" showSummary="true" showDetail="false" />
+		<p:message id="msgCorreo" for="txtCorreo" showSummary="true"
+			showDetail="false" />
+		<p:message id="msgTelefono" for="txtTelefono" showSummary="true"
+			showDetail="false" />
+		<p:message id="msgAnexo" for="txtAnexo" showSummary="true"
+			showDetail="false" />
+		<p:message id="msgCelular" for="txtCelular" showSummary="true"
+			showDetail="false" />
 	</div>
-<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
-	<tr>
-		<td colspan="2">
-			<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
-<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
-	<tr>
-		<td>
-			<p:outputLabel  value="Persona" for="txtIdpersona" id="lblIdpersona"/>
-		</td>
-		<td>
-			<p:inputText  id="txtIdpersona" value="#{procesoRecepcion.miembrocomiteporproceso.personaIdpersona.nombres.concat(' ').concat(procesoRecepcion.miembrocomiteporproceso.personaIdpersona.apellidopaterno).concat(' ').concat(procesoRecepcion.miembrocomiteporproceso.personaIdpersona.apellidomaterno)}" disabled="true" required="false" maxlength="10" style="width:150px;" label="Persona"/>
-			<p:commandButton icon="ui-icon-search" action="#{cc_persona.init}" immediate="true" oncomplete="showDialogPF('frmRegIdpersonaBuscar:diPersonaBuscar');" update=":frmRegIdpersonaBuscar:diPersonaBuscar" style="width:20px;height:20px;"/>
-		</td>
-		<td>
-			<p:outputLabel  value="TipoMiembro" for="txtIdcatalogotipomiembro" id="lblIdcatalogotipomiembro"/>
-		</td>
-		<td>
-			<p:selectOneMenu  value="#{procesoRecepcion.miembrocomiteporproceso.idcatalogotipomiembro}" id="txtIdcatalogotipomiembro" required="false" label="TipoMiembro">
-				<f:selectItem itemLabel="--Seleccione--" itemValue=""/>
-				<f:selectItems value="#{procesoRecepcion.listaGentablaIdcatalogotipomiembro}" var="var" itemLabel="#{var.vchregdescri}" itemValue="#{var.vchregcodigo}" />
-			</p:selectOneMenu>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<p:outputLabel  value="Correo" for="txtCorreo" id="lblCorreo"/>
-		</td>
-		<td>
-			<p:inputText  id="txtCorreo" value="#{procesoRecepcion.miembrocomiteporproceso.correo}" required="false" maxlength="50" style="width:150px;" label="Correo"/>
-		</td>
-		<td>
-			<p:outputLabel  value="Teléfono" for="txtTelefono" id="lblTelefono"/>
-		</td>
-		<td>
-			<p:inputText  id="txtTelefono" value="#{procesoRecepcion.miembrocomiteporproceso.telefono}" required="false" maxlength="10" style="width:150px;" label="Teléfono"/>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<p:outputLabel  value="Anexo" for="txtAnexo" id="lblAnexo"/>
-		</td>
-		<td>
-			<p:inputText  id="txtAnexo" value="#{procesoRecepcion.miembrocomiteporproceso.anexo}" required="false" maxlength="6" style="width:150px;" label="Anexo"/>
-		</td>
-		<td>
-			<p:outputLabel  value="Celular" for="txtCelular" id="lblCelular"/>
-		</td>
-		<td>
-			<p:inputText  id="txtCelular" value="#{procesoRecepcion.miembrocomiteporproceso.celular}" required="false" maxlength="9" style="width:150px;" label="Celular"/>
-		</td>
-	</tr>
+	<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+			<td colspan="2"><p:panel id="pnlHeader" widgetVar="pnlHeader"
+					styleClass="gandalfPanelClassSectionFormHeader">
+					<table style="width: 100%;" cellpadding="0" cellspacing="5"
+						border="0">
+						<tr>
+							<td><p:outputLabel value="Persona" for="txtIdpersona"
+									id="lblIdpersona" /></td>
+							<td><p:inputText id="txtIdpersona"
+									value="#{procesoRecepcion.miembrocomiteporproceso.personaIdpersona.nombres.concat(' ').concat(procesoRecepcion.miembrocomiteporproceso.personaIdpersona.apellidopaterno).concat(' ').concat(procesoRecepcion.miembrocomiteporproceso.personaIdpersona.apellidomaterno)}"
+									disabled="true" required="false" maxlength="10"
+									style="width:150px;" label="Persona" /> <p:commandButton
+									icon="ui-icon-search" action="#{cc_persona.init}"
+									immediate="true"
+									oncomplete="showDialogPF('frmRegIdpersonaBuscar:diPersonaBuscar');"
+									update=":frmRegIdpersonaBuscar:diPersonaBuscar"
+									style="width:20px;height:20px;" /></td>
+							<td><p:outputLabel value="TipoMiembro"
+									for="txtIdcatalogotipomiembro" id="lblIdcatalogotipomiembro" />
+							</td>
+							<td><p:selectOneMenu
+									value="#{procesoRecepcion.miembrocomiteporproceso.idcatalogotipomiembro}"
+									id="txtIdcatalogotipomiembro" required="false"
+									label="TipoMiembro">
+									<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+									<f:selectItems
+										value="#{procesoRecepcion.listaGentablaIdcatalogotipomiembro}"
+										var="var" itemLabel="#{var.vchregdescri}"
+										itemValue="#{var.vchregcodigo}" />
+								</p:selectOneMenu></td>
+						</tr>
+						<tr>
+							<td><p:outputLabel value="Correo" for="txtCorreo"
+									id="lblCorreo" /></td>
+							<td><p:inputText id="txtCorreo"
+									value="#{procesoRecepcion.miembrocomiteporproceso.correo}"
+									required="false" maxlength="50" style="width:150px;"
+									label="Correo" /></td>
+							<td><p:outputLabel value="Teléfono" for="txtTelefono"
+									id="lblTelefono" /></td>
+							<td><p:inputText id="txtTelefono"
+									value="#{procesoRecepcion.miembrocomiteporproceso.telefono}"
+									required="false" maxlength="10" style="width:150px;"
+									label="Teléfono" /></td>
+						</tr>
+						<tr>
+							<td><p:outputLabel value="Anexo" for="txtAnexo"
+									id="lblAnexo" /></td>
+							<td><p:inputText id="txtAnexo"
+									value="#{procesoRecepcion.miembrocomiteporproceso.anexo}"
+									required="false" maxlength="6" style="width:150px;"
+									label="Anexo" /></td>
+							<td><p:outputLabel value="Celular" for="txtCelular"
+									id="lblCelular" /></td>
+							<td><p:inputText id="txtCelular"
+									value="#{procesoRecepcion.miembrocomiteporproceso.celular}"
+									required="false" maxlength="9" style="width:150px;"
+									label="Celular" /></td>
+						</tr>
 
-</table>
-			</p:panel>
-		</td>
-	</tr>
-</table>
+					</table>
+				</p:panel></td>
+		</tr>
+	</table>
 </p:panel>
 </html>

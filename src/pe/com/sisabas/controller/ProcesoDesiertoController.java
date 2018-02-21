@@ -29,6 +29,8 @@ import pe.com.sisabas.business.GentablaBusiness;
 import pe.com.sisabas.business.MiembrocomiteporprocesoBusiness;
 import pe.com.sisabas.business.ProcesoBusiness;
 import pe.com.sisabas.business.ProcesoseleccionBusiness;
+import pe.com.sisabas.business.ResultadoprocesoporusuarioBusiness;
+import pe.com.sisabas.business.ResultadoprocesoseleccionBusiness;
 import pe.com.sisabas.business.VcentrocostoBusiness;
 import pe.com.sisabas.dto.CalendarioDto;
 import pe.com.sisabas.dto.CentroCostoRequest;
@@ -38,6 +40,7 @@ import pe.com.sisabas.dto.EstadoRequerimientoResponse;
 import pe.com.sisabas.dto.ItemIntResponse;
 import pe.com.sisabas.dto.ProcesoDto;
 import pe.com.sisabas.dto.ProcesoRequest;
+import pe.com.sisabas.dto.ProcesoResultadoItemDesiertoDto;
 import pe.com.sisabas.dto.ProcesoResultadoItemDto;
 import pe.com.sisabas.dto.Resultado;
 import pe.com.sisabas.dto.TipoProcesoResponse;
@@ -90,6 +93,8 @@ public class ProcesoDesiertoController extends BaseController {
 	private boolean esSeleccionadoConvocatoria;
 	private boolean isCalendarEditing = false;
 
+	private List<ProcesoResultadoItemDesiertoDto> listResultado;
+	
 	// Business layer section
 	@Autowired
 	public pe.com.sisabas.resources.business.UtilsBusiness utilsBusiness;
@@ -105,7 +110,9 @@ public class ProcesoDesiertoController extends BaseController {
 	public ProcesoseleccionBusiness procesoseleccionBusiness;
 	@Autowired
 	public ConvocatoriaprocesoseleccionBusiness convocatoriaprocesoseleccionBusiness;
-
+	@Autowired
+	public ResultadoprocesoseleccionBusiness resultadoprocesoseleccionBusiness;
+	
 	public ProcesoDesiertoController() {
 
 	}
@@ -191,6 +198,37 @@ public class ProcesoDesiertoController extends BaseController {
 		}
 	}
 
+	public void goToResultadoProceso(){
+		STATUS_INIT();
+		try {
+			securityControlValidate("btnAsignar");
+			tituloBase = "Proceso » " + IMPRIMIR;
+			
+			ProcesoRequest request = new ProcesoRequest();
+			request.setIdProcesoSeleccion(currentRow.getIdProcesoSeleccion());
+			request.setIdCatalogoEstadoResultado(Constantes.estadoResultadoProceso.DESIERTO);
+			this.listResultado = resultadoprocesoseleccionBusiness.selectResultadoByEstadoByIdProcesoSeleccion(request);
+
+			STATUS_SUCCESS();
+			REGISTER_INIT();
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			STATUS_ERROR();
+			addErrorMessageKey("msgsForm", e);
+		}
+	}
+	
 	// methods
 	public void search() {
 		try {
@@ -392,6 +430,15 @@ public class ProcesoDesiertoController extends BaseController {
 		this.isCalendarEditing = isCalendarEditing;
 	}
 
+	public List<ProcesoResultadoItemDesiertoDto> getListResultado() {
+		return listResultado;
+	}
+
+	public void setListResultado(List<ProcesoResultadoItemDesiertoDto> listResultado) {
+		this.listResultado = listResultado;
+	}
+
+	
 	
 	// properties
 	

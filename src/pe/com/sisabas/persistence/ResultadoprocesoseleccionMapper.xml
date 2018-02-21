@@ -117,6 +117,23 @@
 	<result column="DescripcionEstado" property="descripcionestado" jdbcType="VARCHAR" />
 	</resultMap>
 	
+	<resultMap id="BasicResultMapDesiertoCustom" type="pe.com.sisabas.dto.ProcesoResultadoItemDesiertoDto">
+	<result column="IdResultadoProceso" property="idresultadoproceso" jdbcType="INTEGER" />
+	<result column="IdConvocatoriaProceso" property="idconvocatoriaproceso" jdbcType="INTEGER" />
+	<result column="NroItem" property="nroitem" jdbcType="VARCHAR" />
+	<result column="NombreItem" property="nombreitem" jdbcType="VARCHAR" />
+	<result column="NroRuc" property="nroruc" jdbcType="VARCHAR" />
+	<result column="NombreProveedor" property="nombreproveedor" jdbcType="VARCHAR" />
+	<result column="IdCatalogoEstadoResultado" property="idcatalogoestadoresultado" jdbcType="VARCHAR" />
+	<result column="EstadoProcesoItem" property="estadoprocesoitem" jdbcType="INTEGER" />
+	<result column="ValorReferencial" property="valorreferencial" jdbcType="DECIMAL" />
+	<result column="FechaRemision" property="fecharemision" jdbcType="DATE" />
+	<result column="DescripcionEstado" property="descripcionestado" jdbcType="VARCHAR" />
+	<result column="UsuarioAsignado" property="usuarioasignado" jdbcType="VARCHAR" />
+	<result column="NumeroAdjSimplificada" property="numeroadjsimplificada" jdbcType="VARCHAR" />
+	<result column="EsProcesado" property="esprocesado" jdbcType="VARCHAR" />
+	</resultMap>
+		
 	<resultMap id="BasicResultMapCustomSiga" type="pe.com.sisabas.dto.ProcesoResultadoItemDto">
 	<result column="ITEM" property="nroitem" jdbcType="VARCHAR" />
 	<result column="NOMBRE_ITEM" property="nombreitem" jdbcType="VARCHAR" />
@@ -676,4 +693,8 @@
 		order by IdResultadoProceso asc
 	</select>		
 	
+	<select id="selectResultadoByEstadoByIdProcesoSeleccion" resultMap="BasicResultMapDesiertoCustom" parameterType="pe.com.sisabas.dto.ProcesoRequest">
+		{call abas.paProcesosResultadoPorEstadoListar(#{idProcesoSeleccion},#{idCatalogoEstadoResultado})}
+	</select>	
+		
 </mapper>

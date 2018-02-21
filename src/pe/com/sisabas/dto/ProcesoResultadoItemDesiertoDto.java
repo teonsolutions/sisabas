@@ -1,8 +1,8 @@
 package pe.com.sisabas.dto;
 
-import java.util.List;
+import java.util.Date;
 
-public class ProcesoResultadoItemDto {
+public class ProcesoResultadoItemDesiertoDto {
 	private Integer idresultadoproceso;
 	private Integer idconvocatoriaproceso;
 	private String nroitem;
@@ -12,16 +12,15 @@ public class ProcesoResultadoItemDto {
 	private String idcatalogoestadoresultado;
 	private Integer estadoprocesoitem;
 	private Double valorreferencial;
-	private Double montoadjudicado;
-	private Double cantidad;
-	private Integer unidadmedida;
 	private String descripcionestado;
-	private Integer destino;
+	private Date fecharemision;
+	private String usuarioasignado;
+	private String numeroadjsimplificada;
+	private String esprocesado;
 	
 	//additional
-	private String observacion;
-	private List<ItemIntResponse> destinos;
-	private String destinodescripcion;	
+	private boolean selected;
+	
 	public Integer getIdresultadoproceso() {
 		return idresultadoproceso;
 	}
@@ -76,53 +75,41 @@ public class ProcesoResultadoItemDto {
 	public void setValorreferencial(Double valorreferencial) {
 		this.valorreferencial = valorreferencial;
 	}
-	public Double getMontoadjudicado() {
-		return montoadjudicado;
-	}
-	public void setMontoadjudicado(Double montoadjudicado) {
-		this.montoadjudicado = montoadjudicado;
-	}
-	public Double getCantidad() {
-		return cantidad;
-	}
-	public void setCantidad(Double cantidad) {
-		this.cantidad = cantidad;
-	}
-	public Integer getUnidadmedida() {
-		return unidadmedida;
-	}
-	public void setUnidadmedida(Integer unidadmedida) {
-		this.unidadmedida = unidadmedida;
-	}
 	public String getDescripcionestado() {
 		return descripcionestado;
 	}
 	public void setDescripcionestado(String descripcionestado) {
 		this.descripcionestado = descripcionestado;
 	}
-	public String getObservacion() {
-		return observacion;
+	public Date getFecharemision() {
+		return fecharemision;
 	}
-	public void setObservacion(String observacion) {
-		this.observacion = observacion;
+	public void setFecharemision(Date fecharemision) {
+		this.fecharemision = fecharemision;
 	}
-	public List<ItemIntResponse> getDestinos() {
-		return destinos;
+	public String getUsuarioasignado() {
+		return usuarioasignado;
 	}
-	public void setDestinos(List<ItemIntResponse> destinos) {
-		this.destinos = destinos;
+	public void setUsuarioasignado(String usuarioasignado) {
+		this.usuarioasignado = usuarioasignado;
 	}
-	public Integer getDestino() {
-		return destino;
+	public String getNumeroadjsimplificada() {
+		return numeroadjsimplificada;
 	}
-	public void setDestino(Integer destino) {
-		this.destino = destino;
+	public void setNumeroadjsimplificada(String numeroadjsimplificada) {
+		this.numeroadjsimplificada = numeroadjsimplificada;
 	}
-	public String getDestinodescripcion() {
-		return destinodescripcion;
+	public String getEsprocesado() {
+		return esprocesado;
 	}
-	public void setDestinodescripcion(String destinodescripcion) {
-		this.destinodescripcion = destinodescripcion;
-	}	
+	public void setEsprocesado(String esprocesado) {
+		this.esprocesado = esprocesado;
+	}
+	public boolean isSelected() {
+		return selected;
+	}
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
 	
 }

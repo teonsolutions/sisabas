@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:func="http://resources/functions"
+	xmlns:p="http://primefaces.org/ui">
+<p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
+
+	<p:panel id="pnlHeader" widgetVar="pnlHeader"
+		styleClass="gandalfPanelClassSectionFormHeader">
+		<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+			<tr>
+				<td><p:outputLabel value="Número de proceso" id="lblNroProceso" /></td>
+				<td><p:inputText id="txtNroProceso" required="false"
+						maxlength="10" style="width:150px;" label="Número de proceso"
+						disabled="true" value="#{procesodesierto.currentRow.nroProceso}" /></td>
+			</tr>
+			<tr>
+				<td><p:outputLabel value="Descripción del proceso"
+						id="lblDescripcionProceso" /></td>
+				<td><p:inputTextarea id="txtDescripProceso" required="false"
+						rows="2" cols="50" queryDelay="750" minQueryLength="4"
+						disabled="true" value="#{procesodesierto.currentRow.glosa}"
+						style="width: 90%" /></td>
+			</tr>
+		</table>
+	</p:panel>
+
+
+	<p:dataTable id="tblListaResultado"
+		value="#{procesodesierto.listResultado}" var="var"
+		emptyMessage="No se encontraron registros"
+		widgetVar="tblListaResultado"
+		selection="#{procesodesierto.selectedResultado}" paginator="false"
+		rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+		paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(procesodesierto.listResultado)}"
+		selectionMode="single" rowKey="#{var.nroitem}"
+		styleClass="gandalfTableClass" editable="true">
+
+		<p:ajax event="rowEdit"
+			listener="#{procesodesierto.onRowEditResultado}"
+			update=":form:msgs,form:tabViewProceso:accCalendario:tblListaResultado" />
+		<p:ajax event="rowEditCancel"
+			listener="#{procesodesierto.onRowCancelResultado}"
+			update=":form:msgs,form:tabViewProceso:accCalendario:tblListaResultado" />
+
+		<p:column styleClass="c_string" sortBy="#{var.nombreitem}">
+			<f:facet name="header">
+				<h:outputText value="Item" styleClass="c_string" />
+			</f:facet>
+			<h:outputText value="#{var.nombreitem}" />
+		</p:column>
+		<p:column headerText="Estado">
+			<p:cellEditor>
+				<f:facet name="header">
+					<f:facet name="output">
+						<h:outputText value="#{var.descripcionestado}" />
+					</f:facet>
+				</f:facet>
+				<f:facet name="input">
+					<p:selectOneMenu value="#{var.idcatalogoestadoresultado}"
+						id="ddlEstado" required="false" label="Estado" style="width: 85%">
+						<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+						<f:selectItems
+							value="#{procesodesierto.listaGentablaIdcatalogoestadoresultado}"
+							var="status" itemLabel="#{status.vchregdescri}"
+							itemValue="#{status.vchregcodigo}" />
+					</p:selectOneMenu>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column headerText="Nro. RUC.">
+			<p:cellEditor>
+				<f:facet name="header">
+					<f:facet name="output">
+						<h:outputText value="#{var.nroruc}" />
+					</f:facet>
+				</f:facet>
+				<f:facet name="input">
+					<p:inputText value="#{var.nroruc}" style="width:100" label="Year"
+						maxlength="11" />
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column headerText="Proveedor">
+			<p:cellEditor>
+				<f:facet name="header">
+					<f:facet name="output">
+						<h:outputText value="#{var.nombreproveedor}" />
+					</f:facet>
+				</f:facet>
+				<f:facet name="input">
+					<p:inputText value="#{var.nombreproveedor}" style="width:85%"
+						label="Year" maxlength="150" />
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column headerText="Monto adjudicado">
+			<p:cellEditor>
+				<f:facet name="header">
+					<f:facet name="output">
+						<h:outputText value="#{var.montoadjudicado}" />
+					</f:facet>
+				</f:facet>
+				<f:facet name="input">
+					<p:inputNumber value="#{var.montoadjudicado}" style="width:100%"
+						label="Year" maxlength="20" decimalPlaces="20" />
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+	</p:dataTable>
+
+
+	<div align="center">
+		<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
+			<p:commandButton value="Nuevo"
+				action="#{procesoRecepcion.irRegistrarMiembroComite}"
+				update="hidStatus,:frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar"
+				oncomplete="showDialog('form:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar');"
+				icon="ui-icon-document" process="@this"
+				rendered="#{procesoRecepcion.renderButton('btnNuevoMiembroComite')}" />
+			<p:commandButton value="Editar"
+				action="#{procesoRecepcion.irEditarMiembroComite}"
+				update="form:hidStatus,:frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar"
+				oncomplete="showDialog('form:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar');"
+				icon="ui-icon-pencil" process="@this"
+				disabled="#{!procesoRecepcion.esSeleccionadoMiembroComite}"
+				rendered="#{procesoRecepcion.renderButton('btnEditarMiembroComite')}" />
+			<h:inputHidden id="hidStatus" value="true" />
+		</p:panel>
+	</div>
+</p:panel>
+</html>

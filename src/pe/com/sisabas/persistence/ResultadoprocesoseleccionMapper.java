@@ -4,6 +4,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import pe.com.sisabas.be.Resultadoprocesoseleccion;
 import pe.com.sisabas.dto.ProcesoRequest;
+import pe.com.sisabas.dto.ProcesoResultadoItemDesiertoDto;
 import pe.com.sisabas.dto.ProcesoResultadoItemDto;
 
 public interface ResultadoprocesoseleccionMapper{
@@ -36,5 +37,7 @@ public interface ResultadoprocesoseleccionMapper{
 	List<ProcesoResultadoItemDto> selectResultadoSiga(ProcesoRequest request) throws Exception;
 	
 	List<ProcesoResultadoItemDto> selectResultadoByIdConvocatoria(@Param("idconvocatoriaproceso") java.lang.Integer idconvocatoriaproceso) throws Exception;	
+	
+	List<ProcesoResultadoItemDesiertoDto> selectResultadoByEstadoByIdProcesoSeleccion(ProcesoRequest request) throws Exception;
 
 }
