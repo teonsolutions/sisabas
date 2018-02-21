@@ -203,6 +203,7 @@ public class ProcesoDesiertoController extends BaseController {
 		try {
 			securityControlValidate("btnAsignar");
 			tituloBase = "Proceso » " + IMPRIMIR;
+			validateSelectedRow();
 			
 			ProcesoRequest request = new ProcesoRequest();
 			request.setIdProcesoSeleccion(currentRow.getIdProcesoSeleccion());

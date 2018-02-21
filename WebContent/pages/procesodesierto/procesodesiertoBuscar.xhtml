@@ -56,7 +56,8 @@
 									<f:selectItem itemLabel="TODOS" itemValue="" />
 									<f:selectItems
 										value="#{procesodesierto.listaEstadoRequerimiento}" var="var"
-										itemLabel="#{var.descripcion}" itemValue="#{var.idEstadosPorTipoDocumento}" />
+										itemLabel="#{var.descripcion}"
+										itemValue="#{var.idEstadosPorTipoDocumento}" />
 								</p:selectOneMenu></td>
 							<td><p:outputLabel value="Nro. Proceso" for="txtNroProceso" /></td>
 							<td><p:inputText id="txtNroProceso"
@@ -85,12 +86,12 @@
 								<p:spacer width="20" />
 
 								<p:commandButton value="Asignar"
-									action="#{procesodesierto.goSeguimiento}" update="hidStatus"
-									oncomplete="showDialog('form:hidStatus','form:cdRecibir');"
+									action="#{procesodesierto.goToResultadoProceso}" update="hidStatus,:frmResultadoItems:diResultadoItems"
+									oncomplete="showDialog('form:hidStatus','frmResultadoItems:diResultadoItems');"
 									icon="fa fa-user-plus" title="Asignar a especialista"
 									disabled="#{!procesodesierto.esSeleccionado}"
-									rendered="#{procesodesierto.renderButton('btnSeguimiento')}" />
-									
+									rendered="#{procesodesierto.renderButton('btnAsignar')}" />
+
 								<p:commandButton value="Imprimir"
 									action="#{procesodesierto.irImprimir}"
 									update="hidStatus,:frmImprimir:diImprimir"
@@ -182,7 +183,7 @@
 						<f:facet name="header">
 							<h:outputText value="Fecha"></h:outputText>
 						</f:facet>
-						<h:outputText value="#{var.fechaRegistro}" >
+						<h:outputText value="#{var.fechaRegistro}">
 							<f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText>
 					</p:column>
@@ -228,12 +229,40 @@
 						<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf"
 							ajax="false" style="width:100px;">
 							<p:dataExporter type="pdf" target=":form:tblListado"
-								fileName="datos"
-								preProcessor="#{procesodesierto.preProcessPDF}" />
+								fileName="datos" preProcessor="#{procesodesierto.preProcessPDF}" />
 						</p:commandButton>
 					</ui:remove>
 
 				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+
+		<h:form id="frmResultadoItems">
+			<p:dialog id="diResultadoItems" header="Procesos desiertos"
+				widgetVar="diResultadoItems" resizable="false" modal="true"
+				dynamic="true">
+				<p:scrollPanel mode="native" style="width:100%;height:100%;">
+					<p:messages for="msgsGenparametroR" autoUpdate="true"
+						closable="true" />
+					<ui:include
+						src="/pages/procesodesierto/component/c_procesodesiertoitem.xhtml" />
+				</p:scrollPanel>
+				<table style="width: 100%;">
+					<tr>
+						<td><p:commandButton
+								value="Aceptar" action="#{procesodesierto.goToResultadoProceso}"
+								update="hidStatus,:frmResultadoItems:diResultadoItems,:form:growl,panelC"
+								oncomplete="hideDialog('form:frmResultadoItems:hidStatus','frmResultadoItems:diResultadoItems')"
+								icon="ui-icon-circle-check" title="Aceptar" /></td>
+						<td>
+							<div align="right">
+								<p:commandButton value="Salir"
+									icon="ui-icon-arrowreturnthick-1-w" title="Salir"
+									onclick="hideDialogPF('frmResultadoItems:diResultadoItems');return false;" />
+							</div>
+						</td>
+					</tr>
+				</table>
 			</p:dialog>
 		</h:form>
 	</ui:define>
