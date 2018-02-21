@@ -52,64 +52,42 @@
 			</f:facet>
 			<h:outputText value="#{var.nombreitem}" />
 		</p:column>
-		<p:column headerText="Estado">
-			<p:cellEditor>
-				<f:facet name="header">
-					<f:facet name="output">
-						<h:outputText value="#{var.descripcionestado}" />
-					</f:facet>
-				</f:facet>
-				<f:facet name="input">
-					<p:selectOneMenu value="#{var.idcatalogoestadoresultado}"
-						id="ddlEstado" required="false" label="Estado" style="width: 85%">
-						<f:selectItem itemLabel="--Seleccione--" itemValue="" />
-						<f:selectItems
-							value="#{procesodesierto.listaGentablaIdcatalogoestadoresultado}"
-							var="status" itemLabel="#{status.vchregdescri}"
-							itemValue="#{status.vchregcodigo}" />
-					</p:selectOneMenu>
-				</f:facet>
-			</p:cellEditor>
+
+		<p:column styleClass="c_string" sortBy="#{var.descripcionestado}">
+			<f:facet name="header">
+				<h:outputText value="Estado" styleClass="c_string" />
+			</f:facet>
+			<h:outputText value="#{var.descripcionestado}" />
 		</p:column>
-		<p:column headerText="Nro. RUC.">
-			<p:cellEditor>
-				<f:facet name="header">
-					<f:facet name="output">
-						<h:outputText value="#{var.nroruc}" />
-					</f:facet>
-				</f:facet>
-				<f:facet name="input">
-					<p:inputText value="#{var.nroruc}" style="width:100" label="Year"
-						maxlength="11" />
-				</f:facet>
-			</p:cellEditor>
+
+		<p:column styleClass="c_string" sortBy="#{var.descripcionestado}">
+			<f:facet name="header">
+				<h:outputText value="Estado" styleClass="c_string" />
+			</f:facet>
+			<h:outputText value="#{var.descripcionestado}" />
 		</p:column>
-		<p:column headerText="Proveedor">
-			<p:cellEditor>
-				<f:facet name="header">
-					<f:facet name="output">
-						<h:outputText value="#{var.nombreproveedor}" />
-					</f:facet>
-				</f:facet>
-				<f:facet name="input">
-					<p:inputText value="#{var.nombreproveedor}" style="width:85%"
-						label="Year" maxlength="150" />
-				</f:facet>
-			</p:cellEditor>
+
+		<p:column styleClass="c_numeric" sortBy="#{var.valorreferencial}">
+			<f:facet name="header">
+				<h:outputText value="Valor Referencial" styleClass="c_numeric" />
+			</f:facet>
+			<h:outputText value="#{var.valorreferencial}" />
 		</p:column>
-		<p:column headerText="Monto adjudicado">
-			<p:cellEditor>
-				<f:facet name="header">
-					<f:facet name="output">
-						<h:outputText value="#{var.montoadjudicado}" />
-					</f:facet>
-				</f:facet>
-				<f:facet name="input">
-					<p:inputNumber value="#{var.montoadjudicado}" style="width:100%"
-						label="Year" maxlength="20" decimalPlaces="20" />
-				</f:facet>
-			</p:cellEditor>
+
+		<p:column styleClass="c_string" sortBy="#{var.numeroadjsimplificada}">
+			<f:facet name="header">
+				<h:outputText value="Código AS." styleClass="c_string" />
+			</f:facet>
+			<h:outputText value="#{var.numeroadjsimplificada}" />
 		</p:column>
+
+		<p:column styleClass="c_string" sortBy="#{var.selected}">
+			<f:facet name="header">
+				<h:outputText value="Código AS." styleClass="c_string" />
+			</f:facet>
+			<h:outputText value="#{var.selected}" />
+		</p:column>
+
 	</p:dataTable>
 
 
