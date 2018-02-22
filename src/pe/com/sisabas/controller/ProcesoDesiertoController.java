@@ -38,6 +38,7 @@ import pe.com.sisabas.dto.CentroCostoResponse;
 import pe.com.sisabas.dto.ConvocatoriaDto;
 import pe.com.sisabas.dto.EstadoRequerimientoResponse;
 import pe.com.sisabas.dto.ItemIntResponse;
+import pe.com.sisabas.dto.PersonaDto;
 import pe.com.sisabas.dto.ProcesoDto;
 import pe.com.sisabas.dto.ProcesoRequest;
 import pe.com.sisabas.dto.ProcesoResultadoItemDesiertoDto;
@@ -92,8 +93,10 @@ public class ProcesoDesiertoController extends BaseController {
 	private ProcesoResultadoItemDto selectedResultado;
 	private boolean esSeleccionadoConvocatoria;
 	private boolean isCalendarEditing = false;
+	private PersonaDto persona;
 
 	private List<ProcesoResultadoItemDesiertoDto> listResultado;
+	private List<ProcesoResultadoItemDesiertoDto> listResultadoSelected;
 	
 	// Business layer section
 	@Autowired
@@ -210,6 +213,34 @@ public class ProcesoDesiertoController extends BaseController {
 			request.setIdCatalogoEstadoResultado(Constantes.estadoResultadoProceso.DESIERTO);
 			this.listResultado = resultadoprocesoseleccionBusiness.selectResultadoByEstadoByIdProcesoSeleccion(request);
 
+			STATUS_SUCCESS();
+			REGISTER_INIT();
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			STATUS_ERROR();
+			addErrorMessageKey("msgsForm", e);
+		}
+	}
+	
+	public void goToAsignacion(){
+		STATUS_INIT();
+		try {
+			securityControlValidate("btnAsignar");
+			tituloBase = "Proceso » " + IMPRIMIR;
+			//validateSelectedRow();
+			persona = new PersonaDto();
+			
 			STATUS_SUCCESS();
 			REGISTER_INIT();
 		} catch (SecuritySessionExpiredException e) {
@@ -439,7 +470,23 @@ public class ProcesoDesiertoController extends BaseController {
 		this.listResultado = listResultado;
 	}
 
-	
+	public List<ProcesoResultadoItemDesiertoDto> getListResultadoSelected() {
+		return listResultadoSelected;
+	}
+
+	public void setListResultadoSelected(List<ProcesoResultadoItemDesiertoDto> listResultadoSelected) {
+		this.listResultadoSelected = listResultadoSelected;
+	}
+
+	public PersonaDto getPersona() {
+		return persona;
+	}
+
+	public void setPersona(PersonaDto persona) {
+		this.persona = persona;
+	}
+
+		
 	
 	// properties
 	

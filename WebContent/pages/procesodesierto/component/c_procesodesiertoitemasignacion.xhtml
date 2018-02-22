@@ -14,32 +14,37 @@
 					<table style="width: 100%;" cellpadding="0" cellspacing="5"
 						border="0">
 						<tr>
-							<td><p:outputLabel value="Persona" for="txtIdpersona"
-									id="lblIdpersona" /></td>
-							<td><p:inputText id="txtIdpersona"
-									value="#{procesoRecepcion.miembrocomiteporproceso.personaIdpersona.nombres.concat(' ').concat(procesoRecepcion.miembrocomiteporproceso.personaIdpersona.apellidopaterno).concat(' ').concat(procesoRecepcion.miembrocomiteporproceso.personaIdpersona.apellidomaterno)}"
-									disabled="true" required="false" maxlength="10"
-									style="width:150px;" label="Persona" /> <p:commandButton
-									icon="ui-icon-search" action="#{cc_persona.init}"
-									immediate="true"
-									oncomplete="showDialogPF('frmRegIdpersonaBuscar:diPersonaBuscar');"
-									update=":frmRegIdpersonaBuscar:diPersonaBuscar"
-									style="width:20px;height:20px;" /></td>
-							<td><p:outputLabel value="TipoMiembro"
-									for="txtIdcatalogotipomiembro" id="lblIdcatalogotipomiembro" />
-							</td>
-							<td><p:selectOneMenu
-									value="#{procesoRecepcion.miembrocomiteporproceso.idcatalogotipomiembro}"
-									id="txtIdcatalogotipomiembro" required="false"
-									label="TipoMiembro">
-									<f:selectItem itemLabel="--Seleccione--" itemValue="" />
-									<f:selectItems
-										value="#{procesoRecepcion.listaGentablaIdcatalogotipomiembro}"
-										var="var" itemLabel="#{var.vchregdescri}"
-										itemValue="#{var.vchregcodigo}" />
-								</p:selectOneMenu></td>
+							<td><h:outputText value="N° DNI  especialista asignado"
+									styleClass="c_string" /></td>
+							<td></td>
 						</tr>
-
+						<tr>
+							<td><p:inputText id="txtDNI" required="false" maxlength="10"
+									style="width:150px;" label="Número de proceso" disabled="true"
+									value="#{persona.nroDNI}" /></td>
+							<td><p:commandButton value="Buscar"
+									action="#{procesoRecepcion.irRegistrarMiembroComite}"
+									update="hidStatus,:frmResultadoItems:diResultadoItems"
+									oncomplete="showDialog('form:hidStatus','frmResultadoItems:diResultadoItems');"
+									icon="ui-icon-document" process="@this"
+									rendered="#{procesoRecepcion.renderButton('btnFindPersona')}" />
+							</td>
+						</tr>
+						<tr>
+							<td><h:outputText value="N° AS" styleClass="c_string" /></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><p:inputText id="txtAS" required="false" maxlength="10"
+									style="width:150px;" label="N° AS" disabled="true"
+									value="" /></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td colspan="2"><h:outputText
+									value="Se creará el respectivo Proceso de Adjudicación Simplificada asignada al especialista seleccionado."
+									styleClass="c_string" /></td>
+						</tr>
 					</table>
 				</p:panel></td>
 		</tr>

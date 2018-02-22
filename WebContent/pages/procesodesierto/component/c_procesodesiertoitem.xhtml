@@ -33,19 +33,26 @@
 		value="#{procesodesierto.listResultado}" var="var"
 		emptyMessage="No se encontraron registros"
 		widgetVar="tblListaResultado"
-		selection="#{procesodesierto.selectedResultado}" paginator="false"
+		selection="#{procesodesierto.listResultadoSelected}" paginator="false"
 		rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
 		paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(procesodesierto.listResultado)}"
-		selectionMode="single" rowKey="#{var.nroitem}"
+		rowKey="#{var.nroitem}"
 		styleClass="gandalfTableClass" editable="true">
 
 		<p:ajax event="rowEdit"
 			listener="#{procesodesierto.onRowEditResultado}"
-			update=":form:msgs,form:tabViewProceso:accCalendario:tblListaResultado" />
+			update=":form:msgs,tblListaResultado" />
 		<p:ajax event="rowEditCancel"
 			listener="#{procesodesierto.onRowCancelResultado}"
-			update=":form:msgs,form:tabViewProceso:accCalendario:tblListaResultado" />
+			update=":form:msgs,tblListaResultado" />
 
+	<!-- 
+       <f:facet name="header">
+            Checkbox
+        </f:facet>
+         -->
+         <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+         
 		<p:column styleClass="c_string" sortBy="#{var.nombreitem}">
 			<f:facet name="header">
 				<h:outputText value="Item" styleClass="c_string" />
@@ -95,14 +102,14 @@
 		<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
 			<p:commandButton value="Nuevo"
 				action="#{procesoRecepcion.irRegistrarMiembroComite}"
-				update="hidStatus,:frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar"
-				oncomplete="showDialog('form:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar');"
+				update="hidStatus,:frmResultadoItems:diResultadoItems"
+				oncomplete="showDialog('form:hidStatus','frmResultadoItems:diResultadoItems');"
 				icon="ui-icon-document" process="@this"
 				rendered="#{procesoRecepcion.renderButton('btnNuevoMiembroComite')}" />
 			<p:commandButton value="Editar"
 				action="#{procesoRecepcion.irEditarMiembroComite}"
-				update="form:hidStatus,:frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar"
-				oncomplete="showDialog('form:hidStatus','frmMiembrocomiteporprocesoRegistrar:diMiembrocomiteporprocesoRegistrar');"
+				update="form:hidStatus,:frmResultadoItems:diResultadoItems"
+				oncomplete="showDialog('form:hidStatus','frmResultadoItems:diResultadoItems');"
 				icon="ui-icon-pencil" process="@this"
 				disabled="#{!procesoRecepcion.esSeleccionadoMiembroComite}"
 				rendered="#{procesoRecepcion.renderButton('btnEditarMiembroComite')}" />
