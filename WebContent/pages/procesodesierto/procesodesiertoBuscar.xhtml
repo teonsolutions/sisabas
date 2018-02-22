@@ -9,6 +9,7 @@
 	template="/pages/template/MasterPage.xhtml">
 	<ui:define name="center">
 		<h:form id="form">
+			<p:growl id="msgs" showDetail="true"></p:growl>
 			<p:panel id="panel"
 				header="#{procesodesierto.tituloParam} #{procesodesierto.tituloBase} Buscar"
 				style="width: 98%">
@@ -250,7 +251,36 @@
 				<table style="width: 100%;">
 					<tr>
 						<td><p:commandButton
-								value="Aceptar" action="#{procesodesierto.goToResultadoProceso}"
+								value="Agrupar y asignar" action="#{procesodesierto.goToAsignacion}"
+								update="hidStatus,:frmAsignacion:diAsignacion,:form:growl,panelC"
+								oncomplete="hideDialog('form:hidStatus','frmAsignacion:diAsignacion')"
+								icon="ui-icon-circle-check" title="Agrupar y asignar" /></td>
+						<td>
+							<div align="right">
+								<p:commandButton value="Salir"
+									icon="ui-icon-arrowreturnthick-1-w" title="Salir"
+									onclick="hideDialogPF('frmResultadoItems:diResultadoItems');return false;" />
+							</div>
+						</td>
+					</tr>
+				</table>
+			</p:dialog>
+		</h:form>
+		
+		<h:form id="frmAsignacion">
+			<p:dialog id="diAsignacion" header="Generar proceso de Adjudicación simplicada"
+				widgetVar="diAsignacion" resizable="false" modal="true"
+				dynamic="true">
+				<p:scrollPanel mode="native" style="width:100%;height:100%;">
+					<p:messages for="msgsGenparametroR" autoUpdate="true"
+						closable="true" />
+					<ui:include
+						src="/pages/procesodesierto/component/c_procesodesiertoitemasignacion.xhtml" />
+				</p:scrollPanel>
+				<table style="width: 100%;">
+					<tr>
+						<td><p:commandButton
+								value="Agrupar" action="#{procesodesierto.goToResultadoProceso}"
 								update="hidStatus,:frmResultadoItems:diResultadoItems,:form:growl,panelC"
 								oncomplete="hideDialog('form:frmResultadoItems:hidStatus','frmResultadoItems:diResultadoItems')"
 								icon="ui-icon-circle-check" title="Aceptar" /></td>
@@ -264,6 +294,6 @@
 					</tr>
 				</table>
 			</p:dialog>
-		</h:form>
+		</h:form>		
 	</ui:define>
 </ui:composition>
