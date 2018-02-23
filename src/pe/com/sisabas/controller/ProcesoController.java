@@ -76,7 +76,7 @@ public class ProcesoController extends BaseController {
 	private ProcesoDto selectedRow;
 	private ProcesoRequest searchParam;
 	private ProcesoDto currentRow;
-	private Procesoseleccion processEdit;	
+	private Procesoseleccion processEdit;
 
 	// Title
 	private String tituloBase;
@@ -166,15 +166,18 @@ public class ProcesoController extends BaseController {
 			listaSistemaContratacion = gentablaBusiness
 					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.SICP));
 			/*
-			listaGentablaIdcatalogoestadoconvocatoria = gentablaBusiness
-					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.ECPR));
-					*/
-			listaGentablaIdcatalogoestadoconvocatoria = gentablaBusiness.selectByTypeCustom(Constantes.tabla.ECPR, Constantes.estadoAuditoriaFilter.INACTIVO);
+			 * listaGentablaIdcatalogoestadoconvocatoria = gentablaBusiness
+			 * .selectDynamicBasic(new
+			 * Gentabla().getObjBusqueda(Constantes.tabla.ECPR));
+			 */
+			listaGentablaIdcatalogoestadoconvocatoria = gentablaBusiness.selectByTypeCustom(Constantes.tabla.ECPR,
+					Constantes.estadoAuditoriaFilter.INACTIVO);
 
 			listaGentablaIdcatalogoestadopublicacion = gentablaBusiness
-					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EEPR));		
-			
-			listaGentablaIdcatalogoestadoresultado = gentablaBusiness.selectByTypeCustom(Constantes.tabla.EPRI, Constantes.estadoAuditoriaFilter.INACTIVO);
+					.selectDynamicBasic(new Gentabla().getObjBusqueda(Constantes.tabla.EEPR));
+
+			listaGentablaIdcatalogoestadoresultado = gentablaBusiness.selectByTypeCustom(Constantes.tabla.EPRI,
+					Constantes.estadoAuditoriaFilter.INACTIVO);
 
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
@@ -268,12 +271,12 @@ public class ProcesoController extends BaseController {
 				if (this.listConvocatoria.get(0).getListaResultado() != null) {
 					this.listResultado = this.listConvocatoria.get(0).getListaResultado();
 				}
-			}else{
-                //En caso no hay convocatorias registrados, se crea por defecto una convocatoria    
-                //Obtiene el valor referencial del PAO, con el IdPacConsolidado
-				
-				
 			}
+			// En caso no hay convocatorias registrados, se crea por defecto una
+			// convocatoria
+			// Obtiene el valor referencial del PAO, con el IdPacConsolidado
+			
+			
 
 		} catch (SecuritySessionExpiredException e) {
 			redirectSessionExpiredPage();
@@ -298,41 +301,42 @@ public class ProcesoController extends BaseController {
 	}
 
 	public void goSendToEjecucion() {
-		//validate before
-		if (this.isCalendarEditing){
-			showGrowlMessageSuccessfullyCompletedAction("Validación", "Para remitir expediente primero de guardar los cambios.", FacesMessage.SEVERITY_WARN);
+		// validate before
+		if (this.isCalendarEditing) {
+			showGrowlMessageSuccessfullyCompletedAction("Validación",
+					"Para remitir expediente primero de guardar los cambios.", FacesMessage.SEVERITY_WARN);
 			return;
 		}
-		
+
 		STATUS_INIT();
 		try {
 
 			securityControlValidate("btnSendEjecucion");
 			resetRegisterForm();
 			validateSelectedRowConvocatoria();
-			
+
 			listResultadoSend = procesoBusiness
 					.selectResultadoByIdConvocatoria(this.selectedConvocatoria.getIdconvocatoriaproceso());
 			for (ProcesoResultadoItemDto resultado : listResultadoSend) {
 				List<ItemIntResponse> items = new ArrayList<ItemIntResponse>();
 				if (resultado.getIdcatalogoestadoresultado()
 						.equals(Constantes.estadoResultadoProceso.BUENA_PRO_CONSENTIDA)) {
-					
+
 					items.add(new ItemIntResponse(Constantes.destinoRemisionProceso.EJECUCION_CONTRACTUAL,
 							Constantes.destinoRemisionProcesoDescripcion.EJECUCION_CONTRACTUAL));
-					
-					resultado.setDestino(Constantes.destinoRemisionProceso.EJECUCION_CONTRACTUAL);					
+
+					resultado.setDestino(Constantes.destinoRemisionProceso.EJECUCION_CONTRACTUAL);
 					resultado.setDestinodescripcion(Constantes.destinoRemisionProcesoDescripcion.EJECUCION_CONTRACTUAL);
-					
+
 				} else {
 					items.add(new ItemIntResponse(Constantes.destinoRemisionProceso.PROCESO_SELECCION,
 							Constantes.destinoRemisionProcesoDescripcion.PROCESO_SELECCION));
 					items.add(new ItemIntResponse(Constantes.destinoRemisionProceso.PROGRAMACION_COSTOS,
 							Constantes.destinoRemisionProcesoDescripcion.PROGRAMACION_COSTOS));
-					resultado.setDestino(null);					
-					resultado.setDestinodescripcion(null);					
+					resultado.setDestino(null);
+					resultado.setDestinodescripcion(null);
 				}
-				
+
 				resultado.setDestinos(items);
 			}
 
@@ -357,7 +361,7 @@ public class ProcesoController extends BaseController {
 			addErrorMessageKey("msgsForm", e);
 		}
 	}
-	
+
 	public void sendToEjecucion() {
 		REGISTER_INIT();
 		try {
@@ -371,16 +375,18 @@ public class ProcesoController extends BaseController {
 
 			// validate
 			for (ProcesoResultadoItemDto resultado : this.listResultadoSend) {
-				if (resultado.getDestino() == null){
-					showGrowlMessageSuccessfullyCompletedAction("Validación", "No ha seleccionado el destino para enviar el expediente.", FacesMessage.SEVERITY_WARN);
+				if (resultado.getDestino() == null) {
+					showGrowlMessageSuccessfullyCompletedAction("Validación",
+							"No ha seleccionado el destino para enviar el expediente.", FacesMessage.SEVERITY_WARN);
 					return;
 				}
-				if (resultado.getDestino().equals(Constantes.destinoRemisionProceso.EJECUCION_CONTRACTUAL)){
-					//validate here
-					showGrowlMessageSuccessfullyCompletedAction("Validación", "Proveedor XXX no tiene contrato registrado.", FacesMessage.SEVERITY_WARN);
+				if (resultado.getDestino().equals(Constantes.destinoRemisionProceso.EJECUCION_CONTRACTUAL)) {
+					// validate here
+					showGrowlMessageSuccessfullyCompletedAction("Validación",
+							"Proveedor XXX no tiene contrato registrado.", FacesMessage.SEVERITY_WARN);
 					return;
 				}
-			}		
+			}
 
 			for (int i = 0; i < this.listResultado.size(); i++) {
 				if (this.listResultadoSend.get(i).getDestino()
@@ -584,7 +590,7 @@ public class ProcesoController extends BaseController {
 			request.setEntityTransaction(processEdit);
 			Resultado result = procesoBusiness.saveProceso(request);
 			this.isCalendarEditing = false;
-			
+
 			REGISTER_SUCCESS();
 			showGrowlMessageSuccessfullyCompletedAction();
 
@@ -691,7 +697,7 @@ public class ProcesoController extends BaseController {
 		// get description of the status
 		try {
 			// validate the date
-			//throw new Exception("Error");
+			// throw new Exception("Error");
 			/*
 			 * if (convoca.getFechainicio().compareTo(convoca.getFechafin()) <=
 			 * 0) {
@@ -719,7 +725,7 @@ public class ProcesoController extends BaseController {
 	public void onRowCancel(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Se canceló la edición",
 				"Convocatoria: " + ((ConvocatoriaDto) event.getObject()).getNroconvocatoria());
-		FacesContext.getCurrentInstance().addMessage(null, msg);		
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void onRowEditCalendar(RowEditEvent event) {
@@ -985,7 +991,6 @@ public class ProcesoController extends BaseController {
 		this.isCalendarEditing = isCalendarEditing;
 	}
 
-	
 	// properties
 
 }
