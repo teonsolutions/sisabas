@@ -28,7 +28,6 @@
 		</table>
 	</p:panel>
 
-
 	<p:dataTable id="tblListaResultado"
 		value="#{procesodesierto.listResultado}" var="var"
 		emptyMessage="No se encontraron registros"
@@ -36,8 +35,7 @@
 		selection="#{procesodesierto.listResultadoSelected}" paginator="false"
 		rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
 		paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(procesodesierto.listResultado)}"
-		rowKey="#{var.nroitem}"
-		styleClass="gandalfTableClass" editable="true">
+		rowKey="#{var.nroitem}" styleClass="gandalfTableClass" editable="true">
 
 		<p:ajax event="rowEdit"
 			listener="#{procesodesierto.onRowEditResultado}"
@@ -46,13 +44,14 @@
 			listener="#{procesodesierto.onRowCancelResultado}"
 			update=":form:msgs,tblListaResultado" />
 
-	<!-- 
+		<!-- 
        <f:facet name="header">
             Checkbox
         </f:facet>
          -->
-         <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
-         
+		<p:column selectionMode="multiple"
+			style="width:16px;text-align:center" />
+
 		<p:column styleClass="c_string" sortBy="#{var.nombreitem}">
 			<f:facet name="header">
 				<h:outputText value="Item" styleClass="c_string" />

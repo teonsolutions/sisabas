@@ -285,7 +285,7 @@
 						<h:inputHidden id="hidStatus" value="true" />
 						<p:commandButton value="Aceptar"
 								action="#{procesodesierto.asignarResultadoProceso}"
-								update="form:hidStatus,:frmAsignacion:diAsignacion,:form:growl,panelC"
+								update="form:hidStatus,:frmAsignacion:diAsignacion,:form:growl,panelC,frmResultadoItems:tblListaResultado"
 								oncomplete="hideDialog('form:hidStatus','frmAsignacion:diAsignacion')"
 								icon="ui-icon-circle-check" title="Aceptar" /></td>
 						<td>
