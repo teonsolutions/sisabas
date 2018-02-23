@@ -1,27 +1,15 @@
 package pe.com.sisabas.dto;
 
-import java.util.Date;
-
-public class ProcesoResultadoItemDesiertoDto {
+public class ProcesoResultadoItemDesiertoAsigDto {
 	private Integer idresultadoproceso;
 	private Integer idconvocatoriaproceso;
 	private String nroitem;
 	private String nombreitem;
-	private String nroruc;
-	private String nombreproveedor;
-	private String idcatalogoestadoresultado;
-	private Integer estadoprocesoitem;
 	private Double valorreferencial;
-	private String descripcionestado;
-	private Date fecharemision;
 	private String usuarioasignado;
 	private String numeroadjsimplificada;
-	private String esprocesado;
-	
-	//additional
-	private boolean selected;
 	private Integer idresultadoprocesoreferencia;
-	
+	private Integer estadoprocesoitem;
 	public Integer getIdresultadoproceso() {
 		return idresultadoproceso;
 	}
@@ -46,47 +34,11 @@ public class ProcesoResultadoItemDesiertoDto {
 	public void setNombreitem(String nombreitem) {
 		this.nombreitem = nombreitem;
 	}
-	public String getNroruc() {
-		return nroruc;
-	}
-	public void setNroruc(String nroruc) {
-		this.nroruc = nroruc;
-	}
-	public String getNombreproveedor() {
-		return nombreproveedor;
-	}
-	public void setNombreproveedor(String nombreproveedor) {
-		this.nombreproveedor = nombreproveedor;
-	}
-	public String getIdcatalogoestadoresultado() {
-		return idcatalogoestadoresultado;
-	}
-	public void setIdcatalogoestadoresultado(String idcatalogoestadoresultado) {
-		this.idcatalogoestadoresultado = idcatalogoestadoresultado;
-	}
-	public Integer getEstadoprocesoitem() {
-		return estadoprocesoitem;
-	}
-	public void setEstadoprocesoitem(Integer estadoprocesoitem) {
-		this.estadoprocesoitem = estadoprocesoitem;
-	}
 	public Double getValorreferencial() {
 		return valorreferencial;
 	}
 	public void setValorreferencial(Double valorreferencial) {
 		this.valorreferencial = valorreferencial;
-	}
-	public String getDescripcionestado() {
-		return descripcionestado;
-	}
-	public void setDescripcionestado(String descripcionestado) {
-		this.descripcionestado = descripcionestado;
-	}
-	public Date getFecharemision() {
-		return fecharemision;
-	}
-	public void setFecharemision(Date fecharemision) {
-		this.fecharemision = fecharemision;
 	}
 	public String getUsuarioasignado() {
 		return usuarioasignado;
@@ -100,25 +52,18 @@ public class ProcesoResultadoItemDesiertoDto {
 	public void setNumeroadjsimplificada(String numeroadjsimplificada) {
 		this.numeroadjsimplificada = numeroadjsimplificada;
 	}
-	public String getEsprocesado() {
-		return esprocesado;
-	}
-	public void setEsprocesado(String esprocesado) {
-		this.esprocesado = esprocesado;
-	}
-	public boolean isSelected() {
-		return selected;
-	}
-	public void setSelected(boolean selected) {
-		this.selected = selected;
-	}
 	public Integer getIdresultadoprocesoreferencia() {
 		return idresultadoprocesoreferencia;
 	}
 	public void setIdresultadoprocesoreferencia(Integer idresultadoprocesoreferencia) {
 		this.idresultadoprocesoreferencia = idresultadoprocesoreferencia;
 	}
-	
+	public Integer getEstadoprocesoitem() {
+		return estadoprocesoitem;
+	}
+	public void setEstadoprocesoitem(Integer estadoprocesoitem) {
+		this.estadoprocesoitem = estadoprocesoitem;
+	}
 	
 	
 }

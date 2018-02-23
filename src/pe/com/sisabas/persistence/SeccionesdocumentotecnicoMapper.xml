@@ -61,6 +61,17 @@
 
 	</resultMap>
 
+	<resultMap id="BasicResultMapAsignados" type="pe.com.sisabas.be.Seccionesdocumentotecnico">
+	<result column="A1_IDSECCIONESDOCUMENTOTECNICO" property="idseccionesdocumentotecnico" jdbcType="INTEGER" />
+	<result column="A1_IDCATALOGOTIPODOCUMENTOTECNICO" property="idcatalogotipodocumentotecnico" jdbcType="VARCHAR" />
+	<result column="A1_IDCATALOGOTIPOTDR" property="idcatalogotipotdr" jdbcType="VARCHAR" />
+	<result column="A1_DESCRIPCIONSECCION" property="descripcionseccion" jdbcType="VARCHAR" />
+	<result column="A1_EQUIPOAUDITORIA" property="equipoauditoria" jdbcType="VARCHAR" />
+	<result column="A1_PROGRAMAAUDITORIA" property="programaauditoria" jdbcType="VARCHAR" />
+	<result column="A1_ESTADOAUDITORIA" property="estadoauditoria" jdbcType="VARCHAR" />
+
+	</resultMap>
+	
 
 	<sql id="Basic_Column_List">
 	A1.IDSECCIONESDOCUMENTOTECNICO as A1_IDSECCIONESDOCUMENTOTECNICO, A1.IDCATALOGOTIPODOCUMENTOTECNICO as A1_IDCATALOGOTIPODOCUMENTOTECNICO, A1.IDCATALOGOTIPOTDR as A1_IDCATALOGOTIPOTDR, A1.DESCRIPCIONSECCION as A1_DESCRIPCIONSECCION, 
