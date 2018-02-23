@@ -268,6 +268,11 @@ public class ProcesoController extends BaseController {
 				if (this.listConvocatoria.get(0).getListaResultado() != null) {
 					this.listResultado = this.listConvocatoria.get(0).getListaResultado();
 				}
+			}else{
+                //En caso no hay convocatorias registrados, se crea por defecto una convocatoria    
+                //Obtiene el valor referencial del PAO, con el IdPacConsolidado
+				
+				
 			}
 
 		} catch (SecuritySessionExpiredException e) {
