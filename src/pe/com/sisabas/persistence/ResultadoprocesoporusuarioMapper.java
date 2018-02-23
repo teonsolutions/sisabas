@@ -30,5 +30,7 @@ public interface ResultadoprocesoporusuarioMapper{
 
 	List<Resultadoprocesoporusuario> selectDynamicExtended(Resultadoprocesoporusuario record) throws Exception;
 
+	//CUSTOM
+	List<Resultadoprocesoporusuario> selectResultadoAsignados(@Param("idresultadoproceso") java.lang.Integer idresultadoproceso) throws Exception;
 
 }

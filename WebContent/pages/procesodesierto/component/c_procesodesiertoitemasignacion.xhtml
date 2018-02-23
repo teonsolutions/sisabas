@@ -7,37 +7,37 @@
 	xmlns:func="http://resources/functions"
 	xmlns:p="http://primefaces.org/ui">
 <p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
-	<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
-		<tr>
-			<td colspan="2"><p:panel id="pnlHeader" widgetVar="pnlHeader"
-					styleClass="gandalfPanelClassSectionFormHeader">
+	<p:panel id="pnlHeader" widgetVar="pnlHeader" styleClass="gandalfPanelClassSectionFormHeader">
+		<table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td colspan="2">					
 					<table style="width: 100%;" cellpadding="0" cellspacing="5"
 						border="0">
 						<tr>
 							<td><h:outputText value="N° DNI  especialista asignado"
-									styleClass="c_string" /></td>
+									styleClass="c_string" for="txtDNI" /></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td><p:inputText id="txtDNI" required="false" maxlength="10"
-									style="width:150px;" label="Número de proceso" disabled="true"
-									value="#{persona.nroDNI}" /></td>
+							<td><p:inputText id="txtDNI" required="true" maxlength="10"
+									style="width:150px;" label="Número de proceso" disabled="false"
+									value="#{procesodesierto.persona.nroDNI}" /></td>
 							<td><p:commandButton value="Buscar"
 									action="#{procesoRecepcion.irRegistrarMiembroComite}"
-									update="hidStatus,:frmResultadoItems:diResultadoItems"
+									update="form:hidStatus,:frmResultadoItems:diResultadoItems"
 									oncomplete="showDialog('form:hidStatus','frmResultadoItems:diResultadoItems');"
 									icon="ui-icon-document" process="@this"
 									rendered="#{procesoRecepcion.renderButton('btnFindPersona')}" />
 							</td>
 						</tr>
 						<tr>
-							<td><h:outputText value="N° AS" styleClass="c_string" /></td>
+							<td><h:outputText value="N° AS" styleClass="c_string"
+									for="txtAS" /></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td><p:inputText id="txtAS" required="false" maxlength="10"
-									style="width:150px;" label="N° AS" disabled="true"
-									value="" /></td>
+							<td><p:inputText id="txtAS" required="true" maxlength="20"
+									style="width:150px;" label="N° AS" disabled="false" value="#{procesodesierto.persona.numeroadjsimplificada}" /></td>
 							<td></td>
 						</tr>
 						<tr>
@@ -46,8 +46,9 @@
 									styleClass="c_string" /></td>
 						</tr>
 					</table>
-				</p:panel></td>
-		</tr>
-	</table>
+				</td>
+			</tr>
+		</table>
+	</p:panel>
 </p:panel>
 </html>

@@ -87,7 +87,8 @@
 								<p:spacer width="20" />
 
 								<p:commandButton value="Asignar"
-									action="#{procesodesierto.goToResultadoProceso}" update="hidStatus,:frmResultadoItems:diResultadoItems"
+									action="#{procesodesierto.goToResultadoProceso}"
+									update="hidStatus,:frmResultadoItems:diResultadoItems"
 									oncomplete="showDialog('form:hidStatus','frmResultadoItems:diResultadoItems');"
 									icon="fa fa-user-plus" title="Asignar a especialista"
 									disabled="#{!procesodesierto.esSeleccionado}"
@@ -250,10 +251,10 @@
 				</p:scrollPanel>
 				<table style="width: 100%;">
 					<tr>
-						<td><p:commandButton
-								value="Agrupar y asignar" action="#{procesodesierto.goToAsignacion}"
-								update="hidStatus,:frmAsignacion:diAsignacion,:form:growl,panelC"
-								oncomplete="hideDialog('form:hidStatus','frmAsignacion:diAsignacion')"
+						<td><p:commandButton value="Agrupar y asignar"
+								action="#{procesodesierto.goToAsignacion}"
+								update="hidStatus,:frmAsignacion:diAsignacion"
+								oncomplete="showDialog('form:hidStatus','frmAsignacion:diAsignacion');"
 								icon="ui-icon-circle-check" title="Agrupar y asignar" /></td>
 						<td>
 							<div align="right">
@@ -266,9 +267,10 @@
 				</table>
 			</p:dialog>
 		</h:form>
-		
+
 		<h:form id="frmAsignacion">
-			<p:dialog id="diAsignacion" header="Generar proceso de Adjudicación simplicada"
+			<p:dialog id="diAsignacion"
+				header="Generar proceso de Adjudicación simplicada"
 				widgetVar="diAsignacion" resizable="false" modal="true"
 				dynamic="true">
 				<p:scrollPanel mode="native" style="width:100%;height:100%;">
@@ -279,21 +281,23 @@
 				</p:scrollPanel>
 				<table style="width: 100%;">
 					<tr>
-						<td><p:commandButton
-								value="Agrupar" action="#{procesodesierto.goToResultadoProceso}"
-								update="hidStatus,:frmResultadoItems:diResultadoItems,:form:growl,panelC"
-								oncomplete="hideDialog('form:frmResultadoItems:hidStatus','frmResultadoItems:diResultadoItems')"
+						<td>
+						<h:inputHidden id="hidStatus" value="true" />
+						<p:commandButton value="Aceptar"
+								action="#{procesodesierto.asignarResultadoProceso}"
+								update="form:hidStatus,:frmAsignacion:diAsignacion,:form:growl,panelC"
+								oncomplete="hideDialog('form:hidStatus','frmAsignacion:diAsignacion')"
 								icon="ui-icon-circle-check" title="Aceptar" /></td>
 						<td>
 							<div align="right">
 								<p:commandButton value="Salir"
 									icon="ui-icon-arrowreturnthick-1-w" title="Salir"
-									onclick="hideDialogPF('frmResultadoItems:diResultadoItems');return false;" />
+									onclick="hideDialogPF('frmAsignacion:diAsignacion');return false;" />
 							</div>
 						</td>
 					</tr>
 				</table>
 			</p:dialog>
-		</h:form>		
+		</h:form>
 	</ui:define>
 </ui:composition>

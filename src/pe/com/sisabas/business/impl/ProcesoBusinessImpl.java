@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import listaPermisos1.listaPermisos1;
 import pe.com.sisabas.be.Calendarioprocesoseleccion;
 import pe.com.sisabas.be.Comiteproceso;
 import pe.com.sisabas.be.Convocatoriaprocesoseleccion;
@@ -20,14 +21,17 @@ import pe.com.sisabas.be.Estadosportipodocumento;
 import pe.com.sisabas.be.Miembrocomiteporproceso;
 import pe.com.sisabas.be.Pacconsolidado;
 import pe.com.sisabas.be.Procesoseleccion;
+import pe.com.sisabas.be.Resultadoprocesoporusuario;
 import pe.com.sisabas.be.Resultadoprocesoseleccion;
 import pe.com.sisabas.business.ProcesoBusiness;
 import pe.com.sisabas.dto.CalendarioDto;
 import pe.com.sisabas.dto.ComiteDto;
 import pe.com.sisabas.dto.ConvocatoriaDto;
 import pe.com.sisabas.dto.PacConsolidadoDto;
+import pe.com.sisabas.dto.PersonaDto;
 import pe.com.sisabas.dto.ProcesoDto;
 import pe.com.sisabas.dto.ProcesoRequest;
+import pe.com.sisabas.dto.ProcesoResultadoItemDesiertoDto;
 import pe.com.sisabas.dto.ProcesoResultadoItemDto;
 import pe.com.sisabas.dto.Resultado;
 import pe.com.sisabas.dto.TransactionRequest;
@@ -83,6 +87,9 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 
 	@Autowired
 	public ResultadoprocesoseleccionMapper resultadoprocesoseleccionMapper;
+
+	@Autowired
+	public ResultadoprocesoporusuarioMapper resultadoprocesoporusuarioMapper;
 
 	@Override
 	public List<ProcesoDto> searchProceso(ProcesoRequest request) throws Exception {
@@ -318,7 +325,8 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 		// Fecha consentimiento de buena PRO
 		procesoEdit.setFechapublicacionconsentimiento(procesoRequest.getFechapublicacionconsentimiento());
 
-		//Comité especial**********************************************************************
+		// Comité
+		// especial**********************************************************************
 		procesoEdit.setFechaactaproyectobase(procesoRequest.getFechaactaproyectobase());
 		procesoEdit.setNroactaproyectobase(procesoRequest.getNroactaproyectobase());
 		procesoEdit.setFechaobservacionbase(procesoRequest.getFechaobservacionbase());
@@ -326,7 +334,7 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 		procesoEdit.setFechasubsanacionbase(procesoRequest.getFechasubsanacionbase());
 		procesoEdit.setIdcatalogosistemacontratacion(procesoRequest.getIdcatalogosistemacontratacion());
 		procesoEdit.setModalidadejecucion(procesoRequest.getModalidadejecucion());
-		//*************************************************************************************		
+		// *************************************************************************************
 
 		procesoEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
 		procesoEdit.setFechamodificacionauditoria(new Date());
@@ -671,8 +679,8 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 				}
 			}
 		}
-		
-		//Resultado
+
+		// Resultado
 		return result;
 	}
 
@@ -681,6 +689,74 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 		return procesoseleccionMapper.searchProcesoDesierto(request);
 	}
 
+	@Override
+	@Transactional
+	public Resultado asignarResultadoProceso(TransactionRequest<List<ProcesoResultadoItemDesiertoDto>> request,
+			PersonaDto persona) throws Exception {
+		Resultado result = new Resultado(true, Constantes.mensajeGenerico.REGISTRO_CORRECTO);
 
+		// validate: No se puede asignar especialista. Usuario con el Nro. DNI
+		// ingresado no se encuentra registrado en sistema.
+		List<ProcesoResultadoItemDesiertoDto> items = request.getEntityTransaction();
+		if (items != null && items.size() > 0) {
+			// update convocatoria
+			Convocatoriaprocesoseleccion convocatoria = convocatoriaprocesoseleccionMapper
+					.selectByPrimaryKeyBasic(items.get(0).getIdconvocatoriaproceso());
+			if (convocatoria != null) {
+				convocatoria.setEstadoconvocatoriaitem(Constantes.estadoConvocatoriaItem.CERRADO);
+				convocatoria.setFechamodificacionauditoria(new Date());
+				convocatoria.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+				convocatoriaprocesoseleccionMapper.updateByPrimaryKey(convocatoria);
+			}
+		}
+
+		for (ProcesoResultadoItemDesiertoDto item : items) {
+			//if (item.isSelected()) {
+				// Actualiza el resultado origen, se indica fue asignado a un
+				// nuevo especialista
+				Resultadoprocesoseleccion itemEntitySource = resultadoprocesoseleccionMapper
+						.selectByPrimaryKeyBasic(item.getIdresultadoproceso());
+				if (itemEntitySource != null) {
+					itemEntitySource.setFechamodificacionauditoria(new Date());
+					itemEntitySource.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+					itemEntitySource.setEstadoprocesoitem(Constantes.estadoResultadoProcesoItem.ASIGNADO_ESPECIALISTA);
+					resultadoprocesoseleccionMapper.updateByPrimaryKey(itemEntitySource);
+
+					// Anula las asignaciones previas del item
+					List<Resultadoprocesoporusuario> asignacionOld = resultadoprocesoporusuarioMapper
+							.selectResultadoAsignados(item.getIdresultadoproceso());
+					for (Resultadoprocesoporusuario resultadoprocesoporusuario : asignacionOld) {
+						resultadoprocesoporusuario.setEsactivo("0");
+						resultadoprocesoporusuario.setFechamodificacionauditoria(new Date());
+						resultadoprocesoporusuario.setUsuarioasignado(request.getUsuarioAuditoria());
+						resultadoprocesoporusuarioMapper.updateByPrimaryKey(resultadoprocesoporusuario);
+					}
+
+					// Graba la asignacion de Item a Usuario
+					Resultadoprocesoporusuario itemUsuarioEntity = new Resultadoprocesoporusuario();
+					itemUsuarioEntity.setNroitem(item.getNroitem());
+					itemUsuarioEntity.setNombreitem(item.getNombreitem());
+					itemUsuarioEntity.setNumerodocumento(persona.getNroDNI());
+					itemUsuarioEntity.setNumeroadjsimplificada(item.getNumeroadjsimplificada());
+					itemUsuarioEntity.setEsactivo("1");
+					itemUsuarioEntity.setEsprocesado("0");
+					itemUsuarioEntity.setIdresultadoproceso(item.getIdresultadoproceso());
+					itemUsuarioEntity.setNumeroadjsimplificada(persona.getNumeroadjsimplificada());
+
+					itemUsuarioEntity.setFechacreacionauditoria(new Date());
+					itemUsuarioEntity.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+					itemUsuarioEntity.setEquipoauditoria(request.getEquipoAuditoria());
+					itemUsuarioEntity.setProgramaauditoria(request.getProgramaAuditoria());
+					itemUsuarioEntity.setEsactivo(Constantes.estadoAuditoria.ACTIVO);
+					itemUsuarioEntity.setIdresultadoprocesousuario(
+							(int) utilsBusiness.getNextSeq(Sequence.SEQ_RESULTADOPROCESOPORUSUARIO).longValue());
+					resultadoprocesoporusuarioMapper.insert(itemUsuarioEntity);
+				}
+
+			//}
+		}
+		result.setMensaje("Asignación de item de proceso a especialista se realizó exitosamente");
+		return result;
+	}
 
 }

@@ -236,7 +236,7 @@ public class ProcesoDesiertoController extends BaseController {
 	public void goToAsignacion(){
 		STATUS_INIT();
 		try {
-			securityControlValidate("btnAsignar");
+			securityControlValidate("btnAsignarEsp");
 			tituloBase = "Proceso » " + IMPRIMIR;
 			//validateSelectedRow();
 			persona = new PersonaDto();
@@ -261,6 +261,42 @@ public class ProcesoDesiertoController extends BaseController {
 		}
 	}
 	
+	public void asignarResultadoProceso(){
+		STATUS_INIT();
+		try {
+			securityControlValidate("btnAsignarEsp");
+			if (this.listResultadoSelected != null && this.listResultadoSelected.size() > 0){
+				TransactionRequest<List<ProcesoResultadoItemDesiertoDto>> request = new TransactionRequest<List<ProcesoResultadoItemDesiertoDto>>();
+				request.setEntityTransaction(this.listResultadoSelected);
+				Resultado result = procesoBusiness.asignarResultadoProceso(request, persona);
+			
+				//load data
+				ProcesoRequest request1 = new ProcesoRequest();
+				request1.setIdProcesoSeleccion(currentRow.getIdProcesoSeleccion());
+				request1.setIdCatalogoEstadoResultado(Constantes.estadoResultadoProceso.DESIERTO);
+				this.listResultado = resultadoprocesoseleccionBusiness.selectResultadoByEstadoByIdProcesoSeleccion(request1);
+			}
+			
+			STATUS_SUCCESS();
+			REGISTER_INIT();
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			STATUS_ERROR();
+			addErrorMessageKey("msgsForm", e);
+		}
+	}
+		
 	// methods
 	public void search() {
 		try {

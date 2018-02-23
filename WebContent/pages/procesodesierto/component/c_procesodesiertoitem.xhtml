@@ -88,31 +88,12 @@
 			<h:outputText value="#{var.numeroadjsimplificada}" />
 		</p:column>
 
-		<p:column styleClass="c_string" sortBy="#{var.selected}">
-			<f:facet name="header">
-				<h:outputText value="Código AS." styleClass="c_string" />
-			</f:facet>
-			<h:outputText value="#{var.selected}" />
-		</p:column>
 
 	</p:dataTable>
 
 
 	<div align="center">
 		<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
-			<p:commandButton value="Nuevo"
-				action="#{procesoRecepcion.irRegistrarMiembroComite}"
-				update="hidStatus,:frmResultadoItems:diResultadoItems"
-				oncomplete="showDialog('form:hidStatus','frmResultadoItems:diResultadoItems');"
-				icon="ui-icon-document" process="@this"
-				rendered="#{procesoRecepcion.renderButton('btnNuevoMiembroComite')}" />
-			<p:commandButton value="Editar"
-				action="#{procesoRecepcion.irEditarMiembroComite}"
-				update="form:hidStatus,:frmResultadoItems:diResultadoItems"
-				oncomplete="showDialog('form:hidStatus','frmResultadoItems:diResultadoItems');"
-				icon="ui-icon-pencil" process="@this"
-				disabled="#{!procesoRecepcion.esSeleccionadoMiembroComite}"
-				rendered="#{procesoRecepcion.renderButton('btnEditarMiembroComite')}" />
 			<h:inputHidden id="hidStatus" value="true" />
 		</p:panel>
 	</div>

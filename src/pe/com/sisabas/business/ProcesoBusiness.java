@@ -1,6 +1,7 @@
 package pe.com.sisabas.business;
 
 import pe.com.sisabas.dto.ProcesoRequest;
+import pe.com.sisabas.dto.ProcesoResultadoItemDesiertoDto;
 import pe.com.sisabas.dto.ProcesoResultadoItemDto;
 import pe.com.sisabas.dto.Resultado;
 import pe.com.sisabas.dto.TransactionRequest;
@@ -15,6 +16,7 @@ import pe.com.sisabas.be.Miembrocomiteporproceso;
 import pe.com.sisabas.be.Procesoseleccion;
 import pe.com.sisabas.dto.ConvocatoriaDto;
 import pe.com.sisabas.dto.PacConsolidadoDto;
+import pe.com.sisabas.dto.PersonaDto;
 import pe.com.sisabas.dto.ProcesoDto;
 
 public interface ProcesoBusiness {
@@ -29,5 +31,6 @@ public interface ProcesoBusiness {
 	public Resultado sendProceso(TransactionRequest<List<ProcesoResultadoItemDto>> request, Integer idProcesoSeleccion) throws Exception;
 	public Resultado saveCalendario(TransactionRequest<Procesoseleccion> request) throws Exception;
 	public List<ProcesoDto> searchProcesoDesierto(ProcesoRequest request) throws Exception;
+	public Resultado asignarResultadoProceso(TransactionRequest<List<ProcesoResultadoItemDesiertoDto>> request, PersonaDto persona) throws Exception;
 	
 }
