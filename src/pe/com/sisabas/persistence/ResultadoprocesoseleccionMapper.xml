@@ -140,6 +140,16 @@
 	<result column="MONTO" property="valorreferencial" jdbcType="DECIMAL" />
 	</resultMap>	
 
+	<resultMap id="ContratoSiga" type="pe.com.sisabas.dto.ContratoSigaResponse">
+	<result column="NRO_RUC" property="nroRuc" jdbcType="VARCHAR" />
+	<result column="TIPO_CONTRATO" property="tipoContrato" jdbcType="VARCHAR" />
+	<result column="NRO_CONTRATO" property="nroContrato" jdbcType="INTEGER" />
+	<result column="SEC_CONTRATO" property="secContrato" jdbcType="VARCHAR" />
+	<result column="PROVEEDOR" property="proveedor" jdbcType="INTEGER" />
+	<result column="NOMBRE_PROV" property="nombreProveedor" jdbcType="VARCHAR" />	
+	<result column="VALOR_MONEDA" property="valorMoneda" jdbcType="DOUBLE" />
+	</resultMap>		
+
 	<sql id="Basic_Column_List">
 	A1.IDRESULTADOPROCESO as A1_IDRESULTADOPROCESO, A1.IDCONVOCATORIAPROCESO as A1_IDCONVOCATORIAPROCESO, A1.IDRESULTADOPROCESOPADRE as A1_IDRESULTADOPROCESOPADRE, A1.NROITEM as A1_NROITEM, 
 	A1.NOMBREITEM as A1_NOMBREITEM, A1.NRORUC as A1_NRORUC, A1.NOMBREPROVEEDOR as A1_NOMBREPROVEEDOR, A1.IDCATALOGOESTADORESULTADO as A1_IDCATALOGOESTADORESULTADO, 
@@ -697,4 +707,7 @@
 		{call abas.paProcesosResultadoPorEstadoListar(#{idProcesoSeleccion},#{idCatalogoEstadoResultado})}
 	</select>	
 		
+	<select id="selectContratoSigaByRucAndNroConsolid" resultMap="ContratoSiga" parameterType="pe.com.sisabas.dto.ContratoSigaRequest">
+		{call abas.paProcesoSBuscarProveedorContrato (#{annio}, #{nroConsolid}, #{nroRuc}, #{idUnidadEjecutoraSiaf})}		
+	</select>			
 </mapper>

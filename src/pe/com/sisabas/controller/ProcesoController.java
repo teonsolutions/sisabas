@@ -38,6 +38,7 @@ import pe.com.sisabas.business.VcentrocostoBusiness;
 import pe.com.sisabas.dto.CalendarioDto;
 import pe.com.sisabas.dto.CentroCostoRequest;
 import pe.com.sisabas.dto.CentroCostoResponse;
+import pe.com.sisabas.dto.ContratoSigaRequest;
 import pe.com.sisabas.dto.ConvocatoriaDto;
 import pe.com.sisabas.dto.CuadroComparativoRequest;
 import pe.com.sisabas.dto.EstadoRequerimientoResponse;
@@ -110,6 +111,7 @@ public class ProcesoController extends BaseController {
 	private ProcesoResultadoItemDto selectedResultado;
 	private boolean esSeleccionadoConvocatoria;
 	private boolean isCalendarEditing = false;
+	private boolean disabledTabCalendar;
 
 	// Business layer section
 	@Autowired
@@ -250,6 +252,7 @@ public class ProcesoController extends BaseController {
 
 			// list convocatorias
 			searchConvocatoria();
+			activeTabs();
 		} catch (Exception e) {
 			addErrorMessage(e);
 			return "/login.xhtml";
@@ -382,9 +385,17 @@ public class ProcesoController extends BaseController {
 				}
 				if (resultado.getDestino().equals(Constantes.destinoRemisionProceso.EJECUCION_CONTRACTUAL)) {
 					// validate here
-					showGrowlMessageSuccessfullyCompletedAction("Validación",
-							"Proveedor XXX no tiene contrato registrado.", FacesMessage.SEVERITY_WARN);
-					return;
+					ContratoSigaRequest request = new ContratoSigaRequest();
+					request.setAnnio(usuario.getPeriodo().getAnio());
+					request.setNroConsolid(this.currentRow.getNroConsolid());
+					request.setNroRuc(resultado.getNroruc());
+					request.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.PRONIED_SIAF);
+					boolean existsContrato = procesoBusiness.validarExisteContrato(request);
+					if (!existsContrato){
+						showGrowlMessageSuccessfullyCompletedAction("Validación",
+								"Proveedor " + resultado.getNroruc() + " no tiene contrato registrado en el sistema SIGA.", FacesMessage.SEVERITY_WARN);
+						return;						
+					}
 				}
 			}
 
@@ -431,6 +442,14 @@ public class ProcesoController extends BaseController {
 		}
 	}
 
+	private void activeTabs(){
+		boolean disabledCalendario = false;
+		if (this.processEdit != null && this.processEdit.getEstadoproceso() <= Constantes.estadosPorTipoDocumento.EN_COMITE_ESPECIAL){
+			disabledCalendario = true;
+		}
+		setDisabledTabCalendar(disabledCalendario);
+	}
+	
 	public void saveProceso() {
 		REGISTER_INIT();
 		try {
@@ -443,6 +462,9 @@ public class ProcesoController extends BaseController {
 			}
 
 			TransactionRequest<Procesoseleccion> request = new TransactionRequest<Procesoseleccion>();
+			
+			//In this section I don´t save convocatoria
+			/*
 			List<Convocatoriaprocesoseleccion> listconvoca = new ArrayList<Convocatoriaprocesoseleccion>();
 			for (ConvocatoriaDto item : listConvocatoria) {
 				Convocatoriaprocesoseleccion newItem = new Convocatoriaprocesoseleccion();
@@ -496,11 +518,12 @@ public class ProcesoController extends BaseController {
 				listconvoca.add(newItem);
 			}
 			processEdit.setListaConvocatoriaprocesoseleccion(listconvoca);
+			*/						
 			request.setUsuarioAuditoria(getUserLogin());
 			request.setEquipoAuditoria(getRemoteAddr());
 			request.setEntityTransaction(processEdit);
 			Resultado result = procesoBusiness.saveProceso(request);
-
+			activeTabs();			
 			REGISTER_SUCCESS();
 			showGrowlMessageSuccessfullyCompletedAction();
 
@@ -571,7 +594,7 @@ public class ProcesoController extends BaseController {
 						newResultado.setNombreitem(resultado.getNombreitem());
 						newResultado.setNroruc(resultado.getNroruc());
 						newResultado.setNombreproveedor(resultado.getNombreproveedor());
-						newResultado.setIdcatalogoestadoresultado(resultado.getIdcatalogoestadoresultado());
+						newResultado.setIdcatalogoestadoresultado(resultado.getIdcatalogoestadoresultado());						
 						BigDecimal valorreferencial = new BigDecimal(resultado.getValorreferencial());
 						newResultado.setValorreferencial(Utils.round(valorreferencial));
 
@@ -588,7 +611,7 @@ public class ProcesoController extends BaseController {
 			request.setUsuarioAuditoria(getUserLogin());
 			request.setEquipoAuditoria(getRemoteAddr());
 			request.setEntityTransaction(processEdit);
-			Resultado result = procesoBusiness.saveProceso(request);
+			Resultado result = procesoBusiness.saveCalendario(request);
 			this.isCalendarEditing = false;
 
 			REGISTER_SUCCESS();
@@ -991,6 +1014,15 @@ public class ProcesoController extends BaseController {
 		this.isCalendarEditing = isCalendarEditing;
 	}
 
+	public boolean isDisabledTabCalendar() {
+		return disabledTabCalendar;
+	}
+
+	public void setDisabledTabCalendar(boolean disabledTabCalendar) {
+		this.disabledTabCalendar = disabledTabCalendar;
+	}
+
+	
 	// properties
 
 }

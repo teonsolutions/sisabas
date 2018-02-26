@@ -122,189 +122,196 @@
 				<p:tabView id="tabViewProceso" dynamic="true"
 					activeIndex="#{programacion.pacTabIndex}">
 					<p:tab title="Datos de proceso selección">
-						<p:accordionPanel id="accDatosGenerales" multiple="true"
-							activeIndex="0,1">
-							<p:tab title="Recepción de expediente">
-								<table style="width: 100%">
-									<tr>
-										<td><p:outputLabel value="Fecha de recepción"
-												for="txtFechaRecepcion" id="lblFechaRecepcion" /></td>
-										<td><p:outputLabel value="DNI Especialista de procesos"
-												for="txtDniEspecialistaProceso"
-												id="lblDniEspecialistaProceso" /></td>
-										<td><p:outputLabel
-												value="Nombre de Especialista de procesos"
-												for="txtNombreEspecialistaProceso"
-												id="lblNombreEspecialistaProceso" /></td>
-									</tr>
-									<tr>
-										<td><p:calendar id="txtFechaRecepcion"
-												value="#{proceso.processEdit.fecharecepcionexpediente}"
-												required="true" pattern="dd/MM/yyyy"
-												label="Fecha de recepción" navigator="true" locale="es"
-												styleClass="dateTimeField" style="width:100%" /></td>
-										<td><p:inputText id="txtDniEspecialistaProceso"
-												required="false" maxlength="8" style="width:150px;"
-												label="DNI Especialista de procesos" disabled="true"
-												value="#{proceso.currentRow.dniEspecialistaProceso}" /></td>
-										<td><p:inputText id="txtNombreEspecialistaProceso"
-												required="false" maxlength="300" style="width:100%;"
-												label="Nombre de Especialista de procesos" disabled="true"
-												value="#{proceso.currentRow.nombreEspecialistaProceso}" /></td>
-									</tr>
-								</table>
-							</p:tab>
-							<p:tab title="Comité especial">
-								<p:dataTable id="tblListaMiembrocomiteporproceso"
-									value="#{proceso.listaMiembrocomiteporproceso}" var="var"
-									emptyMessage="No se encontraron registros"
-									widgetVar="tblListaMiembrocomiteporproceso"
-									selection="#{procesoRecepcion.selectedMiembrocomiteporproceso}"
-									paginator="false" rows="#{sisabascontrol.registros_mant}"
-									paginatorPosition="bottom"
-									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(procesoRecepcion.listaMiembrocomiteporproceso)}"
-									selectionMode="single" rowKey="#{var.idmiembrocomiteproceso}"
-									styleClass="gandalfTableClass">
-									<p:column styleClass="c_string"
-										sortBy="#{var.personaIdpersona.nombres}">
-										<f:facet name="header">
-											<h:outputText value="Persona" styleClass="c_string" />
-										</f:facet>
-										<h:outputText
-											value="#{var.personaIdpersona.nombres.concat(' ').concat(var.personaIdpersona.apellidopaterno).concat(' ').concat(var.personaIdpersona.apellidomaterno) }" />
-									</p:column>
-									<p:column styleClass="c_center"
-										sortBy="#{var.gentablaIdcatalogotipomiembro.vchregdescri}">
-										<f:facet name="header">
-											<h:outputText value="TipoMiembro" styleClass="c_center" />
-										</f:facet>
-										<h:outputText
-											value="#{var.gentablaIdcatalogotipomiembro.vchregdescri}" />
-									</p:column>
-									<p:column styleClass="c_string" sortBy="#{var.correo}">
-										<f:facet name="header">
-											<h:outputText value="Correo" styleClass="c_string" />
-										</f:facet>
-										<h:outputText value="#{var.correo}" />
-									</p:column>
-									<p:column styleClass="c_center" sortBy="#{var.telefono}">
-										<f:facet name="header">
-											<h:outputText value="Teléfono" styleClass="c_center" />
-										</f:facet>
-										<h:outputText value="#{var.telefono}" />
-									</p:column>
-									<p:column styleClass="c_center" sortBy="#{var.anexo}">
-										<f:facet name="header">
-											<h:outputText value="Anexo" styleClass="c_center" />
-										</f:facet>
-										<h:outputText value="#{var.anexo}" />
-									</p:column>
-									<p:column styleClass="c_center" sortBy="#{var.celular}">
-										<f:facet name="header">
-											<h:outputText value="Celular" styleClass="c_center" />
-										</f:facet>
-										<h:outputText value="#{var.celular}" />
-									</p:column>
-								</p:dataTable>
-								<p:spacer height="1"></p:spacer>
-								<table style="width: 100%">
-									<tr>
-										<td><p:outputLabel value="Fecha de acta de proyecto base"
-												for="txtFechaActaProyectoBase" id="lblFechaActaProyectoBase" /></td>
-										<td><p:outputLabel
-												value="Número del acta del proyecto base"
-												for="txtNumeroActaProyectoBase"
-												id="lblNumeroActaProyectoBase" /></td>
-										<td><p:outputLabel value="Fecha de observación base"
-												for="txtFechaObservacionBase" id="lblFechaObservacionBase" /></td>
-									</tr>
-									<tr>
-										<td><p:calendar id="txtFechaActaProyectoBase"
-												value="#{proceso.processEdit.fechaactaproyectobase}"
-												required="false" pattern="dd/MM/yyyy"
-												label="Fecha de acta de proyecto base" navigator="true"
-												locale="es" styleClass="dateTimeField" style="width:100%" /></td>
-										<td><p:inputText id="txtNumeroActaProyectoBase"
-												required="false" maxlength="10" style="width:150px;"
-												label="Número del acta del proyecto base" disabled="false"
-												value="#{proceso.processEdit.nroactaproyectobase}" /></td>
-										<td><p:calendar id="txtFechaObservacionBase"
-												value="#{proceso.processEdit.fechaobservacionbase}"
-												required="false" pattern="dd/MM/yyyy"
-												label="Fecha de observación base" navigator="true"
-												locale="es" styleClass="dateTimeField" style="width:100%" />
-										</td>
-									</tr>
-									<tr>
-										<td colspan="3"><p:outputLabel value="Observaciones"
-												for="txtObservaciones" id="lblObservaciones" /></td>
-									</tr>
-									<tr>
-										<td colspan="3"><p:inputTextarea id="txtObservaciones"
-												rows="2" cols="50" queryDelay="750" minQueryLength="4"
-												disabled="false"
-												value="#{proceso.processEdit.observacionesproyectobases}"
-												style="width: 90%" /></td>
-									</tr>
-									<tr>
-										<td><p:outputLabel value="Fecha de subsanación de base"
-												for="txtFechaSubsanacionBase" id="lblFechaSubsanacionBase" /></td>
-										<td><p:outputLabel value="Sistema de contratación"
-												for="ddlSistemaContratacion" id="lblSistemaContratacion" />
-										</td>
-										<td><p:outputLabel value="Llave en mano ?"
-												id="lblLlaveEnMano" /></td>
-									</tr>
-									<tr>
-										<td><p:calendar id="txtFechaSubsanacionBase"
-												value="#{proceso.processEdit.fechasubsanacionbase}"
-												required="false" pattern="dd/MM/yyyy"
-												label="Fecha de subsanación de base" navigator="true"
-												locale="es" styleClass="dateTimeField" style="width:100%" />
-										</td>
-										<td><p:selectOneMenu
-												value="#{proceso.processEdit.idcatalogosistemacontratacion}"
-												id="ddlSistemaContratacion" required="true"
-												label="Sistema de contratación">
-												<f:selectItem itemLabel="--Seleccione--" itemValue="" />
-												<f:selectItems value="#{proceso.listaSistemaContratacion}"
-													var="var" itemLabel="#{var.vchregdescri}"
-													itemValue="#{var.vchregcodigo}" />
-											</p:selectOneMenu></td>
-										<td><p:outputPanel id="customPanel"
-												style="margin-bottom:10px">
-												<p:selectOneRadio id="llaveManoRadio" layout="custom"
-													value="#{proceso.processEdit.modalidadejecucion}">
-													<f:selectItem itemLabel="SI" itemValue="1" />
-													<f:selectItem itemLabel="NO" itemValue="0" />
-												</p:selectOneRadio>
-												<h:panelGrid columns="4" cellpadding="5">
-													<p:radioButton id="opt1" for="llaveManoRadio" itemIndex="0" />
-													<h:outputLabel for="opt1" value="Si" />
+						<p:panel id="pnlTabGeneral">
 
-													<p:radioButton id="opt2" for="llaveManoRadio" itemIndex="1" />
-													<h:outputLabel for="opt2" value="No" />
+							<p:accordionPanel id="accDatosGenerales" multiple="true"
+								activeIndex="0,1">
+								<p:tab title="Recepción de expediente">
+									<table style="width: 100%">
+										<tr>
+											<td><p:outputLabel value="Fecha de recepción"
+													for="txtFechaRecepcion" id="lblFechaRecepcion" /></td>
+											<td><p:outputLabel value="DNI Especialista de procesos"
+													for="txtDniEspecialistaProceso"
+													id="lblDniEspecialistaProceso" /></td>
+											<td><p:outputLabel
+													value="Nombre de Especialista de procesos"
+													for="txtNombreEspecialistaProceso"
+													id="lblNombreEspecialistaProceso" /></td>
+										</tr>
+										<tr>
+											<td><p:calendar id="txtFechaRecepcion"
+													value="#{proceso.processEdit.fecharecepcionexpediente}"
+													required="true" pattern="dd/MM/yyyy"
+													label="Fecha de recepción" navigator="true" locale="es"
+													styleClass="dateTimeField" style="width:100%" /></td>
+											<td><p:inputText id="txtDniEspecialistaProceso"
+													required="false" maxlength="8" style="width:150px;"
+													label="DNI Especialista de procesos" disabled="true"
+													value="#{proceso.currentRow.dniEspecialistaProceso}" /></td>
+											<td><p:inputText id="txtNombreEspecialistaProceso"
+													required="false" maxlength="300" style="width:100%;"
+													label="Nombre de Especialista de procesos" disabled="true"
+													value="#{proceso.currentRow.nombreEspecialistaProceso}" /></td>
+										</tr>
+									</table>
+								</p:tab>
+								<p:tab title="Comité especial">
+									<p:dataTable id="tblListaMiembrocomiteporproceso"
+										value="#{proceso.listaMiembrocomiteporproceso}" var="var"
+										emptyMessage="No se encontraron registros"
+										widgetVar="tblListaMiembrocomiteporproceso"
+										selection="#{procesoRecepcion.selectedMiembrocomiteporproceso}"
+										paginator="false" rows="#{sisabascontrol.registros_mant}"
+										paginatorPosition="bottom"
+										paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(procesoRecepcion.listaMiembrocomiteporproceso)}"
+										selectionMode="single" rowKey="#{var.idmiembrocomiteproceso}"
+										styleClass="gandalfTableClass">
+										<p:column styleClass="c_string"
+											sortBy="#{var.personaIdpersona.nombres}">
+											<f:facet name="header">
+												<h:outputText value="Persona" styleClass="c_string" />
+											</f:facet>
+											<h:outputText
+												value="#{var.personaIdpersona.nombres.concat(' ').concat(var.personaIdpersona.apellidopaterno).concat(' ').concat(var.personaIdpersona.apellidomaterno) }" />
+										</p:column>
+										<p:column styleClass="c_center"
+											sortBy="#{var.gentablaIdcatalogotipomiembro.vchregdescri}">
+											<f:facet name="header">
+												<h:outputText value="TipoMiembro" styleClass="c_center" />
+											</f:facet>
+											<h:outputText
+												value="#{var.gentablaIdcatalogotipomiembro.vchregdescri}" />
+										</p:column>
+										<p:column styleClass="c_string" sortBy="#{var.correo}">
+											<f:facet name="header">
+												<h:outputText value="Correo" styleClass="c_string" />
+											</f:facet>
+											<h:outputText value="#{var.correo}" />
+										</p:column>
+										<p:column styleClass="c_center" sortBy="#{var.telefono}">
+											<f:facet name="header">
+												<h:outputText value="Teléfono" styleClass="c_center" />
+											</f:facet>
+											<h:outputText value="#{var.telefono}" />
+										</p:column>
+										<p:column styleClass="c_center" sortBy="#{var.anexo}">
+											<f:facet name="header">
+												<h:outputText value="Anexo" styleClass="c_center" />
+											</f:facet>
+											<h:outputText value="#{var.anexo}" />
+										</p:column>
+										<p:column styleClass="c_center" sortBy="#{var.celular}">
+											<f:facet name="header">
+												<h:outputText value="Celular" styleClass="c_center" />
+											</f:facet>
+											<h:outputText value="#{var.celular}" />
+										</p:column>
+									</p:dataTable>
+									<p:spacer height="1"></p:spacer>
+									<table style="width: 100%">
+										<tr>
+											<td><p:outputLabel
+													value="Fecha de acta de proyecto base"
+													for="txtFechaActaProyectoBase"
+													id="lblFechaActaProyectoBase" /></td>
+											<td><p:outputLabel
+													value="Número del acta del proyecto base"
+													for="txtNumeroActaProyectoBase"
+													id="lblNumeroActaProyectoBase" /></td>
+											<td><p:outputLabel value="Fecha de observación base"
+													for="txtFechaObservacionBase" id="lblFechaObservacionBase" /></td>
+										</tr>
+										<tr>
+											<td><p:calendar id="txtFechaActaProyectoBase"
+													value="#{proceso.processEdit.fechaactaproyectobase}"
+													required="false" pattern="dd/MM/yyyy"
+													label="Fecha de acta de proyecto base" navigator="true"
+													locale="es" styleClass="dateTimeField" style="width:100%" /></td>
+											<td><p:inputText id="txtNumeroActaProyectoBase"
+													required="false" maxlength="10" style="width:150px;"
+													label="Número del acta del proyecto base" disabled="false"
+													value="#{proceso.processEdit.nroactaproyectobase}" /></td>
+											<td><p:calendar id="txtFechaObservacionBase"
+													value="#{proceso.processEdit.fechaobservacionbase}"
+													required="false" pattern="dd/MM/yyyy"
+													label="Fecha de observación base" navigator="true"
+													locale="es" styleClass="dateTimeField" style="width:100%" />
+											</td>
+										</tr>
+										<tr>
+											<td colspan="3"><p:outputLabel value="Observaciones"
+													for="txtObservaciones" id="lblObservaciones" /></td>
+										</tr>
+										<tr>
+											<td colspan="3"><p:inputTextarea id="txtObservaciones"
+													rows="2" cols="50" queryDelay="750" minQueryLength="4"
+													disabled="false"
+													value="#{proceso.processEdit.observacionesproyectobases}"
+													style="width: 90%" /></td>
+										</tr>
+										<tr>
+											<td><p:outputLabel value="Fecha de subsanación de base"
+													for="txtFechaSubsanacionBase" id="lblFechaSubsanacionBase" /></td>
+											<td><p:outputLabel value="Sistema de contratación"
+													for="ddlSistemaContratacion" id="lblSistemaContratacion" />
+											</td>
+											<td><p:outputLabel value="Llave en mano ?"
+													id="lblLlaveEnMano" /></td>
+										</tr>
+										<tr>
+											<td><p:calendar id="txtFechaSubsanacionBase"
+													value="#{proceso.processEdit.fechasubsanacionbase}"
+													required="false" pattern="dd/MM/yyyy"
+													label="Fecha de subsanación de base" navigator="true"
+													locale="es" styleClass="dateTimeField" style="width:100%" />
+											</td>
+											<td><p:selectOneMenu
+													value="#{proceso.processEdit.idcatalogosistemacontratacion}"
+													id="ddlSistemaContratacion" required="true"
+													label="Sistema de contratación">
+													<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+													<f:selectItems value="#{proceso.listaSistemaContratacion}"
+														var="var" itemLabel="#{var.vchregdescri}"
+														itemValue="#{var.vchregcodigo}" />
+												</p:selectOneMenu></td>
+											<td><p:outputPanel id="customPanel"
+													style="margin-bottom:10px">
+													<p:selectOneRadio id="llaveManoRadio" layout="custom"
+														value="#{proceso.processEdit.modalidadejecucion}">
+														<f:selectItem itemLabel="SI" itemValue="1" />
+														<f:selectItem itemLabel="NO" itemValue="0" />
+													</p:selectOneRadio>
+													<h:panelGrid columns="4" cellpadding="5">
+														<p:radioButton id="opt1" for="llaveManoRadio"
+															itemIndex="0" />
+														<h:outputLabel for="opt1" value="Si" />
 
-												</h:panelGrid>
-											</p:outputPanel></td>
-									</tr>
-								</table>
-							</p:tab>
-						</p:accordionPanel>
-						<p:spacer height="1"></p:spacer>
-						<div align="center">
-							<p:commandButton value="Guardar" icon="fa fa-save"
-								title="Guardar Datos de proceso selección"
-								disabled="#{proceso.disabledButtons}"
-								action="#{proceso.saveProceso}"
-								rendered="#{proceso.renderButton('btnSaveProceso')}"
-								update="form:msgs,form:panel" process="@this" />
-							<p:commandButton value="Cancelar" action="#{proceso.load}"
-								ajax="false" icon="ui-icon-arrowreturnthick-1-w"
-								title="Cancelar" />
-						</div>
+														<p:radioButton id="opt2" for="llaveManoRadio"
+															itemIndex="1" />
+														<h:outputLabel for="opt2" value="No" />
+
+													</h:panelGrid>
+												</p:outputPanel></td>
+										</tr>
+									</table>
+								</p:tab>
+							</p:accordionPanel>
+							<p:spacer height="1"></p:spacer>
+							<div align="center">
+								<p:commandButton value="Guardar" icon="fa fa-save"
+									title="Guardar Datos de proceso selección"
+									disabled="#{proceso.disabledButtons}"
+									action="#{proceso.saveProceso}"
+									rendered="#{proceso.renderButton('btnSaveProceso')}"
+									update="form:msgs,form:tabViewProceso:pnlTabGeneral" />
+								<p:commandButton value="Cancelar" action="#{proceso.load}"
+									ajax="false" icon="ui-icon-arrowreturnthick-1-w"
+									title="Cancelar" />
+							</div>
+						</p:panel>
 					</p:tab>
-					<p:tab title="Calendario">
+					<p:tab title="Calendario" disabled="#{proceso.disabledTabCalendar}">
 						<p:accordionPanel id="accCalendario" multiple="true"
 							activeIndex="0,1">
 							<p:tab title="Convocatorias">
@@ -597,6 +604,8 @@
 								</table>
 							</p:tab>
 							<p:tab title="Resultado del proceso por item">
+								<p:outputLabel value="Seleccione convocatoria del proceso para registrar resultados por item."
+									id="lblTitleResultado" />
 								<p:dataTable id="tblListaResultado"
 									value="#{proceso.listResultado}" var="var"
 									emptyMessage="No se encontraron registros"
@@ -677,13 +686,13 @@
 											<f:facet name="input">
 												<p:inputNumber value="#{var.montoadjudicado}"
 													style="width:100%" label="Year" maxlength="20"
-													decimalPlaces="20" />
+													decimalPlaces="2" />
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
 									<p:column headerText="Acciones">
 										<p:rowEditor editTitle="Editar"
-											rendered="#{var.estadoprocesoitem eq 1 and proceso.esSeleccionadoConvocatoria}" />
+											rendered="#{(var.estadoprocesoitem eq 1 or var.estadoprocesoitem eq null) and proceso.esSeleccionadoConvocatoria}" />
 									</p:column>
 								</p:dataTable>
 								<table style="width: 100%">

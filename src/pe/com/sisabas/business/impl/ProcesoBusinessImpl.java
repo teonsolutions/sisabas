@@ -26,6 +26,8 @@ import pe.com.sisabas.be.Resultadoprocesoseleccion;
 import pe.com.sisabas.business.ProcesoBusiness;
 import pe.com.sisabas.dto.CalendarioDto;
 import pe.com.sisabas.dto.ComiteDto;
+import pe.com.sisabas.dto.ContratoSigaRequest;
+import pe.com.sisabas.dto.ContratoSigaResponse;
 import pe.com.sisabas.dto.ConvocatoriaDto;
 import pe.com.sisabas.dto.PacConsolidadoDto;
 import pe.com.sisabas.dto.PersonaDto;
@@ -117,14 +119,12 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 		ordenListaCampos.add("A1.IDMIEMBROCOMITEPROCESO");
 		Miembrocomiteporproceso miembrocomiteporproceso = new Miembrocomiteporproceso();
 		miembrocomiteporproceso.setOrdenListaCampos(ordenListaCampos);
-		miembrocomiteporproceso.setOrdenTipo("DESC");
+		miembrocomiteporproceso.setOrdenTipo("ASC");
 
 		// Add conditions IN clause
-		miembrocomiteporproceso.addConditionInIdcatalogotipomiembro(null);
-		miembrocomiteporproceso.addConditionInIdcatalogoestadomiembrocomite(null);
-		miembrocomiteporproceso.setIdmiembrocomiteproceso(pac.getIdcomiteproceso());
+		miembrocomiteporproceso.setIdcomiteproceso(pac.getIdcomiteproceso());
 		List<Miembrocomiteporproceso> listaMiembrocomiteporproceso = miembrocomiteporprocesoMapper
-				.selectDynamicFull(miembrocomiteporproceso);
+				.selectDynamicBasic(miembrocomiteporproceso);
 
 		Integer idComiteProceso = 0;
 		if (listaMiembrocomiteporproceso != null && listaMiembrocomiteporproceso.size() > 0) {
@@ -315,15 +315,21 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 		// editing process...
 
 		// Elevado a OSCE
-		procesoEdit.setFechaelevacionobservacion(procesoRequest.getFechaelevacionobservacion());
-		procesoEdit.setFechapronunciamiento(procesoRequest.getFechapronunciamiento());
-
-		// Apelacion
-		procesoEdit.setFechaapelacion(procesoRequest.getFechaapelacion());
-		procesoEdit.setFecharesolucionapelacion(procesoRequest.getFecharesolucionapelacion());
-
-		// Fecha consentimiento de buena PRO
-		procesoEdit.setFechapublicacionconsentimiento(procesoRequest.getFechapublicacionconsentimiento());
+		/*
+		 * procesoEdit.setFechaelevacionobservacion(procesoRequest.
+		 * getFechaelevacionobservacion());
+		 * procesoEdit.setFechapronunciamiento(procesoRequest.
+		 * getFechapronunciamiento());
+		 * 
+		 * // Apelacion
+		 * procesoEdit.setFechaapelacion(procesoRequest.getFechaapelacion());
+		 * procesoEdit.setFecharesolucionapelacion(procesoRequest.
+		 * getFecharesolucionapelacion());
+		 * 
+		 * // Fecha consentimiento de buena PRO
+		 * procesoEdit.setFechapublicacionconsentimiento(procesoRequest.
+		 * getFechapublicacionconsentimiento());
+		 */
 
 		// Comité
 		// especial**********************************************************************
@@ -334,7 +340,13 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 		procesoEdit.setFechasubsanacionbase(procesoRequest.getFechasubsanacionbase());
 		procesoEdit.setIdcatalogosistemacontratacion(procesoRequest.getIdcatalogosistemacontratacion());
 		procesoEdit.setModalidadejecucion(procesoRequest.getModalidadejecucion());
+		procesoEdit.setObservacionesproyectobases(procesoRequest.getObservacionesproyectobases());
 		// *************************************************************************************
+
+		// STATUS
+		if (procesoRequest.getEstadoproceso() == Constantes.estadosPorTipoDocumento.EN_COMITE_ESPECIAL) {
+			procesoEdit.setEstadoproceso(Constantes.estadosPorTipoDocumento.BASE_APROBADA);
+		}
 
 		procesoEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
 		procesoEdit.setFechamodificacionauditoria(new Date());
@@ -344,121 +356,142 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 
 		// ******************************SAVE************************************************************
 		// CONVOCATORIA**********************************************************************************
-		Convocatoriaprocesoseleccion convocatoriaEdit;
-		Integer idConvocatoria;
-		for (Convocatoriaprocesoseleccion convocatoria : procesoRequest.getListaConvocatoriaprocesoseleccion()) {
-			if (convocatoria.getIdconvocatoriaproceso() == null) {
-				// add
-				convocatoria.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
-				convocatoria.setFechacreacionauditoria(new Date());
-				convocatoria.setProgramaauditoria(request.getProgramaAuditoria());
-				convocatoria.setEquipoauditoria(request.getEquipoAuditoria());
-				convocatoria.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
-				idConvocatoria = (int) utilsBusiness.getNextSeq(Sequence.SEQ_CONVOCATORIAPROCESOSELECCION).longValue();
-				convocatoria.setIdconvocatoriaproceso(idConvocatoria);
-				convocatoriaprocesoseleccionMapper.insert(convocatoria);
-			} else {
-				// update
-				convocatoriaEdit = convocatoriaprocesoseleccionMapper
-						.selectByPrimaryKeyBasic(convocatoria.getIdconvocatoriaproceso());
-				convocatoriaEdit.setValorreferencia(convocatoria.getValorreferencia());
-				convocatoriaEdit.setIdcatalogoestadoconvocatoria(convocatoria.getIdcatalogoestadoconvocatoria());
-				convocatoriaEdit.setFechainicio(convocatoria.getFechainicio());
-				convocatoriaEdit.setFechafin(convocatoria.getFechafin());
-				convocatoriaEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
-				convocatoriaEdit.setFechamodificacionauditoria(new Date());
-				convocatoriaEdit.setProgramaauditoria(request.getProgramaAuditoria());
-				convocatoriaEdit.setEquipoauditoria(request.getEquipoAuditoria());
-				convocatoriaprocesoseleccionMapper.updateByPrimaryKey(convocatoriaEdit);
-				idConvocatoria = convocatoriaEdit.getIdconvocatoriaproceso();
-			}
 
-			// save calendar
-			if (convocatoria.getListaCalendarioprocesoseleccion() != null) {
-				for (Calendarioprocesoseleccion calendar : convocatoria.getListaCalendarioprocesoseleccion()) {
-					if (calendar.getIdcalendarioproceso() == null) {
-						// add
-						calendar.setIdconvocatoriaproceso(idConvocatoria);
-						calendar.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
-						calendar.setFechacreacionauditoria(new Date());
-						calendar.setProgramaauditoria(request.getProgramaAuditoria());
-						calendar.setEquipoauditoria(request.getEquipoAuditoria());
-						calendar.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
-						calendar.setIdcalendarioproceso(
-								(int) utilsBusiness.getNextSeq(Sequence.SEQ_CALENDARIOPROCESOSELECCION).longValue());
-						calendarioprocesoseleccionMapper.insert(calendar);
-					} else {
-						// update
-						Calendarioprocesoseleccion calendarEdit = calendarioprocesoseleccionMapper
-								.selectByPrimaryKeyBasic(calendar.getIdcalendarioproceso());
-						calendarEdit.setFechainicio(calendar.getFechainicio());
-						calendarEdit.setFechafin(calendar.getFechafin());
-						calendarEdit.setIdcatalogoestadopublicacion(calendar.getIdcatalogoestadopublicacion());
-						calendarEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
-						calendarEdit.setFechamodificacionauditoria(new Date());
-						calendarEdit.setProgramaauditoria(request.getProgramaAuditoria());
-						calendarEdit.setEquipoauditoria(request.getEquipoAuditoria());
-						calendarioprocesoseleccionMapper.updateByPrimaryKey(calendarEdit);
-					}
-				}
-			}
+		// DON' SAVE convocatoria
+		/*
+		 * Convocatoriaprocesoseleccion convocatoriaEdit; Integer
+		 * idConvocatoria; for (Convocatoriaprocesoseleccion convocatoria :
+		 * procesoRequest.getListaConvocatoriaprocesoseleccion()) { if
+		 * (convocatoria.getIdconvocatoriaproceso() == null) { // add
+		 * convocatoria.setUsuariocreacionauditoria(request.getUsuarioAuditoria(
+		 * )); convocatoria.setFechacreacionauditoria(new Date());
+		 * convocatoria.setProgramaauditoria(request.getProgramaAuditoria());
+		 * convocatoria.setEquipoauditoria(request.getEquipoAuditoria());
+		 * convocatoria.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+		 * idConvocatoria = (int)
+		 * utilsBusiness.getNextSeq(Sequence.SEQ_CONVOCATORIAPROCESOSELECCION).
+		 * longValue(); convocatoria.setIdconvocatoriaproceso(idConvocatoria);
+		 * convocatoriaprocesoseleccionMapper.insert(convocatoria); } else { //
+		 * update convocatoriaEdit = convocatoriaprocesoseleccionMapper
+		 * .selectByPrimaryKeyBasic(convocatoria.getIdconvocatoriaproceso());
+		 * convocatoriaEdit.setValorreferencia(convocatoria.getValorreferencia()
+		 * ); convocatoriaEdit.setIdcatalogoestadoconvocatoria(convocatoria.
+		 * getIdcatalogoestadoconvocatoria());
+		 * convocatoriaEdit.setFechainicio(convocatoria.getFechainicio());
+		 * convocatoriaEdit.setFechafin(convocatoria.getFechafin());
+		 * convocatoriaEdit.setUsuariomodificacionauditoria(request.
+		 * getUsuarioAuditoria());
+		 * convocatoriaEdit.setFechamodificacionauditoria(new Date());
+		 * convocatoriaEdit.setProgramaauditoria(request.getProgramaAuditoria())
+		 * ; convocatoriaEdit.setEquipoauditoria(request.getEquipoAuditoria());
+		 * convocatoriaprocesoseleccionMapper.updateByPrimaryKey(
+		 * convocatoriaEdit); idConvocatoria =
+		 * convocatoriaEdit.getIdconvocatoriaproceso(); }
+		 * 
+		 * // save calendar if
+		 * (convocatoria.getListaCalendarioprocesoseleccion() != null) { for
+		 * (Calendarioprocesoseleccion calendar :
+		 * convocatoria.getListaCalendarioprocesoseleccion()) { if
+		 * (calendar.getIdcalendarioproceso() == null) { // add
+		 * calendar.setIdconvocatoriaproceso(idConvocatoria);
+		 * calendar.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+		 * calendar.setFechacreacionauditoria(new Date());
+		 * calendar.setProgramaauditoria(request.getProgramaAuditoria());
+		 * calendar.setEquipoauditoria(request.getEquipoAuditoria());
+		 * calendar.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+		 * calendar.setIdcalendarioproceso( (int)
+		 * utilsBusiness.getNextSeq(Sequence.SEQ_CALENDARIOPROCESOSELECCION).
+		 * longValue()); calendarioprocesoseleccionMapper.insert(calendar); }
+		 * else { // update Calendarioprocesoseleccion calendarEdit =
+		 * calendarioprocesoseleccionMapper
+		 * .selectByPrimaryKeyBasic(calendar.getIdcalendarioproceso());
+		 * calendarEdit.setFechainicio(calendar.getFechainicio());
+		 * calendarEdit.setFechafin(calendar.getFechafin());
+		 * calendarEdit.setIdcatalogoestadopublicacion(calendar.
+		 * getIdcatalogoestadopublicacion());
+		 * calendarEdit.setUsuariomodificacionauditoria(request.
+		 * getUsuarioAuditoria());
+		 * calendarEdit.setFechamodificacionauditoria(new Date());
+		 * calendarEdit.setProgramaauditoria(request.getProgramaAuditoria());
+		 * calendarEdit.setEquipoauditoria(request.getEquipoAuditoria());
+		 * calendarioprocesoseleccionMapper.updateByPrimaryKey(calendarEdit); }
+		 * } }
+		 * 
+		 * // save results if (convocatoria.getListaResultadoprocesoseleccion()
+		 * != null) { for (Resultadoprocesoseleccion resultado :
+		 * convocatoria.getListaResultadoprocesoseleccion()) { if
+		 * (resultado.getIdresultadoproceso() == null) { // add
+		 * resultado.setIdconvocatoriaproceso(idConvocatoria);
+		 * resultado.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+		 * resultado.setFechacreacionauditoria(new Date());
+		 * resultado.setProgramaauditoria(request.getProgramaAuditoria());
+		 * resultado.setEquipoauditoria(request.getEquipoAuditoria());
+		 * resultado.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+		 * resultado.setIdresultadoproceso( (int)
+		 * utilsBusiness.getNextSeq(Sequence.SEQ_RESULTADOPROCESOSELECCION).
+		 * longValue()); resultadoprocesoseleccionMapper.insert(resultado); }
+		 * else { // update Resultadoprocesoseleccion resultadoEdit =
+		 * resultadoprocesoseleccionMapper
+		 * .selectByPrimaryKeyBasic(resultado.getIdresultadoproceso());
+		 * resultadoEdit.setNroruc(resultado.getNroruc());
+		 * resultadoEdit.setNombreproveedor(resultado.getNombreproveedor());
+		 * resultadoEdit.setIdcatalogoestadoresultado(resultado.
+		 * getIdcatalogoestadoresultado());
+		 * resultadoEdit.setMontoadjudicado(resultado.getMontoadjudicado());
+		 * resultadoEdit.setUsuariomodificacionauditoria(request.
+		 * getUsuarioAuditoria());
+		 * resultadoEdit.setFechamodificacionauditoria(new Date());
+		 * resultadoEdit.setEquipoauditoria(request.getEquipoAuditoria());
+		 * resultadoEdit.setProgramaauditoria(request.getProgramaAuditoria());
+		 * resultadoprocesoseleccionMapper.updateByPrimaryKey(resultadoEdit); }
+		 * } } }
+		 */
 
-			// save results
-			if (convocatoria.getListaResultadoprocesoseleccion() != null) {
-				for (Resultadoprocesoseleccion resultado : convocatoria.getListaResultadoprocesoseleccion()) {
-					if (resultado.getIdresultadoproceso() == null) {
-						// add
-						resultado.setIdconvocatoriaproceso(idConvocatoria);
-						resultado.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
-						resultado.setFechacreacionauditoria(new Date());
-						resultado.setProgramaauditoria(request.getProgramaAuditoria());
-						resultado.setEquipoauditoria(request.getEquipoAuditoria());
-						resultado.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
-						resultado.setIdresultadoproceso(
-								(int) utilsBusiness.getNextSeq(Sequence.SEQ_RESULTADOPROCESOSELECCION).longValue());
-						resultadoprocesoseleccionMapper.insert(resultado);
-					} else {
-						// update
-						Resultadoprocesoseleccion resultadoEdit = resultadoprocesoseleccionMapper
-								.selectByPrimaryKeyBasic(resultado.getIdresultadoproceso());
-						resultadoEdit.setNroruc(resultado.getNroruc());
-						resultadoEdit.setNombreproveedor(resultado.getNombreproveedor());
-						resultadoEdit.setIdcatalogoestadoresultado(resultado.getIdcatalogoestadoresultado());
-						resultadoEdit.setMontoadjudicado(resultado.getMontoadjudicado());
-						resultadoEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
-						resultadoEdit.setFechamodificacionauditoria(new Date());
-						resultadoEdit.setEquipoauditoria(request.getEquipoAuditoria());
-						resultadoEdit.setProgramaauditoria(request.getProgramaAuditoria());
-						resultadoprocesoseleccionMapper.updateByPrimaryKey(resultadoEdit);
-					}
-				}
-			}
+		// STATUS BASE APROBADA
+		if (procesoRequest.getEstadoproceso() == Constantes.estadosPorTipoDocumento.EN_COMITE_ESPECIAL) {
+			java.util.Date date = new java.util.Date();
+			Estadosporetapapordocumento record = new Estadosporetapapordocumento();
+			record.setNrodocumento(procesoRequest.getIdprocesoseleccion()); // Process
+																			// number
+			record.setIdestadosportipodocumento(Constantes.estadosPorTipoDocumento.BASE_APROBADA);
+			record.setIdtipodocumento(Constantes.tipoDocumento.PROCESO);
+			record.setFechaingreso(date);
+			record.setFechacreacionauditoria(date);
+			record.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+			record.setEquipoauditoria(request.getEquipoAuditoria());
+			record.setIdestadosporetapapordocumento(
+					(int) utilsBusiness.getNextSeq(Sequence.SEQ_ESTADOSPORETAPAPORDOCUMENTO).longValue());
+
+			record.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+			estadosporetapapordocumentoMapper.insert(record);
 		}
 
 		// insert status
-		if (derivadaEjecucion) {
-			Estadosportipodocumento param = new Estadosportipodocumento();
-			param.setIdtipodocumento(Constantes.tipoDocumento.PROCESO);
-			param.setIdestadosporetapa(Constantes.estadosPorEtapa.REMITIDO_A_EJECUCION);
-			Estadosportipodocumento estado = estadosportipodocumentoMapper.selectByEtapaTipoDocumento(param);
-			if (estado != null) {
-				java.util.Date date = new java.util.Date();
-				Estadosporetapapordocumento record = new Estadosporetapapordocumento();
-				record.setNrodocumento(procesoRequest.getIdprocesoseleccion()); // Process
-																				// number
-				record.setIdestadosportipodocumento(estado.getIdestadosportipodocumento());
-				record.setIdtipodocumento(Constantes.tipoDocumento.PROCESO);
-				record.setFechaingreso(date);
-				record.setFechacreacionauditoria(date);
-				record.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
-				record.setEquipoauditoria(request.getEquipoAuditoria());
-				record.setIdestadosporetapapordocumento(
-						(int) utilsBusiness.getNextSeq(Sequence.SEQ_ESTADOSPORETAPAPORDOCUMENTO).longValue());
+		/*
+		 * if (derivadaEjecucion) { Estadosportipodocumento param = new
+		 * Estadosportipodocumento();
+		 * param.setIdtipodocumento(Constantes.tipoDocumento.PROCESO);
+		 * param.setIdestadosporetapa(Constantes.estadosPorEtapa.
+		 * REMITIDO_A_EJECUCION); Estadosportipodocumento estado =
+		 * estadosportipodocumentoMapper.selectByEtapaTipoDocumento(param); if
+		 * (estado != null) { java.util.Date date = new java.util.Date();
+		 * Estadosporetapapordocumento record = new
+		 * Estadosporetapapordocumento();
+		 * record.setNrodocumento(procesoRequest.getIdprocesoseleccion()); //
+		 * Process // number record.setIdestadosportipodocumento(estado.
+		 * getIdestadosportipodocumento());
+		 * record.setIdtipodocumento(Constantes.tipoDocumento.PROCESO);
+		 * record.setFechaingreso(date); record.setFechacreacionauditoria(date);
+		 * record.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+		 * record.setEquipoauditoria(request.getEquipoAuditoria());
+		 * record.setIdestadosporetapapordocumento( (int)
+		 * utilsBusiness.getNextSeq(Sequence.SEQ_ESTADOSPORETAPAPORDOCUMENTO).
+		 * longValue());
+		 * 
+		 * record.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+		 * estadosporetapapordocumentoMapper.insert(record); } }
+		 */
 
-				record.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
-				estadosporetapapordocumentoMapper.insert(record);
-			}
-		}
 		return result;
 	}
 
@@ -658,6 +691,7 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 						resultado.setFechacreacionauditoria(new Date());
 						resultado.setProgramaauditoria(request.getProgramaAuditoria());
 						resultado.setEquipoauditoria(request.getEquipoAuditoria());
+						resultado.setEstadoprocesoitem(Constantes.estadoResultadoProcesoItem.REGISTRADO);
 						resultado.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
 						resultado.setIdresultadoproceso(
 								(int) utilsBusiness.getNextSeq(Sequence.SEQ_RESULTADOPROCESOSELECCION).longValue());
@@ -711,52 +745,59 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 		}
 
 		for (ProcesoResultadoItemDesiertoDto item : items) {
-			//if (item.isSelected()) {
-				// Actualiza el resultado origen, se indica fue asignado a un
-				// nuevo especialista
-				Resultadoprocesoseleccion itemEntitySource = resultadoprocesoseleccionMapper
-						.selectByPrimaryKeyBasic(item.getIdresultadoproceso());
-				if (itemEntitySource != null) {
-					itemEntitySource.setFechamodificacionauditoria(new Date());
-					itemEntitySource.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
-					itemEntitySource.setEstadoprocesoitem(Constantes.estadoResultadoProcesoItem.ASIGNADO_ESPECIALISTA);
-					resultadoprocesoseleccionMapper.updateByPrimaryKey(itemEntitySource);
+			// if (item.isSelected()) {
+			// Actualiza el resultado origen, se indica fue asignado a un
+			// nuevo especialista
+			Resultadoprocesoseleccion itemEntitySource = resultadoprocesoseleccionMapper
+					.selectByPrimaryKeyBasic(item.getIdresultadoproceso());
+			if (itemEntitySource != null) {
+				itemEntitySource.setFechamodificacionauditoria(new Date());
+				itemEntitySource.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+				itemEntitySource.setEstadoprocesoitem(Constantes.estadoResultadoProcesoItem.ASIGNADO_ESPECIALISTA);
+				resultadoprocesoseleccionMapper.updateByPrimaryKey(itemEntitySource);
 
-					// Anula las asignaciones previas del item
-					List<Resultadoprocesoporusuario> asignacionOld = resultadoprocesoporusuarioMapper
-							.selectResultadoAsignados(item.getIdresultadoproceso());
-					for (Resultadoprocesoporusuario resultadoprocesoporusuario : asignacionOld) {
-						resultadoprocesoporusuario.setEsactivo("0");
-						resultadoprocesoporusuario.setFechamodificacionauditoria(new Date());
-						resultadoprocesoporusuario.setUsuarioasignado(request.getUsuarioAuditoria());
-						resultadoprocesoporusuarioMapper.updateByPrimaryKey(resultadoprocesoporusuario);
-					}
-
-					// Graba la asignacion de Item a Usuario
-					Resultadoprocesoporusuario itemUsuarioEntity = new Resultadoprocesoporusuario();
-					itemUsuarioEntity.setNroitem(item.getNroitem());
-					itemUsuarioEntity.setNombreitem(item.getNombreitem());
-					itemUsuarioEntity.setNumerodocumento(persona.getNroDNI());
-					itemUsuarioEntity.setNumeroadjsimplificada(item.getNumeroadjsimplificada());
-					itemUsuarioEntity.setEsactivo("1");
-					itemUsuarioEntity.setEsprocesado("0");
-					itemUsuarioEntity.setIdresultadoproceso(item.getIdresultadoproceso());
-					itemUsuarioEntity.setNumeroadjsimplificada(persona.getNumeroadjsimplificada());
-
-					itemUsuarioEntity.setFechacreacionauditoria(new Date());
-					itemUsuarioEntity.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
-					itemUsuarioEntity.setEquipoauditoria(request.getEquipoAuditoria());
-					itemUsuarioEntity.setProgramaauditoria(request.getProgramaAuditoria());
-					itemUsuarioEntity.setEsactivo(Constantes.estadoAuditoria.ACTIVO);
-					itemUsuarioEntity.setIdresultadoprocesousuario(
-							(int) utilsBusiness.getNextSeq(Sequence.SEQ_RESULTADOPROCESOPORUSUARIO).longValue());
-					resultadoprocesoporusuarioMapper.insert(itemUsuarioEntity);
+				// Anula las asignaciones previas del item
+				List<Resultadoprocesoporusuario> asignacionOld = resultadoprocesoporusuarioMapper
+						.selectResultadoAsignados(item.getIdresultadoproceso());
+				for (Resultadoprocesoporusuario resultadoprocesoporusuario : asignacionOld) {
+					resultadoprocesoporusuario.setEsactivo("0");
+					resultadoprocesoporusuario.setFechamodificacionauditoria(new Date());
+					resultadoprocesoporusuario.setUsuarioasignado(request.getUsuarioAuditoria());
+					resultadoprocesoporusuarioMapper.updateByPrimaryKey(resultadoprocesoporusuario);
 				}
 
-			//}
+				// Graba la asignacion de Item a Usuario
+				Resultadoprocesoporusuario itemUsuarioEntity = new Resultadoprocesoporusuario();
+				itemUsuarioEntity.setNroitem(item.getNroitem());
+				itemUsuarioEntity.setNombreitem(item.getNombreitem());
+				itemUsuarioEntity.setNumerodocumento(persona.getNroDNI());
+				itemUsuarioEntity.setNumeroadjsimplificada(item.getNumeroadjsimplificada());
+				itemUsuarioEntity.setEsactivo("1");
+				itemUsuarioEntity.setEsprocesado("0");
+				itemUsuarioEntity.setIdresultadoproceso(item.getIdresultadoproceso());
+				itemUsuarioEntity.setNumeroadjsimplificada(persona.getNumeroadjsimplificada());
+
+				itemUsuarioEntity.setFechacreacionauditoria(new Date());
+				itemUsuarioEntity.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+				itemUsuarioEntity.setEquipoauditoria(request.getEquipoAuditoria());
+				itemUsuarioEntity.setProgramaauditoria(request.getProgramaAuditoria());
+				itemUsuarioEntity.setEsactivo(Constantes.estadoAuditoria.ACTIVO);
+				itemUsuarioEntity.setIdresultadoprocesousuario(
+						(int) utilsBusiness.getNextSeq(Sequence.SEQ_RESULTADOPROCESOPORUSUARIO).longValue());
+				resultadoprocesoporusuarioMapper.insert(itemUsuarioEntity);
+			}
+
+			// }
 		}
 		result.setMensaje("Asignación de item de proceso a especialista se realizó exitosamente");
 		return result;
+	}
+
+	@Override
+	public boolean validarExisteContrato(ContratoSigaRequest request) throws Exception {
+		// TODO Auto-generated method stub
+		List<ContratoSigaResponse> list = resultadoprocesoseleccionMapper.selectContratoSigaByRucAndNroConsolid(request);
+		return list != null && list.size() > 0;
 	}
 
 }
