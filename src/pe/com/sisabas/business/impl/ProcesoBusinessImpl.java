@@ -579,7 +579,26 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 					procesoseleccionMapper.updateByPrimaryKey(procesoEdit);
 				}
 			}
-		}
+			
+			//save status
+			Estadosporetapapordocumento record = new Estadosporetapapordocumento();
+			record.setNrodocumento(idProcesoSeleccion); // Process
+																			// number
+			record.setIdestadosportipodocumento(Constantes.estadosPorTipoDocumento.REMITIDO_A_EJECUCION);
+			record.setIdtipodocumento(Constantes.tipoDocumento.PROCESO);
+			record.setFechaingreso(new Date());
+			record.setFechacreacionauditoria(new Date());
+			record.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+			record.setEquipoauditoria(request.getEquipoAuditoria());
+			record.setIdestadosporetapapordocumento(
+					(int) utilsBusiness.getNextSeq(Sequence.SEQ_ESTADOSPORETAPAPORDOCUMENTO).longValue());
+
+			record.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+			estadosporetapapordocumentoMapper.insert(record);			
+			
+		}	
+
+		
 		result.setMensaje("El resultado de proceso fue remitido exitosamente.");
 		return result;
 	}
