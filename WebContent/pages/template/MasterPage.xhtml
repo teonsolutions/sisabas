@@ -35,30 +35,29 @@
 
 
 
-<style type="text/css">
-
+		<style type="text/css">
 a {
-    text-decoration: none;
-    outline: none;
-    color: #25AAE1;
+	text-decoration: none;
+	outline: none;
+	color: #25AAE1;
 }
 
 a:-webkit-any-link {
-    color: -webkit-link;
-    cursor: pointer;
-    text-decoration: underline;
+	color: -webkit-link;
+	cursor: pointer;
+	text-decoration: underline;
 }
 
 .ui-menuitem-text {
-    width: 50%;
-    display: inline-block;
-    float: left;
-    padding: 6px 0px;
-    cursor: pointer;
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    color: #659eb3;
-    font-size: 14px;
+	width: 50%;
+	display: inline-block;
+	float: left;
+	padding: 6px 0px;
+	cursor: pointer;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	color: #659eb3;
+	font-size: 14px;
 }
 
 .ui-panelmenu .ui-panelmenu-content {
@@ -94,15 +93,15 @@ a:-webkit-any-link {
 }
 
 #CONTENTSIDE {
-    width: auto;
-    overflow: hidden;
-    z-index: 1;
-    margin-left: 0px;
-    background-color: #eff3f6;
+	width: auto;
+	overflow: hidden;
+	z-index: 1;
+	margin-left: 20px;
+	background-color: #eff3f6;
 }
 
 div {
-    display: block;
+	display: block;
 }
 
 #MENUSIDE {
@@ -112,7 +111,7 @@ div {
     background-color: #313b3f;
     border-right: solid 1px #151d21;
     overflow: hidden;
-    width: 250px;
+    width: 300px;
     position: fixed;
     -moz-transition: left 0.3s;
     -o-transition: left 0.3s;
@@ -120,25 +119,58 @@ div {
     transition: left 0.3s;
 }
 
+.bordersOfMenuSide {
+    border-top: solid 1px #404a4e;
+}
+
+.MenuSideMainLink {
+    width: 100%;
+    height: 45px;
+    display: block;
+    padding: 15px 0px 0px 27px;
+    cursor: pointer;
+}
+
+.MenuSideMainLinkDark {
+    background-color: #20282b !important;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
 .SubMenuLinkContainer {
-    width: auto;
-    padding: 20px;
-    overflow: hidden;
-    background-color: #20282b;
-    
+	width: auto;
+	padding: 20px;
+	overflow: hidden;
+	background-color: #20282b;
+}
+
+.MainLinkText {
+    color: #9ba5ac;
+    font-size: 20px;
+    margin: 2px 0px 0px 60px;
+    display: block;
 }
 
 #MENUSIDEindent {
-    width: 93%;
-    height: auto;
-    
+	width: 100%;
+	height: auto;	
 }
 
+#LOGO {
+    height: 87px;
+    display: block;
+    padding: 27px 0 5px 10px;
+    z-index: 997;
+    background-color: #313b3f;
+    margin-left: 100px;
+}
 
 #j_idt196 {
-   margin-top:50px";
-    
-    }
+	margin-top: 50px";
+}
 
 footer {
 	position: fixed;
@@ -151,8 +183,6 @@ footer {
 	width: 100%;
 	border: 1px solid silver;
 }
-
-
 
 .container {
 	position: relative;
@@ -186,17 +216,18 @@ footer {
 	/*
 					background: url('#{resource['img/background:background.jpg']}');
 					*/
-	background-color:#f2f5f7;
+	background-color: #f2f5f7;
 	/*background: linear-gradient(#4D4D4F, #9A999E, #FFFFFF);*/
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
 	margin: 0;
-	margin-left: 250px;
-	padding: 0;
+	margin-left: 300px;
+	margin-right: 0; padding : 0;
 	font-family: geneva, arial, helvetica, sans-serif;
 	font-size: 12px;
+	padding: 0;
 }
 
 .ui-menuitem-icon.ui-icon.secureIcon {
@@ -226,14 +257,14 @@ footer {
 }
 
 body {
-    font-size: 14px;
-    margin: 0px;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background-color: #20272a;
-    font-family: 'latoregular', "Trebuchet MS", Arial, Helvetica, sans-serif;
-    color: #5C666A;
+	font-size: 14px;
+	margin: 0px;
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background-color: #20272a;
+	font-family: 'latoregular', "Trebuchet MS", Arial, Helvetica, sans-serif;
+	color: #5C666A;
 }
 
 /**THEME DELTA - INICIO*/
@@ -343,12 +374,20 @@ td, th, tr {
 li
 
 
+
+
 :has
+
+
 
 (>
 a
 
+
+
 .active
+
+
 
 )
 { /* styles to apply to the li tag */
@@ -442,14 +481,14 @@ a
 
 /*Disabled inputs*/
 .ui-state-disabled, .ui-widget-content .ui-state-disabled,
-	 .ui-state-disabled {
+	.ui-state-disabled {
 	opacity: .7;
 	filter: Alpha(Opacity = 7);
 	background-image: none;
 }
 
 /*Input text*/
-    .ui-inputfield, .ui-widget-content .ui-inputfield {
+.ui-inputfield, .ui-widget-content .ui-inputfield {
 	font-weight: normal;
 	/*padding: 2px 2px 2px 2px;*/
 	/*margin: 0px 0px 0px 0px;*/
@@ -504,7 +543,6 @@ a
 	/* Mozilla */
 	opacity: 0.9;
 }
-
 
 <!--
 DELTA--> /*				
@@ -607,13 +645,35 @@ body .ui-datepicker table td.ui-datepicker-today a {
 	background: #3984b8;
 }
 
+/*MY CUSTOM*/
+
+.ui-widget-header {
+    border: 1px solid #d9d9d9;
+    color: #1b1d1f;
+    background: #f6f7f9 0 0 repeat-x;
+    background: -moz-linear-gradient(top,#f6f7f9 0,#ebedf0 100%);
+    /* background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#f6f7f9),color-stop(100%,#ebedf0)); */
+    /* background: -webkit-linear-gradient(top,#f6f7f9 0,#ebedf0 100%); */
+    background: -o-linear-gradient(top,#f6f7f9 0,#ebedf0 100%);
+    background: -ms-linear-gradient(top,#f6f7f9 0,#ebedf0 100%);
+    background: linear-gradient(top,#f6f7f9 0,#ebedf0 100%);
+}
+
+.ui-widget-content {
+    border: 1px solid #dddddd;
+    /* background: #f2f5f7 url(/sisabas/javax.faces.resource/images/ui-bg_highlight-hard_100_f2f5f7_1x100.png.xhtml?ln=primefaces-cupertino) 50% top repeat-x; */
+    background: #f2f5f7;
+    color: #362b36;
+}
+
+/*END CUSTOM*/
+
 .ui-button, button.ui-button.ui-state-default, .ui-button.ui-state-default
 	{
 	border: 1px solid transparent;
 	background: #3984b8;
 	color: #fff;
 	font-size: 13px;
-	
 }
 
 .ui-button, button.ui-button.ui-state-hover, .ui-button.ui-state-hover {
@@ -960,12 +1020,11 @@ figure {
 				</p:menubar>
 
 				<ui:fragment>
-					<div align="center" style="background: #fff;">
+					<div align="center" style="background: #f2f5f7;">
 						<table style="width: 100%">
 							<tr>
-								<td align="left" style="width: 30%"><br /> <p:spacer
-										height="5" width="50"></p:spacer> <h:graphicImage
-										url="/resources/img/logo.png" width="408" height="57" /></td>
+								<td align="left" style="width: 10%"><br /> <p:spacer
+										height="5" width="20"></p:spacer></td>
 								<td>
 									<table>
 										<tr>
@@ -998,22 +1057,29 @@ figure {
 										</tr>
 									</table>
 								</td>
-								<td>
-								<p:menubar style="border: none; " >
-								  <f:facet name="options">	
-									<p:panelGrid columns="2" columnClasses="ui-grid-col-8,ui-grid-col-4" layout="grid" style="width:95%;text-align:left;align:left; background:red;">
-										<p:menuButton icon="fa fa-fw fa-gear" >				
-											<p:menuitem value="Cambiar clave" icon="fa fa-fw fa-key" outcome="/cambioClave.xhtml"/>
-											<p:menuitem value="Salir" icon="fa fa-fw fa-sign-out" onclick="PF('cdSalirSistema').show();" title="Salir del sistema"/>
-											<p:separator />
-											<p:menuitem value="#{loginBean.user}" icon="fa fa-fw fa-user" style="text-align:center;" onclick="return false;" disabled="true"/>
-											<p:separator />
-											<p:menuitem value="#{loginBean.mobile?'MOVIL':'WEB'}" icon="fa fa-fw fa-mobile-phone" style="text-align:center;" onclick="return false;" disabled="true"/>
-										</p:menuButton>
-									</p:panelGrid>
-					              </f:facet>
-					            </p:menubar>								
-								</td>
+								<td><p:menubar style="border: none; ">
+										<f:facet name="options">
+											<p:panelGrid columns="2"
+												columnClasses="ui-grid-col-8,ui-grid-col-4" layout="grid"
+												style="width:95%;text-align:left;align:left; background:red;">
+												<p:menuButton icon="fa fa-fw fa-gear">
+													<p:menuitem value="Cambiar clave" icon="fa fa-fw fa-key"
+														outcome="/cambioClave.xhtml" />
+													<p:menuitem value="Salir" icon="fa fa-fw fa-sign-out"
+														onclick="PF('cdSalirSistema').show();"
+														title="Salir del sistema" />
+													<p:separator />
+													<p:menuitem value="#{loginBean.user}"
+														icon="fa fa-fw fa-user" style="text-align:center;"
+														onclick="return false;" disabled="true" />
+													<p:separator />
+													<p:menuitem value="#{loginBean.mobile?'MOVIL':'WEB'}"
+														icon="fa fa-fw fa-mobile-phone" style="text-align:center;"
+														onclick="return false;" disabled="true" />
+												</p:menuButton>
+											</p:panelGrid>
+										</f:facet>
+									</p:menubar></td>
 							</tr>
 						</table>
 
@@ -1024,14 +1090,7 @@ figure {
 				<ui:fragment rendered="#{loginBean.isSicuSecurityEnable()}">
 					<div
 						style="position: absolute; top: 5; left: 10; text-align: right; border: 0px solid silver;"
-						align="left">
-						
-						
-						<h:link outcome="/pages/home.xhtml?faces-redirect=true">
-							<h:graphicImage url="/resources/img/logo.png" width="30"
-								height="30" />
-						</h:link>						
-					</div>
+						align="left"></div>
 				</ui:fragment>
 
 				<p:confirmDialog id="cdSalirSistema"
@@ -1062,49 +1121,80 @@ figure {
 		<!-- 
 		<header> </header>
 		 -->
-		
-        <div class="PC"> 
-		<div id="MENUSIDE" class="ps-container" style="height: 100%;">
-		
-		
-		
-		   <div id="MENUSIDEindent">
-			<p:menu style="margin-left:0px; width: 100%" toggleable="true" stateful="true">                   
-				<p:submenu label="ADMINISTRACIÓN" styleClass="ui-panelmenu-panel" style="height:22px; color: #325d82;">
-				    <p:menuitem value="Parámetros" outcome="/pages/genparametro/genparametroBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
-				    <p:menuitem value="Periódos" outcome="/pages/periodo/periodoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
-				</p:submenu>
-				
-				<p:submenu label="SEGUIMIENTO" styleClass="ui-panelmenu-panel" style="height:22px; color: #325d82; ">
-					<p:menuitem value="Estados" outcome="/pages/seguimiento/seguimiento.xhtml" icon="ui-icon-triangle-1-e"/>	
-				</p:submenu>
-				<p:submenu label="REQUERIMIENTOS" styleClass="ui-panelmenu-panel" style="height:22px; color: #325d82;">
-					 <p:menuitem value="Pedidos" outcome="/pages/requerimiento/requerimientos.xhtml" icon="ui-icon-triangle-1-e"/>
-		             
-				</p:submenu>
-				<p:submenu label="PROGRAMACIÓN" styleClass="ui-panelmenu-panel" style="height:22px; color: #325d82;">
-					<p:menuitem value="Evaluación de documento" outcome="/pages/evaluaciondocumento/evaluaciondocumentoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
-		            <p:menuitem value="PAO" outcome="/pages/pao/paoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
-				</p:submenu>
-				<p:submenu label="PROCESO DE SELECCIÓN" styleClass="ui-panelmenu-panel" style="height:22px; color: #325d82;">
-					<p:menuitem value="Recepción de documentos" outcome="/pages/procesorecepcion/procesoRecepcionBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
-		            <p:menuitem value="Procesos" outcome="/pages/proceso/procesoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
-		            <p:menuitem value="Procesos Desiertos" outcome="/pages/procesodesierto/procesodesiertoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
-				</p:submenu>
-				<p:submenu label="EJECUCIÓN CONTRACTUAL" styleClass="ui-panelmenu-panel" style="height:22px; color: #325d82;">
-					<p:menuitem value="Seguimiento de contratos" outcome="/pages/contrato/contratoBuscar.xhtml" icon="ui-icon-triangle-1-e"/>
-				</p:submenu>
-				
-			</p:menu>
-			</div>
-			
-		</div>
 
-		<div id="CONTENTSIDE">
-			
-			<ui:insert name="center">Center</ui:insert>
-			
-		</div>
+		<div class="PC">
+			<div id="MENUSIDE" class="ps-container" style="height: 974px;" >
+				<div id="MENUSIDEindent">
+					<!--  
+					<SPAN id="LOGO" class="bordersOfMenuSide"></SPAN>
+					-->
+					<p:menu style="margin-left:0px; width: 100%" toggleable="true"
+						stateful="true" styleClass="bordersOfMenuSide">
+						
+						<p:submenu label="ADMINISTRACIÓN" 
+							style="height:22px; color: #325d82;" styleClass="MenuSideMainLink bordersOfMenuSide">
+							<p:menuitem value="Parámetros"
+								outcome="/pages/genparametro/genparametroBuscar.xhtml"
+								icon="ui-icon-triangle-1-e" styleClass="SubMenuLink" />
+							<p:menuitem value="Periódos"
+								outcome="/pages/periodo/periodoBuscar.xhtml"
+								icon="ui-icon-triangle-1-e" />
+						</p:submenu>
+
+						<p:submenu label="SEGUIMIENTO"
+							style="height:22px; color: #325d82; " styleClass="MenuSideMainLink bordersOfMenuSide">
+							<p:menuitem id="SubMenu-Button" value="Estados"
+								outcome="/pages/seguimiento/seguimiento.xhtml"
+								icon="ui-icon-triangle-1-e"/>
+						</p:submenu>
+						<p:submenu label="REQUERIMIENTOS" styleClass="MenuSideMainLink bordersOfMenuSide"
+							style="height:22px; color: #325d82;">
+							<p:menuitem value="Pedidos"
+								outcome="/pages/requerimiento/requerimientos.xhtml"
+								icon="ui-icon-triangle-1-e" />
+							<p:menuitem value="Pedidos de Obras"
+								outcome="/pages/pedido/pedidoBuscar.xhtml"
+								icon="ui-icon-triangle-1-e" />
+						</p:submenu>
+						<p:submenu label="PROGRAMACIÓN" styleClass="MenuSideMainLink bordersOfMenuSide"
+							style="height:22px; color: #325d82;">
+							<p:menuitem value="Evaluación de documento"
+								outcome="/pages/evaluaciondocumento/evaluaciondocumentoBuscar.xhtml"
+								icon="ui-icon-triangle-1-e" />
+							<p:menuitem value="PAO" outcome="/pages/pao/paoBuscar.xhtml"
+								icon="ui-icon-triangle-1-e" />
+						</p:submenu>
+						<p:submenu label="PROCESO DE SELECCIÓN"
+							styleClass="MenuSideMainLink bordersOfMenuSide"
+							style="height:22px; color: #325d82;">
+							<p:menuitem value="Recepción de documentos"
+								outcome="/pages/procesorecepcion/procesoRecepcionBuscar.xhtml"
+								icon="ui-icon-triangle-1-e" />
+							<p:menuitem value="Procesos"
+								outcome="/pages/proceso/procesoBuscar.xhtml"
+								icon="ui-icon-triangle-1-e" />
+							<p:menuitem value="Procesos Desiertos"
+								outcome="/pages/procesodesierto/procesodesiertoBuscar.xhtml"
+								icon="ui-icon-triangle-1-e" />
+						</p:submenu>
+						<p:submenu label="EJECUCIÓN CONTRACTUAL"
+							styleClass="MenuSideMainLink bordersOfMenuSide"
+							style="height:22px; color: #325d82;">
+							<p:menuitem value="Seguimiento de contratos"
+								outcome="/pages/contrato/contratoBuscar.xhtml"
+								icon="ui-icon-triangle-1-e" />
+						</p:submenu>
+
+					</p:menu>
+				</div>
+
+			</div>
+
+			<div id="CONTENTSIDE">
+
+				<ui:insert name="center">Center</ui:insert>
+
+			</div>
 		</div>
 
 		<footer>
