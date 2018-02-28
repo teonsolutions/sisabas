@@ -34,6 +34,8 @@
 
 			}
 		</script>
+
+
 		<h:form id="form">
 			<!-- 
 			<p:commandButton value="Prueba" icon="fa fa-save" title="Prueba"
@@ -55,12 +57,14 @@
 					</tr>
 					<tr>
 						<td><p:inputText id="txtNroProceso" required="false"
-								maxlength="10" style="width:150px;" label="Número de proceso"
-								disabled="true" value="#{proceso.currentRow.nroProceso}" /></td>
+								maxlength="10" style="width:150px; background-color:#EEF0E4;"
+								label="Número de proceso" disabled="true"
+								value="#{proceso.currentRow.nroProceso}" /></td>
 						<td></td>
 						<td><p:inputText id="txtFechaRegistro" required="false"
-								maxlength="10" style="width:150px;" label="Fecha de registro"
-								disabled="true" value="#{proceso.currentRow.fechaRegistro}">
+								maxlength="10" style="width:150px; background-color:#EEF0E4;"
+								label="Fecha de registro" disabled="true"
+								value="#{proceso.currentRow.fechaRegistro}">
 								<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
 							</p:inputText></td>
 					</tr>
@@ -72,7 +76,8 @@
 						<td colspan="3"><p:inputTextarea id="txtDescripProceso"
 								required="false" rows="2" cols="50" queryDelay="750"
 								minQueryLength="4" disabled="true"
-								value="#{proceso.currentRow.glosa}" style="width: 90%" /></td>
+								value="#{proceso.currentRow.glosa}"
+								style="width: 90%; background-color:#EEF0E4;" /></td>
 					</tr>
 					<tr>
 						<td><p:outputLabel value="Tipo de proceso"
@@ -84,16 +89,17 @@
 					</tr>
 					<tr>
 						<td><p:inputText id="txtTipoProceso" required="false"
-								maxlength="10" style="width:150px;" label="Tipo de proceso"
-								disabled="true" value="#{proceso.currentRow.tipoProcesoDesc}" />
-						</td>
+								maxlength="10" style="width:150px; background-color:#EEF0E4;"
+								label="Tipo de proceso" disabled="true"
+								value="#{proceso.currentRow.tipoProcesoDesc}" /></td>
 						<td><p:inputText id="txtValorReferencial" required="false"
-								maxlength="10" style="width:150px;"
+								maxlength="10" style="width:150px; background-color:#EEF0E4;"
 								label="Valor referencial S/." disabled="true"
 								value="#{proceso.currentRow.valorEstimadoContratacion}" /></td>
 						<td><p:inputText id="txtTipoBien" required="false"
-								maxlength="10" style="width:150px;" label="Tipo de bien"
-								disabled="true" value="#{proceso.currentRow.tipoBienDesc}" /></td>
+								maxlength="10" style="width:150px; background-color:#EEF0E4;"
+								label="Tipo de bien" disabled="true"
+								value="#{proceso.currentRow.tipoBienDesc}" /></td>
 					</tr>
 					<tr>
 						<td><p:outputLabel value="Etapa de gestión administrativa"
@@ -105,14 +111,15 @@
 					</tr>
 					<tr>
 						<td><p:inputText id="txtGestionEtapaAdm" required="false"
-								maxlength="10" style="width:150px;"
+								maxlength="10" style="width:150px; background-color:#EEF0E4;"
 								label="Etapa de gestión administrativa" disabled="true"
 								value="PROCESO DE SELECCIÓN" /></td>
 						<td><p:inputText id="txtNroPao" required="false"
-								maxlength="10" style="width:150px;" label="Número PAO"
-								disabled="true" value="#{proceso.currentRow.nroConsolid}" /></td>
+								maxlength="10" style="width:150px; background-color:#EEF0E4;"
+								label="Número PAO" disabled="true"
+								value="#{proceso.currentRow.nroConsolid}" /></td>
 						<td><p:inputText id="txtModalidadProceso" required="false"
-								maxlength="10" style="width:150px;"
+								maxlength="10" style="width:150px; background-color:#EEF0E4;"
 								label="Modalidad del proceso" disabled="true"
 								value="#{proceso.currentRow.tipoModalidad}" /></td>
 					</tr>
@@ -144,13 +151,15 @@
 													value="#{proceso.processEdit.fecharecepcionexpediente}"
 													required="true" pattern="dd/MM/yyyy"
 													label="Fecha de recepción" navigator="true" locale="es"
-													styleClass="dateTimeField" style="width:100%" /></td>
+													styleClass="dateTimeField" style="width:100%;" /></td>
 											<td><p:inputText id="txtDniEspecialistaProceso"
-													required="false" maxlength="8" style="width:150px;"
+													required="false" maxlength="8"
+													style="width:150px; background-color:#EEF0E4;"
 													label="DNI Especialista de procesos" disabled="true"
 													value="#{proceso.currentRow.dniEspecialistaProceso}" /></td>
 											<td><p:inputText id="txtNombreEspecialistaProceso"
-													required="false" maxlength="300" style="width:100%;"
+													required="false" maxlength="300"
+													style="width:100%; background-color:#EEF0E4;"
 													label="Nombre de Especialista de procesos" disabled="true"
 													value="#{proceso.currentRow.nombreEspecialistaProceso}" /></td>
 										</tr>
@@ -604,7 +613,8 @@
 								</table>
 							</p:tab>
 							<p:tab title="Resultado del proceso por item">
-								<p:outputLabel value="Seleccione convocatoria del proceso para registrar resultados por item."
+								<p:outputLabel
+									value="Seleccione convocatoria del proceso para registrar resultados por item."
 									id="lblTitleResultado" />
 								<p:dataTable id="tblListaResultado"
 									value="#{proceso.listResultado}" var="var"
@@ -713,19 +723,23 @@
 												for="txtEstadoProceso" id="lblEstadoProceso" /></td>
 									</tr>
 									<tr>
-										<td><p:calendar id="txtFechaEnvioProgramacion"
-												value="#{proceso.processEdit.fechaenvioprogramacion}"
-												required="false" pattern="dd/MM/yyyy" disabled="true"
-												label="Fecha de envío a programación" navigator="true"
-												locale="es" styleClass="dateTimeField" style="width:100%" /></td>
-										<td><p:calendar id="txtFechaEnvioEjecucion"
-												value="#{proceso.processEdit.fechaenvioejecucion}"
-												required="false" pattern="dd/MM/yyyy" disabled="true"
-												label="Fecha de envío a ejecución contractual"
-												navigator="true" locale="es" styleClass="dateTimeField"
-												style="width:100%" /></td>
+										<td><p:inputText id="txtFechaEnvioProgramacion"
+												required="false" maxlength="10"
+												style="width:150px; background-color:#EEF0E4;"
+												label="Fecha de registro" disabled="true"
+												value="#{proceso.processEdit.fechaenvioprogramacion}">
+												<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+											</p:inputText></td>
+										<td><p:inputText id="txtFechaEnvioEjecucion"
+												required="false" maxlength="10"
+												style="width:150px; background-color:#EEF0E4;"
+												label="Fecha de envío a ejecución contractual" disabled="true"
+												value="#{proceso.processEdit.fechaenvioejecucion}">
+												<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+											</p:inputText></td>
 										<td><p:inputText id="txtEstadoProceso" required="false"
-												maxlength="10" style="width:150px;"
+												maxlength="10"
+												style="width:150px; background-color:#EEF0E4;"
 												label="Estado de proceso" disabled="true"
 												value="#{proceso.currentRow.estadoproceso}" /></td>
 										<td></td>
