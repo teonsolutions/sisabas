@@ -107,7 +107,7 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 		
 		evaluaciondocumentoMapper.insert(evaDocumento);
 		
-		//System.out.println("el valor del idContrato es " +record.getIdcontrato());
+		
 		Estadosportipodocumento param = new Estadosportipodocumento();
 		param.setIdtipodocumento(Constantes.tipoDocumento.PROCESO);
 		param.setIdestadosporetapa(Constantes.estadosPorEtapa.EN_COMITE_ESPECIAL); //sincronizar
@@ -371,12 +371,7 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 				grupodocumentoMapper.insert(grupodocumento);
 
 				// Insert
-				
-				System.out.println("v1: "+ordenDto.getEstadoSiafDesc());
-				System.out.println("v2: "+ordenDto.getEstadoOrden());
-				System.out.println("v3: "+ordenDto.getIdEstadoSiaf());
-				System.out.println("v4: "+ordenDto.getNroExpedienteSiaf());
-		
+
 				Orden ordenNew = new Orden();
 				ordenNew.setIdgrupodocumento(idgrupodocumento);
 				ordenNew.setFechainicioprestacion(ordenDto.getFechaInicioPrestacion());
@@ -460,7 +455,19 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 							entregableEdit.setMontopenalidadentregable(entregable.getMontoPenalidad());
 							entregableEdit.setFechapresentacionentregable(entregable.getFecha());
 							entregableEdit.setObservacionesentregable(entregable.getObservacion());
-							entregableEdit.setIdcatalogoestadoentregable(entregable.getIdcatalogoestadoentregable());
+							
+							
+
+							
+							if(entregable.getEstado().equals("PAGADO"))
+								entregableEdit.setIdcatalogoestadoentregable("EENT3");
+							if(entregable.getEstado().equals("REMITIDO CONTABILIDAD"))
+								entregableEdit.setIdcatalogoestadoentregable("EENT2");
+							if(entregable.getEstado().equals("ADQUISICIÓN CONFORME"))
+								entregableEdit.setIdcatalogoestadoentregable("EENT1");
+							
+							
+
 							
 							
 							entregableEdit.setNroproveido(entregable.getNroProveido());
@@ -491,7 +498,22 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 	
 						entregableNew.setNroproveido(entregable.getNroProveido());
 						
-						entregableNew.setIdcatalogoestadoentregable(entregable.getEstado());
+						
+						
+						
+						
+						if(entregable.getEstado().equals("PAGADO"))
+							entregableNew.setIdcatalogoestadoentregable("EENT3");
+						if(entregable.getEstado().equals("REMITIDO CONTABILIDAD"))
+							entregableNew.setIdcatalogoestadoentregable("EENT2");
+						if(entregable.getEstado().equals("ADQUISICIÓN CONFORME"))
+							entregableNew.setIdcatalogoestadoentregable("EENT1");
+
+						
+						
+						
+						
+						
 						
 						// Audit
 						//entregable.setUsuariocreacionauditoria(request.getUsuarioAuditoria());

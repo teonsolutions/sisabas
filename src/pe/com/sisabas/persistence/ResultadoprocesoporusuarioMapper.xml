@@ -63,30 +63,6 @@
 	</resultMap>
 
 
-	<resultMap id="BasicResultMapCustom" type="pe.com.sisabas.be.Resultadoprocesoporusuario">
-	<result column="IdResultadoProcesoUsuario" property="idresultadoprocesousuario" jdbcType="INTEGER" />
-	<result column="IdResultadoProceso" property="idresultadoproceso" jdbcType="INTEGER" />
-	<result column="NroItem" property="nroitem" jdbcType="VARCHAR" />
-	<result column="NombreItem" property="nombreitem" jdbcType="VARCHAR" />
-	<result column="UsuarioAsignado" property="usuarioasignado" jdbcType="VARCHAR" />
-	<result column="NumeroDocumento" property="numerodocumento" jdbcType="VARCHAR" />
-	<result column="NumeroAdjSimplificada" property="numeroadjsimplificada" jdbcType="VARCHAR" />
-	<result column="EsActivo" property="esactivo" jdbcType="VARCHAR" />
-	<result column="EsProcesado" property="esprocesado" jdbcType="VARCHAR" />
-	</resultMap>
-	
-	<resultMap id="BasicResultMapAsignadosCustom" type="pe.com.sisabas.dto.ProcesoResultadoItemDesiertoAsigDto">
-	<result column="IdResultadoProceso" property="idresultadoproceso" jdbcType="INTEGER" />
-	<result column="IdConvocatoriaProceso" property="idconvocatoriaproceso" jdbcType="INTEGER" />	
-	<result column="NroItem" property="nroitem" jdbcType="VARCHAR" />
-	<result column="NombreItem" property="nombreitem" jdbcType="VARCHAR" />
-	<result column="ValorReferencial" property="valorreferencial" jdbcType="DOUBLE" />
-	<result column="UsuarioAsignado" property="usuarioasignado" jdbcType="VARCHAR" />
-	<result column="NumeroAdjSimplificada" property="numeroadjsimplificada" jdbcType="VARCHAR" />
-	<result column="IdResultadoProcesoReferencia" property="idresultadoprocesoreferencia" jdbcType="INTEGER" />
-	<result column="EstadoProcesoItem" property="estadoprocesoitem" jdbcType="INTEGER" />
-	</resultMap>	
-	
 	<sql id="Basic_Column_List">
 	A1.IDRESULTADOPROCESOUSUARIO as A1_IDRESULTADOPROCESOUSUARIO, A1.IDRESULTADOPROCESO as A1_IDRESULTADOPROCESO, A1.NROITEM as A1_NROITEM, A1.NOMBREITEM as A1_NOMBREITEM, 
 	A1.USUARIOASIGNADO as A1_USUARIOASIGNADO, A1.NUMERODOCUMENTO as A1_NUMERODOCUMENTO, A1.NUMEROADJSIMPLIFICADA as A1_NUMEROADJSIMPLIFICADA, A1.ESACTIVO as A1_ESACTIVO, 
@@ -528,14 +504,4 @@
 
 	</if>
 	</select>
-	
-	<select id="selectResultadoAsignados" resultMap="BasicResultMapCustom" parameterType="java.lang.Integer">
-		select * from abas.ResultadoProcesoPorUsuario where IdResultadoProceso = #{idresultadoproceso} and EsActivo = '1' and isnull(EsProcesado, '0') = 0
-	</select>
-	
-	<select id="selectResultadoAsignadosUsuario" resultMap="BasicResultMapAsignadosCustom" parameterType="pe.com.sisabas.dto.ResultadoItemsRequest">
-		{call abas.paProcesosDesiertosListar(#{idprocesoseleccion},#{usuarioasignado})}
-	</select>
-	
-	
 </mapper>

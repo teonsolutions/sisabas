@@ -808,20 +808,24 @@ public class ContratoController extends BaseController {
 				
 				listaSeguimientoPagosSiafT = programacionBusiness.getSeguimientoPagosSiaf(request);
 				
-				SeguimientoPagosResponse seguimientoPagosResponse =new SeguimientoPagosResponse();
 				
-				seguimientoPagosResponse.setCiclo(listaSeguimientoPagosSiafT.get(i).getCiclo());
-				seguimientoPagosResponse.setFase(listaSeguimientoPagosSiafT.get(i).getFase());
-				seguimientoPagosResponse.setTipoDocumentoDesc(listaSeguimientoPagosSiafT.get(i).getTipoDocumentoDesc());
-				seguimientoPagosResponse.setNroDocumento(listaSeguimientoPagosSiafT.get(i).getNroDocumento());
-				seguimientoPagosResponse.setFechaDocumento(listaSeguimientoPagosSiafT.get(i).getFechaDocumento());
-				seguimientoPagosResponse.setMonto(listaSeguimientoPagosSiafT.get(i).getMonto());
+				if(listaSeguimientoPagosSiafT!=null && listaSeguimientoPagosSiafT.size()>0){
+					
+					SeguimientoPagosResponse seguimientoPagosResponse =new SeguimientoPagosResponse();
+					
+					seguimientoPagosResponse.setCiclo(listaSeguimientoPagosSiafT.get(i).getCiclo());
+					seguimientoPagosResponse.setFase(listaSeguimientoPagosSiafT.get(i).getFase());
+					seguimientoPagosResponse.setTipoDocumentoDesc(listaSeguimientoPagosSiafT.get(i).getTipoDocumentoDesc());
+					seguimientoPagosResponse.setNroDocumento(listaSeguimientoPagosSiafT.get(i).getNroDocumento());
+					seguimientoPagosResponse.setFechaDocumento(listaSeguimientoPagosSiafT.get(i).getFechaDocumento());
+					seguimientoPagosResponse.setMonto(listaSeguimientoPagosSiafT.get(i).getMonto());
+					
+					
+					ContratoController.detallePago.add(seguimientoPagosResponse);
 				
-				
-				ContratoController.detallePago.add(seguimientoPagosResponse);
-			
-				System.err.println("******Tamanio de Siaffffffffffffffffff******** "+ listaSeguimientoPagosSiafT.size() +" **********");
-				System.err.println("******detallePago******** "+ ContratoController.detallePago.size() +" **********");
+					System.err.println("******Tamanio de Siaffffffffffffffffff******** "+ listaSeguimientoPagosSiafT.size() +" **********");
+					System.err.println("******detallePago******** "+ ContratoController.detallePago.size() +" **********");
+				}
 				
 
 				// sum monto devengado y pagado

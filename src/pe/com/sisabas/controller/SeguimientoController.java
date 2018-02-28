@@ -195,8 +195,7 @@ public class SeguimientoController extends BaseController{
 		
 		public void listarSegEstados(){
 			SegEstadoReqRequest segEstadoReqRequest=new SegEstadoReqRequest();
-			//segEstadoReqRequest.setIdTipoDocumento(Integer.parseInt(seguimientoRequest.getTipoDocumento()));
-			segEstadoReqRequest.setIdTipoDocumento(1); //1 si o si para ver record de estados
+			segEstadoReqRequest.setIdTipoDocumento(Integer.parseInt(seguimientoRequest.getTipoDocumento()));
 			segEstadoReqRequest.setIdDocumento(Integer.parseInt(selectedSeguimiento.getId()));
 			segEstadoReqRequest.setNroConsolidado(selectedSeguimiento.getNroConsolidado());
 			

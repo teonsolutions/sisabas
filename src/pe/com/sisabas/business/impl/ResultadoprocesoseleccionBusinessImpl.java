@@ -12,9 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import pe.com.sisabas.be.Resultadoprocesoseleccion;
 import pe.com.sisabas.persistence.ResultadoprocesoseleccionMapper;
 import pe.com.sisabas.business.ResultadoprocesoseleccionBusiness;
-import pe.com.sisabas.dto.ProcesoRequest;
-import pe.com.sisabas.dto.ProcesoResultadoItemDesiertoDto;
-import pe.com.sisabas.dto.ProcesoResultadoItemDto;
 import pe.com.sisabas.exception.BusinessException;
 import pe.com.sisabas.exception.ValidateException;
 import pe.com.sisabas.resources.Constantes;
@@ -244,13 +241,6 @@ public class ResultadoprocesoseleccionBusinessImpl implements Resultadoprocesose
 			throw new ValidateException(Messages.getString("resultadoprocesoseleccion.idresultadoproceso.required"));
 
 		//Here Bussines Validations.
-	}
-
-	@Override
-	public List<ProcesoResultadoItemDesiertoDto> selectResultadoByEstadoByIdProcesoSeleccion(ProcesoRequest request)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return resultadoprocesoseleccionMapper.selectResultadoByEstadoByIdProcesoSeleccion(request);
 	}
 
 

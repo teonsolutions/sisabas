@@ -14,7 +14,6 @@ public class ProcesoRequest {
 	
 	//addional
 	private Integer idProcesoSeleccion;
-	private String idCatalogoEstadoResultado;
 	
 	public String getIdTipoProceso() {
 		return idTipoProceso;
@@ -82,13 +81,5 @@ public class ProcesoRequest {
 	public void setIdProcesoSeleccion(Integer idProcesoSeleccion) {
 		this.idProcesoSeleccion = idProcesoSeleccion;
 	}
-	public String getIdCatalogoEstadoResultado() {
-		return idCatalogoEstadoResultado;
-	}
-	public void setIdCatalogoEstadoResultado(String idCatalogoEstadoResultado) {
-		this.idCatalogoEstadoResultado = idCatalogoEstadoResultado;
-	}
-	
-	
 	
 }

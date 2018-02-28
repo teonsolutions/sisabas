@@ -12,8 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import pe.com.sisabas.be.Resultadoprocesoporusuario;
 import pe.com.sisabas.persistence.ResultadoprocesoporusuarioMapper;
 import pe.com.sisabas.business.ResultadoprocesoporusuarioBusiness;
-import pe.com.sisabas.dto.ProcesoResultadoItemDesiertoAsigDto;
-import pe.com.sisabas.dto.ResultadoItemsRequest;
 import pe.com.sisabas.exception.BusinessException;
 import pe.com.sisabas.exception.ValidateException;
 import pe.com.sisabas.resources.Constantes;
@@ -247,13 +245,6 @@ public class ResultadoprocesoporusuarioBusinessImpl implements Resultadoprocesop
 			throw new ValidateException(Messages.getString("resultadoprocesoporusuario.idresultadoprocesousuario.required"));
 
 		//Here Bussines Validations.
-	}
-
-	@Override
-	public List<ProcesoResultadoItemDesiertoAsigDto> selectResultadoAsignadosUsuario(ResultadoItemsRequest request)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return resultadoprocesoporusuarioMapper.selectResultadoAsignadosUsuario(request);
 	}
 
 

@@ -1,8 +1,6 @@
 package pe.com.sisabas.business;
 import java.util.List;
 import pe.com.sisabas.be.Resultadoprocesoporusuario;
-import pe.com.sisabas.dto.ProcesoResultadoItemDesiertoAsigDto;
-import pe.com.sisabas.dto.ResultadoItemsRequest;
 
 public interface ResultadoprocesoporusuarioBusiness{
 
@@ -44,7 +42,5 @@ public interface ResultadoprocesoporusuarioBusiness{
 
 	public void updateByPrimaryKeyFull(Resultadoprocesoporusuario record) throws Exception;
 
-	//CUSTOM
-	public List<ProcesoResultadoItemDesiertoAsigDto> selectResultadoAsignadosUsuario(ResultadoItemsRequest request) throws Exception;
-	
+
 }

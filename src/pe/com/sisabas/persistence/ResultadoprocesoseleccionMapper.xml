@@ -117,38 +117,11 @@
 	<result column="DescripcionEstado" property="descripcionestado" jdbcType="VARCHAR" />
 	</resultMap>
 	
-	<resultMap id="BasicResultMapDesiertoCustom" type="pe.com.sisabas.dto.ProcesoResultadoItemDesiertoDto">
-	<result column="IdResultadoProceso" property="idresultadoproceso" jdbcType="INTEGER" />
-	<result column="IdConvocatoriaProceso" property="idconvocatoriaproceso" jdbcType="INTEGER" />
-	<result column="NroItem" property="nroitem" jdbcType="VARCHAR" />
-	<result column="NombreItem" property="nombreitem" jdbcType="VARCHAR" />
-	<result column="NroRuc" property="nroruc" jdbcType="VARCHAR" />
-	<result column="NombreProveedor" property="nombreproveedor" jdbcType="VARCHAR" />
-	<result column="IdCatalogoEstadoResultado" property="idcatalogoestadoresultado" jdbcType="VARCHAR" />
-	<result column="EstadoProcesoItem" property="estadoprocesoitem" jdbcType="INTEGER" />
-	<result column="ValorReferencial" property="valorreferencial" jdbcType="DECIMAL" />
-	<result column="FechaRemision" property="fecharemision" jdbcType="DATE" />
-	<result column="DescripcionEstado" property="descripcionestado" jdbcType="VARCHAR" />
-	<result column="UsuarioAsignado" property="usuarioasignado" jdbcType="VARCHAR" />
-	<result column="NumeroAdjSimplificada" property="numeroadjsimplificada" jdbcType="VARCHAR" />
-	<result column="EsProcesado" property="esprocesado" jdbcType="VARCHAR" />
-	</resultMap>
-		
 	<resultMap id="BasicResultMapCustomSiga" type="pe.com.sisabas.dto.ProcesoResultadoItemDto">
 	<result column="ITEM" property="nroitem" jdbcType="VARCHAR" />
 	<result column="NOMBRE_ITEM" property="nombreitem" jdbcType="VARCHAR" />
 	<result column="MONTO" property="valorreferencial" jdbcType="DECIMAL" />
 	</resultMap>	
-
-	<resultMap id="ContratoSiga" type="pe.com.sisabas.dto.ContratoSigaResponse">
-	<result column="NRO_RUC" property="nroRuc" jdbcType="VARCHAR" />
-	<result column="TIPO_CONTRATO" property="tipoContrato" jdbcType="VARCHAR" />
-	<result column="NRO_CONTRATO" property="nroContrato" jdbcType="INTEGER" />
-	<result column="SEC_CONTRATO" property="secContrato" jdbcType="VARCHAR" />
-	<result column="PROVEEDOR" property="proveedor" jdbcType="INTEGER" />
-	<result column="NOMBRE_PROV" property="nombreProveedor" jdbcType="VARCHAR" />	
-	<result column="VALOR_MONEDA" property="valorMoneda" jdbcType="DOUBLE" />
-	</resultMap>		
 
 	<sql id="Basic_Column_List">
 	A1.IDRESULTADOPROCESO as A1_IDRESULTADOPROCESO, A1.IDCONVOCATORIAPROCESO as A1_IDCONVOCATORIAPROCESO, A1.IDRESULTADOPROCESOPADRE as A1_IDRESULTADOPROCESOPADRE, A1.NROITEM as A1_NROITEM, 
@@ -703,11 +676,4 @@
 		order by IdResultadoProceso asc
 	</select>		
 	
-	<select id="selectResultadoByEstadoByIdProcesoSeleccion" resultMap="BasicResultMapDesiertoCustom" parameterType="pe.com.sisabas.dto.ProcesoRequest">
-		{call abas.paProcesosResultadoPorEstadoListar(#{idProcesoSeleccion},#{idCatalogoEstadoResultado})}
-	</select>	
-		
-	<select id="selectContratoSigaByRucAndNroConsolid" resultMap="ContratoSiga" parameterType="pe.com.sisabas.dto.ContratoSigaRequest">
-		{call abas.paProcesoSBuscarProveedorContrato (#{annio}, #{nroConsolid}, #{nroRuc}, #{idUnidadEjecutoraSiaf})}		
-	</select>			
 </mapper>

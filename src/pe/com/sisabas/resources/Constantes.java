@@ -180,7 +180,6 @@ public class Constantes {
 
 		// PROCESS
 		public static final int EN_COMITE_ESPECIAL = 13;
-		public static final int BASE_APROBADA = 14;
 		public static final int REMITIDO_A_EJECUCION = 30;
 
 		// EJECUCION
@@ -191,8 +190,6 @@ public class Constantes {
 		public static final int REMITIDO_A_EJECUCION = 152;
 		public static final int REMITIDO_A_PROCESOS = 20;
 		public static final int REMITIDO_A_PROGRAMACION = 11;
-		public static final int EN_COMITE_ESPECIAL = 21;
-		public static final int BASE_APROBADA = 22;
 	}
 
 	public class estadosPorTipoDocumentoDesc {
