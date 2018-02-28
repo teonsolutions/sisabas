@@ -26,7 +26,7 @@
 			<p:outputLabel  value="Persona" for="txtIdpersona" id="lblIdpersona"/>
 		</td>
 		<td>
-			<p:inputText  id="txtIdpersona" value="#{programacion.miembrocomiteporproceso.personaIdpersona.nombres.concat(' ').concat(programacion.miembrocomiteporproceso.personaIdpersona.apellidopaterno).concat(' ').concat(programacion.miembrocomiteporproceso.personaIdpersona.apellidomaterno)}" disabled="true" required="false" maxlength="10" style="width:150px;" label="Persona"/>
+			<p:inputText  id="txtIdpersona" value="#{programacion.miembrocomiteporproceso.personaIdpersona.nombres}" disabled="true" required="false" maxlength="10" style="width:150px;" label="Persona"/>
 			<p:commandButton icon="ui-icon-search" action="#{cc_persona.init}" immediate="true" oncomplete="showDialogPF('frmRegIdpersonaBuscar:diPersonaBuscar');" update=":frmRegIdpersonaBuscar:diPersonaBuscar" style="width:20px;height:20px;"/>
 		</td>
 		<td>
