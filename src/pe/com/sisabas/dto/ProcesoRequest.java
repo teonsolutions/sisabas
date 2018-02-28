@@ -12,6 +12,7 @@ public class ProcesoRequest {
 	private Integer idSinad;
 	private Integer nroConsolid;
 	
+	
 	//addional
 	private Integer idProcesoSeleccion;
 	private String idCatalogoEstadoResultado;
