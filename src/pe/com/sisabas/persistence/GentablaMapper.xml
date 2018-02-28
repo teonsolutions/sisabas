@@ -551,4 +551,11 @@
 		ORDER BY intregorden ASC					
 	</select>	
 	
+	<select id="getEstadoRequerimientoByIdEstadosTipoDocumento" resultMap="estadoRequerimientoItems" parameterType="java.lang.Integer">
+		select t2.IdEstadosPorEtapa, t1.DescripcionEstadoPorEtapa, t2.IdEstadosPorTipoDocumento 
+		from abas.EstadosPorEtapa t1
+		inner join abas.EstadosPorTipoDocumento t2 on t2.IdEstadosPorEtapa = t1.IdEstadoPorEtapa		
+		where t2.IdEstadosPorTipoDocumento = #{idestadosportipodocumento}
+		order by t2.IdEstadosPorTipoDocumento asc						
+	</select>		
 </mapper>

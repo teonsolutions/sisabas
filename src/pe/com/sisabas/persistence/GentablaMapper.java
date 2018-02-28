@@ -52,6 +52,8 @@ public interface GentablaMapper{
 	
 	List<GentablaItemResponse> getItems(@Param("tipo") String tipo) throws Exception;
 	
+	EstadoRequerimientoResponse getEstadoRequerimientoByIdEstadosTipoDocumento(@Param("idestadosportipodocumento") Integer idestadosportipodocumento) throws Exception;
+	
 	
 
 }

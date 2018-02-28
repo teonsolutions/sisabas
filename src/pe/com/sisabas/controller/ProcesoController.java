@@ -523,10 +523,24 @@ public class ProcesoController extends BaseController {
 			request.setEquipoAuditoria(getRemoteAddr());
 			request.setEntityTransaction(processEdit);
 			Resultado result = procesoBusiness.saveProceso(request);
-			activeTabs();			
+			
+			//get proceso againt
+			//search();
+			Procesoseleccion proceso = procesoseleccionBusiness.selectByPrimaryKeyBasic(currentRow.getIdProcesoSeleccion());
+			if (proceso != null){
+				//update info
+				this.processEdit.setEstadoproceso(proceso.getEstadoproceso());
+				this.currentRow.setIdEstadoProceso(proceso.getEstadoproceso());
+				//update status
+				EstadoRequerimientoResponse estado = gentablaBusiness.getEstadoRequerimientoByIdEstadosTipoDocumento(proceso.getEstadoproceso());
+				if (estado != null) this.currentRow.setEstadoproceso(estado.getDescripcion());
+			}
+						
+			activeTabs();	
+			search();
 			REGISTER_SUCCESS();
-			showGrowlMessageSuccessfullyCompletedAction();
-
+			showGrowlMessageSuccessfullyCompletedAction();			
+			
 		} catch (ValidateException e) {
 			REGISTER_ERROR();
 			addMessageKey("msgsDocumentotecnicoR", e.getMessage(), FacesMessage.SEVERITY_ERROR);

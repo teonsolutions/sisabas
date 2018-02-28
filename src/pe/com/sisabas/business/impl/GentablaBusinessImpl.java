@@ -428,6 +428,13 @@ public class GentablaBusinessImpl implements GentablaBusiness, Serializable{
 		return lista;
 	}
 
+	@Override
+	public EstadoRequerimientoResponse getEstadoRequerimientoByIdEstadosTipoDocumento(Integer idestadosportipodocumento)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return gentablaMapper.getEstadoRequerimientoByIdEstadosTipoDocumento(idestadosportipodocumento);
+	}
+
 
 }
 

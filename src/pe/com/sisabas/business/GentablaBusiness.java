@@ -58,4 +58,6 @@ public interface GentablaBusiness{
 	public String getDescripcion(String key) throws Exception;
 	
 	public List<Gentabla> selectByTypeCustom(String type, String status) throws Exception;
+	
+	EstadoRequerimientoResponse getEstadoRequerimientoByIdEstadosTipoDocumento(Integer idestadosportipodocumento) throws Exception;
 }
