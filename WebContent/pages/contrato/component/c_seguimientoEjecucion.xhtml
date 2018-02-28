@@ -10,6 +10,16 @@
 	template="/pages/template/MasterPage.xhtml">
 	
 	<ui:define name="center">
+	<script>
+	
+
+	
+	
+	
+	</script>
+	
+	
+	
 	<p:panel id="panel">
 	<h:form id="formSeg">
 	<p:focus for="panel" />
@@ -104,7 +114,11 @@
 									value="#{contrato.listaOrden2}" var="var"
 									emptyMessage="No se encontraron registros"
 									widgetVar="tblListaOrden" selection="#{contrato.selectOrden}"
-									rowKey="#{var.nroOrden}" styleClass="gandalfTableClass">
+									rowKey="#{var.posicion}" styleClass="gandalfTableClass">
+									
+									<p:column headerText="Número" width="6%">
+										<h:outputText value="#{var.posicion}" />
+									</p:column>
 									<p:column headerText="Número Orden">
 										<f:facet name="header">
 											<h:outputText value="Número Orden"></h:outputText>
@@ -146,8 +160,8 @@
 							<table style="width: 70%; margin-left: 25%;">
 							 <tr>
 							    <td>
-							        <p:commandButton value="Agregar" icon="fa fa-save" oncomplete="PF('dialogOrden').hide()"
-							         update=":formSeg:accordion:tblListaOrden,:formSeg:accordion:tblListaPagosSiaf" actionListener="#{contrato.agregarOrden}"
+							        <p:commandButton value="Agregar" icon="fa fa-save" oncomplete="PF('dialogOrden').hide();" 
+							         update=":formSeg:accordion:tblListaOrden,:formSeg:accordion:tblListaPagosSiaf, :formSeg:diEsp, :formSeg:msgs" actionListener="#{contrato.agregarOrden}"
 							        />
 							    </td>
 							    <td><p:commandButton value="Cancelar" icon="fa fa-undo"/></td>

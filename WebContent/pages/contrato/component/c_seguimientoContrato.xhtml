@@ -195,7 +195,7 @@
 		   <tr>
 		       <td><p:outputLabel value="Ejercicio"/></td> 
 		       <td>
-		          <p:selectOneMenu  value="#{contrato.ordenListaDto.ejercicio}" style="width:150px;">						
+		          <p:selectOneMenu  value="#{contrato.ordenListaDto.ejercicio}" style="width:150px;" id="idEjercico">						
 						  <f:selectItem itemLabel="SELECCIONAR" itemValue=""/>
 						  <f:selectItems value="#{contrato.listaAnio}" />
 		          </p:selectOneMenu>	
@@ -216,7 +216,7 @@
 									widgetVar="tblListaOrden" paginator="false"
 									rows="#{sisabascontrol.registros_mant}"
 									paginatorPosition="bottom" selectionMode="single"
-									rowKey="#{var.nroOrden}" styleClass="gandalfTableClass">
+									rowKey="#{var.posicion}" styleClass="gandalfTableClass">
 									
 									<p:ajax event="rowEdit" 
 									    listener="#{contrato.onRowEdit}"
@@ -225,7 +225,7 @@
 										listener="#{contrato.onRowCancel}" update=":formSeg:msgs,formSeg:accordion:tblListaEntregable" />
 									<p:ajax event="rowSelect" listener="#{contrato.fer}" update=":formSeg:msgs,formSeg:accordion:tblListaEntregable,:formSeg:accordion:tblListaPagosSiaf" />
 									 
-                                    <p:column headerText="Número" width="4%">
+                                    <p:column headerText="Número" width="6%">
 										<h:outputText value="#{var.posicion}" />
 									</p:column>
 									<p:column headerText="Número de Orden">
@@ -249,6 +249,9 @@
 										</f:facet>
 										<h:outputText value="#{var.tipoBienDesc}" />
 									</p:column>
+									
+									<!--  
+									
 									<p:column headerText="Nro. RUC">
 										<f:facet name="header">
 											<h:outputText value="Nro. RUC"></h:outputText>
@@ -261,6 +264,9 @@
 										</f:facet>
 										<h:outputText value="#{var.nombreProveedor}" />
 									</p:column>
+									
+									-->
+									
 									<p:column headerText="Importe Orden">
 										<f:facet name="header">
 											<h:outputText value="Importe Orden"></h:outputText>
@@ -312,8 +318,14 @@
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
-									<p:column headerText="Acciones" >
+									<p:column headerText="Acciones" style="width:9%" styleClass="c_center">
 										<p:rowEditor editTitle="Editar" />
+									</p:column>
+									<p:column headerText="Eliminar" style="width:6%" styleClass="c_center" >
+										<p:commandButton icon="fa fa-trash" title="Eliminar" 
+										update="tblListaOrden, :formSeg:msgs, :formSeg:accordion:tblListaEntregable, :formSeg:accordion:tblListaPagosSiaf"
+										actionListener="#{contrato.eliminarOrden(var)}"
+										 />
 									</p:column>
 								</p:dataTable>
 			</p:panel>
@@ -331,27 +343,23 @@
 									paginatorPosition="bottom" selectionMode="single"
 									rowKey="#{var.descripcion}" styleClass="gandalfTableClass"
 									editable="true">
-
-									<!-- 
-									<p:ajax event="rowEdit" listener="{programacion.onRowEdit}"
-										update=":form:growl" />
+                                     
+									
+									<p:ajax event="rowEdit" 
+									    listener="#{contrato.onRowEdit2}"
+									    update=":formSeg:msgs,formSeg:accordion:tblListaEntregable"/>
 									<p:ajax event="rowEditCancel"
-										listener="{programacion.onRowCancel}" update=":form:growl" />
-										 -->
-									<!-- 
-									<p:column headerText="proveido">
-										<h:outputText value="UGME" />
-									</p:column>
-									 -->
+										listener="#{contrato.onRowCancel2}" update=":formSeg:msgs,formSeg:accordion:tblListaEntregable" />
+									
 									<p:column headerText="Proveido" width="8%">
 										<p:cellEditor>
 											<f:facet name="header">
 												<f:facet name="output">
-													<h:outputText value="#{var.proveido}" />
+													<h:outputText value="#{var.nroProveido}" />
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:inputText value="#{var.proveido}"
+												<p:inputText value="#{var.nroProveido}"
 													style="width:100%" label="Year" maxlength="2" />
 											</f:facet>
 										</p:cellEditor>
@@ -378,6 +386,8 @@
 										</f:facet>
 										<h:outputText value="#{var.descripcion}" />
 									</p:column>
+									
+									
 									<p:column headerText="Plazos (días)">
 										<p:cellEditor>
 											<f:facet name="header">
@@ -442,7 +452,7 @@
 												<p:selectOneMenu value="#{var.estado}"
 													id="dllIdcatalogoestadoentregable" required="false"
 													label="Estado">
-													<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+													<f:selectItem itemLabel="Seleccione" itemValue="" />
 													<f:selectItems
 														value="#{programacion.listaGentablaIdcatalogoestadoentregable}"
 														var="var1" itemLabel="#{var1.vchregdescri}"
@@ -451,6 +461,7 @@
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
+									
 									<p:column headerText="Acciones">
 										<p:rowEditor editTitle="Editar" />
 									</p:column>
