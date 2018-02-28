@@ -489,17 +489,14 @@ public class RequerimientoController extends BaseController {
 		try {
 			
 
-			System.out.println("[RequerimientoController - insertarRequerimientos] valor getNroPedido es: "
-					+ requerimientoInsertRequest.getNroPedido());
-			System.out.println("[RequerimientoController - insertarRequerimientos] valor getNumeroSinad es: "
-					+ requerimientoResponse.getNumeroSinad());
-
-
 			requerimientoInsertRequest.setNroPedido(requerimientoResponse.getNroPedido());
 			requerimientoInsertRequest.setCodUnidadEjecutora(Constantes.unidadEjecutora.PRONIED);
 			requerimientoInsertRequest.setAnoEje(2017);
 			requerimientoInsertRequest.setTipoBien(requerimientoResponse.getTipobien());
 			requerimientoInsertRequest.setIdPeriodo(1);
+			requerimientoInsertRequest.setUsuarioCreacion(getUserLogin());
+			requerimientoInsertRequest.setEquipoAuditoria(getRemoteAddr());
+			requerimientoInsertRequest.setProgramaAuditoria(pe.com.sisabas.resources.Utils.obtenerPrograma(this.getClass()));
 
 			System.out.println("Los parametros de entradas son: ");
 			System.out.println("Nro Pedido :" + requerimientoInsertRequest.getNroPedido());

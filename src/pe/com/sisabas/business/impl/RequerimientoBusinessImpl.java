@@ -312,7 +312,8 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 				estadoDoc.setNrodocumento(documentoTecnico.getIdpedido());
 				estadoDoc.setIdestadosportipodocumento(estado.getIdestadosportipodocumento());
 				estadoDoc.setFechaingreso(date);
-
+				estadoDoc.setIdtipodocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO);
+				
 				estadoDoc.setFechacreacionauditoria(date);
 				estadoDoc.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
 				estadoDoc.setEquipoauditoria(request.getEquipoAuditoria());

@@ -133,7 +133,9 @@
             #{anoEje},
             #{tipoBien},
             #{idPeriodo},
-            #{usuarioCreacion}
+            #{usuarioCreacion},
+            #{equipoAuditoria},
+            #{programaAuditoria}
       )}
    </select> 
    
