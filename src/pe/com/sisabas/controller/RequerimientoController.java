@@ -23,7 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
 
 import pe.com.sisabas.be.Comiteproceso;
 import pe.com.sisabas.be.Dependenciadocumentotecnico;
@@ -62,7 +61,6 @@ import pe.com.sisabas.resources.Messages;
 import pe.com.sisabas.resources.controller.BaseController;
 import pe.com.sisabas.service.SicuCallService;
 import pe.com.sisabas.service.Sicuusuario;
-import sun.security.action.GetLongAction;
 
 @Component(value = "requerimiento")
 @Scope(value = "session")

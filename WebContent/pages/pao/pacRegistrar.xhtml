@@ -590,12 +590,12 @@
 										listener="#{programacion.seleccionItemMiembroComite}"
 										update=":form:tabViewPao:accAprobacion:pnlBotonesMiembroComite"
 										immediate="true" />
-									<p:column styleClass="c_numeric"
+									<p:column styleClass="c_string"
 										sortBy="#{var.personaIdpersona.nombres}">
 										<f:facet name="header">
-											<h:outputText value="Persona" styleClass="c_numeric" />
+											<h:outputText value="Persona" styleClass="c_string" />
 										</f:facet>
-										<h:outputText value="#{var.personaIdpersona.nombres}" />
+										<h:outputText value="#{var.personaIdpersona.nombres.concat(' ').concat(var.personaIdpersona.apellidopaterno).concat(' ').concat(var.personaIdpersona.apellidomaterno) }" />
 									</p:column>
 									<p:column styleClass="c_center"
 										sortBy="#{var.gentablaIdcatalogotipomiembro.vchregdescri}">

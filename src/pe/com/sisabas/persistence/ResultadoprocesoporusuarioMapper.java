@@ -3,6 +3,8 @@ package pe.com.sisabas.persistence;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import pe.com.sisabas.be.Resultadoprocesoporusuario;
+import pe.com.sisabas.dto.ProcesoResultadoItemDesiertoAsigDto;
+import pe.com.sisabas.dto.ResultadoItemsRequest;
 
 public interface ResultadoprocesoporusuarioMapper{
 
@@ -30,5 +32,9 @@ public interface ResultadoprocesoporusuarioMapper{
 
 	List<Resultadoprocesoporusuario> selectDynamicExtended(Resultadoprocesoporusuario record) throws Exception;
 
+	//CUSTOM
+	List<Resultadoprocesoporusuario> selectResultadoAsignados(@Param("idresultadoproceso") java.lang.Integer idresultadoproceso) throws Exception;
+	
+	List<ProcesoResultadoItemDesiertoAsigDto> selectResultadoAsignadosUsuario(ResultadoItemsRequest request) throws Exception;
 
 }

@@ -21,8 +21,7 @@ public class ProcesoResultadoItemDto {
 	//additional
 	private String observacion;
 	private List<ItemIntResponse> destinos;
-	private String destinodescripcion;
-	
+	private String destinodescripcion;	
 	public Integer getIdresultadoproceso() {
 		return idresultadoproceso;
 	}

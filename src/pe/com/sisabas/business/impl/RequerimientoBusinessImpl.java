@@ -156,7 +156,7 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 		
 	}
 
-    @Transactional	
+	@Transactional
 	@Override
 	public Resultado guardarEspecificacionTecnica(TransactionRequest<EspecificacionTecnicaDto> request) throws Exception {
 		
@@ -297,35 +297,34 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 			//finalemnte se hace la insercicon de documento tecnico
 		//	documentotecnicoMapper.insert(documentoTecnico);
 			
-			// ESTADOS
-  			// Insertamos históricos de estados
-			Estadosportipodocumento param = new Estadosportipodocumento();
-			param.setIdtipodocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO);
-			param.setIdestadosporetapa(Constantes.estadosPorEtapa.CON_DOCUMENTO_TECNICO);
-			// Estadosportipodocumento estados =
-			// estadosportipodocumentoMapper.selectByEtapaTipoDocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO,
-			// Constantes.estadosPorEtapa.EN_REVISION_DE_DOCUMENTO_TECNICO);
-			Estadosportipodocumento estado = estadosportipodocumentoMapper.selectByEtapaTipoDocumento(param);
-			if (estado != null) {
-				java.util.Date date = new java.util.Date();
-				Estadosporetapapordocumento estadoDoc = new Estadosporetapapordocumento();
-				estadoDoc.setNrodocumento(documentoTecnico.getIdpedido());
-				estadoDoc.setIdestadosportipodocumento(estado.getIdestadosportipodocumento());
-				estadoDoc.setFechaingreso(date);
+		     // ESTADOS
+		  			// Insertamos históricos de estados
+					Estadosportipodocumento param = new Estadosportipodocumento();
+					param.setIdtipodocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO);
+					param.setIdestadosporetapa(Constantes.estadosPorEtapa.CON_DOCUMENTO_TECNICO);
+					// Estadosportipodocumento estados =
+					// estadosportipodocumentoMapper.selectByEtapaTipoDocumento(Constantes.tipoDocumento.DOCUMENTO_TECNICO,
+					// Constantes.estadosPorEtapa.EN_REVISION_DE_DOCUMENTO_TECNICO);
+					Estadosportipodocumento estado = estadosportipodocumentoMapper.selectByEtapaTipoDocumento(param);
+					if (estado != null) {
+						java.util.Date date = new java.util.Date();
+						Estadosporetapapordocumento estadoDoc = new Estadosporetapapordocumento();
+						estadoDoc.setNrodocumento(especificacionTecnica.getIdPedido());
+						estadoDoc.setIdestadosportipodocumento(estado.getIdestadosportipodocumento());
+						estadoDoc.setFechaingreso(date);
 
-				estadoDoc.setFechacreacionauditoria(date);
-				estadoDoc.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
-				estadoDoc.setEquipoauditoria(request.getEquipoAuditoria());
-				estadoDoc.setProgramaauditoria(request.getProgramaAuditoria());
+						estadoDoc.setFechacreacionauditoria(date);
+						estadoDoc.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+						estadoDoc.setEquipoauditoria(request.getEquipoAuditoria());
+						estadoDoc.setProgramaauditoria(request.getProgramaAuditoria());
 
-				// record.setIdestadosporetapapordocumento((int)utilsBusiness.getNextSeqTemporal(pe.com.sisabas.resources.Sequence.SEQ_ESTADOSPORETAPAPORDOCUMENTO).longValue());
-				estadoDoc.setIdestadosporetapapordocumento(
-						(int) utilsBusiness.getNextSeq(Sequence.SEQ_ESTADOSPORETAPAPORDOCUMENTO).longValue());
+						// record.setIdestadosporetapapordocumento((int)utilsBusiness.getNextSeqTemporal(pe.com.sisabas.resources.Sequence.SEQ_ESTADOSPORETAPAPORDOCUMENTO).longValue());
+						estadoDoc.setIdestadosporetapapordocumento(
+								(int) utilsBusiness.getNextSeq(Sequence.SEQ_ESTADOSPORETAPAPORDOCUMENTO).longValue());
 
-				estadoDoc.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
-				estadosporetapapordocumentoMapper.insert(estadoDoc);
-			}
-
+						estadoDoc.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+						estadosporetapapordocumentoMapper.insert(estadoDoc);
+					}
 			
 			
 			
@@ -482,7 +481,8 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 		
 		
 		
-		     
+
+
 		
 		return null;
 	}
