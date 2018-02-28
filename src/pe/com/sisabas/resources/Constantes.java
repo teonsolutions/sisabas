@@ -300,4 +300,5 @@ public class Constantes {
 		public static final int ASIGNADO_ESPECIALISTA = 5;
 		public static final int CERRADO_POR_OTRO_PROCESO = 6;		
 	}
+	
 }
