@@ -1,6 +1,11 @@
 package pe.com.sisabas.business;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import pe.com.sisabas.be.Orden;
+import pe.com.sisabas.dto.OrdenDto;
+import pe.com.sisabas.dto.OrdenListaDto;
 
 public interface OrdenBusiness{
 
@@ -41,6 +46,9 @@ public interface OrdenBusiness{
 	public void updateByPrimaryKeyBasic(Orden record) throws Exception;
 
 	public void updateByPrimaryKeyFull(Orden record) throws Exception;
+	
+	public List<OrdenDto> getListaOrden(OrdenListaDto request) throws Exception;
 
-
+	List<Orden> getOrdenByIdContrato(@Param("idContrato") java.lang.Integer idContrato) throws Exception;
+	
 }

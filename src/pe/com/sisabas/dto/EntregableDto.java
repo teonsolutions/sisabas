@@ -10,7 +10,6 @@ public class EntregableDto implements  Serializable,Cloneable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String proveido;
 	private Date fecha;
 	private String descripcion;
 	private String plazo;
@@ -25,18 +24,18 @@ public class EntregableDto implements  Serializable,Cloneable{
 	private BigDecimal montoEntregable;
 	private String Idcatalogoestadoentregable;
 	private Integer anio;
+	private Integer idEntregable;
 	
 	//auditoria
 	private String equipoAuditoria;
 	private String programaAuditoria;
 	private String usuarioAuditoria;
 	
-	public String getProveido() {
-		return proveido;
-	}
-	public void setProveido(String proveido) {
-		this.proveido = proveido;
-	}
+	
+	//en memoria
+	private boolean memoria;
+	
+	
 	public Date getFecha() {
 		return fecha;
 	}
@@ -140,7 +139,17 @@ public class EntregableDto implements  Serializable,Cloneable{
 	public void setUsuarioAuditoria(String usuarioAuditoria) {
 		this.usuarioAuditoria = usuarioAuditoria;
 	}
-	
-	
+	public Integer getIdEntregable() {
+		return idEntregable;
+	}
+	public void setIdEntregable(Integer idEntregable) {
+		this.idEntregable = idEntregable;
+	}
+	public boolean isMemoria() {
+		return memoria;
+	}
+	public void setMemoria(boolean memoria) {
+		this.memoria = memoria;
+	}
 
 }

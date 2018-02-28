@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import pe.com.sisabas.be.Orden;
 import pe.com.sisabas.persistence.OrdenMapper;
 import pe.com.sisabas.business.OrdenBusiness;
+import pe.com.sisabas.dto.OrdenDto;
+import pe.com.sisabas.dto.OrdenListaDto;
 import pe.com.sisabas.exception.BusinessException;
 import pe.com.sisabas.exception.ValidateException;
 import pe.com.sisabas.resources.Constantes;
@@ -245,6 +247,18 @@ public class OrdenBusinessImpl implements OrdenBusiness, Serializable{
 			throw new ValidateException(Messages.getString("orden.idorden.required"));
 
 		//Here Bussines Validations.
+	}
+
+	@Override
+	public List<OrdenDto> getListaOrden(OrdenListaDto request) throws Exception {
+		
+		return ordenMapper.getListaOrden(request);
+	}
+
+	@Override
+	public List<Orden> getOrdenByIdContrato(Integer idContrato) throws Exception {
+		
+		return ordenMapper.getOrdenByIdContrato(idContrato);
 	}
 
 

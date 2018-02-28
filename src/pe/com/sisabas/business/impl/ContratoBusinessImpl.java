@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import pe.com.sisabas.be.Contrato;
 import pe.com.sisabas.be.ContratoRequest;
@@ -16,6 +17,7 @@ import pe.com.sisabas.be.Entregable;
 import pe.com.sisabas.be.Estadosporetapapordocumento;
 import pe.com.sisabas.be.Estadosportipodocumento;
 import pe.com.sisabas.be.Evaluaciondocumento;
+import pe.com.sisabas.be.Grupodocumento;
 import pe.com.sisabas.be.Orden;
 import pe.com.sisabas.business.ContratoBusiness;
 import pe.com.sisabas.dto.ContratoDto;
@@ -29,6 +31,7 @@ import pe.com.sisabas.persistence.EntregableMapper;
 import pe.com.sisabas.persistence.EstadosporetapapordocumentoMapper;
 import pe.com.sisabas.persistence.EstadosportipodocumentoMapper;
 import pe.com.sisabas.persistence.EvaluaciondocumentoMapper;
+import pe.com.sisabas.persistence.GrupodocumentoMapper;
 import pe.com.sisabas.persistence.OrdenMapper;
 import pe.com.sisabas.resources.business.UtilsBusiness;
 import pe.com.sisabas.resources.Sequence;
@@ -60,6 +63,9 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 	public EstadosporetapapordocumentoMapper estadosporetapapordocumentoMapper;
 	
 	@Autowired
+	public GrupodocumentoMapper grupodocumentoMapper;	
+	
+	@Autowired
 	public UtilsBusiness utilsBusiness;
 
 	private static final long serialVersionUID = 1L;
@@ -84,6 +90,7 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 		record.setIdcontrato((int)utilsBusiness.getNextSeq(Sequence.SEQ_SISABAS).longValue());
 		record.setFechacreacionauditoria(Utils.currentTimeStamp());
 		record.setEstadoauditoria("1");
+		System.out.println("f:"+record.getUsuariocreacionauditoria());
 		updateBooleanToChar(record);
 		validateInsert(record);
 		Utils.convertPropertiesStringToUppercase(record);
@@ -258,6 +265,7 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 	
 	
 	@Override
+	@Transactional
 	public void actualizarContrato(ContratoDto request) throws Exception {
 		
 		Contrato contrato = new Contrato();
@@ -311,8 +319,6 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 		contrato.setProgramaauditoria(request.getProgramaAuditoria());
 		contrato.setEstadoauditoria(request.getEstadoAudtoria());
 		
-	
-		
 		contrato.setIdcatalogosistemaadquisicion(request.getIdCatalogoSistemaAdquisicion());
 		contrato.setPlazoejecucion(request.getPlazoEjecucion());
 		contrato.setDniabogado(request.getDniAbogado());
@@ -320,11 +326,225 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 		contrato.setRutacontrato(request.getRutaContrato());
 		contrato.setIdcatalogotipobien(request.getIdCatalogoTipoBien());
 		
-		
 		contratoMapper.updateByPrimaryKey(contrato);
-		
+	
+		List<OrdenDto> ordenes = request.getListaOrden();
+		OrdenDto ordenDto = null;
+		Integer idOrden;
+		Integer idgrupodocumento;
+		for (int i = 0; i < ordenes.size(); i++) {
+			ordenDto = ordenes.get(i);
+			if (ordenDto.getIdOrden() != null) {
+				// Update
+				Orden ordenEdit = ordenMapper.selectByPrimaryKeyBasic(ordenDto.getIdOrden());
+				idgrupodocumento = ordenEdit.getIdgrupodocumento();
+				ordenEdit.setFechainicioprestacion(ordenDto.getFechaInicioPrestacion());
+				ordenEdit.setFechafinprestacion(ordenDto.getFechaFinPrestacion());
+				ordenEdit.setAnio(ordenDto.getAnio());
+				ordenEdit.setEstadoexpedientesiaf(Integer.parseInt(ordenDto.getIdEstadoSiaf()));
+				ordenEdit.setEstadoorden(ordenDto.getEstadoOrden());
+				ordenEdit.setMoneda(ordenDto.getMoneda());
+				ordenEdit.setPlazoejecucion(ordenDto.getPlazo());
+				ordenEdit.setFechainicioprestacion(ordenDto.getFechaInicioPrestacion());
+				// ordenEdit.setEstadoorden(estadoorden); TODO: CHECK
 
+				// Audit
+				ordenEdit.setFechamodificacionauditoria(new Date());
+				//ordenEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
+				ordenEdit.setProgramaauditoria(request.getProgramaAuditoria());
+				ordenEdit.setEquipoauditoria(request.getEquipoAuditoria());
+				ordenMapper.updateByPrimaryKey(ordenEdit);
+				idOrden = ordenEdit.getIdorden();
+			} else {
+				// Insert grupo
+				// Inserta grupo documento
+				
+				Grupodocumento grupodocumento = new Grupodocumento();
+				idgrupodocumento = (int) utilsBusiness.getNextSeq(Sequence.SEQ_GRUPODOCUMENTO).longValue();
+				grupodocumento.setIdgrupodocumento(idgrupodocumento);
+				grupodocumento.setAnio(ordenDto.getAnio());
+				grupodocumento.setCodigocentrocosto(ordenDto.getCodigoCentroCosto());
+				//grupodocumento.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+				grupodocumento.setProgramaauditoria(request.getProgramaAuditoria());
+				grupodocumento.setEquipoauditoria(request.getEquipoAuditoria());
+				grupodocumento.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+				grupodocumentoMapper.insert(grupodocumento);
+
+				// Insert
+				
+				System.out.println("v1: "+ordenDto.getEstadoSiafDesc());
+				System.out.println("v2: "+ordenDto.getEstadoOrden());
+				System.out.println("v3: "+ordenDto.getIdEstadoSiaf());
+				System.out.println("v4: "+ordenDto.getNroExpedienteSiaf());
 		
+				Orden ordenNew = new Orden();
+				ordenNew.setIdgrupodocumento(idgrupodocumento);
+				ordenNew.setFechainicioprestacion(ordenDto.getFechaInicioPrestacion());
+				ordenNew.setFechafinprestacion(ordenDto.getFechaFinPrestacion());
+				ordenNew.setAnio(ordenDto.getAnio());
+				ordenNew.setEstadoexpedientesiaf(Integer.parseInt(ordenDto.getIdEstadoSiaf()));
+				ordenNew.setEstadoorden(ordenDto.getEstadoOrden());
+				ordenNew.setMoneda(ordenDto.getMoneda());
+				ordenNew.setPlazoejecucion(ordenDto.getPlazo());
+				ordenNew.setIdpacconsolidado(ordenDto.getIdPacConsolidado());
+
+				// Orden data
+				ordenNew.setNroorden(ordenDto.getNroOrden().toString()); // verificar
+																			// nro
+																			// type
+				ordenNew.setFechaorden(ordenDto.getFechaOrden());
+				ordenNew.setAnioorden(ordenDto.getAnio());
+				ordenNew.setNroexpedientesiaf(ordenDto.getNroExpedienteSiaf().toString());
+				ordenNew.setMoneda(ordenDto.getMoneda());
+				
+				double monto = ordenDto.getTotalFactSoles();
+				BigDecimal bigmontonew = new BigDecimal(monto);
+				ordenNew.setMontoorden(Utils.round(bigmontonew));
+				
+				ordenNew.setIdcatalogotipobien(ordenDto.getIdTipoBien());
+				ordenNew.setIdunidadejecutora(ordenDto.getIdUnidadEjecutora());
+
+				// Audit
+				ordenNew.setFechacreacionauditoria(new Date());
+				//ordenNew.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+				ordenNew.setProgramaauditoria(request.getProgramaAuditoria());
+				ordenNew.setEquipoauditoria(request.getEquipoAuditoria());
+				ordenNew.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+				ordenNew.setUsuariocreacionauditoria(ordenDto.getUsuarioCreacionAuditoria());
+			
+				
+				//NUEVOS CAMPOS
+				ordenNew.setIdcontrato(contrato.getIdcontrato());
+				ordenNew.setNrocontrato(contrato.getNrocontrato().toString());
+				
+				idOrden = (int) utilsBusiness.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_CUADROCOMPARATIVOVR)
+						.longValue();
+				ordenNew.setIdorden(idOrden);
+				ordenMapper.insert(ordenNew);
+			}
+			/* delete details
+			List<Entregable> entregablesDelete = entregableMapper.getEntegablesByOrden(ordenDto.getIdOrden());
+			
+			System.out.println("Tamanio:" +ordenDto.getEntregables().size());
+			
+			if(ordenDto.getEntregables()!=null){
+				for (EntregableDto item : ordenDto.getEntregables()) {
+					for (Entregable delete : entregablesDelete) {
+						if (item.getIdEntregable() == delete.getIdentregable()) {
+							delete.setEstadoauditoria("Keep");
+						}
+					}
+				}
+			}
+			
+			
+			for (Entregable entregable : entregablesDelete) {
+				if (!entregable.getEstadoauditoria().equals("Keep")) {
+					entregableMapper.deleteByPrimaryKey(entregable.getIdentregable());
+				}
+			}
+			*/
+
+			if(ordenDto.getEntregables()!=null){
+				// save details
+				for (int j = 0; j < ordenDto.getEntregables().size(); j++) {
+					EntregableDto entregable = ordenDto.getEntregables().get(j);
+					if (entregable.getIdEntregable() != null) {
+						// Update
+						Entregable entregableEdit = entregableMapper.selectByPrimaryKeyBasic(entregable.getIdEntregable());
+						if (entregableEdit != null) {
+							
+							entregableEdit.setNroentregable(entregable.getDescripcion());
+							entregableEdit.setPlazoentregable(entregable.getPlazo());
+							entregableEdit.setMontoentregable(entregable.getImporte());
+							entregableEdit.setMontopenalidadentregable(entregable.getMontoPenalidad());
+							entregableEdit.setFechapresentacionentregable(entregable.getFecha());
+							entregableEdit.setObservacionesentregable(entregable.getObservacion());
+							entregableEdit.setIdcatalogoestadoentregable(entregable.getIdcatalogoestadoentregable());
+							
+							
+							entregableEdit.setNroproveido(entregable.getNroProveido());
+			
+							entregableEdit.setIdcatalogoestadoentregable(entregable.getEstado());
+						
+							
+							// Audit
+							//entregableEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
+							entregableEdit.setFechamodificacionauditoria(new Date());
+							entregableMapper.updateByPrimaryKey(entregableEdit);
+						}
+					} else {
+						// Insert
+
+						Entregable entregableNew = new Entregable();
+						entregableNew.setNroentregable(entregable.getDescripcion());
+						entregableNew.setPlazoentregable(entregable.getPlazo());
+						entregableNew.setMontoentregable(entregable.getImporte());
+						entregableNew.setMontopenalidadentregable(entregable.getMontoPenalidad());
+						entregableNew.setFechapresentacionentregable(entregable.getFecha());
+						entregableNew.setObservacionesentregable(entregable.getObservacion());
+						entregableNew.setIdcatalogoestadoentregable(entregable.getIdcatalogoestadoentregable());					
+						
+						entregableNew.setIdorden(idOrden);
+						entregableNew.setIdgrupodocumento(idgrupodocumento);
+						entregableNew.setAnio(ordenDto.getAnio());
+	
+						entregableNew.setNroproveido(entregable.getNroProveido());
+						
+						entregableNew.setIdcatalogoestadoentregable(entregable.getEstado());
+						
+						// Audit
+						//entregable.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
+						entregableNew.setFechacreacionauditoria(new Date());
+						entregableNew.setEquipoauditoria(request.getEquipoAuditoria());
+						entregableNew.setProgramaauditoria(request.getProgramaAuditoria());
+						entregableNew.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
+						entregableNew.setIdentregable((int) utilsBusiness
+								.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_ENTREGABLE).longValue());
+						entregableMapper.insert(entregableNew);
+					}
+				}
+			
+			 }
+			
+			
+				
+			}
+			
+		   List<OrdenDto> listaEliminar = request.getOrdenesEliminar();
+		   
+		   if(listaEliminar != null){
+			
+			  for(int i = 0; i < listaEliminar.size(); i++){
+				if(listaEliminar.get(i).getIdContrato()!=null){
+					
+					if(listaEliminar.get(i).getEntegables()!=null){
+						for(int j = 0; j < listaEliminar.get(i).getEntegables().size(); j++){
+							Entregable entregable1 = entregableMapper.selectByPrimaryKeyBasic(listaEliminar.get(i).getEntegables().get(j).getIdentregable());
+							if(entregable1!=null){
+								entregableMapper.deleteByPrimaryKey(entregable1.getIdentregable());
+							}
+						}
+						
+					}
+
+					Orden orden1=ordenMapper.selectByPrimaryKeyBasic(listaEliminar.get(i).getIdOrden());
+					if(orden1!=null){
+						ordenMapper.deleteByPrimaryKey(orden1.getIdorden());
+					}
+					
+				}
+				
+				
+			 }
+			
+			
+			
+			
+			
+		}
+
+		/*
 		if(request.getListaOrden()!=null){
 			System.out.println(request.getListaOrden().size());
 			for(int i=0; i<request.getListaOrden().size();i++){
@@ -356,7 +576,7 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 				
 				orden.setNroproceso(String.valueOf(request.getNroProceso()));
 				orden.setNrocontrato(String.valueOf(request.getNroContrato()));
-				orden.setFechainicioprestacion(request.getListaOrden().get(i).getFechainicioprestacion());
+				orden.setFechainicioprestacion(request.getListaOrden().get(i).getFechaInicioPrestacion());
 				orden.setIdcatalogotipobien(request.getListaOrden().get(i).getIdCatalogoTipoBien());
 				orden.setFechafinprestacion(request.getListaOrden().get(i).getFechaFinPrestacion());
 				orden.setPlazoejecucion(request.getPlazoEjecucion());
@@ -366,8 +586,11 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 				orden.setIdunidadejecutora(request.getListaOrden().get(i).getIdUnidadEjecutora());
 				orden.setEquipoauditoria(request.getListaOrden().get(i).getEquipoAuditoria());
 				
-				System.out.println("orden 4 = "+orden.getIdcontrato());
+				
 				ordenMapper.insert(orden);
+				
+				
+				
 				
 				if(request.getListaOrden().get(i).getEntregables()!=null){
 					System.out.println("tamanio de orden:" +request.getListaOrden().size());
@@ -412,10 +635,11 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 				
 					
 				}
-				
-				
+
 				
 			}
+		
+		*/
 	
 
 		}

@@ -41,6 +41,8 @@ public interface EntregableBusiness{
 	public void updateByPrimaryKeyBasic(Entregable record) throws Exception;
 
 	public void updateByPrimaryKeyFull(Entregable record) throws Exception;
+	
+	public List<Entregable> getEntegablesByOrden(java.lang.Integer par_idorden) throws Exception;
 
 
 }

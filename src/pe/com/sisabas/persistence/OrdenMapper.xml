@@ -919,5 +919,10 @@
 		select * from abas.Orden where IdPacConsolidado = (#{idPacConsolidado})		
 	</select>	
 	
+	<select id="getOrdenByIdContrato" resultMap="BasicResultMap" statementType="CALLABLE" parameterType="java.lang.Integer">
+	    select * from abas.Orden where IdContrato = (#{idContrato})	
+	</select>
+	
+	
 
 </mapper>

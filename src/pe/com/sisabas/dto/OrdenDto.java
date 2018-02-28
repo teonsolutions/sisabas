@@ -28,7 +28,6 @@ public class OrdenDto implements Serializable,Cloneable{
 	private Integer idContrato;	
 	private String nroProceso;
 	private String nroContrato;
-	private Date fechainicioprestacion;
 	private String idCatalogoTipoBien;
 	
 	//Additional
@@ -59,6 +58,13 @@ public class OrdenDto implements Serializable,Cloneable{
 	private String equipoAuditoria;
 	private String programaAuditoria;
 	private String usuarioAuditoria;
+	private Date fechaCreacionAudioria;
+	private String usuarioCreacionAuditoria;
+	
+	//seleccionado
+	
+	private boolean selected;
+	
 
 	public Integer getIdOrden() {
 		return idOrden;
@@ -356,14 +362,6 @@ public class OrdenDto implements Serializable,Cloneable{
 	}
 
 
-	public Date getFechainicioprestacion() {
-		return fechainicioprestacion;
-	}
-
-
-	public void setFechainicioprestacion(Date fechainicioprestacion) {
-		this.fechainicioprestacion = fechainicioprestacion;
-	}
 
 
 	public String getIdCatalogoTipoBien() {
@@ -433,6 +431,36 @@ public class OrdenDto implements Serializable,Cloneable{
 
 	public void setSeguimientoPagosResponse(List<SeguimientoPagosResponse> seguimientoPagosResponse) {
 		this.seguimientoPagosResponse = seguimientoPagosResponse;
+	}
+
+
+	public Date getFechaCreacionAudioria() {
+		return fechaCreacionAudioria;
+	}
+
+
+	public void setFechaCreacionAudioria(Date fechaCreacionAudioria) {
+		this.fechaCreacionAudioria = fechaCreacionAudioria;
+	}
+
+
+	public String getUsuarioCreacionAuditoria() {
+		return usuarioCreacionAuditoria;
+	}
+
+
+	public void setUsuarioCreacionAuditoria(String usuarioCreacionAuditoria) {
+		this.usuarioCreacionAuditoria = usuarioCreacionAuditoria;
+	}
+
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 
 

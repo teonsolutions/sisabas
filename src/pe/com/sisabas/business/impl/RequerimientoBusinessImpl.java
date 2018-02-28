@@ -194,7 +194,6 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 		    documentoTecnico.setNropac(especificacionTecnica.getNroPac());
 		    documentoTecnico.setNroanexoresponsable(especificacionTecnica.getNroAnexo());
 		    documentoTecnico.setRutaanexo(especificacionTecnica.getRutaAnexo());
-		    System.err.println("ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo el valor deIdCatalogoTipoDocumentoTecnico() es :"+especificacionTecnica.getIdCatalogoTipoDocumentoTecnico());
 		    documentoTecnico.setIdcatalogotipodocumentotecnico(especificacionTecnica.getIdCatalogoTipoDocumentoTecnico());
 		    
 		    System.err.println("-----------------------------------------[Business]rutaAnexo es:----------------------------------- = "+documentoTecnico.getRutaanexo());
@@ -406,8 +405,6 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 		    			
 		    			
 		    			plazopagodocumentotecnico2.setPorcentajeavance(especificacionTecnica.getPagos().get(i).getPorcentaje());
-		    			System.out.println("ooo PorcentajeAvance " + plazopagodocumentotecnico2.getPorcentajeavance());
-		    			System.out.println("ooo Cronograma" + plazopagodocumentotecnico2.getCronograma());
 		    			plazoPagoMapper.updateByPrimaryKey(plazopagodocumentotecnico2);
 		    		}else
 		    		{

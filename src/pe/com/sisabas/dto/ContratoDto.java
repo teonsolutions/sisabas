@@ -60,6 +60,7 @@ public class ContratoDto implements  Serializable,Cloneable{
 	
 	
 	private List<OrdenDto> listaOrden;
+	private List<OrdenDto> ordenesEliminar;
 	
 	
 	public String getTienePrevision() {
@@ -313,6 +314,12 @@ public class ContratoDto implements  Serializable,Cloneable{
 	}
 	public void setNroProceso(Integer nroProceso) {
 		this.nroProceso = nroProceso;
+	}
+	public List<OrdenDto> getOrdenesEliminar() {
+		return ordenesEliminar;
+	}
+	public void setOrdenesEliminar(List<OrdenDto> ordenesEliminar) {
+		this.ordenesEliminar = ordenesEliminar;
 	}
 	
 	

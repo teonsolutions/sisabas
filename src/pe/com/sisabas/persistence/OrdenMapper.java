@@ -38,7 +38,11 @@ public interface OrdenMapper{
 	
 	List<Orden> getOrdenByPacConsolid(@Param("idPacConsolidado") java.lang.Integer idPacConsolidado) throws Exception;
 	
+	List<Orden> getOrdenByIdContrato(@Param("idContrato") java.lang.Integer idContrato) throws Exception;
+	
 	List<OrdenDto> getListaOrden(OrdenListaDto request) throws Exception;
+	
+	
 	
 
 }

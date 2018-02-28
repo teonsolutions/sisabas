@@ -243,6 +243,12 @@ public class EntregableBusinessImpl implements EntregableBusiness, Serializable{
 		//Here Bussines Validations.
 	}
 
+	@Override
+	public List<Entregable> getEntegablesByOrden(Integer par_idorden) throws Exception {
+		return entregableMapper.getEntegablesByOrden(par_idorden);
+		
+	}
+
 
 }
 

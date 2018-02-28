@@ -9,7 +9,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
+
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.FileUploadEvent;
@@ -30,8 +30,10 @@ import pe.com.sisabas.be.Orden;
 import pe.com.sisabas.be.Procesoseleccion;
 import pe.com.sisabas.be.Unidadejecutora;
 import pe.com.sisabas.business.ContratoBusiness;
+import pe.com.sisabas.business.EntregableBusiness;
 import pe.com.sisabas.business.EvaluaciondocumentoBusiness;
 import pe.com.sisabas.business.GentablaBusiness;
+import pe.com.sisabas.business.OrdenBusiness;
 import pe.com.sisabas.business.ProcesoseleccionBusiness;
 import pe.com.sisabas.business.ProgramacionBusiness;
 import pe.com.sisabas.business.VcentrocostoBusiness;
@@ -44,6 +46,7 @@ import pe.com.sisabas.dto.OrdenDto;
 import pe.com.sisabas.dto.OrdenListaDto;
 import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
+import pe.com.sisabas.dto.RequisitoConformidadDto;
 import pe.com.sisabas.dto.SegRequest;
 import pe.com.sisabas.dto.SegResponse;
 import pe.com.sisabas.dto.SeguimientoPagosResponse;
@@ -51,7 +54,6 @@ import pe.com.sisabas.exception.SecurityRestrictedControlException;
 import pe.com.sisabas.exception.SecuritySessionExpiredException;
 import pe.com.sisabas.exception.SecurityValidateException;
 import pe.com.sisabas.exception.UnselectedRowException;
-import pe.com.sisabas.persistence.OrdenMapper;
 import pe.com.sisabas.resources.Constantes;
 import pe.com.sisabas.resources.Messages;
 import pe.com.sisabas.resources.Sequence;
@@ -66,7 +68,7 @@ public class ContratoController extends BaseController {
 	
 	private Integer seqContrato;
 
-	private List<EntregableDto> listaEntregable;
+	private static List<EntregableDto> listaEntregable=new ArrayList<>();
 
 	private static List<SeguimientoPagosResponse> detallePago=new ArrayList<>();
 
@@ -85,6 +87,8 @@ public class ContratoController extends BaseController {
 	public List<Gentabla> listaGentablaIdcatalogoestadodocumentacion;
 
 	private static List<OrdenDto> listaOrden = new ArrayList<>();
+	private static List<OrdenDto> ordenesEliminar = new ArrayList<>();
+	
 
 	private List<OrdenDto> listaOrden2 = new ArrayList<>();
 
@@ -104,9 +108,18 @@ public class ContratoController extends BaseController {
 
 	@Autowired
 	private ContratoBusiness contratoBusiness;
+	
+	@Autowired
+	private OrdenBusiness ordenBusiness;
 
 	@Autowired
 	private ProcesoseleccionBusiness procesoseleccionBusiness;
+	
+	@Autowired
+	private EntregableBusiness entregableBusiness;
+	
+	@Autowired
+	AdendaController adendaController;
 
 	private ContratoRequest contratoRequest;
 
@@ -135,9 +148,6 @@ public class ContratoController extends BaseController {
 	private String tituloParam;
 	private String estadodocumentacion;
 	private Evaluaciondocumento evaldocumento;
-
-	@Autowired
-	private OrdenMapper ordenMapper;
 
 	@Autowired
 	public EvaluaciondocumentoBusiness evalDocumentoBusiness;
@@ -247,8 +257,10 @@ public class ContratoController extends BaseController {
 	public void actualizarContrato() {
 
 		try {
-			if (listaSeguimiento.size() > 0) {
+			if (listaSeguimiento.size() > 0) {	
 				
+				
+
 				ContratoDto contratoDto = new ContratoDto();
 				
 				
@@ -260,8 +272,6 @@ public class ContratoController extends BaseController {
 				
 				contrato1 = contratoBusiness.selectByPrimaryKeyBasic(idContrato);
 
-				System.err.println("rutacontrato es: " + this.contrato.getRutacontrato());
-				System.err.println("Adquisicion es: " + listaSeguimiento.get(0).getIdCatalogoSistemaAdquisicion());
 				
 				//recuperado
 				
@@ -317,20 +327,27 @@ public class ContratoController extends BaseController {
 				contratoDto.setRutaContrato(this.contrato.getRutacontrato());
 				
 				contratoDto.setNroProceso(listaSeguimiento.get(0).getNroProceso());
-		
 				
 				
 				//actualizar entregables
-				System.out.println("dfdsfdsfdsf "+listaEntregable.get(0).getProveido());
-				
+
+				/*
 				if(listaOrden!=null){
+				System.out.println("tam lista:"+listaOrden.size());
+				System.out.println(listaOrden.get(0).getEntregables().get(0).getNroProveido());
+				System.out.println(listaOrden.get(1).getEntregables().get(0).getNroProveido());
 				
+				
+		
 					for(int i=0;i<listaOrden.size();i++){
 						
 						if(listaOrden.get(i).getEntregables()!=null){
 							for(int e=0;e<listaOrden.get(i).getEntregables().size();e++){
 								
-								listaOrden.get(i).getEntregables().get(e).setNroProveido(listaEntregable.get(e).getProveido());
+								System.err.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ 1="+listaEntregable.get(e).getNroProveido());
+				
+								System.out.println("i="+i+ "  e="+e);
+								listaOrden.get(i).getEntregables().get(e).setNroProveido(listaEntregable.get(e).getNroProveido());
 								listaOrden.get(i).getEntregables().get(e).setFecha(listaEntregable.get(e).getFecha());
 								listaOrden.get(i).getEntregables().get(e).setDescripcion(listaEntregable.get(e).getDescripcion());
 								listaOrden.get(i).getEntregables().get(e).setPlazo(listaEntregable.get(e).getPlazo());
@@ -338,26 +355,40 @@ public class ContratoController extends BaseController {
 								listaOrden.get(i).getEntregables().get(e).setMontoPenalidad(listaEntregable.get(e).getMontoPenalidad());
 								listaOrden.get(i).getEntregables().get(e).setObservacion(listaEntregable.get(e).getObservacion());
 								listaOrden.get(i).getEntregables().get(e).setEstado(listaEntregable.get(e).getEstado());
+								listaOrden.get(i).getEntregables().get(e).setMontoEntregable(listaEntregable.get(e).getMontoEntregable());
 								
+								//listaOrden.get(0).setEntregables(entregables);
 							}
 						}
 						
 					}
 				
+				}*/
+		
+				
+				//System.out.println(listaOrden.get(1).getEntregables().get(0).getNroProveido());
+				//System.out.println(listaEntregable.get(0).getNroProveido());
+			    
+				for (int i = 0; i < listaOrden.size(); i++) {
+				
+					//listaOrden.get(i).setEntregables(listaEntregable);
+					listaOrden.get(i).setUsuarioCreacionAuditoria(getUserLogin());
+					listaOrden.get(i).setEquipoAuditoria(getRemoteAddr());
+					
 				}
 				
-				
-				
 				contratoDto.setListaOrden(listaOrden);
-				showGrowlMessageSuccessfullyCompletedAction();
+				contratoDto.setOrdenesEliminar(ordenesEliminar);
+				
 				contratoBusiness.actualizarContrato(contratoDto);
-				
-				
+				showGrowlMessageSuccessfullyCompletedAction();
+					
 			
 			}
 
 		} catch (Exception e) {
 			System.err.println("Error :"+e.getMessage());
+		
 		}
 
 	}
@@ -366,7 +397,10 @@ public class ContratoController extends BaseController {
 	
 	
 	private void generateEntregable1(int armadas, OrdenDto ordenDto) {
-		listaEntregable = new ArrayList<EntregableDto>();
+		
+		if (listaEntregable == null)
+			 listaEntregable = new ArrayList<EntregableDto>();
+		
 		int nroEntregables = this.listaEntregable.size();
 
 		if (armadas > nroEntregables) {
@@ -375,15 +409,15 @@ public class ContratoController extends BaseController {
 				item.setDescripcion("Pago " + (i + nroEntregables));
 				item.setIdGrupoDocumento(ordenDto.getIdGrupoDocumento());
 				item.setUsuarioAuditoria(getUserLogin());
-				//item.setIdOrden(orden1.getIdOrden());
-				this.listaEntregable.add(item);
+				item.setIdOrden(orden1.getIdOrden());
+				ContratoController.listaEntregable.add(item);
 				item.setEquipoAuditoria(getRemoteAddr());
 
 				System.out.println("################ id orden::" + orden1.getIdOrden());
 				
 			}
 		} else if (armadas < nroEntregables) {
-			this.listaEntregable.clear();
+			ContratoController.listaEntregable.clear();
 			// nroEntregables - armadas
 			for (int i = 1; i <= armadas; i++) {
 				EntregableDto item = new EntregableDto();
@@ -391,8 +425,9 @@ public class ContratoController extends BaseController {
 				item.setIdGrupoDocumento(ordenDto.getIdGrupoDocumento());
 				item.setUsuarioAuditoria(getUserLogin());
 				item.setEquipoAuditoria(getRemoteAddr());
-				//item.setIdOrden(orden1.getIdOrden());
-				this.listaEntregable.add(item);
+				item.setIdOrden(orden1.getIdOrden());
+				
+				ContratoController.listaEntregable.add(item);
 				System.out.println("$$$$$$$$$$$$$$$$$$ id orden::" + orden1.getIdOrden());
 			}
 		}		
@@ -469,22 +504,7 @@ public class ContratoController extends BaseController {
 
 	}
 
-	public void ordenBuscar() {
-		try {
-			ordenListaDto.setEjercicio(ordenListaDto.getEjercicio());
-			ordenListaDto.setNroOrden(ordenListaDto.getNroOrden());
-
-			System.err.println("----------EL valor de ejercicio es ------------ " + ordenListaDto.getEjercicio());
-			System.err.println("----------EL valor de nro orden es ------------ " + ordenListaDto.getNroOrden());
-			listaOrden2 = ordenMapper.getListaOrden(ordenListaDto);
-
-		} catch (Exception e) {
-			// TODO: handle exception
-
-		}
-
-	}
-
+	
 	public void handleFileUpload(FileUploadEvent event) {
 
 		try {
@@ -518,18 +538,22 @@ public class ContratoController extends BaseController {
 	public void obtenerSeguimiento() {
 
 		try {
+			
+			//limpiar inicio
 
+			listaEntregable.clear();
+			listaOrden.clear();
+			
+			
+			//.....
+			
+			
 			listaAnio = contratoBusiness.listEjercicio();
 			System.out.println("****************** el tamanio es " + listaAnio.size());
-			for (int j = 0; j < listaAnio.size(); j++) {
-				System.err.println("anio =" + listaAnio.get(j));
-
-			}
 
 			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
 
-			procesoSeleccion = procesoseleccionBusiness
-					.selectByPrimaryKeyBasic(contratoResponse.getIdProcesoSeleccion());
+			procesoSeleccion = procesoseleccionBusiness.selectByPrimaryKeyBasic(contratoResponse.getIdProcesoSeleccion());
 			System.err.println("Metodo obtenerSeguimiento");
 			segRequest.setCodUnidadEjecutora(Constantes.unidadEjecutora.PRONIED);
 			segRequest.setIdContrato(contratoResponse.getIdContrato());
@@ -540,17 +564,138 @@ public class ContratoController extends BaseController {
 
 			listaSeguimiento = contratoBusiness.ObtenerSeguimiento(segRequest);
 
-		
 			
+			/********************************** cargar orden ***********************/
+			List<Orden> tempListaOrden=new ArrayList<>();
+			System.out.println("get id contrato :"+contratoResponse.getIdContrato());
 			
+			tempListaOrden = ordenBusiness.getOrdenByIdContrato(contratoResponse.getIdContrato());
+			if(tempListaOrden.size()>0){
+				
+				listaOrden.clear();
+				
+			     System.out.println("Tamanio de orden cargado es :"+tempListaOrden.size());
+			     for(int i=0;i<tempListaOrden.size();i++){
+			    	OrdenDto ordenDto = new OrdenDto();
+			    	ordenDto.setIdOrden(tempListaOrden.get(i).getIdorden());
+			    	ordenDto.setIdGrupoDocumento(tempListaOrden.get(i).getIdgrupodocumento());
+			    	ordenDto.setNroOrden(tempListaOrden.get(i).getNroorden());
+			    	ordenDto.setFechaOrden(tempListaOrden.get(i).getFechaorden());
+			    	ordenDto.setAnioOrden(tempListaOrden.get(i).getAnioorden());
+			    	
+			    	ordenDto.setIdEstadoSiaf(tempListaOrden.get(i).getEstadoexpedientesiaf().toString());
+			    	
+			    	ordenDto.setNroExpedienteSiaf(Integer.parseInt(tempListaOrden.get(i).getNroexpedientesiaf()));
+			    	ordenDto.setMoneda(tempListaOrden.get(i).getMoneda());
+			    	ordenDto.setMontoOrden(tempListaOrden.get(i).getMontoorden());
+			    	ordenDto.setNroProceso(tempListaOrden.get(i).getNroproceso());
+			    	ordenDto.setNroContrato(tempListaOrden.get(i).getNrocontrato());
+			    	ordenDto.setFechaInicioPrestacion(tempListaOrden.get(i).getFechainicioprestacion());
+			    	ordenDto.setIdCatalogoTipoBien(tempListaOrden.get(i).getIdcatalogotipobien());
+			    	ordenDto.setFechaFinPrestacion(tempListaOrden.get(i).getFechafinprestacion());
+			    	ordenDto.setAnio(tempListaOrden.get(i).getAnio());
+			    	ordenDto.setIdUnidadEjecutora(tempListaOrden.get(i).getIdunidadejecutora());
+			    	ordenDto.setPlazo(tempListaOrden.get(i).getPlazoejecucion());
+			    	ordenDto.setIdContrato(tempListaOrden.get(i).getIdcontrato());
+			    	ordenDto.setFechaCreacionAudioria(tempListaOrden.get(i).getFechacreacionauditoria());
+			    	ordenDto.setUsuarioCreacionAuditoria(tempListaOrden.get(i).getUsuariocreacionauditoria());
+			    	ordenDto.setEquipoAuditoria(tempListaOrden.get(i).getEquipoauditoria());
+			    	ordenDto.setPosicion(i+1);
 
-			// Control de órdenes
+			    	if(tempListaOrden.get(i).getIdcatalogotipobien().equals("TIBI1"))
+			    		ordenDto.setTipoBienDesc("BIEN");
+			    	if(tempListaOrden.get(i).getIdcatalogotipobien().equals("TIBI2"))
+			    		ordenDto.setTipoBienDesc("SERVICIO");
+			    	
+			    	if(tempListaOrden.get(i).getEstadoexpedientesiaf()==0)
+			    		ordenDto.setEstadoSiafDesc("PENDIENTE");
+			    	if(tempListaOrden.get(i).getEstadoexpedientesiaf()==1)
+			    		ordenDto.setEstadoSiafDesc("EN PROCESO");
+			    	if(tempListaOrden.get(i).getEstadoexpedientesiaf()==2)
+			    		ordenDto.setEstadoSiafDesc("APROBADO");
+			    	
+			    	ordenDto.setTotalFactSoles(tempListaOrden.get(i).getMontoorden().doubleValue());
+			    	
+			    	
+			    	
+			    	PaoRequest requestPao = new PaoRequest();
 
-			PaoRequest requestPao = new PaoRequest();
+					requestPao.setAnio(usuario.getPeriodo().getAnio());
+					requestPao.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.PRONIED_SIAF);
+					requestPao.setNroExpedienteSiaf(ordenDto.getNroExpedienteSiaf());
+					
+					listaSeguimientoPagosSiafT = programacionBusiness.getSeguimientoPagosSiaf(requestPao);
+			    	
+					// sum monto devengado y pagado
+					Double montoDevengado = 0.00;
+					Double montoPagado = 0.00;
+					for (SeguimientoPagosResponse pagoSiaf : listaSeguimientoPagosSiafT) {
+						if ((pagoSiaf.getFase() + "").equals("DEVENGADO"))
+							montoDevengado += pagoSiaf.getMonto();
 
-			requestPao.setAnio(usuario.getPeriodo().getAnio());
-			requestPao.setNroConsolid(contratoResponse.getNroConsolid());
-			requestPao.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.PRONIED_SIAF);
+						if ((pagoSiaf.getFase() + "").equals("PAGADO"))
+							montoPagado += pagoSiaf.getMonto();
+					}
+			    	
+					ordenDto.setImporteDevengado(montoDevengado);
+					ordenDto.setImportePagado(montoPagado);
+			    	
+					
+					
+			    	
+					//cargar entregable
+					
+					List<Entregable> tempListaEntregable = new ArrayList<>();
+					tempListaEntregable = entregableBusiness.getEntegablesByOrden(ordenDto.getIdOrden());
+					if(tempListaEntregable.size()>0){
+						listaEntregable.clear();
+						System.out.println("Tamanio de entregable cargado es :"+tempListaEntregable.size());
+						for (int j = 0; j < tempListaEntregable.size(); j++) {
+							EntregableDto entregableDto = new EntregableDto();
+							
+							entregableDto.setIdEntregable(tempListaEntregable.get(j).getIdentregable());
+							entregableDto.setIdOrden(tempListaEntregable.get(j).getIdorden());
+							entregableDto.setNroProveido(tempListaEntregable.get(j).getNroproveido());
+							entregableDto.setFecha(tempListaEntregable.get(j).getFechapresentacionentregable());
+							entregableDto.setDescripcion(tempListaEntregable.get(j).getNroentregable());
+							entregableDto.setPlazo(tempListaEntregable.get(j).getPlazoentregable());
+							entregableDto.setImporte(tempListaEntregable.get(j).getMontoentregable());
+							entregableDto.setMontoPenalidad(tempListaEntregable.get(j).getMontopenalidadentregable());
+							entregableDto.setObservacion(tempListaEntregable.get(j).getObservacionesentregable());
+							//entregableDto.setEstado(tempListaEntregable.get(j).getes);
+							
+							if(tempListaEntregable.get(j).getIdcatalogoestadoentregable()!=null){
+							
+								if(tempListaEntregable.get(j).getIdcatalogoestadoentregable().equals("EENT1")){
+									entregableDto.setEstado("ADQUISICIÓN CONFORME");
+								}
+								
+								if(tempListaEntregable.get(j).getIdcatalogoestadoentregable().equals("EENT2")){
+									entregableDto.setEstado("REMITIDO CONTABILIDAD");
+								}
+										
+								if(tempListaEntregable.get(j).getIdcatalogoestadoentregable().equals("EENT3")){
+									entregableDto.setEstado("PAGADO");
+								}
+							}
+							
+							ContratoController.listaEntregable.add(entregableDto);
+							
+						}
+						
+					}
+					
+					
+					
+					
+					ordenDto.setArmadas(tempListaEntregable.size());
+			    	ContratoController.listaOrden.add(ordenDto);
+			    				    	
+			    	
+			     }		
+			
+			}
+			
 
 
 		} catch (Exception e) {
@@ -560,9 +705,89 @@ public class ContratoController extends BaseController {
 
 	}
 
+	public void ordenBuscar() {
+		try {
+			//ordenListaDto.setEjercicio(ordenListaDto.getEjercicio());
+			//ordenListaDto.setNroOrden(ordenListaDto.getNroOrden());
+
+			System.err.println("----------EL valor de ejercicio es ------------ " + ordenListaDto.getEjercicio());
+			System.err.println("----------EL valor de nro orden es ------------ " + ordenListaDto.getNroOrden());
+			listaOrden2 = ordenBusiness.getListaOrden(ordenListaDto);
+			
+			for(int i = 0; i<listaOrden2.size(); i++){
+				
+				listaOrden2.get(i).setPosicion(i+1);
+				
+			}
+			
+			
+
+		} catch (Exception e) {
+			// TODO: handle exception
+
+		}
+
+	}
+	
+	
+   public void eliminarOrden(OrdenDto orDto) throws Exception{
+	   
+	    List<Entregable> entregables=entregableBusiness.getEntegablesByOrden(orDto.getIdOrden());
+	    if(entregables!=null){
+	    	orDto.setEntegables(entregables);
+	    }
+
+	    
+    	ContratoController.ordenesEliminar.add(orDto);
+    	System.out.println("tam1"+listaOrden.size());
+    	
+    	ContratoController.listaOrden.remove(orDto);
+    	System.out.println("tam2"+listaOrden.size());
+    	
+    	FacesMessage msg = new FacesMessage("Mensaje!","Se eliminó orden correctamente.");
+	    FacesContext.getCurrentInstance().addMessage(null, msg);
+	    
+	    
+	    if(listaSeguimientoPagosSiaf!=null){
+	    	listaSeguimientoPagosSiaf.clear();
+	    }
+	    
+    } 
+
+
 	public void agregarOrden() {
 
 		try {
+			
+			
+			System.err.println("U :"+selectOrden.getNroOrden());
+			System.err.println(selectOrden.getIdTipoBien());
+			System.err.println(selectOrden.getTipoBienDesc());
+
+			String nroOrden =selectOrden.getNroOrden();
+			String tipoBien =selectOrden.getTipoBienDesc();
+			boolean existe = false;
+			
+		
+			for (int i =0;i<ContratoController.listaOrden.size()&&existe==false;i++){
+				
+			   if(nroOrden.equals(ContratoController.listaOrden.get(i).getNroOrden()) && 
+				  tipoBien.equals(ContratoController.listaOrden.get(i).getTipoBienDesc()))
+			   {
+				   existe = true; 
+				   FacesMessage msg = new FacesMessage("Mensaje!","No se pudo agregar orden, ya está seleccionado.");
+				   FacesContext.getCurrentInstance().addMessage(null, msg);
+				   
+			   }
+			}
+			
+		    if(existe==false){
+		    	
+		    	ContratoController.listaOrden.add(this.selectOrden);
+		    	
+		    	
+		    }
+		    selectOrden = new OrdenDto();
 
 			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
 			PaoRequest request = new PaoRequest();
@@ -570,24 +795,20 @@ public class ContratoController extends BaseController {
 			request.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.PRONIED_SIAF);
             
 			
-			ContratoController.listaOrden.add(this.selectOrden);
-			selectOrden = new OrdenDto();
+			
+			
 		
 
 			for (int i = 0; i < listaOrden.size(); i++) {
 
 				int nroExpediente = listaOrden.get(i).getNroExpedienteSiaf();
-				
 
 				request.setNroExpedienteSiaf(nroExpediente);
 				
 				
 				listaSeguimientoPagosSiafT = programacionBusiness.getSeguimientoPagosSiaf(request);
 				
-				
-				
 				SeguimientoPagosResponse seguimientoPagosResponse =new SeguimientoPagosResponse();
-				
 				
 				seguimientoPagosResponse.setCiclo(listaSeguimientoPagosSiafT.get(i).getCiclo());
 				seguimientoPagosResponse.setFase(listaSeguimientoPagosSiafT.get(i).getFase());
@@ -638,11 +859,66 @@ public class ContratoController extends BaseController {
 
 	}
 
+	
+	public void actualizaObservada(){
+		
+		
+		try {
+			System.out.println("actualizando: "+contratoResponse.getIdContrato());
+			Contrato contrato =new Contrato();
+			
+			contrato = contratoBusiness.selectByPrimaryKeyBasic(contratoResponse.getIdContrato());
+
+			contrato.setIdgrupodocumento(contratoResponse.getIdDocumento());
+			contrato.setDniespecialistaejecucion(contratoResponse.getDniEspEjecucion());
+			contrato.setNombreespecialista(contratoResponse.getNomEspEjecucion());
+			contrato.setFecharecepcionexpediente(new Date());
+			contrato.setNroconsolid(contratoResponse.getNroConsolid());
+			contrato.setNrocontrato(contratoResponse.getNroContrato());
+			contrato.setAnio(contratoResponse.getAnoProceso());
+			contrato.setEstadocontrato(contratoResponse.getEstadoContrato());
+			contrato.setIdunidadejecutora(Constantes.unidadEjecutora.ID_UNIDAD_EJECUTORA_ABAS);
+			//contrato.setFechacreacionauditoria(Utils.currentTimeStamp());
+			contrato.setFechamodificacionauditoria(Utils.currentTimeStamp());
+			contrato.setUsuariocreacionauditoria(getUserLogin());
+			// contrato.setGentablaIdcatalogoestadodocumentacion(gentablaIdcatalogoestadodocumentacion);
+			contrato.setIdcatalogoestadodocumentacion(this.estadodocumentacion);
+			contrato.setProgramaauditoria(pe.com.sisabas.resources.Utils.obtenerPrograma(this.getClass()));
+			contrato.setEquipoauditoria(getRemoteAddr());
+			// contrato.setGentablaIdcatalogoestadodocumentacion(gentablaBusiness.selectByPrimaryKeyBasicFromList(contrato.getIdcatalogoestadodocumentacion(),listaGentablaIdcatalogoestadodocumentacion));
+			contratoBusiness.updateByPrimaryKeyBasic(contrato);
+			/*
+			 * System.out.println("el valor del idContrato es "
+			 * +contrato.getIdcontrato());
+			 */
+			buscarContratos();
+
+			// contratoBusiness.selectByPrimaryKeyBasic(requerimientoResponse.getIdPedido());
+
+			/*
+			 * evaldocumento.setIdevaluaciondocumento(((int)utilsBusiness.
+			 * getNextSeq(Sequence.SEQ_EVALUACIONDOCUMENTO).longValue()));
+			 * evaldocumento.setIdcontrato(contrato.getIdcontrato());
+			 * evaldocumento.setIdcatalogoestadodocumentacion(contrato.
+			 * getIdcatalogoestadodocumentacion());
+			 * evalDocumentoBusiness.insertBasic(evaldocumento);
+			 */
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+	
+	
 	public void insertarContratos() {
 
 		try {
 
-			System.out.println("insertando");
+			System.out.println("insertando: "+estadodocumentacion);
 
 			System.out.println("IdCatalogoEstadoDocumentacion" + contratoResponse.getEstadoDocumentacionDesc());
 
@@ -691,9 +967,18 @@ public class ContratoController extends BaseController {
 	}
 
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
-	@Autowired
-	AdendaController adendaController;
+	
 
 	public String irAdenda() {
 		boolean validado = false;
@@ -765,20 +1050,113 @@ public class ContratoController extends BaseController {
 		System.err.println("Valor de posicion es :" + ((OrdenDto) event.getObject()).getPosicion());
 
 	}
+	
+	
+	
+	
+	
+	public void onRowCancel2(RowEditEvent event) {
+		/*FacesMessage msg = new FacesMessage("Se canceló la edición",
+				"Orden: " + ((OrdenDto) event.getObject()).getNroOrden());
+		FacesContext.getCurrentInstance().addMessage(null, msg);*/
+	}
 
 	public void onRowCancel(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Se canceló la edición",
 				"Orden: " + ((OrdenDto) event.getObject()).getNroOrden());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
+	
 
-	public void fer() throws Exception {
-		FacesMessage msg = new FacesMessage("nombre proveedor: " + orden1.getNombreProveedor(),
-				"posicion: " + orden1.getPosicion());
-		this.listaEntregable = orden1.getEntregables();
-		//this.listaSeguimientoPagosSiaf = orden1.getSeguimientoPagosResponse();
-		//System.out.println("tamanio de xxx "+orden1.getSeguimientoPagosResponse().size());
+	public void onRowEdit2(RowEditEvent event) throws Exception{
+
+		System.out.println("Descripcion es :"+((EntregableDto) event.getObject()).getDescripcion());
 		
+		String codigo = ((EntregableDto) event.getObject()).getEstado();
+		Gentabla entregable = gentablaBusiness.selectByPrimaryKeyBasic(codigo);
+		if (entregable != null)
+			((EntregableDto) event.getObject()).setEstado(entregable.getVchregdescri());
+		
+		
+	
+			
+		/*
+		((EntregableDto) event.getObject()).getNroProveido();
+		((EntregableDto) event.getObject()).getFecha();
+		((EntregableDto) event.getObject()).getDescripcion();
+		((EntregableDto) event.getObject()).getPlazo();
+		((EntregableDto) event.getObject()).getImporte();
+		((EntregableDto) event.getObject()).getMontoPenalidad();
+		((EntregableDto) event.getObject()).getObservacion();
+		((EntregableDto) event.getObject()).getEstado();*/
+		
+		
+	}
+	
+	public void fer() throws Exception {
+		
+		System.out.println("fer");
+		
+		FacesMessage msg = new FacesMessage("posicion: " + orden1.getPosicion());
+		
+		List<Entregable> lista = entregableBusiness.getEntegablesByOrden(orden1.getIdOrden());
+		System.out.println(lista.size());
+		if(lista!=null&&lista.size()>0){
+			
+			List<EntregableDto> entregableAux=new ArrayList<>(listaEntregable);
+			listaEntregable.clear();
+			for (int i = 0; i < lista.size(); i++) {
+				EntregableDto dto = new EntregableDto();
+				dto.setIdEntregable(lista.get(i).getIdentregable());
+				dto.setDescripcion(lista.get(i).getNroentregable());
+				dto.setNroProveido(lista.get(i).getNroproveido());
+			    dto.setFecha(lista.get(i).getFechapresentacionentregable());
+			    dto.setPlazo(lista.get(i).getPlazoentregable());
+			    dto.setImporte(lista.get(i).getMontoentregable());
+			    dto.setMontoPenalidad(lista.get(i).getMontopenalidadentregable());
+			    dto.setObservacion(lista.get(i).getObservacionesentregable());
+			    dto.setEstado(lista.get(i).getIdcatalogoestadoentregable());
+				ContratoController.listaEntregable.add(dto);
+			}
+
+		}	else{
+			ContratoController.listaEntregable = orden1.getEntregables();
+			
+		}
+		
+
+		//ContratoController.listaEntregable = orden1.getEntregables();
+
+		/*
+		if(orden1.getEntregables()!=null){
+		    ContratoController.listaEntregable = orden1.getEntregables();
+		}
+		else{
+			List<Entregable> lista = entregableBusiness.getEntegablesByOrden(orden1.getIdOrden());
+			if(lista!=null){
+				listaEntregable.clear();
+				for (int i = 0; i < lista.size(); i++) {
+					EntregableDto dto = new EntregableDto();
+					dto.setDescripcion(lista.get(i).getNroentregable());
+					dto.setNroProveido(lista.get(i).getNroproveido());
+				    dto.setFecha(lista.get(i).getFechapresentacionentregable());
+				    dto.setPlazo(lista.get(i).getPlazoentregable());
+				    dto.setImporte(lista.get(i).getMontoentregable());
+				    dto.setMontoPenalidad(lista.get(i).getMontopenalidadentregable());
+				    dto.setObservacion(lista.get(i).getObservacionesentregable());
+				    dto.setEstado(lista.get(i).getIdcatalogoestadoentregable());
+					ContratoController.listaEntregable.add(dto);
+				}
+
+			}	
+			
+		}*/
+		
+		
+		//System.out.println("tam es :"+listaEntregable.size());
+		
+		
+	
 		PaoRequest pao = new PaoRequest();
 		pao.setAnio(usuario.getPeriodo().getAnio());
 		pao.setIdUnidadEjecutoraSiaf(Constantes.unidadEjecutora.PRONIED_SIAF);
@@ -787,7 +1165,7 @@ public class ContratoController extends BaseController {
 		
 		this.listaSeguimientoPagosSiaf = programacionBusiness.getSeguimientoPagosSiaf(pao);
 		
-		System.out.println("dfdfdfdffdfdfdfdfdf "+listaSeguimientoPagosSiaf.get(orden1.getPosicion()-1).getCiclo());
+		//System.out.println("dfdfdfdffdfdfdfdfdf "+listaSeguimientoPagosSiaf.get(orden1.getPosicion()-1).getCiclo());
 		System.out.println("size:"+listaSeguimientoPagosSiaf.size());
 		
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -797,6 +1175,7 @@ public class ContratoController extends BaseController {
 		ContratoController.listaOrden.clear();
 	
 	}
+	
 	
 	
 	public ContratoRequest getContratoRequest() {
@@ -1018,7 +1397,7 @@ public class ContratoController extends BaseController {
 	}
 
 	public void setListaEntregable(List<EntregableDto> listaEntregable) {
-		this.listaEntregable = listaEntregable;
+		ContratoController.listaEntregable = listaEntregable;
 	}
 
 
@@ -1056,6 +1435,13 @@ public class ContratoController extends BaseController {
 	}
 
 
+    public List<OrdenDto> getOrdenesEliminar() {
+		return ordenesEliminar;
+	}
+
+	public void setOrdenesEliminar(List<OrdenDto> ordenesEliminar) {
+		ContratoController.ordenesEliminar = ordenesEliminar;
+	}
 
 	
 	
