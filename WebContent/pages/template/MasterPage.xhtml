@@ -107,11 +107,11 @@ div {
 #MENUSIDE {
 	position: fixed;
 	left: 0px;
-	top: 0px;
+	/*top: 0px;*/
 	background-color: #313b3f;
 	border-right: solid 1px #151d21;
 	overflow: hidden;
-	width: 300px;
+	width: 200px;
 	position: fixed;
 	-moz-transition: left 0.3s;
 	-o-transition: left 0.3s;
@@ -127,8 +127,10 @@ div {
 	width: 100%;
 	height: 45px;
 	display: block;
-	padding: 15px 0px 0px 27px;
+	padding: 5px 0px 0px 27px;
 	cursor: pointer;
+	font-size: 10px;
+	color: #659eb3;
 }
 
 .MenuSideMainLinkDark {
@@ -223,7 +225,7 @@ footer {
 	-o-background-size: cover;
 	background-size: cover;
 	margin: 0;
-	margin-left: 300px;
+	margin-left: 0px;
 	margin-right: 0;
 	padding: 0;
 	font-family: geneva, arial, helvetica, sans-serif;
@@ -1029,17 +1031,19 @@ figure {
 				</p:menubar>
 
 				<ui:fragment>
-					<div align="center" style="background: #313b3f;">
+					<div align="center" style="background: #186ba0;">
 						<table style="width: 100%">
 							<tr>
 								<td align="left" style="width: 10%"><br /> <p:spacer
-										height="60" width="20"></p:spacer></td>
+										height="60" width="20"></p:spacer>
+										
+										</td>
 								<td>
 									<table>
 										<tr>
-											<td style="color: #659eb3; font-weight: bold;"><p:outputLabel
+											<td style="color: #fff;"><p:outputLabel
 													value="Ejercicio: " id="lblPeriodo" /></td>
-											<td style="color: #659eb3; font-weight: bold;"><p:outputLabel
+											<td style="color: #fff;"><p:outputLabel
 													value="Oficina: " id="lblCentroCosto" /></td>
 										</tr>
 										<tr>
@@ -1132,16 +1136,16 @@ figure {
 		 -->
 
 		<div class="PC">
-			<div id="MENUSIDE" class="ps-container" style="height: 974px;">
+			<div id="MENUSIDE" class="ps-container" style="height: 100%;">
 				<div id="MENUSIDEindent">
-					<!--  
+					<!-- 
 					<SPAN id="LOGO" class="bordersOfMenuSide"></SPAN>
-					-->
+				 -->
 					<p:menu style="margin-left:0px; width: 100%" toggleable="true"
 						stateful="true" styleClass="bordersOfMenuSide">
 
 						<p:submenu label="ADMINISTRACIÓN"
-							style="height:22px; color: #325d82;"
+							style="height:22px; color: #186ba0;"
 							styleClass="MenuSideMainLink bordersOfMenuSide">
 							<p:menuitem value="Parámetros"
 								outcome="/pages/genparametro/genparametroBuscar.xhtml"
@@ -1152,7 +1156,7 @@ figure {
 						</p:submenu>
 
 						<p:submenu label="SEGUIMIENTO"
-							style="height:22px; color: #325d82; "
+							style="height:22px; color: #186ba0; "
 							styleClass="MenuSideMainLink bordersOfMenuSide">
 							<p:menuitem id="SubMenu-Button" value="Estados"
 								outcome="/pages/seguimiento/seguimiento.xhtml"
@@ -1160,7 +1164,7 @@ figure {
 						</p:submenu>
 						<p:submenu label="REQUERIMIENTOS"
 							styleClass="MenuSideMainLink bordersOfMenuSide"
-							style="height:22px; color: #325d82;">
+							style="height:22px; color: #186ba0;">
 							<p:menuitem value="Pedidos"
 								outcome="/pages/requerimiento/requerimientos.xhtml"
 								icon="ui-icon-triangle-1-e" />
@@ -1170,7 +1174,7 @@ figure {
 						</p:submenu>
 						<p:submenu label="PROGRAMACIÓN"
 							styleClass="MenuSideMainLink bordersOfMenuSide"
-							style="height:22px; color: #325d82;">
+							style="height:22px; color: #186ba0;">
 							<p:menuitem value="Evaluación de documento"
 								outcome="/pages/evaluaciondocumento/evaluaciondocumentoBuscar.xhtml"
 								icon="ui-icon-triangle-1-e" />
@@ -1179,7 +1183,7 @@ figure {
 						</p:submenu>
 						<p:submenu label="PROCESO DE SELECCIÓN"
 							styleClass="MenuSideMainLink bordersOfMenuSide"
-							style="height:22px; color: #325d82;">
+							style="height:22px; color: #186ba0;">
 							<p:menuitem value="Recepción de documentos"
 								outcome="/pages/procesorecepcion/procesoRecepcionBuscar.xhtml"
 								icon="ui-icon-triangle-1-e" />
@@ -1192,7 +1196,7 @@ figure {
 						</p:submenu>
 						<p:submenu label="EJECUCIÓN CONTRACTUAL"
 							styleClass="MenuSideMainLink bordersOfMenuSide"
-							style="height:22px; color: #325d82;">
+							style="height:22px; color: #186ba0;">
 							<p:menuitem value="Seguimiento de contratos"
 								outcome="/pages/contrato/contratoBuscar.xhtml"
 								icon="ui-icon-triangle-1-e" />
@@ -1203,7 +1207,7 @@ figure {
 
 			</div>
 
-			<div id="CONTENTSIDE">
+			<div id="CONTENTSIDE" style="margin-left: 200px; margin-right: 0px">
 
 				<ui:insert name="center">Center</ui:insert>
 
