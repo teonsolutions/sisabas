@@ -9,8 +9,8 @@
 <p:panel id="panelC" styleClass="gandalfPanelClassSectionFormHeaderP">
 
 	<p:panel id="pnlHeader" widgetVar="pnlHeader"
-		styleClass="gandalfPanelClassSectionFormHeader">
-		<table style="width: 100%;" cellpadding="0" cellspacing="5" border="0">
+		styleClass="gandalfPanelClassSectionFormHeader" style="width: 100%;">
+		<table cellpadding="0" cellspacing="5" border="0">
 			<tr>
 				<td><p:outputLabel value="Número de proceso" id="lblNroProceso" /></td>
 				<td><p:inputText id="txtNroProceso" required="false"
@@ -23,11 +23,11 @@
 				<td><p:inputTextarea id="txtDescripProceso" required="false"
 						rows="2" cols="50" queryDelay="750" minQueryLength="4"
 						disabled="true" value="#{procesodesierto.currentRow.glosa}"
-						style="width: 90%" /></td>
+						style="width: 100%" /></td>
 			</tr>
 		</table>
 	</p:panel>
-
+	<p:spacer height="5"></p:spacer>
 	<p:dataTable id="tblListaResultado"
 		value="#{procesodesierto.listResultado}" var="var"
 		emptyMessage="No se encontraron registros"
@@ -89,12 +89,8 @@
 
 
 	</p:dataTable>
+	<h:inputHidden id="hidStatus" value="true" />
 
 
-	<div align="center">
-		<p:panel id="pnlBotones" styleClass="gandalfPnlBotonesClass">
-			<h:inputHidden id="hidStatus" value="true" />
-		</p:panel>
-	</div>
 </p:panel>
 </html>

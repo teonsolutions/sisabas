@@ -8,7 +8,15 @@
 	xmlns:cc="http://java.sun.com/jsf/composite/components"
 	template="/pages/template/MasterPage.xhtml">
 	<ui:define name="center">
-		<h:form id="form">
+		<style>
+			.trafic-light-green{
+				background-color: green;
+			}
+			.trafic-light-yellow{
+				background-color: yellow;
+			}			
+		</style>		
+		<h:form id="form">			
 			<p:panel id="panel"
 				header="#{proceso.tituloParam} #{proceso.tituloBase} Buscar"
 				style="width: 98%">
@@ -25,9 +33,8 @@
 							<td><p:selectOneMenu id="ddlTipoProceso"
 									value="#{proceso.searchParam.idTipoProceso}">
 									<f:selectItem itemLabel="TODOS" itemValue="" />
-									<f:selectItems value="#{proceso.listaTipoProceso}"
-										var="var" itemLabel="#{var.descripcion}"
-										itemValue="#{var.codigo}" />
+									<f:selectItems value="#{proceso.listaTipoProceso}" var="var"
+										itemLabel="#{var.descripcion}" itemValue="#{var.codigo}" />
 								</p:selectOneMenu></td>
 							<td><p:outputLabel value="Tipo de bien" for="ddlTipoBien" /></td>
 							<td><p:selectOneMenu id="ddlTipoBien"
@@ -43,8 +50,8 @@
 							<td><p:selectOneMenu id="ddlCentroCosto"
 									value="#{proceso.searchParam.codigoCentroCosto}">
 									<f:selectItem itemLabel="TODOS" itemValue="" />
-									<f:selectItems value="#{proceso.listaCentroCosto}"
-										var="var" itemLabel="#{var.nombreDependencia}"
+									<f:selectItems value="#{proceso.listaCentroCosto}" var="var"
+										itemLabel="#{var.nombreDependencia}"
 										itemValue="#{var.codigoCentroCosto}" />
 								</p:selectOneMenu></td>
 						</tr>
@@ -54,20 +61,18 @@
 							<td><p:selectOneMenu id="ddlEstadoProceso"
 									value="#{proceso.searchParam.estadoProceso}">
 									<f:selectItem itemLabel="TODOS" itemValue="" />
-									<f:selectItems
-										value="#{proceso.listaEstadoRequerimiento}" var="var"
-										itemLabel="#{var.descripcion}" itemValue="#{var.idEstadosPorTipoDocumento}" />
+									<f:selectItems value="#{proceso.listaEstadoRequerimiento}"
+										var="var" itemLabel="#{var.descripcion}"
+										itemValue="#{var.idEstadosPorTipoDocumento}" />
 								</p:selectOneMenu></td>
 							<td><p:outputLabel value="Nro. Proceso" for="txtNroProceso" /></td>
 							<td><p:inputText id="txtNroProceso"
-									value="#{proceso.searchParam.nroProceso}"
-									disabled="false" maxlength="5" style="width:150px;"
-									label="Número Pedido" /></td>
+									value="#{proceso.searchParam.nroProceso}" disabled="false"
+									maxlength="5" style="width:150px;" label="Número Pedido" /></td>
 							<td><p:outputLabel value="Nro. PAO (SIGA)" for="txtNroPao" /></td>
 							<td><p:inputText id="txtNroPao"
-									value="#{proceso.searchParam.nroConsolid}"
-									disabled="false" maxlength="5" style="width:150px;"
-									label="Nro. PAO (SIGA)" /></td>
+									value="#{proceso.searchParam.nroConsolid}" disabled="false"
+									maxlength="5" style="width:150px;" label="Nro. PAO (SIGA)" /></td>
 						</tr>
 					</table>
 				</p:panel>
@@ -80,8 +85,7 @@
 								<p:commandButton widgetVar="btnBuscar" id="btnBuscar"
 									value="Buscar" action="#{proceso.search}"
 									update="tblListado,pnlBotones" icon="fa fa-search"
-									title="Buscar"
-									rendered="#{proceso.renderButton('btnBuscar')}" />
+									title="Buscar" rendered="#{proceso.renderButton('btnBuscar')}" />
 								<p:spacer width="20" />
 
 								<p:commandButton value="Seguimiento"
@@ -90,9 +94,8 @@
 									icon="fa fa-pencil" title="Seguimiento de proceso"
 									disabled="#{!proceso.esSeleccionado}"
 									rendered="#{proceso.renderButton('btnSeguimiento')}" />
-									
-								<p:commandButton value="Imprimir"
-									action="#{proceso.irImprimir}"
+
+								<p:commandButton value="Imprimir" action="#{proceso.irImprimir}"
 									update="hidStatus,:frmImprimir:diImprimir"
 									oncomplete="showDialog('form:hidStatus','frmImprimir:diImprimir');"
 									icon="fa fa-print"
@@ -113,16 +116,14 @@
 					</tr>
 				</table>
 
-				<p:dataTable id="tblListado" value="#{proceso.dataList}"
-					var="var" emptyMessage="No se encontraron registros"
-					widgetVar="tblListado" selection="#{proceso.selectedRow}"
-					paginator="true" rows="#{sisabascontrol.registros_mant}"
-					paginatorPosition="bottom"
+				<p:dataTable id="tblListado" value="#{proceso.dataList}" var="var"
+					emptyMessage="No se encontraron registros" widgetVar="tblListado"
+					selection="#{proceso.selectedRow}" paginator="true"
+					rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
 					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(proceso.dataList)}"
 					selectionMode="single" rowKey="#{var.nroProceso}"
 					styleClass="gandalfTableClass">
-					<p:ajax event="rowSelect"
-						listener="#{proceso.seleccionItem}"
+					<p:ajax event="rowSelect" listener="#{proceso.seleccionItem}"
 						update=":form:pnlBotones" immediate="true" />
 
 
@@ -182,7 +183,7 @@
 						<f:facet name="header">
 							<h:outputText value="Fecha"></h:outputText>
 						</f:facet>
-						<h:outputText value="#{var.fechaRegistro}" >
+						<h:outputText value="#{var.fechaRegistro}">
 							<f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText>
 					</p:column>
@@ -199,7 +200,7 @@
 						<f:facet name="header">
 							<h:outputText value="Estado (SISABAS)"></h:outputText>
 						</f:facet>
-						<h:outputText value="#{var.estadoproceso}" />
+						<h:outputText value="#{var.estadoproceso}" />						
 					</p:column>
 
 					<p:column styleClass="c_string" sortBy="#{var.estadoSiga}">
@@ -228,8 +229,7 @@
 						<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf"
 							ajax="false" style="width:100px;">
 							<p:dataExporter type="pdf" target=":form:tblListado"
-								fileName="datos"
-								preProcessor="#{proceso.preProcessPDF}" />
+								fileName="datos" preProcessor="#{proceso.preProcessPDF}" />
 						</p:commandButton>
 					</ui:remove>
 
