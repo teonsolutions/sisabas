@@ -562,4 +562,11 @@
 
 	</if>
 	</select>
+	
+	
+	<select id="getAdendaByIdContrato" resultMap="BasicResultMap" statementType="CALLABLE" parameterType="java.lang.Integer">
+	    select * from abas.Adenda where IdContrato = (#{idContrato})	
+	</select>
+	
+	
 </mapper>

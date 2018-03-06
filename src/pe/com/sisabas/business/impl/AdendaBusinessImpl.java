@@ -231,6 +231,12 @@ public class AdendaBusinessImpl implements AdendaBusiness, Serializable{
 		//Here Bussines Validations.
 	}
 
+	@Override
+	public List<Adenda> getAdendaByIdContrato(Integer idContrato) throws Exception {
+		
+		return adendaMapper.getAdendaByIdContrato(idContrato);
+	}
+
 
 }
 

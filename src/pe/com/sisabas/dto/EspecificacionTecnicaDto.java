@@ -26,6 +26,7 @@ public class EspecificacionTecnicaDto implements  Serializable,Cloneable{
 	private String nroAnexo;
 	private String rutaAnexo;
 	private String idCatalogoTipoDocumentoTecnico;
+    private String nombreResponsable;
 	
 	
 	private  boolean booleano;
@@ -223,6 +224,14 @@ public class EspecificacionTecnicaDto implements  Serializable,Cloneable{
 
 	public void setIdCatalogoTipoDocumentoTecnico(String idCatalogoTipoDocumentoTecnico) {
 		this.idCatalogoTipoDocumentoTecnico = idCatalogoTipoDocumentoTecnico;
+	}
+
+	public String getNombreResponsable() {
+		return nombreResponsable;
+	}
+
+	public void setNombreResponsable(String nombreResponsable) {
+		this.nombreResponsable = nombreResponsable;
 	}
 
 	

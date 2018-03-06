@@ -301,4 +301,27 @@ public class Constantes {
 		public static final int CERRADO_POR_OTRO_PROCESO = 6;		
 	}
 	
+	public class pagos{
+		public static final String pago1  = "PRIMER PAGO";
+		public static final String pago2  = "SEGUNDO PAGO";
+		public static final String pago3  = "TERCER PAGO";
+		public static final String pago4  = "CUARTO PAGO";
+		public static final String pago5  = "QUINTO PAGO";
+		public static final String pago6  = "SEXTO PAGO";
+		public static final String pago7  = "SÉPTIMO PAGO";
+		public static final String pago8  = "OCTAVO PAGO";
+		public static final String pago9  = "NOVENO PAGO";
+		public static final String pago10 = "DÉCIMO PAGO";
+		
+		public static final String nivel1  = "PRIMER INFORME DE AVANCE";
+		public static final String nivel2  = "SEGUNDO INFORME DE AVANCE";
+		public static final String nivel3  = "TERCER INFORME DE AVANCE";
+		public static final String nivel4  = "CUARTO INFORME DE AVANCE";
+		public static final String nivel5  = "QUINTO INFORME DE AVANCE";
+		public static final String nivel6  = "SEXTO INFORME DE AVANCE";
+		public static final String nivel7  = "SÉPTIMO INFORME DE AVANCE";
+		public static final String nivel8  = "OCTAVO INFORME DE AVANCE";
+		public static final String nivel9  = "NOVENO INFORME DE AVANCE";
+		public static final String nivel10 = "DÉCIMO INFORME DE AVANCE";
+	}
 }

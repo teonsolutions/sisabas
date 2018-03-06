@@ -222,6 +222,52 @@ public class RequerimientoController extends BaseController {
 		}
 	}
 
+	public void generarPago(){
+		
+		if (pagos.size()==0){
+			pago.setCronograma(Constantes.pagos.pago1);	
+			pago.setNivel(Constantes.pagos.nivel1);	
+		}	
+		if (pagos.size()==1){
+			pago.setCronograma(Constantes.pagos.pago2);	
+			pago.setNivel(Constantes.pagos.nivel2);	
+		}
+		if (pagos.size()==2){
+			pago.setCronograma(Constantes.pagos.pago3);	
+			pago.setNivel(Constantes.pagos.nivel3);	
+		}
+		if (pagos.size()==3){
+			pago.setCronograma(Constantes.pagos.pago4);	
+			pago.setNivel(Constantes.pagos.nivel4);	
+		}
+		if (pagos.size()==4){
+			pago.setCronograma(Constantes.pagos.pago5);	
+			pago.setNivel(Constantes.pagos.nivel5);	
+		}
+		if (pagos.size()==5){
+			pago.setCronograma(Constantes.pagos.pago6);	
+			pago.setNivel(Constantes.pagos.nivel6);	
+		}
+		if (pagos.size()==6){
+			pago.setCronograma(Constantes.pagos.pago7);	
+			pago.setNivel(Constantes.pagos.nivel7);	
+		}
+		if (pagos.size()==7){
+			pago.setCronograma(Constantes.pagos.pago8);	
+			pago.setNivel(Constantes.pagos.nivel8);	
+		}
+		if (pagos.size()==8){
+			pago.setCronograma(Constantes.pagos.pago9);	
+			pago.setNivel(Constantes.pagos.nivel9);	
+		}
+		if (pagos.size()==9){
+			pago.setCronograma(Constantes.pagos.pago10);	
+			pago.setNivel(Constantes.pagos.nivel10);	
+		}
+
+	}
+	
+	
 	public void handleFileUpload(FileUploadEvent event) {
 
 		try {
@@ -341,6 +387,12 @@ public class RequerimientoController extends BaseController {
 
 		try {
 
+		    if(documentotecnico!=null){
+		    	Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
+		    	documentotecnico.setNombreresponsable(usuario.getNombreUsuario());
+		    }
+			
+			
 			requerimientoItemRequest.setCodUnidadEjecutora("108");
 			requerimientoItemRequest.setEjercicio(2017);
 			requerimientoItemRequest.setNroPedido(requerimientoResponse.getNroPedido());
@@ -381,20 +433,23 @@ public class RequerimientoController extends BaseController {
 		this.mostrarGrid = false;
 
 		try {
+			
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
+			
 
-			System.out.println("iddocumentoTecnico="
-					+ requerimientoResponse.getIdDocumentoTecnico());
+			System.out.println("iddocumentoTecnico=" + requerimientoResponse.getIdDocumentoTecnico());
 
-			documentotecnico = documentotecnicoBusiness
-					.selectByPrimaryKeyBasic(requerimientoResponse.getIdDocumentoTecnico());
+			documentotecnico = documentotecnicoBusiness.selectByPrimaryKeyBasic(requerimientoResponse.getIdDocumentoTecnico());
+			
+			if(documentotecnico!=null)
+			   documentotecnico.setNombreresponsable(usuario.getNombreUsuario());
 
 			List<Dependenciadocumentotecnico> dependencias = dependenciaBusiness
 					.getDependenciasByDocumentoTecnico(documentotecnico.getIddocumentotecnico());
 			List<Plazopagodocumentotecnico> plazos = plazoBusiness
 					.getPlazosByDocumentoTecnico(documentotecnico.getIddocumentotecnico());
 
-			System.out.println("***************id de documento tecnico es **********"
-					+ requerimientoResponse.getIdDocumentoTecnico());
+			System.out.println("***************id de documento tecnico es **********"+ requerimientoResponse.getIdDocumentoTecnico());
 			// System.out.println("***************EL TAMANIO ES
 			// **********"+dependencias.size());
 
@@ -682,6 +737,7 @@ public class RequerimientoController extends BaseController {
 			dto.setNroAnexo(this.documentotecnico.getNroanexoresponsable());
 			dto.setRutaAnexo(this.documentotecnico.getRutaanexo());
             dto.setIddocumentotecnico(this.documentotecnico.getIddocumentotecnico());
+            dto.setNombreResponsable(this.documentotecnico.getNombreresponsable());
             
             System.out.println("----------- el valor es : "+this.requerimientoResponse.getIdTipoBien());
             

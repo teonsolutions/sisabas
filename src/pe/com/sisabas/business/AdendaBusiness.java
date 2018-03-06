@@ -1,5 +1,8 @@
 package pe.com.sisabas.business;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import pe.com.sisabas.be.Adenda;
 
 public interface AdendaBusiness{
@@ -42,5 +45,5 @@ public interface AdendaBusiness{
 
 	public void updateByPrimaryKeyFull(Adenda record) throws Exception;
 
-
+	public List<Adenda> getAdendaByIdContrato(@Param("idContrato") java.lang.Integer idContrato) throws Exception;
 }

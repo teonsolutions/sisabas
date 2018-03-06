@@ -251,7 +251,8 @@ public class OrdenBusinessImpl implements OrdenBusiness, Serializable{
 
 	@Override
 	public List<OrdenDto> getListaOrden(OrdenListaDto request) throws Exception {
-		
+		if(request.getEjercicio()==null)
+		 request.setEjercicio("");
 		return ordenMapper.getListaOrden(request);
 	}
 

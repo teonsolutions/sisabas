@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import pe.com.sisabas.be.Adenda;
 import pe.com.sisabas.be.Contrato;
 import pe.com.sisabas.be.ContratoRequest;
 import pe.com.sisabas.be.ContratoResponse;
@@ -20,12 +21,14 @@ import pe.com.sisabas.be.Evaluaciondocumento;
 import pe.com.sisabas.be.Grupodocumento;
 import pe.com.sisabas.be.Orden;
 import pe.com.sisabas.business.ContratoBusiness;
+import pe.com.sisabas.dto.AdendaDto;
 import pe.com.sisabas.dto.ContratoDto;
 import pe.com.sisabas.dto.EntregableDto;
 import pe.com.sisabas.dto.OrdenDto;
 import pe.com.sisabas.dto.OrdenListaDto;
 import pe.com.sisabas.dto.SegRequest;
 import pe.com.sisabas.dto.SegResponse;
+import pe.com.sisabas.persistence.AdendaMapper;
 import pe.com.sisabas.persistence.ContratoMapper;
 import pe.com.sisabas.persistence.EntregableMapper;
 import pe.com.sisabas.persistence.EstadosporetapapordocumentoMapper;
@@ -44,6 +47,9 @@ import pe.com.sisabas.exception.ValidateException;
 @Service
 public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 
+	@Autowired
+	public AdendaMapper adendaMapper;
+	
 	@Autowired
 	public ContratoMapper contratoMapper;
 	
@@ -90,7 +96,7 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 		record.setIdcontrato((int)utilsBusiness.getNextSeq(Sequence.SEQ_SISABAS).longValue());
 		record.setFechacreacionauditoria(Utils.currentTimeStamp());
 		record.setEstadoauditoria("1");
-		System.out.println("f:"+record.getUsuariocreacionauditoria());
+
 		updateBooleanToChar(record);
 		validateInsert(record);
 		Utils.convertPropertiesStringToUppercase(record);
@@ -104,6 +110,7 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 		evaDocumento.setFechacreacionauditoriafin(new Date());
 		evaDocumento.setUsuariocreacionauditoria(record.getUsuariocreacionauditoria());
 		evaDocumento.setEquipoauditoria(record.getEquipoauditoria());
+		
 		
 		evaluaciondocumentoMapper.insert(evaDocumento);
 		
@@ -416,29 +423,14 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 						.longValue();
 				ordenNew.setIdorden(idOrden);
 				ordenMapper.insert(ordenNew);
+				
+				
+				// estad  x etapa
+				
+				
+				
+				
 			}
-			/* delete details
-			List<Entregable> entregablesDelete = entregableMapper.getEntegablesByOrden(ordenDto.getIdOrden());
-			
-			System.out.println("Tamanio:" +ordenDto.getEntregables().size());
-			
-			if(ordenDto.getEntregables()!=null){
-				for (EntregableDto item : ordenDto.getEntregables()) {
-					for (Entregable delete : entregablesDelete) {
-						if (item.getIdEntregable() == delete.getIdentregable()) {
-							delete.setEstadoauditoria("Keep");
-						}
-					}
-				}
-			}
-			
-			
-			for (Entregable entregable : entregablesDelete) {
-				if (!entregable.getEstadoauditoria().equals("Keep")) {
-					entregableMapper.deleteByPrimaryKey(entregable.getIdentregable());
-				}
-			}
-			*/
 
 			if(ordenDto.getEntregables()!=null){
 				// save details
@@ -455,10 +447,7 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 							entregableEdit.setMontopenalidadentregable(entregable.getMontoPenalidad());
 							entregableEdit.setFechapresentacionentregable(entregable.getFecha());
 							entregableEdit.setObservacionesentregable(entregable.getObservacion());
-							
-							
 
-							
 							if(entregable.getEstado().equals("PAGADO"))
 								entregableEdit.setIdcatalogoestadoentregable("EENT3");
 							if(entregable.getEstado().equals("REMITIDO CONTABILIDAD"))
@@ -466,15 +455,10 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 							if(entregable.getEstado().equals("ADQUISICIÓN CONFORME"))
 								entregableEdit.setIdcatalogoestadoentregable("EENT1");
 							
-							
-
-							
-							
 							entregableEdit.setNroproveido(entregable.getNroProveido());
 			
 							entregableEdit.setIdcatalogoestadoentregable(entregable.getEstado());
 						
-							
 							// Audit
 							//entregableEdit.setUsuariomodificacionauditoria(request.getUsuarioAuditoria());
 							entregableEdit.setFechamodificacionauditoria(new Date());
@@ -498,10 +482,7 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 	
 						entregableNew.setNroproveido(entregable.getNroProveido());
 						
-						
-						
-						
-						
+
 						if(entregable.getEstado().equals("PAGADO"))
 							entregableNew.setIdcatalogoestadoentregable("EENT3");
 						if(entregable.getEstado().equals("REMITIDO CONTABILIDAD"))
@@ -509,12 +490,7 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 						if(entregable.getEstado().equals("ADQUISICIÓN CONFORME"))
 							entregableNew.setIdcatalogoestadoentregable("EENT1");
 
-						
-						
-						
-						
-						
-						
+	
 						// Audit
 						//entregable.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
 						entregableNew.setFechacreacionauditoria(new Date());
@@ -560,109 +536,55 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 				
 			 }
 			
-			
-			
-			
-			
-		}
+				
+	   	  }
 
-		/*
-		if(request.getListaOrden()!=null){
-			System.out.println(request.getListaOrden().size());
-			for(int i=0; i<request.getListaOrden().size();i++){
-				Orden orden = new Orden();
-				
-				System.out.println("El id contrato(3A) es == "+request.getIdContrato());
-				System.out.println("El id contrato(3B) es == "+contrato.getIdcontrato());
-				
-				orden.setIdcontrato(request.getIdContrato());
-				
-				orden.setIdorden(((int)utilsBusiness.getNextSeq(Sequence.SEQ_ORDEN).longValue()));
-				orden.setIdgrupodocumento(request.getIdGrupoDocumento());
-				orden.setNroorden(request.getListaOrden().get(i).getNroOrden());
-				System.out.println("El nro de orden es:"+request.getListaOrden().get(i).getNroOrden());
-				orden.setFechaorden(request.getListaOrden().get(i).getFechaOrden());
-				orden.setMoneda(request.getListaOrden().get(i).getMoneda());
-				orden.setAnioorden(request.getListaOrden().get(i).getAnioOrden());
-				
-				
-
-				if(request.getListaOrden().get(i).getTotalFactSoles()!=null){
-				Double temporal =request.getListaOrden().get(i).getTotalFactSoles();
-				orden.setMontoorden(new BigDecimal(temporal));
-				}
-				
-                orden.setNroexpedientesiaf(String.valueOf(request.getListaOrden().get(i).getNroExpedienteSiaf()));
-                
-				orden.setEstadoorden(request.getListaOrden().get(i).getEstadoOrden());
-				
-				orden.setNroproceso(String.valueOf(request.getNroProceso()));
-				orden.setNrocontrato(String.valueOf(request.getNroContrato()));
-				orden.setFechainicioprestacion(request.getListaOrden().get(i).getFechaInicioPrestacion());
-				orden.setIdcatalogotipobien(request.getListaOrden().get(i).getIdCatalogoTipoBien());
-				orden.setFechafinprestacion(request.getListaOrden().get(i).getFechaFinPrestacion());
-				orden.setPlazoejecucion(request.getPlazoEjecucion());
-				orden.setAnio(request.getListaOrden().get(i).getAnio());
-				orden.setFechacreacionauditoria(new Date());
-				orden.setUsuariocreacionauditoria(request.getListaOrden().get(i).getUsuarioAuditoria());
-				orden.setIdunidadejecutora(request.getListaOrden().get(i).getIdUnidadEjecutora());
-				orden.setEquipoauditoria(request.getListaOrden().get(i).getEquipoAuditoria());
-				
-				
-				ordenMapper.insert(orden);
-				
-				
-				
-				
-				if(request.getListaOrden().get(i).getEntregables()!=null){
-					System.out.println("tamanio de orden:" +request.getListaOrden().size());
-					System.out.println("tamanio de entregable:" +request.getListaOrden().get(i).getEntregables().size());
-					for (int j = 0; j<request.getListaOrden().get(i).getEntregables().size(); j++) {
-						
-						Entregable entregable = new Entregable();
-						List<EntregableDto> listaEntregableDto = new ArrayList<>();
-						listaEntregableDto = request.getListaOrden().get(i).getEntregables();
-
-						entregable.setIdentregable(((int)utilsBusiness.getNextSeq(Sequence.SEQ_ENTREGABLE).longValue()));
-						entregable.setIdgrupodocumento(request.getIdGrupoDocumento());
-						
-						System.out.println("el valo de idgrupo ducmento es : "+request.getIdGrupoDocumento());
-						
-						entregable.setIdorden(listaEntregableDto.get(j).getIdOrden());
-						entregable.setNroproveido(listaEntregableDto.get(j).getNroProveido());
-						entregable.setNroentregable(listaEntregableDto.get(j).getDescripcion());
-						
-						System.out.println("Descripcion es :"+listaEntregableDto.get(j).getDescripcion());
-						
-						entregable.setPlazoentregable(listaEntregableDto.get(j).getPlazo());
-						entregable.setMontoentregable(listaEntregableDto.get(j).getImporte());
-						entregable.setMontopenalidadentregable(listaEntregableDto.get(j).getMontoPenalidad());
-						entregable.setFechapresentacionentregable(listaEntregableDto.get(j).getFecha());
-						entregable.setObservacionesentregable(listaEntregableDto.get(j).getObservacion());
-                        entregable.setIdcatalogoestadoentregable(listaEntregableDto.get(j).getEstado()); 
-						entregable.setAnio(listaEntregableDto.get(j).getAnio());
-						
-						
-						
-						//auditoria
-						entregable.setFechacreacionauditoria(new Date());
-						entregable.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
-						entregable.setUsuariocreacionauditoria(listaEntregableDto.get(j).getUsuarioAuditoria());
-						entregable.setIdorden(orden.getIdorden());
-						
-						entregableMapper.insert(entregable);	
-					}
-				}
-			
-				
-					
-				}
-
-				
-			}
-		
-		*/
-	
+		   
+		   //adendas
+		   List<AdendaDto> adendas = request.getListaAdendas();
+		   AdendaDto adendaDto = null;
+		   Integer idAdenda;
+		   for(int i = 0; i < adendas.size(); i++){
+			   adendaDto = adendas.get(i);
+			   if(adendaDto.getIdAdenda()!=null){
+				   Adenda adendaEdit = adendaMapper.selectByPrimaryKeyBasic(adendaDto.getIdAdenda()); 
+				   adendaEdit.setNroadenda(adendaDto.getNroAdenda());
+				   adendaEdit.setMotivoadenda(adendaDto.getMotivo());
+				   adendaEdit.setMontoadenda(adendaDto.getMonto());
+				   adendaEdit.setFechainicioadenda(adendaDto.getFechaInicio());
+				   adendaEdit.setFechafinadenda(adendaDto.getFechaFin());
+				   adendaEdit.setRutaadenda(adendaDto.getRuta());
+				   adendaEdit.setFechacreacionauditoria(new Date());
+				   
+				   adendaEdit.setUsuariocreacionauditoria(adendaDto.getUsuarioCreacionAuditoria());
+				   adendaEdit.setEquipoauditoria(adendaDto.getEquipoAuditoria());
+				   
+				   adendaMapper.updateByPrimaryKey(adendaEdit);
+				   idAdenda =  adendaEdit.getIdadenda();
+				   
+			   }else{
+				   Adenda adendaNew = new Adenda();
+				   idAdenda = (utilsBusiness.getNextSeq(pe.com.sisabas.resources.Sequence.SEQ_ADENDA)).intValue();
+				   adendaNew.setIdadenda(idAdenda);
+				   adendaNew.setIdcontrato(request.getIdContrato());
+				   adendaNew.setNroadenda(adendaDto.getNroAdenda());
+				   adendaNew.setMotivoadenda(adendaDto.getMotivo());
+				   adendaNew.setMontoadenda(adendaDto.getMonto());
+				   adendaNew.setFechainicioadenda(adendaDto.getFechaInicio());
+				   adendaNew.setFechafinadenda(adendaDto.getFechaFin());
+				   adendaNew.setRutaadenda(adendaDto.getRuta());
+				   adendaNew.setFechacreacionauditoria(new Date());
+				   
+				   adendaNew.setUsuariocreacionauditoria(adendaDto.getUsuarioCreacionAuditoria());
+				   adendaNew.setEquipoauditoria(adendaDto.getEquipoAuditoria());
+				   
+				   adendaMapper.insert(adendaNew);
+			   }
+			   
+			   
+		   }
+		   
+		   
 
 		}
 

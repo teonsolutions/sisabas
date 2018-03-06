@@ -185,7 +185,7 @@ public class RequerimientoBusinessImpl implements RequerimientoBusiness, Seriali
 		    documentoTecnico.setEquipoauditoria(request.getEquipoAuditoria());
 		    documentoTecnico.setProgramaauditoria(request.getProgramaAuditoria());
 		    documentoTecnico.setUsuariocreacionauditoria(request.getUsuarioAuditoria());
-		    
+		    documentoTecnico.setNombreresponsable(especificacionTecnica.getNombreResponsable());
 		    
 		    documentoTecnico.setFinalidadpublica(especificacionTecnica.getFinalidadpublica());
 		    documentoTecnico.setDenominacioncontratacion(especificacionTecnica.getDenominacioncontratacion());

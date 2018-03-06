@@ -29,6 +29,7 @@ public interface AdendaMapper{
 	List<Adenda> selectDynamicFull(Adenda record) throws Exception;
 
 	List<Adenda> selectDynamicExtended(Adenda record) throws Exception;
-
+    
+	List<Adenda> getAdendaByIdContrato(@Param("idContrato") java.lang.Integer idContrato) throws Exception;
 
 }

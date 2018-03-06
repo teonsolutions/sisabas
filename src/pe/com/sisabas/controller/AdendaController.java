@@ -100,6 +100,7 @@ public class AdendaController extends BaseController {
 		}
 	}
 
+	
 	public void buscar() {
 		try {
 			List<String> ordenListaCampos=new ArrayList<String>();
