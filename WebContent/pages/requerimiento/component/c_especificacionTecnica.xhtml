@@ -275,7 +275,7 @@
 		<p:tab title="Anexos">
           <h:form>
              <p:outputLabel value="Archivo formato PDF hasta 10 MB"/>
-             <p:fileUpload fileUploadListener="#{requerimiento.handleFileUpload}" process="@this"  mode="advanced" dragDropSupport="false" update=":form:growl" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(pdf)$/"  
+             <p:fileUpload fileUploadListener="#{requerimiento.handleFileUpload}" process="@this"  mode="advanced" dragDropSupport="false" update=":form:growl" sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(pdf)$/"  
              label="Seleccione archivo" cancelLabel="Cancelar" uploadLabel="Subir" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}" />
              
           </h:form>

@@ -186,7 +186,7 @@
 			<p:tab title="Producto" id="formPago">
 			<div align="right">
 				<p:commandButton
-					oncomplete="showDialogPF('frmPago2:diPago2')" onclick="myFunction();"
+					oncomplete="showDialogPF('frmPago2:diPago2')" onclick="myFunction();" actionListener="#{requerimiento.generarPago}"
 					value="Agregar" icon="fa fa-plus"  disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/>
 			</div>
 			<p:spacer height="5" />
@@ -198,25 +198,25 @@
 					<p:column headerText="CRONOGRAMA DE PAGO">
 					<p:cellEditor>
 		               <f:facet name="output"><h:outputText value="#{var.cronograma}" /></f:facet>
-		               <f:facet name="input"><p:inputText id="modelInput" value="#{var.cronograma}" style="width:100%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
+		               <f:facet name="input"><p:inputText id="modelInput" value="#{var.cronograma}" style="width:13%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
                     </p:cellEditor>
 				   </p:column>
-				   <p:column headerText="PLAZO DE EJECUCUIÓN">
+				   <p:column headerText="PLAZO DE EJECUCIÓN" style="width:17%">
 					<p:cellEditor>
 		               <f:facet name="output"><h:outputText value="#{var.plazo}" /></f:facet>
-		               <f:facet name="input"><p:inputNumber value="#{var.plazo}" style="width:100%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
+		               <f:facet name="input"><p:inputNumber value="#{var.plazo}"  disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
                     </p:cellEditor>
 				   </p:column>
-				   <p:column headerText="NIVEL DE AVANCE">
+				   <p:column headerText="NIVEL DE AVANCE" style="width:24%">
 					<p:cellEditor>
-		               <f:facet name="output"><h:outputText value="#{var.nivel}" /></f:facet>
-		               <f:facet name="input"><p:inputText value="#{var.nivel}" style="width:100%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
+		               <f:facet name="output"><h:outputText value="#{var.nivel}" style="width:15%"/></f:facet>
+		               <f:facet name="input"><p:inputText value="#{var.nivel}" style="width:15%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
                     </p:cellEditor>
 				   </p:column>
 				   <p:column headerText="PORCENTAJE DE AVANCE">
 				    <p:cellEditor> 
-				       <f:facet name="output"><h:outputText value="#{var.porcentaje}" /></f:facet>
-                       <f:facet name="input"><p:inputNumber value="#{var.porcentaje}" style="width:100%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
+				       <f:facet name="output"><h:outputText value="#{var.porcentaje}" style="width:10%"/></f:facet>
+                       <f:facet name="input"><p:inputNumber value="#{var.porcentaje}" style="width:10%" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/></f:facet>
 					</p:cellEditor>  
 				    </p:column>
   
@@ -278,7 +278,7 @@
 		<p:tab title="Anexos">
           <h:form>
              <p:outputLabel value="Archivo formato PDF hasta 10 MB"/>
-             <p:fileUpload fileUploadListener="#{requerimiento.handleFileUpload}" mode="advanced" dragDropSupport="false" update=":form:growl" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(pdf)$/"  
+             <p:fileUpload fileUploadListener="#{requerimiento.handleFileUpload}" mode="advanced" dragDropSupport="false" update=":form:growl" sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(pdf)$/"  
              label="Seleccione archivo" cancelLabel="Cancelar" process="@this" uploadLabel="Subir" disabled="#{(requerimiento.requerimientoResponse.estadoPedidoIn eq 3) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 4) or (requerimiento.requerimientoResponse.estadoPedidoIn eq 6)}"/>
             
           </h:form>

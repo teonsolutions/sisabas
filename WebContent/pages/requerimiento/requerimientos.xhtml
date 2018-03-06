@@ -359,7 +359,8 @@
 						</f:facet>
 						<h:outputText value="#{var.montoPedido}" styleClass="c_center" />
 					</p:column>
-					<p:column styleClass="c_string" sortBy="#{var.estadoSiga}"
+					
+					<p:column styleClass="c_string" sortBy="#{var.estadoRequerimiento}"
 						exportable="#{requerimiento.value5}"
 						rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE2'}"
 						width="12%">
@@ -376,9 +377,9 @@
 						</f:facet>
 						<h:outputText value="#{var.desEstadoIn}" />
 					</p:column>
+					
 					<p:column styleClass="c_string"
-						exportable="#{requerimiento.value7}"
-						sortBy="#{var.numeroExpedienteSinad}">
+						exportable="#{requerimiento.value7}" sortBy="#{var.nombreDependencia}">
 						<f:facet name="header">
 							<h:outputText value="Nombre Dependencia" styleClass="c_center" />
 						</f:facet>
@@ -416,35 +417,7 @@
 					</h:panelGrid>
 				</p:dialog>
 
-				<p:dialog id="diPedidoImprimir2" header="Exportar Requerimientos"
-					widgetVar="diPedidoImprimir2" resizable="false" modal="true"
-					dynamic="true">
-					<h:panelGrid columns="2" style="text-align:center;">
-
-						<p:outputLabel value="Pac Programado" />
-						<p:selectBooleanCheckbox value="#{requerimiento.value8}" />
-						<p:outputLabel value="Nro Consolidado" />
-						<p:selectBooleanCheckbox value="#{requerimiento.value9}" />
-						<p:outputLabel value="Descripción" />
-						<p:selectBooleanCheckbox value="#{requerimiento.value2}" />
-						<p:outputLabel value="Tipo de Bien(SIGA)" />
-						<p:selectBooleanCheckbox value="#{requerimiento.value3}" />
-						<p:outputLabel value="Monto S/." />
-						<p:selectBooleanCheckbox value="#{requerimiento.value4}" />
-						<p:outputLabel value="Estado(SisAbas)" />
-						<p:selectBooleanCheckbox value="#{requerimiento.value6}" />
-						<p:outputLabel value="Nombre Dependencia" />
-						<p:selectBooleanCheckbox value="#{requerimiento.value7}" />
-
-						<p:commandButton icon="fa fa-print" value="Exportar"
-							ajax="false" style="width:100px;">
-							<p:dataExporter type="xls" target=":form:tblListaRequerimiento"
-								fileName="datosPedido"
-								postProcessor="#{requerimiento.postProcessXLS}" />
-						</p:commandButton>
-					</h:panelGrid>
-				</p:dialog>
-
+            
 
 				<p:dialog header="Asociar al POI" widgetVar="reqDialog" modal="true"
 					showEffect="fade" hideEffect="fade" resizable="false">
@@ -935,8 +908,8 @@
 								<p:outputLabel value="CRONOGRAMA DE PAGO" for="txtCronograma" />
 							</p:column>
 							<p:column>
-								<p:inputText id="txtCronograma"
-									value="#{requerimiento.pago.cronograma}" style="width:300px;"
+								<p:inputText id="txtCronograma" disabled="true"
+									value="#{requerimiento.pago.cronograma}" style="width:300px;" 
 									label="Cronograma" />
 							</p:column>
 
@@ -952,7 +925,7 @@
 								<p:outputLabel value="NIVEL DE AVANCE" for="txtNivel" />
 							</p:column>
 							<p:column>
-								<p:inputText id="txtNivel" value="#{requerimiento.pago.nivel}"
+								<p:inputText id="txtNivel" value="#{requerimiento.pago.nivel}" disabled="true"
 									style="width:300px;" label="Nivel" />
 							</p:column>
 

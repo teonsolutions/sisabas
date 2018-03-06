@@ -46,23 +46,19 @@
 		</script>
 
 		<style>
-.tableColumnHeader {
-	text-decoration: none;
-	color: black;
-}
-
+		
 .panelMarco {
-	border: 1px solid #d5d5d5;
-	background: #cdeef3;
-	color: #222;
-	border-style: none !important;
+    border: 1px solid #d5d5d5;
+    background: #cdeef3;
+    color: #222;
+    border-style: none !important;
 }
 
 .panelMarco2 {
-	border: 1px solid #d5d5d5;
-	background: #fff;
-	color: #222;
-	border-style: none !important;
+    border: 1px solid #d5d5d5;
+    background: #fff;
+    color: #222;
+    border-style: none !important;
 }
 
 .ui-panelgrid td, .ui-panelgrid tr {
@@ -70,9 +66,9 @@
 }
 
 .fa-remove {
-	color: red;
+        color: red;
 }
-
+    
 .ui-tabs-outline {
 	color: #000;
 }
@@ -97,11 +93,7 @@
 	background: #0d6ab9;
 }
 
-a:-webkit-any-link {
-	color: -webkit-link;
-	cursor: pointer;
-	text-decoration: none;
-}
+
 </style>
 
 
@@ -274,20 +266,18 @@ a:-webkit-any-link {
 								target="#{contrato.contratoResponse}" />
 						</p:commandButton>
 
-
 						<p:commandButton icon="fa fa-pencil-square-o"
 							title="Evaluar documentación observada"
 							rendered="#{var.estadoDocumentacion eq 'EEFI2'}"
 							oncomplete="PF('reqDialog2').show()" update=":formEva2:panelEva2"
-							style="color: orange;">
+							style="color: yellow;">
 							<i class="fa fa-circle" style="color: yellow;" />
 							<p:spacer width="10"></p:spacer>
 							<f:setPropertyActionListener value="#{var}"
 								target="#{contrato.contratoResponse}" />
 						</p:commandButton>
 
-
-						<p:commandButton icon="fa fa-edit" title="Editar"
+						<p:commandButton icon="fa fa-pencil" title="Editar"
 							rendered="#{var.estadoDocumentacion eq 'EEFI1' or var.estadoDocumentacion eq 'EFII4'}"
 							action="/pages/contrato/component/c_seguimientoEjecucion.xhtml?faces-redirect=true">
 							<i class="fa fa-circle" style="color: green;" />
@@ -295,6 +285,25 @@ a:-webkit-any-link {
 							<f:setPropertyActionListener value="#{var}"
 								target="#{contrato.contratoResponse}" />
 							<f:actionListener binding="#{contrato.obtenerSeguimiento()}" />
+						</p:commandButton>
+						
+						<p:commandButton icon="fa fa-th-list" title="Registrar adicionales"
+							rendered="#{var.estadoDocumentacion eq 'EEFI1' or var.estadoDocumentacion eq 'EFII4'}"
+							action="/pages/contrato/component/c_seguimientoEjecucion.xhtml?faces-redirect=true">
+							<p:spacer width="5"></p:spacer>
+							<f:setPropertyActionListener value="#{var}"
+								target="#{contrato.contratoResponse}" />
+							<f:actionListener binding="#{contrato.obtenerSeguimiento2()}" />
+						</p:commandButton>
+						
+						<p:commandButton icon="fa fa-eye"
+							title="Historial"
+							rendered="#{var.estadoDocumentacion eq 'EEFI3' or var.estadoDocumentacion eq 'EFII5'}"
+							oncomplete="PF('reqDialogH').show()" update=":formEvaH:panelEvaH">
+							<i class="fa fa-circle" style="color: green;" />
+							<p:spacer width="10"></p:spacer>
+							<f:setPropertyActionListener value="#{var}"
+								target="#{contrato.contratoResponse}" />
 						</p:commandButton>
 
 					</p:column>
@@ -475,16 +484,12 @@ a:-webkit-any-link {
 			</h:form>
 
 
-
-
-
-
 			<h:form id="formEva2">
 
 				<p:dialog header="Evaluación de Documentación Observadas"
 					widgetVar="reqDialog2" modal="true" showEffect="fade"
 					hideEffect="fade" resizable="false">
-					<p:panel header="Evaluar documentación que fueron observadas"
+					<p:panel header="Evaluar documentación entregado por el proveedor"
 						style="margin: 5px; margin-top: 10px; margin-bottom: 10px;"
 						id="panelEva2">
 						<p:focus for="panel" />
@@ -559,8 +564,69 @@ a:-webkit-any-link {
 				</p:dialog>
 			</h:form>
 
+            <h:form id="formEvaH">
 
+				<p:dialog header="Evaluación de Documentación"
+					widgetVar="reqDialogH" modal="true" showEffect="fade"
+					hideEffect="fade" resizable="false">
+					<p:panel header="Evaluar documentación entregado por el proveedor"
+						style="margin: 5px; margin-top: 10px; margin-bottom: 10px;"
+						id="panelEvaH">
+						<p:focus for="panel" />
+						<p:outputPanel style="text-align:center;">
+							<div
+								class="ui-scrollpanel ui-scrollpanel-native ui-widget ui-widget-content ui-corner-all">
+								<p:panelGrid columnClasses="label,value"
+									
+									style="margin-top:15px">
+									<f:facet name="header">
+										<p:row>
+											<p:column>
+												<p:outputLabel value="Estado Documentación" />
+											</p:column>
+											<p:column>
+												<p:outputLabel value="Tipo de Proceso" />
+											</p:column>
+											<p:column>
+												<p:outputLabel value="Nro Proceso" />
+											</p:column>
+											<p:column>
+												<p:outputLabel value="Tipo de bien" />
+											</p:column>
+											<p:column>
+												<p:outputLabel value="Nro Contrato" />
+											</p:column>
+											<p:column>
+												<p:outputLabel value="Tipo Contrato" />
+											</p:column>
+											<p:column>
+												<p:outputLabel value="Fecha Contrato" />
+											</p:column>
+										</p:row>
+									</f:facet>
+									<p:row>
+								        <p:column>#{contrato.contratoResponse.estadoDocumentacionDesc}</p:column>
+										<p:column>#{contrato.contratoResponse.tipoProceso}</p:column>
+										<p:column>#{contrato.contratoResponse.nroProceso}</p:column>
+										<p:column>#{contrato.contratoResponse.tipoBien}</p:column>
+										<p:column>#{contrato.contratoResponse.nroContrato}</p:column>
+										<p:column>#{contrato.contratoResponse.tipoContrato}</p:column>
+										<p:column>#{contrato.contratoResponse.formatoFecha}</p:column>
+									</p:row>
 
+								</p:panelGrid>
+							</div>
+						</p:outputPanel>
+						<p:spacer height="10"></p:spacer>
+						<table style="width: 70%;">
+							<tr>
+								<td><p:commandButton value="Cerrar" icon="fa fa-times-circle" title="Salir" onclick="hideDialogPF('reqDialogH');return false;" style="margin-left:375px"/></td>
+							</tr>
+						</table>
+					</p:panel>
+				</p:dialog>
+			</h:form>
+      
 
 
 

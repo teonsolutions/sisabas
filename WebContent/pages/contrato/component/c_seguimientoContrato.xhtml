@@ -13,11 +13,11 @@
 
 
 
-	<p:accordionPanel multiple="true" id="accordion">
-		<p:tab title="Datos del proceso de selección">
+	<p:accordionPanel multiple="true" id="accordion" activeIndex="0,1,2,3,4,5" >
+		<p:tab title="Datos del proceso de selección" >
 
-			<p:dataGrid id="panelGridCabecera" var="var" value="#{contrato.listaSeguimiento}" 
-				columnClasses="label,value" styleClass="gandalfTableClass">
+			<p:dataGrid id="panelGridCabecera" var="var" value="#{contrato.listaSeguimiento}"  
+				columnClasses="label,value" styleClass="gandalfTableClass" >
                   
                    <table>
                    <tr>
@@ -66,149 +66,254 @@
 
 		</p:tab>
 
-		<p:tab title="Información del contrato" titleStyleClass="blueTab">
-		
-		
-		
-		<p:dataGrid id="panelGridCabecera2" var="var" value="#{contrato.listaSeguimiento}" styleClass="gandalfTableClass"
-				columnClasses="label,value">
-              <table>
-				<tr>
-						<td><p:outputLabel value="Número de contrato" /></td>
-						<td><p:inputText value="#{var.nroContrato}" disabled="true" style="width:200px; background-color:#EEF0E4;"/></td>
-					
-						<td><p:outputLabel value="Fecha de contrato" /></td>
-						<td>
-						   <p:inputText value="#{var.fechaContrato}" disabled="true" style="width:200px; background-color:#EEF0E4;">
-						     <f:convertDateTime pattern="MM/dd/yyyy" />
-						   </p:inputText>
-						</td>
-					
-						<td><p:outputLabel value="Nro de Item Adjudicado" /></td>
-						<td><p:inputText value="#{var.item}" disabled="true" style="width:200px; background-color:#EEF0E4;"/></td>
-					
-				</tr>
-				<tr>
-						<td><p:outputLabel value="Fecha inicial" /></td>
-						<td>
-						    <p:inputText value="#{var.fechaInicial}" disabled="true" style="width:200px; background-color:#EEF0E4;; ">
-						      <f:convertDateTime pattern="MM/dd/yyyy" />
-						    </p:inputText>	
-						</td>
-				
-						<td><p:outputLabel value="Fecha final" /></td>
-						<td>
-						    <p:inputText value="#{var.fechaFinal}" disabled="true" style="width:200px; background-color:#EEF0E4;;">
-						      <f:convertDateTime pattern="MM/dd/yyyy" />
-						    </p:inputText>
-						</td>
-					
-						<td><p:outputLabel value="Monto contrato" /></td>
-						<td><p:inputText value="#{var.montoContrato}" disabled="true" style="width:200px; background-color:#EEF0E4;;"/></td>
-					
-				</tr>
-				<tr>
-						<td><p:outputLabel value="Ruc del contratista" /></td>
-						<td><p:inputText value="#{var.nroRuc}" disabled="true" style="width:200px; background-color:#EEF0E4;"/></td>
-					
-						<td><p:outputLabel value="Contratista" /></td>
-						<td><p:inputText value="#{var.nombreProv}" disabled="true" style="width:200px; background-color:#EEF0E4;"/></td>
-					
-						<td><p:outputLabel value="Tipo de contrato" /></td>
-						<td><p:inputText value="#{var.idCatalogoTipoContrato}" disabled="true" style="width:200px; background-color:#EEF0E4;"/></td>
-					
-				</tr>
-				<tr>
-						<td><p:outputLabel value="Número de CPP" /></td>
-						<td><p:inputText value="#{var.nroCp}"  disabled="true" style="width:200px; background-color:#EEF0E4;"/></td>
-				
-						<td><p:outputLabel value="Monto de certificación" /></td>
-						<td><p:inputText value="#{var.montoCp}" disabled="true" style="width:200px; background-color:#EEF0E4;"/></td>
-						
-						<td><p:outputLabel value="Fecha de recepcion del expediente" /></td>
-						<td>
-						   <p:inputText value="#{var.fechaRecepcionExpediente}" disabled="true" style="width:200px; background-color:#EEF0E4;">
-						      <f:convertDateTime pattern="MM/dd/yyyy" />
-						   </p:inputText>
-						   
-						</td>
 
+
+
+		<p:tab title="Información del contrato" titleStyleClass="blueTab" >
+		
+		
+		
+			<p:dataGrid id="panelGridCabecera2" var="var" value="#{contrato.listaSeguimiento}" styleClass="gandalfTableClass"
+					columnClasses="label,value">
+	              <table>
+					<tr>
+							<td><p:outputLabel value="Número de contrato" /></td>
+							<td><p:inputText value="#{var.nroContrato}" disabled="true" style="width:200px; background-color:#EEF0E4;"/></td>
 						
-				</tr>	
-				<tr>
-						<td><p:outputLabel value="Abogado del contrato" /></td>
-						<td>
-						    <p:inputText value="#{var.dniAbogado}" disabled="false" style="width:200px" id="dniAbogado"/>
-						    <p:watermark for="dniAbogado" value="INGRESE EL DNI DEL ABOGADO" />
-						</td>
+							<td><p:outputLabel value="Fecha de contrato" /></td>
+							<td>
+							   <p:inputText value="#{var.fechaContrato}" disabled="true" style="width:200px; background-color:#EEF0E4;">
+							     <f:convertDateTime pattern="MM/dd/yyyy" />
+							   </p:inputText>
+							</td>
+						
+							<td><p:outputLabel value="Nro de Item Adjudicado" /></td>
+							<td><p:inputText value="#{var.item}" disabled="true" style="width:200px; background-color:#EEF0E4;"/></td>
+						
+					</tr>
+					<tr>
+							<td><p:outputLabel value="Fecha inicial" /></td>
+							<td>
+							    <p:inputText value="#{var.fechaInicial}" disabled="true" style="width:200px; background-color:#EEF0E4;; ">
+							      <f:convertDateTime pattern="MM/dd/yyyy" />
+							    </p:inputText>	
+							</td>
 					
-						<td><p:outputLabel value="Apellidos y nombres del abogado" /></td>
-						<td>
-						    <p:inputText value="#{var.nombreAbogado}" disabled="false" style="width:200px" id="nomAbogado"/>
-						    <p:watermark for="nomAbogado" value="INGRESE APELLIDOS Y NOMBRES" />
-						</td>
+							<td><p:outputLabel value="Fecha final" /></td>
+							<td>
+							    <p:inputText value="#{var.fechaFinal}" disabled="true" style="width:200px; background-color:#EEF0E4;;">
+							      <f:convertDateTime pattern="MM/dd/yyyy" />
+							    </p:inputText>
+							</td>
+						
+							<td><p:outputLabel value="Monto contrato" /></td>
+							<td><p:inputText value="#{var.montoContrato}" disabled="true" style="width:200px; background-color:#EEF0E4;;"/></td>
+						
+					</tr>
+					<tr>
+							<td><p:outputLabel value="Ruc del contratista" /></td>
+							<td><p:inputText value="#{var.nroRuc}" disabled="true" style="width:200px; background-color:#EEF0E4;"/></td>
+						
+							<td><p:outputLabel value="Contratista" /></td>
+							<td><p:inputText value="#{var.nombreProv}" disabled="true" style="width:200px; background-color:#EEF0E4;"/></td>
+						
+							<td><p:outputLabel value="Tipo de contrato" /></td>
+							<td><p:inputText value="#{var.idCatalogoTipoContrato}" disabled="true" style="width:200px; background-color:#EEF0E4;"/></td>
+						
+					</tr>
+					<tr>
+							<td><p:outputLabel value="Número de CPP" /></td>
+							<td><p:inputText value="#{var.nroCp}"  disabled="true" style="width:200px; background-color:#EEF0E4;"/></td>
 					
-				        <p:column colspan="2">
-						<td><p:outputLabel value="Cantidad de armadas" /></td>
-						<td><p:inputText value="#{var.cantidadArmadas}" disabled="true" style="width:200px; background-color:#EEF0E4;"/></td>
-						</p:column>
+							<td><p:outputLabel value="Monto de certificación" /></td>
+							<td><p:inputText value="#{var.montoCp}" disabled="true" style="width:200px; background-color:#EEF0E4;"/></td>
+							
+							<td><p:outputLabel value="Fecha de recepcion del expediente" /></td>
+							<td>
+							   <p:inputText value="#{var.fechaRecepcionExpediente}" disabled="true" style="width:200px; background-color:#EEF0E4;">
+							      <f:convertDateTime pattern="MM/dd/yyyy" />
+							   </p:inputText>
+							   
+							</td>
+	
+							
+					</tr>	
+					<tr>
+							<td><p:outputLabel value="Abogado del contrato" /></td>
+							<td>
+							    <p:inputText value="#{var.dniAbogado}" style="width:200px" id="dniAbogado" maxlength="8" disabled="#{contrato.adicionales}">
+							    	<p:watermark for="dniAbogado" value="INGRESE EL DNI DEL ABOGADO" />
+							    	<f:validateLength minimum="8"/>
+							    </p:inputText>
+							</td>
 						
+							<td><p:outputLabel value="Apellidos y nombres del abogado" /></td>
+							<td>
+							    <p:inputText value="#{var.nombreAbogado}" style="width:200px" id="nomAbogado" disabled="#{contrato.adicionales}"/>
+							    <p:watermark for="nomAbogado" value="INGRESE APELLIDOS Y NOMBRES" />
+							</td>
 						
-				</tr>	
-				<tr>
+					        <p:column colspan="2">
+							<td><p:outputLabel value="Cantidad de armadas" /></td>
+							<td><p:inputText value="#{var.cantidadArmadas}" disabled="true" style="width:200px; background-color:#EEF0E4;"/></td>
+							</p:column>
+							
+							
+					</tr>	
+					<tr>
+							
+							<td><p:outputLabel value="Sistema de adquisición" /></td>
+							<td>
+								<p:selectOneMenu value="#{var.idCatalogoSistemaAdquisicion}" style="width:200px;" disabled="#{contrato.adicionales}">	
+								     <f:selectItem itemLabel="SELECCIONAR" itemValue="" />				
+								     <f:selectItems
+												value="#{contrato.listaGentablaIdcatalogosistemaadquisicion}"
+												var="var1" itemLabel="#{var1.vchregdescri}"
+												itemValue="#{var1.vchregcodigo}" />		
+								</p:selectOneMenu>
+							</td>
 						
-						<td><p:outputLabel value="Sistema de adquisición" /></td>
-						<td>
-							<p:selectOneMenu value="#{var.idCatalogoSistemaAdquisicion}" style="width:200px;" >	
-							     <f:selectItem itemLabel="SELECCIONAR" itemValue="" />				
-							     <f:selectItems
-											value="#{contrato.listaGentablaIdcatalogosistemaadquisicion}"
-											var="var1" itemLabel="#{var1.vchregdescri}"
-											itemValue="#{var1.vchregcodigo}" />		
-							</p:selectOneMenu>
-						</td>
-					
-					    <td><p:outputLabel value="Plazo de ejecución" /></td>
-						<td>
-						    <p:inputText value="#{var.plazoEjecucion}"  style="width:200px" id="plazoEjecucion"/>
-						    <p:watermark for="plazoEjecucion" value="INGRESE NUMERO DE PLAZO" />
-						</td>
-						
-						
-                </tr>
-				<tr>
-				   <td colspan="6">
-		            
-						<p:outputLabel value="Archivo" />
-						<p:fileUpload fileUploadListener="#{contrato.handleFileUpload}" process="@this"  mode="advanced" dragDropSupport="false" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(pdf)$/"  
-                         label="Seleccione archivo" cancelLabel="Cancelar" uploadLabel="Subir"/>
-                   </td>             
-                </tr>         
-             </table>            
-           </p:dataGrid>
+						    <td><p:outputLabel value="Plazo de ejecución" /></td>
+							<td>
+							    <p:inputText value="#{var.plazoEjecucion}"  style="width:200px" id="plazoEjecucion" disabled="#{contrato.adicionales}"/>
+							    <p:watermark for="plazoEjecucion" value="INGRESE NUMERO DE PLAZO" />
+							</td>
+							
+							
+	                </tr>
+					<tr>
+					   <td colspan="6">
+			            
+							<p:outputLabel value="Archivo" />
+							<p:fileUpload fileUploadListener="#{contrato.handleFileUpload}" process="@this"  mode="advanced" dragDropSupport="false" sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(pdf)$/"  
+	                         label="Seleccione archivo" cancelLabel="Cancelar" uploadLabel="Subir"/>
+	                   </td>             
+	                </tr>         
+	             </table>            
+	           </p:dataGrid>
+		</p:tab>
+		
+		<p:tab title="Adendas del contrato" rendered="#{contrato.adicionales}">
+		 <h:form>
+		    <p:panel>
+		        <div align="right">
+					<p:commandButton actionListener="#{contrato.generarAdenda}" value="Agregar" icon="fa fa-plus" update="tblListaAdendas"/>
+			    </div>
+				<p:spacer height="5" />
+				<p:dataTable id="tblListaAdendas" editable="true"
+										value="#{contrato.listaAdendas}" var="var" selection="#{contrato.selectAdenda}"
+										emptyMessage="No se encontraron registros" 
+										paginatorPosition="bottom" selectionMode="single"
+										rowKey="#{var.nroAdenda}" styleClass="gandalfTableClass">
+										<!--  
+										<p:ajax event="rowEdit" 
+									    listener="#{contrato.onRowEdit}"
+									    update=":formSeg:msgs,formSeg:accordion:tblListaEntregable"/>
+									    
+									    <p:ajax event="rowEditCancel"
+										listener="#{contrato.onRowCancel}" update=":formSeg:msgs,formSeg:accordion:tblListaEntregable" />
+										
+										-->
+										
+									    <p:ajax event="rowSelect" listener="#{contrato.selectAdenda}" 
+									    update=":formSeg:msgs"/>
+										
+										<p:column headerText="Tipo">
+											 <h:outputText value="#{var.tipo}" />
+										</p:column>
+										<p:column headerText="Número de Adenda">
+											<h:outputText value="#{var.nroAdenda}" />
+										</p:column>
+		
+										<p:column headerText="Motivo">
+										  <p:cellEditor>
+											  <f:facet name="output"><h:outputText value="#{var.motivo}" /></f:facet>
+											  <f:facet name="input"><p:inputText value="#{var.motivo}" /></f:facet>
+										  </p:cellEditor>	
+										</p:column>
+										
+										<p:column headerText="Monto">
+										  <p:cellEditor>
+											  <f:facet name="output"><h:outputText value="#{var.monto}" /></f:facet>
+											  <f:facet name="input"><p:inputNumber value="#{var.monto}" symbol="S/."/></f:facet>
+										  </p:cellEditor>	
+										</p:column>
+										
+										<p:column headerText="Fecha Inicio">
+										  <p:cellEditor>
+											  <f:facet name="output">
+											    <h:outputText value="#{var.fechaInicio}" >
+											      <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+											    </h:outputText>
+											  </f:facet>
+											  <f:facet name="input">
+											    <p:calendar value="#{var.fechaInicio}" required="false" pattern="dd/MM/yyyy" 
+											    navigator="true" locale="es" styleClass="dateTimeField" style="width:100%" />
+											  </f:facet>
+										  </p:cellEditor>	
+										</p:column>
+										
+										<p:column headerText="Fecha Fin">
+										  <p:cellEditor>
+											  <f:facet name="output">
+											    <h:outputText value="#{var.fechaFin}" >
+											     <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+											    </h:outputText>
+											  </f:facet>
+											  <f:facet name="input">
+											    <p:calendar value="#{var.fechaFin}" required="false" pattern="dd/MM/yyyy" 
+											     navigator="true" locale="es" styleClass="dateTimeField" style="width:100%" />
+											  </f:facet>
+										  </p:cellEditor>	
+										</p:column>
+										
+										<p:column headerText="Archivo">
+										 <p:cellEditor>
+										  <f:facet name="output">
+										     <h:outputText value="#{var.nombreArchivo}"/>
+										  </f:facet>
+										  <f:facet name="input">
+										     <p:fileUpload fileUploadListener="#{contrato.handleFileUpload2}" mode="advanced" update=":formSeg:msgs" label="Cargar"
+                                               auto="true" sizeLimit="10000000" fileLimit="1" allowTypes="/(\.|\/)(pdf)$/" />
+										  </f:facet>  
+										 </p:cellEditor>
+										</p:column>
+										
+										<p:column headerText="Acciones">
+											<p:rowEditor editTitle="Editar" />
+										</p:column>
+				</p:dataTable>
+			</p:panel>
+	      </h:form>
 		</p:tab>
 
 		<p:tab title="Control de órdenes" >
 		   <p:panel id="panelOrden">
-		   
-		   <table>
-		   <tr>
-		       <td><p:outputLabel value="Ejercicio"/></td> 
-		       <td>
-		          <p:selectOneMenu  value="#{contrato.ordenListaDto.ejercicio}" style="width:150px;" id="idEjercico">						
-						  <f:selectItem itemLabel="SELECCIONAR" itemValue=""/>
-						  <f:selectItems value="#{contrato.listaAnio}" />
-		          </p:selectOneMenu>	
-		       </td>			  
-			   <td><p:outputLabel value="Número de Orden"/></td> 
-			   <td><p:inputText id="inputOrden" value="#{contrato.ordenListaDto.nroOrden}"/></td> 
-               <td>
-                   <p:commandButton  id="btnBuscar" value="Buscar" icon="fa fa-search" title="Buscar" actionListener="#{contrato.ordenBuscar}"
-                   oncomplete="showDialogPF(':formOrden:dialogOrden')" update=":formOrden:dialogOrden"/>
-               
-               </td>	
-            </tr>
-            </table>
+             
+			   <table>
+			   <tr>
+			       <td><p:outputLabel value="Ejercicio"/></td> 
+			       <td>
+			          <p:selectOneMenu  value="#{contrato.ordenListaDto.ejercicio}" style="width:150px;" id="idEjercico" disabled="#{contrato.adicionales}">						
+							  <f:selectItem itemLabel="SELECCIONAR" itemValue=""/>
+							  <f:selectItems value="#{contrato.listaAnio}" />
+			          </p:selectOneMenu>	
+			       </td>			  
+				   <td><p:outputLabel value="Número de Orden"/></td> 
+				   <td>
+				      <p:inputText id="inputOrden" value="#{contrato.ordenListaDto.nroOrden}" disabled="#{contrato.adicionales}" >
+				        <f:validateLength minimum="1"/>
+				      </p:inputText> 
+				   </td> 
+	               <td>
+	                   <p:commandButton  id="btnBuscar" value="Buscar" icon="fa fa-search" title="Buscar" actionListener="#{contrato.ordenBuscar}" disabled="#{contrato.adicionales}"
+	                   oncomplete="showDialogPF(':formOrden:dialogOrden')" update=":formOrden:dialogOrden"/>
+	               
+	               </td>	
+	            </tr>
+	            </table>
+
+            
             <p:spacer height="10"/>
             <p:dataTable id="tblListaOrden" editable="true" selection="#{contrato.orden1}"
 									value="#{contrato.listaOrden}" var="var"
@@ -289,15 +394,15 @@
 										<h:outputText value="#{var.estadoSiafDesc}" />
 									</p:column>
 									<p:column headerText="Armadas">
-										<p:cellEditor>
+										<p:cellEditor >
 											<f:facet name="header">
 												<f:facet name="output">
 													<h:outputText value="#{var.armadas}" />
 												</f:facet>
 											</f:facet>
 											<f:facet name="input">
-												<p:inputNumber value="#{var.armadas}" style="width:100%"
-													label="Year" maxlength="2" />
+												<p:inputNumber value="#{var.armadas}" style="width:100%" 
+													label="Year" maxlength="2" disabled="#{contrato.adicionales}"/>
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
@@ -312,17 +417,17 @@
 											</f:facet>
 											<f:facet name="input">
 												<p:calendar value="#{var.fechaInicioPrestacion}"
-													required="false" pattern="dd/MM/yyyy"
+													required="false" pattern="dd/MM/yyyy" disabled="#{contrato.adicionales}"
 													label="Fecha Consentimiento Buena Pro" navigator="true"
 													locale="es" styleClass="dateTimeField" style="width:100%" />
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
-									<p:column headerText="Acciones" style="width:9%" styleClass="c_center">
+									<p:column headerText="Acciones" style="width:9%" styleClass="c_center" >
 										<p:rowEditor editTitle="Editar" />
 									</p:column>
 									<p:column headerText="Eliminar" style="width:6%" styleClass="c_center" >
-										<p:commandButton icon="fa fa-trash" title="Eliminar" 
+										<p:commandButton icon="fa fa-trash" title="Eliminar" disabled="#{contrato.adicionales}"
 										update="tblListaOrden, :formSeg:msgs, :formSeg:accordion:tblListaEntregable, :formSeg:accordion:tblListaPagosSiaf"
 										actionListener="#{contrato.eliminarOrden(var)}"
 										 />
@@ -332,144 +437,144 @@
 		</p:tab>
 
 
-         <p:tab title="Control de pagos por entregables">
+         <p:tab title="Control de pagos por entregables" >
 			<p:panel>
-			<p:spacer height="5" />
-			<p:dataTable id="tblListaEntregable"
-									value="#{contrato.listaEntregable}" var="var"
-									emptyMessage="No se encontraron registros"
-									widgetVar="tblListaEntregable" paginator="false"
-									rows="#{sisabascontrol.registros_mant}"
-									paginatorPosition="bottom" selectionMode="single"
-									rowKey="#{var.descripcion}" styleClass="gandalfTableClass"
-									editable="true">
-                                     
-									
-									<p:ajax event="rowEdit" 
-									    listener="#{contrato.onRowEdit2}"
-									    update=":formSeg:msgs,formSeg:accordion:tblListaEntregable"/>
-									<p:ajax event="rowEditCancel"
-										listener="#{contrato.onRowCancel2}" update=":formSeg:msgs,formSeg:accordion:tblListaEntregable" />
-									
-									<p:column headerText="Proveido" width="8%">
-										<p:cellEditor>
-											<f:facet name="header">
-												<f:facet name="output">
-													<h:outputText value="#{var.nroProveido}" />
+				<p:spacer height="5" />
+				<p:dataTable id="tblListaEntregable" 
+										value="#{contrato.listaEntregable}" var="var"
+										emptyMessage="No se encontraron registros"
+										widgetVar="tblListaEntregable" paginator="false"
+										rows="#{sisabascontrol.registros_mant}"
+										paginatorPosition="bottom" selectionMode="single"
+										rowKey="#{var.descripcion}" styleClass="gandalfTableClass"
+										editable="true">
+	                                     
+										
+										<p:ajax event="rowEdit" 
+										    listener="#{contrato.onRowEdit2}"
+										    update=":formSeg:msgs,formSeg:accordion:tblListaEntregable"/>
+										<p:ajax event="rowEditCancel"
+											listener="#{contrato.onRowCancel2}" update=":formSeg:msgs,formSeg:accordion:tblListaEntregable" />
+										
+										<p:column headerText="Proveido" width="8%">
+											<p:cellEditor>
+												<f:facet name="header">
+													<f:facet name="output">
+														<h:outputText value="#{var.nroProveido}" />
+													</f:facet>
 												</f:facet>
-											</f:facet>
-											<f:facet name="input">
-												<p:inputText value="#{var.nroProveido}"
-													style="width:100%" label="Year" maxlength="2" />
-											</f:facet>
-										</p:cellEditor>
-									</p:column>
-									<p:column headerText="Fecha">
-										<p:cellEditor>
-											<f:facet name="header">
-												<f:facet name="output">
-													<h:outputText value="#{var.fecha}">
-														<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
-													</h:outputText>
+												<f:facet name="input">
+													<p:inputText value="#{var.nroProveido}" disabled="#{contrato.adicionales}"
+														style="width:100%" label="Year" maxlength="2" />
 												</f:facet>
-											</f:facet>
-											<f:facet name="input">
-												<p:calendar value="#{var.fecha}"
-													required="false" pattern="dd/MM/yyyy" label="Fecha"
-													navigator="true" locale="es" styleClass="dateTimeField" />
-											</f:facet>
-										</p:cellEditor>
-									</p:column>
-									<p:column headerText="Descripción">
-										<f:facet name="header">
-											<h:outputText value="Descripción"></h:outputText>
-										</f:facet>
-										<h:outputText value="#{var.descripcion}" />
-									</p:column>
-									
-									
-									<p:column headerText="Plazos (días)">
-										<p:cellEditor>
-											<f:facet name="header">
-												<f:facet name="output">
-													<h:outputText value="#{var.plazo}" />
+											</p:cellEditor>
+										</p:column>
+										<p:column headerText="Fecha">
+											<p:cellEditor>
+												<f:facet name="header">
+													<f:facet name="output">
+														<h:outputText value="#{var.fecha}">
+															<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+														</h:outputText>
+													</f:facet>
 												</f:facet>
-											</f:facet>
-											<f:facet name="input">
-												<p:inputNumber value="#{var.plazo}"
-													style="width:100%" label="Year" maxlength="2" />
-											</f:facet>
-										</p:cellEditor>
-									</p:column>
-									<p:column headerText="Importe">
-										<p:cellEditor>
-											<f:facet name="header">
-												<f:facet name="output">
-													<h:outputText value="#{var.importe}" />
+												<f:facet name="input">
+													<p:calendar value="#{var.fecha}" disabled="#{contrato.adicionales}"
+														required="false" pattern="dd/MM/yyyy" label="Fecha"
+														navigator="true" locale="es" styleClass="dateTimeField" />
 												</f:facet>
-											</f:facet>
-											<f:facet name="input">
-												<p:inputNumber value="#{var.importe}" symbol="S/."
-													style="width:100%" label="Year" maxlength="2" />
-											</f:facet>
-										</p:cellEditor>
-									</p:column>
-									<p:column headerText="Monto de penalidad">
-										<p:cellEditor>
+											</p:cellEditor>
+										</p:column>
+										<p:column headerText="Descripción">
 											<f:facet name="header">
-												<f:facet name="output">
-													<h:outputText value="#{var.montoPenalidad}" />
+												<h:outputText value="Descripción"></h:outputText>
+											</f:facet>
+											<h:outputText value="#{var.descripcion}" />
+										</p:column>
+										
+										
+										<p:column headerText="Plazos (días)">
+											<p:cellEditor>
+												<f:facet name="header">
+													<f:facet name="output">
+														<h:outputText value="#{var.plazo}" />
+													</f:facet>
 												</f:facet>
-											</f:facet>
-											<f:facet name="input">
-												<p:inputNumber value="#{var.montoPenalidad}" symbol="S/." 
-													style="width:100%" label="Year" maxlength="20"
-													decimalPlaces="2" />
-											</f:facet>
-										</p:cellEditor>
-									</p:column>
-									<p:column headerText="Observaciones">
-										<p:cellEditor>
-											<f:facet name="header">
-												<f:facet name="output">
-													<h:outputText value="#{var.observacion}" />
+												<f:facet name="input">
+													<p:inputNumber value="#{var.plazo}" disabled="#{contrato.adicionales}"
+														style="width:100%" label="Year" maxlength="2" />
 												</f:facet>
-											</f:facet>
-											<f:facet name="input">
-												<p:inputText value="#{var.observacion}"
-													style="width:100%" label="Year" maxlength="500" />
-											</f:facet>
-										</p:cellEditor>
-									</p:column>
-									<p:column headerText="Estado">
-										<p:cellEditor>
-											<f:facet name="header">
-												<f:facet name="output">
-													<h:outputText value="#{var.estado}" />
+											</p:cellEditor>
+										</p:column>
+										<p:column headerText="Importe">
+											<p:cellEditor>
+												<f:facet name="header">
+													<f:facet name="output">
+														<h:outputText value="#{var.importe}" />
+													</f:facet>
 												</f:facet>
-											</f:facet>
-											<f:facet name="input">
-												<p:selectOneMenu value="#{var.estado}"
-													id="dllIdcatalogoestadoentregable" required="false"
-													label="Estado">
-													<f:selectItem itemLabel="Seleccione" itemValue="" />
-													<f:selectItems
-														value="#{programacion.listaGentablaIdcatalogoestadoentregable}"
-														var="var1" itemLabel="#{var1.vchregdescri}"
-														itemValue="#{var1.vchregcodigo}" />
-												</p:selectOneMenu>
-											</f:facet>
-										</p:cellEditor>
-									</p:column>
-									
-									<p:column headerText="Acciones">
-										<p:rowEditor editTitle="Editar" />
-									</p:column>
-								</p:dataTable>
+												<f:facet name="input">
+													<p:inputNumber value="#{var.importe}" symbol="S/." disabled="#{contrato.adicionales}"
+														style="width:100%" label="Year" maxlength="2" />
+												</f:facet>
+											</p:cellEditor>
+										</p:column>
+										<p:column headerText="Monto de penalidad">
+											<p:cellEditor>
+												<f:facet name="header">
+													<f:facet name="output">
+														<h:outputText value="#{var.montoPenalidad}" />
+													</f:facet>
+												</f:facet>
+												<f:facet name="input">
+													<p:inputNumber value="#{var.montoPenalidad}" symbol="S/." disabled="#{contrato.adicionales}"
+														style="width:100%" label="Year" maxlength="20"
+														decimalPlaces="2" />
+												</f:facet>
+											</p:cellEditor>
+										</p:column>
+										<p:column headerText="Observaciones">
+											<p:cellEditor>
+												<f:facet name="header">
+													<f:facet name="output">
+														<h:outputText value="#{var.observacion}" />
+													</f:facet>
+												</f:facet>
+												<f:facet name="input">
+													<p:inputText value="#{var.observacion}" disabled="#{contrato.adicionales}"
+														style="width:100%" label="Year" maxlength="500" />
+												</f:facet>
+											</p:cellEditor>
+										</p:column>
+										<p:column headerText="Estado">
+											<p:cellEditor>
+												<f:facet name="header">
+													<f:facet name="output">
+														<h:outputText value="#{var.estado}" />
+													</f:facet>
+												</f:facet>
+												<f:facet name="input">
+													<p:selectOneMenu value="#{var.estado}" disabled="#{contrato.adicionales}"
+														id="dllIdcatalogoestadoentregable" required="false"
+														label="Estado">
+														<f:selectItem itemLabel="Seleccione" itemValue="" />
+														<f:selectItems 
+															value="#{programacion.listaGentablaIdcatalogoestadoentregable}"
+															var="var1" itemLabel="#{var1.vchregdescri}"
+															itemValue="#{var1.vchregcodigo}" />
+													</p:selectOneMenu>
+												</f:facet>
+											</p:cellEditor>
+										</p:column>
+										
+										<p:column headerText="Acciones">
+											<p:rowEditor editTitle="Editar" />
+										</p:column>
+				</p:dataTable>
 			</p:panel>
 		</p:tab>
 
-		<p:tab title="Detalle de pagos por orden" id="formPago">
+		<p:tab title="Detalle de pagos por orden" id="formPago" >
            <p:panel>
 			<p:spacer height="5" />
 				<p:dataTable id="tblListaPagosSiaf"
