@@ -258,6 +258,61 @@
 		<result column="EXISTE_SIGA" property="existeSiga" jdbcType="VARCHAR"/>
 		<result column="TIPO_MODALIDAD" property="tipoModalidad" jdbcType="VARCHAR"/>
 	</resultMap>
+	
+	<resultMap type="pe.com.sisabas.dto.ProcesoExportDto" id="procesoExport">
+		<result column="IdProcesoSeleccion" property="idprocesoseleccion" jdbcType="INTEGER"/>
+		<result column="CodigoTipoProceso" property="codigotipoproceso" jdbcType="VARCHAR"/>
+		<result column="Anio" property="anio" jdbcType="INTEGER"/>
+		<result column="TIPO_PROCESO" property="tipo_proceso" jdbcType="VARCHAR"/>
+		<result column="NroProceso" property="nroproceso" jdbcType="INTEGER"/>
+		<result column="NroConsolid" property="nroconsolid" jdbcType="INTEGER"/>
+		<result column="DSC_PROCESO_SELECCION" property="dsc_proceso_seleccion" jdbcType="VARCHAR"/>
+		<result column="FECHA_REGISTRO" property="fecha_registro" jdbcType="DATE"/>
+		<result column="TIPO_BIEN" property="tipo_bien" jdbcType="VARCHAR"/>
+		<result column="VALOR_REFERENCIAL" property="valor_referencial" jdbcType="DOUBLE"/>
+		<result column="TIPO_MODALIDAD" property="tipo_modalidad" jdbcType="VARCHAR"/>
+		<result column="NroActaProyectoBase" property="nroactaproyectobase" jdbcType="VARCHAR"/>
+		<result column="ObservacionesProyectoBases" property="observacionesproyectobases" jdbcType="VARCHAR"/>
+		<result column="FechaActaProyectoBase" property="fechaactaproyectobase" jdbcType="DATE"/>
+		<result column="FechaRecepcionExpediente" property="fecharecepcionexpediente" jdbcType="DATE"/>
+		<result column="NombreExpecialistaProceso" property="nombreexpecialistaproceso" jdbcType="VARCHAR"/>
+		<result column="FechaObservacionBase" property="fechaobservacionbase" jdbcType="DATE"/>
+		<result column="FechaSubsanacionBase" property="fechasubsanacionbase" jdbcType="DATE"/>
+		<result column="FechaAprobacionBase" property="fechaaprobacionbase" jdbcType="DATE"/>
+		<result column="FechaPronunciamiento" property="fechapronunciamiento" jdbcType="DATE"/>
+		<result column="FechaElevacionObservacion" property="fechaelevacionobservacion" jdbcType="DATE"/>
+		<result column="FechaDesierta" property="fechadesierta" jdbcType="DATE"/>
+		<result column="FechaEnvioProgramacion" property="fechaenvioprogramacion" jdbcType="DATE"/>
+		<result column="FechaEnvioEjecucion" property="fechaenvioejecucion" jdbcType="DATE"/>
+		<result column="FechaPublicacionConsentimiento" property="fechapublicacionconsentimiento" jdbcType="DATE"/>
+		<result column="FechaApelacion" property="fechaapelacion" jdbcType="DATE"/>
+		<result column="FechaResolucionApelacion" property="fecharesolucionapelacion" jdbcType="DATE"/>
+		<result column="ESTADO_KANBAN" property="estado_abas" jdbcType="VARCHAR"/>
+		<result column="ESTADO_SIGA" property="estado_siga" jdbcType="VARCHAR"/>
+		<result column="OBSERVACIONES" property="observaciones" jdbcType="VARCHAR"/>
+		<result column="CONVOCATORIA" property="convocatoria" jdbcType="DATE"/>
+		<result column="CONVOCATORIA_Y_REGISTRO_DE_PARTICIPANTES" property="convocatoria_y_registro_de_participantes" jdbcType="DATE"/>
+		<result column="PRESENTACION_Y_EVALUACION_DE_PROPUESTAS" property="presentacion_y_evaluacion_de_propuestas" jdbcType="DATE"/>
+		<result column="REGISTRO_DE_PARTICIPANTES" property="registro_de_participantes" jdbcType="DATE"/>
+		<result column="PRESENTACION_Y_ABSOL_CONSULTAS_FORM_Y_ABSOL_OBS_E_INTEGRACION_DE_BASES" property="presentacion_y_absol_consultas_form_y_absol_obs_e_integracion_de_bases" jdbcType="DATE"/>
+		<result column="PRESENTACION_Y_ABSOLUCION_DE_CONSULTAS" property="presentacion_y_absolucion_de_consultas" jdbcType="DATE"/>
+		<result column="PRESENTACION_DE_CONSULTAS" property="presentacion_de_consultas" jdbcType="DATE"/>
+		<result column="PRESENTACION_DE_PROPUESTAS" property="presentacion_de_propuestas" jdbcType="DATE"/>
+		<result column="FORMULACION_DE_CONSULTAS_Y_U_OBSERVACIONES_A_LAS_BASES" property="formulacion_de_consultas_y_u_observaciones_a_las_bases" jdbcType="DATE"/>
+		<result column="FORMULACION_Y_ABSOLUCION_DE_OBSERVACION_E_INTEGRACION_DE_LAS_BASES" property="formulacion_y_absolucion_de_observacion_e_integracion_de_las_bases" jdbcType="DATE"/>
+		<result column="ABSOLUCION_DE_CONSULTAS" property="absolucion_de_consultas" jdbcType="DATE"/>
+		<result column="ABSOLUCION_DE_CONSULTAS_Y_U_OBSERVACIONES_A_LAS_BASES" property="absolucion_de_consultas_y_u_observaciones_a_las_bases" jdbcType="DATE"/>
+		<result column="CALIFICACION_Y_EVALUACION_DE_PROPUESTAS" property="calificacion_y_evaluacion_de_propuestas" jdbcType="DATE"/>
+		<result column="EVALUACION_DE_PROPUESTAS" property="evaluacion_de_propuestas" jdbcType="DATE"/>
+		<result column="INTEGRACION_A_LAS_BASES" property="integracion_a_las_bases" jdbcType="DATE"/>
+		<result column="FORMULACION_DE_OBSERVACION_A_LAS_BASES" property="formulacion_de_observacion_a_las_bases" jdbcType="DATE"/>
+		<result column="ABSOLUCION_DE_OBSERVACIONES" property="absolucion_de_observaciones" jdbcType="DATE"/>
+		<result column="PRESENTACION_DE_PROPUESTAS2" property="presentacion_de_propuestas2" jdbcType="DATE"/>
+		<result column="INTEGRACION_DE_LAS_BASES" property="integracion_de_las_bases" jdbcType="DATE"/>
+		<result column="CALIFICACION_Y_EVALUACION_DE_PROPUESTAS2" property="calificacion_y_evaluacion_de_propuestas2" jdbcType="DATE"/>
+		<result column="OTORGAMIENTO_DE_LA_BUENA_PRO" property="otorgamiento_de_la_buena_pro" jdbcType="DATE"/>
+		<result column="OTORGAMIENTO_BUENA_PRO_CONSENTIDA" property="otorgamiento_buena_pro_consentida" jdbcType="DATE"/>
+	</resultMap>	
 
 	<sql id="Basic_Column_List">
 	A1.IDPROCESOSELECCION as A1_IDPROCESOSELECCION, A1.IDGRUPODOCUMENTO as A1_IDGRUPODOCUMENTO, A1.IDPACCONSOLIDADO as A1_IDPACCONSOLIDADO, A1.CODIGOTIPOPROCESO as A1_CODIGOTIPOPROCESO, 
@@ -1421,6 +1476,9 @@
 	<select id="searchProcesoDesierto" resultMap="procesoSearch" parameterType="pe.com.sisabas.dto.ProcesoRequest">
 		{call abas.paProcesosDesiertosListar(#{anio},#{idSinad},#{nroProceso},#{nroConsolid},#{idTipoProceso},#{idTipoBien},#{estadoProceso},#{codigoCentroCosto},#{idUnidadEjecutoraSiaf})}
 	</select>
-		
 
+	<select id="searchProcesoData" resultMap="procesoExport" parameterType="pe.com.sisabas.dto.ProcesoRequest">
+		{call abas.paProcesosExportar(#{idperiodo},#{sinad},#{nroproceso},#{nroconsolid},#{tipoproceso},#{tipobien},#{estadoproceso},#{codigocentrocosto})}
+	</select>
+	
 </mapper>

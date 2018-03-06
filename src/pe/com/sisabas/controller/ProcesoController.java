@@ -48,6 +48,8 @@ import pe.com.sisabas.dto.PacConsolidadoDto;
 import pe.com.sisabas.dto.PaoRequest;
 import pe.com.sisabas.dto.PaoResponse;
 import pe.com.sisabas.dto.ProcesoDto;
+import pe.com.sisabas.dto.ProcesoExportDto;
+import pe.com.sisabas.dto.ProcesoExportRequest;
 import pe.com.sisabas.dto.ProcesoRequest;
 import pe.com.sisabas.dto.ProcesoResultadoItemDto;
 import pe.com.sisabas.dto.Resultado;
@@ -112,6 +114,9 @@ public class ProcesoController extends BaseController {
 	private boolean esSeleccionadoConvocatoria;
 	private boolean isCalendarEditing = false;
 	private boolean disabledTabCalendar;
+	
+	//To export
+	private List<ProcesoExportDto> dataListToExport;
 
 	// Business layer section
 	@Autowired
@@ -675,6 +680,53 @@ public class ProcesoController extends BaseController {
 		}
 	}
 
+	public void goExport() {
+		STATUS_INIT();
+		try {
+			securityControlValidate("btnExport");
+			
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
+			if (usuario == null) {
+				REGISTER_ERROR();
+				addMessageKey("msgsDocumentotecnicoR", "Teminó la sesión", FacesMessage.SEVERITY_ERROR);
+				return;
+			}
+
+			
+			// resetRegisterForm();
+			// accion = IMPRIMIR;
+			tituloBase = "Proceso » " + IMPRIMIR;
+			ProcesoExportRequest request = new ProcesoExportRequest();
+			request.setIdperiodo(usuario.getPeriodo().getIdPeriodo());
+			request.setSinad(null);
+			request.setNroproceso(this.searchParam.getNroProceso());
+			request.setNroconsolid(this.searchParam.getNroConsolid());
+			request.setTipoproceso(this.searchParam.getIdTipoProceso());
+			request.setTipobien(this.searchParam.getIdTipoBien());
+			request.setEstadoproceso(null);
+			request.setCodigocentrocosto(this.searchParam.getCodigoCentroCosto());
+			this.dataListToExport = procesoBusiness.searchProcesoData(request);
+
+			STATUS_SUCCESS();
+			REGISTER_INIT();
+		} catch (SecuritySessionExpiredException e) {
+			redirectSessionExpiredPage();
+		} catch (SecurityRestrictedControlException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("no.access"), e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (SecurityValidateException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", e.getMessage(), FacesMessage.SEVERITY_ERROR);
+		} catch (RemoteException e) {
+			STATUS_ERROR();
+			addMessageKey("msgsForm", Messages.getString("sicu.remote.exeption"), e.getMessage(),
+					FacesMessage.SEVERITY_ERROR);
+		} catch (Exception e) {
+			STATUS_ERROR();
+			addErrorMessageKey("msgsForm", e);
+		}
+	}
+	
 	// methods
 	public void search() {
 		try {
@@ -1034,6 +1086,14 @@ public class ProcesoController extends BaseController {
 
 	public void setDisabledTabCalendar(boolean disabledTabCalendar) {
 		this.disabledTabCalendar = disabledTabCalendar;
+	}
+
+	public List<ProcesoExportDto> getDataListToExport() {
+		return dataListToExport;
+	}
+
+	public void setDataListToExport(List<ProcesoExportDto> dataListToExport) {
+		this.dataListToExport = dataListToExport;
 	}
 
 	

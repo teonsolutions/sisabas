@@ -9,14 +9,15 @@
 	template="/pages/template/MasterPage.xhtml">
 	<ui:define name="center">
 		<style>
-			.trafic-light-green{
-				background-color: green;
-			}
-			.trafic-light-yellow{
-				background-color: yellow;
-			}			
-		</style>		
-		<h:form id="form">			
+.trafic-light-green {
+	background-color: green;
+}
+
+.trafic-light-yellow {
+	background-color: yellow;
+}
+</style>
+		<h:form id="form">
 			<p:panel id="panel"
 				header="#{proceso.tituloParam} #{proceso.tituloBase} Buscar"
 				style="width: 98%">
@@ -99,7 +100,13 @@
 									update="hidStatus,:frmImprimir:diImprimir"
 									oncomplete="showDialog('form:hidStatus','frmImprimir:diImprimir');"
 									icon="fa fa-print"
-									rendered="#{evaluacionDocumento.renderButton('btnImprimir')}" />
+									rendered="#{proceso.renderButton('btnImprimir')}" />
+
+								<p:commandButton value="Exportar datos" action="#{proceso.goExport}"
+									update="hidStatus,:frmExport:diExport"
+									oncomplete="showDialog('form:hidStatus','frmExport:diExport');"
+									icon="fa fa-file-excel-o"
+									rendered="#{proceso.renderButton('btnExport')}" />
 
 							</p:panel></td>
 						<td valign="top">
@@ -200,7 +207,7 @@
 						<f:facet name="header">
 							<h:outputText value="Estado (SISABAS)"></h:outputText>
 						</f:facet>
-						<h:outputText value="#{var.estadoproceso}" />						
+						<h:outputText value="#{var.estadoproceso}" />
 					</p:column>
 
 					<p:column styleClass="c_string" sortBy="#{var.estadoSiga}">
@@ -210,6 +217,50 @@
 						<h:outputText value="#{var.estadoSiga}" />
 					</p:column>
 				</p:dataTable>
+
+				<div style="display: none;">
+				<p:dataTable id="tblListadoExport" value="#{proceso.dataListToExport}"
+					var="var" emptyMessage="No se encontraron registros"
+					widgetVar="tblListadoExport" paginator="true"
+					rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(proceso.dataListToExport)}"
+					selectionMode="single" rowKey="#{var.nroproceso}"
+					styleClass="gandalfTableClass">
+
+					<p:column styleClass="c_string">
+						<f:facet name="header">
+							<h:outputText value="ID PROCESO SELECCIÓN"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.idprocesoseleccion}" />
+					</p:column>
+					<p:column styleClass="c_string">
+						<f:facet name="header">
+							<h:outputText value="EJERCICIO"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.anio}" />
+					</p:column>					
+					<p:column styleClass="c_string">
+						<f:facet name="header">
+							<h:outputText value="TIPO DE PROCESO"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.tipo_proceso}" />
+					</p:column>
+					<p:column styleClass="c_string">
+						<f:facet name="header">
+							<h:outputText value="NUMERO DE PROCESO"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.nroproceso}" />
+					</p:column>
+					<p:column styleClass="c_string">
+						<f:facet name="header">
+							<h:outputText value="NUMERO DE CONSOLIDADO"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{var.nroconsolid}" />
+					</p:column>
+				</p:dataTable>				
+				</div>
+
+
 			</p:panel>
 		</h:form>
 
@@ -236,5 +287,30 @@
 				</h:panelGrid>
 			</p:dialog>
 		</h:form>
+
+		<h:form id="frmExport">
+			<p:dialog id="diExport" header="#{proceso.tituloBase}"
+				widgetVar="diExport" resizable="false" modal="true" dynamic="true">
+				<h:panelGrid columns="1" style="text-align:center;">
+
+					<p:commandButton icon="ui-icon-circle-arrow-s"
+						value="Exportar Lista Excel" ajax="false" style="width:100px;">
+						<p:dataExporter type="xls" target=":form:tblListadoExport"
+							fileName="datosprocesoseleccion"
+							postProcessor="#{proceso.postProcessXLS}" />
+					</p:commandButton>
+
+					<ui:remove>
+						<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf"
+							ajax="false" style="width:100px;">
+							<p:dataExporter type="pdf" target=":form:tblListadoExport"
+								fileName="datos" preProcessor="#{proceso.preProcessPDF}" />
+						</p:commandButton>
+					</ui:remove>
+
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+
 	</ui:define>
 </ui:composition>

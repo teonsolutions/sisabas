@@ -32,6 +32,8 @@ import pe.com.sisabas.dto.ConvocatoriaDto;
 import pe.com.sisabas.dto.PacConsolidadoDto;
 import pe.com.sisabas.dto.PersonaDto;
 import pe.com.sisabas.dto.ProcesoDto;
+import pe.com.sisabas.dto.ProcesoExportDto;
+import pe.com.sisabas.dto.ProcesoExportRequest;
 import pe.com.sisabas.dto.ProcesoRequest;
 import pe.com.sisabas.dto.ProcesoResultadoItemDesiertoDto;
 import pe.com.sisabas.dto.ProcesoResultadoItemDto;
@@ -817,6 +819,12 @@ public class ProcesoBusinessImpl implements ProcesoBusiness, Serializable {
 		// TODO Auto-generated method stub
 		List<ContratoSigaResponse> list = resultadoprocesoseleccionMapper.selectContratoSigaByRucAndNroConsolid(request);
 		return list != null && list.size() > 0;
+	}
+
+	@Override
+	public List<ProcesoExportDto> searchProcesoData(ProcesoExportRequest request) throws Exception {
+		// TODO Auto-generated method stub
+		return procesoseleccionMapper.searchProcesoData(request);
 	}
 
 }

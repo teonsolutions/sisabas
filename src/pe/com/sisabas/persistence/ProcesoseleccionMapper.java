@@ -4,6 +4,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import pe.com.sisabas.be.Procesoseleccion;
 import pe.com.sisabas.dto.ProcesoDto;
+import pe.com.sisabas.dto.ProcesoExportDto;
+import pe.com.sisabas.dto.ProcesoExportRequest;
 import pe.com.sisabas.dto.ProcesoRequest;
 
 public interface ProcesoseleccionMapper{
@@ -38,4 +40,7 @@ public interface ProcesoseleccionMapper{
 	List<ProcesoDto> searchProcesoSeguimiento(ProcesoRequest request) throws Exception;
 
 	List<ProcesoDto> searchProcesoDesierto(ProcesoRequest request) throws Exception;	
+	
+	List<ProcesoExportDto> searchProcesoData(ProcesoExportRequest request) throws Exception;
+	
 }

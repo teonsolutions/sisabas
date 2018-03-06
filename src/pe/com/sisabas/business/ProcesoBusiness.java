@@ -19,6 +19,8 @@ import pe.com.sisabas.dto.ConvocatoriaDto;
 import pe.com.sisabas.dto.PacConsolidadoDto;
 import pe.com.sisabas.dto.PersonaDto;
 import pe.com.sisabas.dto.ProcesoDto;
+import pe.com.sisabas.dto.ProcesoExportDto;
+import pe.com.sisabas.dto.ProcesoExportRequest;
 
 public interface ProcesoBusiness {
 	public List<ProcesoDto> searchProceso(ProcesoRequest request) throws Exception;
@@ -34,4 +36,5 @@ public interface ProcesoBusiness {
 	public List<ProcesoDto> searchProcesoDesierto(ProcesoRequest request) throws Exception;
 	public Resultado asignarResultadoProceso(TransactionRequest<List<ProcesoResultadoItemDesiertoDto>> request, PersonaDto persona) throws Exception;
 	public boolean validarExisteContrato(ContratoSigaRequest request) throws Exception;
+	public List<ProcesoExportDto> searchProcesoData(ProcesoExportRequest request) throws Exception;
 }
