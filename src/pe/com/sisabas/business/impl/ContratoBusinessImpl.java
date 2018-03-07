@@ -110,7 +110,7 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 
 	@Override
 	public void insertBasic(Contrato record) throws Exception {
-		record.setIdcontrato((int)utilsBusiness.getNextSeq(Sequence.SEQ_SISABAS).longValue());
+		record.setIdcontrato((int)utilsBusiness.getNextSeq(Sequence.SEQ_CONTRATO).longValue());
 		record.setFechacreacionauditoria(Utils.currentTimeStamp());
 		record.setEstadoauditoria("1");
 

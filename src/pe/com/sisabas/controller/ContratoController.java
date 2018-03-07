@@ -490,7 +490,7 @@ public class ContratoController extends BaseController {
 			// Todos
 
 			contratoRequest.setEjercicio(2017);
-			contratoRequest.setCodUnidEjecutora(26);
+			contratoRequest.setCodUnidEjecutora(Integer.parseInt(Constantes.unidadEjecutora.PRONIED));
 			// contratoRequest.setCentroCosto(usuario.getPeriodo().getCodigoCentroCosto());
 			contratoRequest.setEstado("0");
 			contratoRequest.setPageNumber(1);
@@ -1843,8 +1843,7 @@ public class ContratoController extends BaseController {
 			tituloBase = "Proceso » " + IMPRIMIR;
 			
 			contratoRequest.setEjercicio(2017);
-			contratoRequest.setCodUnidEjecutora(26);
-			// contratoRequest.setCentroCosto(usuario.getPeriodo().getCodigoCentroCosto());
+			contratoRequest.setCodUnidEjecutora(Integer.parseInt(Constantes.unidadEjecutora.PRONIED));
 			contratoRequest.setEstado("0");
 			contratoRequest.setPageNumber(1);
 			contratoRequest.setPageSize(10);

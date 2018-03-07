@@ -355,7 +355,7 @@ public class RequerimientoController extends BaseController {
 					+ requerimientoResponse.getEstadoSiga());
 			// Todos
 			// getPedidosEvaluacion
-			requerimientoItemRequest.setCodUnidadEjecutora("108");
+			requerimientoItemRequest.setCodUnidadEjecutora(Constantes.unidadEjecutora.PRONIED);
 			requerimientoItemRequest.setEjercicio(2017);
 
 			requerimientoItemRequest.setNroPedido(requerimientoResponse.getNroPedido());
@@ -399,7 +399,7 @@ public class RequerimientoController extends BaseController {
 		    }
 			
 			
-			requerimientoItemRequest.setCodUnidadEjecutora("108");
+			requerimientoItemRequest.setCodUnidadEjecutora(Constantes.unidadEjecutora.PRONIED);
 			requerimientoItemRequest.setEjercicio(2017);
 			requerimientoItemRequest.setNroPedido(requerimientoResponse.getNroPedido());
 			if (requerimientoResponse.getTipobien().equalsIgnoreCase("Servicio"))
@@ -487,7 +487,7 @@ public class RequerimientoController extends BaseController {
 
 			sumaPorcentajes();
 
-			requerimientoItemRequest.setCodUnidadEjecutora("108");
+			requerimientoItemRequest.setCodUnidadEjecutora(Constantes.unidadEjecutora.PRONIED);
 			requerimientoItemRequest.setEjercicio(2017);
 			requerimientoItemRequest.setNroPedido(requerimientoResponse.getNroPedido());
 			if (requerimientoResponse.getTipobien().equalsIgnoreCase("Servicio"))
