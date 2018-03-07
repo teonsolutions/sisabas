@@ -405,7 +405,7 @@
 	</delete>
 
    <select id="listaEjercicio" resultType="Integer">
-      SELECT DISTINCT ANO_EJE FROM BDABASv1.abas.visSigaOrdenAdquisicion
+      SELECT DISTINCT ANO_EJE FROM abas.visSigaOrdenAdquisicion
     </select>
   
  
