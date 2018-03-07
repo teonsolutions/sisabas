@@ -23,6 +23,7 @@ import pe.com.sisabas.be.Orden;
 import pe.com.sisabas.business.ContratoBusiness;
 import pe.com.sisabas.dto.AdendaDto;
 import pe.com.sisabas.dto.ContratoDto;
+import pe.com.sisabas.dto.ContratoExport;
 import pe.com.sisabas.dto.EntregableDto;
 import pe.com.sisabas.dto.OrdenDto;
 import pe.com.sisabas.dto.OrdenListaDto;
@@ -90,6 +91,22 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 		
 		return lista;
 	}
+	
+	@Override
+	public List<ContratoExport> selectDynamicExport(ContratoRequest request) throws Exception {
+		List<ContratoExport> lista = contratoMapper.selectDynamicExport(request); 
+		int numero = 1;
+        
+		for (ContratoExport row : lista) {
+			
+			row.formatoFecha();
+			row.setNumero(numero++);
+			row.setEjercicio(request.getEjercicio());
+		}
+		
+		return lista;
+	}
+
 
 	@Override
 	public void insertBasic(Contrato record) throws Exception {
@@ -588,6 +605,7 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 
 		}
 
+	
 
 		
 	}

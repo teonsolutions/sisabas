@@ -31,6 +31,35 @@
       <result property = "rowTotal" column="ROWTOTAL"/>
     </resultMap>
     
+    <resultMap id = "resultE" type = "pe.com.sisabas.dto.ContratoExport">
+      <result property = "idProcesoSeleccion" column="IdProcesoSeleccion"/>
+      <result property = "tipoBien" column="TIPO_BIEN"/>
+      <result property = "nroConsolid" column="NroConsolid"/>
+      <result property = "nroProceso" column="NRO_PROCESO"/>
+      <result property = "codTipoProceso" column="CodigoTipoProceso"/>
+      <result property = "tipoProceso" column="TIPO_PROCESO"/>
+      <result property = "centroCostos" column="CENTRO_COSTOS"/>
+      <result property = "nroContrato" column="NRO_CONTRATO"/>
+      <result property = "nroDocumento" column="NRO_DOCUMENTO"/>
+      <result property = "fechaContrato" column="FECHA_CONTRATO"/>
+      <result property = "fechaContratoStr" column="FECHA_CONTRATO_STR"/>
+      <result property = "idDocumento" column="ID_DOCUMENTO"/>
+      <result property = "idPacConsolidado" column="IdPacConsolidado"/>
+      <result property = "dniEspEjecucion" column="DniEspecialistaEjecucion"/>
+      <result property = "nomEspEjecucion" column="NOMBRE_ESPECIALISTA_EJECUCION"/>
+      <result property = "idTipoContrato" column="ID_TIPO_CONTRATO"/>
+      <result property = "tipoContrato" column="TIPO_CONTRATO"/>
+      <result property = "idContrato" column="IdContrato"/>
+      <result property = "estado" column="ESTADO"/>
+      <result property = "tipoContratoTb" column="TIPO_CONTRATO_TB"/>
+      <result property = "anoProceso" column="ANO_PROCESO"/>
+      <result property = "registrado" column="REGISTRADO"/>
+      <result property = "estadoContrato" column="EstadoContrato"/>
+      <result property = "estadoDocumentacion" column="ESTADO_DOCUMENTACION"/>
+      <result property = "estadoDocumentacionDesc" column="ESTADO_DOCUMENTACION_DESC"/>
+      <result property = "rowTotal" column="ROWTOTAL"/>
+    </resultMap>
+    
     <resultMap id = "result2" type = "pe.com.sisabas.dto.SegResponse">
       <result property = "tipoBien" column="TIPO_BIEN"/>  
       <result property = "nombreTipoBien" column="NOMBRE_TIPO_BIEN"/> 
@@ -1060,6 +1089,26 @@
       )}
       
    </select>
+   
+   
+   <select id = "selectDynamicExport" resultMap = "resultE" parameterType = "pe.com.sisabas.be.ContratoRequest" statementType = "CALLABLE">
+      {call abas.paExportarContratos(
+            #{ejercicio},
+            #{codUnidEjecutora},
+            #{numeroContrato},
+            #{numeroProceso},
+            #{tipoBien},
+            #{fechaContrato},
+            #{tipoProceso},
+            #{centroCosto},
+            #{estado},
+            #{sinadContrato},
+            #{pageNumber},
+            #{pageSize}   
+      )}
+      
+   </select>
+   
    
    <select id = "obtenerSeguimiento" resultMap = "result2" parameterType = "pe.com.sisabas.dto.SegRequest" statementType = "CALLABLE">
       {call abas.paEjecucionObtenerSeguimiento(

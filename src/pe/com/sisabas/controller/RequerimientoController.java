@@ -14,6 +14,12 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
@@ -1245,5 +1251,21 @@ public class RequerimientoController extends BaseController {
 	public void setValue9(boolean value9) {
 		this.value9 = value9;
 	}
+	
+	 public void postProcessXLS2(Object document) {  
+		    HSSFWorkbook wb = (HSSFWorkbook) document;  
+		    HSSFSheet sheet = wb.getSheetAt(0);  
+		    HSSFRow header = sheet.getRow(0);  
+		      
+		    HSSFCellStyle cellStyle = wb.createCellStyle();    
+		    cellStyle.setFillForegroundColor(HSSFColor.YELLOW.index);  
+		    cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);  
+		    
+		    for(int i=1; i < header.getPhysicalNumberOfCells();i++) {  
+		        HSSFCell cell = header.getCell(i);  
+		      
+		        cell.setCellStyle(cellStyle);  
+		    }  
+		}  
 
 }
