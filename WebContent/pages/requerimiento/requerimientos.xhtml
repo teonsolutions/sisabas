@@ -193,13 +193,7 @@
 								<h:panelGroup id="imprimir1">
 									<p:commandButton value="Imprimir"
 										action="#{requerimiento.imprimir}"
-										rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE2'}"
 										update="hidStatus" oncomplete="PF('diPedidoImprimir').show()"
-										icon="fa fa-print" />
-									<p:commandButton value="Imprimir"
-										action="#{requerimiento.imprimir}"
-										rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE1'}"
-										update="hidStatus" oncomplete="PF('diPedidoImprimir2').show()"
 										icon="fa fa-print" />
 								</h:panelGroup>
 								<p:spacer height="3" />
@@ -389,30 +383,42 @@
 				</p:dataTable>
 
 				<p:dialog id="diPedidoImprimir" header="Exportar Requerimientos"
-					widgetVar="diPedidoImprimir" resizable="false" modal="true"
-					dynamic="true">
+                 widgetVar="diPedidoImprimir" resizable="false" modal="true" dynamic="true">
+                    <p:ajax event="close" update="diPedidoImprimir"/>
 					<h:panelGrid columns="2" style="text-align:center;">
 
-						<p:outputLabel value="Nro Pedido" />
-						<p:selectBooleanCheckbox value="#{requerimiento.value1}" />
+						<p:outputLabel value="Nro Pedido" rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE2'}"/>
+						<p:selectBooleanCheckbox value="#{requerimiento.value1}" rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE2'}"/>
+						
 						<p:outputLabel value="Descripción" />
 						<p:selectBooleanCheckbox value="#{requerimiento.value2}" />
+						
 						<p:outputLabel value="Tipo de bien(SIGA)" />
 						<p:selectBooleanCheckbox value="#{requerimiento.value3}" />
+						
 						<p:outputLabel value="Monto S/." />
 						<p:selectBooleanCheckbox value="#{requerimiento.value4}" />
-						<p:outputLabel value="Estado(SIGA)" />
-						<p:selectBooleanCheckbox value="#{requerimiento.value5}" />
+						
+						<p:outputLabel value="Estado(SIGA)" rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE2'}"/>
+						<p:selectBooleanCheckbox value="#{requerimiento.value5}" rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE2'}"/>
+						
 						<p:outputLabel value="Estado(SisAbas)" />
 						<p:selectBooleanCheckbox value="#{requerimiento.value6}" />
+						
 						<p:outputLabel value="Nombre Dependencia" />
 						<p:selectBooleanCheckbox value="#{requerimiento.value7}" />
+						
+						<p:outputLabel value="Pac Programado" rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE1'}"/>
+						<p:selectBooleanCheckbox value="#{requerimiento.value8}" rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE1'}"/>
+
+						<p:outputLabel value="Nro Consolidado" rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE1'}"/>
+						<p:selectBooleanCheckbox value="#{requerimiento.value9}" rendered="#{requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE1'}"/>
 
 						<p:commandButton icon="fa fa-print" value="Exportar"
 							ajax="false" style="width:100px;">
 							<p:dataExporter type="xls" target=":form:tblListaRequerimiento"
 								fileName="datosPedido"
-								postProcessor="#{requerimiento.postProcessXLS}" />
+								postProcessor="#{requerimiento.postProcessXLS2}" />
 						</p:commandButton>
 					</h:panelGrid>
 				</p:dialog>

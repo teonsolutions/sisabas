@@ -218,8 +218,8 @@
 						<td valign="top">
 							<div align="right" style="margin-top: 12px;">
 								<h:panelGroup id="imprimir">
-									<p:commandButton value="Imprimir"
-										action="#{requerimiento.imprimir}" icon="fa fa-print" />
+									<p:commandButton value="Imprimir" action="#{contrato.goExport}" update=":form:dataExport"
+										oncomplete="PF('diContratoImprimir').show()" icon="fa fa-print" />
 								</h:panelGroup>
 								<p:spacer height="3" />
 								<p:commandButton value="Salir"
@@ -250,7 +250,7 @@
 					id="dataContratos" emptyMessage="No se encontraron registros"
 					styleClass="gandalfTableClass">
 
-					<p:column styleClass="c_center" width="10%">
+					<p:column styleClass="c_center" width="10%" exportable="false">
 						<f:facet name="header">
 							<h:outputText value="Acciones" styleClass="c_center" />
 						</f:facet>
@@ -309,35 +309,35 @@
 					</p:column>
 
 
-					<p:column styleClass="c_center">
+					<p:column styleClass="c_center" >
 						<f:facet name="header">
 							<h:outputText value="Estado documentación" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.estadoDocumentacionDesc}" />
 					</p:column>
 
-					<p:column styleClass="c_center">
+					<p:column styleClass="c_center" >
 						<f:facet name="header">
 							<h:outputText value="Tipo de proceso" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.tipoProceso}" />
 					</p:column>
 
-					<p:column styleClass="c_string" width="8%">
+					<p:column styleClass="c_string" width="8%" >
 						<f:facet name="header">
 							<h:outputText value="Número de proceso" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.nroProceso}" />
 					</p:column>
 
-					<p:column styleClass="c_center" width="9%">
+					<p:column styleClass="c_center" width="9%" >
 						<f:facet name="header">
 							<h:outputText value="Tipo de bien" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.tipoBien}" />
 					</p:column>
 
-					<p:column styleClass="c_numeric" width="10%">
+					<p:column styleClass="c_numeric" width="10%" >
 						<f:facet name="header">
 							<h:outputText value="Número de contrato SIGA"
 								styleClass="c_center" />
@@ -345,34 +345,186 @@
 						<h:outputText value="#{var.nroContrato}" styleClass="c_center" />
 					</p:column>
 
-					<p:column styleClass="c_string" width="10%">
+					<p:column styleClass="c_string" width="10%" >
 						<f:facet name="header">
 							<h:outputText value="Tipo de contrato" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.tipoContrato}" />
 					</p:column>
 
-					<p:column styleClass="c_string" width="8%">
+					<p:column styleClass="c_string" width="8%" >
 						<f:facet name="header">
 							<h:outputText value="Fecha contrato" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.formatoFecha}" />
 					</p:column>
 
-					<p:column styleClass="c_center">
+					<p:column styleClass="c_center" >
 						<f:facet name="header">
 							<h:outputText value="Estado" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.estado}" />
 					</p:column>
 
-					<p:column styleClass="c_string">
+					<p:column styleClass="c_string" >
 						<f:facet name="header">
 							<h:outputText value="Centro de costo" styleClass="c_center" />
 						</f:facet>
 						<h:outputText value="#{var.centroCostos}" />
 					</p:column>
+					
 				</p:dataTable>
+				
+				<p:dataTable var="var" value="#{contrato.listaExport}" rendered="false"
+					id="dataExport" emptyMessage="No se encontraron registros"
+					styleClass="gandalfTableClass">
+
+                    <p:column styleClass="c_string" exportable="#{contrato.value12}" rendered="true">
+						<f:facet name="header">
+							<h:outputText value="Ejercicio" styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.ejercicio}" />
+					</p:column>
+					
+					<p:column styleClass="c_center" exportable="#{contrato.value1}">
+						<f:facet name="header">
+							<h:outputText value="Estado documentación" styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.estadoDocumentacionDesc}" />
+					</p:column>
+
+					<p:column styleClass="c_center" exportable="#{contrato.value2}">
+						<f:facet name="header">
+							<h:outputText value="Tipo de proceso" styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.tipoProceso}" />
+					</p:column>
+
+					<p:column styleClass="c_string" width="8%" exportable="#{contrato.value3}">
+						<f:facet name="header">
+							<h:outputText value="Número de proceso" styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.nroProceso}" />
+					</p:column>
+
+					<p:column styleClass="c_center" width="9%" exportable="#{contrato.value4}">
+						<f:facet name="header">
+							<h:outputText value="Tipo de bien" styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.tipoBien}" />
+					</p:column>
+
+					<p:column styleClass="c_numeric" width="10%" exportable="#{contrato.value5}">
+						<f:facet name="header">
+							<h:outputText value="Número de contrato SIGA"
+								styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.nroContrato}" styleClass="c_center" />
+					</p:column>
+
+					<p:column styleClass="c_string" width="10%" exportable="#{contrato.value6}">
+						<f:facet name="header">
+							<h:outputText value="Tipo de contrato" styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.tipoContrato}" />
+					</p:column>
+
+					<p:column styleClass="c_string" width="8%" exportable="#{contrato.value7}">
+						<f:facet name="header">
+							<h:outputText value="Fecha contrato" styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.formatoFecha}" />
+					</p:column>
+
+					<p:column styleClass="c_center" exportable="#{contrato.value8}">
+						<f:facet name="header">
+							<h:outputText value="Estado" styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.estado}" />
+					</p:column>
+
+					<p:column styleClass="c_string" exportable="#{contrato.value9}">
+						<f:facet name="header">
+							<h:outputText value="Centro de costo" styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.centroCostos}" />
+					</p:column>
+					
+					<p:column styleClass="c_string" exportable="#{contrato.value10}" rendered="true">
+						<f:facet name="header">
+							<h:outputText value="Número Consolidado" styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.nroConsolid}" />
+					</p:column>
+					
+					<p:column styleClass="c_string" exportable="#{contrato.value11}" rendered="true">
+						<f:facet name="header">
+							<h:outputText value="Número de Contrato" styleClass="c_center" />
+						</f:facet>
+						<h:outputText value="#{var.nroContrato}" />
+					</p:column>
+					
+					
+					
+				</p:dataTable>
+				
+				<p:dialog id="diContratoImprimir" header="Exportar Contratos"
+                 widgetVar="diContratoImprimir" resizable="false" modal="true" dynamic="true">
+                    <p:ajax event="close" update="diContratoImprimir"/>
+					<h:panelGrid columns="2" style="text-align:center;">
+
+                        <p:outputLabel value="Ejercicio" />
+						<p:selectBooleanCheckbox value="#{contrato.value12}" />
+						
+						<p:outputLabel value="Estado documentación" />
+						<p:selectBooleanCheckbox value="#{contrato.value1}" />
+						
+						<p:outputLabel value="Tipo de proceso" />
+						<p:selectBooleanCheckbox value="#{contrato.value2}" />
+						
+						<p:outputLabel value="Número de proceso" />
+						<p:selectBooleanCheckbox value="#{contrato.value3}" />
+						
+						<p:outputLabel value="Tipo de bien" />
+						<p:selectBooleanCheckbox value="#{contrato.value4}" />
+						
+						<p:outputLabel value="Número de contrato SIGA" />
+						<p:selectBooleanCheckbox value="#{contrato.value5}" />
+						
+						<p:outputLabel value="Tipo de contrato" />
+						<p:selectBooleanCheckbox value="#{contrato.value6}" />
+						
+						<p:outputLabel value="Fecha contrato" />
+						<p:selectBooleanCheckbox value="#{contrato.value7}" />
+						
+						<p:outputLabel value="Estado" />
+						<p:selectBooleanCheckbox value="#{contrato.value8}" />
+
+						<p:outputLabel value="Centro de costo" />
+						<p:selectBooleanCheckbox value="#{contrato.value9}" />
+						
+						<p:outputLabel value="Número consolidado" />
+						<p:selectBooleanCheckbox value="#{contrato.value10}" />
+						
+						<p:outputLabel value="Número contrato" />
+						<p:selectBooleanCheckbox value="#{contrato.value11}" />
+
+						<p:commandButton icon="fa fa-print" value="Exportar"
+							ajax="false" style="width:100px;">
+							<p:dataExporter type="xls" target=":form:dataExport"
+								fileName="datosContrato"
+								postProcessor="#{contrato.postProcessXLS2}" />
+						</p:commandButton>
+					</h:panelGrid>
+				</p:dialog>
+				
+				
+				
+				
+				
+				
+				
+				
 			</h:form>
 
 			<h:form id="formEva">
