@@ -134,6 +134,19 @@ public class ProcesoController extends BaseController {
 	@Autowired
 	public ConvocatoriaprocesoseleccionBusiness convocatoriaprocesoseleccionBusiness;
 
+	private boolean value1;
+	private boolean value2;
+	private boolean value3;
+	private boolean value4;
+	private boolean value5;
+	private boolean value6;
+	private boolean value7;
+	private boolean value8;
+	private boolean value9;
+	private boolean value10;
+	private boolean value11;
+	private boolean value12;
+	
 	public ProcesoController() {
 
 	}
@@ -1096,7 +1109,104 @@ public class ProcesoController extends BaseController {
 		this.dataListToExport = dataListToExport;
 	}
 
+	public boolean isValue1() {
+		return value1;
+	}
+
+	public void setValue1(boolean value1) {
+		this.value1 = value1;
+	}
+
+	public boolean isValue2() {
+		return value2;
+	}
+
+	public void setValue2(boolean value2) {
+		this.value2 = value2;
+	}
+
+	public boolean isValue3() {
+		return value3;
+	}
+
+	public void setValue3(boolean value3) {
+		this.value3 = value3;
+	}
+
+	public boolean isValue4() {
+		return value4;
+	}
+
+	public void setValue4(boolean value4) {
+		this.value4 = value4;
+	}
+
+	public boolean isValue5() {
+		return value5;
+	}
+
+	public void setValue5(boolean value5) {
+		this.value5 = value5;
+	}
+
+	public boolean isValue6() {
+		return value6;
+	}
+
+	public void setValue6(boolean value6) {
+		this.value6 = value6;
+	}
+
+	public boolean isValue7() {
+		return value7;
+	}
+
+	public void setValue7(boolean value7) {
+		this.value7 = value7;
+	}
+
+	public boolean isValue8() {
+		return value8;
+	}
+
+	public void setValue8(boolean value8) {
+		this.value8 = value8;
+	}
+
+	public boolean isValue9() {
+		return value9;
+	}
+
+	public void setValue9(boolean value9) {
+		this.value9 = value9;
+	}
+
+	public boolean isValue10() {
+		return value10;
+	}
+
+	public void setValue10(boolean value10) {
+		this.value10 = value10;
+	}
+
+	public boolean isValue11() {
+		return value11;
+	}
+
+	public void setValue11(boolean value11) {
+		this.value11 = value11;
+	}
+
+	public boolean isValue12() {
+		return value12;
+	}
+
+	public void setValue12(boolean value12) {
+		this.value12 = value12;
+	}
+
 	
-	// properties
+	// properties to export data
+	
 
 }

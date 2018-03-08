@@ -19,7 +19,7 @@
 </style>
 		<h:form id="form">
 			<p:panel id="panel"
-				header="#{proceso.tituloParam} #{proceso.tituloBase} Buscar"
+				header="Proceso >> Buscar"
 				style="width: 98%">
 				<p:focus for="panel" />
 				<p:messages id="msgsForm" for="msgsForm" autoUpdate="true"
@@ -102,12 +102,13 @@
 									icon="fa fa-print"
 									rendered="#{proceso.renderButton('btnImprimir')}" />
 
-								<p:commandButton value="Exportar datos" action="#{proceso.goExport}"
+								<!-- 
+								<p:commandButton value="Exportar datos" action="{proceso.goExport}"
 									update="hidStatus,:frmExport:diExport"
 									oncomplete="showDialog('form:hidStatus','frmExport:diExport');"
 									icon="fa fa-file-excel-o"
-									rendered="#{proceso.renderButton('btnExport')}" />
-
+									rendered="{proceso.renderButton('btnExport')}" />
+ -->
 							</p:panel></td>
 						<td valign="top">
 							<div align="right" style="margin-top: 12px">
@@ -134,7 +135,7 @@
 						update=":form:pnlBotones" immediate="true" />
 
 
-					<p:column styleClass="c_string" sortBy="#{var.existeSiga}">
+					<p:column styleClass="c_string" sortBy="#{var.existeSiga}" exportable="#{proceso.value1}">
 						<f:facet name="header">
 							<h:outputText value="Existe en SIGA?"></h:outputText>
 						</f:facet>
@@ -142,35 +143,35 @@
 					</p:column>
 
 
-					<p:column styleClass="c_string" sortBy="#{var.tipoProcesoDesc}">
+					<p:column styleClass="c_string" sortBy="#{var.tipoProcesoDesc}" exportable="#{proceso.value2}">
 						<f:facet name="header">
 							<h:outputText value="Tipo de proceso"></h:outputText>
 						</f:facet>
 						<h:outputText value="#{var.tipoProcesoDesc}" />
 					</p:column>
 
-					<p:column styleClass="c_string" sortBy="#{var.nroProceso}">
+					<p:column styleClass="c_string" sortBy="#{var.nroProceso}" exportable="#{proceso.value3}">
 						<f:facet name="header">
 							<h:outputText value="Nro. Proceso"></h:outputText>
 						</f:facet>
 						<h:outputText value="#{var.nroProceso}" />
 					</p:column>
 
-					<p:column styleClass="c_string" sortBy="#{var.nroConsolid}">
+					<p:column styleClass="c_string" sortBy="#{var.nroConsolid}" exportable="#{proceso.value4}">
 						<f:facet name="header">
 							<h:outputText value="Nro. PAO (SIGA)"></h:outputText>
 						</f:facet>
 						<h:outputText value="#{var.nroConsolid}" />
 					</p:column>
 
-					<p:column styleClass="c_string" sortBy="#{var.tipoBienDesc}">
+					<p:column styleClass="c_string" sortBy="#{var.tipoBienDesc}" exportable="#{proceso.value5}">
 						<f:facet name="header">
 							<h:outputText value="Tipo de bien"></h:outputText>
 						</f:facet>
 						<h:outputText value="#{var.tipoBienDesc}" />
 					</p:column>
 
-					<p:column styleClass="c_string" sortBy="#{var.glosa}"
+					<p:column styleClass="c_string" sortBy="#{var.glosa}" exportable="#{proceso.value6}"
 						style="width: 25%;">
 						<f:facet name="header">
 							<h:outputText value="Descripción del proceso"></h:outputText>
@@ -179,14 +180,14 @@
 					</p:column>
 
 					<p:column styleClass="c_string"
-						sortBy="#{var.valorEstimadoContratacion}">
+						sortBy="#{var.valorEstimadoContratacion}" exportable="#{proceso.value7}">
 						<f:facet name="header">
 							<h:outputText value="Valor Referencial S/."></h:outputText>
 						</f:facet>
 						<h:outputText value="#{var.valorEstimadoContratacion}" />
 					</p:column>
 
-					<p:column sortBy="#{var.fechaRegistro}">
+					<p:column sortBy="#{var.fechaRegistro}" exportable="#{proceso.value8}">
 						<f:facet name="header">
 							<h:outputText value="Fecha"></h:outputText>
 						</f:facet>
@@ -196,21 +197,21 @@
 					</p:column>
 
 					<p:column styleClass="c_string"
-						sortBy="#{var.nombreEspecialistaProceso}">
+						sortBy="#{var.nombreEspecialistaProceso}" exportable="#{proceso.value9}">
 						<f:facet name="header">
 							<h:outputText value="Especialista asignado"></h:outputText>
 						</f:facet>
 						<h:outputText value="#{var.nombreEspecialistaProceso}" />
 					</p:column>
 
-					<p:column styleClass="c_string" sortBy="#{var.estadoproceso}">
+					<p:column styleClass="c_string" sortBy="#{var.estadoproceso}" exportable="#{proceso.value10}">
 						<f:facet name="header">
 							<h:outputText value="Estado (SISABAS)"></h:outputText>
 						</f:facet>
 						<h:outputText value="#{var.estadoproceso}" />
 					</p:column>
 
-					<p:column styleClass="c_string" sortBy="#{var.estadoSiga}">
+					<p:column styleClass="c_string" sortBy="#{var.estadoSiga}" exportable="#{proceso.value11}">
 						<f:facet name="header">
 							<h:outputText value="Estado (SIGA)"></h:outputText>
 						</f:facet>
@@ -218,16 +219,16 @@
 					</p:column>
 				</p:dataTable>
 
-				<div style="display: none;">
+				
 				<p:dataTable id="tblListadoExport" value="#{proceso.dataListToExport}"
 					var="var" emptyMessage="No se encontraron registros"
 					widgetVar="tblListadoExport" paginator="true"
 					rows="#{sisabascontrol.registros_mant}" paginatorPosition="bottom"
 					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} Total registros: #{fn:length(proceso.dataListToExport)}"
 					selectionMode="single" rowKey="#{var.nroproceso}"
-					styleClass="gandalfTableClass">
+					styleClass="gandalfTableClass" rendered="false">
 
-					<p:column styleClass="c_string">
+					<p:column styleClass="c_string" exportable="value1">
 						<f:facet name="header">
 							<h:outputText value="ID PROCESO SELECCIÓN"></h:outputText>
 						</f:facet>
@@ -257,32 +258,59 @@
 						</f:facet>
 						<h:outputText value="#{var.nroconsolid}" />
 					</p:column>
-				</p:dataTable>				
-				</div>
+				</p:dataTable>			
+				
 
 
 			</p:panel>
 		</h:form>
 
 		<h:form id="frmImprimir">
-			<p:dialog id="diImprimir" header="#{proceso.tituloBase}"
+			<p:dialog id="diImprimir" header="Exportar datos"
 				widgetVar="diImprimir" resizable="false" modal="true" dynamic="true">
-				<h:panelGrid columns="1" style="text-align:center;">
+				<p:ajax event="close" update="frmImprimir:diImprimir"/>
+				<h:panelGrid columns="2" style="text-align:center;">
 
+                        <p:outputLabel value="Existe en SIGA?" />
+						<p:selectBooleanCheckbox value="#{proceso.value1}" />
+						
+						<p:outputLabel value="Tipo de proceso" />
+						<p:selectBooleanCheckbox value="#{proceso.value2}" />
+						
+						<p:outputLabel value="Nro. Proceso" />
+						<p:selectBooleanCheckbox value="#{proceso.value3}" />
+						
+						<p:outputLabel value="Nro. PAO (SIGA)" />
+						<p:selectBooleanCheckbox value="#{proceso.value4}" />
+						
+						<p:outputLabel value="Tipo de bien" />
+						<p:selectBooleanCheckbox value="#{proceso.value5}" />
+						
+						<p:outputLabel value="Descripción del proceso" />
+						<p:selectBooleanCheckbox value="#{proceso.value6}" />
+						
+						<p:outputLabel value="Valor Referencial S/." />
+						<p:selectBooleanCheckbox value="#{proceso.value7}" />
+						
+						<p:outputLabel value="Fecha" />
+						<p:selectBooleanCheckbox value="#{proceso.value8}" />
+						
+						<p:outputLabel value="Especialista asignado" />
+						<p:selectBooleanCheckbox value="#{proceso.value9}" />
+
+						<p:outputLabel value="Estado (SISABAS)" />
+						<p:selectBooleanCheckbox value="#{proceso.value10}" />
+						
+						<p:outputLabel value="Estado (SIGA)" />
+						<p:selectBooleanCheckbox value="#{proceso.value11}" />						
+						
 					<p:commandButton icon="ui-icon-circle-arrow-s"
-						value="Exportar Lista Excel" ajax="false" style="width:100px;">
+						value="Exportar" ajax="false" style="width:100px;">
 						<p:dataExporter type="xls" target=":form:tblListado"
-							fileName="datosDocumentotecnico"
+							fileName="procesoselccion"
 							postProcessor="#{proceso.postProcessXLS}" />
 					</p:commandButton>
-
-					<ui:remove>
-						<p:commandButton icon="ui-icon-circle-arrow-s" value="Pdf"
-							ajax="false" style="width:100px;">
-							<p:dataExporter type="pdf" target=":form:tblListado"
-								fileName="datos" preProcessor="#{proceso.preProcessPDF}" />
-						</p:commandButton>
-					</ui:remove>
+			
 
 				</h:panelGrid>
 			</p:dialog>
