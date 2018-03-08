@@ -193,6 +193,7 @@ public class Constantes {
 		public static final int REMITIDO_A_PROGRAMACION = 11;
 		public static final int EN_COMITE_ESPECIAL = 21;
 		public static final int BASE_APROBADA = 22;
+		public static final int EN_SUSCRIPCION_DE_CONTRATO = 153;
 	}
 
 	public class estadosPorTipoDocumentoDesc {

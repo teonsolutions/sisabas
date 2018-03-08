@@ -1212,6 +1212,7 @@ public class ContratoController extends BaseController {
 			contrato.setIdcatalogoestadodocumentacion(this.estadodocumentacion);
 			contrato.setProgramaauditoria(pe.com.sisabas.resources.Utils.obtenerPrograma(this.getClass()));
 			contrato.setEquipoauditoria(getRemoteAddr());
+			contrato.setEstadocontrato(Constantes.estadosPorTipoDocumento.EN_SUSCRIPCION_DE_CONTRATO);
 			// contrato.setGentablaIdcatalogoestadodocumentacion(gentablaBusiness.selectByPrimaryKeyBasicFromList(contrato.getIdcatalogoestadodocumentacion(),listaGentablaIdcatalogoestadodocumentacion));
 			contratoBusiness.insertBasic(contrato);
 			/*

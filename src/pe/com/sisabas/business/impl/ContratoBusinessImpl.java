@@ -108,6 +108,7 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 	}
 
 
+	@Transactional
 	@Override
 	public void insertBasic(Contrato record) throws Exception {
 		record.setIdcontrato((int)utilsBusiness.getNextSeq(Sequence.SEQ_CONTRATO).longValue());
@@ -132,17 +133,12 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 		evaluaciondocumentoMapper.insert(evaDocumento);
 		
 		
-		Estadosportipodocumento param = new Estadosportipodocumento();
-		param.setIdtipodocumento(Constantes.tipoDocumento.PROCESO);
-		param.setIdestadosporetapa(Constantes.estadosPorEtapa.EN_COMITE_ESPECIAL); //sincronizar
-		Estadosportipodocumento estado = estadosportipodocumentoMapper.selectByEtapaTipoDocumento(param);
-		
-		if (estado != null) {
+
 			java.util.Date date = new java.util.Date();
 			Estadosporetapapordocumento estadoNuevo = new Estadosporetapapordocumento();
 			estadoNuevo.setNrodocumento(record.getIdcontrato()); //Process number
-			estadoNuevo.setIdestadosportipodocumento(estado.getIdestadosportipodocumento());
-			estadoNuevo.setIdtipodocumento(Constantes.tipoDocumento.PROCESO);
+			estadoNuevo.setIdestadosportipodocumento(Constantes.estadosPorTipoDocumento.EN_SUSCRIPCION_DE_CONTRATO);
+			estadoNuevo.setIdtipodocumento(Constantes.tipoDocumento.CONTRATO);
 			estadoNuevo.setFechaingreso(date);
 			estadoNuevo.setFechacreacionauditoria(date);
 			estadoNuevo.setUsuariocreacionauditoria(record.getUsuariocreacionauditoria());
@@ -156,7 +152,7 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 
 			estadoNuevo.setEstadoauditoria(Constantes.estadoAuditoria.ACTIVO);
 			estadosporetapapordocumentoMapper.insert(estadoNuevo);
-		}
+	
 	}
 	
 	public void updateBooleanToChar(Contrato record) throws Exception {
