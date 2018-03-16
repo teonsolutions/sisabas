@@ -222,7 +222,7 @@
 						</f:facet>
 						<p:commandButton
 							rendered="#{var.estadoPedidoIn eq null and requerimiento.requerimientoRequest.tipoNecesidad eq 'TINE2'}"
-							update=":form:requerimientoDetalle" icon="fa fa-child"
+							update=":form:requerimientoDetalle, :form:panelPoid" icon="fa fa-child"
 							title="Asociar al POI"
 							action="#{requerimiento.buscarItemRequerimientos}"
 							oncomplete="PF('reqDialog').show()">
@@ -436,9 +436,10 @@
 								src="/pages/requerimiento/component/c_requerimientosPoi.xhtml" />
 						</p:scrollPanel>
 						<div style="text-align: left;">
-							<p:outputLabel
-								value="Las tareas corresponden al Plan Operativo Institucional registrado en el PLANIN." />
-							<br /> <br />
+						    <p:panel id="panelPoid">
+							  <p:outputLabel value="Las tareas corresponden al Plan Operativo Institucional registrado en el PLANIN." rendered="#{requerimiento.planin}"/>
+							  <p:outputLabel value="Existen tareas SIGA que no están asociadas a tareas del PLANIN." rendered="#{not requerimiento.planin}"/>
+							</p:panel>	
 						</div>
 						<table style="width: 70%;">
 							<tr>
