@@ -4,9 +4,9 @@
 	
 	<Resource name="jdbc/sisabas" auth="Container"
 		type="javax.sql.DataSource" maxActive="100" maxIdle="30"
-		maxWait="10000" username="uadesarrolloficha" password="123456789"
+		maxWait="10000" username="uaTestPronied" password="12345678B"
 		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-		url="jdbc:sqlserver://10.40.7.126\insdes;databaseName=BDABASv1" />
+		url="jdbc:sqlserver://10.40.7.108\instest;databaseName=SISABAS" />
 	
 	
 	<!-- jasaro21 -->
