@@ -52,7 +52,12 @@
       <result property = "tipoBien" column="TIPO_BIEN"/>
       <result property = "codigoTareaPlanin" column="CodigoTareaPlanin"/>
       <result property = "secFun" column="SEC_FUNC"/>
+      <result property = "codigoTarea" column="codigo_tarea"/>
       <result property = "nombreTarea" column="NOMBRE_TAREA_SIGA"/>
+      <result property = "codigoTareaPlan" column="CodigoTareaPlan"/>
+      <result property = "nombreTareaPlan" column="NombreTareaPlan"/>
+      <result property = "idActividadPlan" column="IdActividadPlan"/>
+      <result property = "nombreActividadPlan" column="NombreActividadPlan"/>
    </resultMap> 
    
    

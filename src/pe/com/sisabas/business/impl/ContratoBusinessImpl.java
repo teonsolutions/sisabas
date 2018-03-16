@@ -138,6 +138,7 @@ public class ContratoBusinessImpl implements ContratoBusiness, Serializable{
 			Estadosporetapapordocumento estadoNuevo = new Estadosporetapapordocumento();
 			estadoNuevo.setNrodocumento(record.getIdcontrato()); //Process number
 			estadoNuevo.setIdestadosportipodocumento(Constantes.estadosPorTipoDocumento.EN_SUSCRIPCION_DE_CONTRATO);
+	
 			estadoNuevo.setIdtipodocumento(Constantes.tipoDocumento.CONTRATO);
 			estadoNuevo.setFechaingreso(date);
 			estadoNuevo.setFechacreacionauditoria(date);

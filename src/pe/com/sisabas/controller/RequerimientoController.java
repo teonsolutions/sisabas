@@ -83,6 +83,8 @@ public class RequerimientoController extends BaseController {
 	private boolean value7;
 	private boolean value8;
 	private boolean value9;
+	
+	private boolean planin = true;
 
 	private String pdfURL = "/resources/pdfs/fer.pdf";
 	private String pdf = "fer.pdf";
@@ -350,14 +352,15 @@ public class RequerimientoController extends BaseController {
 
 	public void buscarItemRequerimientos() {
 		try {
-
+			this.planin = true;
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
 			System.out.println("******************************GetEstadoSiga****************************"
 					+ requerimientoResponse.getEstadoSiga());
+			
 			// Todos
 			// getPedidosEvaluacion
 			requerimientoItemRequest.setCodUnidadEjecutora(Constantes.unidadEjecutora.PRONIED);
-			requerimientoItemRequest.setEjercicio(2017);
-
+			requerimientoItemRequest.setEjercicio(usuario.getPeriodo().getAnio());		
 			requerimientoItemRequest.setNroPedido(requerimientoResponse.getNroPedido());
 
 			if (requerimientoResponse.getTipobien().equalsIgnoreCase("Servicio"))
@@ -366,6 +369,16 @@ public class RequerimientoController extends BaseController {
 				requerimientoItemRequest.setTipoBien("B");
 
 			listaItemRequerimientos = requerimientoBusiness.selectDynamicBasic(requerimientoItemRequest);
+			
+			for (int i = 0 ; i<listaItemRequerimientos.size() && this.planin ==true ; i++){
+				
+				if(listaItemRequerimientos.get(i).getCodigoTareaPlan() == null ){
+					this.planin = false;
+				}
+
+			}
+			
+			
 
 			if (listaItemRequerimientos.size() == 1)
 				tam = 100;
@@ -390,17 +403,18 @@ public class RequerimientoController extends BaseController {
 	}
 
 	public void buscarItemRequerimientos2() {
+		Sicuusuario usuario = null ;
 
 		try {
 
 		    if(documentotecnico!=null){
-		    	Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
+		    	usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
 		    	documentotecnico.setNombreresponsable(usuario.getNombreUsuario());
 		    }
 			
 			
 			requerimientoItemRequest.setCodUnidadEjecutora(Constantes.unidadEjecutora.PRONIED);
-			requerimientoItemRequest.setEjercicio(2017);
+			requerimientoItemRequest.setEjercicio(usuario.getPeriodo().getAnio());
 			requerimientoItemRequest.setNroPedido(requerimientoResponse.getNroPedido());
 			if (requerimientoResponse.getTipobien().equalsIgnoreCase("Servicio"))
 				requerimientoItemRequest.setTipoBien("S");
@@ -488,7 +502,7 @@ public class RequerimientoController extends BaseController {
 			sumaPorcentajes();
 
 			requerimientoItemRequest.setCodUnidadEjecutora(Constantes.unidadEjecutora.PRONIED);
-			requerimientoItemRequest.setEjercicio(2017);
+			requerimientoItemRequest.setEjercicio(usuario.getPeriodo().getAnio());
 			requerimientoItemRequest.setNroPedido(requerimientoResponse.getNroPedido());
 			if (requerimientoResponse.getTipobien().equalsIgnoreCase("Servicio"))
 				requerimientoItemRequest.setTipoBien("S");
@@ -548,11 +562,11 @@ public class RequerimientoController extends BaseController {
 
 	public void insertarRequerimientos() {
 		try {
-			
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
 
 			requerimientoInsertRequest.setNroPedido(requerimientoResponse.getNroPedido());
 			requerimientoInsertRequest.setCodUnidadEjecutora(Constantes.unidadEjecutora.PRONIED);
-			requerimientoInsertRequest.setAnoEje(2017);
+			requerimientoInsertRequest.setAnoEje(usuario.getPeriodo().getAnio());
 			requerimientoInsertRequest.setTipoBien(requerimientoResponse.getTipobien());
 			requerimientoInsertRequest.setIdPeriodo(1);
 			requerimientoInsertRequest.setUsuarioCreacion(getUserLogin());
@@ -853,6 +867,7 @@ public class RequerimientoController extends BaseController {
 		this.documentotecnico.setNropac(null);
 		this.documentotecnico.setIddocumentotecnico(null);
 		this.check = false;
+		this.planin = true;
 	}
 
 	public void agregarLugar() { // adding new nationality and set its index
@@ -1266,6 +1281,14 @@ public class RequerimientoController extends BaseController {
 		      
 		        cell.setCellStyle(cellStyle);  
 		    }  
-		}  
+		}
+
+	public boolean isPlanin() {
+		return planin;
+	}
+
+	public void setPlanin(boolean planin) {
+		this.planin = planin;
+	}  
 
 }

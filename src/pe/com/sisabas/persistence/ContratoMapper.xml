@@ -15,6 +15,7 @@
       <result property = "fechaContrato" column="FECHA_CONTRATO"/>
       <result property = "fechaContratoStr" column="FECHA_CONTRATO_STR"/>
       <result property = "idDocumento" column="ID_DOCUMENTO"/>
+      <result property = "fechaModificacionAuditoria" column="FechaModificacionAuditoria"/>
       <result property = "idPacConsolidado" column="IdPacConsolidado"/>
       <result property = "dniEspEjecucion" column="DniEspecialistaEjecucion"/>
       <result property = "nomEspEjecucion" column="NOMBRE_ESPECIALISTA_EJECUCION"/>

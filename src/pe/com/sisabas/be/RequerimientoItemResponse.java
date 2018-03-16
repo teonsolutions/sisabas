@@ -30,6 +30,14 @@ public class RequerimientoItemResponse extends SysTabla  implements  Serializabl
 	private Integer secFun;
 	private String nombreTarea;
 	
+	private Integer codigoTarea;
+	private String codigoTareaPlan;
+	private String nombreTareaPlan;
+	private String idActividadPlan;
+	private String nombreActividadPlan;
+	
+	
+	
 	private Integer numeracion;
 	
 	
@@ -165,6 +173,36 @@ public class RequerimientoItemResponse extends SysTabla  implements  Serializabl
 	}
 	public void setNombreTarea(String nombreTarea) {
 		this.nombreTarea = nombreTarea;
+	}
+	public Integer getCodigoTarea() {
+		return codigoTarea;
+	}
+	public void setCodigoTarea(Integer codigoTarea) {
+		this.codigoTarea = codigoTarea;
+	}
+	public String getCodigoTareaPlan() {
+		return codigoTareaPlan;
+	}
+	public void setCodigoTareaPlan(String codigoTareaPlan) {
+		this.codigoTareaPlan = codigoTareaPlan;
+	}
+	public String getNombreTareaPlan() {
+		return nombreTareaPlan;
+	}
+	public void setNombreTareaPlan(String nombreTareaPlan) {
+		this.nombreTareaPlan = nombreTareaPlan;
+	}
+	public String getIdActividadPlan() {
+		return idActividadPlan;
+	}
+	public void setIdActividadPlan(String idActividadPlan) {
+		this.idActividadPlan = idActividadPlan;
+	}
+	public String getNombreActividadPlan() {
+		return nombreActividadPlan;
+	}
+	public void setNombreActividadPlan(String nombreActividadPlan) {
+		this.nombreActividadPlan = nombreActividadPlan;
 	}
 	
 	

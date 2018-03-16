@@ -20,6 +20,7 @@ public class ContratoResponse extends SysTabla  implements  Serializable,Cloneab
     private Date fechaContrato;
     private String fechaContratoStr;
     private Integer idDocumento;
+    private Date fechaModificacionAuditoria;
     private Integer idPacConsolidado;
     private String dniEspEjecucion;
     private String nomEspEjecucion;
@@ -266,6 +267,14 @@ public class ContratoResponse extends SysTabla  implements  Serializable,Cloneab
 
 	public void setCentroCostos(String centroCostos) {
 		this.centroCostos = centroCostos;
+	}
+
+	public Date getFechaModificacionAuditoria() {
+		return fechaModificacionAuditoria;
+	}
+
+	public void setFechaModificacionAuditoria(Date fechaModificacionAuditoria) {
+		this.fechaModificacionAuditoria = fechaModificacionAuditoria;
 	}
 
     

@@ -394,7 +394,7 @@ public class ContratoController extends BaseController {
 				
 				contratoBusiness.actualizarContrato(contratoDto);
 				showGrowlMessageSuccessfullyCompletedAction();
-					
+				buscarContratos();	
 			
 			}
 
@@ -488,8 +488,9 @@ public class ContratoController extends BaseController {
 	public void buscarContratos() {
 		try {
 			// Todos
+			Sicuusuario usuario = (Sicuusuario) getHttpSession().getAttribute("sicuusuarioSESSION");
 
-			contratoRequest.setEjercicio(2017);
+			contratoRequest.setEjercicio(usuario.getPeriodo().getAnio());
 			contratoRequest.setCodUnidEjecutora(Integer.parseInt(Constantes.unidadEjecutora.PRONIED));
 			// contratoRequest.setCentroCosto(usuario.getPeriodo().getCodigoCentroCosto());
 			contratoRequest.setEstado("0");
@@ -1843,7 +1844,7 @@ public class ContratoController extends BaseController {
 			// accion = IMPRIMIR;
 			tituloBase = "Proceso » " + IMPRIMIR;
 			
-			contratoRequest.setEjercicio(2017);
+			contratoRequest.setEjercicio(usuario.getPeriodo().getAnio());
 			contratoRequest.setCodUnidEjecutora(Integer.parseInt(Constantes.unidadEjecutora.PRONIED));
 			contratoRequest.setEstado("0");
 			contratoRequest.setPageNumber(1);
