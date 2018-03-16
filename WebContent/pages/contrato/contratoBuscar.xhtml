@@ -288,7 +288,7 @@
 						</p:commandButton>
 						
 						<p:commandButton icon="fa fa-th-list" title="Registrar adicionales"
-							rendered="#{var.estadoDocumentacion eq 'EEFI1' or var.estadoDocumentacion eq 'EFII4'}"
+							rendered="#{(var.estadoDocumentacion eq 'EEFI1' or var.estadoDocumentacion eq 'EFII4') and  var.fechaModificacionAuditoria != null }"
 							action="/pages/contrato/component/c_seguimientoEjecucion.xhtml?faces-redirect=true">
 							<p:spacer width="5"></p:spacer>
 							<f:setPropertyActionListener value="#{var}"
